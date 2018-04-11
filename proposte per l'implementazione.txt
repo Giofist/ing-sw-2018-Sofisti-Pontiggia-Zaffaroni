@@ -1,0 +1,32 @@
+PROPOSTE PER L'IMPLEMENTAZIONE
+1. IL LOGIN dell'utente
+	Propongo di implementare come segue:
+	(pon)	l'utente apre una sessione di gioco con un nickname, e con quello può creare una partita e iscriversi 
+		ad eventuale partiti; le statistiche sono conservate per la sessione di gioco in corso dell'utente,
+		quando decide di terminare la sessione di gioco il nickname viene rilasciato e le statistiche vanno perse.
+		La proposta di utilizzare un database con tutti gli username e password mi sembra troppo pesante, mentre la proposta di utilizzare un token
+		per ogni pc che si connette ha il problema che diverse persone potrebbero voler giocare sullo stesso pc mantenendo stats diverse.
+2. LE CARTE
+	Propongo di implementare come segue:
+	(pon)	le carte sono 90, sono molto diverse l'una dall'altra, motivo per cui è difficile usare la stessa classe per tutte ( tra l'altro differiscono
+		soprattutto a livello logico...), però 90 classi sono pesanti da implementare. Mi pare ne avessimo parlato, ma non ricordo
+		cosa avessimo detto, vi chiedo lume. Si potrebbe usare del codice XML per la grafica delle carte ( includendo del CSS), ma per la logica? E
+		se separassimo la parte di logica dalla parte di presentazione delle carte e modularizzassimo la parte di logica? A questo punto 
+		però si dovrebbe implementare un MIddleware che associa il giusto CSS alla giusta logica ( per capirci, se ogni carta è diversa dall'altra 
+		banalmente anche perchè vi è scritto qualcosa di diverso, allora se separiamo logica e grafica bisogna fare in modo che se ho una carta con
+		una carta scritta, ad essa corrisponda l'azione che effettivamente vi sta scritta sopra...). A me questa pare la soluzione migliore.
+3. THIN CLIENT/TICK CLIENT
+	Propongo di implementare come segue:
+	(pon)	Utilizzando un modello MVC, la parte di Control dovrebbe stare sul Server, la parte di View sul client, mentre per la parte di Model propongo 
+		una soluzione ibrida: alcune classi dovrebbero stare sul server ( come le classi Partita ecc..), altre sul client, basandosi sul principio
+		che ciascuno dei due mantiene solo ciò che gli serve ( in realtà sono un po' confuso in merito, però mi è sembrato che nella lezione di martedì
+		ci fosse la soluzione all'enigma e non l'ho colta)
+4.JSON
+	Propongo di implementare come segue:
+	(pon)	Usiamo JSON
+5.I DADI
+	Propongo di implementare come segue:
+	(pon)	Non ci ho ancora pensato, zorry
+
+ 
+		
