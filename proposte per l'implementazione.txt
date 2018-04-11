@@ -1,39 +1,44 @@
 PROPOSTE PER L'IMPLEMENTAZIONE
 1. IL LOGIN dell'utente
 	Propongo di implementare come segue:
-	(pon)	l'utente apre una sessione di gioco con un nickname, e con quello puÚ creare una partita e iscriversi 
+	(pon)	l'utente apre una sessione di gioco con un nickname, e con quello pu√≤ creare una partita e iscriversi 
 		ad eventuale partiti; le statistiche sono conservate per la sessione di gioco in corso dell'utente,
 		quando decide di terminare la sessione di gioco il nickname viene rilasciato e le statistiche vanno perse.
 		La proposta di utilizzare un database con tutti gli username e password mi sembra troppo pesante, mentre la proposta di utilizzare un token
-		per ogni pc che si connette ha il problema che diverse persone potrebbero voler giocare sullo stesso pc mantenendo stats diverse.
+		per ogni pc che si connette ha il problema che diverse persone potrebbero voler giocare sullo stesso pc mantenendo stats diverse (a quel punto pero digficilmente userebbero i due utenti stesso nome dunque non ci sarebbe prbblema ma la soluzione non mi convince comunque, se per esempio due utenti che vogliono giocare assime hanno lo stesso nick? come la gestiamo? io terrei comunque uno storico partite con data e nome e se si ripete pace tnato hai chiave primaria sia nome che data).
 2. LE CARTE
 	Propongo di implementare come segue:
-	(pon)	le carte sono 90, sono molto diverse l'una dall'altra, motivo per cui Ë difficile usare la stessa classe per tutte ( tra l'altro differiscono
-		soprattutto a livello logico...), perÚ 90 classi sono pesanti da implementare. Mi pare ne avessimo parlato, ma non ricordo
+	(pon)	le carte sono 90, sono molto diverse l'una dall'altra, motivo per cui √® difficile usare la stessa classe per tutte ( tra l'altro differiscono
+		soprattutto a livello logico...), per√≤ 90 classi sono pesanti da implementare. Mi pare ne avessimo parlato, ma non ricordo
 		cosa avessimo detto, vi chiedo lume. Si potrebbe usare del codice XML per la grafica delle carte ( includendo del CSS), ma per la logica? E
 		se separassimo la parte di logica dalla parte di presentazione delle carte e modularizzassimo la parte di logica? A questo punto 
-		perÚ si dovrebbe implementare un MIddleware che associa il giusto CSS alla giusta logica ( per capirci, se ogni carta Ë diversa dall'altra 
-		banalmente anche perchË vi Ë scritto qualcosa di diverso, allora se separiamo logica e grafica bisogna fare in modo che se ho una carta con
+		per√≤ si dovrebbe implementare un MIddleware che associa il giusto CSS alla giusta logica ( per capirci, se ogni carta √® diversa dall'altra 
+		banalmente anche perch√® vi √® scritto qualcosa di diverso, allora se separiamo logica e grafica bisogna fare in modo che se ho una carta con
 		una carta scritta, ad essa corrisponda l'azione che effettivamente vi sta scritta sopra...). A me questa pare la soluzione migliore.
+		(a questo problema ci ero arrivato in passato parlando con marco, cugino di elisa, lascerei perdere xml e css che sono roba web piuttosto consiglierei un bel database ora pero per non fare casino lo scriverei in json cosi da isare un unico standard (in pratoca le carte hanno nome, descrizione ecc e poi un link all immagine), mi pare che cosi sia la soluzione migliore, per di piu volendo modificare il gioco ad esepio con carte nuove basta modificare il file json e per l estrazione si puo usare una random).
 3. THIN CLIENT/TICK CLIENT
 	Propongo di implementare come segue:
 	(pon)	Utilizzando un modello MVC, la parte di Control dovrebbe stare sul Server, la parte di View sul client, mentre per la parte di Model propongo 
 		una soluzione ibrida: alcune classi dovrebbero stare sul server ( come le classi Partita ecc..), altre sul client, basandosi sul principio
-		che ciascuno dei due mantiene solo ciÚ che gli serve ( in realt‡ sono un po' confuso in merito, perÚ mi Ë sembrato che nella lezione di martedÏ
+		che ciascuno dei due mantiene solo ci√≤ che gli serve ( in realt√† sono un po' confuso in merito, per√≤ mi √® sembrato che nella lezione di marted√¨
 		ci fosse la soluzione all'enigma e non l'ho colta)
+		(sono daccordo sulla soluzione inrida, bisogner√° vedere poi in fase implementativa dove e come mettere le varie classi)
 4.JSON
 	Propongo di implementare come segue:
 	(pon)	Usiamo JSON
+	(sicuramnete piu moderno d malleabile) 
 5.I DADI
 	Propongo di implementare come segue:
 	(pon)	Non ci ho ancora pensato, zorry
 6. LE CLASSI
 	Propongo di implementare come segue:
 	(pon)	Ho visto che i vostri UML hanno classi con tanti metodi: per me non dovremmo andare oltre i 5 metodi per classe, 
-		come principio base di programmazione pulita. Se andiamo oltre i 5 metodi, forse Ë meglio creare pi˘ classi.
+		come principio base di programmazione pulita. Se andiamo oltre i 5 metodi, forse √® meglio creare pi√π classi.
+		(capisco cio che dici, affo e cugola consigliano classi snelle ma purtroppo mi trovo in difficolta a snellire il tutto splittando , forse creando sottoclassi ma non sono certo aiuti a semplificare in questo caso, ora non me ne frega molto pero da qunto ho visto dal progetto di elisa dave e rocco loro hanno come noi due grosse classi con un aacco di metodi che non possono essere messi altrove e tante piccole altre classi)
 7. IL SERVER
 	Propongo di implementare come segue:
 	(pon)	Design Pattern SINGLETON, come ha detto Diego.
+	(DACCORDOISSIMO)
 
  
 		
