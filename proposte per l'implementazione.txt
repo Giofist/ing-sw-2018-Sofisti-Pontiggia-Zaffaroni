@@ -27,6 +27,13 @@ PROPOSTE PER L'IMPLEMENTAZIONE
 5.I DADI
 	Propongo di implementare come segue:
 	(pon)	Non ci ho ancora pensato, zorry
+6. LE CLASSI
+	Propongo di implementare come segue:
+	(pon)	Ho visto che i vostri UML hanno classi con tanti metodi: per me non dovremmo andare oltre i 5 metodi per classe, 
+		come principio base di programmazione pulita. Se andiamo oltre i 5 metodi, forse è meglio creare più classi.
+7. IL SERVER
+	Propongo di implementare come segue:
+	(pon)	Design Pattern SINGLETON, come ha detto Diego.
 
  
 		
