@@ -5,7 +5,8 @@ PROPOSTE PER L'IMPLEMENTAZIONE
 		ad eventuale partiti; le statistiche sono conservate per la sessione di gioco in corso dell'utente,
 		quando decide di terminare la sessione di gioco il nickname viene rilasciato e le statistiche vanno perse.
 		La proposta di utilizzare un database con tutti gli username e password mi sembra troppo pesante, mentre la proposta di utilizzare un token
-		per ogni pc che si connette ha il problema che diverse persone potrebbero voler giocare sullo stesso pc mantenendo stats diverse (a quel punto pero digficilmente userebbero i due utenti stesso nome dunque non ci sarebbe prbblema ma la soluzione non mi convince comunque, se per esempio due utenti che vogliono giocare assime hanno lo stesso nick? come la gestiamo? io terrei comunque uno storico partite con data e nome e se si ripete pace tnato hai chiave primaria sia nome che data).
+		per ogni pc che si connette ha il problema che diverse persone potrebbero voler giocare sullo stesso pc mantenendo stats diverse 
+	(gio) 	a quel punto pero digficilmente userebbero i due utenti stesso nome dunque non ci sarebbe prbblema ma la soluzione non 	mi convince comunque, se per esempio due utenti che vogliono giocare assime hanno lo stesso nick? come la gestiamo? io terrei comunque uno storico partite con data e nome e se si ripete pace tnato hai chiave primaria sia nome che data.
 2. LE CARTE
 	Propongo di implementare come segue:
 	(pon)	le carte sono 90, sono molto diverse l'una dall'altra, motivo per cui è difficile usare la stessa classe per tutte ( tra l'altro differiscono
@@ -15,30 +16,32 @@ PROPOSTE PER L'IMPLEMENTAZIONE
 		però si dovrebbe implementare un MIddleware che associa il giusto CSS alla giusta logica ( per capirci, se ogni carta è diversa dall'altra 
 		banalmente anche perchè vi è scritto qualcosa di diverso, allora se separiamo logica e grafica bisogna fare in modo che se ho una carta con
 		una carta scritta, ad essa corrisponda l'azione che effettivamente vi sta scritta sopra...). A me questa pare la soluzione migliore.
-		(a questo problema ci ero arrivato in passato parlando con marco, cugino di elisa, lascerei perdere xml e css che sono roba web piuttosto consiglierei un bel database ora pero per non fare casino lo scriverei in json cosi da isare un unico standard (in pratoca le carte hanno nome, descrizione ecc e poi un link all immagine), mi pare che cosi sia la soluzione migliore, per di piu volendo modificare il gioco ad esepio con carte nuove basta modificare il file json e per l estrazione si puo usare una random).
+	(gio) 	a questo problema ci ero arrivato in passato parlando con Marco, cugino di Elisa, lascerei perdere xml e css che sono roba web piuttosto consiglierei un bel database ora pero per non fare casino lo scriverei in json cosi da usare un unico standard (in pratoca le carte hanno nome, descrizione ecc e poi un link all immagine), mi pare che cosi sia la soluzione migliore, per di piu volendo modificare il gioco ad esempio con carte nuove basta modificare il file json e per l estrazione si puo usare una random.
 3. THIN CLIENT/TICK CLIENT
 	Propongo di implementare come segue:
 	(pon)	Utilizzando un modello MVC, la parte di Control dovrebbe stare sul Server, la parte di View sul client, mentre per la parte di Model propongo 
 		una soluzione ibrida: alcune classi dovrebbero stare sul server ( come le classi Partita ecc..), altre sul client, basandosi sul principio
 		che ciascuno dei due mantiene solo ciò che gli serve ( in realtà sono un po' confuso in merito, però mi è sembrato che nella lezione di martedì
 		ci fosse la soluzione all'enigma e non l'ho colta)
-		(sono daccordo sulla soluzione inrida, bisognerá vedere poi in fase implementativa dove e come mettere le varie classi)
+	(gio)	sono daccordo sulla soluzione ibrida, bisognerá vedere poi in fase implementativa dove e come mettere le varie classi.
+		Propogo inoltre di mettere un conto alla rovescia sul serve che ci permette di evitare la creazione di infinite partite, elimina la possibilità di entrare in più partite contemporaneamnete e crearne più d'una, funzionalità a mio dire inutile e difficile da gestire e semplifica il flusso di di esecuzione. Inoltre, come si vede nelle descrizioni del diagramma UI inserirei un pulsante per aumentare questo tempoo di attesa (già settabile alla creazione della partita) e lascerei scegliere all'utente un intervallo di numero di giocatori massimo e minimo invece che dare un numero definito di player. Nella modalità singleplayer inoltre metterei la possibilità di scegliere se battere un punteggio inserito da campo di testo o battere un punteggio dalla lista storico partite.
 4.JSON
 	Propongo di implementare come segue:
 	(pon)	Usiamo JSON
-	(sicuramnete piu moderno d malleabile) 
+	(gio)	Sicuramnete piu moderno d malleabile, per la comunicazione va benissimo io ieri facendo ricerche ho trovato una seire di info e la maggior parte consigliavano l'uso di JAKSON (Java JSON) una libreria che si occupa di serializzare e deserializzare JSON ma va richiesta l'approvazione, io eviterei di scrivere sul forum personalmente.
 5.I DADI
 	Propongo di implementare come segue:
 	(pon)	Non ci ho ancora pensato, zorry
+	(gio) 	Io li implementerei come classe
 6. LE CLASSI
 	Propongo di implementare come segue:
 	(pon)	Ho visto che i vostri UML hanno classi con tanti metodi: per me non dovremmo andare oltre i 5 metodi per classe, 
 		come principio base di programmazione pulita. Se andiamo oltre i 5 metodi, forse è meglio creare più classi.
-		(capisco cio che dici, affo e cugola consigliano classi snelle ma purtroppo mi trovo in difficolta a snellire il tutto splittando , forse creando sottoclassi ma non sono certo aiuti a semplificare in questo caso, ora non me ne frega molto pero da qunto ho visto dal progetto di elisa dave e rocco loro hanno come noi due grosse classi con un aacco di metodi che non possono essere messi altrove e tante piccole altre classi)
+	(gio)	capisco cio che dici, affo e cugola consigliano classi snelle ma purtroppo mi trovo in difficolta a snellire il tutto splittando , forse creando sottoclassi ma non sono certo aiuti a semplificare in questo caso, ora non me ne frega molto pero da qunto ho visto dal progetto di Elisa Dave e Rocco loro hanno come noi due grosse classi con un sacco di metodi che non possono essere messi altrove e tante piccole altre classi.
 7. IL SERVER
 	Propongo di implementare come segue:
 	(pon)	Design Pattern SINGLETON, come ha detto Diego.
-	(DACCORDOISSIMO)
+	(gio)	Daccordo
 
  
 		
