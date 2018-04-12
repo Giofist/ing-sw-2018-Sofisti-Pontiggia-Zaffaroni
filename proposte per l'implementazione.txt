@@ -18,7 +18,16 @@ PROPOSTE PER L'IMPLEMENTAZIONE
 			avere accesso a quello di B nel caso si collegasse allo stesso server con lo stesso username di A.
 
 DECISIONE DALLA CALL DEL 12/04/2018
-	Ogni utente attiva il gioco e accede al server, a questo punto gli viene richiesto un nickname da usare in gioco, il nome deve essere univoco durante la sessione quindi si verifica non ci siano già utenti connessi al server con lo stesso nome, in caso negativo si procede alla registrazione dell'utente come utente attivo sul server, altrimenti l'utente dovrà modificare il nome per evitare conflitti. Per quanto attiene invece alle classifiche/statistiche per ora implemeniamo un ssistema di salvataggio in un file dei punteggi ottenuti in ogni partita, è possibile che utenti diversi usino stessi nick purchè non contemporaneamente, in tal caso compariranno nelle statistiche con stesso nome senza alcuna differenza, le statistiche avranno lista partite in ordine decrescente di punteggio ottenuto dai giocatori, un flag/simbolo se la partita era singolo giocatore o multi, partite giocate totali, punteggio medio ottenuto dai giocatori (possimo aggiungere molto altro), si vedrà poi se avazerà tempo di lavorare a statistiche personalizzate per ogni giocatore con qualche sistema per identificare univocamnte ogni giocatore anche se con stesso nick.
+	Ogni utente attiva il gioco e accede al server, a questo punto gli viene richiesto un nickname da usare in gioco, il nome deve 
+	essere univoco durante la sessione quindi si verifica non ci siano già utenti connessi al server con lo stesso nome, in caso 
+	negativo si procede alla registrazione dell'utente come utente attivo sul server, altrimenti l'utente dovrà modificare il nome 
+	per evitare conflitti. Per quanto attiene invece alle classifiche/statistiche per ora implemeniamo un ssistema di salvataggio 
+	in un file dei punteggi ottenuti in ogni partita, è possibile che utenti diversi usino stessi nick purchè non 
+	contemporaneamente, in tal caso compariranno nelle statistiche con stesso nome senza alcuna differenza, le statistiche avranno 
+	lista partite in ordine decrescente di punteggio ottenuto dai giocatori, un flag/simbolo se la partita era singolo giocatore o 
+	multi, partite giocate totali, punteggio medio ottenuto dai giocatori (possimo aggiungere molto altro), si vedrà poi se avazerà
+	tempo di lavorare a statistiche personalizzate per ogni giocatore con qualche sistema per identificare univocamnte ogni 
+	giocatore anche se con stesso nick.
 
 -----------------------------------------------------------------------------------------------
 
@@ -69,7 +78,8 @@ DECISIONE DALLA CALL DEL 12/04/2018
 			Comunque questa parta può essere decisamente pensata anche in modo diverso. Magari con delle interfacce, pensiamoci
 			bene.
 DECISIONE DALLA CALL DEL 12/04/2018
-	Siccome le carte non sono molte alla fine conviene implementarle come una gerarchia con un oggetto mazzo da cui estrarre oggetti carta che hanno sottoclassi che implementano le singole caratteristiche.
+	Siccome le carte non sono molte alla fine conviene implementarle come una gerarchia con un oggetto mazzo da cui estrarre oggetti
+	carta che hanno sottoclassi che implementano le singole caratteristiche.
 -----------------------------------------------------------------------------------------------
 
 3. THIN CLIENT/TICK CLIENT
@@ -85,7 +95,9 @@ DECISIONE DALLA CALL DEL 12/04/2018
 			qualsiasi altra interfaccia grafica si passa su un pattern di tipo observer, questo vuol dire che nel momento in cui un	giocatore preme un tasto dell'interfaccia l'evento viene catturato e può essere gestito dal programmatore come meglio crede. Nel nostro caso qualunque azione in partita effettuata dal client viene trasformata in una invocazione	di una API specifica tra quelle offerte dal Server. Quest'ultimo si preoccuperà pertanto di processare la richiesta ricevuta, verificarne la validità, apportare le modifiche al suo stato ed infine notificare tutti i giocatori di come è stato aggiornato il suo stato interno di modo che ogni client possa mostrare sempre in tempo reale lo stato	della partita. Anche in questo caso sarà pertanto nostra preoccupazione il dover implementare correttamente un pattern observer in cui il Server è l'oggetto osservato e i client sono gli osservatori del cambiamento del suo stato.
 
 DECISIONE DALLA CALL DEL 12/04/2018
-	In questa ottca il client avrà la sola logica per attivare la connessione con il server, per gestire le richieste di informazioni e per gestire la grafica. Questo appesantisce sicuramnete le richieste al server eprò semplifica sicuramente la sincronizzazione e consistenza dei dati tra i giocatori.
+	In questa ottca il client avrà la sola logica per attivare la connessione con il server, per gestire le richieste di 
+	informazioni e per gestire la grafica. Questo appesantisce sicuramnete le richieste al server eprò semplifica sicuramente la 
+	sincronizzazione e consistenza dei dati tra i giocatori.
 -----------------------------------------------------------------------------------------------
 
 4.JSON
