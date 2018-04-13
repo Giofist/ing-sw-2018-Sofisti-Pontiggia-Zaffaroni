@@ -1,4 +1,4 @@
-PROPOSTE PER L'IMPLEMENTAZIONE
+﻿PROPOSTE PER L'IMPLEMENTAZIONE
 1. IL LOGIN dell'utente
 	Propongo di implementare come segue:
 	(pon)	l'utente apre una sessione di gioco con un nickname, e con quello può creare una partita e iscriversi 
@@ -141,5 +141,14 @@ DECISIONE DALLA CALL DEL 12/04/2018
 	
 DECISIONE DALLA CALL DEL 12/04/2018
 	Approvato
+8. GLI ERRORI DI PIAZZAMENTO
+	Propongo di implementare come segue:
+	(pon)	Ragazzi, ci siamo dimenticati di una questione abbastanza importante ( e vedo che su Piazza ha avuto una certa rilevanza): 
+		Come gestiamo gli errori di piazzamento? Io propongo, nonostante le regole del gioco suggeriscano il contrario, di 
+		impedire i posizionamenti illegali e fare il check di questi eventuali posizionamenti illegali proprio mentre uno sta mettendo il 
+		suo dado sulla vetrata, questo anche perchè i posizionamenti illegali vengono consentiti da una  carta apposita, e quindi se noi
+		facessimo un check successivo questo check potrebbe spingerci a far correggere un posizionamento illegale che invece era stato 
+		appositamente vvoluto. Vi consiglio di guardare su Piazza quello che hanno scritto ieri 12/04/18 in una domanda apposita.
+			
  
 		
