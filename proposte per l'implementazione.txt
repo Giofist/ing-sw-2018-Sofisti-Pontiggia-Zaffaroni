@@ -130,7 +130,12 @@ DECISIONE DALLA CALL DEL 12/04/2018
 	(pon)	Ho visto che i vostri UML hanno classi con tanti metodi: per me non dovremmo andare oltre i 5 metodi per classe, 
 		come principio base di programmazione pulita. Se andiamo oltre i 5 metodi, forse è meglio creare più classi.
 	(gio)	capisco cio che dici, affo e cugola consigliano classi snelle ma purtroppo mi trovo in difficolta a snellire il tutto splittando , forse creando sottoclassi ma non sono certo aiuti a semplificare in questo caso, ora non me ne frega molto pero da qunto ho visto dal progetto di Elisa Dave e Rocco loro hanno come noi due grosse classi con un sacco di metodi che non possono essere messi altrove e tante piccole altre classi.
-
+7. PICCOLA RIFLESSIONE SU QUANTO HO IMPLEMENTATO CON DIEGO OGGI 15/04/18
+	(PON)	Credo che quanto fatto rispetti perfettamente il modello MVC, infatti la view dovrebbe trovarsi lato client e infatti non se ne ha traccia
+		nell' UML server, la parte di model sta in tutte le classi che abbiamo implementato, che possiedono un loro stato,
+	 	la parte di control, che dialoga con il client per la view, sta nei due run dei thread e possiede la parte di logica. 
+		Credo che con RMI sarà tutto più chiaro perchè ci sarà un controller come oggetto remoto al posto dei run che adesso ci danno tanto fastidio perchè
+		sono un unico contenitore un po' lungo. Devo ancora finire la parte della partita, che peraltro è lunghetta, lo farò questa notte.
 
 -----------------------------------------------------------------------------------------------
 
