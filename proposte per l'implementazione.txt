@@ -28,6 +28,13 @@ DECISIONE DALLA CALL DEL 12/04/2018
 	multi, partite giocate totali, punteggio medio ottenuto dai giocatori (possimo aggiungere molto altro), si vedrà poi se avazerà
 	tempo di lavorare a statistiche personalizzate per ogni giocatore con qualche sistema per identificare univocamnte ogni 
 	giocatore anche se con stesso nick.
+		
+		(gio) parlando con uno studente dell'anno scorso il logIn con utnete e password sembra quasi necessario per gestire
+			errori di connessione con caduta del canale o del client (nel momento in cui il client per qualunque motivo si 
+			disconnette o per preoblemi si chiude inaspettatamente l'utente vorrà rientrare nel match) inoltre questo 
+			aiuterebbe per switchare tra Socket e RMI in quanto basterebbe mettere in pausa la partita e chiudere il client 
+			e riaprirlo (soluzione non del tutto elegante ma sicurmamte che implementa l'hotswap tra tipo di connessione).
+		
 
 -----------------------------------------------------------------------------------------------
 
@@ -146,6 +153,8 @@ DECISIONE DALLA CALL DEL 12/04/2018
 	
 DECISIONE DALLA CALL DEL 12/04/2018
 	Approvato
+-------------------------------------------------------------------------------------------------------------------
+
 8. GLI ERRORI DI PIAZZAMENTO
 	Propongo di implementare come segue:
 	(pon)	Ragazzi, ci siamo dimenticati di una questione abbastanza importante ( e vedo che su Piazza ha avuto una certa rilevanza): 
@@ -168,3 +177,11 @@ DECISIONE DALLA CALL DEL 12/04/2018
 	(update pon) Ho cambiato idea per quello che ho scritto su Piazza: fare una mossa illegale e poi essere costretti a togliere dei dadi potrebbe
 		essere una strategia, e quindi non dobbiamo limitarla, mentre l'uso di quella carta deve essere gestito come eccezione
 		(gio ti prego vai a capo se no non si legge niente).
+--------------------------------------------------------------------------------------------------------------------------------------
+
+9. IMPLEMENTAZIONE GRAFICA
+
+	(gio)	A qanto ho capito va sviluppata sia l'interfaccia grafica sia la linea di comando  e in tal caso va data la possibilità
+		all'utente (un po' come accade per Socket/RMI) di scegliere. In tal caso darei possibilità al primo avvio del client di
+		scegliere e poi, nel caso vi sia un logIn con autenticazione, salvare le preferenze poi da modificare nel caso nella 
+		schermata impostazioni che aggiorna poi le preferenze e riavvia il client. 
