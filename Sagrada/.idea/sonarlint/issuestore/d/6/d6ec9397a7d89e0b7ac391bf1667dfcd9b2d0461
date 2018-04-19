@@ -1,0 +1,18 @@
+
+zsquid:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(ÚÙ†ÿÿÿÿÿ8×˜Ïô­,
+`squid:UnusedPrivateMethod"7Remove this unused private "getPrivateGoalCard" method.(±ğ8×˜Ïô­,
+}squid:S00116"[Rename this field "segnalini_favore" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÔêÄ’øÿÿÿÿ8×˜Ïô­,
+psquid:S00100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(±‘İûÿÿÿÿ8×˜Ïô­,
+ksquid:S00100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(„¤ù€8×˜Ïô­,
+]squid:UnusedPrivateMethod".Remove this unused private "getScheme" method.(şå«Ñşÿÿÿÿ8×˜Ïô­,
+fsquid:UnusedPrivateMethod"7Remove this unused private "setPublicGoalCards" method.(µŸË³şÿÿÿÿ8×˜Ïô­,
+Wsquid:UnusedPrivateMethod"-Remove this unused private "setDices" method.(…ÿğ¬8×˜Ïô­,
+asquid:UnusedPrivateMethod"7Remove this unused private "getPublicGoalCards" method.(À¢â“8×˜Ïô­,
+Xsquid:UnusedPrivateMethod".Remove this unused private "setScheme" method.(È³¦¨8×˜Ïô­,
+Esquid:S1068")Remove this unused "state" private field.(‚÷¨¿8×˜Ïô­,
+Psquid:EmptyStatementUsageCheck"Remove this empty statement.(ôŸìúÿÿÿÿ8×˜Ïô­,
+fsquid:UnusedPrivateMethod"7Remove this unused private "setPrivateGoalCard" method.(¸û™Œùÿÿÿÿ8×˜Ïô­,
+squid:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¸ñ®Æ8×˜Ïô­,
+nsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(„¤ù€8×˜Ïô­,
+]squid:UnusedPrivateMethod".Remove this unused private "getSOcket" method.(¯öÍªüÿÿÿÿ8×˜Ïô­,
+Usquid:UnusedPrivateMethod"+Remove this unused private "update" method.(¸ñ®Æ8×˜Ïô­,
