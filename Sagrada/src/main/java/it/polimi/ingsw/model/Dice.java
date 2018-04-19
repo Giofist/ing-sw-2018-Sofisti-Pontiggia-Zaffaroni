@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.DiceColor;
+
 public class Dice {
     private final DiceColor color;
     private final int INTENSITY;
