@@ -5,17 +5,3 @@ V
 &src/main/java/it/polimi/ingsw/App.java,f/8/f81efe2feef8281762d1461fa04533e03c1dc889
 Z
 *src/test/java/it/polimi/ingsw/AppTest.java,9/9/99f04557e1ed014981421f8b99e86e69297095a5
-]
--src\main\java\it\polimi\ingsw\model\Tile.java,c\2\c2354570032e57cf634d3b1b8120479c585c1b42
-^
-.src\main\java\it\polimi\ingsw\model\Timer.java,4\2\428fa9ad9fedff0a72bffda1306e3bf9d940e39f
-c
-3src\main\java\it\polimi\ingsw\model\ToolAction.java,1\3\13fc9ceaa96b435e7a3600f9f1cde3e39cb52b2f
-m
-=src\main\java\it\polimi\ingsw\model\MultipleUserGameList.java,1\f\1f8db35bfcc8862aba1d89a6693f8fbe0a4b6054
-]
--src\main\java\it\polimi\ingsw\model\Dice.java,1\5\151a88936621c62fb6ae8e63187060711aae33d9
-g
-7src\main\java\it\polimi\ingsw\model\SchemeCardDeck.java,f\8\f836514c79ee255f700546c34ff7fb9d1cc594bd
-c
-3src\main\java\it\polimi\ingsw\model\SchemeCard.java,2\f\2fe7c5a5e76aa4af7fd240af44afd92006094887
