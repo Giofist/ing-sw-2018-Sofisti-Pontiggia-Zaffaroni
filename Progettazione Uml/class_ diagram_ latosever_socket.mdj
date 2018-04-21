@@ -10024,7 +10024,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "-description: int",
+											"text": "-mapName: String",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -31879,11 +31879,11 @@
 							"_parent": {
 								"$ref": "AAAAAAFizhBxWeHljQ0="
 							},
-							"name": "description",
+							"name": "mapName",
 							"visibility": "private",
 							"isStatic": false,
 							"isLeaf": false,
-							"type": "int",
+							"type": "String",
 							"isReadOnly": false,
 							"isOrdered": false,
 							"isUnique": false,

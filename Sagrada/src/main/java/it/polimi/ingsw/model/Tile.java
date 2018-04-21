@@ -2,7 +2,7 @@ package it.polimi.ingsw.model;
 
 public class Tile {
     private final DiceColor color_constrain;
-    private final int number_constrain=0;
+    private int number_constrain=0;
     private Dice dice;
     private boolean occupied;
 

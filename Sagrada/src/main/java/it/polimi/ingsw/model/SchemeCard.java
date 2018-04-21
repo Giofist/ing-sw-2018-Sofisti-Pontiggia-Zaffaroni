@@ -6,7 +6,77 @@ import java.util.Scanner;
 import java.lang.String;
 
 
-class SchemeCard {
+public class SchemeCard {
+    private String mapName;
+    private int difficulty = 0;
+    private SchemeCard twin;
+
+    public SchemeCard(String args[]) {
+        throws IOException {
+            int numMap = 0, ran = 0, diff = 0;
+            Random random = new Random();
+            String nameMa, fileName = "Maps.txt";
+            char[] map1, map2;
+            try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+                numMap = Integer.parseInt(br.readLine());
+                for (int i = 0; i < (ran * 6); ) {    //numOfMaps devided by 2 return the number of cuple of cards I have
+                    br.readLine();
+                    i++;
+                }
+
+            }
+        }
+
+
+        public int getNumMaps ( int i){
+            return numMap;
+        }
+
+        public int getDifficulty ( int i){
+            String fileName = "Maps.txt";
+            return difficulty;
+        }
+
+
+        public String getName ( int i){
+            String fileName = "Maps.txt";
+            return nameMap;
+        }
+
+        public SchemeCard getTwin ( int i){
+            String fileName = "Maps.txt";
+            return twin;
+        }
+
+        public SchemeCard getMatrix ( int i){
+            String fileName = "Maps.txt";
+            return matrix;
+        }
+
+        //public SchemeCard getTwinSchemeCard(){return twin;}
+
+        //setTwinCard useless because you chose into the file txt
+
+        //public Tile getTile ( int x, int y){
+           // return map[(y - 1) * 5 + x *];
+        //}
+
+
+    }
+}
+
+
+
+
+
+
+
+/*
+
+
+
+
+
     public static void main(String args[])
             throws IOException {
         int numOfMaps = 0, ran = 0, diff1 = 0, diff2 = 0, numMap = 0;
