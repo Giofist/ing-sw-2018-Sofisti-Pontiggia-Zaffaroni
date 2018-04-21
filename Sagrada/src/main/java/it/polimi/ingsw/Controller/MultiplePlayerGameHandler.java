@@ -6,15 +6,25 @@ import it.polimi.ingsw.model.User;
 
 //non terminata
 public class MultiplePlayerGameHandler {
-    String game_name;
-    LinkedList<User> users;
+    private String game_name;
+    private LinkedList<User> users;
+    private int maxNumberPlayers;
 
-    public MultiplePlayerGameHandler(User user, String game_name){
+    //public constructor
+    public MultiplePlayerGameHandler(User user, String game_name, int  max){
         this.game_name = game_name;
         this.users.addFirst(user);
+        this.maxNumberPlayers = max;
     }
+
+
     public String getName(){
         return this.game_name;
-    };
-}
+    }
+    public int getMaxNumberPlayers{
+        return maxNumberPlayers;
+    }
 
+
+
+}

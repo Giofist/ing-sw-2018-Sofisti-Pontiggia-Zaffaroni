@@ -10,11 +10,11 @@ public class MultipleUserGameList {
     private static  MultipleUserGameList instance;
     private LinkedList<MultiplePlayerGameHandler> games;
 
-    //costruttore privato
+    //private constructor
     private MultipleUserGameList(){
         this.games = new LinkedList<MultiplePlayerGameHandler>();
     }
-    //metodo che crea/dà accesso se già creata all'unica istanza
+    //method to access/create the unique instance of the class
     static MultipleUserGameList singleton(){
         if (instance == null)
         instance = new MultipleUserGameList();
@@ -22,26 +22,31 @@ public class MultipleUserGameList {
     }
 
 
-    //crea una partita
-    public MultiplePlayerGameHandler create (User user, String game_name) throws HomonymyException{
+    //create a game and add to the existant list
+    public MultiplePlayerGameHandler create (User user, String game_name, int max) throws HomonymyException{
         for (MultiplePlayerGameHandler previousGame: this.games){
             if (previousGame.getName()== game_name) {
                 throw new HomonymyException();
-                break;
             }
         }
-        MultiplePlayerGameHandler game = new MultiplePlayerGameHandler(user, game_name);
+        MultiplePlayerGameHandler game = new MultiplePlayerGameHandler(user, game_name,max);
         this.games.add(game);
         return game;
     }
 
 
-    //cancella una partita dalla lista
+    //delete a game (because it's finished)
     public void remove(MultiplePlayerGameHandler game){
         for (MultiplePlayerGameHandler otherGames : this.games ) {
             if (game.getName() == otherGames.getName())
                 this.games.remove(otherGames);
         }
     }
+
+    //get the list of the existant games
+    public LinkedList<MultiplePlayerGameHandler> getgames(){
+        return this.games;
+    }
+
 
 }

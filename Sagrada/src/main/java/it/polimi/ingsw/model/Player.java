@@ -10,6 +10,7 @@ public class Player{
     private int segnalini_favore;
     private SchemeCard scheme;
     private List<Player> state;
+    private Gametable gametable;
 
 
     //costruttore
@@ -30,29 +31,60 @@ public class Player{
     public void setSegnalini_favore(int segnalini_favore) {
         this.segnalini_favore = segnalini_favore;
     }
-    private void setPublicGoalCards(LinkedList<GoalCard> publicGoalCards) {
+    public void payforTool(int cost)throws NotEnoughSegnaliniException{
+        if(this.getSegnalini_favore() < cost){
+            throw new NotEnoughSegnaliniException();
+        }
+        else {
+            this.setSegnalini_favore(this.getSegnalini_favore()-cost);
+        }
+    }
+    public void setPublicGoalCards(LinkedList<GoalCard> publicGoalCards) {
         this.publicGoalCards = publicGoalCards;
     }
-    private LinkedList<GoalCard> getPublicGoalCards(){
+    public LinkedList<GoalCard> getPublicGoalCards(){
         return this.publicGoalCards;
     }
-    private void setPrivateGoalCard ( GoalCard privateGoalCard){
+    public void setPrivateGoalCard ( GoalCard privateGoalCard){
         this.privateGoalCard = privateGoalCard;
     }
-    private GoalCard getPrivateGoalCard(){
+    public GoalCard getPrivateGoalCard(){
         return this.privateGoalCard;
     }
-    private void setScheme ( SchemeCard scheme){
+    public void setScheme ( SchemeCard scheme){
         this.scheme = scheme;
     }
-    private SchemeCard getScheme(){
+    public SchemeCard getScheme(){
         return this.scheme;
     }
-    private Socket getSOcket(){
+    public Socket getSOcket(){
         return this.user.getSocket();
     }
-    private void update(){
+    public Gametable getGametable(){
+        return this.gametable;
+    }
+    public void setGametable(Gametable gametable) {
+        this.gametable = gametable;
+    }
+    public List<Player> getState(){
+        return this.state;
+    }
+    public void addPlayer(Player player){
+        this.state.add(player);
+    }
+    public Player getSelectedPlayer (String name){
+        for (Player other_player : this.state) {
+            if (other_player.user.getName().equals( name))
+                return other_player;
+        }
+        throws new PlayerNotFoundException;
+    }
 
+
+
+    //implementation of the observer design pattern
+    public void update(){
+        //not implemented yet
     };
 
 

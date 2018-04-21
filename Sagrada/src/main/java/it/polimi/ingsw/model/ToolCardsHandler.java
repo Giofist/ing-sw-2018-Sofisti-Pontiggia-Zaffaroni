@@ -2,15 +2,26 @@ package it.polimi.ingsw.model;
 import java.util.*;
 
 public class ToolCardsHandler {
-    private  List<ToolAction> toolActionDeck = new LinkedList<ToolAction>(); // il deck delle azioni che il giocatore invoca
-    private Player player;
-    private int[] costs; // un'array che tiene memoria dei costi, 1 o 2, di ciascun utensile
+    //deck of invoked actions
+    private  List<ToolAction> toolActionDeck = new LinkedList<ToolAction>();
+    //array of costs of action
+    private int[] costs;
 
 
-    // il costruttore
-    public ToolCardsHandler(Player player){
-        this.player = player;
+    // constructor
+    public ToolCardsHandler(){
         this.costs = new int[12];
+        for (int cost: this.costs){
+            cost = 1;
+        }
+    }
+    public int getCost(int id){
+        return this.costs[id];
+    }
+    public void setCostOfAction(int id){
+        if(this.costs[id] == 1){
+            this.costs[id] = 2;
+        }
     }
 
 
@@ -20,14 +31,17 @@ public class ToolCardsHandler {
 
     //command design pattern
     public void doAction() {
-        for (ToolAction action :
-             toolActionDeck)
+        for (ToolAction action : toolActionDeck) {
             action.execute();
+            toolActionDeck.remove(action);
+        }
     }
 
     public List<ToolAction> getToolActionDeck() {
         return toolActionDeck;
     }
+
+    //is this useful?
     public void clearDeck(){
         this.toolActionDeck.clear();
     }
