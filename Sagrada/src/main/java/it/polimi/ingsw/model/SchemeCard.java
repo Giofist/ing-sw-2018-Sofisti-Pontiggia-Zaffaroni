@@ -10,30 +10,29 @@ public class SchemeCard {
     private String mapName;
     private int difficulty = 0;
     private SchemeCard twin;
-    Tile matrix[5][4];
 
     public SchemeCard(String args[]) {
         throws IOException {
-            int ran = 0, diff = 0;
+            int numMap = 0, ran = 0, diff = 0;
+            Random random = new Random();
             String nameMa, fileName = "Maps.txt";
             char[] map1, map2;
             try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
                 numMap = Integer.parseInt(br.readLine());
+                for (int i = 0; i < (ran * 6); ) {    //numOfMaps devided by 2 return the number of cuple of cards I have
+                    br.readLine();
+                    i++;
                 }
+
             }
         }
 
 
-        public int getNumMaps() {
-            throw IOException {
-                String fileName = "Maps.txt";
-                try (BufferedReader br = BufferedReader(FileReader(fileName))) {
-                    return Integer.parseInt(br.readLine());
-                }
-            }
+        public int getNumMaps ( int i){
+            return numMap;
         }
 
-        public int getDifficulty(int i){
+        public int getDifficulty ( int i){
             String fileName = "Maps.txt";
             return difficulty;
         }
