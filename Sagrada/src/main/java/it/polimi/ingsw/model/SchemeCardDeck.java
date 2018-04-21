@@ -9,8 +9,6 @@ import java.util.Random;
 public class SchemeCardDeck {
     String mapName1, mapName2;
     int diff1=0, diff2=0, i=0;
-    Tile matrix1[5][4];
-    Tile matrix2[5][4];
 
     public SchemeCardDeck card = getCard();
 
