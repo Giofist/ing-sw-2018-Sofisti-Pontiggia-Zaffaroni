@@ -1,4 +1,0 @@
-
-’squid:S1319"qThe return type of this method should be an interface such as "List" rather than the implementation "LinkedList".(’³¶õþÿÿÿÿ8óæïü­,
-psquid:S00100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÏðÕëÿÿÿÿÿ8ç¯Žõ­,
-usquid:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(´’ÆŠ8ï‚çô­,
