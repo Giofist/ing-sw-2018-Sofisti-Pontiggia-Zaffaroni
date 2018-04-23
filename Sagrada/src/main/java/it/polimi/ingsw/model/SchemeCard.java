@@ -9,7 +9,7 @@ public class SchemeCard {
 
 
     public SchemeCard() {
-        }
+    }
 
     public int getNumMaps() throws IOException {     //return the num of maps contained into the file Maps.txt (first line of teh file)
         String fileName = "Maps.txt";
@@ -85,7 +85,7 @@ public class SchemeCard {
         //setTwinCard useless because you chose into the file txt
 
         //public Tile getTile ( int x, int y){
-           // return map[(y - 1) * 5 + x *];
+        // return map[(y - 1) * 5 + x *];
         //}
 
 
@@ -99,18 +99,12 @@ public class SchemeCard {
 
 
 /*
-
-
-
-
-
     public static void main(String args[])
             throws IOException {
         int numOfMaps = 0, ran = 0, diff1 = 0, diff2 = 0, numMap = 0;
         Random random = new Random();
         String nameMap1, nameMap2, fileName="Maps.txt";
         char[] map1, map2;
-
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             numOfMaps = Integer.parseInt(br.readLine());
             ran = random.nextInt(numOfMaps / 2);
@@ -123,23 +117,19 @@ public class SchemeCard {
             nameMap1 = br.readLine();
             diff1 = Integer.parseInt(br.readLine());
             map1 = br.readLine().toCharArray();
-
             nameMap2 = br.readLine();
             diff2 = Integer.parseInt(br.readLine());
             map2 = br.readLine().toCharArray();
-
             showMap(map1, nameMap1, diff1);
             showMap(map2, nameMap2, diff2);
             numMap = choseMap();
         }
     }
-
     private static int choseMap() {        //read from the command line the map chosen
         Scanner scanner = new Scanner(System.in);
         System.out.print("Chose the map: (1/2)\n");
         return scanner.nextInt();
     }
-
     private static void showMap(char[] map, String name, int diff) {     //drow on the prompt map passed by arg
         int i = 0, j = 0;
         System.out.println(name);

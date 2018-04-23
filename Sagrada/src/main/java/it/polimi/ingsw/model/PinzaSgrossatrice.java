@@ -1,18 +1,34 @@
 package it.polimi.ingsw.model;
 
-public class PinzaSgrossatrice implements ToolAction {
+public class PinzaSgrossatrice  implements ToolAction  {
     final static int ID = 1;
-    final static String description = "";
-    Player player;
+    final static String cardTitle = "Pinza Sgrossatrice";
+    final static String description = "Dopo aver scelto un dado, aumenta o diminuisci il valore del dado scelto di 1.\n" +
+                                      "Non puoi cambiare un 6 in 1 o un 1 in 6.";
+    private Player player;
+    private int selectedDiceIndex;
+    // Operation is set to 0 if the player wants to decrease the value of the dice otherwise is set to 1
+    private int operation;
 
-    public PinzaSgrossatrice(Player player){
+    public PinzaSgrossatrice(Player player, int selectedDiceIndex, int operation){
         this.player = player;
+        this.selectedDiceIndex = selectedDiceIndex;
+        this.operation = operation;
     }
+
     @Override
-    public void execute(){
-        //in questa classe chiama player.gametable.get dice e poi comunica al client chiedendo
-        //che cosa voglia fare, settadno poi eventuali cambiamenti tramite thi.player.setdice. eccc
 
+    public void execute () throws IllegalOperationException{
+
+    try {
+        if (this.operation == 0) {  // Decrease selected dice value
+            player.getGametable().getRoundDice(this.selectedDiceIndex).decreaseIntensity();
+        } else {    // Increase selected dice value
+            player.getGametable().getRoundDice(this.selectedDiceIndex).increaseIntensity();
+        }
     }
-
+    catch  (IllegalOperationException e){
+        throw e;
+        }
+    }
 }

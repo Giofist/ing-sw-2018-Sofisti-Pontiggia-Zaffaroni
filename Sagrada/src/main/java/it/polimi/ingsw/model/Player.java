@@ -3,7 +3,6 @@ import java.net.Socket;
 import java.util.*;
 
 public class Player{
-    private LinkedList<Dice> dices = new LinkedList<Dice>();
     private User user;
     private LinkedList<GoalCard> publicGoalCards;
     private GoalCard privateGoalCard;
@@ -19,17 +18,11 @@ public class Player{
     }
 
     //metodi setter e getter
-    private void setDices(Dice dice){
-        this.dices.add(dice);
-    }
-    public Dice getDice() {
-        return dices.removeFirst();
-    }
     public int getSegnalini_favore() {
         return segnalini_favore;
     }
-    public void setSegnalini_favore(int segnalini_favore) {
-        this.segnalini_favore = segnalini_favore;
+    public void setSegnalini_favore(int segnalinifavore) {
+        this.segnalini_favore = segnalinifavore;
     }
     public void payforTool(int cost)throws NotEnoughSegnaliniException{
         if(this.getSegnalini_favore() < cost){
@@ -57,7 +50,7 @@ public class Player{
     public SchemeCard getScheme(){
         return this.scheme;
     }
-    public Socket getSOcket(){
+    public Socket getSocket(){
         return this.user.getSocket();
     }
     public Gametable getGametable(){
@@ -86,8 +79,6 @@ public class Player{
     public void update(){
         //not implemented yet
     }
-
-
 
 
 }
