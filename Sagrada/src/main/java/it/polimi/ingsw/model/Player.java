@@ -3,7 +3,6 @@ import java.net.Socket;
 import java.util.*;
 
 public class Player{
-    private LinkedList<Dice> dices = new LinkedList<Dice>();
     private User user;
     private LinkedList<GoalCard> publicGoalCards;
     private GoalCard privateGoalCard;
@@ -19,12 +18,6 @@ public class Player{
     }
 
     //metodi setter e getter
-    private void setDices(Dice dice){
-        this.dices.add(dice);
-    }
-    public Dice getDice() {
-        return dices.removeFirst();
-    }
     public int getSegnalini_favore() {
         return segnalini_favore;
     }
