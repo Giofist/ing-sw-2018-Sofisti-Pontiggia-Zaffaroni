@@ -1,25 +1,46 @@
 package it.polimi.ingsw.model;
 
-import java.util.Random;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+
 
 public class SchemeCardDeck {
-    String mapName1, mapName2;
-    int diff1=0, diff2=0, i=0;
+    private ArrayList<Integer> maps = new ArrayList<>();
 
-    public SchemeCardDeck card = getCard();
+    public SchemeCardDeck() throws IOException{
+        this.maps = new ArrayList<>();
+        for(int i=0; i<getNumMaps();i=i+2){
+            this.maps.add(i);
+        }
 
+        Collections.shuffle(maps);
 
-    public SchemeCardDeck getCard() {
-        Random random = new Random();
-        int i = 0;
-        i = random.nextInt(SchemeCard.getNumMaps() / 2)*2; // i give to my function only pair position 0,2,4... position of master card in the txt file. I need the n'th map
-        this.mapName1 = SchemeCard.getName(i);
-        this.diff1 = SchemeCard.getDifficulty(i);
-        this.matrix1 = SchemeCard.getMatrix(i);
-        this.mapName2 = SchemeCard.getName(i + 1);   //i+1 is the twin map
-        this.diff2 = SchemeCard.getDifficulty(i + 1);
-        this.matrix2 = SchemeCard.getMatrix(i+1);
-        return card;
     }
 
+    //the most important, it will be invoked by the gametable
+    public SchemeCard getCard(){
+        int mapID = this.getRandomID();
+        SchemeCard schemeCard = new SchemeCard(mapID);
+        return schemeCard;
+
+    }
+    // it returns a random value (well... the first, but we have shuffled before)
+    // wich tells us which map load from the file
+    //we delete that value from the arraylist because a map is only for one player
+    public int getRandomID(){
+        int value = this.maps.get(0);
+        this.maps.remove(0);
+        return value;
+    }
+
+    //this is to get the number of maps uploaded by the player + the standards one
+    public  static int getNumMaps() throws IOException {
+        String fileName = "Maps.txt";
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            return Integer.parseInt(br.readLine());
+        }
+    }
 }

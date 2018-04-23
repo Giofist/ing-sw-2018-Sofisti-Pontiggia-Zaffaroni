@@ -21,7 +21,7 @@ public class Tile {
         else return false;
     }
 
-    public dice removeDice(){  // not present in UML
+    public Dice removeDice(){  // not present in UML
 
         setFree();
         return dice;

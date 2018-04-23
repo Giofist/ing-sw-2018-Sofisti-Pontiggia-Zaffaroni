@@ -9,4 +9,6 @@ public class IllegalOperationException extends Exception {
     public IllegalOperationException() {
         super(msg);
     }
+    public IllegalOperationException(String msg){ super(msg); } //ho preparato il costruttore per l'estensione,
+    //ma trovo complesso doverla estendere perchè l'ho scritto abbastanza ovunque
 }

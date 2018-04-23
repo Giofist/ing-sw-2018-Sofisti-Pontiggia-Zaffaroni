@@ -1,6 +1,11 @@
 package it.polimi.ingsw.model;
 import java.util.*;
 
+
+//questa classe è quella su cui ho lavorato di più ( pon)
+// il pattern è il command, copiato pari pari da Wikipedia
+//credo che per le nostre limitate esigenze si possa snellire il tutto,
+//ma per ora funziona ed è chiara quindi ce la teniamo così
 public class ToolCardsHandler {
     //deck of invoked actions
     private  List<ToolAction> toolActionDeck = new LinkedList<ToolAction>();

@@ -5,19 +5,45 @@ import java.lang.String;
 
 
 public class SchemeCard {
-    Tile[5][4];
+    private int difficulty;
+    private Tile[][] matrix;
+    private SchemeCard twinCard;
+    private int ID;
+    private String MapName;
 
-
-    public SchemeCard() {
+    public SchemeCard(int mapID) {
+        this.inizialize( mapID);
     }
 
-    public int getNumMaps() throws IOException {     //return the num of maps contained into the file Maps.txt (first line of teh file)
-        String fileName = "Maps.txt";
-        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
-            return Integer.parseInt(br.readLine());
-        }
+    public void inizialize(int mapID ){
+
+        //not implemented yet
+        //si dovranno inserire tutti i metodi di cui qui sotto
+
+
+        //alla fine si farà
+        this.twinCard = new SchemeCard(mapID+1);
     }
 
+
+    //get methods
+    public int getDifficulty() {
+        return this.difficulty; };
+    public int getID(){
+    return this.ID;
+    };
+    public String getMapName(){
+        return this.MapName;
+    }
+
+    public SchemeCard getTwinCard() {
+        return twinCard;
+    }
+
+}
+
+
+    /*
     public int getDifficulty(int i) throws IOException {   //return the difficulty of the map, the second line of each description of Maps.txt
         String fileName = "Maps.txt";
         try (BufferedReader ba = new BufferedReader(new FileReader(fileName))) {
