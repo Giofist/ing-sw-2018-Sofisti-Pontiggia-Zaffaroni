@@ -14,9 +14,9 @@ public class Gametable {
     public void prepareGame(){
         this.dicepool = new DicePool();
         this.tooldeck =  new ToolCardsHandler();
-        this.roundDicepool = new DicePool();
     }
     public void setupRound(int numberPlayers){
+        this.roundDicepool = new DicePool();
         for(int i=1 ; i < numberPlayers*2 +1; i++) {
             this.roundDicepool.addDice(this.dicepool.getDice());
         }
