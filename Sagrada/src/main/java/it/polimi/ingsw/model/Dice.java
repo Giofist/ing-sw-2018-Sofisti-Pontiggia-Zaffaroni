@@ -13,14 +13,31 @@ public class Dice {
         setRandomIntensity();
     }
 
+    // Getters
     public DiceColor getColor() { return color; }
-
     public int getIntensity() { return INTENSITY; }
+
 
     public void setRandomIntensity (){
         Random rn = new Random();
         this.INTENSITY = rn.nextInt(6) + 1;
     }
+
+    public void increaseIntensity() {
+        if (this.INTENSITY == 6)
+            this.INTENSITY = 1;
+
+        this.INTENSITY += 1;
+    }
+
+    public void decreaseIntensity (){
+        if (this.INTENSITY == 1)
+            this.INTENSITY = 6;
+
+        this.INTENSITY -= 1;
+    }
+
+
 
     @Override
     public String toString() {
