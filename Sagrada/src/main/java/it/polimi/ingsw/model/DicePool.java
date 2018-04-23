@@ -22,7 +22,7 @@ public class DicePool {
     }
 
     public Dice getDice() {
-        if (dices.size() == 0){
+        if (dices.isEmpty()){
             return null;
         }
         return dices.removeFirst();
