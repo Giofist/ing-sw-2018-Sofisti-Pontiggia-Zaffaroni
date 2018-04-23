@@ -17,6 +17,7 @@ public class PinzaSgrossatrice implements ToolAction {
     }
 
     @Override
+
     public boolean execute() {
         // Forbidden Moves in case the player wants to increase a dice with value 6 or decrease one with value 1
         if ((player.getGametable().getCurrentDice(selectedDiceIndex).getIntensity() == 1 && this.operation == 0)||

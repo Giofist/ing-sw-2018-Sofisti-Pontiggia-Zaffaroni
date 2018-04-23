@@ -8,7 +8,7 @@ public class User {
     private String password;
     private String news_to_show;
 
-    //costruttore
+    //constructor
     public User(String name, String password,Socket socket){
         this.name= name;
         this.socket= socket;
