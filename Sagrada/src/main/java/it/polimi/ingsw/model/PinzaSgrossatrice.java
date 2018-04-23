@@ -20,15 +20,15 @@ public class PinzaSgrossatrice implements ToolAction {
 
     public boolean execute() {
         // Forbidden Moves in case the player wants to increase a dice with value 6 or decrease one with value 1
-        if ((player.getGametable().getCurrentDice(selectedDiceIndex).getIntensity() == 1 && this.operation == 0)||
-            (player.getGametable().getCurrentDice(selectedDiceIndex).getIntensity() == 6 && this.operation == 1)){
+        if ((player.getGametable().getRoundDice(selectedDiceIndex).getIntensity() == 1 && this.operation == 0)||
+            (player.getGametable().getRoundDice(selectedDiceIndex).getIntensity() == 6 && this.operation == 1)){
             return false;
         }
 
         if (this.operation == 0) {  // Decrease selected dice value
-            player.getGametable().getCurrentDice(this.selectedDiceIndex).decreaseIntensity();
+            player.getGametable().getRoundDice(this.selectedDiceIndex).decreaseIntensity();
         } else {    // Increase selected dice value
-            player.getGametable().getCurrentDice(this.selectedDiceIndex).increaseIntensity();
+            player.getGametable().getRoundDice(this.selectedDiceIndex).increaseIntensity();
         }
 
         return true;
