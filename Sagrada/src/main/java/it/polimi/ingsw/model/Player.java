@@ -28,8 +28,8 @@ public class Player{
     public int getSegnalini_favore() {
         return segnalini_favore;
     }
-    public void setSegnalini_favore(int segnalini_favore) {
-        this.segnalini_favore = segnalini_favore;
+    public void setSegnalini_favore(int segnalinifavore) {
+        this.segnalini_favore = segnalinifavore;
     }
     public void payforTool(int cost)throws NotEnoughSegnaliniException{
         if(this.getSegnalini_favore() < cost){
@@ -57,7 +57,7 @@ public class Player{
     public SchemeCard getScheme(){
         return this.scheme;
     }
-    public Socket getSOcket(){
+    public Socket getSocket(){
         return this.user.getSocket();
     }
     public Gametable getGametable(){

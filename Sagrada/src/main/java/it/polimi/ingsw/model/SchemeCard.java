@@ -5,12 +5,13 @@ import java.util.Random;
 import java.util.Scanner;
 import java.lang.String;
 
-
+//Giorgio perchè scrivi classi senza nessun commento, che non buidano neanche per sbaglio e
+//con attributi non chiari( che cosa è ran?)?
 public class SchemeCard {
     private String mapName;
     private int difficulty = 0;
     private SchemeCard twin;
-    Tile matrix[5][4];
+    private Tile matrix[5][4];
 
     public SchemeCard(String args[]) {
         throw IOException {
