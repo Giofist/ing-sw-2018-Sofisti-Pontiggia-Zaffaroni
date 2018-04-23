@@ -25,10 +25,11 @@ public class PinzaSgrossatrice  implements ToolAction  {
             player.getGametable().getRoundDice(this.selectedDiceIndex).decreaseIntensity();
         } else {    // Increase selected dice value
             player.getGametable().getRoundDice(this.selectedDiceIndex).increaseIntensity();
+
         }
-    }
-    catch  (IllegalOperationException e){
+    } catch  (IllegalOperationException e){
         throw e;
-        }
+    }
+
     }
 }

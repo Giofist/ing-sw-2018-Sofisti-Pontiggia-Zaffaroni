@@ -19,6 +19,15 @@
   </properties>
 
   <dependencies>
+
+    <!-- Mokito Dep -->
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>2.18.3</version>
+    </dependency>
+
+    <!-- JUnit Dep -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
