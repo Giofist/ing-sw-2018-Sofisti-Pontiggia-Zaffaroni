@@ -13,12 +13,12 @@ public class Tile {
         this.occupied = occ;
     }
 
-    public DiceColor getColor_Constrain(){ return color_constrain}
+    public DiceColor getColor_Constrain(){ return color_constrain;}
 
-    public int getNumber_Constrain(){ return number_constrain}
+    public int getNumber_Constrain(){ return number_constrain;}
 
     public boolean setDice(Dice dice){
-        if(isOccupied()==false && (dice.getColor() == getColor_Constrain()||getColor_Constrain()==NULL)&&(dice.getIntensity()==getNumber_Constrain()||getNumber_Constrain() == 0)) {
+        if(isOccupied()==false && (dice.getColor() == getColor_Constrain()||getColor_Constrain()==null)&&(dice.getIntensity()==getNumber_Constrain()||getNumber_Constrain() == 0)) {
             this.dice = dice;
             setOccupied();  //useless if you check tile free?
             return true;
@@ -26,12 +26,13 @@ public class Tile {
         else return false;
     }
 
-    public boolean removeDice(){
+    public void removeDice(){
         // not present in UML
+        return;
     }
     public boolean isOccupied(){ return occupied;}
 
     public void setOccupied(){ this.occupied = true;}
 
-    public void setFree(){this.occupied = false;}
+    public void setFree(){this.occupied = false; return;}
 }

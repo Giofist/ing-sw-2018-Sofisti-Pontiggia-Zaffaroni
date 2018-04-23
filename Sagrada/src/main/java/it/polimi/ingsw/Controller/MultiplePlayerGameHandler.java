@@ -21,7 +21,7 @@ public class MultiplePlayerGameHandler {
     public String getName(){
         return this.game_name;
     }
-    public int getMaxNumberPlayers{
+    public int getMaxNumberPlayers(){
         return maxNumberPlayers;
     }
 

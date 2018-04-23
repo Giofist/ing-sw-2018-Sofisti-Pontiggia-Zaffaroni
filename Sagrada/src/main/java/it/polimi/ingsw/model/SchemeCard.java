@@ -13,7 +13,7 @@ public class SchemeCard {
     Tile matrix[5][4];
 
     public SchemeCard(String args[]) {
-        throws IOException {
+        throw IOException {
             int ran = 0, diff = 0;
             String nameMa, fileName = "Maps.txt";
             char[] map1, map2;

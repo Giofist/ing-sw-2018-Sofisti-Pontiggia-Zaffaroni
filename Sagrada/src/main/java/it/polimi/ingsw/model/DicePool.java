@@ -5,13 +5,11 @@ public class DicePool {
     private LinkedList<Dice> dices = new LinkedList<Dice>();
 
     public DicePool() {
-        Random rn = new Random();
 
         // Initialize dice sequence
         for (DiceColor diceColor : DiceColor.values()) {
             for (int i=0; i<18; i++){
-                int intensity = rn.nextInt(6) + 1;
-                dices.add(new Dice(diceColor, intensity));
+                dices.add(new Dice(diceColor));
             }
         }
 
@@ -28,6 +26,11 @@ public class DicePool {
             return null;
         }
         return dices.removeFirst();
+    }
+
+    public boolean insertDice(DiceColor diceColor){
+        dices.add(new Dice(diceColor));
+        return true;
     }
 
     @Override

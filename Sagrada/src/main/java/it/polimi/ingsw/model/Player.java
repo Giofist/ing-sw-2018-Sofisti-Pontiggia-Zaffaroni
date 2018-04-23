@@ -72,12 +72,12 @@ public class Player{
     public void addPlayer(Player player){
         this.state.add(player);
     }
-    public Player getSelectedPlayer (String name){
+    public Player getSelectedPlayer (String name) throws PlayerNotFoundException {
         for (Player other_player : this.state) {
             if (other_player.user.getName().equals( name))
                 return other_player;
         }
-        throws new PlayerNotFoundException;
+        throw new PlayerNotFoundException();
     }
 
 
@@ -85,7 +85,7 @@ public class Player{
     //implementation of the observer design pattern
     public void update(){
         //not implemented yet
-    };
+    }
 
 
 
