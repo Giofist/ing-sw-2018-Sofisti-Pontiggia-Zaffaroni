@@ -11,37 +11,36 @@ public class SchemeCard {
     public SchemeCard() {
         }
 
-    public int getNumMaps() throws IOException {
+    public int getNumMaps() throws IOException {     //return the num of maps contained into the file Maps.txt (first line of teh file)
         String fileName = "Maps.txt";
-
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             return Integer.parseInt(br.readLine());
         }
     }
 
-    public int getDifficulty(int i) throws IOException {   //done
+    public int getDifficulty(int i) throws IOException {   //return the difficulty of the map, the second line of each description of Maps.txt
         String fileName = "Maps.txt";
-        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+        try (BufferedReader ba = new BufferedReader(new FileReader(fileName))) {
             for (int j = 0; j < i * 3 + 2; j++) {    //6 line for each couple +1 for the first line + 1 to have the diff line
-                br.readLine();
+                ba.readLine();
             }
-            return Integer.parseInt(br.readLine());
+            return Integer.parseInt(ba.readLine());
         }
     }
 
 
-    public String getName ( int i) throws IOException { //done
+    public String getName ( int i) throws IOException { //return the name of the map first line of description of each map into the file
         String fileName = "Maps.txt";
 
-        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+        try (BufferedReader bo = new BufferedReader(new FileReader(fileName))) {
             for (int j = 0; j < i * 3 + 1; j++) {    //6 line for each couple +1 for the first line
-                br.readLine();
+                bo.readLine();
             }
-            return br.readLine();
+            return bo.readLine();
         }
     }
 
-    public SchemeCard getMatrix ( int i) throws IOException{
+    public SchemeCard getMatrix ( int i) throws IOException{ //read from file the map constraints and then cast to an array that is transformed into a bi-dimensional matrix
         String fileName = "Maps.txt";
         char[] map;
         Tile[][] matrix;
@@ -52,13 +51,29 @@ public class SchemeCard {
                 br.readLine();
             }
             map = br.readLine().toCharArray();
-            for(int k=0; k<20;){
-                for(int a=0; a<5; a++){
+                 for(int a=0; a<5; a++){
                     for(int b=0; b<4; b++){
                         matrix[a][b]= new Tile;
                         Tile.setFree();
-                        Tile.colour_constrain = // devo settare le varie cose di tile
-
+                       switch{
+                           case (map[a*5+b]==Y) {
+                               Tile.setColourCostrain(Yellow);
+                           }
+                            case (map[a*5+b]==B) {
+                                Tile.setColourCostrain(Blue);
+                            }
+                            case (map[a*5+b]==P) {
+                                Tile.setColourCostrain(Purple);
+                            }
+                            case (map[a*5+b]==G) {
+                                Tile.setColourCostrain(Green);
+                            }
+                            case (map[a*5+b]==Y) {
+                                Tile.setColourCostrain(Yellow);
+                            }
+                            case (map[a*5+b]==Y) {
+                                Tile.setColourCostrain(Yellow);
+                            }
                     }
                 }
             }
