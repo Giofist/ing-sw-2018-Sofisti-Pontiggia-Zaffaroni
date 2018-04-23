@@ -30,9 +30,14 @@ public class ToolCardsHandler {
     }
 
     //command design pattern
-    public void doAction() {
+    public void doAction() throws IllegalOperationException {
         for (ToolAction action : toolActionDeck) {
-            action.execute();
+            try{
+                action.execute();
+            }
+            catch (IllegalOperationException e){
+                throw e;
+            }
             toolActionDeck.remove(action);
         }
     }

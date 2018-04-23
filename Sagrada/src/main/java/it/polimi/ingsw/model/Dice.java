@@ -23,16 +23,16 @@ public class Dice {
         this.INTENSITY = rn.nextInt(6) + 1;
     }
 
-    public void increaseIntensity() {
+    public void increaseIntensity() throws IllegalOperationException {
         if (this.INTENSITY == 6)
-            this.INTENSITY = 1;
+            throw new IllegalOperationException();
 
         this.INTENSITY += 1;
     }
 
-    public void decreaseIntensity (){
+    public void decreaseIntensity () throws IllegalOperationException{
         if (this.INTENSITY == 1)
-            this.INTENSITY = 6;
+            throw new IllegalOperationException();
 
         this.INTENSITY -= 1;
     }
