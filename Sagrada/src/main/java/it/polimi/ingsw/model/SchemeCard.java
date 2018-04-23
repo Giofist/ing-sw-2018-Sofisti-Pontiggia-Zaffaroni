@@ -1,58 +1,69 @@
 package it.polimi.ingsw.model;
 
 import java.io.*;
-import java.util.Random;
-import java.util.Scanner;
 import java.lang.String;
 
 
 public class SchemeCard {
-    private String mapName;
-    private int difficulty = 0;
-    private SchemeCard twin;
-    Tile matrix[5][4];
+    Tile[5][4];
 
-    public SchemeCard(String args[]) {
-        throw IOException {
-            int ran = 0, diff = 0;
-            String nameMa, fileName = "Maps.txt";
-            char[] map1, map2;
-            try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
-                numMap = Integer.parseInt(br.readLine());
+
+    public SchemeCard() {
+        }
+
+    public int getNumMaps() throws IOException {
+        String fileName = "Maps.txt";
+
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            return Integer.parseInt(br.readLine());
+        }
+    }
+
+    public int getDifficulty(int i) throws IOException {   //done
+        String fileName = "Maps.txt";
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            for (int j = 0; j < i * 3 + 2; j++) {    //6 line for each couple +1 for the first line + 1 to have the diff line
+                br.readLine();
+            }
+            return Integer.parseInt(br.readLine());
+        }
+    }
+
+
+    public String getName ( int i) throws IOException { //done
+        String fileName = "Maps.txt";
+
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            for (int j = 0; j < i * 3 + 1; j++) {    //6 line for each couple +1 for the first line
+                br.readLine();
+            }
+            return br.readLine();
+        }
+    }
+
+    public SchemeCard getMatrix ( int i) throws IOException{
+        String fileName = "Maps.txt";
+        char[] map;
+        Tile[][] matrix;
+        matrix = new Tile[5][4];
+
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            for (int j = 0; j < i * 3 + 3; j++) {    //6 line for each couple +1 for the first line
+                br.readLine();
+            }
+            map = br.readLine().toCharArray();
+            for(int k=0; k<20;){
+                for(int a=0; a<5; a++){
+                    for(int b=0; b<4; b++){
+                        matrix[a][b]= new Tile;
+                        Tile.setFree();
+                        Tile.colour_constrain = // devo settare le varie cose di tile
+
+                    }
                 }
             }
         }
 
-
-        public int getNumMaps() {
-            throw IOException {
-                String fileName = "Maps.txt";
-                try (BufferedReader br = BufferedReader(FileReader(fileName))) {
-                    return Integer.parseInt(br.readLine());
-                }
-            }
-        }
-
-        public int getDifficulty(int i){
-            String fileName = "Maps.txt";
-            return difficulty;
-        }
-
-
-        public String getName ( int i){
-            String fileName = "Maps.txt";
-            return nameMap;
-        }
-
-        public SchemeCard getTwin ( int i){
-            String fileName = "Maps.txt";
-            return twin;
-        }
-
-        public SchemeCard getMatrix ( int i){
-            String fileName = "Maps.txt";
-            return matrix;
-        }
 
         //public SchemeCard getTwinSchemeCard(){return twin;}
 

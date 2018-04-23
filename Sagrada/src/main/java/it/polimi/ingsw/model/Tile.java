@@ -34,5 +34,5 @@ public class Tile {
 
     public void setOccupied(){ this.occupied = true;}
 
-    public void setFree(){this.occupied = false; return;}
+    public void setFree(){this.occupied = false;}
 }
