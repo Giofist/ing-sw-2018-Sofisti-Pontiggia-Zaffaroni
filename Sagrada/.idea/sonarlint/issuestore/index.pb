@@ -12,6 +12,9 @@ c
 ]
 -src/main/java/it/polimi/ingsw/model/User.java,0/9/09a2010fa5fdfae918527f21d4d536cf80999039
 a
+<<<<<<< HEAD
+1src/main/java/it/polimi/ingsw/model/DicePool.java,d/c/dc356c833e6ab47fbec1e7b054eb09ad4b711741
+=======
 1src/main/java/it/polimi/ingsw/model/DicePool.java,d/c/dc356c833e6ab47fbec1e7b054eb09ad4b711741
 a
 1src/test/java/it/polimi/ingsw/model/DiceTest.java,2/9/29934e01674e637333fc5bf3ca4a98a039e23203
@@ -29,3 +32,4 @@ _
 /src/main/java/it/polimi/ingsw/model/Player.java,e/1/e19d6cc5cab1487940cbd25652aa891efd59c5aa
 c
 3src/test/java/it/polimi/ingsw/model/PlayerTest.java,c/a/ca1e3e1e7ed2af96aae9416d5a23004ca8f5013f
+>>>>>>> b89eade308160ab584fff7af619d167e26b3733e

@@ -32,4 +32,13 @@ public class PinzaSgrossatrice  implements ToolAction  {
     }
 
     }
+
+    @Override
+    public int getID(){
+        return ID;
+    }
+
+    public String getDescription(){
+        return description;
+    }
 }

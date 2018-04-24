@@ -4,8 +4,8 @@ import java.util.*;
 
 public class Player{
     private User user;
-    private LinkedList<GoalCard> publicGoalCards;
-    private GoalCard privateGoalCard;
+    private LinkedList<PublicGoalCard> publicGoalCards;
+    private PrivateGoalCard privateGoalCard;
     private int segnalini_favore;
     private SchemeCard scheme;
     private List<Player> state;

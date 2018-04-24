@@ -1,5 +1,4 @@
 package it.polimi.ingsw.model;
 
-public class
-GoalCard {
+public class PublicGoalCard {
 }
