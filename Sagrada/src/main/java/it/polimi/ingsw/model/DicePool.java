@@ -42,14 +42,14 @@ public class DicePool {
 
 
     //do not use for RoundDicepool
-    public Dice getDice() {
+    public Dice extractDice() {
         if (dices.isEmpty()){
             return null;
         }
         return dices.removeFirst();
     }
 
-    //do use for RoundDice
+    //do use for RoundDicepool
     public Dice getDice(int position){
         if (dices.isEmpty()){
             return null;

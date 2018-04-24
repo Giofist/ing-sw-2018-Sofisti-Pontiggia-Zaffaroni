@@ -11,6 +11,7 @@ public class Tile {
     public Tile (){
         this.haveColor_constrain = false;
         this.haveNumber_constrain = false;
+        this.occupied = false;
 
     }
 

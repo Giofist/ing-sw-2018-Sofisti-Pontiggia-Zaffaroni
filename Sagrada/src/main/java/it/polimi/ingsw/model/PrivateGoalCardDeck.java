@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 //command pattern just like schemecarddeck
-public class PrivateGoalCardHandler {
+public class PrivateGoalCardDeck {
     private ArrayList<Integer> cards = new ArrayList<>();
 
-    public PrivateGoalCardHandler() {
+    public PrivateGoalCardDeck() {
         this.cards = new ArrayList<>();
         for(int i=1; i<6;i++){
             this.cards.add(i);
@@ -18,14 +18,17 @@ public class PrivateGoalCardHandler {
         Collections.shuffle(cards);
 
     }
-    public PrivateGoalCard getCard(){
-        int CardID = this.getRandomID();
+    public GoalCard getCard(){
+        /*int CardID = this.getRandomID();
         switch (CardID){
             case 1: return new ObiettivoPrivato1();
             case 2: break;
             default: return new ObiettivoPrivato1();
         }
 
+
+         */
+        return new ObiettivoPrivato1();
     }
 
 

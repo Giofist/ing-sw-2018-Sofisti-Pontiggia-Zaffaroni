@@ -4,8 +4,7 @@ import java.util.*;
 
 public class Player{
     private User user;
-    private LinkedList<PublicGoalCard> publicGoalCards;
-    private PrivateGoalCard privateGoalCard;
+    private GoalCard privateGoalCard;
     private int segnalini_favore;
     private SchemeCard scheme;
     private List<Player> state;
@@ -32,16 +31,11 @@ public class Player{
             this.setSegnalini_favore(this.getSegnalini_favore()-cost);
         }
     }
-    public void setPublicGoalCards(LinkedList<PublicGoalCard> publicGoalCards) {
-        this.publicGoalCards = publicGoalCards;
-    }
-    public LinkedList<PublicGoalCard> getPublicGoalCards(){
-        return this.publicGoalCards;
-    }
-    public void setPrivateGoalCard ( PrivateGoalCard privateGoalCard){
+
+    public void setPrivateGoalCard ( GoalCard privateGoalCard){
         this.privateGoalCard = privateGoalCard;
     }
-    public PrivateGoalCard getPrivateGoalCard(){
+    public GoalCard getPrivateGoalCard(){
         return this.privateGoalCard;
     }
     public void setScheme ( SchemeCard scheme){
