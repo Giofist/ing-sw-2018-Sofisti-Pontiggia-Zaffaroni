@@ -7,7 +7,7 @@ public class Gametable {
     private DicePool dicepool;
     private DicePool roundDicepool;//dicepool of the current round
     private PrivateGoalCardDeck privategoalcardsdeck;
-    private PublicGoalCardHandler publicGoalCardDeck;
+    private PublicGoalCardDeck publicGoalCardDeck;
 
     //constructor
     public Gametable(){
@@ -24,7 +24,7 @@ public class Gametable {
         this.dicepool = new DicePool();
         this.tooldeck =  new ToolCardsHandler();
         this.privategoalcardsdeck= new PrivateGoalCardDeck();
-        this.publicGoalCardDeck = new PublicGoalCardHandler();
+        this.publicGoalCardDeck = new PublicGoalCardDeck();
 
     }
 

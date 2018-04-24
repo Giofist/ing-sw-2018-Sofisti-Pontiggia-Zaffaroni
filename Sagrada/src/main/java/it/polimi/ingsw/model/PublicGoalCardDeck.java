@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 
-public class PublicGoalCardHandler {
+public class PublicGoalCardDeck {
     private LinkedList<GoalCard> deck = new LinkedList<GoalCard>();
     private ArrayList<Integer> cardsID = new ArrayList<>();
 
 
-    public PublicGoalCardHandler(){
+    public PublicGoalCardDeck(){
         for(int i=1; i<=10;i++){
             this.cardsID.add(i);
         }

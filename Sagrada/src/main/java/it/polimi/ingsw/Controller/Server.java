@@ -7,10 +7,13 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Server {
+
     private int port;
+
     public Server(int port){
         this.port=port;
     }
+
     public void startServer(){
         ExecutorService executor = Executors.newCachedThreadPool();
         ServerSocket serverSocket;
@@ -21,6 +24,7 @@ public class Server {
             return;  // porta non disponibile
         }
         System.out.println("Server ready");
+        /*
         while(true){
             try{
                 Socket socket = serverSocket.accept();
@@ -30,6 +34,7 @@ public class Server {
                 break; //entrerei qui se serverSocket venisse chiuso
             }
         }
+        */
         executor.shutdown();
     }
 }

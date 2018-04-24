@@ -28,7 +28,7 @@ public class PrivateGoalCardDeck {
 
 
          */
-        return new ObiettivoPrivato1();
+        return new SfumatureRosse();
     }
 
 
