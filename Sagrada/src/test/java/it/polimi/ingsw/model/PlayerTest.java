@@ -22,13 +22,6 @@ public class PlayerTest {
         this.player = new Player(user);
     }
 
-    @Test
-    public void getSegnalini_favore() {
-    }
-
-    @Test
-    public void setSegnalini_favore() {
-    }
 
     @Test
     public void payforTool() {
@@ -58,21 +51,11 @@ public class PlayerTest {
     public void getScheme() {
     }
 
-    @Test
-    public void getSocket() {
-    }
-
-    @Test
-    public void getGametable() {
-    }
 
     @Test
     public void setGametable() {
     }
 
-    @Test
-    public void getState() {
-    }
 
     @Test
     public void addPlayer() {
