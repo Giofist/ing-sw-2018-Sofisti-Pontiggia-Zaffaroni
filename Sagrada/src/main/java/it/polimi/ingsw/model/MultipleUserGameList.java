@@ -15,7 +15,7 @@ public class MultipleUserGameList {
         this.games = new LinkedList<MultiplePlayerGameHandler>();
     }
     //method to access/create the unique instance of the class
-    static MultipleUserGameList singleton(){
+    public static MultipleUserGameList singleton(){
         if (instance == null)
         instance = new MultipleUserGameList();
         return instance;

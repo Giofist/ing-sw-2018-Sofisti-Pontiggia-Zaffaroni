@@ -17,7 +17,7 @@ public class UsersList {
     }
 
     //metodo che crea/dà accesso se già creata all'unica istanza
-    static  UsersList Singleton(){
+    public static  UsersList Singleton(){
         if (instance == null)
             instance = new UsersList();
         return instance;

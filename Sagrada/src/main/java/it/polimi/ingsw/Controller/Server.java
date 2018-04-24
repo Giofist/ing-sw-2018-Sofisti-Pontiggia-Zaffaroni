@@ -5,7 +5,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
+import it.polimi.ingsw.model.*;
 public class Server {
 
     private int port;
@@ -15,7 +15,7 @@ public class Server {
     }
 
     public void startServer(){
-        ExecutorService executor = Executors.newCachedThreadPool();
+        ExecutorService executor = Executors.newCachedThreadPool(); //crea thread quando necessario
         ServerSocket serverSocket;
         try{
             serverSocket = new ServerSocket(port);
@@ -37,4 +37,11 @@ public class Server {
         */
         executor.shutdown();
     }
+    public static void main (String[] args){
+        MultipleUserGameList gameslist = MultipleUserGameList.singleton();
+        UsersList usersList = UsersList.Singleton();
+        Server server = new Server(1337);
+        server.startServer();
+    }
+
 }

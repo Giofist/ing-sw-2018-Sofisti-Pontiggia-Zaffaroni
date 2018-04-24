@@ -1,7 +1,12 @@
 package it.polimi.ingsw.Controller;
 
-public class ClientHandler implements Runnable {
+import java.net.Socket;
 
+public class ClientHandler implements Runnable {
+    Socket socket;
+    public ClientHandler(Socket socket){
+        this.socket = socket;
+    }
 
     @Override
     public void run(){
