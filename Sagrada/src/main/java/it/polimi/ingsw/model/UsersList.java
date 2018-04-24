@@ -37,7 +37,6 @@ public class UsersList {
         for (User user: this.users){
             if(user.getName() == name) {
                 throw new HomonymyException();
-                break;
             }
         }
         User user = new User(name, password, socket);
