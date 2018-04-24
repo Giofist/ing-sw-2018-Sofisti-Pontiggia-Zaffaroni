@@ -9,7 +9,7 @@ public class Gametable {
     //constructor
     public Gametable(){
         prepareGame();
-    };
+    }
 
 
     public ToolCardsHandler getTooldeck() {
