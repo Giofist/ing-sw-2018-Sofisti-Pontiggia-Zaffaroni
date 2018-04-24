@@ -21,7 +21,7 @@ public class SchemeCardDeck {
     }
 
     //the most important, it will be invoked by the gametable
-    public SchemeCard getCard(){
+    public SchemeCard getCard () throws IOException{
         int mapID = this.getRandomID();
         SchemeCard schemeCard = new SchemeCard(mapID);
         return schemeCard;
