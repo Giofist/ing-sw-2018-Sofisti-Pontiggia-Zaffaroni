@@ -32,16 +32,16 @@ public class Player{
             this.setSegnalini_favore(this.getSegnalini_favore()-cost);
         }
     }
-    public void setPublicGoalCards(LinkedList<GoalCard> publicGoalCards) {
+    public void setPublicGoalCards(LinkedList<PublicGoalCard> publicGoalCards) {
         this.publicGoalCards = publicGoalCards;
     }
-    public LinkedList<GoalCard> getPublicGoalCards(){
+    public LinkedList<PublicGoalCard> getPublicGoalCards(){
         return this.publicGoalCards;
     }
-    public void setPrivateGoalCard ( GoalCard privateGoalCard){
+    public void setPrivateGoalCard ( PrivateGoalCard privateGoalCard){
         this.privateGoalCard = privateGoalCard;
     }
-    public GoalCard getPrivateGoalCard(){
+    public PrivateGoalCard getPrivateGoalCard(){
         return this.privateGoalCard;
     }
     public void setScheme ( SchemeCard scheme){
