@@ -2,13 +2,36 @@ package it.polimi.ingsw.model;
 
 public class Tile {
     private DiceColor color_constrain;
-    private int number_constrain=0;
+    private boolean haveColor_constrain;
+    private int number_constrain;
+    private boolean haveNumber_constrain;
     private Dice dice;
     private boolean occupied;
 
-    public Tile (){}
+    public Tile (){
+        this.haveColor_constrain = false;
+        this.haveNumber_constrain = false;
 
-    public DiceColor getColor_Constrain(){ return color_constrain;}
+    }
+
+    public void setHaveColor_constrain(boolean haveColor_constrain) {
+        this.haveColor_constrain = haveColor_constrain;
+    }
+
+    public void setHaveNumber_constrain(boolean haveNumber_constrain) {
+        this.haveNumber_constrain = haveNumber_constrain;
+    }
+
+    public boolean haveColor_constrain() {
+        return haveColor_constrain;
+    }
+
+    public boolean haveNumber_constrain() {
+        return haveNumber_constrain;
+    }
+
+    public DiceColor getColor_Constrain(){
+        return color_constrain;}
 
     public int getNumber_Constrain(){ return number_constrain;}
 
@@ -21,7 +44,7 @@ public class Tile {
         else return false;
     }
 
-    public Dice removeDice(){  // not present in UML
+    public Dice removeDice(){
 
         setFree();
         return dice;

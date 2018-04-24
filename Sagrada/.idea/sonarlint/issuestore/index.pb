@@ -13,7 +13,3 @@ c
 -src/main/java/it/polimi/ingsw/model/User.java,0/9/09a2010fa5fdfae918527f21d4d536cf80999039
 a
 1src/main/java/it/polimi/ingsw/model/DicePool.java,d/c/dc356c833e6ab47fbec1e7b054eb09ad4b711741
-g
-7src\main\java\it\polimi\ingsw\model\SchemeCardDeck.java,f\8\f836514c79ee255f700546c34ff7fb9d1cc594bd
-]
--src\main\java\it\polimi\ingsw\model\Tile.java,c\2\c2354570032e57cf634d3b1b8120479c585c1b42
