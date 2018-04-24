@@ -7,8 +7,6 @@ import java.util.*;
 //credo che per le nostre limitate esigenze si possa snellire il tutto,
 //ma per ora funziona ed è chiara quindi ce la teniamo così
 public class ToolCardsHandler {
-    //deck of invoked actions
-    private  List<ToolAction> toolActionDeck = new LinkedList<ToolAction>();
     //array of costs of action
     private int[] costs;
 
@@ -28,35 +26,17 @@ public class ToolCardsHandler {
             this.costs[id] = 2;
         }
     }
-
-
-    public void addAction(ToolAction action){
-        toolActionDeck.add(action);
-    }
-
     //command design pattern
-    public void doAction() throws IllegalOperationException {
-        for (ToolAction action : toolActionDeck) {
+    public void doAction(ToolAction toolAction) throws IllegalOperationException {
+
             try{
-                action.execute();
+                setCostOfAction(toolAction.getID());
+                toolAction.execute();
             }
             catch (IllegalOperationException e){
                 throw e;
             }
-            toolActionDeck.remove(action);
         }
     }
 
-    public List<ToolAction> getToolActionDeck() {
-        return toolActionDeck;
-    }
 
-    //is this useful?
-    public void clearDeck(){
-        this.toolActionDeck.clear();
-    }
-
-
-
-
-}

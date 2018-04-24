@@ -3,11 +3,15 @@ package it.polimi.ingsw.model;
 public class Gametable {
     private ToolCardsHandler tooldeck;
     private DicePool dicepool;
-    private DicePool roundDicepool; //dicepool of the current round
+    private DicePool roundDicepool;//dicepool of the current round
+    private PrivateGoalCardHandler privategoalcardsdeck;
 
+    //constructor
     public Gametable(){
         prepareGame();
     };
+
+
     public ToolCardsHandler getTooldeck() {
         return tooldeck;
     }
@@ -16,6 +20,7 @@ public class Gametable {
     public void prepareGame(){
         this.dicepool = new DicePool();
         this.tooldeck =  new ToolCardsHandler();
+        this.privategoalcardsdeck= new PrivateGoalCardHandler();
     }
 
     //to do when preparing a round
@@ -25,6 +30,9 @@ public class Gametable {
             this.roundDicepool.addDice(this.dicepool.getDice());
         }
     }
+     public PrivateGoalCard getPrivateGoalCard(){
+        return this.privategoalcardsdeck.getCard();
+     }
 
     //asking for a dice in the dicepool
     public Dice getDice() {
