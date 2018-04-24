@@ -9,7 +9,7 @@ public class ToolCardsHandlerTest {
 
     @Test
     public void getCost() {
-        @Before
+
     }
 
     @Test

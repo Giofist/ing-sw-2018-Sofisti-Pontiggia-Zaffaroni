@@ -3,20 +3,26 @@ package it.polimi.ingsw.model;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 public class PinzaSgrossatriceTest {
     private PinzaSgrossatrice pinzaSgrossatrice;
-    private Player player;
+    private Player mockPlayer;
+    private Gametable mockGametable;
     private int selectedDiceIndex;
     private int operation;
     private int getIntensityReturnValue;
+    private Dice mockDice;
 
     @Before
     public void before() {
-        this.player = mock(Player.class);
-        when(player.getGametable().getRoundDice(selectedDiceIndex).getIntensity()).thenReturn(getIntensityReturnValue);
+        this.mockPlayer = mock(Player.class);
+        this.mockGametable = mock(Gametable.class);
+        this.mockDice = mock(Dice.class);
+
+        when(mockPlayer.getGametable()).thenReturn(mockGametable);
+        when(mockGametable.getRoundDice(selectedDiceIndex)).thenReturn(mockDice);
+        when(mockDice.getIntensity()).thenReturn(getIntensityReturnValue);
     }
 
     @Test
@@ -27,7 +33,7 @@ public class PinzaSgrossatriceTest {
             this.selectedDiceIndex = 3;
             this.operation = 0;
             this.getIntensityReturnValue = 3;
-            this.pinzaSgrossatrice = new PinzaSgrossatrice(player, this.selectedDiceIndex, this.operation);
+            this.pinzaSgrossatrice = new PinzaSgrossatrice(this.mockPlayer, this.selectedDiceIndex, this.operation);
             this.pinzaSgrossatrice.execute();
         } catch (IllegalOperationException e){
             throw e;
@@ -39,7 +45,7 @@ public class PinzaSgrossatriceTest {
             this.selectedDiceIndex = 5;
             this.operation = 1;
             this.getIntensityReturnValue = 6;
-            this.pinzaSgrossatrice = new PinzaSgrossatrice(player, this.selectedDiceIndex, this.operation);
+            this.pinzaSgrossatrice = new PinzaSgrossatrice(this.mockPlayer, this.selectedDiceIndex, this.operation);
             this.pinzaSgrossatrice.execute();
         } catch (IllegalOperationException e){
             throw e;

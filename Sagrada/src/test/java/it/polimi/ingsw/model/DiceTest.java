@@ -18,16 +18,16 @@ public class DiceTest {
 
     @Test
     public void getColor() {
-        assertFalse("Unknown color" + dice.getColor(), Arrays.asList(DiceColor.values()).contains(dice.getColor()));
+        assertTrue("Unknown color " + dice.getColor(), Arrays.asList(DiceColor.values()).contains(dice.getColor()));
     }
 
     @Test
     public void getIntensity() {
-        assertFalse("Intensity out of range" + dice.getIntensity(), 1 <= dice.getIntensity() && dice.getIntensity() <= 6);
+        assertTrue("Intensity out of range" + dice.getIntensity(), 1 <= dice.getIntensity() && dice.getIntensity() <= 6);
     }
 
     @Test
     public void setRandomIntensity() {
-        assertFalse("Intensity out of range" + dice.getIntensity(), 1 <= dice.getIntensity() && dice.getIntensity() <= 6);
+        assertTrue("Intensity out of range " + dice.getIntensity(), 1 <= dice.getIntensity() && dice.getIntensity() <= 6);
     }
 }
