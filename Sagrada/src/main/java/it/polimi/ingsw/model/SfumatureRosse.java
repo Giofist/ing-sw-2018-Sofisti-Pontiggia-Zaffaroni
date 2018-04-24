@@ -1,5 +1,5 @@
 package it.polimi.ingsw.model;
-
+//obiettivo privato
 public class SfumatureRosse implements GoalCard {
     static private int ID;
     static private String description;
