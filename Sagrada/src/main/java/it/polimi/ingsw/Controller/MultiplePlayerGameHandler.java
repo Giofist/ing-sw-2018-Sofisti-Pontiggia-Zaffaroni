@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.User;
 
 
 //non terminata
-public class MultiplePlayerGameHandler {
+public class MultiplePlayerGameHandler extends  TimerTask implements Runnable {
     private String game_name;
     private LinkedList<User> users;
     private int maxNumberPlayers;
@@ -25,6 +25,10 @@ public class MultiplePlayerGameHandler {
         return maxNumberPlayers;
     }
 
+    @Override
+    public void run(){
+
+    }
 
 
 }
