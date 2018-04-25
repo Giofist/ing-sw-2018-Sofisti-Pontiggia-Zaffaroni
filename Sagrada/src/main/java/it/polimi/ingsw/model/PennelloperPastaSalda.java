@@ -7,12 +7,10 @@ public class PennelloperPastaSalda  implements ToolAction  {
             "Se non puoi piazzarlo, riponilo nella riserva.";
     private Player player;
     private int selectedDiceIndex;
-    private int operation;
 
-    public PennelloperPastaSalda(Player player, int selectedDiceIndex, int operation){
+    public PennelloperPastaSalda(Player player, int selectedDiceIndex){
         this.player = player;
         this.selectedDiceIndex = selectedDiceIndex;
-        this.operation = operation;
     }
 
     @Override
@@ -20,7 +18,7 @@ public class PennelloperPastaSalda  implements ToolAction  {
     public void execute () throws IllegalOperationException{
 
         try {
-//iMPLEMENT HERE
+
         } catch (IllegalOperationException e){
             throw e;
         }

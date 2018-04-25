@@ -62,4 +62,8 @@ public class Gametable {
     public DicePool getDicepool() {
         return dicepool;
     }
+
+    public DicePool getRoundDicepool(){
+        return this.roundDicepool;
+    }
 }

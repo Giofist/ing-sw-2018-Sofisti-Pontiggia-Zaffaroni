@@ -17,14 +17,10 @@ public class Martelletto  implements ToolAction  {
 
     @Override
 
-    public void execute () throws IllegalOperationException{
+    public void execute (){
 
-    try {
-        //player.getGametable().getReserve().scramble;// ti be implemented
-//TO BE IMPLEMENTED
-    } catch  (IllegalOperationException e){
-        throw e;
-    }
+        player.getGametable().getRoundDicepool().scrambleDicePool();
+        //add Limitation on round??
     }
 
     @Override
