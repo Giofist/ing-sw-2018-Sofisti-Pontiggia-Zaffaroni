@@ -59,5 +59,7 @@ public class Gametable {
         return this.publicGoalCardDeck.getIDs();
     }
 
-
+    public DicePool getDicepool() {
+        return dicepool;
+    }
 }
