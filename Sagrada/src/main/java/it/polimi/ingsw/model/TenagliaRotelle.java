@@ -22,7 +22,7 @@ public class TenagliaRotelle  implements ToolAction  {
 
     try {
         player.getGametable().getDicepool().extractDice();
-        //skip next round TBD
+        //skip next round TO BE IMPLEMENTED
     } catch  (IllegalOperationException e){
         throw e;
     }

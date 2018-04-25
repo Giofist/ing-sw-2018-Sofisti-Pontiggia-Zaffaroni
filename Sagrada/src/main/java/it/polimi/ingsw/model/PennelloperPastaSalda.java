@@ -20,7 +20,7 @@ public class PennelloperPastaSalda  implements ToolAction  {
     public void execute () throws IllegalOperationException{
 
         try {
-
+//iMPLEMENT HERE
         } catch (IllegalOperationException e){
             throw e;
         }

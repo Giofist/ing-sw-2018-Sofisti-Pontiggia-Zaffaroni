@@ -19,7 +19,7 @@ public class TaglierinaCircolare  implements ToolAction  {
     public void execute () throws IllegalOperationException{
 
     try {
-
+//IMPLEMENT HERE
     } catch  (IllegalOperationException e){
         throw e;
     }

@@ -23,7 +23,7 @@ public class DiluenteperPastaSalda  implements ToolAction  {
 
         try {
             player.getGametable().getDicepool().addDice(player.getScheme().getTile(row, column).removeDice());
-            player.getGametable().getSpecificDice(diceColour).setIntensity(diceIntensity);/// aggiungere i metodi get specific dice
+            //player.getGametable().getSpecificDice(diceColour).setIntensity(diceIntensity);/// aggiungere i metodi get specific dice //DA FINIRE
         } catch (IllegalOperationException e) {
             throw e;
         }

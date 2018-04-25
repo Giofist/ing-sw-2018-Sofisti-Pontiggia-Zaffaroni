@@ -20,8 +20,8 @@ public class Martelletto  implements ToolAction  {
     public void execute () throws IllegalOperationException{
 
     try {
-        player.getGametable().getReserve().scramble;// ti be implemented
-
+        //player.getGametable().getReserve().scramble;// ti be implemented
+//TO BE IMPLEMENTED
     } catch  (IllegalOperationException e){
         throw e;
     }
