@@ -1,9 +1,13 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.PublicGoalCards;
+
+import it.polimi.ingsw.model.GoalCard;
+import it.polimi.ingsw.model.Player;
+
 //obiettivo pubblico
-public class VarietaDiColore implements GoalCard {
-    static int ID = 10;
-    static String name = "Varietà di Colore";
-    static String description = "Set di dadi di ogni colore ovunque.";
+public class ColoriDiversiColonna implements GoalCard {
+    static int ID = 2;
+    static String name = "Colori Diversi - Colonna";
+    static String description = "Colonne senza colori ripetuti.";
     @Override
     public void calculatepoint(Player player) {
         //not implemented yet
