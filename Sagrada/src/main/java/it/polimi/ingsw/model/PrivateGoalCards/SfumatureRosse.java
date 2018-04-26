@@ -11,7 +11,10 @@ public class SfumatureRosse implements GoalCard {
 
     @Override
     public void calculatepoint(Player player) {
-        //not implemented yet
+        for(int column=0; column<4; column++){
+        for(int row=0; row<5; row++){
+
+        }
     }
 
     @Override
