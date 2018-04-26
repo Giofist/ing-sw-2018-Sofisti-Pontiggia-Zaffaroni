@@ -46,7 +46,6 @@ public class Tile {
     }
 
     public Dice removeDice(){
-
         setFree();
         return dice;
     }

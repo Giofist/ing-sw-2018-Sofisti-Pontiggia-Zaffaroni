@@ -62,9 +62,11 @@ public class Gametable {
         return this.publicGoalCardDeck.getIDs();
     }
 
+
+
+    //
     public SchemeCard getSchemeCard(){
         return this.schemeCardDeck.getCard();
     }
 
 
-}

@@ -10,14 +10,12 @@ import java.util.Collections;
 public class SchemeCardDeck {
     private ArrayList<Integer> maps = new ArrayList<>();
 
-    public SchemeCardDeck() throws IOException{
+    public SchemeCardDeck() throws IOException {
         this.maps = new ArrayList<>();
         for(int i=0; i<getNumMaps();i=i+2){
             this.maps.add(i);
         }
-
         Collections.shuffle(maps);
-
     }
 
     //the most important, it will be invoked by the gametable
