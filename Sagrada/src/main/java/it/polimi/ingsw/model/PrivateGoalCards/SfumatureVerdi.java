@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.PrivateGoalCards;
 
 
+import it.polimi.ingsw.model.DiceColor;
 import it.polimi.ingsw.model.GoalCard;
 import it.polimi.ingsw.model.Player;
 
@@ -12,8 +13,17 @@ public class SfumatureVerdi implements GoalCard {
 
 
     @Override
-    public void calculatepoint(Player player) {
-        //not implemented yet
+    public int calculatepoint(Player player) {
+        int greenPoint=0;
+        DiceColor color = DiceColor.GREEN;
+        for(int column=0; column<4; column++){
+            for(int row=0; row<5; row++) {
+                if (player.getScheme().getDiceColour(row, column)== color) {
+                    greenPoint += player.getScheme().getDiceIntensity(row, column);
+                }
+            }
+        }
+        return greenPoint;
     }
 
     @Override

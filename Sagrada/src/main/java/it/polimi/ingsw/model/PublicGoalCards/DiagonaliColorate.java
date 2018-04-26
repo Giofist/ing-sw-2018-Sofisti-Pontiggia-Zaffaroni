@@ -9,7 +9,7 @@ public class DiagonaliColorate implements GoalCard {
     static String name = "Diagonali Colorate";
     static String description = "Numero di dadi dello stesso colore diagonalmente adiacenti.";
     @Override
-    public void calculatepoint(Player player) {
+    public int calculatepoint(Player player) {
         //not implemented yet
     }
 

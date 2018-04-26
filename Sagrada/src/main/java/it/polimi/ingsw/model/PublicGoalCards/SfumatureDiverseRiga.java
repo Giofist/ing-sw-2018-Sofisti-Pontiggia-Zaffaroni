@@ -5,7 +5,7 @@ public class SfumatureDiverseRiga implements GoalCard {
     static String name = "Sfumature diverse - Riga";
     static String description = "Righe senza sfumature ripetute.";
     @Override
-    public void calculatepoint(Player player) {
+    public int calculatepoint(Player player) {
         //not implemented yet
     }
 

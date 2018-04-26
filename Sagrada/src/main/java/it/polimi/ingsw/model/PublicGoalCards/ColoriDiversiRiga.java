@@ -9,7 +9,7 @@ public class ColoriDiversiRiga implements GoalCard {
     static String name = "Colori Diversi - Riga";
     static String description = "Righe senza colori ripetuti.";
     @Override
-    public void calculatepoint(Player player) {
+    public int calculatepoint(Player player) {
         //not implemented yet
     }
 

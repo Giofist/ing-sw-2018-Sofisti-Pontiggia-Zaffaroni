@@ -9,7 +9,7 @@ public class SfumatureDiverse implements GoalCard {
     static String name = "Sfumature Diverse";
     static String description = "Set di dadi di ogni valore ovunque.";
     @Override
-    public void calculatepoint(Player player) {
+    public int calculatepoint(Player player) {
         //not implemented yet
     }
 

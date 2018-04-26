@@ -57,6 +57,9 @@ public class Tile {
         return dice;
     }
 
+    public Dice getDice() {
+        return dice;
+    }
 
     public boolean isOccupied(){ return occupied;}
 
