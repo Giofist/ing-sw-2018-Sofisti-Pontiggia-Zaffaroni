@@ -2,10 +2,10 @@ package it.polimi.ingsw.model.PrivateGoalCards;
 
 
 //obiettivo privato
-public class SfumatureRosse implements GoalCard {
-    static private int ID = 1;
-    static private String name = "Sfumature Rosse";
-    static private String description = "Somma dei valori su tutti i dadi rossi.";
+public class SfumatureBlu implements GoalCard {
+    static private int ID = 5;
+    static private String name = "Sfumature Blu";
+    static private String description = "Somma dei valori su tutti i dadi blu.";
 
 
     @Override
