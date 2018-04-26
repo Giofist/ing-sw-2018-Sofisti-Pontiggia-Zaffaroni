@@ -15,15 +15,11 @@ public class PennelloperPastaSalda  implements ToolAction  {
 
     @Override
 
-    public void execute () throws IllegalOperationException{
+    public void execute () {
+        player.getGametable().getRoundDice(this.selectedDiceIndex).setRandomIntensity();
+    }
 
-        try {
-
-        } catch (IllegalOperationException e){
-            throw e;
-        }
-
-    @Override
+        @Override
     public int getID(){
         return ID;
     }

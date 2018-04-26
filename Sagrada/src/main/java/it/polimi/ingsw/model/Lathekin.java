@@ -6,12 +6,10 @@ public class Lathekin  implements ToolAction  {
     final static String description = "Muovi esattamente due dadi.\n" +
                                       "Rispetta tutte le restrizioni di piazzamento.";
     private Player player;
-    private int selectedDiceIndex;
     private int operation;
 
-    public Lathekin(Player player, int selectedDiceIndex, int operation){
+    public Lathekin(Player player, int oldrow1, int oldcolumn1, int newrow1, int newcolumn1, int oldrow2, int oldcolumn2, int newrow2, int newcolumn2, int operation){
         this.player = player;
-        this.selectedDiceIndex = selectedDiceIndex;
         this.operation = operation;
     }
 

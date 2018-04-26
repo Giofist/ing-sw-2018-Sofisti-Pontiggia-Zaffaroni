@@ -18,14 +18,9 @@ public class TenagliaRotelle  implements ToolAction  {
 
     @Override
 
-    public void execute () throws IllegalOperationException{
-
-    try {
+    public void execute (){
         player.getGametable().getDicepool().extractDice();
         //skip next round TO BE IMPLEMENTED
-    } catch  (IllegalOperationException e){
-        throw e;
-    }
     }
 
     @Override

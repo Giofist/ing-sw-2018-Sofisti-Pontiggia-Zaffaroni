@@ -57,7 +57,12 @@ public class DicePool {
         return dices.get(position);
     }
 
-
+    public Dice removeDice(int diceIndex){
+        if(diceIndex<=getDicePoolSize()){
+            return dices.remove(diceIndex);
+        }
+        else return null;
+    }
 
     @Override
     public String toString() {
