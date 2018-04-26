@@ -1,8 +1,11 @@
 package it.polimi.ingsw.model.PrivateGoalCards;
 
 
+import it.polimi.ingsw.model.GoalCard;
+import it.polimi.ingsw.model.Player;
+
 //obiettivo privato
-public class SfumatureBlu implements GoalCard {
+public class SfumatureViola implements GoalCard {
     static private int ID = 5;
     static private String name = "Sfumature Blu";
     static private String description = "Somma dei valori su tutti i dadi blu.";

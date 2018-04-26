@@ -1,4 +1,8 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.PublicGoalCards;
+
+import it.polimi.ingsw.model.GoalCard;
+import it.polimi.ingsw.model.Player;
+
 //obiettivo pubblico
 public class ColoriDiversiRiga implements GoalCard {
     static int ID = 1;

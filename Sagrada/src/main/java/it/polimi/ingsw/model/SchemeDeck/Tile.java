@@ -56,6 +56,10 @@ public class Tile {
         setFree();
         return dice;
     }
+<<<<<<< HEAD:Sagrada/src/main/java/it/polimi/ingsw/model/Tile.java
+
+    public boolean isOccupied(){ return occupied;} //we can return the dice
+=======
     public boolean isOccupied(){ return occupied;}
 
     public boolean haveColor_constrain() {
@@ -65,6 +69,7 @@ public class Tile {
     public boolean haveNumber_constrain() {
         return haveNumber_constrain;
     }
+>>>>>>> 1f0a54b0963d48fd5bced796a14de4ef59b5e4c8:Sagrada/src/main/java/it/polimi/ingsw/model/SchemeDeck/Tile.java
 
     public void setOccupied(){ this.occupied = true;}
 

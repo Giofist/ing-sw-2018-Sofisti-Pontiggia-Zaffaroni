@@ -1,22 +1,23 @@
 package it.polimi.ingsw.model.ToolCard;
 
+<<<<<<< HEAD:Sagrada/src/main/java/it/polimi/ingsw/model/PennelloperEglomise.java
+public class PennelloperEglomise  implements ToolAction  {
+=======
 import it.polimi.ingsw.model.Exceptions.IllegalOperationException;
 import it.polimi.ingsw.model.Player;
 
 public class PennelloperEglomise  implements ToolAction {
+>>>>>>> 1f0a54b0963d48fd5bced796a14de4ef59b5e4c8:Sagrada/src/main/java/it/polimi/ingsw/model/ToolCard/PennelloperEglomise.java
     final static int ID = 2;
     final static String cardTitle = "Pennello per Eglomise";
     final static String description = "Muovi un qualsiasi dado nella tua vetrata ignorando le restrizioni di colore.\n" +
                                       "Devi rispettare tutte le altre restrizioni di piazzamento.";
     private Player player;
     private int selectedDiceIndex;
-    // Operation is set to 0 if the player wants to decrease the value of the dice otherwise is set to 1
-    private int operation;
 
     public PennelloperEglomise(Player player, int selectedDiceIndex, int operation){
         this.player = player;
         this.selectedDiceIndex = selectedDiceIndex;
-        this.operation = operation;
     }
 
     @Override
@@ -24,11 +25,6 @@ public class PennelloperEglomise  implements ToolAction {
     public void execute () throws IllegalOperationException {
 
     try {
-        if (this.operation == 0) {
-
-        }
-        else {
-        }
 
     } catch  (IllegalOperationException e){
         throw e;

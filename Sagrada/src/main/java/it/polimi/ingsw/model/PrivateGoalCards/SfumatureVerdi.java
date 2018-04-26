@@ -1,6 +1,9 @@
 package it.polimi.ingsw.model.PrivateGoalCards;
 
 
+import it.polimi.ingsw.model.GoalCard;
+import it.polimi.ingsw.model.Player;
+
 //obiettivo privato
 public class SfumatureVerdi implements GoalCard {
     static private int ID = 3;
