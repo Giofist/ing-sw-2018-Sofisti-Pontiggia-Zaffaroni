@@ -9,7 +9,7 @@ public class DiluenteperPastaSalda  implements ToolAction {
     final static String description = "Dopo aver scelto un dado, riponilo nel Sacchetto, poi pescane uno dal sacchetto.\n" +
                                       "Scegli il valore del nuovo dado e piazzalo, rispettando tutte le restrizioni di piazzamento.";
     private Player player;
-    private int operation, diceIntensity;
+    private int diceIntensity;
     DiceColor diceColour;
     private int selectedDiceIndex;
 

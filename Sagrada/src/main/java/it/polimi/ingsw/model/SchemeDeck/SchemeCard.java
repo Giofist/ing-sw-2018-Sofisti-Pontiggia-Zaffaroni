@@ -111,7 +111,16 @@ public class SchemeCard{
     public void setDice (Dice dice, int row, int column, boolean IgnoreColor, boolean IgnoreNumber)throws TileException{
         this.matrix[row][column].setDice(dice, IgnoreColor, IgnoreNumber);
     }
+    public Tile getTile(int row, int column){
+        return this.matrix[row][column];
+    }
 
+    public  DiceColor getDiceColour(int row, int column){
+        return getTile(row, column).getDice().getColor();
+    }
+    public int getDiceIntensity(int row, int column){
+        return getTile(row, column).getDice().getIntensity();
+    }
 
     public SchemeCard getTwinCard() {
         return this.twinCard;

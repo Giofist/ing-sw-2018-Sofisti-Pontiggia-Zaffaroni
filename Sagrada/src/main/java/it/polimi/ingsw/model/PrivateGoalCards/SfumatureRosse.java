@@ -10,11 +10,17 @@ public class SfumatureRosse implements GoalCard {
 
 
     @Override
-    public void calculatepoint(Player player) {
+    public int calculatepoint(Player player) {
+        int redPoint=0;
+        DiceColor color = DiceColor.RED;
         for(int column=0; column<4; column++){
-        for(int row=0; row<5; row++){
-
+            for(int row=0; row<5; row++) {
+                if (player.getScheme().getDiceColour(row, column)== color) {
+                    redPoint += player.getScheme().getDiceIntensity(row, column);
+                }
+            }
         }
+        return redPoint;
     }
 
     @Override
