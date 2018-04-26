@@ -32,18 +32,18 @@ public class Tile {
     public int getNumber_Constrain(){ return number_constrain;}
 
 
-    public void setDice(Dice dice, boolean IgnoreColor, boolean IgnoreNumber){
+    public void setDice(Dice dice, boolean IgnoreColor, boolean IgnoreNumber) throws TileException{
         if (this.isOccupied()){
             throw new OccupiedTileException();
         }
         if (this.haveColor_constrain() && !IgnoreColor){
             if (dice.getColor() != this.getColor_Constrain()){
-                throw new NotRispectedColorConstrainException;
+                throw new NotRispectedColorConstrainException();
             }
         }
         if (this.haveNumber_constrain() && !IgnoreNumber){
             if(dice.getIntensity() != this.getNumber_Constrain()){
-                throw new NotRespectedNumberConstrainException;
+                throw new NotRespectedNumberConstrainException();
             }
         }
         this.dice = dice;

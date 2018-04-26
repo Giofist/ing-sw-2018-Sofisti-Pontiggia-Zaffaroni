@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model.ToolCard;
 
-import it.polimi.ingsw.model.Exceptions.IllegalOperationException;
+import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.Player;
 
 public class PinzaSgrossatrice  implements ToolAction {
@@ -22,20 +22,11 @@ public class PinzaSgrossatrice  implements ToolAction {
     }
 
     @Override
-
-    public void execute () throws IllegalOperationException {
-
-    try {
+    public void execute () throws ToolIllegalOperationException {
         if (this.operation == 0) {  // Decrease selected dice value
             player.getGametable().getRoundDice(this.selectedDiceIndex).decreaseIntensity();
         } else {    // Increase selected dice value
-            player.getGametable().getRoundDice(this.selectedDiceIndex).increaseIntensity();
-
-        }
-    } catch  (IllegalOperationException e){
-        throw e;
-    }
-
+            player.getGametable().getRoundDice(this.selectedDiceIndex).increaseIntensity(); }
     }
 
     @Override

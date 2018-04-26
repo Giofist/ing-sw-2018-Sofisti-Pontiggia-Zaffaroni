@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model.SchemeDeck;
 
+import it.polimi.ingsw.model.Exceptions.ConstrainException;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -19,7 +21,7 @@ public class SchemeCardDeck {
     }
 
     //the most important, it will be invoked by the gametable
-    public SchemeCard getCard () throws IOException{
+    public SchemeCard getCard () throws IOException,ConstrainException{
         int mapID = this.getRandomID();
         SchemeCard schemeCard = new SchemeCard(mapID);
         return schemeCard;

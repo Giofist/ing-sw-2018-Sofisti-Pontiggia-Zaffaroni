@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.model.Exceptions.IllegalOperationException;
+import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.DecreaseNotAllowedException;
+import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.IncreaseNotAllowedException;
 
 import java.util.Random;
 
@@ -27,21 +28,21 @@ public class Dice {
         this.INTENSITY = intens;
     }
 
-    public void increaseIntensity() throws IllegalOperationException {
+    public void increaseIntensity() throws IncreaseNotAllowedException {
         if (this.INTENSITY == 6)
-            throw new IllegalOperationException();
+            throw new IncreaseNotAllowedException();
 
         this.INTENSITY += 1;
     }
 
-    public void decreaseIntensity () throws IllegalOperationException{
+    public void decreaseIntensity () throws DecreaseNotAllowedException {
         if (this.INTENSITY == 1)
-            throw new IllegalOperationException();
+            throw new DecreaseNotAllowedException();
 
         this.INTENSITY -= 1;
     }
 
-    public void setOppositeIntensity () throws IllegalOperationException{
+    public void setOppositeIntensity (){
         switch (this.INTENSITY){
             case 1:
                 this.INTENSITY=6;

@@ -7,7 +7,7 @@ package it.polimi.ingsw.model.Exceptions;
 // con il nome di una partita attiva già presente
 
 public class HomonymyException extends Exception {
-    private static String msg = "nome non disponibile";
+    private static String msg = "this name is already in use";
     public HomonymyException(){
         super(msg);
     }

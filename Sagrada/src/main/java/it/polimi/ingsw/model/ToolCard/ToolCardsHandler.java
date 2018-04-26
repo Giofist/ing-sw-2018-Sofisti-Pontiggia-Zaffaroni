@@ -1,5 +1,5 @@
 package it.polimi.ingsw.model.ToolCard;
-import it.polimi.ingsw.model.Exceptions.IllegalOperationException;
+import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 
 
 //questa classe è quella su cui ho lavorato di più ( pon)
@@ -30,15 +30,9 @@ public class ToolCardsHandler {
         }
     }
     //command design pattern
-    public void doAction(ToolAction toolAction) throws IllegalOperationException {
-
-            try{
+    public void doAction(ToolAction toolAction) throws ToolIllegalOperationException {
                 setCostOfAction(toolAction.getID());
                 toolAction.execute();
-            }
-            catch (IllegalOperationException e){
-                throw e;
-            }
         }
     }
 

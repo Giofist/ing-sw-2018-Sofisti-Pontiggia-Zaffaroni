@@ -1,6 +1,8 @@
 package it.polimi.ingsw.model.SchemeDeck;
 import it.polimi.ingsw.model.Dice;
 import it.polimi.ingsw.model.DiceColor;
+import it.polimi.ingsw.model.Exceptions.ConstrainException;
+import it.polimi.ingsw.model.Exceptions.TileException;
 
 import java.io.*;
 import java.lang.String;
@@ -16,14 +18,13 @@ public class SchemeCard{
     private int ID;
     private String MapName;
 
-    public SchemeCard(int mapID) throws IOException {
+    //constructor
+    public SchemeCard(int mapID) throws IOException, ConstrainException {
         this.initialize( mapID);
     }
 
-    public void initialize (int mapID ) throws IOException{
-
-
-
+    //to initialize the schemecard
+    public void initialize (int mapID ) throws IOException,ConstrainException{
         String fileName = "Maps.txt";
         try (BufferedReader buffer = new BufferedReader(new FileReader(fileName))) {
 
@@ -47,7 +48,6 @@ public class SchemeCard{
             for(int a=0; a<5; a++) {
                 for (int b = 0; b < 4; b++) {
                     Tile tile = this.matrix[a][b];
-                    tile.setFree();
                     switch (map[a * 5 + b]) {
                         case 'Y':
                             tile.setColourConstrain(DiceColor.YELLOW);
@@ -90,12 +90,12 @@ public class SchemeCard{
                             tile.setHaveNumber_constrain(true);
                             break;
                         default:
-                            break; //aggiungere segnale di errore
+                            throw new ConstrainException();
                     }
                 }
             }
         }
-        catch (IOException e){
+        catch (Exception e){
             throw e;
         }
         this.twinCard = new SchemeCard(mapID+1);
@@ -104,23 +104,26 @@ public class SchemeCard{
 
     //get methods
     public int getDifficulty() {
-        return this.difficulty; };
-    public int getID(){
-    return this.ID;
+        return this.difficulty;
     };
-    public String getMapName(){
-        return this.MapName;
-    }
-    public void setDice (Dice dice, int row, int column, boolean IgnoreColor, boolean IgnoreNumber){
+    public int getID(){ return this.ID; };
+    public String getMapName(){ return this.MapName; }
+    public void setDice (Dice dice, int row, int column, boolean IgnoreColor, boolean IgnoreNumber)throws TileException{
         this.matrix[row][column].setDice(dice, IgnoreColor, IgnoreNumber);
     }
 
 
     public SchemeCard getTwinCard() {
-        return twinCard;
+        return this.twinCard;
     }
     public Dice removeDice(int row, int column){
         return this.matrix[row][column].removeDice();
+    }
+    public DiceColor getColorConstrain( int row, int column){
+        return this.matrix[row][column].getColor_Constrain();
+    }
+    public int getNumberConstrain(int row, int column){
+        return this.matrix[row][column].getNumber_Constrain();
     }
 
 }
