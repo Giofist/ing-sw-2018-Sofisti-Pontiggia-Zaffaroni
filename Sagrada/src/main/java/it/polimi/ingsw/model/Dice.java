@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.model.DiceColor;
+import it.polimi.ingsw.model.Exceptions.IllegalOperationException;
 
 import java.util.Random;
 

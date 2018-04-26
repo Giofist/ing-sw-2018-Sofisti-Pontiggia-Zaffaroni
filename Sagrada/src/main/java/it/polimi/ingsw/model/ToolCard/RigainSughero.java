@@ -1,6 +1,9 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.ToolCard;
 
-public class RigainSughero  implements ToolAction  {
+import it.polimi.ingsw.model.Exceptions.IllegalOperationException;
+import it.polimi.ingsw.model.Player;
+
+public class RigainSughero  implements ToolAction {
     final static int ID = 9;
     final static String cardTitle = "Riga in Sughero";
     final static String description = "Dopo aver scelto un dado, piazzalo in una casella che non sia adiacente a un altro dado.\n" +
@@ -17,7 +20,7 @@ public class RigainSughero  implements ToolAction  {
 
     @Override
 
-    public void execute () throws IllegalOperationException{
+    public void execute () throws IllegalOperationException {
 
     try {
 //IMPLEMENT HERE

@@ -1,6 +1,9 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.ToolCard;
 
-public class PinzaperEglomise  implements ToolAction  {
+import it.polimi.ingsw.model.Exceptions.IllegalOperationException;
+import it.polimi.ingsw.model.Player;
+
+public class PennelloperEglomise  implements ToolAction {
     final static int ID = 2;
     final static String cardTitle = "Pennello per Eglomise";
     final static String description = "Muovi un qualsiasi dado nella tua vetrata ignorando le restrizioni di colore.\n" +
@@ -18,7 +21,7 @@ public class PinzaperEglomise  implements ToolAction  {
 
     @Override
 
-    public void execute () throws IllegalOperationException{
+    public void execute () throws IllegalOperationException {
 
     try {
         if (this.operation == 0) {

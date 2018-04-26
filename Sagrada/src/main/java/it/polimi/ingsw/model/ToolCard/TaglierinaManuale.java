@@ -1,6 +1,9 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.ToolCard;
 
-public class TaglierinaManuale  implements ToolAction  {
+import it.polimi.ingsw.model.Exceptions.IllegalOperationException;
+import it.polimi.ingsw.model.Player;
+
+public class TaglierinaManuale  implements ToolAction {
     final static int ID = 12;
     final static String cardTitle = "Taglierina Manuale";
     final static String description = "Muovi fino a due dadi dello stesso colore di un solo dado di un solo dado sul Tracciato dei Round.\n" +
@@ -17,7 +20,7 @@ public class TaglierinaManuale  implements ToolAction  {
 
     @Override
 
-    public void execute() throws IllegalOperationException{
+    public void execute() throws IllegalOperationException {
 
     try {
 //IMPLEMENT HERE

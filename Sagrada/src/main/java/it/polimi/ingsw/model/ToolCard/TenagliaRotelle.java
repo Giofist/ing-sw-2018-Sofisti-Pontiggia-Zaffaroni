@@ -1,6 +1,8 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.ToolCard;
 
-public class TenagliaRotelle  implements ToolAction  {
+import it.polimi.ingsw.model.Player;
+
+public class TenagliaRotelle  implements ToolAction {
     final static int ID = 8;
     final static String cardTitle = "Tenaglia a Rotelle";
     final static String description = "Dopo il tuo primo turno scegli immediatamente un altro dado.\n" +

@@ -1,6 +1,9 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.ToolCard;
 
-public class TamponeDiamantato implements ToolAction  {
+import it.polimi.ingsw.model.Exceptions.IllegalOperationException;
+import it.polimi.ingsw.model.Player;
+
+public class TamponeDiamantato implements ToolAction {
     final static int ID = 10;
     final static String cardTitle = "Tampone Diamantato";
     final static String description = "Dopo aver scelto un dado, giralo sulla faccia opposta.\n" +
@@ -15,7 +18,7 @@ public class TamponeDiamantato implements ToolAction  {
 
     @Override
 
-    public void execute () throws IllegalOperationException{
+    public void execute () throws IllegalOperationException {
 
     try {
         player.getGametable().getRoundDice(this.selectedDiceIndex).setOppositeIntensity();

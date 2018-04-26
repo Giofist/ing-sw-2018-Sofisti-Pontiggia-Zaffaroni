@@ -1,6 +1,9 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.ToolCard;
 
-public class Lathekin  implements ToolAction  {
+import it.polimi.ingsw.model.Exceptions.IllegalOperationException;
+import it.polimi.ingsw.model.Player;
+
+public class Lathekin  implements ToolAction {
     final static int ID = 4;
     final static String cardTitle = "Lathekin";
     final static String description = "Muovi esattamente due dadi.\n" +
@@ -15,7 +18,7 @@ public class Lathekin  implements ToolAction  {
 
     @Override
 
-    public void execute () throws IllegalOperationException{
+    public void execute () throws IllegalOperationException {
 
     try {
 

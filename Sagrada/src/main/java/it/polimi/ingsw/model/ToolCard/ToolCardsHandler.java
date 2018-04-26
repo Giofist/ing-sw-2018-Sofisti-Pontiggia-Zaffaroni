@@ -1,5 +1,5 @@
-package it.polimi.ingsw.model;
-import java.util.*;
+package it.polimi.ingsw.model.ToolCard;
+import it.polimi.ingsw.model.Exceptions.IllegalOperationException;
 
 
 //questa classe è quella su cui ho lavorato di più ( pon)
@@ -21,6 +21,9 @@ public class ToolCardsHandler {
     public int getCost(int id){
         return this.costs[id];
     }
+
+
+    //dopo il primo utilizzo, il costo sale a due
     public void setCostOfAction(int id){
         if(this.costs[id] == 1){
             this.costs[id] = 2;

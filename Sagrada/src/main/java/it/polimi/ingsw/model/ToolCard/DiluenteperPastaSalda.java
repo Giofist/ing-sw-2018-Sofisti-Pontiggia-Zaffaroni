@@ -1,6 +1,9 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.ToolCard;
 
-public class DiluenteperPastaSalda  implements ToolAction  {
+import it.polimi.ingsw.model.DiceColor;
+import it.polimi.ingsw.model.Player;
+
+public class DiluenteperPastaSalda  implements ToolAction {
     final static int ID = 11;
     final static String cardTitle = "Diluente per Pasta Salda";
     final static String description = "Dopo aver scelto un dado, riponilo nel Sacchetto, poi pescane uno dal sacchetto.\n" +

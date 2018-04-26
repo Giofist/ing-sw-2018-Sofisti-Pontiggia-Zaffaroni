@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.Exceptions;
 
 
 // this is to deal with unvalid operation with toolcards, mybe it shoulb be extended for any toolcard

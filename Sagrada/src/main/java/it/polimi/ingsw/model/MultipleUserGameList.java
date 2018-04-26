@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model;
 import java.util.*;
 import it.polimi.ingsw.Controller.*;
+import it.polimi.ingsw.model.Exceptions.HomonymyException;
 
 
 //design pattern singleton
@@ -23,7 +24,7 @@ public class MultipleUserGameList {
 
 
     //create a game and add to the existant list
-    public MultiplePlayerGameHandler create (User user, String game_name, int max) throws HomonymyException{
+    public MultiplePlayerGameHandler create (User user, String game_name, int max) throws HomonymyException {
         for (MultiplePlayerGameHandler previousGame: this.games){
             if (previousGame.getName()== game_name) {
                 throw new HomonymyException();

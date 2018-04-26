@@ -1,6 +1,9 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.ToolCard;
 
-public class TaglierinaCircolare  implements ToolAction  {
+import it.polimi.ingsw.model.Exceptions.IllegalOperationException;
+import it.polimi.ingsw.model.Player;
+
+public class TaglierinaCircolare  implements ToolAction {
     final static int ID = 5;
     final static String cardTitle = "Taglierina circolare";
     final static String description = "Dopo aver scelto un dado, scambia quel dado con un dado sul Tracciato Round.\n";
@@ -16,7 +19,7 @@ public class TaglierinaCircolare  implements ToolAction  {
 
     @Override
 
-    public void execute () throws IllegalOperationException{
+    public void execute () throws IllegalOperationException {
 
     try {
 //IMPLEMENT HERE

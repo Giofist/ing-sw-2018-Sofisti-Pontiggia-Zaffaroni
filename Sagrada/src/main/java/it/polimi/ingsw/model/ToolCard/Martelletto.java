@@ -1,6 +1,8 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.ToolCard;
 
-public class Martelletto  implements ToolAction  {
+import it.polimi.ingsw.model.Player;
+
+public class Martelletto  implements ToolAction {
     final static int ID = 7;
     final static String cardTitle = "Martelletto";
     final static String description = "Tira nuovamente tutti i dadi della riserva.\n" +
