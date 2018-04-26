@@ -34,20 +34,26 @@ public class ClientHandler implements Runnable {
                 try {
                     you = UsersList.Singleton().getUser(username, password);
                 } catch (Exception e) {
-                    out.println("Something went wrong: zorry mate!\n");
+                    out.println("Something about out database went wrong: zorry mate!\n");
+                    return;
                 }
             }
-            else{
+            else {
                 out.println("Insert new Username\n");
-                String name = in.nextLine();
-                out.println("Insert Password\n");
-                try{
-                    UsersList.Singleton().register(name, in.nextLine(),this.socket);
-                }catch (HomonymyException)
-
+                boolean successo = false;
+                while (!successo) {
+                    try {
+                        String username = in.nextLine();
+                        UsersList.Singleton().checkHomonymy(username);
+                        out.println("Insert password\n");
+                        you = UsersList.Singleton().register(username, in.nextLine(), this.socket);
+                        successo = true;
+                    } catch (HomonymyException e) {
+                        out.println(e.getMessage());
+                    }
                 }
-
-
+            }
+            out.println("Welcome to the sala d'attesa. here the games");
         }  catch (IOException e){
             System.err.println(e.getMessage());
         }
