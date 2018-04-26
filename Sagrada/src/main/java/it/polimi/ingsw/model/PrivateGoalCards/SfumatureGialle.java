@@ -10,7 +10,7 @@ public class SfumatureGialle implements GoalCard {
     static private int ID = 2;
     static private String name = "Sfumature Gialle";
     static private String description = "Somma dei valori su tutti i dadi gialli.";
-    public int point=0;
+
 
 
     @Override
@@ -19,7 +19,7 @@ public class SfumatureGialle implements GoalCard {
         for(int column=0; column<4; column++){
             for(int row=0; row<5; row++) {
                 if (player.getScheme().getDiceColour(row, column)== color) {
-                    this.point += player.getScheme().getDiceIntensity(row, column);
+                    player.addPoints(player.getScheme().getDiceIntensity(row, column));
                 }
             }
         }
@@ -37,8 +37,6 @@ public class SfumatureGialle implements GoalCard {
     public  String getDescription() {
         return description;
     }
-
-    public int getPoint(){return this.point;}
 
 }
 

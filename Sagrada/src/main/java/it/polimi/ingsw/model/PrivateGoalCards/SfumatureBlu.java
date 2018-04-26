@@ -10,15 +10,14 @@ public class SfumatureBlu implements GoalCard {
     static private int ID = 4;
     static private String name = "Sfumature Blu";
     static private String description = "Somma dei valori su tutti i dadi blu.";
-    private int point=0;
 
     @Override
     public void calculatepoint(Player player) {
         DiceColor color = DiceColor.BLUE;
-        for(int column=0; column<4; column++){
-            for(int row=0; row<5; row++) {
+        for(int row=0; row<5; row++){
+            for(int column=0; column<4; column++) {
                 if (player.getScheme().getDiceColour(row, column)== color) {
-                    this.point += player.getScheme().getDiceIntensity(row, column);
+                    player.addPoints(player.getScheme().getDiceIntensity(row, column));
                 }
             }
         }
@@ -37,5 +36,4 @@ public class SfumatureBlu implements GoalCard {
         return description;
     }
 
-    public int getPoint(){return this.point;}
 }

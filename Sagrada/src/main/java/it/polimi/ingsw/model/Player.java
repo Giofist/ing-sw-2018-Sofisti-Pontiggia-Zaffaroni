@@ -59,6 +59,9 @@ public class Player{
     public void setGametable(Gametable gametable) {
         this.gametable = gametable;
     }
+    public void addPoints(int points){
+        this.points += points;
+    }
     public void setPoints(int points) {
         this.points = points;
     }
@@ -71,6 +74,9 @@ public class Player{
     public void addPlayerToState(Player player){
         this.state.add(player);
     }
+
+
+
     public Player getSelectedPlayer (String name) throws PlayerNotFoundException {
         for (Player other_player : this.state) {
             if (other_player.user.getName().equals( name))

@@ -10,7 +10,6 @@ public class SfumatureVerdi implements GoalCard {
     static private int ID = 3;
     static private String name = "Sfumature Verdi";
     static private String description = "Somma dei valori su tutti i dadi verdi.";
-    private int point=0;
 
     @Override
     public void calculatepoint(Player player) {
@@ -18,7 +17,7 @@ public class SfumatureVerdi implements GoalCard {
         for(int column=0; column<4; column++){
             for(int row=0; row<5; row++) {
                 if (player.getScheme().getDiceColour(row, column)== color) {
-                    point += player.getScheme().getDiceIntensity(row, column);
+                    player.addPoints(player.getScheme().getDiceIntensity(row, column));
                 }
             }
         }
@@ -37,6 +36,5 @@ public class SfumatureVerdi implements GoalCard {
         return description;
     }
 
-    public int getPoint(){return this.point;}
 
 }

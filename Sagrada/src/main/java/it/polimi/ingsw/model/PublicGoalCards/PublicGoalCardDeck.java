@@ -3,7 +3,6 @@ package it.polimi.ingsw.model.PublicGoalCards;
 import it.polimi.ingsw.model.GoalCard;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.PublicGoalCards.ColoriDiversiColonna;
-import it.polimi.ingsw.model.SfumatureDiverseRiga;
 
 import java.util.ArrayList;
 import java.util.Collections;
