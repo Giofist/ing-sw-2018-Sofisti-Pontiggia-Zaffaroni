@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.Exceptions;
 
 //questa classe eccezione gestisce il caso in cui l'utente sceglie un nickname non disponibile:
 //nel client handler l'errore viene gestito.

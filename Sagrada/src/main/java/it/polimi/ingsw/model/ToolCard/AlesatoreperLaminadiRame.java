@@ -1,6 +1,9 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.ToolCard;
 
-public class AlesatoreperLaminadiRame  implements ToolAction  {
+import it.polimi.ingsw.model.Exceptions.IllegalOperationException;
+import it.polimi.ingsw.model.Player;
+
+public class AlesatoreperLaminadiRame  implements ToolAction {
     final static int ID = 3;
     final static String cardTitle = "Alesatore per lamina di rame";
     final static String description = "Muovi un qualsiasi dado nella tua vetrata ignorando le restrizioni di valore.\n" +
@@ -17,7 +20,7 @@ public class AlesatoreperLaminadiRame  implements ToolAction  {
 
     @Override
 
-    public void execute () throws IllegalOperationException{
+    public void execute () throws IllegalOperationException {
 
     try {
         //implement here

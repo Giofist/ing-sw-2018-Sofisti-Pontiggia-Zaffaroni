@@ -1,4 +1,7 @@
 package it.polimi.ingsw.model;
+import it.polimi.ingsw.model.Exceptions.NotEnoughSegnaliniException;
+import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
+
 import java.net.Socket;
 import java.util.*;
 
@@ -23,7 +26,7 @@ public class Player{
     public void setSegnalini_favore(int segnalinifavore) {
         this.segnalini_favore = segnalinifavore;
     }
-    public void payforTool(int cost)throws NotEnoughSegnaliniException{
+    public void payforTool(int cost)throws NotEnoughSegnaliniException {
         if(this.getSegnalini_favore() < cost){
             throw new NotEnoughSegnaliniException();
         }

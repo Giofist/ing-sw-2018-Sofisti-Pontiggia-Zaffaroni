@@ -1,4 +1,7 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.SchemeDeck;
+import it.polimi.ingsw.model.Dice;
+import it.polimi.ingsw.model.DiceColor;
+
 import java.io.*;
 import java.lang.String;
 
@@ -14,22 +17,22 @@ public class SchemeCard{
     private String MapName;
 
     public SchemeCard(int mapID) throws IOException {
-        this.inizialize( mapID);
+        this.initialize( mapID);
     }
 
-    public void inizialize (int mapID ) throws IOException{
+    public void initialize (int mapID ) throws IOException{
 
 
 
         String fileName = "Maps.txt";
         try (BufferedReader buffer = new BufferedReader(new FileReader(fileName))) {
 
-            //SCANDISCO IL FILE FINO ALLA RIGA DESIDERATA
+            //SCANDISCO IL FILE FINO ALLA RIGA Dove si trova la mappa che devo caricare
             for (int j = 0; j < mapID * 3 + 1; j++) {
                 buffer.readLine();
             }
 
-            //read map array
+            //set the map name
             this.MapName = buffer.readLine();
 
             //setDifficulty
@@ -86,8 +89,6 @@ public class SchemeCard{
                             tile.setNumberConstrain(6);
                             tile.setHaveNumber_constrain(true);
                             break;
-                        case ' ':
-
                         default:
                             break; //aggiungere segnale di errore
                     }
@@ -97,8 +98,6 @@ public class SchemeCard{
         catch (IOException e){
             throw e;
         }
-
-        //alla fine si farà
         this.twinCard = new SchemeCard(mapID+1);
     }
 
@@ -112,12 +111,16 @@ public class SchemeCard{
     public String getMapName(){
         return this.MapName;
     }
+    public void setDice (Dice dice, int row, int column, boolean IgnoreColor, boolean IgnoreNumber){
+        this.matrix[row][column].setDice(dice, IgnoreColor, IgnoreNumber);
+    }
+
 
     public SchemeCard getTwinCard() {
         return twinCard;
     }
-    public Tile getTile(int row, int column){
-        return this.matrix[row][column];
+    public Dice removeDice(int row, int column){
+        return this.matrix[row][column].removeDice();
     }
 
 }

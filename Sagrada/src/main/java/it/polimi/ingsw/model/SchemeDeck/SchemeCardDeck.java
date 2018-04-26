@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.SchemeDeck;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
-
+//the user can upload a map he has kindly prepared for us only before the game starts
 public class SchemeCardDeck {
     private ArrayList<Integer> maps = new ArrayList<>();
 

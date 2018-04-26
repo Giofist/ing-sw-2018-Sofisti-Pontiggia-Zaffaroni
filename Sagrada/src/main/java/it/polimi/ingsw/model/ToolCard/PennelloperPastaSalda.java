@@ -1,6 +1,8 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.ToolCard;
 
-public class PennelloperPastaSalda  implements ToolAction  {
+import it.polimi.ingsw.model.Player;
+
+public class PennelloperPastaSalda  implements ToolAction {
     final static int ID = 6;
     final static String cardTitle = "Pennello per Pasta Salda";
     final static String description = "Dopo aver scelto un dado tira nuovamente quel dado.\n" +

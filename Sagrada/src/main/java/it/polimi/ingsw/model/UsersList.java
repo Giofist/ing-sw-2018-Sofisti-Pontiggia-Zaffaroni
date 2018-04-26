@@ -1,4 +1,6 @@
 package it.polimi.ingsw.model;
+import it.polimi.ingsw.model.Exceptions.HomonymyException;
+
 import java.net.Socket;
 import java.util.*;
 
@@ -33,7 +35,7 @@ public class UsersList {
     }
 
     //classe che permette di registrarsi
-    public User register (String name,String password, Socket socket ) throws HomonymyException{
+    public User register (String name,String password, Socket socket ) throws HomonymyException {
         for (User user: this.users){
             if(user.getName() == name) {
                 throw new HomonymyException();
