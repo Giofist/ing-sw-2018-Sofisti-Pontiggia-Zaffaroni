@@ -8,6 +8,7 @@ public class Gametable {
     private DicePool roundDicepool;//dicepool of the current round
     private PrivateGoalCardDeck privategoalcardsdeck;
     private PublicGoalCardDeck publicGoalCardDeck;
+    private SchemeCardDeck schemeCardDeck;
 
     //constructor
     public Gametable(){
@@ -25,6 +26,8 @@ public class Gametable {
         this.tooldeck =  new ToolCardsHandler();
         this.privategoalcardsdeck= new PrivateGoalCardDeck();
         this.publicGoalCardDeck = new PublicGoalCardDeck();
+        this.schemeCardDeck = new SchemeCardDeck();
+
 
     }
 
@@ -51,12 +54,16 @@ public class Gametable {
         return this.roundDicepool.getDice(position);
     }
 
-    //to get IDs
+    //to get IDs and description of the public goals
     public ArrayList getPublicGoalDescriptions(){
         return this.publicGoalCardDeck.getDescriptions();
     }
     public ArrayList getPublicGoalIDs(){
         return this.publicGoalCardDeck.getIDs();
+    }
+
+    public SchemeCard getSchemeCard(){
+        return this.schemeCardDeck.getCard();
     }
 
 
