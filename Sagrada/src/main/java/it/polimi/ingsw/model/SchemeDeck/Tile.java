@@ -26,8 +26,6 @@ public class Tile {
     public void setHaveNumber_constrain(boolean haveNumber_constrain) {
         this.haveNumber_constrain = haveNumber_constrain;
     }
-
-
     public DiceColor getColor_Constrain(){
         return color_constrain;}
 
