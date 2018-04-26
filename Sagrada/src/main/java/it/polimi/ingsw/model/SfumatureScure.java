@@ -1,9 +1,9 @@
 package it.polimi.ingsw.model;
 //obiettivo pubblico
-public class ColoriDiversiColonna implements GoalCard {
-    static int ID = 2;
-    static String name = "Colori Diversi - Colonna";
-    static String description = "Colonne senza colori ripetuti.";
+public class SfumatureScure implements GoalCard {
+    static int ID = 7;
+    static String name = "Sfumature Scure";
+    static String description = "Set di 5 & 6 ovunque.";
     @Override
     public void calculatepoint(Player player) {
         //not implemented yet
