@@ -9,7 +9,7 @@ public class SfumatureChiare implements GoalCard {
     static String name = "Sfumature Chiare";
     static String description = "Set di 1 & 2 ovunque.";
     @Override
-    public int calculatepoint(Player player) {
+    public void calculatepoint(Player player) {
         //not implemented yet
     }
 

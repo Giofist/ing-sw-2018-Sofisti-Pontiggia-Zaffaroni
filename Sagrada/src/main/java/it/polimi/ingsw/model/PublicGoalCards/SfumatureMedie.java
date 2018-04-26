@@ -10,7 +10,7 @@ public class SfumatureMedie implements GoalCard {
     static String description = "Set di 3 & 4 ocunque.";
 
     @Override
-    public int calculatepoint(Player player) {
+    public void calculatepoint(Player player) {
         //not implemented yet
     }
 

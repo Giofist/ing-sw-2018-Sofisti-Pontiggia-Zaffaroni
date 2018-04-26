@@ -9,7 +9,7 @@ public class SfumatureDiverseColonna implements GoalCard {
     static String name = "Sfumature Diverse - Colonna";
     static String description = "Colonne senza sfumature ripetute.";
     @Override
-    public int calculatepoint(Player player) {
+    public void  calculatepoint(Player player) {
         //not implemented yet
     }
 
