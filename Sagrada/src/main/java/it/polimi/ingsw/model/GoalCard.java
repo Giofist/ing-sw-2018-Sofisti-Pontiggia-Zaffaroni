@@ -5,4 +5,5 @@ public interface GoalCard {
     public int getID();
     public String getName();
     public String getDescription();
+    public int getPoint();
 }
