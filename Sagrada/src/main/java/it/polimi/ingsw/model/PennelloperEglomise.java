@@ -18,7 +18,7 @@ public class PennelloperEglomise  implements ToolAction  {
     public void execute () throws IllegalOperationException{
 
     try {
-        
+
     } catch  (IllegalOperationException e){
         throw e;
         }

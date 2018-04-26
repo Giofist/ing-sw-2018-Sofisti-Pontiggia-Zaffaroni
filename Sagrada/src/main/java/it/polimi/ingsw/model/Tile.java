@@ -49,6 +49,7 @@ public class Tile {
         setFree();
         return dice;
     }
+
     public boolean isOccupied(){ return occupied;} //we can return the dice
 
     public void setOccupied(){ this.occupied = true;}
