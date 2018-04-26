@@ -1,6 +1,9 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.Exceptions.ConstrainException;
+import it.polimi.ingsw.model.Exceptions.PrivateGoalCardException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
+import it.polimi.ingsw.model.PrivateGoalCards.PrivateGoalCardDeck;
 import it.polimi.ingsw.model.PublicGoalCards.PublicGoalCardDeck;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCardDeck;
@@ -50,7 +53,7 @@ public class Gametable {
     }
 
     //to get the private Goal card
-    public GoalCard getPrivateGoalCard() {
+    public GoalCard getPrivateGoalCard() throws PrivateGoalCardException {
         return this.privategoalcardsdeck.getCard();
     }
 
@@ -69,15 +72,22 @@ public class Gametable {
     public List<String> getPublicGoalDescriptions() {
         return this.publicGoalCardDeck.getDescriptions();
     }
-    public List<String> getPublicGoalNames(){return this.publicGoalCardDeck.getCardsNames()};
+    public List<String> getPublicGoalNames(){return this.publicGoalCardDeck.getCardsNames();};
     public List getPublicGoalIDs() {
         return this.publicGoalCardDeck.getIDs();
     }
 
 
     // to get a scheme card
-    public SchemeCard getSchemeCard() {
+    public SchemeCard getSchemeCard() throws IOException, ConstrainException {
         return this.schemeCardDeck.getCard();
+    }
+
+    //to calculate all points for all players
+    public void calculatePointsforAllPlayers(List<Player> players){
+        for (Player player:  players) {
+            this.publicGoalCardDeck.doCalculatePoints(player);
+        }
     }
 }
 

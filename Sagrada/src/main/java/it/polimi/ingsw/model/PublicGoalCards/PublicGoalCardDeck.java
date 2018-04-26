@@ -47,7 +47,6 @@ public class PublicGoalCardDeck {
             case 10 : this.deck.add(new VarietaDiColore());break;
             default: break; // add an Exception here
         }
-
     }
 
 
@@ -60,7 +59,7 @@ public class PublicGoalCardDeck {
 
     //to get the IDs, descriptions and Names of public goal cards
     public List<Integer> getIDs(){
-         ArrayList<Integer> IDs = new ArrayList<Integer>();
+         ArrayList<Integer>IDs = new ArrayList<>();
          for (GoalCard goalCard: this.deck) {
             IDs.add(goalCard.getID());
          }

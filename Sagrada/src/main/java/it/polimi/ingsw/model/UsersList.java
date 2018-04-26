@@ -36,14 +36,17 @@ public class UsersList {
 
     //classe che permette di registrarsi
     public User register (String name,String password, Socket socket ) throws HomonymyException {
-        for (User user: this.users){
-            if(user.getName() == name) {
-                throw new HomonymyException();
-            }
-        }
         User user = new User(name, password, socket);
         this.users.add(user);
         return user;
+    }
+    // to check Homonymy
+    public void checkHomonymy(String name) throws HomonymyException{
+        for (User user:this.users) {
+            if(user.getName().equals(name)){
+                throw new HomonymyException();
+            }
+        }
     }
 
     //rimuovere un'utente che vuole cancellarsi ( opzionale)
@@ -54,6 +57,14 @@ public class UsersList {
     //metodo getter della lista
     public LinkedList<User> getUsers() {
         return users;
+    }
+
+    public User getUser(String name, String password) throws Exception{
+        for (User user: this.users) {
+            if (user.getName() == name && user.getPassword() == password)
+                return user;
+        }
+        throw new Exception();
     }
 
 

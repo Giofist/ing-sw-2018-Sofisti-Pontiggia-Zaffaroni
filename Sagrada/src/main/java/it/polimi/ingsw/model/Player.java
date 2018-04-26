@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 import it.polimi.ingsw.model.Exceptions.NotEnoughSegnaliniException;
+import it.polimi.ingsw.model.Exceptions.PlayerNotFoundException;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 
 import java.net.Socket;
@@ -12,6 +13,7 @@ public class Player{
     private SchemeCard scheme;
     private List<Player> state;
     private Gametable gametable;
+    private int points;
 
 
     //costruttore
@@ -35,6 +37,7 @@ public class Player{
         }
     }
 
+
     public void setPrivateGoalCard ( GoalCard privateGoalCard){
         this.privateGoalCard = privateGoalCard;
     }
@@ -56,10 +59,16 @@ public class Player{
     public void setGametable(Gametable gametable) {
         this.gametable = gametable;
     }
+    public void setPoints(int points) {
+        this.points = points;
+    }
+    public int getPoints(){
+        return this.points;
+    }
     public List<Player> getState(){
         return this.state;
     }
-    public void addPlayer(Player player){
+    public void addPlayerToState(Player player){
         this.state.add(player);
     }
     public Player getSelectedPlayer (String name) throws PlayerNotFoundException {

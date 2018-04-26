@@ -9,7 +9,7 @@ public class VarietaDiColore implements GoalCard {
     static String name = "Varietà di Colore";
     static String description = "Set di dadi di ogni colore ovunque.";
     @Override
-    public int calculatepoint(Player player) {
+    public void calculatepoint(Player player) {
         //not implemented yet
     }
 
