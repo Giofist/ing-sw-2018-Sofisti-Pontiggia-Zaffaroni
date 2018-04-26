@@ -56,5 +56,13 @@ public class UsersList {
         return users;
     }
 
+    public User getUser(String name, String password) throws Exception{
+        for (User user: this.users) {
+            if (user.getName() == name && user.getPassword() == password)
+                return user;
+        }
+        throw new Exception();
+    }
+
 
 }
