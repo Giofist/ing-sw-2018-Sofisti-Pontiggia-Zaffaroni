@@ -29,11 +29,9 @@ public class PrivateGoalCardDeck {
             case 3: return new SfumatureVerdi();
             case 4: return new SfumatureBlu();
             case 5: return new SfumatureViola();
-            default: throw new PrivateGoalCardException();  //add an exception here;
+            default: throw new PrivateGoalCardException();
         }
     }
-
-
     public int getRandomID(){
         int value = this.cards.get(0);
         this.cards.remove(0);

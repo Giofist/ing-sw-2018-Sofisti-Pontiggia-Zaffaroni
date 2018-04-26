@@ -82,6 +82,13 @@ public class Gametable {
     public SchemeCard getSchemeCard() throws IOException, ConstrainException {
         return this.schemeCardDeck.getCard();
     }
+
+    //to calculate all points for all players
+    public void calculatePointsforAllPlayers(List<Player> players){
+        for (Player player:  players) {
+            this.publicGoalCardDeck.doCalculatePoints(player);
+        }
+    }
 }
 
 
