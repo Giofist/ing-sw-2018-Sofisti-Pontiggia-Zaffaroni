@@ -37,4 +37,9 @@ public class AlesatoreperLaminadiRame  implements ToolAction {
     public String getDescription(){
         return description;
     }
+
+    @Override
+    public String getName() {
+        return null;
+    }
 }

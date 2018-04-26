@@ -6,4 +6,5 @@ public interface ToolAction {
     public void execute () throws ToolIllegalOperationException;
     public int getID();
     public String getDescription();
+    public String getCardTitle();
 }

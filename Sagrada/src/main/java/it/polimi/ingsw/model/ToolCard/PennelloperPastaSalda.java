@@ -18,7 +18,7 @@ public class PennelloperPastaSalda  implements ToolAction {
     @Override
 
     public void execute () {
-        player.getGametable().getRoundDice(this.selectedDiceIndex).setRandomIntensity();
+        this.player.getGametable().getRoundDice(this.selectedDiceIndex).setRandomIntensity();
     }
 
         @Override
@@ -29,4 +29,6 @@ public class PennelloperPastaSalda  implements ToolAction {
     public String getDescription(){
         return description;
     }
+    @Override
+    public String getCardTitle(){ return cardTitle};
 }

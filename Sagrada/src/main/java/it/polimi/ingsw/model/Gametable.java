@@ -1,17 +1,19 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
+import it.polimi.ingsw.model.PublicGoalCards.PublicGoalCardDeck;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCardDeck;
 import it.polimi.ingsw.model.ToolCard.ToolAction;
-import it.polimi.ingsw.model.ToolCard.ToolCardsHandler;
+import it.polimi.ingsw.model.ToolCard.ToolCardsDeck;
 
-import java.util.ArrayList;
-
+import java.io.IOException;
+import java.util.List;
 
 
 //Gametable non deve esporre la propria implementazione, ma deve fare tutto da sè
 public class Gametable {
-    private ToolCardsHandler tooldeck;
+    private ToolCardsDeck tooldeck;
     private DicePool dicepool;
     private DicePool roundDicepool;//dicepool of the current round
     private PrivateGoalCardDeck privategoalcardsdeck;
@@ -19,21 +21,16 @@ public class Gametable {
     private SchemeCardDeck schemeCardDeck;
 
     //constructor
-    public Gametable() {
+    public Gametable() throws IOException {
         prepareGame();
     }
-
-
-
     //first to do when preparing a game
-    public void prepareGame() {
+    private void prepareGame() throws IOException {
         this.dicepool = new DicePool();
-        this.tooldeck = new ToolCardsHandler();
+        this.tooldeck = new ToolCardsDeck();
         this.privategoalcardsdeck = new PrivateGoalCardDeck();
         this.publicGoalCardDeck = new PublicGoalCardDeck();
         this.schemeCardDeck = new SchemeCardDeck();
-
-
     }
 
     //to do when preparing a round
@@ -44,17 +41,12 @@ public class Gametable {
         }
     }
 
-
     //per la gestione delle toolAction
     public int costofToolAction (int id){
         return this.tooldeck.getCost(id);
     }
-
-
-
-    public void useaToolCard(ToolAction toolAction){
+    public void useaToolCard(ToolAction toolAction) throws ToolIllegalOperationException{
        this.tooldeck.doAction(toolAction);
-
     }
 
     //to get the private Goal card
@@ -73,17 +65,17 @@ public class Gametable {
         return this.roundDicepool.getDice(position);
     }
 
-    //to get IDs and description of the public goals
-    public ArrayList getPublicGoalDescriptions() {
+    //to get IDs and description and names of the public goals
+    public List<String> getPublicGoalDescriptions() {
         return this.publicGoalCardDeck.getDescriptions();
     }
-
-    public ArrayList getPublicGoalIDs() {
+    public List<String> getPublicGoalNames(){return this.publicGoalCardDeck.getCardsNames()};
+    public List getPublicGoalIDs() {
         return this.publicGoalCardDeck.getIDs();
     }
 
 
-    //
+    // to get a scheme card
     public SchemeCard getSchemeCard() {
         return this.schemeCardDeck.getCard();
     }

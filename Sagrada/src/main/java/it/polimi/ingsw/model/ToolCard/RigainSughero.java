@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.ToolCard;
 
 import it.polimi.ingsw.model.Exceptions.IllegalOperationException;
+import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.Player;
 
 public class RigainSughero  implements ToolAction {
@@ -20,13 +21,8 @@ public class RigainSughero  implements ToolAction {
 
     @Override
 
-    public void execute () throws IllegalOperationException {
-
-    try {
-//IMPLEMENT HERE
-    } catch  (IllegalOperationException e){
-        throw e;
-    }
+    public void execute () throws ToolIllegalOperationException {
+        //not implemented yet
     }
 
     @Override

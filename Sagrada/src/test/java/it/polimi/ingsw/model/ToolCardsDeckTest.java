@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class ToolCardsHandlerTest {
+public class ToolCardsDeckTest {
 
     @Test
     public void getCost() {

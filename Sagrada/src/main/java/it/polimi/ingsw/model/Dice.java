@@ -67,9 +67,6 @@ public class Dice {
         }
     }
 
-
-
-
     @Override
     public String toString() {
         return "[DICE] color: " + this.color + ", intensity: "+ this.INTENSITY;

@@ -4,9 +4,9 @@ import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIlleg
 import it.polimi.ingsw.model.Player;
 
 public class PinzaSgrossatrice  implements ToolAction {
-    final static int ID = 1;
-    final static String cardTitle = "Pinza Sgrossatrice";
-    final static String description = "Dopo aver scelto un dado, aumenta o diminuisci il valore del dado scelto di 1.\n" +
+    static final int ID = 1;
+    static final String cardTitle = "Pinza Sgrossatrice";
+    static final String description = "Dopo aver scelto un dado, aumenta o diminuisci il valore del dado scelto di 1.\n" +
                                         "Non puoi cambiare un 6 in 1 o un 1 in 6.";
 
 
@@ -37,4 +37,6 @@ public class PinzaSgrossatrice  implements ToolAction {
     public String getDescription(){
         return description;
     }
+    @Override
+    public String getCardTitle(){return cardTitle;}
 }
