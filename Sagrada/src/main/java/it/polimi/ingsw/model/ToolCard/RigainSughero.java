@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model.ToolCard;
 
-import it.polimi.ingsw.model.Exceptions.IllegalOperationException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.Player;
 
@@ -29,6 +28,10 @@ public class RigainSughero  implements ToolAction {
     public int getID(){
         return ID;
     }
+
+    @Override
+    public String getCardTitle(){return cardTitle;}
+
     @Override
     public String getDescription(){
         return description;

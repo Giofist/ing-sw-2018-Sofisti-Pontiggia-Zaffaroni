@@ -21,14 +21,16 @@ public class PennelloperPastaSalda  implements ToolAction {
         this.player.getGametable().getRoundDice(this.selectedDiceIndex).setRandomIntensity();
     }
 
-        @Override
+    @Override
     public int getID(){
         return ID;
     }
+
     @Override
     public String getDescription(){
         return description;
     }
+
     @Override
     public String getCardTitle(){ return cardTitle;};
 }

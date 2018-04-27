@@ -21,7 +21,7 @@ public class Martelletto  implements ToolAction {
 
     public void execute (){
 
-        player.getGametable().getRoundDicepool().scrambleDicePool();
+        //player.getGametable().getRoundDicepool().scrambleDicePool();
         //add Limitation on round??
     }
 
@@ -29,6 +29,10 @@ public class Martelletto  implements ToolAction {
     public int getID(){
         return ID;
     }
+
+    @Override
+    public String getCardTitle(){return cardTitle;}
+
     @Override
     public String getDescription(){
         return description;

@@ -1,4 +1,5 @@
 package it.polimi.ingsw.model.ToolCard;
+import it.polimi.ingsw.model.Exceptions.TileException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 
 
@@ -30,7 +31,7 @@ public class ToolCardsDeck {
         }
     }
     //command design pattern
-    public void doAction(ToolAction toolAction) throws ToolIllegalOperationException {
+    public void doAction(ToolAction toolAction) throws ToolIllegalOperationException, TileException {
                 setCostOfAction(toolAction.getID());
                 toolAction.execute();
         }

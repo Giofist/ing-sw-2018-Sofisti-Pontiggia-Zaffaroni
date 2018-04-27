@@ -21,7 +21,7 @@ public class TenagliaRotelle  implements ToolAction {
     @Override
 
     public void execute (){
-        player.getGametable().getDicepool().extractDice();
+        //player.getGametable().getDicepool().extractDice();
         //skip next round TO BE IMPLEMENTED
     }
 
@@ -29,6 +29,10 @@ public class TenagliaRotelle  implements ToolAction {
     public int getID(){
         return ID;
     }
+
+    @Override
+    public String getCardTitle(){return cardTitle;}
+
     @Override
     public String getDescription(){
         return description;

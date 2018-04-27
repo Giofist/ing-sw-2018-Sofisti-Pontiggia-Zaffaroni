@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model.ToolCard;
 
-import it.polimi.ingsw.model.Exceptions.IllegalOperationException;
+
 import it.polimi.ingsw.model.Player;
 
 public class TaglierinaCircolare  implements ToolAction {
@@ -19,20 +19,18 @@ public class TaglierinaCircolare  implements ToolAction {
 
     @Override
 
-    public void execute () throws IllegalOperationException {
-
-    try {
-//IMPLEMENT HERE
-    } catch  (IllegalOperationException e){
-        throw e;
-    }
-
+    public void execute () {
+        //to be implemented here
     }
 
     @Override
     public int getID(){
         return ID;
     }
+
+    @Override
+    public String getCardTitle(){return cardTitle;}
+
     @Override
     public String getDescription(){
         return description;

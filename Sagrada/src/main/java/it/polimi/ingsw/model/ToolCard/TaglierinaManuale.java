@@ -20,14 +20,9 @@ public class TaglierinaManuale  implements ToolAction {
 
     @Override
 
-    public void execute() throws ToolIllegalOperationException {
+    public void execute() {
 
-    try {
 //IMPLEMENT HERE
-
-    } catch  (ToolIllegalOperationException e){
-        throw e;
-    }
 
     }
 
