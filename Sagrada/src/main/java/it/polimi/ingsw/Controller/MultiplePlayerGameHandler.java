@@ -2,6 +2,7 @@ package it.polimi.ingsw.Controller;
 
 import java.util.*;
 import it.polimi.ingsw.model.User;
+import java.lang.Thread;
 
 
 //non terminata
@@ -24,11 +25,17 @@ public class MultiplePlayerGameHandler extends  TimerTask implements Runnable {
     public int getMaxNumberPlayers(){
         return maxNumberPlayers;
     }
-
+    public int getActualNumberOfPlayers(){
+        return this.users.size();
+    }
+    public void join(User user){
+        this.users.add(user);
+    }
     @Override
     public void run(){
 
     }
+
 
 
 }

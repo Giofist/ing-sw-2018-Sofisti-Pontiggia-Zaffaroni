@@ -2,6 +2,7 @@ package it.polimi.ingsw.model;
 import java.util.*;
 import it.polimi.ingsw.Controller.*;
 import it.polimi.ingsw.model.Exceptions.HomonymyException;
+import java.lang.Thread;
 
 
 //design pattern singleton
@@ -47,6 +48,15 @@ public class MultipleUserGameList {
     //get the list of the existant games
     public LinkedList<MultiplePlayerGameHandler> getgames(){
         return this.games;
+    }
+
+    //check if a game is ready to start
+    public void checkIsReady(){
+        for (MultiplePlayerGameHandler game: this.games) {
+            if(game.getActualNumberOfPlayers() == game.getMaxNumberPlayers()){
+                new Thread(game).start();
+            }
+        }
     }
 
 

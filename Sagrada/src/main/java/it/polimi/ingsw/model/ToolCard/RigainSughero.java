@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model.ToolCard;
 
-import it.polimi.ingsw.model.Exceptions.IllegalOperationException;
+import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.*;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.Player;
 
