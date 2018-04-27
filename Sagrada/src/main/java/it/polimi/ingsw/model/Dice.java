@@ -43,28 +43,7 @@ public class Dice {
     }
 
     public void setOppositeIntensity (){
-        switch (this.INTENSITY){
-            case 1:
-                this.INTENSITY=6;
-                break;
-            case 2:
-                this.INTENSITY=5;
-                break;
-            case 3:
-                this.INTENSITY=4;
-                break;
-            case 4:
-                this.INTENSITY=3;
-                break;
-            case 5:
-                this.INTENSITY=2;
-                break;
-            case 6:
-                this.INTENSITY=1;
-                break;
-            default:
-                break;
-        }
+        this.INTENSITY = 7 - this.INTENSITY;
     }
 
     @Override

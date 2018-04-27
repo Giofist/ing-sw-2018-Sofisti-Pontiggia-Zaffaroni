@@ -20,20 +20,23 @@ public class DicePoolTest {
     @Before
     public void before() {
         this.dicePool = new DicePool(18, 18, 18, 18, 18);
+
         this.mockDice = mock(Dice.class);
         when(this.mockDice.getColor()).thenReturn(DiceColor.BLUE);
         when(this.mockDice.getIntensity()).thenReturn(2);
 
-        // Check if the constructor created 90 dices
-        assertEquals("Not enough dices initialized", 90, this.dicePool.getDicePoolSize());
         this.expectedBlue = 18;
         this.expectedGreen = 18;
         this.expectedRed = 18;
         this.expectedViolet = 18;
         this.expectedYellow = 18;
-        testCorrectDicesNumbers();
     }
 
+    @Test
+    public void testDicePoolSize(){
+        int expectedSize = expectedBlue + expectedGreen + expectedRed + expectedViolet + expectedYellow;
+        assertEquals("Wrong Size", expectedSize, this.dicePool.getDicePoolSize());
+    }
 
 
     @Test
@@ -44,11 +47,10 @@ public class DicePoolTest {
         int redDices = 0;
         int violetDices = 0;
         int yellowDices = 0;
-        Dice currentDice;
+
 
         for (int i = 0; i < this.dicePool.getDicePoolSize(); i++) {
-            currentDice = this.dicePool.getDice(i);
-            switch (currentDice.getColor()){
+            switch (this.mockDice.getColor()){
                 case BLUE:
                     blueDices += 1;
                     break;
