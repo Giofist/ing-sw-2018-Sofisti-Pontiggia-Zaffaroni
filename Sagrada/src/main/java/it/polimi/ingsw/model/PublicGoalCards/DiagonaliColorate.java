@@ -11,6 +11,7 @@ public class DiagonaliColorate implements GoalCard {
     @Override
     public void calculatepoint(Player player) {
         //not implemented yet
+       // player.addPoints(numero dadi diagonali colorate);
     }
 
     @Override
