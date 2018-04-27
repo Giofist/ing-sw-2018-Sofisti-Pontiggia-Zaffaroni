@@ -11,6 +11,8 @@ import java.util.Collections;
 //command pattern just like schemecarddeck
 public class PrivateGoalCardDeck {
     private ArrayList<Integer> cards;
+
+
     //constructor
     public PrivateGoalCardDeck() {
         this.cards = new ArrayList<>();

@@ -15,15 +15,14 @@ public class SfumatureViola implements GoalCard {
     @Override
     public void calculatepoint(Player player) {
         DiceColor color = DiceColor.VIOLET;
-        for(int column=0; column<4; column++){
-            for(int row=0; row<5; row++) {
+        for(int column=0; column<5; column++){
+            for(int row=0; row<4; row++) {
                 if (player.getScheme().getDiceColour(row, column)== color) {
                     player.addPoints(player.getScheme().getDiceIntensity(row, column));
                 }
             }
         }
     }
-
     @Override
     public  int getID() {
         return ID;

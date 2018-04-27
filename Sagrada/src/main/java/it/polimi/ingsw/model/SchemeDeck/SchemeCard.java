@@ -13,7 +13,7 @@ import static it.polimi.ingsw.model.DiceColor.VIOLET;
 
 public class SchemeCard{
     private int difficulty;
-    private Tile[][] matrix = new Tile[5][4];
+    private Tile[][] matrix = new Tile[4][5];
     private SchemeCard twinCard;
     private int ID;
     private String MapName;
@@ -45,8 +45,8 @@ public class SchemeCard{
 
 
             //set Tiles
-            for(int a=0; a<5; a++) {
-                for (int b = 0; b < 4; b++) {
+            for(int a=0; a<4; a++) {
+                for (int b = 0; b < 5; b++) {
                     Tile tile = this.matrix[a][b];
                     switch (map[a * 5 + b]) {
                         case 'Y':

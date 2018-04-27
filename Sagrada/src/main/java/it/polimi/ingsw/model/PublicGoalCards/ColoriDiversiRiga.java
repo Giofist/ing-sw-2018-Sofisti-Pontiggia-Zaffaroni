@@ -3,7 +3,7 @@ package it.polimi.ingsw.model.PublicGoalCards;
 import it.polimi.ingsw.model.DiceColor;
 import it.polimi.ingsw.model.GoalCard;
 import it.polimi.ingsw.model.Player;
-
+// TODO classe da rifare
 //obiettivo pubblico
 public class ColoriDiversiRiga implements GoalCard {
     static int ID = 1;
