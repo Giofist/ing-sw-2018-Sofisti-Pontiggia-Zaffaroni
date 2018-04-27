@@ -1,5 +1,5 @@
 package it.polimi.ingsw.model.ToolCard;
-import it.polimi.ingsw.model.Exceptions.TileException;
+import it.polimi.ingsw.model.Exceptions.TileConstrainException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 
 
@@ -31,7 +31,7 @@ public class ToolCardsDeck {
         }
     }
     //command design pattern
-    public void doAction(ToolAction toolAction) throws ToolIllegalOperationException, TileException {
+    public void doAction(ToolAction toolAction) throws ToolIllegalOperationException, TileConstrainException {
                 setCostOfAction(toolAction.getID());
                 toolAction.execute();
         }

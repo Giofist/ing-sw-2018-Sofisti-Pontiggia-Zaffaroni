@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.PrivateGoalCards;
 
 
 import it.polimi.ingsw.model.DiceColor;
+import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
 import it.polimi.ingsw.model.GoalCard;
 import it.polimi.ingsw.model.Player;
 
@@ -18,8 +19,12 @@ public class SfumatureBlu implements GoalCard {
         DiceColor color = DiceColor.BLUE;
         for(int row=0; row<4; row++){
             for(int column=0; column<5; column++) {
-                if (player.getScheme().getDiceColour(row, column)== color) {
-                    player.addPoints(player.getScheme().getDiceIntensity(row, column));
+                try{
+                    if (player.getScheme().getDiceColour(row, column)== color) {
+                        player.addPoints(player.getScheme().getDiceIntensity(row, column));
+                    }
+                }catch (DiceNotExistantException e){
+                    //zorry, there is no dice
                 }
             }
         }

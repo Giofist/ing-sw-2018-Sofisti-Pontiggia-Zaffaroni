@@ -1,8 +1,9 @@
 package it.polimi.ingsw.model.PublicGoalCards;
 
+import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
 import it.polimi.ingsw.model.GoalCard;
 import it.polimi.ingsw.model.Player;
-
+//revisionata by pon
 //obiettivo pubblico
 public class SfumatureScure implements GoalCard {
     static int ID = 7;
@@ -11,23 +12,26 @@ public class SfumatureScure implements GoalCard {
 
     @Override
     public void  calculatepoint(Player player) {
-        int[] counter;   // array che conta le occorrenze
-        counter = new int[6];
-        int nRow=0;
-        int min=4; // inizializzo a 4 ma massima possibile combinazione è 3 da 1 a 6
+        int numerodi5=0;
+        int numerodi6=0;
 
         for(int column=0; column<5; column++) {
             for (int row = 0; row < 4; row++) {
-                counter[player.getScheme().getDiceIntensity(row, column)-1]++;
+                try{
+                    if(player.getScheme().getDiceIntensity(row, column)==5){
+                        numerodi5++;
+                    }
+                    if(player.getScheme().getDiceIntensity(row, column)==6){
+                        numerodi6++;
+                    }
+                }catch (DiceNotExistantException e){
+                    //no dice, do point
+                }
             }
         }
-
-        for(int i=4; i<6; i++){ // verifico numero massimo di set presenti
-            if(counter[i]<min){
-                min=counter[i];
-            }
-        }
-        player.addPoints(min*2);
+        player.addPoints((int)Math.floor(numerodi5/2)*2);
+        player.addPoints((int)Math.floor(numerodi6/2)*2);
+        //il metodo floor di java.math arrotonda al decimale inferiore il risultato di numerodi* diviso 2
     }
 
     @Override

@@ -1,8 +1,16 @@
 package it.polimi.ingsw.model.PublicGoalCards;
 
+import it.polimi.ingsw.model.DiceColor;
+import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
+import it.polimi.ingsw.model.Exceptions.TwoDiceSameColorException;
+import it.polimi.ingsw.model.Exceptions.TwoDiceSameShadeException;
 import it.polimi.ingsw.model.GoalCard;
 import it.polimi.ingsw.model.Player;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+//revisionata by pon
 //obiettivo pubblico
 public class SfumatureDiverseColonna implements GoalCard {
     static int ID = 4;
@@ -11,28 +19,24 @@ public class SfumatureDiverseColonna implements GoalCard {
 
     @Override
     public void  calculatepoint(Player player) {
-        int[] counter;
-        counter = new int[6];
-        int nCol=0;
-        int numDice=0;
-        boolean allDiff=true;
-
-        for(int row=0; row<4; row++) {
-            for (int column = 0; column < 5; column++) {
-                counter[player.getScheme().getDiceIntensity(row, column)-1]++;
-            }
-            for(int i=0; i<6 && allDiff; i++){
-                if(counter[i]<=1){
-                    numDice+=counter[i];
+        int column = 0;
+        for (column = 0; column < 5; column++) {
+            try {
+                List<Integer> existingshades = new ArrayList<Integer>();
+                for (int row = 0; row < 4; row++) {
+                    if (existingshades.contains(player.getScheme().getDiceIntensity(row, column))) {
+                        throw new TwoDiceSameShadeException();
+                    } else {
+                        existingshades.add(player.getScheme().getDiceIntensity(row, column));
+                    }
                 }
-                else allDiff = false;
+                player.addPoints(4);
+            } catch (TwoDiceSameShadeException e) {
+                //unfortunately you can't get the points
+            }catch (DiceNotExistantException er){
+                //unfortunately you can't get the point
             }
-            if(numDice==4&&allDiff){
-                nCol++;
-            }
-            allDiff=true;
         }
-        player.addPoints(nCol*4);
     }
 
     @Override

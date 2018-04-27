@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.model.Exceptions.ConstrainException;
+import it.polimi.ingsw.model.Exceptions.MapConstrainReadingException;
 import it.polimi.ingsw.model.Exceptions.PrivateGoalCardException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.PrivateGoalCards.PrivateGoalCardDeck;
@@ -79,7 +79,7 @@ public class Gametable {
 
 
     // to get a scheme card
-    public SchemeCard getSchemeCard() throws IOException, ConstrainException {
+    public SchemeCard getSchemeCard() throws IOException, MapConstrainReadingException {
         return this.schemeCardDeck.getCard();
     }
 

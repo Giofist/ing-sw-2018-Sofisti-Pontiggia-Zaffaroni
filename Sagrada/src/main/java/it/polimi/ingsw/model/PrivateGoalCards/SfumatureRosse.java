@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.PrivateGoalCards;
 
 import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
 
 //obiettivo privato
 public class SfumatureRosse implements GoalCard {
@@ -14,8 +15,12 @@ public class SfumatureRosse implements GoalCard {
         DiceColor color = DiceColor.RED;
         for(int column=0; column<5; column++){
             for(int row=0; row<4; row++) {
-                if (player.getScheme().getDiceColour(row, column)== color) {
-                    player.addPoints(player.getScheme().getDiceIntensity(row, column));
+                try{
+                    if (player.getScheme().getDiceColour(row, column)== color) {
+                        player.addPoints(player.getScheme().getDiceIntensity(row, column));
+                    }
+                }catch (DiceNotExistantException e){
+                    //zorry, no dice
                 }
             }
         }

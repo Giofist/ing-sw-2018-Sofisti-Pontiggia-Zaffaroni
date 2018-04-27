@@ -25,7 +25,7 @@ public class PennelloperEglomise  implements ToolAction {
 
     @Override
 
-    public void execute () throws TileException {
+    public void execute () throws TileConstrainException {
         muvedDice = player.getScheme().removeDice(row, column);
         player.getScheme().setDice(muvedDice, newRow, newColumn, true, false);
     }

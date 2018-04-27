@@ -1,10 +1,10 @@
 package it.polimi.ingsw.model.ToolCard;
 
 import it.polimi.ingsw.model.Dice;
-import it.polimi.ingsw.model.Exceptions.TileException;
+import it.polimi.ingsw.model.Exceptions.TileConstrainException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.Player;
-
+//revisionata by pon
 public class AlesatoreperLaminadiRame  implements ToolAction {
     final static int ID = 3;
     final static String cardTitle = "Alesatore per lamina di rame";
@@ -13,7 +13,7 @@ public class AlesatoreperLaminadiRame  implements ToolAction {
     private Player player;
     private int selectedDiceIndex;
     private int operation, row, column, newRow, newColumn;
-    Dice remuvedDice;
+    Dice removedDice;
 
     public AlesatoreperLaminadiRame(Player player, int row, int column, int newRow, int newColumn){
         this.player = player;
@@ -25,23 +25,25 @@ public class AlesatoreperLaminadiRame  implements ToolAction {
 
     @Override
 
-    public void execute () throws ToolIllegalOperationException {
-    try {
-        remuvedDice = player.getScheme().removeDice(row, column);
-        player.getScheme().setDice(remuvedDice, newRow, newColumn,false ,true);
-        throw new ToolIllegalOperationException();
-    } catch  (ToolIllegalOperationException e){
-        throw e;
-    } catch (TileException e) {
-        e.printStackTrace();
+    public void execute () throws ToolIllegalOperationException, TileConstrainException {
+        Dice dice = player.getScheme().removeDice(row, column);
+        try {
+            player.getScheme().setDice(dice, newRow, newColumn, false, true);
+        } catch (TileConstrainException e) {
+            try {
+                player.getScheme().setDice(dice, this.row, this.column, false, false);
+                throw e;
+            }catch (TileConstrainException er) {
+                throw er;
+            }
+        }
     }
-    }
+
 
     @Override
     public int getID(){
         return ID;
     }
-
     @Override
     public String getDescription(){
         return description;

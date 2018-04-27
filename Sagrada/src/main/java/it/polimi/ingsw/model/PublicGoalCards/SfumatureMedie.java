@@ -1,33 +1,37 @@
 package it.polimi.ingsw.model.PublicGoalCards;
 
+import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
 import it.polimi.ingsw.model.GoalCard;
 import it.polimi.ingsw.model.Player;
-
+//revisionata by pon
 //obiettivo pubblico
 public class SfumatureMedie implements GoalCard {
     static int ID = 6;
     static String name = "Sfumature Medie";
-    static String description = "Set di 3 & 4 ocunque.";
+    static String description = "Set di 3 & 4 ovunque.";
 
     @Override
     public void  calculatepoint(Player player) {
-        int[] counter;   // array che conta le occorrenze
-        counter = new int[6];
-        int nRow=0;
-        int min=4; // inizializzo a 4 ma massima possibile combinazione è 3 da 1 a 6
+        int numerodi3=0;
+        int numerodi4=0;
 
         for(int column=0; column<5; column++) {
             for (int row = 0; row < 4; row++) {
-                counter[player.getScheme().getDiceIntensity(row, column)-1]++;
+                try{
+                    if(player.getScheme().getDiceIntensity(row, column)==3){
+                        numerodi3++;
+                    }
+                    if(player.getScheme().getDiceIntensity(row, column)==4){
+                        numerodi4++;
+                    }
+                }catch (DiceNotExistantException e){
+                    //no dice, do point
+                }
             }
         }
-
-        for(int i=2; i<4; i++){ // verifico numero massimo di set presenti
-            if(counter[i]<min){
-                min=counter[i];
-            }
-        }
-        player.addPoints(min*2);
+        player.addPoints((int)Math.floor(numerodi3/2)*2);
+        player.addPoints((int)Math.floor(numerodi4/2)*2);
+        //il metodo floor di java.math arrotonda al decimale inferiore il risultato di numerodi* diviso 2
     }
 
     @Override

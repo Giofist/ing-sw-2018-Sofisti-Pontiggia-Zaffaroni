@@ -1,8 +1,9 @@
 package it.polimi.ingsw.model.SchemeDeck;
 import it.polimi.ingsw.model.Dice;
 import it.polimi.ingsw.model.DiceColor;
-import it.polimi.ingsw.model.Exceptions.ConstrainException;
-import it.polimi.ingsw.model.Exceptions.TileException;
+import it.polimi.ingsw.model.Exceptions.MapConstrainReadingException;
+import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
+import it.polimi.ingsw.model.Exceptions.TileConstrainException;
 
 import java.io.*;
 import java.lang.String;
@@ -20,12 +21,12 @@ public class SchemeCard{
     private String MapName;
 
     //constructor
-    public SchemeCard(int mapID) throws IOException, ConstrainException {
+    public SchemeCard(int mapID) throws IOException, MapConstrainReadingException {
         this.initialize( mapID);
     }
 
     //to initialize the schemecard
-    public void initialize (int mapID ) throws IOException,ConstrainException{
+    public void initialize (int mapID ) throws IOException,MapConstrainReadingException {
         String fileName = "Maps.txt";
         try (BufferedReader buffer = new BufferedReader(new FileReader(fileName))) {
 
@@ -91,7 +92,7 @@ public class SchemeCard{
                             tile.setHaveNumber_constrain(true);
                             break;
                         default:
-                            throw new ConstrainException();
+                            throw new MapConstrainReadingException();
                     }
                 }
             }
@@ -109,19 +110,23 @@ public class SchemeCard{
     };
     public int getID(){ return this.ID; };
     public String getMapName(){ return this.MapName; }
-    public void setDice (Dice dice, int row, int column, boolean IgnoreColor, boolean IgnoreNumber)throws TileException{
-        this.matrix[row][column].setDice(dice, IgnoreColor, IgnoreNumber);
+    public void setDice (Dice dice, int row, int column, boolean IgnoreColor, boolean IgnoreNumber)throws TileConstrainException {
+        this.getTile(row,column).setDice(dice, IgnoreColor, IgnoreNumber);
     }
-    public Tile getTile(int row, int column){
+    private Tile getTile(int row, int column){
         return this.matrix[row][column];
     }
 
-    public  DiceColor getDiceColour(int row, int column){
+    public  DiceColor getDiceColour (int row, int column)throws DiceNotExistantException{
         return this.getTile(row, column).getDice().getColor();
     }
-    public int getDiceIntensity(int row, int column){
+    public int getDiceIntensity(int row, int column)throws DiceNotExistantException{
         return this.getTile(row, column).getDice().getIntensity();
     }
+
+
+
+    //può essere utile questa classe?
     public boolean HaveFullColumn(int column){
         boolean havefullColumn = true;
         int i=0;

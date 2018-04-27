@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model.ToolCard;
 
 import it.polimi.ingsw.model.Dice;
-import it.polimi.ingsw.model.Exceptions.TileException;
+import it.polimi.ingsw.model.Exceptions.TileConstrainException;
 import it.polimi.ingsw.model.Player;
 
 public class Lathekin  implements ToolAction {
@@ -27,7 +27,7 @@ public class Lathekin  implements ToolAction {
 
     @Override
 
-    public void execute () throws TileException {
+    public void execute () throws TileConstrainException {
         remuvedDice1 = player.getScheme().removeDice(oldRow1, oldColumn1);
         player.getScheme().setDice(remuvedDice1, newRow1, newColumn1, false, false);
         remuvedDice2 = player.getScheme().removeDice(oldRow2, oldColumn2);

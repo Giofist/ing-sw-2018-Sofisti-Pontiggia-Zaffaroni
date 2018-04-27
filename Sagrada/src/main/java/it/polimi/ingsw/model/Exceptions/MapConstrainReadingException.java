@@ -1,13 +1,13 @@
 package it.polimi.ingsw.model.Exceptions;
 
-public class ConstrainException extends Exception {
+public class MapConstrainReadingException extends Exception {
     private static final String msg = "Unable to read the map from the file Map.txt";
 
-    public ConstrainException() {
+    public MapConstrainReadingException() {
         super(msg);
     }
 
-    public ConstrainException(String msg) {
+    public MapConstrainReadingException(String msg) {
         super(msg);
     }
 }
