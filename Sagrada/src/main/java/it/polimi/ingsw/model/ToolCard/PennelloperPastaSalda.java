@@ -30,5 +30,5 @@ public class PennelloperPastaSalda  implements ToolAction {
         return description;
     }
     @Override
-    public String getCardTitle(){ return cardTitle};
+    public String getCardTitle(){ return cardTitle;};
 }

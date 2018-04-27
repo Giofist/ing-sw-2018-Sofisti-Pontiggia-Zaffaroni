@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.DecreaseNotAllowedException;
+import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.IncreaseNotAllowedException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -29,5 +31,29 @@ public class DiceTest {
     @Test
     public void setRandomIntensity() {
         assertTrue("Intensity out of range " + dice.getIntensity(), 1 <= dice.getIntensity() && dice.getIntensity() <= 6);
+    }
+
+    @Test
+    public void changeIntensityTest() throws DecreaseNotAllowedException, IncreaseNotAllowedException {
+
+        dice.setIntensity(3);
+        assertEquals(3, dice.getIntensity());
+
+        dice.decreaseIntensity();
+        assertEquals(2, dice.getIntensity());
+
+        dice.increaseIntensity();
+        dice.increaseIntensity();
+        assertEquals(4, dice.getIntensity());
+
+        dice.setIntensity(6);
+        dice.increaseIntensity();
+    }
+
+    @Test
+    public void setOppositeIntensityTest() {
+        dice.setIntensity(5);
+        dice.setOppositeIntensity();
+        assertEquals(2, dice.getIntensity());
     }
 }

@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model.ToolCard;
 
-import it.polimi.ingsw.model.Exceptions.IllegalOperationException;
+import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.Player;
 
 public class AlesatoreperLaminadiRame  implements ToolAction {
@@ -20,11 +20,13 @@ public class AlesatoreperLaminadiRame  implements ToolAction {
 
     @Override
 
-    public void execute () throws IllegalOperationException {
+    public void execute () throws ToolIllegalOperationException {
 
     try {
         //implement here
-    } catch  (IllegalOperationException e){
+        // Remove the following line when implementing
+        throw new ToolIllegalOperationException();
+    } catch  (ToolIllegalOperationException e){
         throw e;
     }
     }
@@ -33,13 +35,12 @@ public class AlesatoreperLaminadiRame  implements ToolAction {
     public int getID(){
         return ID;
     }
+
     @Override
     public String getDescription(){
         return description;
     }
 
     @Override
-    public String getName() {
-        return null;
-    }
+    public String getCardTitle() { return cardTitle; }
 }
