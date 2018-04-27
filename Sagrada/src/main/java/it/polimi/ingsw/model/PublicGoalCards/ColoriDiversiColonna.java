@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.GoalCard;
 import it.polimi.ingsw.model.Player;
 
 //obiettivo pubblico
+//TODO classe da rifare
 public class ColoriDiversiColonna implements GoalCard {
     static int ID = 2;
     static String name = "Colori Diversi - Colonna";
