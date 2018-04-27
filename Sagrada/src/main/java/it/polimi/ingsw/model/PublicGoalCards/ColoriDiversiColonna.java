@@ -1,8 +1,13 @@
 package it.polimi.ingsw.model.PublicGoalCards;
 
+import it.polimi.ingsw.model.Dice;
 import it.polimi.ingsw.model.DiceColor;
 import it.polimi.ingsw.model.GoalCard;
 import it.polimi.ingsw.model.Player;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 //obiettivo pubblico
 //TODO classe da rifare
@@ -13,42 +18,24 @@ public class ColoriDiversiColonna implements GoalCard {
 
     @Override
     public void  calculatepoint(Player player) {
-        int[] counter;
-        counter = new int[5];  //array contenenete le occorrenze dei colori
-        int nRow=0;
-        int numColor=0;
-        boolean allDiff=true;
-
-        for(int row = 0; row < 4; row++) {
-            for (int column = 0; column < 5; column++) {
-                if(player.getScheme().getDiceColour(row, column)== DiceColor.RED){
-                    counter[0]++;
-                }
-                else if(player.getScheme().getDiceColour(row, column)== DiceColor.BLUE){
-                    counter[1]++;
-                }
-                else if(player.getScheme().getDiceColour(row, column)== DiceColor.VIOLET){
-                    counter[2]++;
-                }
-                else if(player.getScheme().getDiceColour(row, column)== DiceColor.YELLOW){
-                    counter[3]++;
-                }
-                else if(player.getScheme().getDiceColour(row, column)== DiceColor.GREEN){
-                    counter[4]++;
+        int column = 0;
+        for (column = 0; column < 5; column++) {
+            if (player.getScheme().HaveFullColumn(column)) {
+                try {
+                    List<DiceColor> existingcolors = new LinkedList<DiceColor>();
+                    for (int row = 0; row < 4; row++) {
+                        if (existingcolors.contains(player.getScheme().getDiceColour(row, column))) {
+                            throw new Exception();
+                        } else {
+                            existingcolors.add(player.getScheme().getDiceColour(row, column));
+                        }
+                    }
+                    player.addPoints(5);
+                } catch (Exception e) {
+                    //unfortunately you can't get the points
                 }
             }
-            for(int i=0; i<5 && allDiff; i++){
-                if(counter[i]<=1){
-                    numColor+=counter[i]; //controllo che non ci siano caselle vuote
-                }
-                else allDiff = false; //controllo che non ci siano colori ripetuti
-            }
-            if(numColor==4&&allDiff){
-                nRow++;
-            }
-            allDiff=true;
         }
-        player.addPoints(nRow*5);
     }
 
     @Override

@@ -22,20 +22,17 @@ public class Tile {
     public void setHaveColor_constrain(boolean haveColor_constrain) {
         this.haveColor_constrain = haveColor_constrain;
     }
+    public void setHaveNumber_constrain(boolean haveNumber_constrain) { this.haveNumber_constrain = haveNumber_constrain; }
 
-    public void setHaveNumber_constrain(boolean haveNumber_constrain) {
-        this.haveNumber_constrain = haveNumber_constrain;
-    }
-    public DiceColor getColor_Constrain(){
-        return color_constrain;}
+    public void setColourConstrain(DiceColor tile_color_constrain){this.color_constrain = tile_color_constrain;}
+    public void setNumberConstrain(int number_constrain){this.number_constrain = number_constrain;}
 
+    public DiceColor getColor_Constrain(){ return color_constrain;}
     public int getNumber_Constrain(){ return number_constrain;}
 
 
     public void setDice(Dice dice, boolean IgnoreColor, boolean IgnoreNumber) throws TileException{
-        if (this.isOccupied()){
-            throw new OccupiedTileException();
-        }
+        if (this.isOccupied()){ throw new OccupiedTileException(); }
         if (this.haveColor_constrain() && !IgnoreColor){
             if (dice.getColor() != this.getColor_Constrain()){
                 throw new NotRispectedColorConstrainException();
@@ -51,33 +48,18 @@ public class Tile {
     }
 
 
-
-    public Dice removeDice(){
-        setFree();
-        return dice;
-    }
-
+    public Dice removeDice(){ setFree();return dice; }
     public Dice getDice() {
-        return dice;
+        return this.dice;
     }
 
-    public boolean isOccupied(){ return occupied;}
-
-    public boolean haveColor_constrain() {
-        return haveColor_constrain;
-    }
-
-    public boolean haveNumber_constrain() {
-        return haveNumber_constrain;
-    }
+    public boolean haveColor_constrain() { return haveColor_constrain; }
+    public boolean haveNumber_constrain() { return haveNumber_constrain; }
 
     public void setOccupied(){ this.occupied = true;}
-
     public void setFree(){this.occupied = false;}
+    public boolean isOccupied(){ return occupied;}
 
-    public void setColourConstrain(DiceColor tile_color_constrain){this.color_constrain = tile_color_constrain;}
-
-    public void setNumberConstrain(int number_constrain){this.number_constrain = number_constrain;}
 
 
 }

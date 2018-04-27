@@ -11,6 +11,8 @@ public class SfumatureBlu implements GoalCard {
     static private String name = "Sfumature Blu";
     static private String description = "Somma dei valori su tutti i dadi blu.";
 
+
+    //attenzione: la carta schema ha cinque colonne e quattro righe
     @Override
     public void calculatepoint(Player player) {
         DiceColor color = DiceColor.BLUE;

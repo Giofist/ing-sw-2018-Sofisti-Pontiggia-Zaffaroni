@@ -57,6 +57,8 @@ public class DicePool {
         return dices.get(position);
     }
 
+
+    //non è inutile questo metodo? Boh
     public Dice removeDice(int diceIndex){
         if(diceIndex<=getDicePoolSize()){
             return dices.remove(diceIndex);

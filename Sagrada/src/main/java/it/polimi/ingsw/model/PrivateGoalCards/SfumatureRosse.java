@@ -8,7 +8,7 @@ public class SfumatureRosse implements GoalCard {
     static private String name = "Sfumature Rosse";
     static private String description = "Somma dei valori su tutti i dadi rossi.";
 
-
+    //qui bisognerebbe scambiare righe e colonne
     @Override
     public void calculatepoint(Player player) {
         DiceColor color = DiceColor.RED;

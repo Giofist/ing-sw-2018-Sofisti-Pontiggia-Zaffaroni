@@ -10,6 +10,7 @@ import java.lang.String;
 import static it.polimi.ingsw.model.DiceColor.GREEN;
 import static it.polimi.ingsw.model.DiceColor.VIOLET;
 
+//classe completa
 
 public class SchemeCard{
     private int difficulty;
@@ -45,10 +46,10 @@ public class SchemeCard{
 
 
             //set Tiles
-            for(int a=0; a<4; a++) {
+            for(int row=0; row<4; row++) {
                 for (int b = 0; b < 5; b++) {
-                    Tile tile = this.matrix[a][b];
-                    switch (map[a * 5 + b]) {
+                    Tile tile = this.matrix[row][b];
+                    switch (map[row * 5 + b]) {
                         case 'Y':
                             tile.setColourConstrain(DiceColor.YELLOW);
                             tile.setHaveColor_constrain(true);
@@ -116,12 +117,27 @@ public class SchemeCard{
     }
 
     public  DiceColor getDiceColour(int row, int column){
-        return getTile(row, column).getDice().getColor();
+        return this.getTile(row, column).getDice().getColor();
     }
     public int getDiceIntensity(int row, int column){
-        return getTile(row, column).getDice().getIntensity();
+        return this.getTile(row, column).getDice().getIntensity();
     }
-
+    public boolean HaveFullColumn(int column){
+        boolean havefullColumn = true;
+        int i=0;
+        for( i=0; i<4;i++){
+            havefullColumn = havefullColumn&&this.getTile(i,column).isOccupied();
+        }
+        return havefullColumn;
+    }
+    public boolean HaveFullRow(int row){
+        boolean havefullRow = true;
+        int i=0;
+        for( i=0; i<5;i++){
+            havefullRow = havefullRow&&this.getTile(row,i).isOccupied();
+        }
+        return havefullRow;
+    }
     public SchemeCard getTwinCard() {
         return this.twinCard;
     }
