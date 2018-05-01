@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model.PublicGoalCards;
 
-import com.sun.org.apache.xpath.internal.functions.FuncFloor;
 import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
 import it.polimi.ingsw.model.GoalCard;
 import it.polimi.ingsw.model.Player;

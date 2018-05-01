@@ -49,7 +49,16 @@ public class Gametable {
         return this.tooldeck.getCost(id);
     }
     public void useaToolCard(ToolAction toolAction) throws ToolIllegalOperationException{
-       this.tooldeck.doAction(toolAction);
+       // Commentato in quanto impedisce di buildare il modulo
+        //this.tooldeck.doAction(toolAction);
+    }
+
+    public DicePool getDicepool(){
+        return dicepool;
+    }
+
+    public DicePool getRoundDicepool() {
+        return roundDicepool;
     }
 
     //to get the private Goal card

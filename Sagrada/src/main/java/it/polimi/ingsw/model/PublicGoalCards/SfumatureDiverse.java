@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.PublicGoalCards;
 
+import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
 import it.polimi.ingsw.model.GoalCard;
 import it.polimi.ingsw.model.Player;
 
@@ -18,7 +19,11 @@ public class SfumatureDiverse implements GoalCard {
 
         for(int column=0; column<5; column++) {
             for (int row = 0; row < 4; row++) {
-                counter[player.getScheme().getDiceIntensity(row, column)-1]++;
+                try {
+                    counter[player.getScheme().getDiceIntensity(row, column)-1]++;
+                } catch (DiceNotExistantException e) {
+                    e.printStackTrace();
+                }
             }
         }
 

@@ -35,4 +35,9 @@ public class DiluenteperPastaSalda  implements ToolAction {
     public String getDescription(){
         return description;
     }
+
+    @Override
+    public String getCardTitle() {
+        return cardTitle;
+    }
 }
