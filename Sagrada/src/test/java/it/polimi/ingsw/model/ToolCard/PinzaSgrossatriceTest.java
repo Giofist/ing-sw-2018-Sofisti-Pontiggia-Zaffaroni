@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.ToolCardTest;
+package it.polimi.ingsw.model.ToolCard;
 
 import it.polimi.ingsw.model.Dice;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.DecreaseNotAllowedException;
