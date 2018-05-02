@@ -2,6 +2,7 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.Exceptions.MapConstrainReadingException;
 import it.polimi.ingsw.model.Exceptions.PrivateGoalCardException;
+import it.polimi.ingsw.model.Exceptions.TileConstrainException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.PrivateGoalCards.PrivateGoalCardDeck;
 import it.polimi.ingsw.model.PublicGoalCards.PublicGoalCardDeck;
@@ -48,7 +49,7 @@ public class Gametable {
     public int costofToolAction (int id){
         return this.tooldeck.getCost(id);
     }
-    public void useaToolCard(ToolAction toolAction) throws ToolIllegalOperationException{
+    public void useaToolCard(ToolAction toolAction) throws ToolIllegalOperationException, TileConstrainException{
        this.tooldeck.doAction(toolAction);
     }
 

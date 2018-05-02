@@ -28,7 +28,7 @@ public class SfumatureChiare implements GoalCard {
                         numerodi2++;
                     }
                 }catch (DiceNotExistantException e){
-                    //no dice, do point
+                    //no dice, no point
                 }
             }
         }

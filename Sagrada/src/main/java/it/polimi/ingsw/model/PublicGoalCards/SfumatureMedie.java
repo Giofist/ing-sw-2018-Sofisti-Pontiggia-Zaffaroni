@@ -25,7 +25,7 @@ public class SfumatureMedie implements GoalCard {
                         numerodi4++;
                     }
                 }catch (DiceNotExistantException e){
-                    //no dice, do point
+                    //no dice, no point
                 }
             }
         }
