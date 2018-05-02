@@ -12,8 +12,9 @@ public class DicePool {
     // This constructor returns a DicePool with the specified amount of Dice for each color
     // If one of the passed parameters is negative an empty DicePool will be returned
     public DicePool(int blueDices, int greenDices, int redDices, int violetDices, int yellowDices) {
+        this.dices = new LinkedList<Dice>();
+
         if (blueDices < 0 || greenDices < 0 || redDices < 0 || violetDices < 0 || yellowDices < 0){
-            this.dices = new LinkedList<Dice>();
             return;
         }
 
@@ -66,13 +67,4 @@ public class DicePool {
         else return null;
     }
 
-    @Override
-    public String toString() {
-        String toString = new String();
-        for (Dice dice : dices) {
-            toString += dice.toString() + "\n";
-        }
-
-        return toString;
-    }
 }
