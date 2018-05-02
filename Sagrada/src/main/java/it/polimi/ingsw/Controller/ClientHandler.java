@@ -25,7 +25,7 @@ public class ClientHandler implements Runnable {
             Scanner in = new Scanner(socket.getInputStream());
             PrintWriter out = new PrintWriter(socket.getOutputStream());
             out.println ("Already have an account [Y/N]?\n");
-            User you;
+            User you = null;
             if (in.next() == "Y") {
                 out.println("Insert username and password\n");
                 String username = in.nextLine();

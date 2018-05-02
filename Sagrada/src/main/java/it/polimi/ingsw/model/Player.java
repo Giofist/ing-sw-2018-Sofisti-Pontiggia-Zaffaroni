@@ -11,7 +11,7 @@ public class Player{
     private GoalCard privateGoalCard;
     private int segnalini_favore;
     private SchemeCard scheme;
-    private List<Player> state;
+    private LinkedList<Player> state;
     private Gametable gametable;
     private int points;
 
@@ -19,6 +19,7 @@ public class Player{
     //costruttore
     public Player(User user){
         this.user = user;
+        this.state = new LinkedList<Player>();
     }
 
     //metodi setter e getter
@@ -74,12 +75,13 @@ public class Player{
     public void addPlayerToState(Player player){
         this.state.add(player);
     }
+    public User getAssociatedUser(){ return this.user; }
 
 
 
     public Player getSelectedPlayer (String name) throws PlayerNotFoundException {
         for (Player other_player : this.state) {
-            if (other_player.user.getName().equals( name))
+            if (other_player.getAssociatedUser().getName().equals(name))
                 return other_player;
         }
         throw new PlayerNotFoundException();

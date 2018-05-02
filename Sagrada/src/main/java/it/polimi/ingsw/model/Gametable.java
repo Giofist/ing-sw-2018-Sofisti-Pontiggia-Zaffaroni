@@ -49,8 +49,18 @@ public class Gametable {
     public int costofToolAction (int id){
         return this.tooldeck.getCost(id);
     }
-    public void useaToolCard(ToolAction toolAction) throws ToolIllegalOperationException, TileConstrainException{
-       this.tooldeck.doAction(toolAction);
+
+    public void useaToolCard(ToolAction toolAction) throws ToolIllegalOperationException, TileConstrainException {
+        this.tooldeck.doAction(toolAction);
+
+    }
+
+    public DicePool getDicepool(){
+        return dicepool;
+    }
+
+    public DicePool getRoundDicepool() {
+        return roundDicepool;
     }
 
     //to get the private Goal card
