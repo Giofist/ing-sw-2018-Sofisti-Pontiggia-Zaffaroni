@@ -31,7 +31,7 @@ public class ColoriDiversiRiga implements GoalCard {
                 }
                     player.addPoints(6);
                 } catch (TwoDiceSameColorException e) {
-                    //unfortunately you can't get the points
+                    //unfortunately you can't get the points: there are two dices of the same color
                 }catch (DiceNotExistantException er){
                 // unfortunately you can't get the points
             }

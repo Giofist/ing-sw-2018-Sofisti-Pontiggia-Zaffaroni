@@ -24,6 +24,7 @@ public class PublicGoalCardDeck {
         addCardToDeck();
         addCardToDeck();
 
+
     }
     //get a ramdom value
     public int getValue(){

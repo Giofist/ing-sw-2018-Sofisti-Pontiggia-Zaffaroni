@@ -16,6 +16,7 @@ import java.util.List;
 
 
 //Gametable non deve esporre la propria implementazione, ma deve fare tutto da sè
+//proprio per questo ho tolto le classi getRoundDicepool e getdicepool
 public class Gametable {
     private ToolCardsDeck tooldeck;
     private DicePool dicepool;
@@ -55,13 +56,6 @@ public class Gametable {
 
     }
 
-    public DicePool getDicepool(){
-        return dicepool;
-    }
-
-    public DicePool getRoundDicepool() {
-        return roundDicepool;
-    }
 
     //to get the private Goal card
     public GoalCard getPrivateGoalCard() throws PrivateGoalCardException {
@@ -70,20 +64,21 @@ public class Gametable {
 
 
     //asking for a dice in the dicepool of 90 dices
-    public Dice getDice() {
+    public Dice extractDice() {
         return this.dicepool.extractDice();
     }
 
     //asking for a specific dice in the round
+
     public Dice getRoundDice(int position) {
         return this.roundDicepool.getDice(position);
     }
 
     //to get IDs and description and names of the public goals
-    public List<String> getPublicGoalDescriptions() {
+    public List getPublicGoalDescriptions() {
         return this.publicGoalCardDeck.getDescriptions();
     }
-    public List<String> getPublicGoalNames(){return this.publicGoalCardDeck.getCardsNames();};
+    public List getPublicGoalNames(){return this.publicGoalCardDeck.getCardsNames();};
     public List getPublicGoalIDs() {
         return this.publicGoalCardDeck.getIDs();
     }

@@ -29,8 +29,12 @@ public class SfumatureMedie implements GoalCard {
                 }
             }
         }
-        player.addPoints((int)Math.floor(numerodi3/2)*2);
-        player.addPoints((int)Math.floor(numerodi4/2)*2);
+        if (numerodi3 <= numerodi4) {
+            player.addPoints((int) Math.floor(numerodi3 / 2) * 2);
+        }else{
+            player.addPoints((int)Math.floor(numerodi4/2)*2);
+        }
+
         //il metodo floor di java.math arrotonda al decimale inferiore il risultato di numerodi* diviso 2
     }
 

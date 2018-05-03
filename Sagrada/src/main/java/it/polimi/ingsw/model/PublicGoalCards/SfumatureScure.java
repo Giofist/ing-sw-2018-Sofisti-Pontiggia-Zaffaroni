@@ -20,7 +20,7 @@ public class SfumatureScure implements GoalCard {
                 try{
                     if(player.getScheme().getDiceIntensity(row, column)==5){
                         numerodi5++;
-                    }
+                    }else
                     if(player.getScheme().getDiceIntensity(row, column)==6){
                         numerodi6++;
                     }
@@ -29,8 +29,12 @@ public class SfumatureScure implements GoalCard {
                 }
             }
         }
-        player.addPoints((int)Math.floor(numerodi5/2)*2);
-        player.addPoints((int)Math.floor(numerodi6/2)*2);
+        if (numerodi5 <= numerodi6) {
+            player.addPoints((int) Math.floor(numerodi5 / 2) * 2);
+        }else{
+            player.addPoints((int)Math.floor(numerodi6/2)*2);
+        }
+
         //il metodo floor di java.math arrotonda al decimale inferiore il risultato di numerodi* diviso 2
     }
 

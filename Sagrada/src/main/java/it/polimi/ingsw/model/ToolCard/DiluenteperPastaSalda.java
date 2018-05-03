@@ -24,7 +24,7 @@ public class DiluenteperPastaSalda  implements ToolAction {
 
     public void execute (){
         player.getGametable().getDicepool().addDice(player.getGametable().getRoundDicepool().removeDice(selectedDiceIndex));
-        player.getGametable().getDice().setIntensity(diceIntensity);
+        player.getGametable().extractDice().setIntensity(diceIntensity);
     }
 
     @Override

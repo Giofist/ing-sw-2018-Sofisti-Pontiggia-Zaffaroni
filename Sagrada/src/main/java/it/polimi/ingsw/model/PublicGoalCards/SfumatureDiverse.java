@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
 import it.polimi.ingsw.model.GoalCard;
 import it.polimi.ingsw.model.Player;
 
+//revisionata by pon
 //obiettivo pubblico
 public class SfumatureDiverse implements GoalCard {
     static int ID = 8;
@@ -12,27 +13,54 @@ public class SfumatureDiverse implements GoalCard {
 
     @Override
     public void  calculatepoint(Player player) {
-        int[] counter;   // array che conta le occorrenze
-        counter = new int[6];
-        int nRow=0;
-        int min=4; // inizializzo a 4 ma massima possibile combinazione è 3 da 1 a 6
+        int numerodi1=0;
+        int numerodi2=0;
+        int numerodi3 = 0;
+        int numerodi4 = 0;
+        int numerodi5 = 0;
+        int numerodi6 = 0;
+
+
 
         for(int column=0; column<5; column++) {
             for (int row = 0; row < 4; row++) {
                 try {
-                    counter[player.getScheme().getDiceIntensity(row, column)-1]++;
+                    switch(player.getScheme().getDiceIntensity(row, column)){
+                        case 1:  numerodi1++; break;
+                        case 2: numerodi2++; break;
+                        case 3: numerodi2++; break;
+                        case 4: numerodi2++; break;
+                        case 5: numerodi2++; break;
+                        case 6: numerodi2++; break;
+                        default: ;
+                    }
+
                 } catch (DiceNotExistantException e) {
-                    e.printStackTrace();
+                    //no dice, no point, zorry
                 }
             }
         }
-
-        for(int i=0; i<6; i++){ // verifico numero massimo di set presenti
-            if(counter[i]<min){
-                min=counter[i];
-            }
+        int numerodiset=numerodi1; // numerodiset indica il numero dei set presenti, che è anche uguale a min( numerodix) per x = 1,2,3,4,5,6.
+        if(numerodi2<numerodiset){
+            numerodiset = numerodi2;
         }
-        player.addPoints(min*5);
+        if(numerodi2<numerodiset){
+            numerodiset = numerodi2;
+        }
+        if(numerodi3<numerodiset){
+            numerodiset = numerodi3;
+        }
+        if(numerodi4<numerodiset){
+            numerodiset = numerodi4;
+        }
+        if(numerodi5<numerodiset){
+            numerodiset = numerodi5;
+        }
+        if(numerodi6<numerodiset){
+            numerodiset = numerodi6;
+        }
+
+        player.addPoints(numerodiset*5);
     }
 
     @Override
