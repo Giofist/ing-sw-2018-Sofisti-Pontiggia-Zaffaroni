@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.SchemeDeck;
 import it.polimi.ingsw.model.Dice;
 import it.polimi.ingsw.model.DiceColor;
 import it.polimi.ingsw.model.Exceptions.*;
+import org.mockito.internal.matchers.Null;
 
 public class Tile {
     private DiceColor color_constrain;
@@ -10,12 +11,11 @@ public class Tile {
     private int number_constrain;
     private boolean haveNumber_constrain;
     private Dice dice;
-    private boolean occupied;
 
     public Tile (){
         this.haveColor_constrain = false;
         this.haveNumber_constrain = false;
-        this.occupied = false;
+        this.dice = null;
 
     }
 
@@ -44,15 +44,21 @@ public class Tile {
             }
         }
         this.dice = dice;
-        setOccupied();
+
     }
 
 
-    public Dice removeDice(){
-        setFree();
+    public Dice getandremoveDice() throws DiceNotExistantException{
+        if(!this.isOccupied()){
+            throw new DiceNotExistantException();
+        }
         Dice dice = this.dice;
         this.dice = null;
         return dice; }
+
+
+
+        //to get the dice of this tile for inspection
     public Dice getDice()throws DiceNotExistantException {
         if(!this.isOccupied()){
             throw new DiceNotExistantException();
@@ -63,9 +69,14 @@ public class Tile {
     public boolean haveColor_constrain() { return haveColor_constrain; }
     public boolean haveNumber_constrain() { return haveNumber_constrain; }
 
-    public void setOccupied(){ this.occupied = true;}
-    public void setFree(){this.occupied = false;}
-    public boolean isOccupied(){ return occupied;}
+
+    //to see if this this is occupied
+    public boolean isOccupied(){
+        if (this.dice == null){
+            return false;
+        }return true;
+
+        }
 
 
 

@@ -146,8 +146,8 @@ public class SchemeCard{
     public SchemeCard getTwinCard() {
         return this.twinCard;
     }
-    public Dice removeDice(int row, int column){
-        return this.matrix[row][column].removeDice();
+    public Dice removeDice(int row, int column)throws DiceNotExistantException{
+        return this.matrix[row][column].getandremoveDice() ;
     }
     public DiceColor getColorConstrain( int row, int column){
         return this.matrix[row][column].getColor_Constrain();

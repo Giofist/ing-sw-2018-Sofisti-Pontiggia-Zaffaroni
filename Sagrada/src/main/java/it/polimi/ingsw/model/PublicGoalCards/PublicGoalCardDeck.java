@@ -55,6 +55,8 @@ public class PublicGoalCardDeck {
         for (GoalCard goalcard:this.deck) {
             goalcard.calculatepoint(player);
         }
+          GoalCard Calcolatore =  new SpaziLiberi();
+        Calcolatore.calculatepoint(player);
     }
 
     //to get the IDs, descriptions and Names of public goal cards
