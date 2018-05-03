@@ -62,6 +62,10 @@ public class Gametable {
         return this.privategoalcardsdeck.getCard();
     }
 
+    // Get public goal cards
+    public PublicGoalCardDeck getPublicGoalCardDeck() {
+        return publicGoalCardDeck;
+    }
 
     //asking for a dice in the dicepool of 90 dices
     public Dice extractDice() {
@@ -83,11 +87,12 @@ public class Gametable {
         return this.publicGoalCardDeck.getIDs();
     }
 
-
     // to get a scheme card
     public SchemeCard getSchemeCard() throws IOException, MapConstrainReadingException {
         return this.schemeCardDeck.getCard();
     }
+
+
 
     //to calculate all points for all players
     public void calculatePointsforAllPlayers(List<Player> players){

@@ -15,10 +15,11 @@ public class ToolCardsDeck {
     // constructor
     public ToolCardsDeck(){
         this.costs = new int[12];
-        for (int cost: this.costs){
-            cost = 1;
+        for (int costIndex = 0; costIndex < costs.length; costIndex++){
+            costs[costIndex] = 1;
         }
     }
+
     public int getCost(int id){
         return this.costs[id];
     }
