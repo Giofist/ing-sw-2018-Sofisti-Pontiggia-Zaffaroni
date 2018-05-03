@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.Exceptions;
+package it.polimi.ingsw.model.Exceptions.TileConstrainException;
 
 //questa classe viene estesa da errori specifici, consiglio di usarla per gli errori posibili relativi alla scheme card
 //e al piazzamneto dei dadi

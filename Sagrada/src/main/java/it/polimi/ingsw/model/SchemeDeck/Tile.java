@@ -3,7 +3,9 @@ package it.polimi.ingsw.model.SchemeDeck;
 import it.polimi.ingsw.model.Dice;
 import it.polimi.ingsw.model.DiceColor;
 import it.polimi.ingsw.model.Exceptions.*;
-import org.mockito.internal.matchers.Null;
+import it.polimi.ingsw.model.Exceptions.TileConstrainException.NotRespectedNumberConstrainException;
+import it.polimi.ingsw.model.Exceptions.TileConstrainException.NotRispectedColorConstrainException;
+import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
 
 public class Tile {
     private DiceColor color_constrain;

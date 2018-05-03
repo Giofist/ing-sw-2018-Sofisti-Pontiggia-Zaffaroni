@@ -4,16 +4,15 @@ import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
 import it.polimi.ingsw.model.GoalCard;
 import it.polimi.ingsw.model.Player;
 
-public class SpaziLiberi implements GoalCard {
+public class FreeSpaces implements GoalCard {
     @Override
     public void calculatepoint(Player player) {
         for(int column=0; column<5; column++) {
             for (int row = 0; row < 4; row++) {
-                //try{
-                    //player.getScheme().setDice();
-                //}catch (DiceNotExistantException e){
-                    //no dice, no point
-                //}
+                if(!player.getScheme().IsTileOccupied(row,column)){
+                    player.addPoints(-1);
+                }
+
             }
         }
 
@@ -21,12 +20,12 @@ public class SpaziLiberi implements GoalCard {
 
     @Override
     public int getID() {
-        return 999;
+        return -1;
     }
 
     @Override
     public String getName() {
-        return "Spazi Bianchi";
+        return "Free Spaces";
     }
 
     @Override

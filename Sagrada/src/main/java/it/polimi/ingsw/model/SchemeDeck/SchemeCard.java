@@ -3,7 +3,7 @@ import it.polimi.ingsw.model.Dice;
 import it.polimi.ingsw.model.DiceColor;
 import it.polimi.ingsw.model.Exceptions.MapConstrainReadingException;
 import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
-import it.polimi.ingsw.model.Exceptions.TileConstrainException;
+import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
 
 import java.io.*;
 import java.lang.String;
@@ -123,7 +123,9 @@ public class SchemeCard{
     public int getDiceIntensity(int row, int column)throws DiceNotExistantException{
         return this.getTile(row, column).getDice().getIntensity();
     }
-
+    public boolean IsTileOccupied(int row, int column){
+        return this.getTile(row,column).isOccupied();
+    }
 
 
     //può essere utile questa classe?

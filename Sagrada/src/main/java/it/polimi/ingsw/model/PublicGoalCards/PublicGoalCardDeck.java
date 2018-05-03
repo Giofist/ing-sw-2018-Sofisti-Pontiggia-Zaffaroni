@@ -2,7 +2,6 @@ package it.polimi.ingsw.model.PublicGoalCards;
 
 import it.polimi.ingsw.model.GoalCard;
 import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.PublicGoalCards.ColoriDiversiColonna;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -55,7 +54,7 @@ public class PublicGoalCardDeck {
         for (GoalCard goalcard:this.deck) {
             goalcard.calculatepoint(player);
         }
-          GoalCard Calcolatore =  new SpaziLiberi();
+          GoalCard Calcolatore =  new FreeSpaces();
         Calcolatore.calculatepoint(player);
     }
 

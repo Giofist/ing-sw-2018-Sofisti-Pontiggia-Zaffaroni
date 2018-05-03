@@ -2,7 +2,7 @@ package it.polimi.ingsw.model.ToolCard;
 
 
 import it.polimi.ingsw.model.Dice;
-import it.polimi.ingsw.model.Exceptions.*;
+import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
 import it.polimi.ingsw.model.Player;
 
 public class PennelloperEglomise  implements ToolAction {
