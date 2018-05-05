@@ -28,10 +28,12 @@ public class Lathekin  implements ToolAction {
     @Override
 
     public void execute () throws TileConstrainException {
+        /* Lot of bugged code :D
         remuvedDice1 = player.getScheme().removeDice(oldRow1, oldColumn1);
         player.getScheme().setDice(remuvedDice1, newRow1, newColumn1, false, false);
         remuvedDice2 = player.getScheme().removeDice(oldRow2, oldColumn2);
         player.getScheme().setDice(remuvedDice2, newRow2, newColumn2,false,false);
+        */
     }
 
     @Override

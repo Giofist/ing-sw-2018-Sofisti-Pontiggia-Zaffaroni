@@ -23,9 +23,11 @@ public class AlesatoreperLaminadiRame  implements ToolAction {
         this.newRow = newRow;
     }
 
+
     @Override
 
     public void execute () throws ToolIllegalOperationException, TileConstrainException {
+        /* Sorry, bugged code and I need to test
         Dice dice = player.getScheme().removeDice(row, column);
         try {
             player.getScheme().setDice(dice, newRow, newColumn, false, true);
@@ -37,6 +39,7 @@ public class AlesatoreperLaminadiRame  implements ToolAction {
                 throw er;
             }
         }
+        */
     }
 
 

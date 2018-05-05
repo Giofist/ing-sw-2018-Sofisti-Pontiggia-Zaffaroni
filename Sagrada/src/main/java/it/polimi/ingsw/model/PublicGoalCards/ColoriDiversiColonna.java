@@ -21,8 +21,8 @@ public class ColoriDiversiColonna implements GoalCard {
 
     @Override
     public void  calculatepoint(Player player) {
-        int column = 0;
-        for (column = 0; column < 5; column++) {
+
+        for (int column = 0; column < 5; column++) {
             try {
                 List<DiceColor> existingcolors = new LinkedList<DiceColor>();
                 for (int row = 0; row < 4; row++) {

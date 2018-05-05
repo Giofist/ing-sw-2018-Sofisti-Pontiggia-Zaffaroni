@@ -87,6 +87,11 @@ public class Gametable {
         return this.publicGoalCardDeck.getIDs();
     }
 
+    // Get functions useful for testing
+    public ToolCardsDeck getToolCardsDeck() { return this.tooldeck; }
+    public DicePool getDicepool() { return this.dicepool; }
+    public DicePool getRoundDicepool() { return this.roundDicepool; }
+
     // to get a scheme card
     public SchemeCard getSchemeCard() throws IOException, MapConstrainReadingException {
         return this.schemeCardDeck.getCard();
