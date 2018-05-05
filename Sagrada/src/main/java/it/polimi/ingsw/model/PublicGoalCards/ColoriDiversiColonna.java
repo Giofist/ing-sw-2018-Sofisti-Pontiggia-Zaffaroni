@@ -35,7 +35,7 @@ public class ColoriDiversiColonna implements GoalCard {
                 player.addPoints(5);
                 } catch (TwoDiceSameColorException e) {
                     //unfortunately you can't get the points: there are two dices of the same color
-                }catch (DiceNotExistantException er){
+                }catch (Exception er){
                 //unfortunately you can't get the point: the column has an empty tile
             }
         }

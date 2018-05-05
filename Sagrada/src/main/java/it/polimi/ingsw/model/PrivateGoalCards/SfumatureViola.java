@@ -22,7 +22,7 @@ public class SfumatureViola implements GoalCard {
                     if (player.getScheme().getDiceColour(row, column)== color) {
                         player.addPoints(player.getScheme().getDiceIntensity(row, column));
                     }
-                }catch (DiceNotExistantException e){
+                }catch (Exception e){
                     //zorry, no dice
                 }
             }

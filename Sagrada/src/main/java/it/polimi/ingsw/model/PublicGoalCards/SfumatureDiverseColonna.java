@@ -33,8 +33,8 @@ public class SfumatureDiverseColonna implements GoalCard {
                 player.addPoints(4);
             } catch (TwoDiceSameShadeException e) {
                 //unfortunately you can't get the points
-            }catch (DiceNotExistantException er){
-                //unfortunately you can't get the point
+            }catch (Exception er){
+                //unfortunately you can't get the points
             }
         }
     }

@@ -9,7 +9,7 @@ public class SfumatureRosse implements GoalCard {
     static private String name = "Sfumature Rosse";
     static private String description = "Somma dei valori su tutti i dadi rossi.";
 
-    //qui bisognerebbe scambiare righe e colonne
+
     @Override
     public void calculatepoint(Player player) {
         DiceColor color = DiceColor.RED;
@@ -19,7 +19,7 @@ public class SfumatureRosse implements GoalCard {
                     if (player.getScheme().getDiceColour(row, column)== color) {
                         player.addPoints(player.getScheme().getDiceIntensity(row, column));
                     }
-                }catch (DiceNotExistantException e){
+                }catch (Exception e){
                     //zorry, no dice
                 }
             }

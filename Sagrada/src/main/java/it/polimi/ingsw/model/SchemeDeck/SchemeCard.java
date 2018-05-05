@@ -3,6 +3,7 @@ import it.polimi.ingsw.model.Dice;
 import it.polimi.ingsw.model.DiceColor;
 import it.polimi.ingsw.model.Exceptions.MapConstrainReadingException;
 import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
+import it.polimi.ingsw.model.Exceptions.OutOfMatrixException;
 import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
 
 import java.io.*;
@@ -110,34 +111,39 @@ public class SchemeCard{
     };
     public int getID(){ return this.ID; };
     public String getMapName(){ return this.MapName; }
-    public void setDice (Dice dice, int row, int column, boolean IgnoreColor, boolean IgnoreNumber)throws TileConstrainException {
+    public void setDice (Dice dice, int row, int column, boolean IgnoreColor, boolean IgnoreNumber)throws OutOfMatrixException, TileConstrainException {
         this.getTile(row,column).setDice(dice, IgnoreColor, IgnoreNumber);
     }
-    private Tile getTile(int row, int column){
+
+
+    // lo setto private per non esporre l'implementazione
+    private Tile getTile(int row, int column)throws OutOfMatrixException{
+        if(row <0 || row > 3 || column <0 || column >4){
+            throw new OutOfMatrixException();
+        }
         return this.matrix[row][column];
     }
 
-    public  DiceColor getDiceColour (int row, int column)throws DiceNotExistantException{
+    public  DiceColor getDiceColour (int row, int column)throws OutOfMatrixException, DiceNotExistantException{
         return this.getTile(row, column).getDice().getColor();
     }
-    public int getDiceIntensity(int row, int column)throws DiceNotExistantException{
+    public int getDiceIntensity(int row, int column)throws OutOfMatrixException, DiceNotExistantException{
         return this.getTile(row, column).getDice().getIntensity();
     }
-    public boolean IsTileOccupied(int row, int column){
+    public boolean IsTileOccupied(int row, int column) throws OutOfMatrixException{
         return this.getTile(row,column).isOccupied();
     }
 
 
     //può essere utile questa classe?
-    public boolean HaveFullColumn(int column){
+    public boolean HaveFullColumn(int column) throws OutOfMatrixException{
         boolean havefullColumn = true;
-        int i=0;
-        for( i=0; i<4;i++){
+        for( int i=0; i<4;i++){
             havefullColumn = havefullColumn&&this.getTile(i,column).isOccupied();
         }
         return havefullColumn;
     }
-    public boolean HaveFullRow(int row){
+    public boolean HaveFullRow(int row) throws OutOfMatrixException{
         boolean havefullRow = true;
         int i=0;
         for( i=0; i<5;i++){
@@ -148,8 +154,9 @@ public class SchemeCard{
     public SchemeCard getTwinCard() {
         return this.twinCard;
     }
-    public Dice removeDice(int row, int column)throws DiceNotExistantException{
-        return this.matrix[row][column].getandremoveDice() ;
+
+    public Dice removeDice(int row, int column)throws DiceNotExistantException,OutOfMatrixException{
+        return this.getTile(row,column).getandremoveDice() ;
     }
     public DiceColor getColorConstrain( int row, int column){
         return this.matrix[row][column].getColor_Constrain();

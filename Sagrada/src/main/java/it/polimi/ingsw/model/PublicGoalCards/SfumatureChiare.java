@@ -15,7 +15,7 @@ public class SfumatureChiare implements GoalCard {
     @Override
     public void  calculatepoint(Player player) {
 
-        int numerodi1=0;
+        int numerodi1 =0;
         int numerodi2=0;
         for(int column=0; column<5; column++) {
             for (int row = 0; row < 4; row++) {
@@ -26,19 +26,16 @@ public class SfumatureChiare implements GoalCard {
                     if(player.getScheme().getDiceIntensity(row, column)==2){
                         numerodi2++;
                     }
-                }catch (DiceNotExistantException e){
+                }catch (Exception e){
                     //no dice, no point
                 }
             }
         }
         if (numerodi1 <= numerodi2) {
-            player.addPoints((int) Math.floor(numerodi1 / 2) * 2);
+            player.addPoints(numerodi1*2);
         }else{
-            player.addPoints((int)Math.floor(numerodi2/2)*2);
+            player.addPoints(numerodi2*2);
         }
-
-        //il metodo floor di java.math arrotonda al decimale inferiore il risultato di numerodi* diviso 2
-
     }
 
     @Override
