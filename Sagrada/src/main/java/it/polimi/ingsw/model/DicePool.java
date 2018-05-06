@@ -32,11 +32,14 @@ public class DicePool {
 
     public int getDicePoolSize() { return this.dices.size(); }
 
-    // a che serve? Per una carta utensile? Però aggiunge un NUOVO dado, bohboh
+    // very useful for diluentePerPastaSalda
     public void insertDice(DiceColor diceColor){ dices.add(new Dice(diceColor)); }
 
     //add a new dice passed by parameter
+    //USE only for RoundDicepool
     public void addDice(Dice dice){ this.dices.add(dice); }
+
+
 
     public void scrambleDicePool() { Collections.shuffle(dices); }
 
@@ -59,7 +62,8 @@ public class DicePool {
     }
 
 
-    //non è inutile questo metodo? Boh
+    //do use for RoundDicepool
+    //useful for DiluentePerPastaSalda
     public Dice removeDice(int diceIndex){
         if(diceIndex<=getDicePoolSize()){
             return dices.remove(diceIndex);

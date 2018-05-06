@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model;
 import java.util.*;
-import it.polimi.ingsw.Controller.*;
+import it.polimi.ingsw.ServerController.*;
 import it.polimi.ingsw.model.Exceptions.HomonymyException;
 import java.lang.Thread;
 

@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIlleg
 
 public interface ToolAction {
 
-    public void execute () throws ToolIllegalOperationException, TileConstrainException;
+    public void execute () throws Exception;
 
     public int getID();
     public String getDescription();

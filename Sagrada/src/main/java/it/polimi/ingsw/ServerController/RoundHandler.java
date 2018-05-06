@@ -1,4 +1,4 @@
-package it.polimi.ingsw.Controller;
+package it.polimi.ingsw.ServerController;
 
 import it.polimi.ingsw.model.Player;
 

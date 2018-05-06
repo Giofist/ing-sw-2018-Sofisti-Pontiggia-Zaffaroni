@@ -14,6 +14,8 @@ public class Player{
     private LinkedList<Player> state;
     private Gametable gametable;
     private int points;
+    private Dice diceforDiluenteperpastaSalda
+
 
 
     //costruttore

@@ -1,8 +1,7 @@
-package it.polimi.ingsw.Controller;
+package it.polimi.ingsw.ServerController;
 
 import java.util.*;
 import it.polimi.ingsw.model.User;
-import java.lang.Thread;
 
 
 //non terminata

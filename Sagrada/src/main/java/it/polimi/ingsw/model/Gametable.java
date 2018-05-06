@@ -51,7 +51,7 @@ public class Gametable {
         return this.tooldeck.getCost(id);
     }
 
-    public void useaToolCard(ToolAction toolAction) throws ToolIllegalOperationException, TileConstrainException {
+    public void useaToolCard(ToolAction toolAction) throws Exception {
         this.tooldeck.doAction(toolAction);
 
     }
@@ -73,7 +73,6 @@ public class Gametable {
     }
 
     //asking for a specific dice in the round
-
     public Dice getRoundDice(int position) {
         return this.roundDicepool.getDice(position);
     }
