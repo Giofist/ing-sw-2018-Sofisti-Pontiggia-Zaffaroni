@@ -9,19 +9,19 @@ public class DiluenteperPastaSalda  implements ToolAction {
     final static String description = "Dopo aver scelto un dado, riponilo nel Sacchetto, poi pescane uno dal sacchetto.\n" +
                                       "Scegli il valore del nuovo dado e piazzalo, rispettando tutte le restrizioni di piazzamento.";
     private Player player;
-    private int diceIntensity;
-    DiceColor diceColour;
     private int selectedDiceIndex;
 
-    public DiluenteperPastaSalda(Player player, int selectedDiceIndex, int diceIntensity){
+    public DiluenteperPastaSalda(Player player, int selectedDiceIndex){
         this.player = player;
         this.selectedDiceIndex =selectedDiceIndex;
-        this.diceIntensity = diceIntensity;
-        this.diceColour = diceColour;
     }
 
     @Override
     public void execute (){
+
+        //removes a dice e puts it into the dicepool
+        DiceColor color = player.getGametable().getRoundDice(this.selectedDiceIndex).getColor();
+        player.getGametable().
         player.getGametable().getDicepool().addDice(player.getGametable().getRoundDicepool().removeDice(selectedDiceIndex));
         player.getGametable().extractDice().setIntensity(diceIntensity);
     }

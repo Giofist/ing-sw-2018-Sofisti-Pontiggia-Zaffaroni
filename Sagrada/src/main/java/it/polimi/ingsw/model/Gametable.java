@@ -15,8 +15,7 @@ import java.io.IOException;
 import java.util.List;
 
 
-//Gametable non deve esporre la propria implementazione, ma deve fare tutto da sè
-//proprio per questo ho tolto le classi getRoundDicepool e getdicepool
+
 public class Gametable {
     private ToolCardsDeck tooldeck;
     private DicePool dicepool;
