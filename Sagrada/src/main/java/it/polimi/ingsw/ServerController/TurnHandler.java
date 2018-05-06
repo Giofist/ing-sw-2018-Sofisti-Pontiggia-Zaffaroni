@@ -1,4 +1,13 @@
 package it.polimi.ingsw.ServerController;
 
-public class TurnHandler {
+
+import java.rmi.server.UnicastRemoteObject;
+
+public class TurnHandler{
+
+
+
+    public void run(){
+
+    }
 }

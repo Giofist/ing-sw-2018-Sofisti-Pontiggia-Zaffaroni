@@ -4,6 +4,8 @@ import it.polimi.ingsw.model.Exceptions.HomonymyException;
 import java.net.Socket;
 import java.util.*;
 
+
+//(pon) ho revisionato questa classe in modo da renderla thread safe in tutti i suoi metodi
 public class UsersList {
     private static UsersList instance;
     private LinkedList<User> users;

@@ -1,9 +1,11 @@
 package it.polimi.ingsw.model.ToolCard;
 
 import it.polimi.ingsw.model.Dice;
+import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
+import it.polimi.ingsw.model.Exceptions.OutOfMatrixException;
 import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
 import it.polimi.ingsw.model.Player;
-
+//revisionata by pon
 public class Lathekin  implements ToolAction {
     final static int ID = 4;
     final static String cardTitle = "Lathekin";
@@ -11,7 +13,7 @@ public class Lathekin  implements ToolAction {
                                       "Rispetta tutte le restrizioni di piazzamento.";
     private Player player;
     int oldRow1, oldColumn1, newRow1, newColumn1, oldRow2, oldColumn2, newRow2, newColumn2;
-    Dice remuvedDice1, remuvedDice2;
+    Dice removedDice1, removedDice2;
 
     public Lathekin(Player player, int oldRow1, int oldColumn1, int newRow1, int newColumn1, int oldRow2, int oldColumn2, int newRow2, int newColumn2){
         this.player = player;
@@ -26,14 +28,11 @@ public class Lathekin  implements ToolAction {
     }
 
     @Override
-
-    public void execute () throws TileConstrainException {
-        /* Lot of bugged code :D
-        remuvedDice1 = player.getScheme().removeDice(oldRow1, oldColumn1);
-        player.getScheme().setDice(remuvedDice1, newRow1, newColumn1, false, false);
-        remuvedDice2 = player.getScheme().removeDice(oldRow2, oldColumn2);
-        player.getScheme().setDice(remuvedDice2, newRow2, newColumn2,false,false);
-        */
+    public void execute () throws TileConstrainException, DiceNotExistantException, OutOfMatrixException {
+        removedDice1 = player.getScheme().removeDice(oldRow1, oldColumn1);
+        player.getScheme().setDice(removedDice1, newRow1, newColumn1, false, false);
+        removedDice2 = player.getScheme().removeDice(oldRow2, oldColumn2);
+        player.getScheme().setDice(removedDice2, newRow2, newColumn2,false,false);
     }
 
     @Override
