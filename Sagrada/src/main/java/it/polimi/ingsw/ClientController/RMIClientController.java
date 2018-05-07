@@ -3,6 +3,7 @@ package it.polimi.ingsw.ClientController;
 import it.polimi.ingsw.ServerController.RMIRemoteServerClientHandler;
 
 //implemented by pon
+//non implemeta runnable
 public class RMIClientController {
     private RMIRemoteServerClientHandler servercontroller;
     //constructor
@@ -11,6 +12,8 @@ public class RMIClientController {
     }
 
     public void run(){
+        String stringa = servercontroller.forzaChievo("Verona");
+        System.out.println(stringa);
         //qui si dovrà scrivere il clientcontroller per RMI
         //che giorgio dovrebbe avere già scritto
 

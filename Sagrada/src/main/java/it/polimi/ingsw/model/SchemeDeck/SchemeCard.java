@@ -256,6 +256,12 @@ public class SchemeCard implements Iterable<Tile>{
 
                 return nextElement;
             }
+
+
+            @Override
+            public void remove(){
+
+            }
         };
     }
 }

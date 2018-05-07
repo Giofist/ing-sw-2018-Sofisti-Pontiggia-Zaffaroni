@@ -9,7 +9,7 @@ import it.polimi.ingsw.model.User;
 //non terminata
 //notate bene che da specifica il timer deve essere caricato da file
 //l'idea è che ogni partita sia gestita da un thread, per questo impleemnta runnable e ha un metodo run
-public class MultiplePlayerGameHandler extends UnicastRemoteObject implements Runnable,RMIRemoteServerClientHandler {
+public class MultiplePlayerGameHandler extends UnicastRemoteObject implements Runnable {
     private String game_name;
     private LinkedList<User> users;
     private int maxNumberPlayers;
