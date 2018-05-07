@@ -263,10 +263,6 @@ public class SchemeCard implements Iterable<Tile>{
             }
 
 
-            @Override
-            public void remove(){
-
-            }
         };
     }
 }
