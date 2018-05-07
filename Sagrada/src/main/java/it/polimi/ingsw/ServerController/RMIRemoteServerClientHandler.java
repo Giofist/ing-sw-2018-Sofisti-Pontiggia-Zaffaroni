@@ -5,6 +5,8 @@ import java.rmi.Remote;
 //viene caricata sul RMI register ecc...
 //guardate le slide
 public interface RMIRemoteServerClientHandler extends Remote {
+
+    public String forzaChievo(String stringa);
     //here all the methods I want to invoke from the client Controller
 
 
