@@ -237,6 +237,11 @@ public class SchemeCard implements Iterable<Tile>{
             }
 
             @Override
+            public void remove() {
+                // To be implemented
+            }
+
+            @Override
             public Tile next() {
                 Tile nextElement;
                 try {
@@ -246,10 +251,10 @@ public class SchemeCard implements Iterable<Tile>{
                 }
 
                 currentColumn++;
-                if (currentColumn == 4) {
+                if (currentColumn == 5) {
                     currentColumn = 0;
                     currentRow++;
-                    if (currentRow == 3) {
+                    if (currentRow == 4) {
                         deadEnd = true;
                     }
                 }
