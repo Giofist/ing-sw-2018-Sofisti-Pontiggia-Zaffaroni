@@ -14,7 +14,7 @@ public class Client {
         this.ip = ip;
         this.port = port;
     }
-
+    //per il socket
     public void startClient() throws IOException {
         Socket socket = new Socket(this.ip, this.port);
         System.out.println("Connection established\n");
@@ -43,7 +43,7 @@ public class Client {
         new Client(IPdelServer , 1337).startClient();
 
         //RMI part
-        Registry registry = LocateRegistry.getRegistry();
+        Registry registry = LocateRegistry.getRegistry(IPdelServer);
         // gets a reference for the remote controller
         RMIRemoteServerClientHandler controller = (RMIRemoteServerClientHandler) registry.lookup("RMIServerClientHandler");
         // creates and launches the clientcontroller
