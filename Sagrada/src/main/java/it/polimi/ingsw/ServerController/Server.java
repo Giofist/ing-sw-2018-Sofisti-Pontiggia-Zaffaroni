@@ -19,6 +19,7 @@ public class Server {
         this.port = port;
     }
 
+    /*
     //the method which starts the server for the socket part
     //the method creates a pool of thread and waits for connection from the client
     public void startServer() {
@@ -48,33 +49,30 @@ public class Server {
         }
         executor.shutdown();
     }
-}
-    /*public static void main (String[] args){
+}*/
+    public static void main(String[] args) throws RemoteException{
         //creo i due "database" di cu idevo tenere consistenza nel server
         MultipleUserGameList gameslist = MultipleUserGameList.singleton();
         UsersList usersList = UsersList.Singleton();
 
-
+/*
         //socket part
         Server server = new Server(1337);
         server.startServer();
-
+*/
         //RMI part
         //parte di questo codice è stato preso dalle slide di presentazione di RMI
         //anche RMitter ha gentilmente contribuito
         System.out.println("Binding server implementation to registry...\n");
-        try{
-            ClientHandler controller = new ClientHandler();
-            Registry registry = LocateRegistry.getRegistry();
-            registry.bind("RMIServerClientHandler", controller);
-                    System.out.println("Waiting for invocations from clients...");
-        }catch(RemoteException e){
-            //what to do here? waiting for advice
-        }catch(AlreadyBoundException e){
-            //what to do here? waiting for advice
-        }
+        ClientHandler controller = new ClientHandler();
 
-*/
+        Registry registry = LocateRegistry.getRegistry();
+        registry.rebind("RMIServerClientHandler", controller);
+        System.out.println("Waiting for invocations from clients...");
+
+
+    }
+}
 
 
 

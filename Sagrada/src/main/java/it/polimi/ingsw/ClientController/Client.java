@@ -40,7 +40,7 @@ public class Client {
         //tutto questo crea delle crepe nell'architettura che abbiamo individuato finora... voi che ne dite?
 
         //socket part
-        String ip = "192.168.1.4" ;
+        String ip = "127.0.0.1" ;
         //new Client(ip , 1337).startClient();
 
         //RMI part

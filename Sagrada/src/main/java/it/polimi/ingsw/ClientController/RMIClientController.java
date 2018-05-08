@@ -2,16 +2,19 @@ package it.polimi.ingsw.ClientController;
 
 import it.polimi.ingsw.ServerController.RMIRemoteServerClientHandler;
 
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+
 //implemented by pon
 //non implemeta runnable
-public class RMIClientController {
+public class RMIClientController extends UnicastRemoteObject {
     private RMIRemoteServerClientHandler servercontroller;
     //constructor
-    public RMIClientController(RMIRemoteServerClientHandler controller){
+    public RMIClientController(RMIRemoteServerClientHandler controller) throws RemoteException {
         this.servercontroller = controller;
     }
 
-    public void run(){
+    public void run() throws RemoteException{
         String stringa = servercontroller.forzaChievo("Verona");
         System.out.println(stringa);
         //qui si dovrà scrivere il clientcontroller per RMI
