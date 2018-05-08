@@ -34,7 +34,6 @@ public class Tile {
 
 
     public void setDice(Dice dice, boolean IgnoreColor, boolean IgnoreNumber) throws TileConstrainException {
-        if (this.isOccupied()){ throw new OccupiedTileException(); }
         if (this.haveColor_constrain() && !IgnoreColor){
             if (dice.getColor() != this.getColor_Constrain()){
                 throw new NotRispectedColorConstrainException();
@@ -49,7 +48,26 @@ public class Tile {
 
     }
 
+    //useful for PennelloPerPastaSalda
+    public boolean settableDiceHere(Dice dice,boolean IgnoreColor, boolean IgnoreNumber){
 
+            if (this.haveColor_constrain() && !IgnoreColor){
+                if (dice.getColor() != this.getColor_Constrain()){
+                    return false;
+                }
+            }
+            if (this.haveNumber_constrain() && !IgnoreNumber){
+                if(dice.getIntensity() != this.getNumber_Constrain()){
+                    return false;
+                }
+            }
+            return true;
+
+    }
+
+
+    //getandremove viene splittata nei due metodi sottostanti
+    //lo ritengo più sicuro nelle toolcard che la chiamano: prima che il ddo che mi serve, poi lo rimuovo
     public Dice getandremoveDice() throws DiceNotExistantException{
         if(!this.isOccupied()){
             throw new DiceNotExistantException();
@@ -66,6 +84,15 @@ public class Tile {
             throw new DiceNotExistantException();
         }
         return this.dice;
+    }
+
+
+    //to remove the dice
+    public void removeDice() throws DiceNotExistantException{
+        if(!this.isOccupied()){
+            throw new DiceNotExistantException();
+        }else
+            this.dice = null;
     }
 
     public boolean haveColor_constrain() { return haveColor_constrain; }

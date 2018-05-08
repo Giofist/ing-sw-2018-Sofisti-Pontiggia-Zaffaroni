@@ -34,6 +34,8 @@ public class DicePool {
         scrambleDicePool();
     }
 
+
+
     public int getDicePoolSize() { return this.dices.size(); }
 
     // very useful for diluentePerPastaSalda
@@ -45,7 +47,7 @@ public class DicePool {
 
 
 
-    public void scrambleDicePool() { Collections.shuffle(dices); }
+    private void scrambleDicePool() { Collections.shuffle(dices); }
 
 
 
@@ -59,11 +61,11 @@ public class DicePool {
 
     //do use for RoundDicepool
     // il metodo get non elimina dalla lista
-    public Dice getDice(int position){
+    public Dice getDice(int diceIndex){
         if (dices.isEmpty()){
             return null;
         }
-        return dices.get(position);
+        return dices.get(diceIndex);
     }
 
 

@@ -24,9 +24,9 @@ public class PinzaSgrossatrice  implements ToolAction {
     @Override
     public void execute () throws ToolIllegalOperationException {
         if (this.operation == 0) {  // Decrease selected dice value
-            player.getGametable().getRoundDice(this.selectedDiceIndex).decreaseIntensity();
+            player.getGametable().getRoundDicepool().getDice(this.selectedDiceIndex).decreaseIntensity();
         } else {    // Increase selected dice value
-            player.getGametable().getRoundDice(this.selectedDiceIndex).increaseIntensity(); }
+            player.getGametable().getRoundDicepool().getDice(this.selectedDiceIndex).increaseIntensity(); }
     }
 
     @Override

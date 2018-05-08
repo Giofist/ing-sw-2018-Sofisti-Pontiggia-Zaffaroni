@@ -16,13 +16,15 @@ public class Player{
     private Gametable gametable;
     private int points;
     private Dice diceforDiluenteperpastaSalda;
-
+    private boolean mustsetdice;
 
 
     //costruttore
     public Player(User user){
         this.user = user;
         this.state = new LinkedList<Player>();
+        this.diceforDiluenteperpastaSalda = null;
+        this.mustsetdice = false;
     }
 
     //metodi setter e getter
@@ -103,6 +105,13 @@ public class Player{
                 return other_player;
         }
         throw new PlayerNotFoundException();
+    }
+
+    public void setMustsetdice(boolean settable){
+        this.mustsetdice = settable;
+    }
+    public boolean getMustsetDice(){
+        return this.mustsetdice;
     }
 
 

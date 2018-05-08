@@ -10,7 +10,7 @@ import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIlleg
 import it.polimi.ingsw.model.Player;
 //revisionato by pon
 public class DiluentePerPastaSalda2 implements ToolAction{
-    final static int ID = -1;
+    final static int ID = 0;
     final static String cardTitle = "Diluente per Pasta Salda";
     final static String description = "Parte Seconda.\n" +
             "Scegli il valore del nuovo dado e piazzalo, rispettando tutte le restrizioni di piazzamento.";
@@ -30,9 +30,11 @@ public class DiluentePerPastaSalda2 implements ToolAction{
 
     public void execute () throws ToolIllegalOperationException{
         try{
-            Dice dice = this.player.getdiceforDiluenteperPastaSalda();
+
             this.player.getdiceforDiluenteperPastaSalda().setIntensity(this.diceIntesityToset);
-            this.player.getScheme().setDice(dice,this.row, this.column, false, false );
+            this.player.getScheme().setDice(this.player.getdiceforDiluenteperPastaSalda(),this.row, this.column, false, false );
+            // mi piace separare la set dalla remove
+            this.player.removediceforDiluenteperPastaSalda();
         }catch (DiceNotExistantException e){
             throw new  DiluentePerPastaSalda2Exception(DiluentePerPastaSalda2Exception.getMsg() +e.getMsg());
         }catch (OutOfMatrixException e){

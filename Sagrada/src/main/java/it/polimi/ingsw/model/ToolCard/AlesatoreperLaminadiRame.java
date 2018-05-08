@@ -1,8 +1,6 @@
 package it.polimi.ingsw.model.ToolCard;
 
 import it.polimi.ingsw.model.Dice;
-import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
-import it.polimi.ingsw.model.Exceptions.OutOfMatrixException;
 import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.Player;
@@ -28,9 +26,9 @@ public class AlesatoreperLaminadiRame  implements ToolAction {
 
     @Override
 
-    public void execute () throws  TileConstrainException,OutOfMatrixException, DiceNotExistantException {
-        // actually there is no ToolIllegalOperation, because all the errors are related to the scheme card
-        Dice dice = player.getScheme().removeDice(row, column);
+    public void execute () throws  ToolIllegalOperationException {
+
+        Dice dice = player.getScheme().getDice(row, column);
         // no dice, no way to move it
         try {
             player.getScheme().setDice(dice, newRow, newColumn, false, true);

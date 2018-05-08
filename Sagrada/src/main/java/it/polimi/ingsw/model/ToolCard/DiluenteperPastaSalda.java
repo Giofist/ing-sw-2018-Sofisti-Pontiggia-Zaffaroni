@@ -26,9 +26,10 @@ public class DiluenteperPastaSalda  implements ToolAction {
     public void execute (){
 
         //removes a dice e puts it into the dicepool, but before we need to remember its color
-        DiceColor color = player.getGametable().getRoundDice(this.selectedDiceIndex).getColor();
+        DiceColor color = player.getGametable().getRoundDicepool().getDice(this.selectedDiceIndex).getColor();
         player.getGametable().getRoundDicepool().removeDice(this.selectedDiceIndex);
         player.getGametable().getDicepool().insertDice(color);
+        //poi pescane uno
         player.setDiceforDiluenteperpastaSalda(player.getGametable().getDicepool().extractDice());
 
     }

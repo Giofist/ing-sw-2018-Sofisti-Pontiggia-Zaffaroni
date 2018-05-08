@@ -41,7 +41,7 @@ public class Gametable {
     public void setupRound(int numberPlayers) {
         this.roundDicepool = new DicePool();
         for (int i = 1; i < numberPlayers * 2 + 1; i++) {
-            this.roundDicepool.addDice(this.dicepool.extractDice());
+            this.getRoundDicepool().addDice(this.getRoundDicepool().extractDice());
         }
     }
 
@@ -66,15 +66,7 @@ public class Gametable {
         return publicGoalCardDeck;
     }
 
-    //asking for a dice in the dicepool of 90 dices
-    public Dice extractDice() {
-        return this.dicepool.extractDice();
-    }
 
-    //asking for a specific dice in the round
-    public Dice getRoundDice(int position) {
-        return this.roundDicepool.getDice(position);
-    }
 
     //to get IDs and description and names of the public goals
     public List getPublicGoalDescriptions() {

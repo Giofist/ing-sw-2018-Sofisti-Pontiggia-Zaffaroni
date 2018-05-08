@@ -15,24 +15,21 @@ public class ToolCardsDeck {
 
     // constructor
     public ToolCardsDeck(){
-        this.costs = new int[12];
-        for (int costIndex = 0; costIndex < costs.length; costIndex++){
+        this.costs = new int[13];
+        costs[0] = 0;
+        for (int costIndex = 1; costIndex < costs.length; costIndex++){
             costs[costIndex] = 1;
         }
     }
 
     public int getCost(int id){
-    if(id<0){
-        return 0;}
-        else{
-            return this.costs[id];
+        return this.costs[id];
         }
-    }
 
 
     //dopo il primo utilizzo, il costo sale a due
     public void setCostOfAction(int id) throws ToolActionNotIntheSetOfCostsException{
-        if(id <0){
+        if(id <0 || id >12){
             throw new ToolActionNotIntheSetOfCostsException();
         }
         if(this.costs[id] == 1){

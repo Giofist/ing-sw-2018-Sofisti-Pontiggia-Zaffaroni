@@ -4,14 +4,13 @@ import it.polimi.ingsw.model.DiceColor;
 import it.polimi.ingsw.model.Exceptions.MapConstrainReadingException;
 import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
 import it.polimi.ingsw.model.Exceptions.OutOfMatrixException;
-import it.polimi.ingsw.model.Exceptions.TileConstrainException.FirstDiceNeedsToBeAtBordersException;
-import it.polimi.ingsw.model.Exceptions.TileConstrainException.NotNearAnotherDiceException;
-import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
-import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileyetOccupiedException;
+import it.polimi.ingsw.model.Exceptions.TileConstrainException.*;
 
 import java.io.*;
 import java.lang.String;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import static it.polimi.ingsw.model.DiceColor.GREEN;
@@ -120,12 +119,33 @@ public class SchemeCard implements Iterable<Tile>{
 
     //to set a Dice, this method is a bit long just because off the big number of controls I need to do here
     public void setDice (Dice dice, int row, int column, boolean IgnoreColor, boolean IgnoreNumber)throws OutOfMatrixException, TileConstrainException {
+        if(IsTileOccupied(row,column)){
+            throw new TileyetOccupiedException(); // you can't set a dice where there is another dice
+        }
+
+        List colorsnearyou = new LinkedList<DiceColor>();
+        List intensitiesnearyou = new LinkedList<DiceColor>();
         boolean ThereisaDicenearYou = false;
 
         // to control if there is a dice near the tile where a want to set my dice
-        ThereisaDicenearYou = IsTileOccupied(row -1, column -1) || IsTileOccupied(row -1, column )||IsTileOccupied(row -1, column +1) ||
-            IsTileOccupied(row , column -1) || IsTileOccupied(row -1, column +1) || IsTileOccupied(row +1, column -1)
-                || IsTileOccupied(row +1, column ) || IsTileOccupied(row +1, column+1 ) ;
+        for(int i = row-1; i<= row+1; i++){
+            for(int j = column-1; j<= column+1; j++){
+                try{
+                    ThereisaDicenearYou = ThereisaDicenearYou || IsTileOccupied(i,j);
+                    if(i==row  || j == column){
+                        colorsnearyou.add(getDiceColour(i,j));
+                        intensitiesnearyou.add(getDiceIntensity(i,j));
+                    }
+                }catch (OutOfMatrixException e){
+                    //
+                }catch (DiceNotExistantException er){
+                    //
+                }
+            }
+        }
+
+
+
 
         //if this is the first dce you set, there is a specific constrain
         if (EmptyScheme()){
@@ -134,17 +154,62 @@ public class SchemeCard implements Iterable<Tile>{
             }else throw new FirstDiceNeedsToBeAtBordersException();
         }
         else{
-            if (IsTileOccupied(row,column)){
-                throw new TileyetOccupiedException(); // you can't set a dice where there is another dice
-            }
-            else if(ThereisaDicenearYou){
+            if(ThereisaDicenearYou){
+                if(colorsnearyou.contains(dice.getColor())){
+                    throw new DiceSameColorNearYouException();
+                }
+                if(intensitiesnearyou.contains(dice.getIntensity())){
+                    throw new DiceSameIntensityNearYou();
+                }
                 this.getTile(row,column).setDice(dice, IgnoreColor, IgnoreNumber);
             } else throw new NotNearAnotherDiceException();  // there must be a dice near you mate!
         }
-
-        //others controls need tobe implemented? check out please!
     }
+    public boolean SettableHere(Dice dice, int row, int column, boolean IgnoreColor, boolean IgnoreNumber) {
+        try {
+            if (IsTileOccupied(row, column)) {
+                return false; // you can't set a dice where there is another dice
+            }
+            List colorsnearyou = new LinkedList<DiceColor>();
+            List intensitiesnearyou = new LinkedList<DiceColor>();
+            boolean ThereisaDicenearYou = false;
 
+            // to control if there is a dice near the tile where a want to set my dice
+            for (int i = row - 1; i <= row + 1; i++) {
+                for (int j = column - 1; j <= column + 1; j++) {
+                    try {
+                        ThereisaDicenearYou = ThereisaDicenearYou || IsTileOccupied(i, j);
+                        if (i == row || j == column) {
+                            colorsnearyou.add(getDiceColour(i, j));
+                            intensitiesnearyou.add(getDiceIntensity(i, j));
+                        }
+                    } catch (OutOfMatrixException e) {
+                        //
+                    } catch (DiceNotExistantException er) {
+                        //
+                    }
+                }
+            }
+            //if this is the first dce you set, there is a specific constrain
+            if (EmptyScheme()) {
+                if (row == 0 || row == 3 || column == 0 || column == 4) {
+                    return this.getTile(row, column).settableDiceHere(dice, IgnoreColor, IgnoreNumber);
+                } else return false;
+            } else {
+                if (ThereisaDicenearYou) {
+                    if (colorsnearyou.contains(dice.getColor())) {
+                        return false;
+                    }
+                    if (intensitiesnearyou.contains(dice.getIntensity())) {
+                        return false;
+                    }
+                    return this.getTile(row, column).settableDiceHere(dice, IgnoreColor, IgnoreNumber);
+                } else return false;  // there must be a dice near you mate!
+            }
+        }catch(Exception e){
+            return false;
+        }
+    }
 
 
 
@@ -179,8 +244,12 @@ public class SchemeCard implements Iterable<Tile>{
         return this.twinCard;
     }
 
-    public Dice removeDice(int row, int column)throws DiceNotExistantException,OutOfMatrixException{
-        return this.getTile(row,column).getandremoveDice() ;
+    public Dice getDice(int row, int column)throws DiceNotExistantException,OutOfMatrixException{
+        return this.getTile(row,column).getDice();
+
+    }
+    public void removeDice(int row, int column) throws DiceNotExistantException, OutOfMatrixException{
+        this.getTile(row,column).removeDice();
     }
     public DiceColor getColorConstrain( int row, int column){
         return this.matrix[row][column].getColor_Constrain();

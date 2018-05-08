@@ -35,7 +35,7 @@ public class PinzaSgrossatriceTest {
         this.mockDice = mock(Dice.class);
 
         when(this.mockPlayer.getGametable()).thenReturn(mockGametable);
-        when(this.mockGametable.getRoundDice(3)).thenReturn(mockDice);
+        when(this.mockGametable.getRoundDicepool().getDice(3)).thenReturn(mockDice);
     }
 
     @Test

@@ -2,19 +2,14 @@ package it.polimi.ingsw.model.PublicGoalCards;
 
 import it.polimi.ingsw.model.Dice;
 import it.polimi.ingsw.model.DiceColor;
-import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
-import it.polimi.ingsw.model.Exceptions.OutOfMatrixException;
 import it.polimi.ingsw.model.GoalCard;
 import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.SchemeDeck.Tile;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 
 
 //revisionata by pon
+//assolutamente da testare
 //obiettivo pubblico
 public class DiagonaliColorate implements GoalCard {
     static int ID = 9;
@@ -31,10 +26,6 @@ public class DiagonaliColorate implements GoalCard {
                 }
             }
         }
-
-
-
-
     }
 
     @Override
@@ -58,7 +49,8 @@ public class DiagonaliColorate implements GoalCard {
 
 
             DiceColor thecolorofthistile = player.getScheme().getDiceColour(row, column);
-            list.add(player.getScheme().removeDice(row, column));
+            list.add(player.getScheme().getDice(row, column));
+            player.getScheme().removeDice(row,column);
 
 
 

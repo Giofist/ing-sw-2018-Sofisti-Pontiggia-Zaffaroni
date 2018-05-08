@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.ToolCard;
 
+import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.Player;
 
 public class Martelletto  implements ToolAction {
@@ -19,10 +20,11 @@ public class Martelletto  implements ToolAction {
 
     @Override
 
-    public void execute (){
+    public void execute ()throws ToolIllegalOperationException{
+        //se non lancia eccezioni ci siamo dimenticati di qualcosa
+        for(int i=0; i<player.getGametable().getRoundDicepool().getDicePoolSize();i++)
+        player.getGametable().getRoundDicepool().getDice(i).setRandomIntensity();
 
-        //player.getGametable().getRoundDicepool().scrambleDicePool();
-        //add Limitation on round??
     }
 
     @Override
