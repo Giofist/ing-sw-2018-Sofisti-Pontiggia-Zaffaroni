@@ -6,4 +6,8 @@ public class ToolActionNotIntheSetOfCostsException extends Exception {
         super(msg);
     }
     public ToolActionNotIntheSetOfCostsException(String msg){ super(msg); }
+
+    public static String getMsg() {
+        return msg;
+    }
 }

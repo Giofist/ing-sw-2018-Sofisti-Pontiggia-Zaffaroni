@@ -5,4 +5,8 @@ public class NumberOfPlayersNotAllowedException extends Exception {
     public NumberOfPlayersNotAllowedException () {
         super(msg);
     }
+
+    public static String getMsg() {
+        return msg;
+    }
 }

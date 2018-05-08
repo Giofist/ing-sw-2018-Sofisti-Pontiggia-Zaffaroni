@@ -6,4 +6,8 @@ public class TileyetOccupiedException extends TileConstrainException {
         super(msg);
     }
     public TileyetOccupiedException(String msg){ super(msg); }
+
+    public static String getMsg() {
+        return msg;
+    }
 }

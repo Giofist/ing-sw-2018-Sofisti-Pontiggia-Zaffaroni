@@ -6,4 +6,8 @@ public class FirstDiceNeedsToBeAtBordersException extends TileConstrainException
         super(msg);
     }
     public FirstDiceNeedsToBeAtBordersException(String msg){ super(msg); }
+
+    public static String getMsg() {
+        return msg;
+    }
 }

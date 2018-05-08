@@ -11,4 +11,8 @@ public class HomonymyException extends Exception {
     public HomonymyException(){
         super(msg);
     }
+
+    public  String getMsg() {
+        return msg;
+    }
 }

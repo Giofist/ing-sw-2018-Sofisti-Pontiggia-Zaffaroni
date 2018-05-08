@@ -5,4 +5,8 @@ public class NotEnoughSegnaliniException extends Exception{
     public NotEnoughSegnaliniException() {
         super(msg);
     }
+
+    public static String getMsg() {
+        return msg;
+    }
 }

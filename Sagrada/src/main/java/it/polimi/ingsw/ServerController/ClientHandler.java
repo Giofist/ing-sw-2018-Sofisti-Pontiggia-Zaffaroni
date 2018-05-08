@@ -23,10 +23,7 @@ public class ClientHandler extends UnicastRemoteObject implements Runnable, RMIR
         //qui metteremo lo switchone
     }
 
-    @Override
-    public String forzaChievo(String stringa) {
-        return "Chievo" + stringa;
-    }
+
 
     //here we'll put the implementation of all the methods in the interface RMIRemoteServerClientHandler
 

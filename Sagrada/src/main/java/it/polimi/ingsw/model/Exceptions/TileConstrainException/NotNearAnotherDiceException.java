@@ -6,4 +6,8 @@ public class NotNearAnotherDiceException extends TileConstrainException {
         super(msg);
     }
     public NotNearAnotherDiceException(String msg){ super(msg); }
+
+    public static String getMsg() {
+        return msg;
+    }
 }

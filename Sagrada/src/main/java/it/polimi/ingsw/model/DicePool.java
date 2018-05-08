@@ -1,6 +1,10 @@
 package it.polimi.ingsw.model;
 import java.util.*;
 
+// NB: questa classe si usa sia per il sacchetto dei 90 dadi che per i dadi del round, che però sono due cose concettualmente
+//leggermente diverse: proprio per questo sono stati creati metodi diversi per fare cose diverse: fate attenzione a quale
+//vi serve davvero quando li invocate
+//per esempio fate caso al metodo extract
 public class DicePool {
     private LinkedList<Dice> dices;
 
@@ -54,6 +58,7 @@ public class DicePool {
     }
 
     //do use for RoundDicepool
+    // il metodo get non elimina dalla lista
     public Dice getDice(int position){
         if (dices.isEmpty()){
             return null;
@@ -64,11 +69,19 @@ public class DicePool {
 
     //do use for RoundDicepool
     //useful for DiluentePerPastaSalda
-    public Dice removeDice(int diceIndex){
+    public Dice removeandreturnDice(int diceIndex){
         if(diceIndex<=getDicePoolSize()){
             return dices.remove(diceIndex);
         }
         else return null;
+    }
+
+    //ho aggiunto questo metodo
+    //propongo di lanciare delle eccezioni per gestire questa cosa e il metodo sopra
+    public void removeDice(int diceIndex){
+        if(diceIndex <= getDicePoolSize()){
+            dices.remove(diceIndex);
+        }
     }
 
 }

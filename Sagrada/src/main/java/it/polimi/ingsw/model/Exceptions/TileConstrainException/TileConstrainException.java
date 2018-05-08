@@ -9,4 +9,8 @@ public class TileConstrainException extends Exception {
         super(msg);
     }
     public TileConstrainException(String msg){ super(msg); }
+
+    public static String getMsg() {
+        return msg;
+    }
 }

@@ -1,19 +1,46 @@
 package it.polimi.ingsw.model.ToolCard;
 
+import it.polimi.ingsw.model.Dice;
 import it.polimi.ingsw.model.DiceColor;
+import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
+import it.polimi.ingsw.model.Exceptions.OutOfMatrixException;
+import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
+import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.DiluentePerPastaSalda2Exception;
+import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.Player;
-
-public class DiluentePerPastaSalda2 implements ToolAction {
+//revisionato by pon
+public class DiluentePerPastaSalda2 implements ToolAction{
     final static int ID = -1;
     final static String cardTitle = "Diluente per Pasta Salda";
     final static String description = "Parte Seconda.\n" +
             "Scegli il valore del nuovo dado e piazzalo, rispettando tutte le restrizioni di piazzamento.";
 
+    Player player;
+    int row; int column;
+    int diceIntesityToset;
+    public DiluentePerPastaSalda2(Player player, int row, int column, int diceIntesityToset){
+        this.player = player;
+        this.row = row;
+        this.column = column;
+        this.diceIntesityToset = diceIntesityToset;
+    }
 
 
     @Override
 
-    public void execute (){
+    public void execute () throws ToolIllegalOperationException{
+        try{
+            Dice dice = this.player.getdiceforDiluenteperPastaSalda();
+            this.player.getdiceforDiluenteperPastaSalda().setIntensity(this.diceIntesityToset);
+            this.player.getScheme().setDice(dice,this.row, this.column, false, false );
+        }catch (DiceNotExistantException e){
+            throw new  DiluentePerPastaSalda2Exception(DiluentePerPastaSalda2Exception.getMsg() +e.getMsg());
+        }catch (OutOfMatrixException e){
+            throw  new DiluentePerPastaSalda2Exception(DiluentePerPastaSalda2Exception.getMsg()+ e.getMsg());
+        }catch (TileConstrainException e){
+            throw new DiluentePerPastaSalda2Exception(DiluentePerPastaSalda2Exception.getMsg()+ e.getMsg());
+        }
+
 
     }
 

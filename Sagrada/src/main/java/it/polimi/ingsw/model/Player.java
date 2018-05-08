@@ -1,4 +1,5 @@
 package it.polimi.ingsw.model;
+import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
 import it.polimi.ingsw.model.Exceptions.NotEnoughSegnaliniException;
 import it.polimi.ingsw.model.Exceptions.PlayerNotFoundException;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
@@ -78,7 +79,22 @@ public class Player{
         this.state.add(player);
     }
     public User getAssociatedUser(){ return this.user; }
+    public void setDiceforDiluenteperpastaSalda(Dice dice){
+        this.diceforDiluenteperpastaSalda = dice;
+    }
+    public Dice getdiceforDiluenteperPastaSalda() throws DiceNotExistantException{
+        if (this.diceforDiluenteperpastaSalda ==null){
+            throw new DiceNotExistantException();
+        }
+        else {
+            return this.diceforDiluenteperpastaSalda
+            ;
+        }
 
+    }
+    public void  removediceforDiluenteperPastaSalda(){
+        this.diceforDiluenteperpastaSalda = null;
+    }
 
 
     public Player getSelectedPlayer (String name) throws PlayerNotFoundException {

@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.Dice;
 import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
 import it.polimi.ingsw.model.Exceptions.OutOfMatrixException;
 import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
+import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.Player;
 //revisionata by pon
 public class Lathekin  implements ToolAction {
@@ -28,7 +29,7 @@ public class Lathekin  implements ToolAction {
     }
 
     @Override
-    public void execute () throws TileConstrainException, DiceNotExistantException, OutOfMatrixException {
+    public void execute () throws ToolIllegalOperationException {
         removedDice1 = player.getScheme().removeDice(oldRow1, oldColumn1);
         player.getScheme().setDice(removedDice1, newRow1, newColumn1, false, false);
         removedDice2 = player.getScheme().removeDice(oldRow2, oldColumn2);
