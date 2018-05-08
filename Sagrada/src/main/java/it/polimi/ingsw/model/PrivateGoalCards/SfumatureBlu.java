@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.PrivateGoalCards;
 
 import it.polimi.ingsw.model.DiceColor;
 import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
+import it.polimi.ingsw.model.Exceptions.OutOfMatrixException;
 import it.polimi.ingsw.model.GoalCard;
 import it.polimi.ingsw.model.Player;
 
@@ -23,8 +24,10 @@ public class SfumatureBlu implements GoalCard {
                     if (player.getScheme().getDiceColour(row, column)== color) {
                         player.addPoints(player.getScheme().getDiceIntensity(row, column));
                     }
-                }catch (Exception e){
+                }catch (DiceNotExistantException e){
                     //zorry, there is no dice
+                }catch (OutOfMatrixException e){
+                    //
                 }
             }
         }

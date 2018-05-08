@@ -31,7 +31,7 @@ public class PennelloperEglomise  implements ToolAction {
     public void execute () throws ToolIllegalOperationException{
         try{
             Dice removedDice = player.getScheme().getDice(row, column);
-            player.getScheme().setDice(removedDice, newRow, newColumn, true, false);
+            player.getScheme().setDice(removedDice, newRow, newColumn, true, false, false);
             player.getScheme().removeDice(row,column);
         }catch(DiceNotExistantException e) {
             throw new PennelloPerEglomiseException(PennelloPerEglomiseException.getMsg() + e.getMessage());

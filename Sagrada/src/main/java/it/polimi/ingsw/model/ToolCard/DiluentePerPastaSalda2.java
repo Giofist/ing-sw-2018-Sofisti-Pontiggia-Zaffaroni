@@ -1,7 +1,5 @@
 package it.polimi.ingsw.model.ToolCard;
 
-import it.polimi.ingsw.model.Dice;
-import it.polimi.ingsw.model.DiceColor;
 import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
 import it.polimi.ingsw.model.Exceptions.OutOfMatrixException;
 import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
@@ -32,7 +30,7 @@ public class DiluentePerPastaSalda2 implements ToolAction{
         try{
 
             this.player.getdiceforDiluenteperPastaSalda().setIntensity(this.diceIntesityToset);
-            this.player.getScheme().setDice(this.player.getdiceforDiluenteperPastaSalda(),this.row, this.column, false, false );
+            this.player.getScheme().setDice(this.player.getdiceforDiluenteperPastaSalda(),this.row, this.column, false, false, false);
             // mi piace separare la set dalla remove
             this.player.removediceforDiluenteperPastaSalda();
         }catch (DiceNotExistantException e){

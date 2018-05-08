@@ -28,7 +28,9 @@ public class Client {
     // nelle specifiche si dice di presupporre che il giocatore conosca l'indirizzo IP del server
     // io ho pensato che lo scriva come argomento quando chiama il programma da linea di comando
     //nelle implementazioni senza linea di comando, come funziona?
-    public static void main(String[] args) throws Exception {
+
+
+    /*public static void main(String[] args) throws Exception {
 
         //manca una parte in cui il client decide se utilizzare RMI o socket, anche questo da riga di comando?
         //notate che da specifiche si chiede che il client possa decidere se usare RMI o socket SOLO A INIZIO PARTITA, e non si chiede che si possa cambiare tipo
@@ -49,7 +51,7 @@ public class Client {
         RMIRemoteServerClientHandler controller = (RMIRemoteServerClientHandler) registry.lookup("RMIServerClientHandler");
         // creates and launches the clientcontroller
             new RMIClientController(controller).run();
-        }
+        }*/
     }
 
 

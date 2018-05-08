@@ -118,23 +118,24 @@ public class SchemeCard implements Iterable<Tile>{
 
 
     //to set a Dice, this method is a bit long just because off the big number of controls I need to do here
-    public void setDice (Dice dice, int row, int column, boolean IgnoreColor, boolean IgnoreNumber)throws OutOfMatrixException, TileConstrainException {
+    public void setDice(Dice dice, int row, int column, boolean IgnoreColor, boolean IgnoreNumber, boolean IgnoreThereisaDiceNearYou)throws OutOfMatrixException, TileConstrainException {
         if(IsTileOccupied(row,column)){
             throw new TileyetOccupiedException(); // you can't set a dice where there is another dice
         }
 
-        List colorsnearyou = new LinkedList<DiceColor>();
-        List intensitiesnearyou = new LinkedList<DiceColor>();
-        boolean ThereisaDicenearYou = false;
 
-        // to control if there is a dice near the tile where a want to set my dice
+
+        //to control the color and intensity constrain of the matrix
         for(int i = row-1; i<= row+1; i++){
             for(int j = column-1; j<= column+1; j++){
                 try{
-                    ThereisaDicenearYou = ThereisaDicenearYou || IsTileOccupied(i,j);
                     if(i==row  || j == column){
-                        colorsnearyou.add(getDiceColour(i,j));
-                        intensitiesnearyou.add(getDiceIntensity(i,j));
+                        if (this.getDiceColour(i,j) == dice.getColor()){
+                            throw new DiceSameColorNearYouException();
+                        }
+                        if(this.getDiceIntensity(i,j)== dice.getIntensity()){
+                            throw new DiceSameIntensityNearYou();
+                        }
                     }
                 }catch (OutOfMatrixException e){
                     //
@@ -144,10 +145,11 @@ public class SchemeCard implements Iterable<Tile>{
             }
         }
 
+        // to control if there is a dice near the tile where a want to set my dice
+        boolean ThereisaDicenearYou = false;
+        ThereisaDicenearYou = this.ThereisaDicenearYou(row,column) || IgnoreThereisaDiceNearYou;
 
-
-
-        //if this is the first dce you set, there is a specific constrain
+        //if this is the first dice you set, there is a specific constrain
         if (EmptyScheme()){
             if(row ==0 || row == 3 || column ==0 || column ==4){
                 this.getTile(row,column).setDice(dice, IgnoreColor, IgnoreNumber);
@@ -155,12 +157,6 @@ public class SchemeCard implements Iterable<Tile>{
         }
         else{
             if(ThereisaDicenearYou){
-                if(colorsnearyou.contains(dice.getColor())){
-                    throw new DiceSameColorNearYouException();
-                }
-                if(intensitiesnearyou.contains(dice.getIntensity())){
-                    throw new DiceSameIntensityNearYou();
-                }
                 this.getTile(row,column).setDice(dice, IgnoreColor, IgnoreNumber);
             } else throw new NotNearAnotherDiceException();  // there must be a dice near you mate!
         }
@@ -175,21 +171,7 @@ public class SchemeCard implements Iterable<Tile>{
             boolean ThereisaDicenearYou = false;
 
             // to control if there is a dice near the tile where a want to set my dice
-            for (int i = row - 1; i <= row + 1; i++) {
-                for (int j = column - 1; j <= column + 1; j++) {
-                    try {
-                        ThereisaDicenearYou = ThereisaDicenearYou || IsTileOccupied(i, j);
-                        if (i == row || j == column) {
-                            colorsnearyou.add(getDiceColour(i, j));
-                            intensitiesnearyou.add(getDiceIntensity(i, j));
-                        }
-                    } catch (OutOfMatrixException e) {
-                        //
-                    } catch (DiceNotExistantException er) {
-                        //
-                    }
-                }
-            }
+
             //if this is the first dce you set, there is a specific constrain
             if (EmptyScheme()) {
                 if (row == 0 || row == 3 || column == 0 || column == 4) {
@@ -257,10 +239,23 @@ public class SchemeCard implements Iterable<Tile>{
     public int getNumberConstrain(int row, int column){
         return this.matrix[row][column].getNumber_Constrain();
     }
-
+    public boolean ThereisaDicenearYou(int row, int column){
+        boolean ThereisaDicenearYou = false;
+        for (int i = row - 1; i <= row + 1; i++) {
+            for (int j = column - 1; j <= column + 1; j++) {
+                try {
+                    ThereisaDicenearYou = ThereisaDicenearYou || IsTileOccupied(i, j);
+                } catch (OutOfMatrixException e) {
+                    //
+                }
+            }
+        }
+        return ThereisaDicenearYou;
+    }
 
     //metodi private
     // lo setto private per non esporre l'implementazione
+
     private Tile getTile(int row, int column)throws OutOfMatrixException{
         if(row <0 || row > 3 || column <0 || column >4){
             throw new OutOfMatrixException();

@@ -1,7 +1,10 @@
 package it.polimi.ingsw.model.ToolCard;
 
 import it.polimi.ingsw.model.Dice;
+import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
+import it.polimi.ingsw.model.Exceptions.OutOfMatrixException;
 import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
+import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.AlesatorePerLaminadiRameException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.Player;
 //revisionata by pon
@@ -27,19 +30,18 @@ public class AlesatoreperLaminadiRame  implements ToolAction {
     @Override
 
     public void execute () throws  ToolIllegalOperationException {
-
-        Dice dice = player.getScheme().getDice(row, column);
-        // no dice, no way to move it
-        try {
-            player.getScheme().setDice(dice, newRow, newColumn, false, true);
-        } catch (TileConstrainException e) {
-            //if I've violated a constrain, first of all i need to put the dice in his old position
-            //then I give back bad news to the caller
-            player.getScheme().setDice(dice, this.row, this.column, false, false);
-            throw e;
+        try{
+            Dice dice = player.getScheme().getDice(row, column);
+            player.getScheme().setDice(dice, newRow, newColumn, false, true, false);
+            player.getScheme().removeDice(row,column);
+        }catch (DiceNotExistantException e){
+            throw new AlesatorePerLaminadiRameException(AlesatorePerLaminadiRameException.getMsg()+e.getMessage());
+        }catch (OutOfMatrixException e){
+            throw new AlesatorePerLaminadiRameException(AlesatorePerLaminadiRameException.getMsg()+e.getMessage());
+        }catch (TileConstrainException e){
+            throw new AlesatorePerLaminadiRameException(AlesatorePerLaminadiRameException.getMsg()+ e.getMessage());
         }
     }
-
 
     @Override
     public int getID(){

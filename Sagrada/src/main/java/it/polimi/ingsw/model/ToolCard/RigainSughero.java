@@ -1,9 +1,13 @@
 package it.polimi.ingsw.model.ToolCard;
 
 
+import it.polimi.ingsw.model.Dice;
+import it.polimi.ingsw.model.Exceptions.OutOfMatrixException;
+import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
+import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.RigaInSugheroException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.Player;
-
+//revisionata by pon
 public class RigainSughero  implements ToolAction {
     final static int ID = 9;
     final static String cardTitle = "Riga in Sughero";
@@ -12,16 +16,33 @@ public class RigainSughero  implements ToolAction {
     private Player player;
     private int selectedDiceIndex;
     private int operation;
+    private int row;
+    private int column;
 
-    public RigainSughero(Player player, int selectedDiceIndex, int operation){
+    public RigainSughero(Player player, int row, int column, int selectedDiceIndex){
         this.player = player;
         this.selectedDiceIndex = selectedDiceIndex;
-        this.operation = operation;
+        this.row = row;
+        this.column =column;
     }
 
     @Override
 
     public void execute () throws ToolIllegalOperationException {
+        //ricordarsi di fare get and remove dei dadi, non dimenticare la remove
+        try {
+            Dice dice = player.getGametable().getRoundDicepool().getDice(selectedDiceIndex);
+            boolean thereisadicenearyou = player.getScheme().ThereisaDicenearYou(this.row, this.column);
+            if (thereisadicenearyou) {
+                throw new RigaInSugheroException("Non puoi mettere un dado se ce n'è uno vicino!\n");
+            } else player.getScheme().setDice(dice, row, column, false, false, true);
+            player.getGametable().getRoundDicepool().removeDice(selectedDiceIndex);
+        }catch (OutOfMatrixException e){
+            throw new RigaInSugheroException(RigaInSugheroException.getMsg()+ e.getMessage());
+        }catch (TileConstrainException e){
+            throw new RigaInSugheroException(RigaInSugheroException.getMsg()+e.getMessage());
+        }
+
         //not implemented yet
     }
 

@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.PublicGoalCards;
 import it.polimi.ingsw.model.Dice;
 import it.polimi.ingsw.model.DiceColor;
 import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
+import it.polimi.ingsw.model.Exceptions.OutOfMatrixException;
 import it.polimi.ingsw.model.Exceptions.TwoDiceSameColorException;
 import it.polimi.ingsw.model.GoalCard;
 import it.polimi.ingsw.model.Player;
@@ -21,7 +22,6 @@ public class ColoriDiversiColonna implements GoalCard {
 
     @Override
     public void  calculatepoint(Player player) {
-
         for (int column = 0; column < 5; column++) {
             try {
                 List<DiceColor> existingcolors = new LinkedList<DiceColor>();
@@ -33,10 +33,13 @@ public class ColoriDiversiColonna implements GoalCard {
                     }
                 }
                 player.addPoints(5);
-                } catch (TwoDiceSameColorException e) {
+            } catch (TwoDiceSameColorException e) {
                     //unfortunately you can't get the points: there are two dices of the same color
-                }catch (Exception er){
+            }catch (DiceNotExistantException e){
+
                 //unfortunately you can't get the point: the column has an empty tile
+            }catch ( OutOfMatrixException e){
+                //no way to get here
             }
         }
     }

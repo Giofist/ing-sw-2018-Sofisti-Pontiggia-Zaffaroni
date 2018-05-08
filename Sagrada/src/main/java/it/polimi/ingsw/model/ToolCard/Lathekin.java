@@ -33,10 +33,10 @@ public class Lathekin  implements ToolAction {
     public void execute () throws ToolIllegalOperationException {
         try{
             removedDice1 = player.getScheme().getDice(oldRow1, oldColumn1);
-            player.getScheme().setDice(removedDice1, newRow1, newColumn1, false, false);
+            player.getScheme().setDice(removedDice1, newRow1, newColumn1, false, false, false);
             player.getScheme().removeDice(oldRow1,oldColumn1);
             removedDice2 = player.getScheme().getDice(oldRow2, oldColumn2);
-            player.getScheme().setDice(removedDice2, newRow2, newColumn2,false,false);
+            player.getScheme().setDice(removedDice2, newRow2, newColumn2,false,false, false);
             player.getScheme().removeDice(oldRow2,oldColumn2);
         }catch( DiceNotExistantException e){
             throw new LathekinException(LathekinException.getMsg() + e.getMsg());

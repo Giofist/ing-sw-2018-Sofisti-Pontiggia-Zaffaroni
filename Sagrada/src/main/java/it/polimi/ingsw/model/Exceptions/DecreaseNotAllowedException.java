@@ -1,6 +1,6 @@
-package it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions;
+package it.polimi.ingsw.model.Exceptions;
 
-public class DecreaseNotAllowedException extends ToolIllegalOperationException {
+public class DecreaseNotAllowedException extends Exception {
     private static final String msg = "Decrease not allowed";
     public DecreaseNotAllowedException() {
         super(msg);
