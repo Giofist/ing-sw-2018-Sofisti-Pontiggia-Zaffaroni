@@ -1,6 +1,6 @@
 package it.polimi.ingsw.ClientController;
 
-import it.polimi.ingsw.ServerController.RMIRemoteServerClientHandler;
+import it.polimi.ingsw.ServerController.RemoteClientHandler;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -8,9 +8,9 @@ import java.rmi.server.UnicastRemoteObject;
 //implemented by pon
 //non implemeta runnable
 public class RMIClientController extends UnicastRemoteObject {
-    private RMIRemoteServerClientHandler servercontroller;
+    private RemoteClientHandler servercontroller;
     //constructor
-    public RMIClientController(RMIRemoteServerClientHandler controller) throws RemoteException {
+    public RMIClientController(RemoteClientHandler controller) throws RemoteException {
         this.servercontroller = controller;
     }
 

@@ -1,11 +1,7 @@
 package it.polimi.ingsw.ClientController;
 
-import it.polimi.ingsw.ServerController.RMIRemoteServerClientHandler;
-
 import java.io.IOException;
 import java.net.Socket;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 
 public class Client {
     private String ip;
@@ -17,11 +13,11 @@ public class Client {
     //per il socket
     public void startClient() throws IOException {
         Socket socket = new Socket(this.ip, this.port);
-        System.out.println("Connection established\n");
+        System.out.println("Connessione stabilita\n");
         try {
             new SocketClientController(socket).run();
         } catch (IOException e) {
-            System.out.println("Connection closed");
+            System.out.println("Connessione chiusa\n");
         }
     }
 
@@ -48,7 +44,7 @@ public class Client {
         //RMI part
         Registry registry = LocateRegistry.getRegistry(ip);
         // gets a reference for the remote controller
-        RMIRemoteServerClientHandler controller = (RMIRemoteServerClientHandler) registry.lookup("RMIServerClientHandler");
+        RemoteClientHandler controller = (RemoteClientHandler) registry.lookup("ClientHandler");
         // creates and launches the clientcontroller
             new RMIClientController(controller).run();
         }*/

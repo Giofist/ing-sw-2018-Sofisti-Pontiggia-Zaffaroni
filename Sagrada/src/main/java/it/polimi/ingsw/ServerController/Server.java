@@ -67,7 +67,7 @@ public class Server {
         ClientHandler controller = new ClientHandler();
 
         Registry registry = LocateRegistry.getRegistry();
-        registry.rebind("RMIServerClientHandler", controller);
+        registry.rebind("ClientHandler", controller);
         System.out.println("Waiting for invocations from clients...");
 
 
