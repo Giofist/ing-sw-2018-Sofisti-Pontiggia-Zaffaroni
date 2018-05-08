@@ -24,6 +24,10 @@ public class ClientHandler extends UnicastRemoteObject implements Runnable, RMIR
     }
 
 
+    @Override
+    public String rmiTest(String stringa) {
+        return "Test " + stringa;
+    }
 
     //here we'll put the implementation of all the methods in the interface RMIRemoteServerClientHandler
 

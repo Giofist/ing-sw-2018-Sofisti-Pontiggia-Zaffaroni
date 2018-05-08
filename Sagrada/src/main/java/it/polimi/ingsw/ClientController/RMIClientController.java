@@ -15,7 +15,7 @@ public class RMIClientController extends UnicastRemoteObject {
     }
 
     public void run() throws RemoteException{
-        String stringa = servercontroller.forzaChievo("Verona");
+        String stringa = servercontroller.rmiTest("RMI");
         System.out.println(stringa);
         //qui si dovrà scrivere il clientcontroller per RMI
         //che giorgio dovrebbe avere già scritto

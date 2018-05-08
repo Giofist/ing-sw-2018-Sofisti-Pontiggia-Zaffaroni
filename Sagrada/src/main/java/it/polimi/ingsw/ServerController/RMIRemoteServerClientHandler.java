@@ -8,7 +8,7 @@ import java.rmi.RemoteException;
 //guardate le slide
 public interface RMIRemoteServerClientHandler extends Remote {
 
-    public String forzaChievo(String stringa) throws RemoteException;
+    public String rmiTest(String stringa) throws RemoteException;
     //here all the methods I want to invoke from the client Controller
 
 
