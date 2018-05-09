@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.PublicGoalCards;
 
 import it.polimi.ingsw.model.DiceColor;
 import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
+import it.polimi.ingsw.model.Exceptions.OutOfMatrixException;
 import it.polimi.ingsw.model.Exceptions.TwoDiceSameColorException;
 import it.polimi.ingsw.model.GoalCard;
 import it.polimi.ingsw.model.Player;
@@ -32,8 +33,10 @@ public class ColoriDiversiRiga implements GoalCard {
                     player.addPoints(6);
                 } catch (TwoDiceSameColorException e) {
                     //unfortunately you can't get the points: there are two dices of the same color
-                }catch (DiceNotExistantException er){
+                }catch (DiceNotExistantException e){
                 // unfortunately you can't get the points
+                }catch (OutOfMatrixException e){
+                //impossibile che accada, sto iterando correttamente
             }
             }
     }

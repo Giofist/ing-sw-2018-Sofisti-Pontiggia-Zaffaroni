@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.PrivateGoalCards;
 
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
+import it.polimi.ingsw.model.Exceptions.OutOfMatrixException;
 
 //obiettivo privato
 public class SfumatureRosse implements GoalCard {
@@ -9,7 +10,7 @@ public class SfumatureRosse implements GoalCard {
     static private String name = "Sfumature Rosse";
     static private String description = "Somma dei valori su tutti i dadi rossi.";
 
-    //qui bisognerebbe scambiare righe e colonne
+
     @Override
     public void calculatepoint(Player player) {
         DiceColor color = DiceColor.RED;
@@ -20,7 +21,9 @@ public class SfumatureRosse implements GoalCard {
                         player.addPoints(player.getScheme().getDiceIntensity(row, column));
                     }
                 }catch (DiceNotExistantException e){
-                    //zorry, no dice
+                    //zorry, there is no dice
+                }catch (OutOfMatrixException e){
+                    //
                 }
             }
         }

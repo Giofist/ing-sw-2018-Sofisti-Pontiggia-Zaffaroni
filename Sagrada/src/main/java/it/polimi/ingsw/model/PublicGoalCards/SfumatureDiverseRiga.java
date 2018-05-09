@@ -32,7 +32,7 @@ public class SfumatureDiverseRiga implements GoalCard {
                 player.addPoints(5);
             } catch (TwoDiceSameShadeException e) {
                 //unfortunately you can't get the points
-            }catch (DiceNotExistantException er){
+            }catch (Exception er){
                 // unfortunately you can't get the points
             }
         }

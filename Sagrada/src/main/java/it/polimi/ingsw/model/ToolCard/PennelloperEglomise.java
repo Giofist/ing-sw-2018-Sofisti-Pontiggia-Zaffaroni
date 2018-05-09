@@ -2,7 +2,11 @@ package it.polimi.ingsw.model.ToolCard;
 
 
 import it.polimi.ingsw.model.Dice;
+import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
+import it.polimi.ingsw.model.Exceptions.OutOfMatrixException;
 import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
+import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.PennelloPerEglomiseException;
+import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.Player;
 
 public class PennelloperEglomise  implements ToolAction {
@@ -13,7 +17,6 @@ public class PennelloperEglomise  implements ToolAction {
                                       "Devi rispettare tutte le altre restrizioni di piazzamento.";
     private Player player;
     private int row, column, newRow, newColumn;
-    Dice muvedDice;
 
     public PennelloperEglomise(Player player, int row, int column, int newRow, int newColumn){
         this.player = player;
@@ -25,9 +28,20 @@ public class PennelloperEglomise  implements ToolAction {
 
     @Override
 
-    public void execute () throws TileConstrainException {
-        muvedDice = player.getScheme().removeDice(row, column);
-        player.getScheme().setDice(muvedDice, newRow, newColumn, true, false);
+    public void execute () throws ToolIllegalOperationException{
+        try{
+            Dice removedDice = player.getScheme().getDice(row, column);
+            player.getScheme().setDice(removedDice, newRow, newColumn, true, false, false);
+            player.getScheme().removeDice(row,column);
+        }catch(DiceNotExistantException e) {
+            throw new PennelloPerEglomiseException(PennelloPerEglomiseException.getMsg() + e.getMessage());
+        }catch (OutOfMatrixException e){
+            throw new PennelloPerEglomiseException(PennelloPerEglomiseException.getMsg()+ e.getMessage());
+        }catch (TileConstrainException e){
+            throw new PennelloPerEglomiseException(PennelloPerEglomiseException.getMsg()+ e.getMessage());
+        }
+
+
     }
 
     @Override

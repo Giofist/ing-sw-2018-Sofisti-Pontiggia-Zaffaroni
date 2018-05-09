@@ -1,4 +1,5 @@
 package it.polimi.ingsw.model;
+import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
 import it.polimi.ingsw.model.Exceptions.NotEnoughSegnaliniException;
 import it.polimi.ingsw.model.Exceptions.PlayerNotFoundException;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
@@ -14,12 +15,16 @@ public class Player{
     private LinkedList<Player> state;
     private Gametable gametable;
     private int points;
+    private Dice diceforDiluenteperpastaSalda;
+    private boolean mustsetdice;
 
 
     //costruttore
     public Player(User user){
         this.user = user;
         this.state = new LinkedList<Player>();
+        this.diceforDiluenteperpastaSalda = null;
+        this.mustsetdice = false;
     }
 
     //metodi setter e getter
@@ -76,7 +81,22 @@ public class Player{
         this.state.add(player);
     }
     public User getAssociatedUser(){ return this.user; }
+    public void setDiceforDiluenteperpastaSalda(Dice dice){
+        this.diceforDiluenteperpastaSalda = dice;
+    }
+    public Dice getdiceforDiluenteperPastaSalda() throws DiceNotExistantException{
+        if (this.diceforDiluenteperpastaSalda ==null){
+            throw new DiceNotExistantException();
+        }
+        else {
+            return this.diceforDiluenteperpastaSalda
+            ;
+        }
 
+    }
+    public void  removediceforDiluenteperPastaSalda(){
+        this.diceforDiluenteperpastaSalda = null;
+    }
 
 
     public Player getSelectedPlayer (String name) throws PlayerNotFoundException {
@@ -85,6 +105,13 @@ public class Player{
                 return other_player;
         }
         throw new PlayerNotFoundException();
+    }
+
+    public void setMustsetdice(boolean settable){
+        this.mustsetdice = settable;
+    }
+    public boolean getMustsetDice(){
+        return this.mustsetdice;
     }
 
 

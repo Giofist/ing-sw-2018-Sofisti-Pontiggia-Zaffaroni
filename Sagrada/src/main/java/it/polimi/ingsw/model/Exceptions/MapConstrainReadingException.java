@@ -10,4 +10,8 @@ public class MapConstrainReadingException extends Exception {
     public MapConstrainReadingException(String msg) {
         super(msg);
     }
+
+    public static String getMsg() {
+        return msg;
+    }
 }

@@ -1,18 +1,21 @@
-package it.polimi.ingsw.Controller;
+package it.polimi.ingsw.ServerController;
 
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.*;
 import it.polimi.ingsw.model.User;
-import java.lang.Thread;
 
 
 //non terminata
-public class MultiplePlayerGameHandler extends  TimerTask implements Runnable {
+//notate bene che da specifica il timer deve essere caricato da file
+//l'idea è che ogni partita sia gestita da un thread, per questo impleemnta runnable e ha un metodo run
+public class MultiplePlayerGameHandler extends UnicastRemoteObject implements Runnable {
     private String game_name;
     private LinkedList<User> users;
     private int maxNumberPlayers;
 
     //public constructor
-    public MultiplePlayerGameHandler(User user, String game_name, int  max){
+    public MultiplePlayerGameHandler (User user, String game_name, int  max) throws RemoteException {
         this.game_name = game_name;
         this.users.addFirst(user);
         this.maxNumberPlayers = max;

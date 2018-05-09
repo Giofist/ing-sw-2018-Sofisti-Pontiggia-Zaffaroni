@@ -24,18 +24,18 @@ public class SfumatureMedie implements GoalCard {
                     if(player.getScheme().getDiceIntensity(row, column)==4){
                         numerodi4++;
                     }
-                }catch (DiceNotExistantException e){
+                }catch (Exception e){
                     //no dice, no point
                 }
             }
         }
         if (numerodi3 <= numerodi4) {
-            player.addPoints((int) Math.floor(numerodi3 / 2) * 2);
+            player.addPoints(numerodi3*2);
         }else{
-            player.addPoints((int)Math.floor(numerodi4/2)*2);
+            player.addPoints(numerodi4*2);
         }
 
-        //il metodo floor di java.math arrotonda al decimale inferiore il risultato di numerodi* diviso 2
+
     }
 
     @Override

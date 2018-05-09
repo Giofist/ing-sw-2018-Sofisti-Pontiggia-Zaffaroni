@@ -9,6 +9,10 @@ public class ToolIllegalOperationException extends Exception {
     public ToolIllegalOperationException() {
         super(msg);
     }
-    public ToolIllegalOperationException(String msg){ super(msg); } //ho preparato il costruttore per l'estensione,
-    //ma trovo complesso doverla estendere perchè l'ho scritto abbastanza ovunque
+    public ToolIllegalOperationException(String msg){ super(msg); }
+
+    public static String getMsg() {
+        return msg;
+    }
+
 }

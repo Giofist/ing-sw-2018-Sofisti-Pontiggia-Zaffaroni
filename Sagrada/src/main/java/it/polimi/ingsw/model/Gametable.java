@@ -15,8 +15,7 @@ import java.io.IOException;
 import java.util.List;
 
 
-//Gametable non deve esporre la propria implementazione, ma deve fare tutto da sè
-//proprio per questo ho tolto le classi getRoundDicepool e getdicepool
+
 public class Gametable {
     private ToolCardsDeck tooldeck;
     private DicePool dicepool;
@@ -42,7 +41,7 @@ public class Gametable {
     public void setupRound(int numberPlayers) {
         this.roundDicepool = new DicePool();
         for (int i = 1; i < numberPlayers * 2 + 1; i++) {
-            this.roundDicepool.addDice(this.dicepool.extractDice());
+            this.getRoundDicepool().addDice(this.getRoundDicepool().extractDice());
         }
     }
 
@@ -51,7 +50,7 @@ public class Gametable {
         return this.tooldeck.getCost(id);
     }
 
-    public void useaToolCard(ToolAction toolAction) throws ToolIllegalOperationException, TileConstrainException {
+    public void useaToolCard(ToolAction toolAction) throws Exception {
         this.tooldeck.doAction(toolAction);
 
     }
@@ -67,16 +66,7 @@ public class Gametable {
         return publicGoalCardDeck;
     }
 
-    //asking for a dice in the dicepool of 90 dices
-    public Dice extractDice() {
-        return this.dicepool.extractDice();
-    }
 
-    //asking for a specific dice in the round
-
-    public Dice getRoundDice(int position) {
-        return this.roundDicepool.getDice(position);
-    }
 
     //to get IDs and description and names of the public goals
     public List getPublicGoalDescriptions() {
@@ -86,6 +76,11 @@ public class Gametable {
     public List getPublicGoalIDs() {
         return this.publicGoalCardDeck.getIDs();
     }
+
+    // Get functions useful for testing
+    public ToolCardsDeck getToolCardsDeck() { return this.tooldeck; }
+    public DicePool getDicepool() { return this.dicepool; }
+    public DicePool getRoundDicepool() { return this.roundDicepool; }
 
     // to get a scheme card
     public SchemeCard getSchemeCard() throws IOException, MapConstrainReadingException {

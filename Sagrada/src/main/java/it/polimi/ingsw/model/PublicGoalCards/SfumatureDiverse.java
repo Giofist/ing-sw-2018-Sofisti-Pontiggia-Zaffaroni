@@ -28,22 +28,19 @@ public class SfumatureDiverse implements GoalCard {
                     switch(player.getScheme().getDiceIntensity(row, column)){
                         case 1:  numerodi1++; break;
                         case 2: numerodi2++; break;
-                        case 3: numerodi2++; break;
-                        case 4: numerodi2++; break;
-                        case 5: numerodi2++; break;
-                        case 6: numerodi2++; break;
+                        case 3: numerodi3++; break;
+                        case 4: numerodi4++; break;
+                        case 5: numerodi5++; break;
+                        case 6: numerodi6++; break;
                         default: ;
                     }
 
-                } catch (DiceNotExistantException e) {
+                } catch (Exception e) {
                     //no dice, no point, zorry
                 }
             }
         }
         int numerodiset=numerodi1; // numerodiset indica il numero dei set presenti, che è anche uguale a min( numerodix) per x = 1,2,3,4,5,6.
-        if(numerodi2<numerodiset){
-            numerodiset = numerodi2;
-        }
         if(numerodi2<numerodiset){
             numerodiset = numerodi2;
         }

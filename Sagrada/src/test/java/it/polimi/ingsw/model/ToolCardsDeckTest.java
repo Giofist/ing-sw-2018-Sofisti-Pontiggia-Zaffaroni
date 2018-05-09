@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
+import it.polimi.ingsw.model.Exceptions.ToolActionNotIntheSetOfCostsException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.ToolCard.PinzaSgrossatrice;
 import it.polimi.ingsw.model.ToolCard.ToolAction;
@@ -34,7 +35,7 @@ public class ToolCardsDeckTest {
     }
 
     @Test
-    public void setCostTest() {
+    public void setCostTest() throws ToolActionNotIntheSetOfCostsException {
         // After constructor
         assertEquals(1, toolCardsDeck.getCost(0));
 
@@ -49,7 +50,7 @@ public class ToolCardsDeckTest {
 
 
     @Test
-    public void doActionTest() throws ToolIllegalOperationException, TileConstrainException {
+    public void doActionTest() throws Exception {
         toolCardsDeck.doAction(mockToolCard);
 
         // When the action is performed the corresponding cost must increase to 2
@@ -58,7 +59,7 @@ public class ToolCardsDeckTest {
 
 
     @Test (expected = ToolIllegalOperationException.class)
-    public void doActionTestException() throws ToolIllegalOperationException, TileConstrainException {
+    public void doActionTestException() throws Exception {
         doThrow(new ToolIllegalOperationException()).when(mockToolCard).execute();
         toolCardsDeck.doAction(mockToolCard);
     }

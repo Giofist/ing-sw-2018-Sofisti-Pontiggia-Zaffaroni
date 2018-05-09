@@ -3,6 +3,8 @@ package it.polimi.ingsw.model.ToolCard;
 
 import it.polimi.ingsw.model.Player;
 
+
+//per implementare questa classe bisogna prima pensare al traccaito round
 public class TaglierinaCircolare  implements ToolAction {
     final static int ID = 5;
     final static String cardTitle = "Taglierina circolare";

@@ -6,4 +6,6 @@ public class TwoDiceSameColorException extends Exception {
         super(msg);
     }
     public TwoDiceSameColorException(String msg){ super(msg); }
+
+
 }

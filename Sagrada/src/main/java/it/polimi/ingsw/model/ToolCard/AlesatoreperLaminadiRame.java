@@ -1,7 +1,10 @@
 package it.polimi.ingsw.model.ToolCard;
 
 import it.polimi.ingsw.model.Dice;
+import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
+import it.polimi.ingsw.model.Exceptions.OutOfMatrixException;
 import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
+import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.AlesatorePerLaminadiRameException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.Player;
 //revisionata by pon
@@ -23,22 +26,22 @@ public class AlesatoreperLaminadiRame  implements ToolAction {
         this.newRow = newRow;
     }
 
+
     @Override
 
-    public void execute () throws ToolIllegalOperationException, TileConstrainException {
-        Dice dice = player.getScheme().removeDice(row, column);
-        try {
-            player.getScheme().setDice(dice, newRow, newColumn, false, true);
-        } catch (TileConstrainException e) {
-            try {
-                player.getScheme().setDice(dice, this.row, this.column, false, false);
-                throw e;
-            }catch (TileConstrainException er) {
-                throw er;
-            }
+    public void execute () throws  ToolIllegalOperationException {
+        try{
+            Dice dice = player.getScheme().getDice(row, column);
+            player.getScheme().setDice(dice, newRow, newColumn, false, true, false);
+            player.getScheme().removeDice(row,column);
+        }catch (DiceNotExistantException e){
+            throw new AlesatorePerLaminadiRameException(AlesatorePerLaminadiRameException.getMsg()+e.getMessage());
+        }catch (OutOfMatrixException e){
+            throw new AlesatorePerLaminadiRameException(AlesatorePerLaminadiRameException.getMsg()+e.getMessage());
+        }catch (TileConstrainException e){
+            throw new AlesatorePerLaminadiRameException(AlesatorePerLaminadiRameException.getMsg()+ e.getMessage());
         }
     }
-
 
     @Override
     public int getID(){

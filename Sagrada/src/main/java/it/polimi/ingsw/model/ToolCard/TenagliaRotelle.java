@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.ToolCard;
 
 import it.polimi.ingsw.model.Player;
 
+//scusate questa non l'ho capita
 public class TenagliaRotelle  implements ToolAction {
     final static int ID = 8;
     final static String cardTitle = "Tenaglia a Rotelle";

@@ -18,7 +18,7 @@ public class TamponeDiamantato implements ToolAction {
     @Override
 
     public void execute () {
-        player.getGametable().getRoundDice(this.selectedDiceIndex).setOppositeIntensity();
+        player.getGametable().getRoundDicepool().getDice(this.selectedDiceIndex).setOppositeIntensity();
     }
 
     @Override

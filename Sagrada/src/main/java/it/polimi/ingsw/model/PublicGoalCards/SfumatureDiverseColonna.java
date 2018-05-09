@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.PublicGoalCards;
 
 import it.polimi.ingsw.model.DiceColor;
 import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
+import it.polimi.ingsw.model.Exceptions.OutOfMatrixException;
 import it.polimi.ingsw.model.Exceptions.TwoDiceSameColorException;
 import it.polimi.ingsw.model.Exceptions.TwoDiceSameShadeException;
 import it.polimi.ingsw.model.GoalCard;
@@ -30,11 +31,14 @@ public class SfumatureDiverseColonna implements GoalCard {
                         existingshades.add(player.getScheme().getDiceIntensity(row, column));
                     }
                 }
+                //add the points for this column, which has respected the constrain
                 player.addPoints(4);
             } catch (TwoDiceSameShadeException e) {
                 //unfortunately you can't get the points
-            }catch (DiceNotExistantException er){
-                //unfortunately you can't get the point
+            }catch (DiceNotExistantException e){
+                //unfortunately you can't get the points
+            }catch (OutOfMatrixException e){
+                //impossible
             }
         }
     }

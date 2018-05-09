@@ -1,6 +1,10 @@
 package it.polimi.ingsw.model;
 import java.util.*;
 
+// NB: questa classe si usa sia per il sacchetto dei 90 dadi che per i dadi del round, che però sono due cose concettualmente
+//leggermente diverse: proprio per questo sono stati creati metodi diversi per fare cose diverse: fate attenzione a quale
+//vi serve davvero quando li invocate
+//per esempio fate caso al metodo extract
 public class DicePool {
     private LinkedList<Dice> dices;
 
@@ -30,15 +34,20 @@ public class DicePool {
         scrambleDicePool();
     }
 
+
+
     public int getDicePoolSize() { return this.dices.size(); }
 
-    // a che serve? Per una carta utensile? Però aggiunge un NUOVO dado, bohboh
+    // very useful for diluentePerPastaSalda
     public void insertDice(DiceColor diceColor){ dices.add(new Dice(diceColor)); }
 
     //add a new dice passed by parameter
+    //USE only for RoundDicepool
     public void addDice(Dice dice){ this.dices.add(dice); }
 
-    public void scrambleDicePool() { Collections.shuffle(dices); }
+
+
+    private void scrambleDicePool() { Collections.shuffle(dices); }
 
 
 
@@ -51,20 +60,30 @@ public class DicePool {
     }
 
     //do use for RoundDicepool
-    public Dice getDice(int position){
+    // il metodo get non elimina dalla lista
+    public Dice getDice(int diceIndex){
         if (dices.isEmpty()){
             return null;
         }
-        return dices.get(position);
+        return dices.get(diceIndex);
     }
 
 
-    //non è inutile questo metodo? Boh
-    public Dice removeDice(int diceIndex){
+    //do use for RoundDicepool
+    //useful for DiluentePerPastaSalda
+    public Dice removeandreturnDice(int diceIndex){
         if(diceIndex<=getDicePoolSize()){
             return dices.remove(diceIndex);
         }
         else return null;
+    }
+
+    //ho aggiunto questo metodo
+    //propongo di lanciare delle eccezioni per gestire questa cosa e il metodo sopra
+    public void removeDice(int diceIndex){
+        if(diceIndex <= getDicePoolSize()){
+            dices.remove(diceIndex);
+        }
     }
 
 }

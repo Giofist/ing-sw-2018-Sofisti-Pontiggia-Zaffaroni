@@ -6,4 +6,8 @@ public class TwoDiceSameShadeException extends Exception {
         super(msg);
     }
     public TwoDiceSameShadeException(String msg){ super(msg); }
+
+    public static String getMsg() {
+        return msg;
+    }
 }
