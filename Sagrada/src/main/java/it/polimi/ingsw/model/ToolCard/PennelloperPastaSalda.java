@@ -20,7 +20,7 @@ public class PennelloperPastaSalda  implements ToolAction {
     @Override
 
     public void execute () {
-        //ricordarsi sempre di fare
+        //ricordarsi sempre di fare gt and remove
         Dice dice= this.player.getGametable().getRoundDicepool().getDice(this.selectedDiceIndex);
         this.player.getGametable().getRoundDicepool().getDice(this.selectedDiceIndex).setRandomIntensity();
         boolean settable = false;

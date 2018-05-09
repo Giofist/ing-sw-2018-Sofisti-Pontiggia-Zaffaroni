@@ -1,5 +1,8 @@
 package it.polimi.ingsw.model.ToolCard;
 
+import it.polimi.ingsw.model.Exceptions.DecreaseNotAllowedException;
+import it.polimi.ingsw.model.Exceptions.IncreaseNotAllowedException;
+import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.PinzaSgrossatriceException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.Player;
 
@@ -23,10 +26,16 @@ public class PinzaSgrossatrice  implements ToolAction {
 
     @Override
     public void execute () throws ToolIllegalOperationException {
-        if (this.operation == 0) {  // Decrease selected dice value
-            player.getGametable().getRoundDicepool().getDice(this.selectedDiceIndex).decreaseIntensity();
-        } else {    // Increase selected dice value
-            player.getGametable().getRoundDicepool().getDice(this.selectedDiceIndex).increaseIntensity(); }
+        try{
+            if (this.operation == 0) {  // Decrease selected dice value
+                player.getGametable().getRoundDicepool().getDice(this.selectedDiceIndex).decreaseIntensity();
+            } else {    // Increase selected dice value
+                player.getGametable().getRoundDicepool().getDice(this.selectedDiceIndex).increaseIntensity(); }
+        }catch(DecreaseNotAllowedException e){
+            throw new PinzaSgrossatriceException(PinzaSgrossatriceException.getMsg()+ e.getMessage());
+        }catch (IncreaseNotAllowedException e){
+            throw new PinzaSgrossatriceException(PinzaSgrossatriceException.getMsg()+ e.getMessage());
+        }
     }
 
     @Override

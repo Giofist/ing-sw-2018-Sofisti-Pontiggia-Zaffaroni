@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model.ToolCard;
 
-import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
 import it.polimi.ingsw.model.Exceptions.OutOfMatrixException;
 import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.PennelloPerEglomiseException;
@@ -29,8 +28,10 @@ public class PennelloPerPastaSalda2 implements ToolAction{
     }
     @Override
     public void execute() throws ToolIllegalOperationException{
+        //ricordarsi sempre di fare get and remove
         try{
-            player.getScheme().setDice(player.getGametable().getRoundDicepool().getDice(selectedDiceIndex),row, column, false, false);
+            player.getScheme().setDice(player.getGametable().getRoundDicepool().getDice(selectedDiceIndex),row, column, false, false, false);
+            player.getGametable().getRoundDicepool().removeDice(selectedDiceIndex);
             player.setMustsetdice(false);
         }catch (OutOfMatrixException e){
             throw new PennelloPerPastaSaldaException(PennelloPerPastaSaldaException.getMsg()+ e.getMessage());

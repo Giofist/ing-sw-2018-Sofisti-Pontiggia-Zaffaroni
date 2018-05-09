@@ -52,7 +52,6 @@ public class VarietaDiColore implements GoalCard {
         if(numberofVIOLET<numerodiset){
             numerodiset = numberofVIOLET;
         }
-
         player.addPoints(numerodiset*4);
     }
 

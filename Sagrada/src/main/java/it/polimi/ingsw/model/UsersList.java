@@ -36,9 +36,25 @@ public class UsersList {
         return false;
     }
 
+    public boolean checkname( String name){
+        for (User user : this.users){
+            if (user.getName() == name)
+                return true;
+        }
+        return false;
+    }
+
+    public boolean checkpassword(String password){
+        for (User user : this.users){
+            if (user.getPassword() == password)
+                return true;
+        }
+        return false;
+    }
+
     //classe che permette di registrarsi
-    public User register (String name,String password, Socket socket ) throws HomonymyException {
-        User user = new User(name, password, socket);
+    public User register (String name,String password) throws HomonymyException {
+        User user = new User(name, password);
         this.users.add(user);
         return user;
     }
@@ -68,6 +84,5 @@ public class UsersList {
         }
         throw new Exception();
     }
-
 
 }

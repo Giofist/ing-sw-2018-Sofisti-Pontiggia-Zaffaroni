@@ -1,12 +1,11 @@
 package it.polimi.ingsw.model.ToolCard;
 
 import it.polimi.ingsw.model.Dice;
-import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.DecreaseNotAllowedException;
-import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.IncreaseNotAllowedException;
+import it.polimi.ingsw.model.Exceptions.DecreaseNotAllowedException;
+import it.polimi.ingsw.model.Exceptions.IncreaseNotAllowedException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.Gametable;
 import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.ToolCard.PinzaSgrossatrice;
 import org.junit.Before;
 import org.junit.Test;
 

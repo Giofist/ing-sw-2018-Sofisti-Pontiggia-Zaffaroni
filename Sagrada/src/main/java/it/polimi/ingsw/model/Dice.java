@@ -1,11 +1,12 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.DecreaseNotAllowedException;
-import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.IncreaseNotAllowedException;
+import it.polimi.ingsw.model.Exceptions.DecreaseNotAllowedException;
+import it.polimi.ingsw.model.Exceptions.IncreaseNotAllowedException;
 
+import java.io.Serializable;
 import java.util.Random;
 
-public class Dice {
+public class Dice implements Serializable {
     private final DiceColor color;
     private int INTENSITY;
 

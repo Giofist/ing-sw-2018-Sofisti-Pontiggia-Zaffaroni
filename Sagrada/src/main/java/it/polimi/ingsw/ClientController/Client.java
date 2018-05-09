@@ -1,11 +1,7 @@
 package it.polimi.ingsw.ClientController;
 
-import it.polimi.ingsw.ServerController.RMIRemoteServerClientHandler;
-
 import java.io.IOException;
 import java.net.Socket;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 
 public class Client {
     private String ip;
@@ -17,18 +13,20 @@ public class Client {
     //per il socket
     public void startClient() throws IOException {
         Socket socket = new Socket(this.ip, this.port);
-        System.out.println("Connection established\n");
+        System.out.println("Connessione stabilita\n");
         try {
             new SocketClientController(socket).run();
         } catch (IOException e) {
-            System.out.println("Connection closed");
+            System.out.println("Connessione chiusa\n");
         }
     }
 
     // nelle specifiche si dice di presupporre che il giocatore conosca l'indirizzo IP del server
     // io ho pensato che lo scriva come argomento quando chiama il programma da linea di comando
     //nelle implementazioni senza linea di comando, come funziona?
-    public static void main(String[] args) throws Exception {
+
+
+    /*public static void main(String[] args) throws Exception {
 
         //manca una parte in cui il client decide se utilizzare RMI o socket, anche questo da riga di comando?
         //notate che da specifiche si chiede che il client possa decidere se usare RMI o socket SOLO A INIZIO PARTITA, e non si chiede che si possa cambiare tipo
@@ -46,10 +44,10 @@ public class Client {
         //RMI part
         Registry registry = LocateRegistry.getRegistry(ip);
         // gets a reference for the remote controller
-        RMIRemoteServerClientHandler controller = (RMIRemoteServerClientHandler) registry.lookup("RMIServerClientHandler");
+        RemoteClientHandler controller = (RemoteClientHandler) registry.lookup("ClientHandler");
         // creates and launches the clientcontroller
             new RMIClientController(controller).run();
-        }
+        }*/
     }
 
 

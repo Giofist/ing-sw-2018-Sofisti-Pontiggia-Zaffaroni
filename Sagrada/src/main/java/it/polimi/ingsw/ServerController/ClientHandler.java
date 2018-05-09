@@ -10,7 +10,7 @@ import java.rmi.server.UnicastRemoteObject;
 // il fatto che implementi runnable e quindi sia codice per thread non mi pare crei problemi
 //se avete notizie avvisatemi
 //client handler
-public class ClientHandler extends UnicastRemoteObject implements Runnable, RMIRemoteServerClientHandler {
+public class ClientHandler extends UnicastRemoteObject implements Runnable, RemoteClientHandler {
     Socket socket;
     public ClientHandler ()throws RemoteException {};
     public ClientHandler(Socket socket) throws RemoteException{
@@ -29,6 +29,6 @@ public class ClientHandler extends UnicastRemoteObject implements Runnable, RMIR
         return "Test " + stringa;
     }
 
-    //here we'll put the implementation of all the methods in the interface RMIRemoteServerClientHandler
+    //here we'll put the implementation of all the methods in the interface RemoteClientHandler
 
 }
