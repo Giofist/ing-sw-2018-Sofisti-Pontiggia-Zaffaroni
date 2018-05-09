@@ -53,8 +53,8 @@ public class UsersList {
     }
 
     //classe che permette di registrarsi
-    public User register (String name,String password, Socket socket ) throws HomonymyException {
-        User user = new User(name, password, socket);
+    public User register (String name,String password) throws HomonymyException {
+        User user = new User(name, password);
         this.users.add(user);
         return user;
     }
@@ -84,6 +84,5 @@ public class UsersList {
         }
         throw new Exception();
     }
-
 
 }

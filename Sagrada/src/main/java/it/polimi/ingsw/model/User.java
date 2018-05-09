@@ -9,7 +9,7 @@ public class User {
     private String news_to_show;
 
     //constructor
-    public User(String name, String password,Socket socket){
+    public User(String name, String password){
         this.name= name;
         this.socket= socket;
         this. password = password;

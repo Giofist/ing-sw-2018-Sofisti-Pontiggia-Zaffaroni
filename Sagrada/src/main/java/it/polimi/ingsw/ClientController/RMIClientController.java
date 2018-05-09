@@ -1,22 +1,31 @@
 package it.polimi.ingsw.ClientController;
 
 import it.polimi.ingsw.ServerController.RemoteClientHandler;
+import it.polimi.ingsw.model.Exceptions.HomonymyException;
+import it.polimi.ingsw.model.User;
+import it.polimi.ingsw.model.UsersList;
 
+import java.io.PrintWriter;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Scanner;
 
 //implemented by pon
 //non implemeta runnable
 public class RMIClientController extends UnicastRemoteObject {
     private RemoteClientHandler servercontroller;
+
     //constructor
     public RMIClientController(RemoteClientHandler controller) throws RemoteException {
         this.servercontroller = controller;
     }
 
-    public void run() throws RemoteException{
+    public void run() throws RemoteException {
         String stringa = servercontroller.rmiTest("RMI");
-        System.out.println(stringa);
+        System.out.println("La connessione è in modalità: " + stringa);
+        loadingInt();
+        loginInt();
+        menuInt();
         //qui si dovrà scrivere il clientcontroller per RMI
         //che giorgio dovrebbe avere già scritto
 
@@ -27,4 +36,144 @@ public class RMIClientController extends UnicastRemoteObject {
 
         //questo purtroppo crea asimmetria, sad story
     }
+
+    private void loadingInt() {
+        System.out.print("\n" +
+                "   ▄████████    ▄████████    ▄██████▄     ▄████████    ▄████████ ████████▄     ▄████████ \n" +
+                "  ███    ███   ███    ███   ███    ███   ███    ███   ███    ███ ███   ▀███   ███    ███ \n" +
+                "  ███    █▀    ███    ███   ███    █▀    ███    ███   ███    ███ ███    ███   ███    ███ \n" +
+                "  ███          ███    ███  ▄███         ▄███▄▄▄▄██▀   ███    ███ ███    ███   ███    ███ \n" +
+                "▀███████████ ▀███████████ ▀▀███ ████▄  ▀▀███▀▀▀▀▀   ▀███████████ ███    ███ ▀███████████ \n" +
+                "         ███   ███    ███   ███    ███ ▀███████████   ███    ███ ███    ███   ███    ███ \n" +
+                "   ▄█    ███   ███    ███   ███    ███   ███    ███   ███    ███ ███   ▄███   ███    ███ \n" +
+                " ▄████████▀    ███    █▀    ████████▀    ███    ███   ███    █▀  ████████▀    ███    █▀  \n" +
+                "                                         ███    ███                                      \n\n");
+        System.out.println("Benvenuto in Sagrada!");
+    }
+
+    private void loginInt() {
+        Scanner in = new Scanner(System.in);
+        PrintWriter out = new PrintWriter(System.out);
+        try {
+            out.println("Hai già un account? [S/N]\n");
+            User you = null;
+            if (in.next() == "S" || in.next() == "s") {
+                out.println("Inserisci username:\n");
+                String username = in.nextLine();
+                out.println("Inserisci password:\n");
+                String password = in.nextLine();
+                while (!UsersList.Singleton().check(username, password)) {
+                    out.println("Username e/o password sbagliati!\n");
+                    username = in.nextLine();
+                    password = in.nextLine();
+                }
+                try {
+                    you = UsersList.Singleton().getUser(username, password);
+                } catch (Exception e) {
+                    out.println("Qualcosa è andato storto con il nostro dtabase: zorry mate!\n");
+                    out.close();
+                    in.close();
+                    return;
+                }
+            } else {
+                out.println("Inserisci un nuovo Username:\n");
+                boolean successo = false;
+                while (!successo) {
+                    try {
+                        String username = in.nextLine();
+                        UsersList.Singleton().checkHomonymy(username);//
+                        out.println("Inserisci una password:\n");
+                        you = UsersList.Singleton().register(username, in.nextLine());
+                        successo = true;
+                    } catch (HomonymyException e) {
+                        out.println(e.getMessage());
+                    }
+                }
+            }
+        }
+        catch (Exception e){
+            out.println("Qualcosa è andato storto con il LogIn!\n");
+            out.close();
+            in.close();
+            return;
+        }
+    }
+
+    private void menuInt() {
+        Scanner in = new Scanner(System.in);
+        PrintWriter out = new PrintWriter(System.out);
+        out.println("Benvenuto nel menù principale di Sagrada!");
+        out.println("- Multi Giocatore (M)");
+        out.println("- Giocatore Singolo (Coming soon!)");
+        out.println("- Impostazioni (I)");
+        if (in.next() == "I" || in.next() == "i") {
+            optionInt();
+        }
+        else{
+            multiInt();
+        }
+    }
+
+    private void multiInt() { //da implemnetare
+        Scanner in = new Scanner(System.in);
+        PrintWriter out = new PrintWriter(System.out);
+
+    }
+
+    private void optionInt(){
+        Scanner in = new Scanner(System.in);
+        PrintWriter out = new PrintWriter(System.out);
+        out.println("/n/nSei nelle impostazioni del gioco! (per selezionare inserisci il numero a lato)");
+        out.println("1) Impostazioni di connessione.");
+        out.println("2) Impostazioni grafiche client.");
+        out.println("\n\n< Torna al menu. (B)");
+        if (in.next() == "B" || in.next() == "b") {
+            menuInt();
+        }
+        else if(in.next()=="1"){
+           connectionInt();
+        }
+        else{
+            graficInt();
+        }
+    }
+
+    private void connectionInt() { //da implemntare parte di switch tra RMI SOCKET
+        Scanner in = new Scanner(System.in);
+        PrintWriter out = new PrintWriter(System.out);
+        out.println("/n/nSei nelle impostazioni della connessione.");
+        out.println("Attualmente la connessione è in modalità: RMI");
+        out.println("Vuoi passare alla connessione tramite Socket? [S/N]");
+        out.println("\n\n< Torna al menu. (B)");
+        if (in.next() == "B" || in.next() == "b") {
+            optionInt();
+        }
+        else if(in.next() == "S" || in.next() == "s"){
+            out.println("Hai deciso di passare alla connessione Socket, il client si riavvierà in tale modalità tra qualche secondo.");
+            //implementare switch
+        }
+        else{
+            out.println("Rimarrai in modalità connessione RMI.");
+        }
+    }
+
+    private void graficInt() { //da implementare lo switch
+        Scanner in = new Scanner(System.in);
+        PrintWriter out = new PrintWriter(System.out);
+        out.println("/n/nSei nelle impostazioni relative alla grafica.");
+        out.println("Attualmente il client è in modalità: CLI");
+        out.println("Vuoi passare al client Grafico? [S/N]");
+        out.println("\n\n< Torna al menu. (B)");
+        if (in.next() == "B" || in.next() == "b") {
+            optionInt();
+        }
+        else if(in.next() == "S" || in.next() == "s"){
+            out.println("Hai deciso di passare al client grafico, tra pochi secondi il client si chiuderà e dovrai riaprirlo usando ClientGrafico.");
+            //implementare switch
+        }
+        else{
+            out.println("Rimarrai in modalità client CLI.");
+        }
+    }
 }
+
