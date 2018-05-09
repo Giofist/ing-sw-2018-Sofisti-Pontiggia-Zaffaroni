@@ -13,19 +13,19 @@ public class PinzaSgrossatrice  implements ToolAction {
                                         "Non puoi cambiare un 6 in 1 o un 1 in 6.";
 
 
-    private Player player;
+
     private int selectedDiceIndex;
     // Operation is set to 0 if the player wants to decrease the value of the dice otherwise is set to 1
     private int operation;
 
-    public PinzaSgrossatrice(Player player, int selectedDiceIndex, int operation){
-        this.player = player;
+    public PinzaSgrossatrice( int selectedDiceIndex, int operation){
+
         this.selectedDiceIndex = selectedDiceIndex;
         this.operation = operation;
     }
 
     @Override
-    public void execute () throws ToolIllegalOperationException {
+    public void execute (Player player) throws ToolIllegalOperationException {
         try{
             if (this.operation == 0) {  // Decrease selected dice value
                 player.getGametable().getRoundDicepool().getDice(this.selectedDiceIndex).decreaseIntensity();

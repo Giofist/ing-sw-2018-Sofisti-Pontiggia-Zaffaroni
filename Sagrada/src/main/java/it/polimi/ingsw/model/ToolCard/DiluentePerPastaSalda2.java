@@ -13,11 +13,11 @@ public class DiluentePerPastaSalda2 implements ToolAction{
     final static String description = "Parte Seconda.\n" +
             "Scegli il valore del nuovo dado e piazzalo, rispettando tutte le restrizioni di piazzamento.";
 
-    Player player;
+
     int row; int column;
     int diceIntesityToset;
-    public DiluentePerPastaSalda2(Player player, int row, int column, int diceIntesityToset){
-        this.player = player;
+    public DiluentePerPastaSalda2( int row, int column, int diceIntesityToset){
+
         this.row = row;
         this.column = column;
         this.diceIntesityToset = diceIntesityToset;
@@ -26,13 +26,13 @@ public class DiluentePerPastaSalda2 implements ToolAction{
 
     @Override
 
-    public void execute () throws ToolIllegalOperationException{
+    public void execute (Player player) throws ToolIllegalOperationException{
         try{
 
-            this.player.getdiceforDiluenteperPastaSalda().setIntensity(this.diceIntesityToset);
-            this.player.getScheme().setDice(this.player.getdiceforDiluenteperPastaSalda(),this.row, this.column, false, false, false);
+            player.getdiceforDiluenteperPastaSalda().setIntensity(this.diceIntesityToset);
+            player.getScheme().setDice(player.getdiceforDiluenteperPastaSalda(),this.row, this.column, false, false, false);
             // mi piace separare la set dalla remove
-            this.player.removediceforDiluenteperPastaSalda();
+            player.removediceforDiluenteperPastaSalda();
         }catch (DiceNotExistantException e){
             throw new  DiluentePerPastaSalda2Exception(DiluentePerPastaSalda2Exception.getMsg() +e.getMsg());
         }catch (OutOfMatrixException e){

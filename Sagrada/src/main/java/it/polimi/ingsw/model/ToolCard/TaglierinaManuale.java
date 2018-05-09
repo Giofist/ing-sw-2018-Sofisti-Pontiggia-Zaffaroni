@@ -6,7 +6,7 @@ import it.polimi.ingsw.model.Player;
 public class TaglierinaManuale  implements ToolAction {
     final static int ID = 12;
     final static String cardTitle = "Taglierina Manuale";
-    final static String description = "Muovi fino a due dadi dello stesso colore di un solo dado di un solo dado sul Tracciato dei Round.\n" +
+    final static String description = "Muovi fino a due dadi dello stesso colore  di un solo dado sul Tracciato dei Round.\n" +
                                       "Devi rispettare tutte le restrizioni di piazzamento.";
     private Player player;
     private int selectedDiceIndex;
@@ -20,7 +20,7 @@ public class TaglierinaManuale  implements ToolAction {
 
     @Override
 
-    public void execute() {
+    public void execute(Player player) {
 
 //IMPLEMENT HERE
 

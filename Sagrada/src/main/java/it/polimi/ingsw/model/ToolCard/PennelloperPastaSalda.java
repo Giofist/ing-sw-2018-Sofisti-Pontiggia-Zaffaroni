@@ -9,28 +9,28 @@ public class PennelloperPastaSalda  implements ToolAction {
     final static String cardTitle = "Pennello per Pasta Salda";
     final static String description = "Dopo aver scelto un dado tira nuovamente quel dado.\n" +
             "Se non puoi piazzarlo, riponilo nella riserva.";
-    private Player player;
+
     private int selectedDiceIndex;
 
-    public PennelloperPastaSalda(Player player, int selectedDiceIndex){
-        this.player = player;
+    public PennelloperPastaSalda( int selectedDiceIndex){
+
         this.selectedDiceIndex = selectedDiceIndex;
     }
 
     @Override
 
-    public void execute () {
+    public void execute (Player player) {
         //ricordarsi sempre di fare gt and remove
-        Dice dice= this.player.getGametable().getRoundDicepool().getDice(this.selectedDiceIndex);
-        this.player.getGametable().getRoundDicepool().getDice(this.selectedDiceIndex).setRandomIntensity();
+        Dice dice= player.getGametable().getRoundDicepool().getDice(this.selectedDiceIndex);
+        player.getGametable().getRoundDicepool().getDice(this.selectedDiceIndex).setRandomIntensity();
         boolean settable = false;
         for (int row =0; row <4; row ++){
             for (int column =0; column <5; column ++){
-              settable = settable || this.player.getScheme().SettableHere(dice, row,column,false, false);
+              settable = settable || player.getScheme().SettableHere(dice, row,column,false, false);
             }
         }
 
-        this.player.setMustsetdice(settable);
+        player.setMustsetdice(settable);
 
     }
 

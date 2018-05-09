@@ -13,12 +13,12 @@ public class Lathekin  implements ToolAction {
     final static String cardTitle = "Lathekin";
     final static String description = "Muovi esattamente due dadi.\n" +
                                       "Rispetta tutte le restrizioni di piazzamento.";
-    private Player player;
+
     int oldRow1, oldColumn1, newRow1, newColumn1, oldRow2, oldColumn2, newRow2, newColumn2;
     Dice removedDice1, removedDice2;
 
-    public Lathekin(Player player, int oldRow1, int oldColumn1, int newRow1, int newColumn1, int oldRow2, int oldColumn2, int newRow2, int newColumn2){
-        this.player = player;
+    public Lathekin( int oldRow1, int oldColumn1, int newRow1, int newColumn1, int oldRow2, int oldColumn2, int newRow2, int newColumn2){
+
         this.oldRow1 = oldRow1;
         this.oldRow2 = oldRow2;
         this.oldColumn1 = oldColumn1;
@@ -30,14 +30,15 @@ public class Lathekin  implements ToolAction {
     }
 
     @Override
-    public void execute () throws ToolIllegalOperationException {
+    public void execute (Player player) throws ToolIllegalOperationException {
         try{
             removedDice1 = player.getScheme().getDice(oldRow1, oldColumn1);
-            player.getScheme().setDice(removedDice1, newRow1, newColumn1, false, false, false);
-            player.getScheme().removeDice(oldRow1,oldColumn1);
             removedDice2 = player.getScheme().getDice(oldRow2, oldColumn2);
-            player.getScheme().setDice(removedDice2, newRow2, newColumn2,false,false, false);
+            player.getScheme().removeDice(oldRow1,oldColumn1);
             player.getScheme().removeDice(oldRow2,oldColumn2);
+            player.getScheme().setDice(removedDice1, newRow1, newColumn1, false, false, false);
+            player.getScheme().setDice(removedDice2, newRow2, newColumn2,false,false, false);
+
         }catch( DiceNotExistantException e){
             throw new LathekinException(LathekinException.getMsg() + e.getMsg());
         }catch (OutOfMatrixException e){

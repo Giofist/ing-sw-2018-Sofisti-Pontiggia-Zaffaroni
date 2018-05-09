@@ -8,19 +8,19 @@ public class Martelletto  implements ToolAction {
     final static String cardTitle = "Martelletto";
     final static String description = "Tira nuovamente tutti i dadi della riserva.\n" +
                                       "Questa carta può essere usata solo durante il tuo secondo turno, prima di scegliere il secondo dado.";
-    private Player player;
+
     private int selectedDiceIndex;
     private int operation;
 
-    public Martelletto(Player player, int selectedDiceIndex, int operation){
-        this.player = player;
+    public Martelletto( int selectedDiceIndex, int operation){
+
         this.selectedDiceIndex = selectedDiceIndex;
         this.operation = operation;
     }
 
     @Override
 
-    public void execute ()throws ToolIllegalOperationException{
+    public void execute (Player player)throws ToolIllegalOperationException{
         //se non lancia eccezioni ci siamo dimenticati di qualcosa
         for(int i=0; i<player.getGametable().getRoundDicepool().getDicePoolSize();i++)
         player.getGametable().getRoundDicepool().getDice(i).setRandomIntensity();

@@ -15,11 +15,11 @@ public class PennelloperEglomise  implements ToolAction {
     final static String cardTitle = "Pennello per Eglomise";
     final static String description = "Muovi un qualsiasi dado nella tua vetrata ignorando le restrizioni di colore.\n" +
                                       "Devi rispettare tutte le altre restrizioni di piazzamento.";
-    private Player player;
+
     private int row, column, newRow, newColumn;
 
-    public PennelloperEglomise(Player player, int row, int column, int newRow, int newColumn){
-        this.player = player;
+    public PennelloperEglomise( int row, int column, int newRow, int newColumn){
+
         this.row = row;
         this.column = column;
         this.newRow = newRow;
@@ -28,11 +28,12 @@ public class PennelloperEglomise  implements ToolAction {
 
     @Override
 
-    public void execute () throws ToolIllegalOperationException{
+    public void execute (Player player) throws ToolIllegalOperationException{
         try{
             Dice removedDice = player.getScheme().getDice(row, column);
-            player.getScheme().setDice(removedDice, newRow, newColumn, true, false, false);
             player.getScheme().removeDice(row,column);
+            player.getScheme().setDice(removedDice, newRow, newColumn, true, false, false);
+
         }catch(DiceNotExistantException e) {
             throw new PennelloPerEglomiseException(PennelloPerEglomiseException.getMsg() + e.getMessage());
         }catch (OutOfMatrixException e){

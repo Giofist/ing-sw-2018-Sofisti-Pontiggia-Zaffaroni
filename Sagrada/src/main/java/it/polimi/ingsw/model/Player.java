@@ -6,7 +6,7 @@ import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 
 import java.net.Socket;
 import java.util.*;
-
+//abbiamo il problema del pattern observer
 public class Player{
     private User user;
     private GoalCard privateGoalCard;
@@ -17,6 +17,7 @@ public class Player{
     private int points;
     private Dice diceforDiluenteperpastaSalda;
     private boolean mustsetdice;
+    private int numberoftimesyouhaveplayedthisround;
 
 
     //costruttore
@@ -114,7 +115,13 @@ public class Player{
         return this.mustsetdice;
     }
 
+    public int getNumberoftimesyouhaveplayedthisround() {
+        return numberoftimesyouhaveplayedthisround;
+    }
 
+    public void setNumberoftimesyouhaveplayedthisround(int numberoftimesyouhaveplayedthisround) {
+        this.numberoftimesyouhaveplayedthisround += 1;
+    }
 
     //implementation of the observer design pattern
     public void update(){

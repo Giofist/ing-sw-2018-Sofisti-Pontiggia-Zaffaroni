@@ -14,16 +14,16 @@ public class DiluenteperPastaSalda  implements ToolAction {
     final static String cardTitle = "Diluente per Pasta Salda";
     final static String description = "Dopo aver scelto un dado, riponilo nel Sacchetto, poi pescane uno dal sacchetto.\n" +
                                       "Scegli il valore del nuovo dado e piazzalo, rispettando tutte le restrizioni di piazzamento.";
-    private Player player;
+
     private int selectedDiceIndex;
 
-    public DiluenteperPastaSalda(Player player, int selectedDiceIndex){
-        this.player = player;
+    public DiluenteperPastaSalda( int selectedDiceIndex){
+
         this.selectedDiceIndex =selectedDiceIndex;
     }
 
     @Override
-    public void execute (){
+    public void execute (Player player){
 
         //removes a dice e puts it into the dicepool, but before we need to remember its color
         DiceColor color = player.getGametable().getRoundDicepool().getDice(this.selectedDiceIndex).getColor();

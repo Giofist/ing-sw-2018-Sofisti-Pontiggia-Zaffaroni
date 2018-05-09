@@ -71,6 +71,7 @@ public class DicePool {
 
     //do use for RoundDicepool
     //useful for DiluentePerPastaSalda
+    //DEPRECATED
     public Dice removeandreturnDice(int diceIndex){
         if(diceIndex<=getDicePoolSize()){
             return dices.remove(diceIndex);
@@ -85,5 +86,24 @@ public class DicePool {
             dices.remove(diceIndex);
         }
     }
+
+    public List<Dice> getallDicesbutnotremove(){
+        List list = new LinkedList<Dice>();
+        list.addAll(this.dices);
+        return list;
+    }
+
+
+    //useful for roundTrack
+    public void removeallDices(){
+        this.dices.clear();
+    }
+
+    //useful for RoundTrack
+    public void addallDices(List dices){
+        this.dices.addAll(dices);
+    }
+
+
 
 }

@@ -3,10 +3,11 @@ package it.polimi.ingsw.model.ToolCard;
 import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
 import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
+import it.polimi.ingsw.model.Player;
 
 public interface ToolAction {
 
-    public void execute () throws ToolIllegalOperationException;
+    public void execute (Player player) throws ToolIllegalOperationException;
 
 
     //DicenotExistant in DiluenteperPastaSlada

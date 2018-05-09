@@ -13,14 +13,13 @@ public class RigainSughero  implements ToolAction {
     final static String cardTitle = "Riga in Sughero";
     final static String description = "Dopo aver scelto un dado, piazzalo in una casella che non sia adiacente a un altro dado.\n" +
                                       "Devi rispettare tutte le restrizioni di piazzamento.";
-    private Player player;
+
     private int selectedDiceIndex;
     private int operation;
     private int row;
     private int column;
 
-    public RigainSughero(Player player, int row, int column, int selectedDiceIndex){
-        this.player = player;
+    public RigainSughero( int row, int column, int selectedDiceIndex){
         this.selectedDiceIndex = selectedDiceIndex;
         this.row = row;
         this.column =column;
@@ -28,7 +27,7 @@ public class RigainSughero  implements ToolAction {
 
     @Override
 
-    public void execute () throws ToolIllegalOperationException {
+    public void execute (Player player) throws ToolIllegalOperationException {
         //ricordarsi di fare get and remove dei dadi, non dimenticare la remove
         try {
             Dice dice = player.getGametable().getRoundDicepool().getDice(selectedDiceIndex);

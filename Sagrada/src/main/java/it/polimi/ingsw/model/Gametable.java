@@ -2,6 +2,7 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.Exceptions.MapConstrainReadingException;
 import it.polimi.ingsw.model.Exceptions.PrivateGoalCardException;
+import it.polimi.ingsw.model.Exceptions.RoundTrackException;
 import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.PrivateGoalCards.PrivateGoalCardDeck;
@@ -23,6 +24,10 @@ public class Gametable {
     private PrivateGoalCardDeck privategoalcardsdeck;
     private PublicGoalCardDeck publicGoalCardDeck;
     private SchemeCardDeck schemeCardDeck;
+    private RoundTrack roundTrack;
+
+
+
 
     //constructor
     public Gametable() throws IOException {
@@ -35,6 +40,7 @@ public class Gametable {
         this.privategoalcardsdeck = new PrivateGoalCardDeck();
         this.publicGoalCardDeck = new PublicGoalCardDeck();
         this.schemeCardDeck = new SchemeCardDeck();
+        this.roundTrack = new RoundTrack();
     }
 
     //to do when preparing a round
@@ -45,16 +51,21 @@ public class Gametable {
         }
     }
 
+    //to do when a round ends
+    public void endRound(int round)throws RoundTrackException{
+        this.roundTrack.setRoundTrackDices(round, this.roundDicepool.getallDicesbutnotremove()) ;
+        this.roundDicepool.removeallDices();
+    }
+
     //per la gestione delle toolAction
     public int costofToolAction (int id){
         return this.tooldeck.getCost(id);
     }
 
-    public void useaToolCard(ToolAction toolAction) throws Exception {
-        this.tooldeck.doAction(toolAction);
+    public void useaToolCard(ToolAction toolAction, Player player) throws Exception {
+        this.tooldeck.doAction(toolAction, player);
 
     }
-
 
     //to get the private Goal card
     public GoalCard getPrivateGoalCard() throws PrivateGoalCardException {
@@ -94,6 +105,10 @@ public class Gametable {
         for (Player player:  players) {
             this.publicGoalCardDeck.doCalculatePoints(player);
         }
+    }
+
+    public RoundTrack getRoundTrack() {
+        return roundTrack;
     }
 }
 

@@ -38,7 +38,7 @@ public class Client {
         //tutto questo crea delle crepe nell'architettura che abbiamo individuato finora... voi che ne dite?
 
         //socket part
-        String ip = "127.0.0.1" ;
+        String ip = "10.169.214.40" ;
         //new Client(ip , 1337).startClient();
 
         //RMI part
@@ -46,6 +46,7 @@ public class Client {
         // gets a reference for the remote controller
         RemoteClientHandler controller = (RemoteClientHandler) registry.lookup("ClientHandler");
         // creates and launches the clientcontroller
+        System.out.println("Looking for connection ...\n");
             new RMIClientController(controller).run();
         }*/
     }

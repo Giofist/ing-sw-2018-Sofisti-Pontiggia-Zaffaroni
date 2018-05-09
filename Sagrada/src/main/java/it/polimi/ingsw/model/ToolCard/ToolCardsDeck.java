@@ -1,7 +1,9 @@
 package it.polimi.ingsw.model.ToolCard;
+import it.polimi.ingsw.model.Exceptions.NotEnoughSegnaliniException;
 import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
 import it.polimi.ingsw.model.Exceptions.ToolActionNotIntheSetOfCostsException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
+import it.polimi.ingsw.model.Player;
 
 
 //questa classe è quella su cui ho lavorato di più ( pon)
@@ -37,14 +39,15 @@ public class ToolCardsDeck {
         }
     }
     //command design pattern
-    //here a bit lazy: Exception is too generic and does not help with understanding and handling the problem of exceptions
-    public void doAction(ToolAction toolAction) throws Exception {
+
+    public void doAction(ToolAction toolAction, Player player) throws ToolIllegalOperationException, NotEnoughSegnaliniException {
                 try{
+                    player.payforTool( this.getCost(toolAction.getID()));
                     setCostOfAction(toolAction.getID());
                 }catch (ToolActionNotIntheSetOfCostsException e){
                     //this toolaction has no cost
                 }
-                toolAction.execute();
+                toolAction.execute(player);
         }
     }
 

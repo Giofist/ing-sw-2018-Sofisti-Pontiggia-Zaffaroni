@@ -11,7 +11,6 @@ public class User {
     //constructor
     public User(String name, String password){
         this.name= name;
-        this.socket= socket;
         this. password = password;
     }
 

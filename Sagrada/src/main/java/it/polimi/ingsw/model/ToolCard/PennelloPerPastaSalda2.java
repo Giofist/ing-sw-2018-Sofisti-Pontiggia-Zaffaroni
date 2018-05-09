@@ -14,20 +14,19 @@ public class PennelloPerPastaSalda2 implements ToolAction{
     final static String cardTitle = "Pennello per Pasta Salda parte seconda";
     final static String description =
             "Devi piazzere il dado.\n";
-    Player player;
+
     int row;
     int column;
     int selectedDiceIndex;
 
-    public PennelloPerPastaSalda2(Player player, int row, int column, int selectedDiceIndex){
-        this.player = player;
+    public PennelloPerPastaSalda2( int row, int column, int selectedDiceIndex){
         this. row = row;
         this. column = column;
         this.selectedDiceIndex = selectedDiceIndex;
 
     }
     @Override
-    public void execute() throws ToolIllegalOperationException{
+    public void execute(Player player) throws ToolIllegalOperationException{
         //ricordarsi sempre di fare get and remove
         try{
             player.getScheme().setDice(player.getGametable().getRoundDicepool().getDice(selectedDiceIndex),row, column, false, false, false);
