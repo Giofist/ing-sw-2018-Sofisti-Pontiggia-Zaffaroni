@@ -66,6 +66,7 @@ public class Server {
         System.out.println("Binding server implementation to registry...\n");
         ClientHandler controller = new ClientHandler();
 
+        // System.setProperty("java.rmi.server.hostname","10.169.214.40");
         Registry registry = LocateRegistry.getRegistry();
         registry.rebind("RMIServerClientHandler", controller);
         System.out.println("Waiting for invocations from clients...");
