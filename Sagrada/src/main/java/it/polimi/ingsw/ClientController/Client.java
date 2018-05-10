@@ -1,7 +1,12 @@
 package it.polimi.ingsw.ClientController;
 
+
+import it.polimi.ingsw.ServerController.RmiServerInterface;
+
 import java.io.IOException;
 import java.net.Socket;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 
 public class Client {
     private String ip;
@@ -19,6 +24,19 @@ public class Client {
         } catch (IOException e) {
             System.out.println("Connessione chiusa\n");
         }
+    }
+
+
+    public static void main(String[] args) throws Exception {
+        // Passing server IP as command line argument
+        String ipAddr = args[1];
+
+        // Locating rmi register on the server
+        Registry rmiRegistry = LocateRegistry.getRegistry(ipAddr);
+        RmiServerInterface controller = (RmiServerInterface) rmiRegistry.lookup("ClientHandler");
+
+        // Let's start the view
+        new RMIClientView(controller).run();
     }
 
     // nelle specifiche si dice di presupporre che il giocatore conosca l'indirizzo IP del server
@@ -44,9 +62,9 @@ public class Client {
         //RMI part
         Registry registry = LocateRegistry.getRegistry(ip);
         // gets a reference for the remote controller
-        RemoteClientHandler controller = (RemoteClientHandler) registry.lookup("ClientHandler");
+        RmiServerInterface controller = (RmiServerInterface) registry.lookup("ClientHandler");
         // creates and launches the clientcontroller
-            new RMIClientController(controller).run();
+            new RMIClientView(controller).run();
         }*/
     }
 

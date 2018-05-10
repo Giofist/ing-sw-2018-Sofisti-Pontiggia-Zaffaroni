@@ -28,7 +28,7 @@ public class UsersList {
     }
 
     //metodo che controlla il login corretto
-    public boolean check( String name, String password){
+    synchronized public boolean check( String name, String password){
         for (User user : this.users){
             if (user.getName() == name && user.getPassword() == password)
                 return true;
@@ -36,7 +36,7 @@ public class UsersList {
         return false;
     }
 
-    public boolean checkname( String name){
+    synchronized public boolean checkname( String name){
         for (User user : this.users){
             if (user.getName() == name)
                 return true;
@@ -44,7 +44,7 @@ public class UsersList {
         return false;
     }
 
-    public boolean checkpassword(String password){
+    synchronized public boolean checkpassword(String password){
         for (User user : this.users){
             if (user.getPassword() == password)
                 return true;
@@ -53,13 +53,13 @@ public class UsersList {
     }
 
     //classe che permette di registrarsi
-    public User register (String name,String password) throws HomonymyException {
+    synchronized public User register (String name,String password) {
         User user = new User(name, password);
         this.users.add(user);
         return user;
     }
     // to check Homonymy
-    public void checkHomonymy(String name) throws HomonymyException{
+    synchronized public void checkHomonymy(String name) throws HomonymyException{
         for (User user:this.users) {
             if(user.getName().equals(name)){
                 throw new HomonymyException();
@@ -68,16 +68,16 @@ public class UsersList {
     }
 
     //rimuovere un'utente che vuole cancellarsi ( opzionale)
-    public void remove (User user){
+    synchronized public void remove (User user){
         this.users.remove(user);
     }
 
     //metodo getter della lista
-    public LinkedList<User> getUsers() {
+    synchronized public LinkedList<User> getUsers() {
         return users;
     }
 
-    public User getUser(String name, String password) throws Exception{
+    synchronized public User getUser(String name, String password) throws Exception{
         for (User user: this.users) {
             if (user.getName() == name && user.getPassword() == password)
                 return user;

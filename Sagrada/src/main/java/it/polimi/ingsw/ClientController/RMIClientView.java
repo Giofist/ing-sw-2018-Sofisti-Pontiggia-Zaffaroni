@@ -1,14 +1,13 @@
 package it.polimi.ingsw.ClientController;
 
 import it.polimi.ingsw.ServerController.MultiplePlayerGameHandler;
-import it.polimi.ingsw.ServerController.RemoteClientHandler;
+import it.polimi.ingsw.ServerController.RmiServerInterface;
 import it.polimi.ingsw.model.Exceptions.HomonymyException;
 import it.polimi.ingsw.model.Exceptions.NumberOfPlayersNotAllowedException;
 import it.polimi.ingsw.model.MultipleUserGameList;
 import it.polimi.ingsw.model.User;
 import it.polimi.ingsw.model.UsersList;
 
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -16,12 +15,16 @@ import java.util.Scanner;
 
 //implemented by pon
 //non implemeta runnable
-public class RMIClientController extends UnicastRemoteObject {
-    private RemoteClientHandler servercontroller;
+public class RMIClientView extends UnicastRemoteObject {
+    private final RmiServerInterface servercontroller;
+    private final Scanner in;
+    private final PrintWriter out;
 
     //constructor
-    public RMIClientController(RemoteClientHandler controller) throws RemoteException {
+    public RMIClientView(RmiServerInterface controller) throws RemoteException {
         this.servercontroller = controller;
+        this.in = new Scanner(System.in);
+        this.out = new PrintWriter(System.out);
     }
 
     public void run() throws RemoteException {
@@ -57,30 +60,41 @@ public class RMIClientController extends UnicastRemoteObject {
     }
 
     private User loginInt() {
-        Scanner in = new Scanner(System.in);
-        PrintWriter out = new PrintWriter(System.out);
         User you = null;
         try {
             out.println("Hai già un account? [S/N]\n");
             you = null;
             if (in.next() == "S" || in.next() == "s") {
-                out.println("Inserisci username:\n");
-                String username = in.nextLine();
-                out.println("Inserisci password:\n");
-                String password = in.nextLine();
+                // By Xenomit esempio per Giorgio di come usare i metodi esposti dal server.
+                // Questo caso è un esempio che va corretto perchè forzeremo l'utente a loggarsi una volta che
+                // ha risposto "S". Andrà sicuramente cambiato evitando questa imposizione.
+                String username;
+                String password;
+
+                do {
+                    out.println("Inserisci username:\n");
+                    username = in.nextLine();
+                    out.println("Inserisci password:\n");
+                    password = in.nextLine();
+                } while (servercontroller.login(username, password));
+
+                // Utilizzando i metodi che mi espone il server non devo usare classi quali UsersList che appartengono
+                // al model gestito dal Server
+                /*
                 while (!UsersList.Singleton().check(username, password)) {
                     out.println("Username e/o password sbagliati!\n");
                     username = in.nextLine();
                     password = in.nextLine();
                 }
                 try {
-                    you = UsersList.Singleton().getUser(username, password);
+                    you = UsersList.Singleton().getUser(username, password);  <--   NON VA BENE sto manipolando il model
                 } catch (Exception e) {
                     out.println("Qualcosa è andato storto con il nostro dtabase: zorry mate!\n");
                     out.close();
                     in.close();
                     return you;
                 }
+                */
             } else {
                 out.println("Inserisci un nuovo Username:\n");
                 boolean successo = false;
@@ -96,7 +110,7 @@ public class RMIClientController extends UnicastRemoteObject {
                     }
                 }
             }
-        } catch (Exception e) {
+        } catch (RemoteException e) {
             out.println("Qualcosa è andato storto con il LogIn!\n");
             out.close();
             in.close();
