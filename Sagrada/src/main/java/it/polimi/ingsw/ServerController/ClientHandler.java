@@ -53,6 +53,10 @@ public class ClientHandler extends UnicastRemoteObject implements Runnable, RmiS
         return true;
     }
 
+    @Override
+    synchronized public boolean checkIsReady(){
+
+    }
 
     // Implementing the login method
     @Override

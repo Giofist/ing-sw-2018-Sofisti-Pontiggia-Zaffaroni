@@ -15,6 +15,8 @@ public interface RmiServerInterface extends Remote {
 
         public boolean login(String username, String password) throws RemoteException;
 
+        public boolean checkIsReady();
+
         // public getActiveMatchList() throws RemoteException;
         // Per questo metodo va deciso come ritornare il risultato
 }
