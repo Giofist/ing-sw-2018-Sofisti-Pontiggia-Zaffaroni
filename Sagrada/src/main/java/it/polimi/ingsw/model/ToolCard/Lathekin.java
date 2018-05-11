@@ -34,17 +34,20 @@ public class Lathekin  implements ToolAction {
         try{
             removedDice1 = player.getScheme().getDice(oldRow1, oldColumn1);
             removedDice2 = player.getScheme().getDice(oldRow2, oldColumn2);
-            player.getScheme().removeDice(oldRow1,oldColumn1);
             player.getScheme().removeDice(oldRow2,oldColumn2);
+            player.getScheme().removeDice(oldRow1,oldColumn1);
             player.getScheme().setDice(removedDice1, newRow1, newColumn1, false, false, false);
             player.getScheme().setDice(removedDice2, newRow2, newColumn2,false,false, false);
 
-        }catch( DiceNotExistantException e){
-            throw new LathekinException(LathekinException.getMsg() + e.getMsg());
-        }catch (OutOfMatrixException e){
-            throw new LathekinException(LathekinException.getMsg() + e.getMsg());
-        }catch (TileConstrainException e){
-            throw new LathekinException(LathekinException.getMsg() + e.getMsg());
+
+        }catch( Exception e){
+            try{
+                player.getScheme().setDice(removedDice1, oldRow1, oldColumn1, false, false, false);
+                player.getScheme().setDice(removedDice2, oldRow2, oldColumn2,false,false, false);
+            }catch(Exception err){
+                //do nothing
+            }
+            throw new LathekinException(LathekinException.getMsg() + e.getMessage());
         }
 
     }

@@ -18,6 +18,7 @@ public class RigainSughero  implements ToolAction {
     private int operation;
     private int row;
     private int column;
+    private Dice dice;
 
     public RigainSughero( int row, int column, int selectedDiceIndex){
         this.selectedDiceIndex = selectedDiceIndex;
@@ -30,17 +31,22 @@ public class RigainSughero  implements ToolAction {
     public void execute (Player player) throws ToolIllegalOperationException {
         //ricordarsi di fare get and remove dei dadi, non dimenticare la remove
         try {
-            Dice dice = player.getGametable().getRoundDicepool().getDice(selectedDiceIndex);
+            dice = player.getGametable().getRoundDicepool().getDice(selectedDiceIndex);
+            player.getGametable().getRoundDicepool().removeDice(selectedDiceIndex);
             boolean thereisadicenearyou = player.getScheme().ThereisaDicenearYou(this.row, this.column);
             if (thereisadicenearyou) {
                 throw new RigaInSugheroException("Non puoi mettere un dado se ce n'è uno vicino!\n");
             } else player.getScheme().setDice(dice, row, column, false, false, true);
-            player.getGametable().getRoundDicepool().removeDice(selectedDiceIndex);
-        }catch (OutOfMatrixException e){
+
+        }catch (Exception e){
+            try{
+                player.getGametable().getRoundDicepool().addDice(selectedDiceIndex,dice);
+            }catch(Exception er){
+                //do nothing
+            }
             throw new RigaInSugheroException(RigaInSugheroException.getMsg()+ e.getMessage());
-        }catch (TileConstrainException e){
-            throw new RigaInSugheroException(RigaInSugheroException.getMsg()+e.getMessage());
         }
+
 
         //not implemented yet
     }

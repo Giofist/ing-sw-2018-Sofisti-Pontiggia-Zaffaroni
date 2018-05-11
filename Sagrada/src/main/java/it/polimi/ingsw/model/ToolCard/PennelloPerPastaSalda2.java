@@ -35,7 +35,7 @@ public class PennelloPerPastaSalda2 implements ToolAction{
         }catch (OutOfMatrixException e){
             throw new PennelloPerPastaSaldaException(PennelloPerPastaSaldaException.getMsg()+ e.getMessage());
         }catch (TileConstrainException e){
-            throw new PennelloPerEglomiseException(PennelloPerPastaSaldaException.getMsg()+ e.getMessage());
+            throw new PennelloPerPastaSaldaException(PennelloPerPastaSaldaException.getMsg()+ e.getMessage());
         }
     }
     @Override

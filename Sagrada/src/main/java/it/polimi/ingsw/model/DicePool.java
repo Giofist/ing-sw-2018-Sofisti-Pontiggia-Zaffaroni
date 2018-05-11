@@ -45,6 +45,10 @@ public class DicePool {
     //USE only for RoundDicepool
     public void addDice(Dice dice){ this.dices.add(dice); }
 
+    public void addDice(int selectedDiceIndex,Dice dice ){
+        this.dices.add(selectedDiceIndex,dice);
+    }
+
 
 
     private void scrambleDicePool() { Collections.shuffle(dices); }

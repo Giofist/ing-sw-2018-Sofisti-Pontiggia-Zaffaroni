@@ -1,31 +1,34 @@
 package it.polimi.ingsw.model;
 import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
 import it.polimi.ingsw.model.Exceptions.NotEnoughSegnaliniException;
-import it.polimi.ingsw.model.Exceptions.PlayerNotFoundException;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 
 import java.net.Socket;
-import java.util.*;
+
 //abbiamo il problema del pattern observer
 public class Player{
     private User user;
     private GoalCard privateGoalCard;
     private int segnalini_favore;
     private SchemeCard scheme;
-    private LinkedList<Player> state;
     private Gametable gametable;
     private int points;
-    private Dice diceforDiluenteperpastaSalda;
+
+
+    //pervla gestione delle toolCard, potremo pensare ad un'ottimizzazione
+    private Dice diceforDiluenteperPastaSalda;
     private boolean mustsetdice;
     private int numberoftimesyouhaveplayedthisround;
+    private DiceColor colorConstrainForTaglierinaManuale;
 
 
     //costruttore
     public Player(User user){
         this.user = user;
-        this.state = new LinkedList<Player>();
-        this.diceforDiluenteperpastaSalda = null;
+        this.diceforDiluenteperPastaSalda = null;
         this.mustsetdice = false;
+        this.numberoftimesyouhaveplayedthisround=0;
+        this.colorConstrainForTaglierinaManuale = null;
     }
 
     //metodi setter e getter
@@ -75,39 +78,31 @@ public class Player{
     public int getPoints(){
         return this.points;
     }
-    public List<Player> getState(){
-        return this.state;
-    }
-    public void addPlayerToState(Player player){
-        this.state.add(player);
-    }
     public User getAssociatedUser(){ return this.user; }
-    public void setDiceforDiluenteperpastaSalda(Dice dice){
-        this.diceforDiluenteperpastaSalda = dice;
+
+
+
+
+
+
+
+    //metodi per gli attributi per le toolcard
+    public void setDiceforDiluenteperPastaSalda(Dice dice){
+        this.diceforDiluenteperPastaSalda = dice;
     }
     public Dice getdiceforDiluenteperPastaSalda() throws DiceNotExistantException{
-        if (this.diceforDiluenteperpastaSalda ==null){
+        if (this.diceforDiluenteperPastaSalda ==null){
             throw new DiceNotExistantException();
         }
         else {
-            return this.diceforDiluenteperpastaSalda
+            return this.diceforDiluenteperPastaSalda
             ;
         }
 
     }
     public void  removediceforDiluenteperPastaSalda(){
-        this.diceforDiluenteperpastaSalda = null;
+        this.diceforDiluenteperPastaSalda = null;
     }
-
-
-    public Player getSelectedPlayer (String name) throws PlayerNotFoundException {
-        for (Player other_player : this.state) {
-            if (other_player.getAssociatedUser().getName().equals(name))
-                return other_player;
-        }
-        throw new PlayerNotFoundException();
-    }
-
     public void setMustsetdice(boolean settable){
         this.mustsetdice = settable;
     }
@@ -123,9 +118,11 @@ public class Player{
         this.numberoftimesyouhaveplayedthisround += 1;
     }
 
-    //implementation of the observer design pattern
-    public void update(){
-        //not implemented yet
+    public DiceColor getColorConstrainForTaglierinaManuale() {
+        return colorConstrainForTaglierinaManuale;
+    }
+    public void setColorConstrainForTaglierinaManuale(DiceColor dicecolor){
+        this.colorConstrainForTaglierinaManuale = dicecolor;
     }
 
 

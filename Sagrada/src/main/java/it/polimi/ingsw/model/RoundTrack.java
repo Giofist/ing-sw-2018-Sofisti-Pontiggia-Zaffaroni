@@ -1,7 +1,9 @@
 package it.polimi.ingsw.model;
 
+import com.sun.tools.internal.ws.wsdl.document.jaxws.Exception;
 import it.polimi.ingsw.model.Exceptions.RoundTrackException;
 
+import java.util.LinkedList;
 import java.util.List;
 
 //sarebbe il piazzato round
@@ -59,6 +61,22 @@ public class RoundTrack {
             case 10: this.round10Dices.addallDices(dices);break;
             default: throw new RoundTrackException("id round sbagliato\n");
         }
+    }
+
+    public List<DiceColor> allColors()  {
+        try{
+            List list = new LinkedList<DiceColor>();
+            for (int i=1; i<11; i++){
+                for(int j=0; j<getroundTrackDices(i).getDicePoolSize();j++){
+                    list.add(getroundTrackDices(i).getDice(j).getColor());
+                }
+            }
+        }catch(RoundTrackException e){
+            //do nothing, impossible to g
+        }
+
+
+
     }
 
 

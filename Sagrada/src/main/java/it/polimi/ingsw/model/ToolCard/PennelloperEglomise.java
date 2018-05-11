@@ -17,6 +17,7 @@ public class PennelloperEglomise  implements ToolAction {
                                       "Devi rispettare tutte le altre restrizioni di piazzamento.";
 
     private int row, column, newRow, newColumn;
+    private Dice removedDice;
 
     public PennelloperEglomise( int row, int column, int newRow, int newColumn){
 
@@ -30,19 +31,18 @@ public class PennelloperEglomise  implements ToolAction {
 
     public void execute (Player player) throws ToolIllegalOperationException{
         try{
-            Dice removedDice = player.getScheme().getDice(row, column);
+             removedDice = player.getScheme().getDice(row, column);
             player.getScheme().removeDice(row,column);
             player.getScheme().setDice(removedDice, newRow, newColumn, true, false, false);
 
-        }catch(DiceNotExistantException e) {
+        }catch(Exception e) {
+            try{
+                player.getScheme().setDice(removedDice, row, column, true, false, false);
+            }catch(Exception er){
+                //do nothing
+            }
             throw new PennelloPerEglomiseException(PennelloPerEglomiseException.getMsg() + e.getMessage());
-        }catch (OutOfMatrixException e){
-            throw new PennelloPerEglomiseException(PennelloPerEglomiseException.getMsg()+ e.getMessage());
-        }catch (TileConstrainException e){
-            throw new PennelloPerEglomiseException(PennelloPerEglomiseException.getMsg()+ e.getMessage());
         }
-
-
     }
 
     @Override

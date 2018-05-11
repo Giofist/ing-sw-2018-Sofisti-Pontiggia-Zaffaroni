@@ -31,7 +31,7 @@ public class DiluenteperPastaSalda  implements ToolAction {
         player.getGametable().getRoundDicepool().removeDice(this.selectedDiceIndex);
 
         //poi pescane uno
-        player.setDiceforDiluenteperpastaSalda(player.getGametable().getDicepool().extractDice());
+        player.setDiceforDiluenteperPastaSalda(player.getGametable().getDicepool().extractDice());
 
     }
 
