@@ -25,6 +25,7 @@ public class ClientHandler extends UnicastRemoteObject implements Runnable, RmiS
 
     @Override
     public void run(){
+
         //questo per gestire i socket
         //qui metteremo lo switchone
     }
