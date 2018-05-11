@@ -60,20 +60,30 @@ public class RMIClientView extends UnicastRemoteObject {
     private void loginInt() {
         String username;
         String password;
+        boolean successo = true;
+        boolean back = false;
 
+        do{
+            successo = true;
+            out.println("\n\n< Torna al menu. (B)\n");
+            if (in.next() == "B" || in.next() == "b") {
+                back = true;
+            }
         try {
             out.println("Hai già un account? [S/N]\n");
             if (in.next() == "S" || in.next() == "s") {
                 logInt();
             } else {
-                boolean successo = false;
-                while (!successo) {
                         out.println("Inserisci un nuovo Username:\n");
                         username = in.nextLine();
                         out.println("Inserisci una password:\n");
                         password= in.nextLine();
-                        successo = servercontroller.register(username, password);
-                }
+                        try {
+                            servercontroller.register(username, password);
+                        }
+                        catch(RemoteException e){
+                            successo = false;
+                        }
                 out.println("Esegui il LogIn con l'account appena creato:");
                 logInt();
             }
@@ -81,16 +91,21 @@ public class RMIClientView extends UnicastRemoteObject {
             out.println("Qualcosa è andato storto con il LogIn!\n");
             out.close();
             in.close();
-            return ;
         }
-        return;
+    }while (successo == false || back == false);
+
+        if(back == true) menuInt();
     }
+
 
     private void logInt() throws RemoteException {
         String username;
         String password;
+        boolean successo = true;
         boolean back = false;
+
         do {
+            successo = true;
             out.println("\n\n< Torna al menu. (B)\n");
             if (in.next() == "B" || in.next() == "b") {
                 back=true;
@@ -99,9 +114,15 @@ public class RMIClientView extends UnicastRemoteObject {
             username = in.nextLine();
             out.println("Inserisci password:\n");
             password = in.nextLine();
-        } while (servercontroller.login(username, password)||back);
+            try{
+                servercontroller.login(username, password);
+            }
+            catch(RemoteException e){
+                successo = false;
+            }
+        } while (successo == false|| !back);
         if(back){
-            loginInt();   //usato per uscire dal ciclo e tronare al log in in caso di misstype.
+            menuInt();   //usato per uscire dal ciclo e tronare al log in in caso di misstype.
         }
     }
 
@@ -167,7 +188,7 @@ public class RMIClientView extends UnicastRemoteObject {
         Scanner in = new Scanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
         out.println("Attendi che altri giocatori entrino in partita...\n");
-        MultipleUserGameList.singleton().checkIsReady();
+        ;
     }
 
 
