@@ -11,9 +11,9 @@ public interface RmiServerInterface extends Remote {
         // All the methods exposed from the server to the client go here
         public String rmiTest(String stringa) throws RemoteException;
 
-        public boolean register(String username, String password) throws RemoteException;
+        public void register(String username, String password) throws RemoteException;
 
-        public boolean login(String username, String password) throws RemoteException;
+        public void login(String username, String password) throws RemoteException;
 
         public boolean checkIsReady();
 

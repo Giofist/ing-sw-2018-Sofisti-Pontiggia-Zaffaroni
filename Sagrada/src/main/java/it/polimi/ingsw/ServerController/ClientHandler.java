@@ -40,17 +40,16 @@ public class ClientHandler extends UnicastRemoteObject implements Runnable, RmiS
 
     // Implementing the register method
     @Override
-    synchronized public  boolean register(String username, String password) {
+    synchronized public  void register(String username, String password) throws RemoteException{
         // When the User wants to register a new account we first verify that there isn't another User with the same username
         try {
             usersList.checkHomonymy(username);
         } catch (HomonymyException e) {
-            return false;
+            throw new RemoteException("Username already in use");
         }
 
         // Then we proceed to register and notify the new User
         usersList.register(username, password);
-        return true;
     }
 
     @Override
@@ -60,8 +59,10 @@ public class ClientHandler extends UnicastRemoteObject implements Runnable, RmiS
 
     // Implementing the login method
     @Override
-    synchronized public boolean login(String username, String password) {
-        return  usersList.check(username, password);
+    synchronized public void login(String username, String password) throws RemoteException{
+         if(usersList.check(username, password) == false){
+             throw new RemoteException("Invalid username or password");
+         }
     }
 
 
