@@ -9,16 +9,16 @@ import it.polimi.ingsw.model.User;
 //non terminata
 //notate bene che da specifica il timer deve essere caricato da file
 //l'idea è che ogni partita sia gestita da un thread, per questo impleemnta runnable e ha un metodo run
-public class MultiplePlayerGameHandler extends UnicastRemoteObject implements Runnable {
+public class GameHandler extends UnicastRemoteObject implements Runnable {
     private String game_name;
     private LinkedList<User> users;
-    private int maxNumberPlayers;
+    private int numberPlayers;
 
     //public constructor
-    public MultiplePlayerGameHandler (User user, String game_name, int  max) throws RemoteException {
+    public GameHandler(User user, String game_name, int  max) throws RemoteException {
         this.game_name = game_name;
         this.users.addFirst(user);
-        this.maxNumberPlayers = max;
+        this.numberPlayers = max;
     }
 
 
@@ -26,7 +26,7 @@ public class MultiplePlayerGameHandler extends UnicastRemoteObject implements Ru
         return this.game_name;
     }
     public int getMaxNumberPlayers(){
-        return maxNumberPlayers;
+        return numberPlayers;
     }
     public int getActualNumberOfPlayers(){
         return this.users.size();
@@ -34,6 +34,8 @@ public class MultiplePlayerGameHandler extends UnicastRemoteObject implements Ru
     public void join(User user){
         this.users.add(user);
     }
+
+
     @Override
     public void run(){
 

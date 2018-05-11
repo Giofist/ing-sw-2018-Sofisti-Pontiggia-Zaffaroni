@@ -10,4 +10,11 @@ public class RoundHandler {
     private LinkedList<Player> players;
     private Timer timer;
     private Player isTurn;
+
+
+    public RoundHandler (LinkedList<Player> playerList){
+        this.players = playerList;
+        this.isTurn = this.players.getFirst();
+    }
+
 }

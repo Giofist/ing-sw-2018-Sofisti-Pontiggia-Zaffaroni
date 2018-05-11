@@ -1,14 +1,10 @@
 package it.polimi.ingsw.ClientController;
 
-import it.polimi.ingsw.ServerController.MultiplePlayerGameHandler;
-import it.polimi.ingsw.ServerController.RemoteClientHandler;
-import it.polimi.ingsw.model.Exceptions.HomonymyException;
+import it.polimi.ingsw.ServerController.GameHandler;
+import it.polimi.ingsw.ServerController.RmiServerInterface;
 import it.polimi.ingsw.model.Exceptions.NumberOfPlayersNotAllowedException;
 import it.polimi.ingsw.model.MultipleUserGameList;
-import it.polimi.ingsw.model.User;
-import it.polimi.ingsw.model.UsersList;
 
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -16,23 +12,25 @@ import java.util.Scanner;
 
 //implemented by pon
 //non implemeta runnable
-public class RMIClientController extends UnicastRemoteObject {
-    private RemoteClientHandler servercontroller;
+public class RMIClientView extends UnicastRemoteObject {
+    private final RmiServerInterface servercontroller;
+    private final Scanner in;
+    private final PrintWriter out;
 
     //constructor
-    public RMIClientController(RemoteClientHandler controller) throws RemoteException {
+    public RMIClientView(RmiServerInterface controller) throws RemoteException {
         this.servercontroller = controller;
+        this.in = new Scanner(System.in);
+        this.out = new PrintWriter(System.out);
     }
 
     public void run() throws RemoteException {
-        User you;
         String stringa = servercontroller.rmiTest("RMI");
         System.out.println("La connessione è in modalità: " + stringa);
         loadingInt();
-        you=loginInt();
-        menuInt(you);
-        //qui si dovrà scrivere il clientcontroller per RMI
-        //che giorgio dovrebbe avere già scritto
+        loginInt();
+        menuInt();
+
 
 
         //NB: mentre per il server usiamo una sola classe che gestisce sia la connessione socket che RMI (di fatto la connessione socket invoca localmente
@@ -56,56 +54,76 @@ public class RMIClientController extends UnicastRemoteObject {
         System.out.println("Benvenuto in Sagrada!");
     }
 
-    private User loginInt() {
-        Scanner in = new Scanner(System.in);
-        PrintWriter out = new PrintWriter(System.out);
-        User you = null;
+    private void loginInt() {
+        String username;
+        String password;
+        boolean successo = true;
+        boolean back = false;
+
+        do{
+            successo = true;
+            out.println("\n\n< Torna al menu. (B)\n");
+            if (in.next() == "B" || in.next() == "b") {
+                back = true;
+            }
         try {
             out.println("Hai già un account? [S/N]\n");
-            you = null;
             if (in.next() == "S" || in.next() == "s") {
-                out.println("Inserisci username:\n");
-                String username = in.nextLine();
-                out.println("Inserisci password:\n");
-                String password = in.nextLine();
-                while (!UsersList.Singleton().check(username, password)) {
-                    out.println("Username e/o password sbagliati!\n");
-                    username = in.nextLine();
-                    password = in.nextLine();
-                }
-                try {
-                    you = UsersList.Singleton().getUser(username, password);
-                } catch (Exception e) {
-                    out.println("Qualcosa è andato storto con il nostro dtabase: zorry mate!\n");
-                    out.close();
-                    in.close();
-                    return you;
-                }
+                logInt();
             } else {
-                out.println("Inserisci un nuovo Username:\n");
-                boolean successo = false;
-                while (!successo) {
-                    try {
-                        String username = in.nextLine();
-                        UsersList.Singleton().checkHomonymy(username);//
+                        out.println("Inserisci un nuovo Username:\n");
+                        username = in.nextLine();
                         out.println("Inserisci una password:\n");
-                        you = UsersList.Singleton().register(username, in.nextLine());
-                        successo = true;
-                    } catch (HomonymyException e) {
-                        out.println(e.getMessage());
-                    }
-                }
+                        password= in.nextLine();
+                        try {
+                            servercontroller.register(username, password);
+                        }
+                        catch(RemoteException e){
+                            successo = false;
+                        }
+                out.println("Esegui il LogIn con l'account appena creato:");
+                logInt();
             }
-        } catch (Exception e) {
+        } catch (RemoteException e) {
             out.println("Qualcosa è andato storto con il LogIn!\n");
             out.close();
             in.close();
-            return you;
         }
-        return you;
+    }while (successo == false || back == false);
+
+        if(back == true) menuInt();
     }
 
-    private void menuInt(User you) {
+
+    private void logInt() throws RemoteException {
+        String username;
+        String password;
+        boolean successo = true;
+        boolean back = false;
+
+        do {
+            successo = true;
+            out.println("\n\n< Torna al menu. (B)\n");
+            if (in.next() == "B" || in.next() == "b") {
+                back=true;
+            }
+            out.println("Inserisci username:\n");
+            username = in.nextLine();
+            out.println("Inserisci password:\n");
+            password = in.nextLine();
+            try{
+                servercontroller.login(username, password);
+            }
+            catch(RemoteException e){
+                successo = false;
+            }
+        } while (successo == false|| !back);
+        if(back){
+            menuInt();   //usato per uscire dal ciclo e tronare al log in in caso di misstype.
+        }
+    }
+
+    private void menuInt() {
         Scanner in = new Scanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
         out.println("Benvenuto nel menù principale di Sagrada!");
@@ -113,32 +131,32 @@ public class RMIClientController extends UnicastRemoteObject {
         out.println("- Giocatore Singolo (Coming soon!)");
         out.println("- Impostazioni (I)");
         if (in.next() == "I" || in.next() == "i") {
-            optionInt(you);
+            optionInt();
         }
         else{
-            multiInt(you);
+            multiInt();
         }
     }
 
-    private void multiInt(User you) { //da implemnetare
+    private void multiInt() { //da implemnetare
         Scanner in = new Scanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
         out.println("/n/nVuoi creare o partecipare ad una partita? [C/P]");
         out.println("\n\n< Torna al menu. (B)");
         if (in.next() == "B" || in.next() == "b") {
-            menuInt(you);
+            menuInt();
         }
         else if (in.next() == "C" || in.next() == "c") {
-            creaInt(you);
+            creaInt();
         }
-        else partecipaInt(you);
+        else partecipaInt();
     }
 
-    private void partecipaInt(User you) {
+    private void partecipaInt() {
         Scanner in = new Scanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
         out.println("Scegli la partita a cui vuoi partecipare dalla lista:");
-        for (MultiplePlayerGameHandler game : MultipleUserGameList.singleton().getgames()) {
+        for (GameHandler game : MultipleUserGameList.singleton().getgames()) {   //in sospeso con Xeromit per come scambiare
             out.println(game.getName() + "; Giocatori che stanno partecipando: " + game.getActualNumberOfPlayers() + "Giocatori necessari alla partita: " + game.getMaxNumberPlayers() + "\n");
         }
         boolean chosen = false;
@@ -146,32 +164,32 @@ public class RMIClientController extends UnicastRemoteObject {
             out.println("Vuoi ancora partecipare ad una partita? [S/N]\n");
             if (in.nextLine() == "S"||in.nextLine()=="s") {
                 out.println("Scegli la partita in cui entrare.\n");
-                for (MultiplePlayerGameHandler game : MultipleUserGameList.singleton().getgames()) {
+                for (GameHandler game : MultipleUserGameList.singleton().getgames()) {  // in sospeso
                     if (game.getName().equals(in.nextLine())) {
                         try {
-                            game.join(you);
+                            game.join();
                         } catch (NullPointerException e) {
                             e.getCause();
                         }
                     }
                 }
-                waitingInt(you);
+                waitingInt();
                 chosen = true;
             } else {
-                multiInt(you);
+                multiInt();
             }
         }
     }
 
-    private void waitingInt(User you) {
+    private void waitingInt() {
         Scanner in = new Scanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
         out.println("Attendi che altri giocatori entrino in partita...\n");
-        MultipleUserGameList.singleton().checkIsReady();
+        ;
     }
 
 
-    private void creaInt(User you) {
+    private void creaInt() {
         boolean success = false;
         Scanner in = new Scanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
@@ -185,7 +203,7 @@ public class RMIClientController extends UnicastRemoteObject {
                 if (max < 2 || max > 4) {
                     throw new NumberOfPlayersNotAllowedException();
                 }
-                MultipleUserGameList.singleton().create(you, name, max);
+                MultipleUserGameList.singleton().create(you, name, max);   //trovo modo di avere utente
                 out.println("Attendi che alttri giocatori partecipino alla partita.\n Divertiti!\n");
                 success = true;
             } catch (Exception e) {
@@ -194,7 +212,7 @@ public class RMIClientController extends UnicastRemoteObject {
         }
     }
 
-    private void optionInt(User you){
+    private void optionInt(){
         Scanner in = new Scanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
         out.println("/n/nSei nelle impostazioni del gioco! (per selezionare inserisci il numero a lato)");
@@ -202,17 +220,17 @@ public class RMIClientController extends UnicastRemoteObject {
         out.println("2) Impostazioni grafiche client.");
         out.println("\n\n< Torna al menu. (B)");
         if (in.next() == "B" || in.next() == "b") {
-            menuInt(you);
+            menuInt();
         }
         else if(in.next()=="1"){
-           connectionInt(you);
+           connectionInt();
         }
         else{
-            graficInt(you);
+            graficInt();
         }
     }
 
-    private void connectionInt(User you) { //da implemntare parte di switch tra RMI SOCKET
+    private void connectionInt() { //da implemntare parte di switch tra RMI SOCKET
         Scanner in = new Scanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
         out.println("/n/nSei nelle impostazioni della connessione.");
@@ -220,7 +238,7 @@ public class RMIClientController extends UnicastRemoteObject {
         out.println("Vuoi passare alla connessione tramite Socket? [S/N]");
         out.println("\n\n< Torna al menu. (B)");
         if (in.next() == "B" || in.next() == "b") {
-            optionInt(you);
+            optionInt();
         }
         else if(in.next() == "S" || in.next() == "s"){
             out.println("Hai deciso di passare alla connessione Socket, il client si riavvierà in tale modalità tra qualche secondo.");
@@ -231,7 +249,7 @@ public class RMIClientController extends UnicastRemoteObject {
         }
     }
 
-    private void graficInt(User you) { //da implementare lo switch
+    private void graficInt() { //da implementare lo switch
         Scanner in = new Scanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
         out.println("/n/nSei nelle impostazioni relative alla grafica.");
@@ -239,7 +257,7 @@ public class RMIClientController extends UnicastRemoteObject {
         out.println("Vuoi passare al client Grafico? [S/N]");
         out.println("\n\n< Torna al menu. (B)");
         if (in.next() == "B" || in.next() == "b") {
-            optionInt(you);
+            optionInt();
         }
         else if(in.next() == "S" || in.next() == "s"){
             out.println("Hai deciso di passare al client grafico, tra pochi secondi il client si chiuderà e dovrai riaprirlo usando ClientGrafico.");

@@ -1,7 +1,12 @@
 package it.polimi.ingsw.ClientController;
 
+
+import it.polimi.ingsw.ServerController.RmiServerInterface;
+
 import java.io.IOException;
 import java.net.Socket;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 
 public class Client {
     private String ip;
@@ -21,6 +26,19 @@ public class Client {
         }
     }
 
+
+    public static void main(String[] args) throws Exception {
+        // Passing server IP as command line argument
+        String ipAddr = args[1];
+
+        // Locating rmi register on the server
+        Registry rmiRegistry = LocateRegistry.getRegistry(ipAddr);
+        RmiServerInterface controller = (RmiServerInterface) rmiRegistry.lookup("ClientHandler");
+
+        // Let's start the view
+        new RMIClientView(controller).run();
+    }
+
     // nelle specifiche si dice di presupporre che il giocatore conosca l'indirizzo IP del server
     // io ho pensato che lo scriva come argomento quando chiama il programma da linea di comando
     //nelle implementazioni senza linea di comando, come funziona?
@@ -38,16 +56,15 @@ public class Client {
         //tutto questo crea delle crepe nell'architettura che abbiamo individuato finora... voi che ne dite?
 
         //socket part
-        String ip = "10.169.214.40" ;
+        String ip = "127.0.0.1" ;
         //new Client(ip , 1337).startClient();
 
         //RMI part
         Registry registry = LocateRegistry.getRegistry(ip);
         // gets a reference for the remote controller
-        RemoteClientHandler controller = (RemoteClientHandler) registry.lookup("ClientHandler");
+        RmiServerInterface controller = (RmiServerInterface) registry.lookup("ClientHandler");
         // creates and launches the clientcontroller
-        System.out.println("Looking for connection ...\n");
-            new RMIClientController(controller).run();
+            new RMIClientView(controller).run();
         }*/
     }
 
