@@ -1,12 +1,9 @@
 package it.polimi.ingsw.ClientController;
 
-import it.polimi.ingsw.ServerController.MultiplePlayerGameHandler;
+import it.polimi.ingsw.ServerController.GameHandler;
 import it.polimi.ingsw.ServerController.RmiServerInterface;
-import it.polimi.ingsw.model.Exceptions.HomonymyException;
 import it.polimi.ingsw.model.Exceptions.NumberOfPlayersNotAllowedException;
 import it.polimi.ingsw.model.MultipleUserGameList;
-import it.polimi.ingsw.model.User;
-import it.polimi.ingsw.model.UsersList;
 
 import java.io.PrintWriter;
 import java.rmi.RemoteException;
@@ -138,7 +135,7 @@ public class RMIClientView extends UnicastRemoteObject {
         Scanner in = new Scanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
         out.println("Scegli la partita a cui vuoi partecipare dalla lista:");
-        for (MultiplePlayerGameHandler game : MultipleUserGameList.singleton().getgames()) {   //in sospeso con Xeromit per come scambiare
+        for (GameHandler game : MultipleUserGameList.singleton().getgames()) {   //in sospeso con Xeromit per come scambiare
             out.println(game.getName() + "; Giocatori che stanno partecipando: " + game.getActualNumberOfPlayers() + "Giocatori necessari alla partita: " + game.getMaxNumberPlayers() + "\n");
         }
         boolean chosen = false;
@@ -146,7 +143,7 @@ public class RMIClientView extends UnicastRemoteObject {
             out.println("Vuoi ancora partecipare ad una partita? [S/N]\n");
             if (in.nextLine() == "S"||in.nextLine()=="s") {
                 out.println("Scegli la partita in cui entrare.\n");
-                for (MultiplePlayerGameHandler game : MultipleUserGameList.singleton().getgames()) {  // in sospeso
+                for (GameHandler game : MultipleUserGameList.singleton().getgames()) {  // in sospeso
                     if (game.getName().equals(in.nextLine())) {
                         try {
                             game.join();

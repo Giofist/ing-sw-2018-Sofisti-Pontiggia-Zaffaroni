@@ -14,12 +14,12 @@ import java.lang.Thread;
 //bisognerebbe testare e verificare
 public class MultipleUserGameList {
     private static  MultipleUserGameList instance;
-    private List<MultiplePlayerGameHandler> games;
+    private List<GameHandler> games;
 
     //private constructor
     //questo è un modo per ritornare
     private MultipleUserGameList(){
-        this.games = new LinkedList<MultiplePlayerGameHandler>();
+        this.games = new LinkedList<GameHandler>();
     }
     //method to access/create the unique instance of the class
     //qui per sincronizzare utilizzo il lock intrinseco che possiede ogni classe, e nello speficico la classe MultipleUserGameList
@@ -33,34 +33,34 @@ public class MultipleUserGameList {
 
     //create a game and add to the existant list
     //secondo voi è giusto che qui la RemoteException venga rilanciata? Ne avremo un'idea più chiara quando vedrmeo bene come fare la classe GameHandler
-    public synchronized MultiplePlayerGameHandler create (User user, String game_name, int max) throws HomonymyException,RemoteException {
-        for (MultiplePlayerGameHandler previousGame: this.games){
+    public synchronized GameHandler create (User user, String game_name, int max) throws HomonymyException,RemoteException {
+        for (GameHandler previousGame: this.games){
             if (previousGame.getName()== game_name) {
                 throw new HomonymyException();
             }
         }
-        MultiplePlayerGameHandler game = new MultiplePlayerGameHandler(user, game_name,max);
+        GameHandler game = new GameHandler(user, game_name,max);
         this.games.add(game);
         return game;
     }
 
 
     //delete a game (because it's finished)
-    public  synchronized void remove(MultiplePlayerGameHandler game){
-        for (MultiplePlayerGameHandler otherGames : this.games ) {
+    public  synchronized void remove(GameHandler game){
+        for (GameHandler otherGames : this.games ) {
             if (game.getName() == otherGames.getName())
                 this.games.remove(otherGames);
         }
     }
 
     //get the list of the existant games
-    public synchronized List<MultiplePlayerGameHandler> getgames(){
+    public synchronized List<GameHandler> getgames(){
         return this.games;
     }
 
     //check if a game is ready to start
     public synchronized void checkIsReady(){
-        for (MultiplePlayerGameHandler game: this.games) {
+        for (GameHandler game: this.games) {
             if(game.getActualNumberOfPlayers() == game.getMaxNumberPlayers()){
                 new Thread(game).start();
                 //qui ho pensato di instanziare un thread per ogni partita, qui dovremo mettere il codice per verificare se è un RMI, e quindi bisogna esportare la classe sul registro
