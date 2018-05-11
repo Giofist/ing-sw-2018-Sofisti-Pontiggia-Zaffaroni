@@ -1,5 +1,8 @@
 package it.polimi.ingsw.ServerController;
 
+import it.polimi.ingsw.model.Exceptions.HomonymyException;
+import it.polimi.ingsw.model.UsersList;
+
 import java.net.Socket;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -10,8 +13,11 @@ import java.rmi.server.UnicastRemoteObject;
 // il fatto che implementi runnable e quindi sia codice per thread non mi pare crei problemi
 //se avete notizie avvisatemi
 //client handler
-public class ClientHandler extends UnicastRemoteObject implements Runnable, RemoteClientHandler {
-    Socket socket;
+public class ClientHandler extends UnicastRemoteObject implements Runnable, RmiServerInterface {
+
+    private Socket socket;
+    private UsersList usersList = UsersList.Singleton();
+
     public ClientHandler ()throws RemoteException {};
     public ClientHandler(Socket socket) throws RemoteException{
         this.socket = socket;
@@ -30,6 +36,30 @@ public class ClientHandler extends UnicastRemoteObject implements Runnable, Remo
         return "Test " + stringa;
     }
 
-    //here we'll put the implementation of all the methods in the interface RemoteClientHandler
+    // Here we'll put the implementation of all the methods in the interface RmiServerInterface
 
+    // Implementing the register method
+    @Override
+    synchronized public  boolean register(String username, String password) {
+        // When the User wants to register a new account we first verify that there isn't another User with the same username
+        try {
+            usersList.checkHomonymy(username);
+        } catch (HomonymyException e) {
+            return false;
+        }
+
+        // Then we proceed to register and notify the new User
+        usersList.register(username, password);
+        return true;
+    }
+
+
+    // Implementing the login method
+    @Override
+    synchronized public boolean login(String username, String password) {
+        return  usersList.check(username, password);
+    }
+
+
+    // Implementing the getActiveMatchList
 }
