@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.Exceptions.HomonymyException;
 import it.polimi.ingsw.model.UsersList;
 
 import java.net.Socket;
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
@@ -53,7 +54,7 @@ public class ClientHandler extends UnicastRemoteObject implements Runnable, RmiS
     }
 
     @Override
-    synchronized public boolean checkIsReady(){
+    synchronized public void checkIsReady() throws RemoteException{
 
     }
 
