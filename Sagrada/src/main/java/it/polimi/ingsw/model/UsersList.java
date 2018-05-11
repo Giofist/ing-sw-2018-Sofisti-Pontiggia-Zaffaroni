@@ -1,6 +1,10 @@
 package it.polimi.ingsw.model;
 import it.polimi.ingsw.model.Exceptions.HomonymyException;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.lang.reflect.Array;
 import java.net.Socket;
 import java.util.*;
 
@@ -16,16 +20,45 @@ public class UsersList {
 
 
     //costruttore privato
+    /*      Ho cambiato questa classe perchè l'inizializzazione della LinkedList users la gestisco in loadUsersList
     private UsersList(){
         this.users = new LinkedList<User>();
     }
+    */
 
     //metodo che crea/dà accesso se già creata all'unica istanza
     public static  UsersList Singleton(){
         if (instance == null)
             instance = new UsersList();
+            instance.loadUsersList();
         return instance;
     }
+
+
+    // Questo metodo è privato perchè viene invocato dal costruttore e si occupa di caricare la lista dei giocatori
+    // registrati da un file. Se tale file non dovesse esistere la lista users viene inizializzata come vuota.
+    // Il formato .csv del file è una serie di lineeeì come segue:
+    // username, password\n           (notare la virgola che separa user e pass)
+    synchronized private void loadUsersList() {
+        File file = new File("./UsersList.csv");
+        Scanner fileScanner = null;
+        try {
+            users = new LinkedList<User>();
+            fileScanner = new Scanner(file);
+            String[] splitedUsernameAndPass = new String[2];
+            while (fileScanner.hasNextLine()) {
+                String line = fileScanner.nextLine();
+                splitedUsernameAndPass = line.split(",");
+                users.add(new User(splitedUsernameAndPass[0], splitedUsernameAndPass[1]));
+            }
+            fileScanner.close();
+        } catch (FileNotFoundException e) {
+            users = new LinkedList<User>();
+        } finally {
+            fileScanner.close();
+        }
+    }
+
 
     //metodo che controlla il login corretto
     synchronized public boolean check( String name, String password){
