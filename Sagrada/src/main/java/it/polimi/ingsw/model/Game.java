@@ -42,7 +42,6 @@ public class Game {
                 plaier.notifyError("Errore nel caricamento delle mappe\n");
             }
         }
-
         return this;
     }
 
@@ -52,6 +51,9 @@ public class Game {
             return true;
         } else return false;
     }
+
+
+
 
     public void start() throws IOException {
         gametable = new Gametable(this.players.size());
@@ -79,7 +81,6 @@ public class Game {
     
     //this is THE GAME: 10 ROUNDS
     private void run(){
-
         //ad ogni round modifico l'ordine nella lista
         new Round(1, this.players, this).run();
         this.players.addLast(this.players.removeFirst());
@@ -111,8 +112,6 @@ public class Game {
     //notify the others that theey have lost
     // what else?
     private void endGame(){
-
-
         //to calculate points for the public goals
         this.getGametable().calculatePointsforAllPlayers(this.players);
 
@@ -125,7 +124,10 @@ public class Game {
         //notifico ai vari giocatori la vittoria, il pareggio eventuale e la sconfitta
         try{
             Player player = whohaswon();
-            pl
+            player.notifyaWin();
+            for (Player loser:this.getallPlayersbutnotme(player)) {
+                loser.notifyaLose();
+            }
 
 
         }catch (DrawException e){
@@ -138,6 +140,9 @@ public class Game {
 
             }
         }
+
+        //qui bisognerà chiudere la partita in qualche modo
+
 
 
     }
@@ -170,14 +175,23 @@ public class Game {
 
 
     //assolutamente da testare
-    //come esegue il controllo?
+    //come esegue la remove? Correttamente?
     //molto utile per il pattern observer, per non mettere dei riferimenti agli altri player
     //all'interno della classe player
-    public List getallPlayersbutnotme(Player player){
+    public LinkedList<Player> getallPlayersbutnotme(Player player){
         LinkedList<Player> list = new LinkedList<>();
         list.addAll(this.players);
         list.remove(player);
         return list;
+    }
+
+
+    public void leavethegameattheend(Player player){
+        this.players.remove(player);
+        if(getNumberOfPlayers()==0){
+            //not implemented yet
+            //andrà a cancellare la partita da gameslist
+        }
     }
 
 }

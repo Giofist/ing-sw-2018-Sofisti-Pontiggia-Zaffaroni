@@ -59,11 +59,21 @@ public class Server {
         //anche RMitter ha gentilmente contribuito
         System.out.println("Binding server implementation to registry...\n");
         ClientHandler controller = new ClientHandler();
+        TurnController turnController = new TurnController();
 
         // System.setProperty("java.rmi.server.hostname","10.169.214.40");
         Registry registry = LocateRegistry.getRegistry();
         registry.rebind("ClientHandler", controller);
-        System.out.println("Waiting for invocations from clients...");
+        System.out.println("Waiting for invocations from clients...\n");
+
+
+        //carica un turnController
+        //ho pensato di gestire separatamente il turn controller perchè se no
+        //avremmo messo troppi metodi in clienthandler
+        // così il client, dovendo cercare un turncontroller sul registro, avremo
+        //magari modo di usare un'altra calsse per il turno e cambiare grafica magari
+        registry.rebind("TurnController",turnController );
+        System.out.println("Waiting for invocations from clients...\n");
 
 
     }

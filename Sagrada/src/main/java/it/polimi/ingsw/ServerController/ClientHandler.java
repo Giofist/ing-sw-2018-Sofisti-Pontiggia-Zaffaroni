@@ -25,6 +25,8 @@ import java.util.List;
 public class ClientHandler extends UnicastRemoteObject implements Runnable, RmiServerInterface {
 
     private Socket socket;
+
+    //constructor
     public ClientHandler ()throws RemoteException {};
     public ClientHandler(Socket socket) throws RemoteException{
         this.socket = socket;
@@ -38,8 +40,11 @@ public class ClientHandler extends UnicastRemoteObject implements Runnable, RmiS
     }
 
 
+
+
+   //RMI part
     @Override
-    public String rmiTest(String stringa) {
+    public String rmiTest(String stringa) throws RemoteException {
         return "Test " + stringa;
     }
 
