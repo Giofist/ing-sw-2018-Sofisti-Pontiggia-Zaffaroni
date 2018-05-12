@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 import it.polimi.ingsw.model.Exceptions.HomonymyException;
+import it.polimi.ingsw.model.Exceptions.UserNotExistantException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -69,21 +70,6 @@ public class UsersList {
         return false;
     }
 
-    synchronized public boolean checkname( String name){
-        for (User user : this.users){
-            if (user.getName() == name)
-                return true;
-        }
-        return false;
-    }
-
-    synchronized public boolean checkpassword(String password){
-        for (User user : this.users){
-            if (user.getPassword() == password)
-                return true;
-        }
-        return false;
-    }
 
     //classe che permette di registrarsi
     synchronized public User register (String name,String password) {
@@ -110,12 +96,12 @@ public class UsersList {
         return users;
     }
 
-    synchronized public User getUser(String name, String password) throws Exception{
+    synchronized public User getUser(String name) throws UserNotExistantException {
         for (User user: this.users) {
-            if (user.getName() == name && user.getPassword() == password)
+            if (user.getName() == name)
                 return user;
         }
-        throw new Exception();
+        throw new UserNotExistantException();
     }
 
 }

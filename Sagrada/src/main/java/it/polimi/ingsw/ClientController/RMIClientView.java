@@ -1,9 +1,9 @@
 package it.polimi.ingsw.ClientController;
 
-import it.polimi.ingsw.ServerController.GameHandler;
 import it.polimi.ingsw.ServerController.RmiServerInterface;
 import it.polimi.ingsw.model.Exceptions.NumberOfPlayersNotAllowedException;
-import it.polimi.ingsw.model.MultipleUserGameList;
+import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.GamesList;
 
 import java.io.PrintWriter;
 import java.rmi.RemoteException;
@@ -156,7 +156,7 @@ public class RMIClientView extends UnicastRemoteObject {
         Scanner in = new Scanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
         out.println("Scegli la partita a cui vuoi partecipare dalla lista:");
-        for (GameHandler game : MultipleUserGameList.singleton().getgames()) {   //in sospeso con Xeromit per come scambiare
+        for (Game game : GamesList.singleton().getgames()) {   //in sospeso con Xeromit per come scambiare
             out.println(game.getName() + "; Giocatori che stanno partecipando: " + game.getActualNumberOfPlayers() + "Giocatori necessari alla partita: " + game.getMaxNumberPlayers() + "\n");
         }
         boolean chosen = false;
@@ -164,7 +164,7 @@ public class RMIClientView extends UnicastRemoteObject {
             out.println("Vuoi ancora partecipare ad una partita? [S/N]\n");
             if (in.nextLine() == "S"||in.nextLine()=="s") {
                 out.println("Scegli la partita in cui entrare.\n");
-                for (GameHandler game : MultipleUserGameList.singleton().getgames()) {  // in sospeso
+                for (Game game : GamesList.singleton().getgames()) {  // in sospeso
                     if (game.getName().equals(in.nextLine())) {
                         try {
                             game.join();
@@ -203,7 +203,7 @@ public class RMIClientView extends UnicastRemoteObject {
                 if (max < 2 || max > 4) {
                     throw new NumberOfPlayersNotAllowedException();
                 }
-                MultipleUserGameList.singleton().create(you, name, max);   //trovo modo di avere utente
+                GamesList.singleton().createGame(you, name, max);   //trovo modo di avere utente
                 out.println("Attendi che alttri giocatori partecipino alla partita.\n Divertiti!\n");
                 success = true;
             } catch (Exception e) {

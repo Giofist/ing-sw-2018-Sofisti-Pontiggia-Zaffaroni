@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model.ToolCard;
 
 import it.polimi.ingsw.model.Player;
-
+//dA TERMINARE
 public class TaglierinaManuale2 implements ToolAction{
     final static int ID = 0;
     final static String cardTitle = "Taglierina Manuale: gestione del secondo dado";
@@ -10,11 +10,8 @@ public class TaglierinaManuale2 implements ToolAction{
 
     int oldRow1;
     int oldColumn1;
-
     int newRow1;
     int newColumn1;
-
-
 
     public TaglierinaManuale2( int oldRow1, int oldColumn1,  int newRow1, int newColumn1){
         this.oldRow1 = oldRow1;

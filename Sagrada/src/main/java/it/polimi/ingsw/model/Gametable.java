@@ -25,26 +25,29 @@ public class Gametable {
     private PublicGoalCardDeck publicGoalCardDeck;
     private SchemeCardDeck schemeCardDeck;
     private RoundTrack roundTrack;
+    private int numberPlayers;
 
 
 
 
     //constructor
-    public Gametable() throws IOException {
-        prepareGame();
+    public Gametable(int numberPlayers) throws IOException {
+        prepareGame(numberPlayers);
     }
     //first to do when preparing a game
-    private void prepareGame() throws IOException {
+    private void prepareGame(int numberPlayers) throws IOException {
         this.dicepool = new DicePool();
         this.tooldeck = new ToolCardsDeck();
         this.privategoalcardsdeck = new PrivateGoalCardDeck();
         this.publicGoalCardDeck = new PublicGoalCardDeck();
         this.schemeCardDeck = new SchemeCardDeck();
         this.roundTrack = new RoundTrack();
+        this.numberPlayers = numberPlayers;
+
     }
 
     //to do when preparing a round
-    public void setupRound(int numberPlayers) {
+    public void setupRound() {
         this.roundDicepool = new DicePool();
         for (int i = 1; i < numberPlayers * 2 + 1; i++) {
             this.getRoundDicepool().addDice(this.getRoundDicepool().extractDice());
@@ -68,12 +71,12 @@ public class Gametable {
     }
 
     //to get the private Goal card
-    public GoalCard getPrivateGoalCard() throws PrivateGoalCardException {
+    public synchronized GoalCard getPrivateGoalCard() throws PrivateGoalCardException {
         return this.privategoalcardsdeck.getCard();
     }
 
     // Get public goal cards
-    public PublicGoalCardDeck getPublicGoalCardDeck() {
+    public synchronized PublicGoalCardDeck getPublicGoalCardDeck() {
         return publicGoalCardDeck;
     }
 

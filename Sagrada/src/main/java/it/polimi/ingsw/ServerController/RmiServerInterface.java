@@ -1,5 +1,10 @@
 package it.polimi.ingsw.ServerController;
 
+import it.polimi.ingsw.ClientController.FeedObserverView;
+import it.polimi.ingsw.ClientController.ObserverView;
+import it.polimi.ingsw.model.GoalCard;
+import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
+
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
@@ -15,7 +20,12 @@ public interface RmiServerInterface extends Remote {
 
         public void login(String username, String password) throws RemoteException;
 
-        public void checkIsReady() throws RemoteException;
+
+        public  void createGame(String clientname, ObserverView client, FeedObserverView Client, String gamename ) throws  RemoteException;
+
+        public void setSchemeCard(String clientname, int twin, SchemeCard schemeCard) throws RemoteException;
+
+        public GoalCard getPrivateGoalCard(String clientname) throws RemoteException;
 
         // public getActiveMatchList() throws RemoteException;
         // Per questo metodo va deciso come ritornare il risultato

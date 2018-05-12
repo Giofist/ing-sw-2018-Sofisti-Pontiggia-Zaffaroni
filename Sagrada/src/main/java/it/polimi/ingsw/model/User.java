@@ -1,29 +1,24 @@
 package it.polimi.ingsw.model;
+
 import java.net.*;
-import java.util.*;
 
 public class User {
     private String name;
     private Socket socket;
     private String password;
-    private String news_to_show;
+    private Player player;
 
     //constructor
     public User(String name, String password){
         this.name= name;
         this. password = password;
+        this.player = null;
+
     }
 
-    //questo nel caso il giocatore si sia disconnesso prima del termine della partita,
-    // appena si connette viene mostrato un messaggio diverso.
-    public String news(){
-        if (this.news_to_show == null)
-            return "Ready to start";
-        else return this.news_to_show;
-    }
-    public void setNews_to_show(String message){
-        this.news_to_show = message;
-    }
+
+
+
 
 
 
@@ -47,5 +42,11 @@ public class User {
         this.password= password;
     }
 
+    public void setPlayer(Player player){
+        this.player = player;
+    }
 
+    public Player getPlayer() {
+        return player;
+    }
 }

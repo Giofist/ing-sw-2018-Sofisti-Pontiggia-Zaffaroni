@@ -18,7 +18,7 @@ import static it.polimi.ingsw.model.DiceColor.VIOLET;
 
 //classe completa
 
-public class SchemeCard implements Iterable<Tile>{
+public class SchemeCard implements Iterable<Tile>, Serializable{
     private int difficulty;
     private Tile[][] matrix = new Tile[4][5];
     private SchemeCard twinCard;
@@ -97,7 +97,7 @@ public class SchemeCard implements Iterable<Tile>{
                             tile.setHaveNumber_constrain(true);
                             break;
                         default:
-                            throw new MapConstrainReadingException();
+                            throw new MapConstrainReadingException(this.getID());
                     }
                 }
             }

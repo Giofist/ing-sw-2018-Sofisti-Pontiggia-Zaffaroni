@@ -1,21 +1,29 @@
 package it.polimi.ingsw.model;
+import it.polimi.ingsw.ClientController.FeedObserverView;
+import it.polimi.ingsw.ClientController.ObserverView;
 import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
 import it.polimi.ingsw.model.Exceptions.NotEnoughSegnaliniException;
+import it.polimi.ingsw.model.Exceptions.PrivateGoalCardException;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 
 import java.net.Socket;
+import java.rmi.RemoteException;
+import java.util.LinkedList;
 
-//abbiamo il problema del pattern observer
+
 public class Player{
     private User user;
     private GoalCard privateGoalCard;
     private int segnalini_favore;
     private SchemeCard scheme;
-    private Gametable gametable;
     private int points;
+    private Game game;
 
+    //per il pattern observer
+    private LinkedList<ObserverView> observerViews;
+    private LinkedList<FeedObserverView> feedObserverViews;
 
-    //pervla gestione delle toolCard, potremo pensare ad un'ottimizzazione
+    //per la gestione delle toolCard, potremo pensare ad un'ottimizzazione
     private Dice diceforDiluenteperPastaSalda;
     private boolean mustsetdice;
     private int numberoftimesyouhaveplayedthisround;
@@ -23,13 +31,18 @@ public class Player{
 
 
     //costruttore
-    public Player(User user){
-        this.user = user;
+    public Player(){
         this.diceforDiluenteperPastaSalda = null;
         this.mustsetdice = false;
         this.numberoftimesyouhaveplayedthisround=0;
         this.colorConstrainForTaglierinaManuale = null;
+        this.observerViews = new LinkedList<>();
+        this.feedObserverViews = new LinkedList<>();
     }
+
+
+
+
 
     //metodi setter e getter
     public int getSegnalini_favore() {
@@ -64,10 +77,7 @@ public class Player{
         return this.user.getSocket();
     }
     public Gametable getGametable(){
-        return this.gametable;
-    }
-    public void setGametable(Gametable gametable) {
-        this.gametable = gametable;
+        return getGame().getGametable();
     }
     public void addPoints(int points){
         this.points += points;
@@ -80,11 +90,16 @@ public class Player{
     }
     public User getAssociatedUser(){ return this.user; }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
 
-
-
-
-
+    public Game getGame() {
+        return game;
+    }
+    public void setGame(Game game) {
+        this.game = game;
+    }
 
     //metodi per gli attributi per le toolcard
     public void setDiceforDiluenteperPastaSalda(Dice dice){
@@ -125,5 +140,34 @@ public class Player{
         this.colorConstrainForTaglierinaManuale = dicecolor;
     }
 
+
+    //metodo per l'oberserver design pattern
+    //tutti questi metodi chiamano qualcosa della view tramite gli observer pattern
+
+
+    public void feedObserverViews(FeedObserverView client) {
+        this.feedObserverViews.add(client);
+    }
+
+    public void observerViews(ObserverView client){
+        this.observerViews.add(client);
+    }
+
+    public void notifyError(String message){
+        for(ObserverView observerView: this.observerViews){
+            observerView.showErrorMessage(message);
+        }
+    }
+
+    public void notifyGameisStarting(SchemeCard scheme1, SchemeCard scheme2)throws RemoteException{
+        try{
+            for(ObserverView observerView: this.observerViews){
+                observerView.showSchemeCards(scheme1,scheme2);
+            }
+            setPrivateGoalCard(getGame().getGametable().getPrivateGoalCard());
+        }catch(PrivateGoalCardException e){
+            notifyError(e.getMessage());
+        }
+    }
 
 }

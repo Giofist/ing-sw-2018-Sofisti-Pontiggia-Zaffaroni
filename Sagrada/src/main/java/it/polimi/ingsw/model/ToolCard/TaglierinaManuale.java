@@ -3,7 +3,7 @@ package it.polimi.ingsw.model.ToolCard;
 import it.polimi.ingsw.model.Dice;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.Player;
-
+// DA TERMINARE
 public class TaglierinaManuale  implements ToolAction {
     final static int ID = 12;
     final static String cardTitle = "Taglierina Manuale";
