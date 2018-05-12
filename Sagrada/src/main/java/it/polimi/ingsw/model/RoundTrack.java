@@ -63,27 +63,15 @@ public class RoundTrack {
         }
     }
 
-    public List<DiceColor> allColors()  {
-        try{
-            List list = new LinkedList<DiceColor>();
-            for (int i=1; i<11; i++){
-                for(int j=0; j<getroundTrackDices(i).getDicePoolSize();j++){
-                    list.add(getroundTrackDices(i).getDice(j).getColor());
-                }
+    public List<DiceColor> allColors() throws RoundTrackException {
+        List list = new LinkedList<DiceColor>();
+        for (int i=1; i<11; i++){
+            for(int j=0; j<getroundTrackDices(i).getDicePoolSize();j++){
+                list.add(getroundTrackDices(i).getDice(j).getColor());
             }
-        }catch(RoundTrackException e){
-            //do nothing, impossible to g
         }
-
-
-
+        return list;
     }
-
-
-
-
-
-
 
 
 

@@ -1,13 +1,13 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.Exceptions.DrawException;
 import it.polimi.ingsw.model.Exceptions.MapConstrainReadingException;
 import it.polimi.ingsw.model.PrivateGoalCards.PrivateGoalCardDeck;
 import it.polimi.ingsw.model.PublicGoalCards.PublicGoalCardDeck;
-import sun.management.snmp.jvminstr.NotificationTargetImpl;
+
 
 import java.io.IOException;
 import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 import java.util.*;
 
 
@@ -18,13 +18,13 @@ public class Game {
     private String game_name;
     private LinkedList<Player> players;
     private Gametable gametable;
-    private PublicGoalCardDeck publicGoalCardDeck;
+    
 
 
     //public constructor
     public Game(Player player, String game_name) throws RemoteException {
         this.game_name = game_name;
-        this.players = new LinkedList<Player>();
+        this.players = new LinkedList<>();
         this.players.addFirst(player);
         player.setGame(this);
     }
@@ -32,7 +32,7 @@ public class Game {
 
     public synchronized Game join(Player player) {
         try {
-            this.players.add(player);
+            this.players.addLast(player);
             player.setGame(this);
             if (checkIsready()) {
                 this.start();
@@ -55,19 +55,105 @@ public class Game {
 
     public void start() throws IOException {
         gametable = new Gametable(this.players.size());
-        this.publicGoalCardDeck = gametable.getPublicGoalCardDeck();
+        
         for (Player player : this.players) {
             boolean success = false;
             while (!success) {
                 try {
+                    // questo è per notificare che la partita sta per iniziare
+                    //nella notifica viene chiesto a ciascun utente
                     player.notifyGameisStarting(getGametable().getSchemeCard(), getGametable().getSchemeCard());
                     success = true;
                 } catch (MapConstrainReadingException e) {
+                    //qui ho pensato che sul server fosse utile permettere all'amministratore di sistema poter gestire
+                    //i casi in cui le mappe non vengono lette correttamente, per poterle correggere manualmente
                     System.out.println(e.getMessage());
                 }
             }
 
         }
+        //la partita può avere inizio.
+        this.run();
+
+    }
+    
+    //this is THE GAME: 10 ROUNDS
+    private void run(){
+
+        //ad ogni round modifico l'ordine nella lista
+        new Round(1, this.players, this).run();
+        this.players.addLast(this.players.removeFirst());
+        new Round(2, this.players, this).run();
+        this.players.addLast(this.players.removeFirst());
+        new Round(3, this.players, this).run();
+        this.players.addLast(this.players.removeFirst());
+        new Round(4, this.players, this).run();
+        this.players.addLast(this.players.removeFirst());
+        new Round(5, this.players, this).run();
+        this.players.addLast(this.players.removeFirst());
+        new Round(6, this.players, this).run();
+        this.players.addLast(this.players.removeFirst());
+        new Round(7, this.players, this).run();
+        this.players.addLast(this.players.removeFirst());
+        new Round(8, this.players, this).run();
+        this.players.addLast(this.players.removeFirst());
+        new Round(9, this.players, this).run();
+        this.players.addLast(this.players.removeFirst());
+        new Round(10, this.players, this).run();
+        endGame();
+    }
+
+    
+    //when the match ends, we need to:
+    // calculate points for the privategoalcard and for the public goal card
+    //notify all players that the match is ended
+    //choose a winner and notify he has won
+    //notify the others that theey have lost
+    // what else?
+    private void endGame(){
+
+
+        //to calculate points for the public goals
+        this.getGametable().calculatePointsforAllPlayers(this.players);
+
+        // to calculate points for the private
+        for (Player player:this.players) {
+            player.getPrivateGoalCard().calculatepoint(player);
+        }
+        //qualche altro conto da fare? Non ho letto tutto il regolamento
+
+        //notifico ai vari giocatori la vittoria, il pareggio eventuale e la sconfitta
+        try{
+            Player player = whohaswon();
+            pl
+
+
+        }catch (DrawException e){
+            for (Player player: this.players) {
+                if(player.getPoints() == e.getPointsofthedraw()){
+                    player.notifyaDraw();
+                }else{
+                    player.notifyaLose();
+                }
+
+            }
+        }
+
+
+    }
+
+
+    //per decidere chi ha vinto
+    //anche questa classe è assolutamente da testatr
+    private Player whohaswon() throws DrawException {
+        //sort è un metodo che ordina in base all'override che ho fatto di compareTo nella classe player, cioè in base
+        //al PUNTEGGIO
+       Collections.sort(this.players);
+       if (this.players.get(0).getPoints()== this.players.get(1).getPoints()){
+           throw new DrawException(this.players.get(0).getPoints(),"C'è stato un pareggio a" + this.players.get(0).getPoints() + "\n");
+       }else{
+           return this.players.getFirst();
+       }
     }
 
 
@@ -80,6 +166,18 @@ public class Game {
     }
     public Gametable getGametable() {
         return gametable;
+    }
+
+
+    //assolutamente da testare
+    //come esegue il controllo?
+    //molto utile per il pattern observer, per non mettere dei riferimenti agli altri player
+    //all'interno della classe player
+    public List getallPlayersbutnotme(Player player){
+        LinkedList<Player> list = new LinkedList<>();
+        list.addAll(this.players);
+        list.remove(player);
+        return list;
     }
 
 }

@@ -81,7 +81,6 @@ public class Gametable {
     }
 
 
-
     //to get IDs and description and names of the public goals
     public List getPublicGoalDescriptions() {
         return this.publicGoalCardDeck.getDescriptions();
@@ -103,7 +102,7 @@ public class Gametable {
 
 
 
-    //to calculate all points for all players
+    //to calculate all points for all players, but only per the public goal card
     public void calculatePointsforAllPlayers(List<Player> players){
         for (Player player:  players) {
             this.publicGoalCardDeck.doCalculatePoints(player);

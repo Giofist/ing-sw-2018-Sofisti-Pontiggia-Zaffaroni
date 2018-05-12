@@ -8,5 +8,8 @@ public interface ObserverView extends Remote {
     public void update();
     public void showErrorMessage(String message);
     public void showSchemeCards(SchemeCard scheme, SchemeCard card);
+    public void notifyaDraw();
+    public void notifyaLose();
+    public void notifyaWin();
 
 }

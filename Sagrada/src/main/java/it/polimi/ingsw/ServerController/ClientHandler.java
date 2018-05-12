@@ -14,6 +14,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.HashMap;
+import java.util.List;
 
 //all'inizio avevo pensato di mettere il client server per rmi in una classe a parte
 //poi ho pensato: ma devo proprio? beh per ora mi sembra di no
@@ -117,16 +118,72 @@ public class ClientHandler extends UnicastRemoteObject implements Runnable, RmiS
         }
     }
 
-
-    public GoalCard getPrivateGoalCard(String clientname) throws RemoteException{
+    @Override
+    public String getPrivateGoalCarddescription(String clientname) throws RemoteException{
         try{
             Player player = UsersList.Singleton().getUser(clientname).getPlayer();
-            return player.getPrivateGoalCard();
+            return player.getPrivateGoalCard().getDescription();
         }catch (UserNotExistantException e){
             throw new RemoteException(e.getMessage());
         }
 
     }
+
+    @Override
+    public String getPrivateGoalCardname(String clientname) throws RemoteException{
+        try{
+            Player player = UsersList.Singleton().getUser(clientname).getPlayer();
+            return player.getPrivateGoalCard().getName();
+        }catch (UserNotExistantException e){
+            throw new RemoteException(e.getMessage());
+        }
+
+    }
+
+
+    @Override
+    public int getPrivateGoalCardid(String clientname) throws RemoteException{
+        try{
+            Player player = UsersList.Singleton().getUser(clientname).getPlayer();
+            return player.getPrivateGoalCard().getID();
+        }catch (UserNotExistantException e){
+            throw new RemoteException(e.getMessage());
+        }
+
+    }
+    @Override
+    public List getPublicGoalCarddescriptions(String clientname) throws RemoteException{
+        try{
+            Player player = UsersList.Singleton().getUser(clientname).getPlayer();
+            return player.getGame().getGametable().getPublicGoalDescriptions();
+        }catch(UserNotExistantException e){
+            throw new RemoteException(e.getMessage());
+        }
+    };
+
+
+
+    @Override
+    public List getPublicGoalCardids(String clientname) throws RemoteException{
+        try{
+            Player player = UsersList.Singleton().getUser(clientname).getPlayer();
+            return player.getGame().getGametable().getPublicGoalIDs();
+        }catch(UserNotExistantException e){
+            throw new RemoteException(e.getMessage());
+        }
+    };
+
+
+    @Override
+    public List getPublicGoalCardnames(String clientname) throws RemoteException{
+        try{
+            Player player = UsersList.Singleton().getUser(clientname).getPlayer();
+            return player.getGame().getGametable().getPublicGoalNames();
+        }catch(UserNotExistantException e){
+            throw new RemoteException(e.getMessage());
+        }
+    };
+
 
     // Implementing the getActiveMatchList
 }

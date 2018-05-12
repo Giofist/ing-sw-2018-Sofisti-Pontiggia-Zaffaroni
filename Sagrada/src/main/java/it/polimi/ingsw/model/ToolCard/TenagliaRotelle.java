@@ -34,6 +34,7 @@ public class TenagliaRotelle  implements ToolAction {
         }
         try{
             player.getScheme().setDice(  player.getGametable().getRoundDicepool().getDice(selectedDiceIndex), row, column, false,false,false  );
+            player.setMustpassTurn(true);
         }catch(TileConstrainException e){
             throw new TenagliaRotelleException(TenagliaRotelleException.getMsg()+e.getMessage());
         }catch(OutOfMatrixException e){

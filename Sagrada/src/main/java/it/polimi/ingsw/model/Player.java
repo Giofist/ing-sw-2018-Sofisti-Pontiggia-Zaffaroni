@@ -5,19 +5,23 @@ import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
 import it.polimi.ingsw.model.Exceptions.NotEnoughSegnaliniException;
 import it.polimi.ingsw.model.Exceptions.PrivateGoalCardException;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
+import org.jetbrains.annotations.NotNull;
 
 import java.net.Socket;
 import java.rmi.RemoteException;
 import java.util.LinkedList;
 
 
-public class Player{
+public class Player implements Comparable<Player>{
     private User user;
     private GoalCard privateGoalCard;
     private int segnalini_favore;
     private SchemeCard scheme;
     private int points;
     private Game game;
+
+
+
 
     //per il pattern observer
     private LinkedList<ObserverView> observerViews;
@@ -28,6 +32,7 @@ public class Player{
     private boolean mustsetdice;
     private int numberoftimesyouhaveplayedthisround;
     private DiceColor colorConstrainForTaglierinaManuale;
+    private boolean mustpassTurn;
 
 
     //costruttore
@@ -38,6 +43,8 @@ public class Player{
         this.colorConstrainForTaglierinaManuale = null;
         this.observerViews = new LinkedList<>();
         this.feedObserverViews = new LinkedList<>();
+        this.mustpassTurn = false;
+        this.points = 0;
     }
 
 
@@ -140,11 +147,15 @@ public class Player{
         this.colorConstrainForTaglierinaManuale = dicecolor;
     }
 
+    public boolean MustpassTurn() {
+        return mustpassTurn;
+    }
 
+    public void setMustpassTurn( boolean mustpassTurn) {
+        this.mustpassTurn = mustpassTurn;
+    }
     //metodo per l'oberserver design pattern
     //tutti questi metodi chiamano qualcosa della view tramite gli observer pattern
-
-
     public void feedObserverViews(FeedObserverView client) {
         this.feedObserverViews.add(client);
     }
@@ -170,4 +181,27 @@ public class Player{
         }
     }
 
+    public void notifyaDraw(){
+        for (ObserverView observerview: this.observerViews) {
+            observerview.notifyaDraw();
+        }
+    }
+
+    public void notifyaLose(){
+        for (ObserverView observerview: this.observerViews) {
+            observerview.notifyaLose();
+        }
+    }
+
+    public void notifyaWin(){
+        for (ObserverView observerview: this.observerViews) {
+            observerview.notifyaWin();
+        }
+    }
+
+    /// /utile per ordinare i giocatori in base al punteggio
+    @Override
+    public int compareTo(Player player) {
+        return this.getPoints() - player.getPoints();
+    }
 }

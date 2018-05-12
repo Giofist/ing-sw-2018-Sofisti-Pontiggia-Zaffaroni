@@ -26,6 +26,7 @@ public class PublicGoalCardDeck {
 
     }
     //get a ramdom value
+    //yes, actually it's the first, but we have shuffled before
     public int getValue(){
         int value =this.cardsID.get(0);
         this.cardsID.remove(0);
@@ -54,8 +55,8 @@ public class PublicGoalCardDeck {
         for (GoalCard goalcard:this.deck) {
             goalcard.calculatepoint(player);
         }
-          GoalCard Calcolatore =  new FreeSpaces();
-        Calcolatore.calculatepoint(player);
+          GoalCard CalculatoreforFreeSpaces =  new FreeSpaces();
+        CalculatoreforFreeSpaces.calculatepoint(player);
     }
 
     //to get the IDs, descriptions and Names of public goal cards
