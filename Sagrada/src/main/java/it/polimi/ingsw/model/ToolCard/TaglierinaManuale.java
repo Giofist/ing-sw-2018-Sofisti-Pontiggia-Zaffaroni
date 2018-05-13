@@ -2,6 +2,10 @@ package it.polimi.ingsw.model.ToolCard;
 
 import it.polimi.ingsw.model.Dice;
 import it.polimi.ingsw.model.DiceColor;
+import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
+import it.polimi.ingsw.model.Exceptions.OutOfMatrixException;
+import it.polimi.ingsw.model.Exceptions.RoundTrackException;
+import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.TaglierinaManualeException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.Player;
@@ -40,12 +44,22 @@ public class TaglierinaManuale  implements ToolAction {
                 player.getScheme().removeDice(oldRow1,oldColumn1);
                 player.getScheme().setDice(removedDice, newRow1,newColumn1,false,false,false);
             }else{
-                throw new TaglierinaManualeException("Non c'è nessun dado con lo stesso colore nel TRacciato Round\n");
+                throw new TaglierinaManualeException("Non c'è nessun dado con lo stesso colore nel Tracciato Round\n");
             }
-
-
-
+        }catch (OutOfMatrixException e){
+            throw new TaglierinaManualeException(TaglierinaManualeException.getMsg()+e.getMessage());
+        }catch (DiceNotExistantException e){
+            throw new TaglierinaManualeException(TaglierinaManualeException.getMsg()+e.getMessage());
+        }catch (TileConstrainException e){
+            try{
+                player.getScheme().setDice(removedDice, oldRow1,oldColumn1,false,false,false);
+            }catch (Exception ecpt){ }
+            throw new TaglierinaManualeException(TaglierinaManualeException.getMsg()+e.getMessage());
+        }catch (RoundTrackException e){
+            throw new TaglierinaManualeException(TaglierinaManualeException.getMsg()+e.getMessage());
         }
+
+
 
 
     }

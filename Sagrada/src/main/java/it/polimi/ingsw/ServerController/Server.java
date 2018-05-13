@@ -1,9 +1,14 @@
 package it.polimi.ingsw.ServerController;
 
 //fatta da pon
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import it.polimi.ingsw.model.*;
 public class Server {
@@ -13,10 +18,10 @@ public class Server {
         this.port = port;
     }
 
-    /*
+
     //the method which starts the server for the socket part
     //the method creates a pool of thread and waits for connection from the client
-    public void startServer() {
+    public void startServer(ClientHandler controller) {
         ExecutorService executor = Executors.newCachedThreadPool(); //crea thread quando necessario
         ServerSocket serverSocket;
         try {
@@ -30,7 +35,7 @@ public class Server {
         while (i == 0) {
             try {
                 Socket socket = serverSocket.accept();
-                executor.submit(new ClientHandler(socket));
+                executor.submit(new SocketClientHandler(socket, controller));
             } catch (IOException e) {
                 i = 1;
                 break; //entrerei qui se serverSocket venisse chiuso
@@ -43,17 +48,13 @@ public class Server {
         }
         executor.shutdown();
     }
-}*/
+
     public static void main(String[] args) throws RemoteException{
         //creo i due "database" di cu idevo tenere consistenza nel server
         GamesList gameslist = GamesList.singleton();
         UsersList usersList = UsersList.Singleton();
 
-/*
-        //socket part
-        Server server = new Server(1337);
-        server.startServer();
-*/
+
         //RMI part
         //parte di questo codice è stato preso dalle slide di presentazione di RMI
         //anche RMitter ha gentilmente contribuito
@@ -65,6 +66,12 @@ public class Server {
         Registry registry = LocateRegistry.getRegistry();
         registry.rebind("ClientHandler", controller);
         System.out.println("Waiting for invocations from clients...\n");
+
+
+        //socket part
+        Server server = new Server(1337);
+        server.startServer(controller);
+
 
 
         //carica un turnController
