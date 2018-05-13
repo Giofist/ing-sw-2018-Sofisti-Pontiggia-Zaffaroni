@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.Scanner;
 
 public class Client {
     private String ip;
@@ -30,18 +31,32 @@ public class Client {
     public static void main(String[] args) throws Exception {
         // Passing server IP as command line argument
         String ipAddr = args[1];
-
+        boolean correct = false;
+        Scanner in = new Scanner(System.in);
         // Locating rmi register on the server
         Registry rmiRegistry = LocateRegistry.getRegistry(ipAddr);
         RmiServerInterface controller = (RmiServerInterface) rmiRegistry.lookup("ClientHandler");
 
-        // Let's start the view
-        new RMIClientView(controller).run();
+        //avvio una view in client per poi chiamare alternativamnete in base alla scelta utente RMI o Socket
+        System.out.println("Benvenuto nel SetUP partita di Sagrada!\nQui puoi selezionare se giocare usando la connessione di tipo RMI (R) oppure Socket (S).\n Seleziona ora la tua scelta digitando R per RMI o S per Socket:");
+        while (correct) {
+            if (in.next() == "R" || in.next() == "r") {
+                correct = true;
+                new RMIClientView(controller).run();
+            } else if (in.next() == "S" || in.next() == "s") {
+                correct = true;
+                //new SocketClientController().run();   //da fixare
+            } else {
+                System.out.println("Hai sbagliato a digitare.");
+            }
+        }
     }
 
     // nelle specifiche si dice di presupporre che il giocatore conosca l'indirizzo IP del server
     // io ho pensato che lo scriva come argomento quando chiama il programma da linea di comando
     //nelle implementazioni senza linea di comando, come funziona?
+
+
 
 
     /*public static void main(String[] args) throws Exception {
