@@ -10,7 +10,7 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 
-public interface RmiServerInterface extends Remote {
+public interface ClientHandlerInterface extends Remote {
 
     // All the methods exposed from the server to the client go here
     //initial test

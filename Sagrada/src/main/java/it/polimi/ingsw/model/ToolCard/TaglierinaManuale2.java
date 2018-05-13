@@ -1,6 +1,17 @@
 package it.polimi.ingsw.model.ToolCard;
 
+import it.polimi.ingsw.model.Dice;
+import it.polimi.ingsw.model.DiceColor;
+import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
+import it.polimi.ingsw.model.Exceptions.OutOfMatrixException;
+import it.polimi.ingsw.model.Exceptions.RoundTrackException;
+import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
+import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.TaglierinaManualeException;
+import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.Player;
+
+import java.util.List;
+
 //dA TERMINARE
 public class TaglierinaManuale2 implements ToolAction{
     final static int ID = 0;
@@ -12,6 +23,8 @@ public class TaglierinaManuale2 implements ToolAction{
     int oldColumn1;
     int newRow1;
     int newColumn1;
+    Dice removedDice;
+
 
     public TaglierinaManuale2( int oldRow1, int oldColumn1,  int newRow1, int newColumn1){
         this.oldRow1 = oldRow1;
@@ -23,10 +36,26 @@ public class TaglierinaManuale2 implements ToolAction{
 
     @Override
 
-    public void execute(Player player) {
-
-/
-
+    public void execute(Player player) throws ToolIllegalOperationException {
+        try{
+            removedDice = player.getScheme().getDice(oldRow1,oldColumn1);
+            DiceColor coloritmustbe = player.getColorConstrainForTaglierinaManuale();
+            if (removedDice.getColor() == coloritmustbe){
+                player.getScheme().removeDice(oldRow1,oldColumn1);
+                player.getScheme().setDice(removedDice, newRow1,newColumn1,false,false,false);
+            }else{
+                throw new TaglierinaManualeException("Il colore non corrisponde a quello del primo dado\n");
+            }
+        }catch (OutOfMatrixException e){
+            throw new TaglierinaManualeException(TaglierinaManualeException.getMsg()+e.getMessage());
+        }catch (DiceNotExistantException e){
+            throw new TaglierinaManualeException(TaglierinaManualeException.getMsg()+e.getMessage());
+        }catch (TileConstrainException e){
+            try{
+                player.getScheme().setDice(removedDice, oldRow1,oldColumn1,false,false,false);
+            }catch (Exception ecpt){ }
+            throw new TaglierinaManualeException(TaglierinaManualeException.getMsg()+e.getMessage());
+        }
     }
 
     @Override
@@ -43,6 +72,5 @@ public class TaglierinaManuale2 implements ToolAction{
     public String getDescription(){
         return description;
     }
-}
 
 }

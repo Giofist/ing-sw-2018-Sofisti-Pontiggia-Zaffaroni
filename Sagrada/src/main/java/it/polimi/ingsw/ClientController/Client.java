@@ -1,7 +1,7 @@
 package it.polimi.ingsw.ClientController;
 
 
-import it.polimi.ingsw.ServerController.RmiServerInterface;
+import it.polimi.ingsw.ServerController.ClientHandlerInterface;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -33,7 +33,7 @@ public class Client {
 
         // Locating rmi register on the server
         Registry rmiRegistry = LocateRegistry.getRegistry(ipAddr);
-        RmiServerInterface controller = (RmiServerInterface) rmiRegistry.lookup("ClientHandler");
+        ClientHandlerInterface controller = (ClientHandlerInterface) rmiRegistry.lookup("ClientHandler");
 
         // Let's start the view
         new RMIClientView(controller).run();
@@ -62,7 +62,7 @@ public class Client {
         //RMI part
         Registry registry = LocateRegistry.getRegistry(ip);
         // gets a reference for the remote controller
-        RmiServerInterface controller = (RmiServerInterface) registry.lookup("ClientHandler");
+        ClientHandlerInterface controller = (ClientHandlerInterface) registry.lookup("ClientHandler");
         // creates and launches the clientcontroller
             new RMIClientView(controller).run();
         }*/

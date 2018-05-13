@@ -154,6 +154,11 @@ public class Player implements Comparable<Player>{
     public void setMustpassTurn( boolean mustpassTurn) {
         this.mustpassTurn = mustpassTurn;
     }
+
+
+
+
+
     //metodo per l'oberserver design pattern
     //tutti questi metodi chiamano qualcosa della view tramite gli observer pattern
     public void feedObserverViews(FeedObserverView client) {

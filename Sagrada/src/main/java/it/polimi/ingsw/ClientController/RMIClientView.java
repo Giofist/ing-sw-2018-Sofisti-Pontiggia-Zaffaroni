@@ -1,6 +1,6 @@
 package it.polimi.ingsw.ClientController;
 
-import it.polimi.ingsw.ServerController.RmiServerInterface;
+import it.polimi.ingsw.ServerController.ClientHandlerInterface;
 import it.polimi.ingsw.model.Exceptions.NumberOfPlayersNotAllowedException;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.GamesList;
@@ -13,12 +13,12 @@ import java.util.Scanner;
 //implemented by pon
 //non implemeta runnable
 public class RMIClientView extends UnicastRemoteObject {
-    private final RmiServerInterface servercontroller;
+    private final ClientHandlerInterface servercontroller;
     private final Scanner in;
     private final PrintWriter out;
 
     //constructor
-    public RMIClientView(RmiServerInterface controller) throws RemoteException {
+    public RMIClientView(ClientHandlerInterface controller) throws RemoteException {
         this.servercontroller = controller;
         this.in = new Scanner(System.in);
         this.out = new PrintWriter(System.out);
