@@ -8,12 +8,8 @@ import it.polimi.ingsw.model.Exceptions.HomonymyException;
 import it.polimi.ingsw.model.Exceptions.UserNotExistantException;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 
-import java.awt.image.ImageObserver;
-import java.net.Socket;
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.HashMap;
 import java.util.List;
 
 //all'inizio avevo pensato di mettere il client server per rmi in una classe a parte
@@ -22,22 +18,12 @@ import java.util.List;
 // il fatto che implementi runnable e quindi sia codice per thread non mi pare crei problemi
 //se avete notizie avvisatemi
 //client handler
-public class ClientHandler extends UnicastRemoteObject implements Runnable, RmiServerInterface {
+public class ClientHandler extends UnicastRemoteObject implements ClientHandlerInterface {
 
-    private Socket socket;
+
 
     //constructor
     public ClientHandler ()throws RemoteException {};
-    public ClientHandler(Socket socket) throws RemoteException{
-        this.socket = socket;
-    }
-
-    @Override
-    public void run(){
-
-        //questo per gestire i socket
-        //qui metteremo lo switchone
-    }
 
 
 
@@ -48,7 +34,7 @@ public class ClientHandler extends UnicastRemoteObject implements Runnable, RmiS
         return "Test " + stringa;
     }
 
-    // Here we'll put the implementation of all the methods in the interface RmiServerInterface
+    // Here we'll put the implementation of all the methods in the interface ClientHandlerInterface
 
     // Implementing the register method
     @Override
@@ -87,7 +73,7 @@ public class ClientHandler extends UnicastRemoteObject implements Runnable, RmiS
             //NB: questa chiamata già aggiunge in player un riferimento alla partita a cui è iscritto
             GamesList.singleton().createGame(player, gamename);
 
-            //observer pattern
+            //observer pattern, mi registro per seguire gli aggiornamenti relativi a me
             player.feedObserverViews(Client);
             player.observerViews(client);
             //gestione delle eccezioni
