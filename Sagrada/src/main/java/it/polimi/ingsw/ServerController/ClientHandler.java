@@ -37,6 +37,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     // Here we'll put the implementation of all the methods in the interface ClientHandlerInterface
 
     // Implementing the register method
+
     @Override
     synchronized public  void register(String username, String password) throws RemoteException{
         // When the User wants to register a new account we first verify that there isn't another User with the same username
@@ -174,7 +175,6 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
             throw new RemoteException(e.getMessage());
         }
     };
-
 
     // Implementing the getActiveMatchList
 }

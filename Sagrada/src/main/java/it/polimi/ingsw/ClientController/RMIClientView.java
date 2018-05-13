@@ -16,6 +16,7 @@ public class RMIClientView extends UnicastRemoteObject {
     private final ClientHandlerInterface servercontroller;
     private final Scanner in;
     private final PrintWriter out;
+    private String username;
 
     //constructor
     public RMIClientView(ClientHandlerInterface controller) throws RemoteException {
@@ -55,7 +56,6 @@ public class RMIClientView extends UnicastRemoteObject {
     }
 
     private void loginInt() {
-        String username;
         String password;
         boolean successo = true;
         boolean back = false;
@@ -90,7 +90,6 @@ public class RMIClientView extends UnicastRemoteObject {
             in.close();
         }
     }while (successo == false || back == false);
-
         if(back == true) menuInt();
     }
 
@@ -129,11 +128,8 @@ public class RMIClientView extends UnicastRemoteObject {
         out.println("Benvenuto nel menù principale di Sagrada!");
         out.println("- Multi Giocatore (M)");
         out.println("- Giocatore Singolo (Coming soon!)");
-        out.println("- Impostazioni (I)");
-        if (in.next() == "I" || in.next() == "i") {
-            optionInt();
-        }
-        else{
+        //out.println("- Impostazioni (I)");
+        if (in.next() == "M" || in.next() == "m") {
             multiInt();
         }
     }
@@ -203,7 +199,7 @@ public class RMIClientView extends UnicastRemoteObject {
                 if (max < 2 || max > 4) {
                     throw new NumberOfPlayersNotAllowedException();
                 }
-                GamesList.singleton().createGame(you, name, max);   //trovo modo di avere utente
+                servercontroller.createGame(username, , ,name);   //mancano observer e forse anche num players
                 out.println("Attendi che alttri giocatori partecipino alla partita.\n Divertiti!\n");
                 success = true;
             } catch (Exception e) {
@@ -212,6 +208,9 @@ public class RMIClientView extends UnicastRemoteObject {
         }
     }
 
+
+    //rimosse impostazioni non più necessarie in quanto la scelta verrà fatta all'atto dell login.
+/*
     private void optionInt(){
         Scanner in = new Scanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
@@ -249,6 +248,7 @@ public class RMIClientView extends UnicastRemoteObject {
         }
     }
 
+
     private void graficInt() { //da implementare lo switch
         Scanner in = new Scanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
@@ -267,5 +267,6 @@ public class RMIClientView extends UnicastRemoteObject {
             out.println("Rimarrai in modalità client CLI.");
         }
     }
+    */
 }
 

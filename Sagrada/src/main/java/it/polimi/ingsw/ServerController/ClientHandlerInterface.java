@@ -4,6 +4,7 @@ import it.polimi.ingsw.ClientController.FeedObserverView;
 import it.polimi.ingsw.ClientController.ObserverView;
 import it.polimi.ingsw.model.GoalCard;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
+import it.polimi.ingsw.model.User;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
