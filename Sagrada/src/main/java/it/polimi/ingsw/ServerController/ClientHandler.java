@@ -86,6 +86,20 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     }
 
     @Override
+    public boolean isInList(String gamename) throws RemoteException {
+       /* try {                                                             //to be implemented
+            for (Game game : GamesList.singleton().getgames()) {
+                if (game.getName().equals(gamename)) {
+                    return true;
+                }
+            }
+        }catch (GameNotExistantException e){
+            throw new RemoteException(e.getMessage());
+        }
+        return false;*/
+    }
+
+    @Override
     public void joinaGame(String clientname, String gamename) throws RemoteException{
             try{
                 Player player = UsersList.Singleton().getUser(clientname).getPlayer();
