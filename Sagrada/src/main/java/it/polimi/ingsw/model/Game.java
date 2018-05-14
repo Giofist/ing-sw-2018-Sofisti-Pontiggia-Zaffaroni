@@ -123,9 +123,9 @@ public class Game {
 
         //notifico ai vari giocatori la vittoria, il pareggio eventuale e la sconfitta
         try{
-            Player player = whohaswon();
-            player.notifyaWin();
-            for (Player loser:this.getallPlayersbutnotme(player)) {
+            Player winnerPlayer = whohaswon();
+            winnerPlayer.notifyaWin();
+            for (Player loser:this.getallPlayersbutnotme(winnerPlayer)) {
                 loser.notifyaLose();
             }
 

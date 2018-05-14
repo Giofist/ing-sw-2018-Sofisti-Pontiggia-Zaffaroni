@@ -79,9 +79,6 @@ public class Player implements Comparable<Player>{
     public SchemeCard getScheme(){
         return this.scheme;
     }
-    public Socket getSocket(){
-        return this.user.getSocket();
-    }
     public Gametable getGametable(){
         return getGame().getGametable();
     }

@@ -4,7 +4,6 @@ import java.net.*;
 
 public class User {
     private String name;
-    private Socket socket;
     private String password;
     private Player player;
 
@@ -16,25 +15,11 @@ public class User {
 
     }
 
-
-
-
-
-
-
     //metodi getter e setter
     public String getName(){
         return this. name;
     }
-    public void setName(Socket socket){
-        this.socket= socket;
-    }
-    public Socket getSocket() {
-        return this.socket;
-    }
-    public void setSocket(Socket socket){
-        this.socket=socket;
-    }
+    public void setName(String name){ this.name = name; }
     public String getPassword(){
         return this.password;
     }

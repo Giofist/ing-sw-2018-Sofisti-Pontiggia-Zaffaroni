@@ -24,6 +24,7 @@ public class SocketObserverView implements ClientHandlerInterface{
     //all methods to be implemented here
     @Override
     public String rmiTest(String stringa) throws RemoteException {
+
         return null;
     }
 
