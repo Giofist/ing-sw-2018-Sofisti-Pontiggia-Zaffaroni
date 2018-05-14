@@ -10,22 +10,6 @@ import java.rmi.registry.Registry;
 import java.util.Scanner;
 
 public class Client {
-    private String ip;
-    private int port;
-    public Client(String ip, int port) {
-        this.ip = ip;
-        this.port = port;
-    }
-    //per il socket
-    public void startClient() throws IOException {
-        Socket socket = new Socket(this.ip, this.port);
-        System.out.println("Connessione stabilita\n");
-        try {
-            new SocketClientController(socket).run();
-        } catch (IOException e) {
-            System.out.println("Connessione chiusa\n");
-        }
-    }
 
 
     public static void main(String[] args) throws Exception {
@@ -33,19 +17,27 @@ public class Client {
         String ipAddr = args[1];
         boolean correct = false;
         Scanner in = new Scanner(System.in);
-        // Locating rmi register on the server
-        Registry rmiRegistry = LocateRegistry.getRegistry(ipAddr);
-        ClientHandlerInterface controller = (ClientHandlerInterface) rmiRegistry.lookup("ClientHandler");
+
+
 
         //avvio una view in client per poi chiamare alternativamnete in base alla scelta utente RMI o Socket
         System.out.println("Benvenuto nel SetUP partita di Sagrada!\nQui puoi selezionare se giocare usando la connessione di tipo RMI (R) oppure Socket (S).\n Seleziona ora la tua scelta digitando R per RMI o S per Socket:");
-        while (correct) {
+        while (!correct) {
             if (in.next() == "R" || in.next() == "r") {
+                // Locating rmi register on the server
+                // looking for the controller on the registry
+                Registry rmiRegistry = LocateRegistry.getRegistry(ipAddr);
+                ClientHandlerInterface controller = (ClientHandlerInterface) rmiRegistry.lookup("ClientHandler");
+                new ObserverView(controller).run();
                 correct = true;
-                new RMIClientView(controller).run();
             } else if (in.next() == "S" || in.next() == "s") {
+                Socket socket = new Socket(ipAddr, 1337);
+                System.out.println("Connessione stabilita\n");
+                ObserverView observerView = new ObserverView();
+                SocketObserverView socketObserverView = new SocketObserverView(socket, observerView);
+                observerView.setServercontroller(socketObserverView);
+                observerView.run();
                 correct = true;
-                //new SocketClientController().run();   //da fixare
             } else {
                 System.out.println("Hai sbagliato a digitare.");
             }
@@ -79,7 +71,7 @@ public class Client {
         // gets a reference for the remote controller
         ClientHandlerInterface controller = (ClientHandlerInterface) registry.lookup("ClientHandler");
         // creates and launches the clientcontroller
-            new RMIClientView(controller).run();
+            new ObserverView(controller).run();
         }*/
     }
 

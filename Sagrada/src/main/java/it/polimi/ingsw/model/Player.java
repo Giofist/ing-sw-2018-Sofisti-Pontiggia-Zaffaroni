@@ -1,11 +1,10 @@
 package it.polimi.ingsw.model;
 import it.polimi.ingsw.ClientController.FeedObserverView;
-import it.polimi.ingsw.ClientController.ObserverView;
+import it.polimi.ingsw.ClientController.ObserverViewInterface;
 import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
 import it.polimi.ingsw.model.Exceptions.NotEnoughSegnaliniException;
 import it.polimi.ingsw.model.Exceptions.PrivateGoalCardException;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
-import org.jetbrains.annotations.NotNull;
 
 import java.net.Socket;
 import java.rmi.RemoteException;
@@ -24,7 +23,7 @@ public class Player implements Comparable<Player>{
 
 
     //per il pattern observer
-    private LinkedList<ObserverView> observerViews;
+    private LinkedList<ObserverViewInterface> observerViewInterfaces;
     private LinkedList<FeedObserverView> feedObserverViews;
 
     //per la gestione delle toolCard, potremo pensare ad un'ottimizzazione
@@ -41,7 +40,7 @@ public class Player implements Comparable<Player>{
         this.mustsetdice = false;
         this.numberoftimesyouhaveplayedthisround=0;
         this.colorConstrainForTaglierinaManuale = null;
-        this.observerViews = new LinkedList<>();
+        this.observerViewInterfaces = new LinkedList<>();
         this.feedObserverViews = new LinkedList<>();
         this.mustpassTurn = false;
         this.points = 0;
@@ -165,20 +164,20 @@ public class Player implements Comparable<Player>{
         this.feedObserverViews.add(client);
     }
 
-    public void observerViews(ObserverView client){
-        this.observerViews.add(client);
+    public void observerViews(ObserverViewInterface client){
+        this.observerViewInterfaces.add(client);
     }
 
     public void notifyError(String message){
-        for(ObserverView observerView: this.observerViews){
-            observerView.showErrorMessage(message);
+        for(ObserverViewInterface observerViewInterface : this.observerViewInterfaces){
+            observerViewInterface.showErrorMessage(message);
         }
     }
 
     public void notifyGameisStarting(SchemeCard scheme1, SchemeCard scheme2)throws RemoteException{
         try{
-            for(ObserverView observerView: this.observerViews){
-                observerView.showSchemeCards(scheme1,scheme2);
+            for(ObserverViewInterface observerViewInterface : this.observerViewInterfaces){
+                observerViewInterface.showSchemeCards(scheme1,scheme2);
             }
             setPrivateGoalCard(getGame().getGametable().getPrivateGoalCard());
         }catch(PrivateGoalCardException e){
@@ -187,19 +186,19 @@ public class Player implements Comparable<Player>{
     }
 
     public void notifyaDraw(){
-        for (ObserverView observerview: this.observerViews) {
+        for (ObserverViewInterface observerview: this.observerViewInterfaces) {
             observerview.notifyaDraw();
         }
     }
 
     public void notifyaLose(){
-        for (ObserverView observerview: this.observerViews) {
+        for (ObserverViewInterface observerview: this.observerViewInterfaces) {
             observerview.notifyaLose();
         }
     }
 
     public void notifyaWin(){
-        for (ObserverView observerview: this.observerViews) {
+        for (ObserverViewInterface observerview: this.observerViewInterfaces) {
             observerview.notifyaWin();
         }
     }

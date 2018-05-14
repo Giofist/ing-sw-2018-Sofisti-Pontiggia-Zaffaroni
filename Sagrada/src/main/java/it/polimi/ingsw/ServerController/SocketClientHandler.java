@@ -1,12 +1,12 @@
 package it.polimi.ingsw.ServerController;
 
-import it.polimi.ingsw.ClientController.ObserverView;
+import it.polimi.ingsw.ClientController.ObserverViewInterface;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 
 import java.net.Socket;
 import java.rmi.RemoteException;
 
-public class SocketClientHandler implements Runnable, ObserverView {
+public class SocketClientHandler implements Runnable, ObserverViewInterface {
     private Socket socket;
     private ClientHandler controller;
     public SocketClientHandler(Socket socket, ClientHandler controller) throws RemoteException {

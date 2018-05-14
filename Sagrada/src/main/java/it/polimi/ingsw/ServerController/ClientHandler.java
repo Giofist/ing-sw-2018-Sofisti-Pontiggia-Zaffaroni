@@ -1,7 +1,7 @@
 package it.polimi.ingsw.ServerController;
 
 import it.polimi.ingsw.ClientController.FeedObserverView;
-import it.polimi.ingsw.ClientController.ObserverView;
+import it.polimi.ingsw.ClientController.ObserverViewInterface;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.Exceptions.GameNotExistantException;
 import it.polimi.ingsw.model.Exceptions.HomonymyException;
@@ -62,7 +62,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
 
 
     @Override
-    public void createGame(String clientname, ObserverView client, FeedObserverView Client, String gamename ) throws  RemoteException {
+    public void createGame(String clientname, ObserverViewInterface client, FeedObserverView Client, String gamename ) throws  RemoteException {
         try {
             //creo un player, lo associo ad uno user e viceversa;
             Player player = new Player();
@@ -84,6 +84,8 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
             throw new RemoteException(err.getMessage());
         }
     }
+
+    @Override
     public void joinaGame(String clientname, String gamename) throws RemoteException{
             try{
                 Player player = UsersList.Singleton().getUser(clientname).getPlayer();

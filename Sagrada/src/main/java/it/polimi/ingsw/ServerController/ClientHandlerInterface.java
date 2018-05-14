@@ -1,10 +1,8 @@
 package it.polimi.ingsw.ServerController;
 
 import it.polimi.ingsw.ClientController.FeedObserverView;
-import it.polimi.ingsw.ClientController.ObserverView;
-import it.polimi.ingsw.model.GoalCard;
+import it.polimi.ingsw.ClientController.ObserverViewInterface;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
-import it.polimi.ingsw.model.User;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -20,7 +18,8 @@ public interface ClientHandlerInterface extends Remote {
 
     public void register(String username, String password) throws RemoteException;
     public void login(String clientname, String password) throws RemoteException;
-    public  void createGame(String clientname, ObserverView client, FeedObserverView Client, String gamename ) throws  RemoteException;
+    public  void createGame(String clientname, ObserverViewInterface client, FeedObserverView Client, String gamename ) throws  RemoteException;
+    public void joinaGame(String clientname, String gamename) throws RemoteException;
     public void setSchemeCard(String clientname, int twin, SchemeCard schemeCard) throws RemoteException;
     public String getPrivateGoalCarddescription(String clientname) throws RemoteException;
     public String getPrivateGoalCardname(String clientname) throws RemoteException;
