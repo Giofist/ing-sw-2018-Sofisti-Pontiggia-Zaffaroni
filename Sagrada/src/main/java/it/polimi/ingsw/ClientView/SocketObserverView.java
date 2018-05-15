@@ -1,10 +1,8 @@
-package it.polimi.ingsw.ClientController;
+package it.polimi.ingsw.ClientView;
 
-import it.polimi.ingsw.ServerController.ClientHandler;
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 
-import java.io.IOException;
 import java.net.Socket;
 import java.rmi.RemoteException;
 import java.util.List;

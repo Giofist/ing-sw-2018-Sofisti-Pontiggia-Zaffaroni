@@ -72,17 +72,6 @@ public class DicePool {
         return dices.get(diceIndex);
     }
 
-
-    //do use for RoundDicepool
-    //useful for DiluentePerPastaSalda
-    //DEPRECATED
-    public Dice removeandreturnDice(int diceIndex){
-        if(diceIndex<=getDicePoolSize()){
-            return dices.remove(diceIndex);
-        }
-        else return null;
-    }
-
     //ho aggiunto questo metodo
     //propongo di lanciare delle eccezioni per gestire questa cosa e il metodo sopra
     public void removeDice(int diceIndex){

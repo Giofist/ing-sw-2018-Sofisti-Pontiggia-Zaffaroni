@@ -1,4 +1,4 @@
-package it.polimi.ingsw.ClientController;
+package it.polimi.ingsw.ClientView;
 
 public interface FeedObserverView {
     public void update();

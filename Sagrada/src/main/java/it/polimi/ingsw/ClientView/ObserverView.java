@@ -1,4 +1,4 @@
-package it.polimi.ingsw.ClientController;
+package it.polimi.ingsw.ClientView;
 
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
 import it.polimi.ingsw.model.Exceptions.NumberOfPlayersNotAllowedException;

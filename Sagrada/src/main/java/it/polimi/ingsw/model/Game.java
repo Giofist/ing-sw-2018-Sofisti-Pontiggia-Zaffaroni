@@ -63,7 +63,9 @@ public class Game {
             while (!success) {
                 try {
                     // questo è per notificare che la partita sta per iniziare
-                    //nella notifica viene chiesto a ciascun utente
+                    //nella notifica viene chiesto a ciascun utente di settare una schemecard scegliendola tra due
+                    // in realtà la scelta è tra quattro, perchè ogni scheme card ha due facce
+                    //notifyGameISStarting fa aggiungere al playerv anche una schemecard
                     player.notifyGameisStarting(getGametable().getSchemeCard(), getGametable().getSchemeCard());
                     success = true;
                 } catch (MapConstrainReadingException e) {
@@ -185,7 +187,7 @@ public class Game {
         return list;
     }
 
-
+    //da chiamare alla fine, quando un client vuole loasciare una partita e per esempio aggiungersi ad un'altra
     public void leavethegameattheend(Player player){
         this.players.remove(player);
         if(getNumberOfPlayers()==0){

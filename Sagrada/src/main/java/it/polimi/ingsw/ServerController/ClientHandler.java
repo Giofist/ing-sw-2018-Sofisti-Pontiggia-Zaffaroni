@@ -1,7 +1,7 @@
 package it.polimi.ingsw.ServerController;
 
-import it.polimi.ingsw.ClientController.FeedObserverView;
-import it.polimi.ingsw.ClientController.ObserverViewInterface;
+import it.polimi.ingsw.ClientView.FeedObserverView;
+import it.polimi.ingsw.ClientView.ObserverViewInterface;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.Exceptions.GameNotExistantException;
 import it.polimi.ingsw.model.Exceptions.HomonymyException;
@@ -10,24 +10,13 @@ import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.LinkedList;
 import java.util.List;
 
-//all'inizio avevo pensato di mettere il client server per rmi in una classe a parte
-//poi ho pensato: ma devo proprio? beh per ora mi sembra di no
-//l'unica cosa è l'esposizione del metodo run, che beh nel caso dirmi non deve essere invocato, perchè serve invece per gestire le connessioni socket
-// il fatto che implementi runnable e quindi sia codice per thread non mi pare crei problemi
-//se avete notizie avvisatemi
-//client handler
+
 public class ClientHandler extends UnicastRemoteObject implements ClientHandlerInterface {
-
-
 
     //constructor
     public ClientHandler ()throws RemoteException {};
-
-
-
 
    //RMI part
     @Override
@@ -35,9 +24,6 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
         return "Test " + stringa;
     }
 
-    // Here we'll put the implementation of all the methods in the interface ClientHandlerInterface
-
-    // Implementing the register method
 
     @Override
     synchronized public  void register(String username, String password) throws RemoteException{

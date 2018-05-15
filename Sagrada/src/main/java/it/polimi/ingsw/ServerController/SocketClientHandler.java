@@ -1,6 +1,6 @@
 package it.polimi.ingsw.ServerController;
 
-import it.polimi.ingsw.ClientController.ObserverViewInterface;
+import it.polimi.ingsw.ClientView.ObserverViewInterface;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 
 import java.net.Socket;

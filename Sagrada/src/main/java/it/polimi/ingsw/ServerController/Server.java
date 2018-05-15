@@ -13,14 +13,6 @@ import java.util.concurrent.Executors;
 import it.polimi.ingsw.model.*;
 public class Server {
 
-
-    //controller
-
-
-    //the method which starts the server for the socket part
-    //the method creates a pool of thread and waits for connection from the client
-
-
     public static void main(String[] args) throws RemoteException{
         //creo i due "database" di cu idevo tenere consistenza nel server
         GamesList gameslist = GamesList.singleton();
@@ -39,6 +31,8 @@ public class Server {
         registry.rebind("ClientHandler", controller);
         System.out.println("Waiting for invocations from clients...\n");
 
+
+        //instruzioni per far partire un rmi registry
 
         //socket part
         new Thread(new StartServer(controller, 1337)).start();

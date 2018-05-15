@@ -1,12 +1,11 @@
 package it.polimi.ingsw.model;
-import it.polimi.ingsw.ClientController.FeedObserverView;
-import it.polimi.ingsw.ClientController.ObserverViewInterface;
+import it.polimi.ingsw.ClientView.FeedObserverView;
+import it.polimi.ingsw.ClientView.ObserverViewInterface;
 import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
 import it.polimi.ingsw.model.Exceptions.NotEnoughSegnaliniException;
 import it.polimi.ingsw.model.Exceptions.PrivateGoalCardException;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 
-import java.net.Socket;
 import java.rmi.RemoteException;
 import java.util.LinkedList;
 

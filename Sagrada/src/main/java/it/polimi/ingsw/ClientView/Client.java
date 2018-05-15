@@ -1,9 +1,8 @@
-package it.polimi.ingsw.ClientController;
+package it.polimi.ingsw.ClientView;
 
 
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
 
-import java.io.IOException;
 import java.net.Socket;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -20,7 +19,6 @@ public class Client {
         Scanner in = new Scanner(System.in);
 
 
-
         //avvio una view in client per poi chiamare alternativamnete in base alla scelta utente RMI o Socket
         System.out.println("Benvenuto nel SetUP partita di Sagrada!\n" +
                 "Qui puoi selezionare se giocare usando la connessione di tipo RMI (R) oppure Socket (S).\n " +
@@ -34,7 +32,7 @@ public class Client {
                 ClientHandlerInterface controller = (ClientHandlerInterface) rmiRegistry.lookup("ClientHandler");
                 new ObserverView(controller).run();
                 correct = true;
-            } else if (in.nextLine().equals("S") || in.nextLine().equals("s")) {
+            } else if (input.equals("R") || input.equals("r")) {
                 Socket socket = new Socket(ipAddr, 1337);
                 System.out.println("Connessione stabilita\n");
                 ObserverView observerView = new ObserverView();
@@ -48,35 +46,5 @@ public class Client {
         }
     }
 
-    // nelle specifiche si dice di presupporre che il giocatore conosca l'indirizzo IP del server
-    // io ho pensato che lo scriva come argomento quando chiama il programma da linea di comando
-    //nelle implementazioni senza linea di comando, come funziona?
-
-
-
-
-    /*public static void main(String[] args) throws Exception {
-
-        //manca una parte in cui il client decide se utilizzare RMI o socket, anche questo da riga di comando?
-        //notate che da specifiche si chiede che il client possa decidere se usare RMI o socket SOLO A INIZIO PARTITA, e non si chiede che si possa cambiare tipo
-        //di connessione dinamicamente
-
-
-        // il problema grosso che ho rilevato è la gestione di più giocatori nella stessa partita con connessioni diverse
-        //in realtà, la gestione della partita è pensata solo per i socket per me, mentre la parte di log in iniziale è pensata sia per RMI che socket
-        //tutto questo crea delle crepe nell'architettura che abbiamo individuato finora... voi che ne dite?
-
-        //socket part
-        String ip = "127.0.0.1" ;
-        //new Client(ip , 1337).startClient();
-
-        //RMI part
-        Registry registry = LocateRegistry.getRegistry(ip);
-        // gets a reference for the remote controller
-        ClientHandlerInterface controller = (ClientHandlerInterface) registry.lookup("ClientHandler");
-        // creates and launches the clientcontroller
-            new ObserverView(controller).run();
-        }*/
-    }
-
+}
 
