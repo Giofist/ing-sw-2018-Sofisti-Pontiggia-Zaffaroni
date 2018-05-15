@@ -165,13 +165,15 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         PrintWriter out = new PrintWriter(System.out);
         out.println("Scegli la partita a cui vuoi partecipare dalla lista:");
         for (Game game : GamesList.singleton().getgames()) {
-            out.println(game.getName() + "; Giocatori che stanno partecipando: " + game.getActualNumberOfPlayers() + "Giocatori necessari alla partita: " + game.getMaxNumberPlayers() + "\n");
+            // Correzione per pushare codice non rotto (ho tenuta la vecchia riga verifica che la nuova vada bene)
+            //out.println(game.getName() + "; Giocatori che stanno partecipando: " + game.getActualNumberOfPlayers() + "Giocatori necessari alla partita: " + game.getMaxNumberPlayers() + "\n");
+            out.println(game.getName() + "; Giocatori che stanno partecipando: " + game.getNumberOfPlayers() + "Giocatori necessari alla partita: 4\n");
         }
         boolean chosen = false;
         while (!chosen) {
             out.println("Vuoi ancora partecipare ad una partita? [S/N]\n");
             if (in.nextLine() == "S"||in.nextLine()=="s") {
-                while(!servercontroller.isInList(gamename)) {
+                while(!servercontroller.isMatchInList(gamename)) {
                     out.println("Digita il il nome della partita cui vuoi partecipare:\n");
                     gamename = in.nextLine();
                     try {

@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model;
 
-import com.sun.tools.internal.ws.wsdl.document.jaxws.Exception;
 import it.polimi.ingsw.model.Exceptions.RoundTrackException;
 
 import java.util.LinkedList;

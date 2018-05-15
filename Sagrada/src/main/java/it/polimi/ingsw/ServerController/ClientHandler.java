@@ -86,7 +86,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     }
 
     @Override
-    public boolean isInList(String gamename) throws RemoteException {
+    public boolean isMatchInList(String gamename) throws RemoteException {
        /* try {                                                             //to be implemented
             for (Game game : GamesList.singleton().getgames()) {
                 if (game.getName().equals(gamename)) {
@@ -97,6 +97,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
             throw new RemoteException(e.getMessage());
         }
         return false;*/
+       return true;
     }
 
     @Override

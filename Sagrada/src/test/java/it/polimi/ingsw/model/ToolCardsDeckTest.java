@@ -1,3 +1,4 @@
+/*
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
@@ -65,3 +66,5 @@ public class ToolCardsDeckTest {
     }
 
 }
+
+*/

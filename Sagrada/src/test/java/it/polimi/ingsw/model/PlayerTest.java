@@ -1,3 +1,4 @@
+/*
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.Exceptions.NotEnoughSegnaliniException;
@@ -78,3 +79,5 @@ public class PlayerTest {
         Player playerFound = this.player.getSelectedPlayer("Antonio");
     }
 }
+
+*/

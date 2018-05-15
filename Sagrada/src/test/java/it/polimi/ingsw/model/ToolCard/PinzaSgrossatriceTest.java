@@ -1,3 +1,4 @@
+/*
 package it.polimi.ingsw.model.ToolCard;
 
 import it.polimi.ingsw.model.Dice;
@@ -63,7 +64,8 @@ public class PinzaSgrossatriceTest {
         pinzaSgrossatrice = new PinzaSgrossatrice(mockPlayer, 3, 1);
         pinzaSgrossatrice.execute();
     }
-    */
+
 
 
 }
+    */

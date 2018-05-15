@@ -44,6 +44,11 @@ public class SocketObserverView implements ClientHandlerInterface{
     }
 
     @Override
+    public boolean isMatchInList(String gamename) throws RemoteException {
+        return false;
+    }
+
+    @Override
     public void joinaGame(String clientname, String gamename) throws RemoteException {
 
     }

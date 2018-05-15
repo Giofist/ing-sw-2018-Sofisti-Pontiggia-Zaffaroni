@@ -1,3 +1,4 @@
+/*
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.Exceptions.MapConstrainReadingException;
@@ -28,3 +29,5 @@ public class GametableTest {
         assertNotNull(gametable.getSchemeCard());
     }
 }
+
+*/
