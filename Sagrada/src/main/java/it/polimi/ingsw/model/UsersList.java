@@ -12,7 +12,7 @@ import java.util.*;
 
 //(pon) ho revisionato questa classe in modo da renderla thread safe in tutti i suoi metodi
 public class UsersList {
-    private static UsersList instance;
+    private static UsersList instance = null;
     private LinkedList<User> users;
 
     //in questa classe abbiamo applicato un pattern singleton:
@@ -21,17 +21,17 @@ public class UsersList {
 
 
     //costruttore privato
-    /*      Ho cambiato questa classe perchè l'inizializzazione della LinkedList users la gestisco in loadUsersList
     private UsersList(){
         this.users = new LinkedList<User>();
     }
-    */
+
 
     //metodo che crea/dà accesso se già creata all'unica istanza
     public static  UsersList Singleton(){
-        if (instance == null)
+        if (instance == null) {
             instance = new UsersList();
             instance.loadUsersList();
+        }
         return instance;
     }
 
@@ -52,11 +52,13 @@ public class UsersList {
                 splitedUsernameAndPass = line.split(",");
                 users.add(new User(splitedUsernameAndPass[0], splitedUsernameAndPass[1]));
             }
-            fileScanner.close();
+
         } catch (FileNotFoundException e) {
             users = new LinkedList<User>();
+        } catch (NullPointerException e) {
+            users = new LinkedList<User>();
         } finally {
-            fileScanner.close();
+
         }
     }
 

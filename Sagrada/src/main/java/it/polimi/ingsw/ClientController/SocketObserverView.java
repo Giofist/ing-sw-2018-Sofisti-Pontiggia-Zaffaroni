@@ -87,4 +87,9 @@ public class SocketObserverView implements ClientHandlerInterface{
     public List getPublicGoalCardnames(String clientname) throws RemoteException {
         return null;
     }
+
+    @Override
+    public List getActiveMatchList() throws RemoteException {
+        return null;
+    }
 }

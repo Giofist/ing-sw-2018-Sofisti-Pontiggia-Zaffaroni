@@ -30,7 +30,7 @@ public class Game {
     }
 
 
-    public synchronized Game join(Player player) {
+    public synchronized Game join(Player player)  throws RemoteException{
         try {
             this.players.addLast(player);
             player.setGame(this);
@@ -80,7 +80,7 @@ public class Game {
     }
     
     //this is THE GAME: 10 ROUNDS
-    private void run(){
+    private void run()throws RemoteException{
         //ad ogni round modifico l'ordine nella lista
         new Round(1, this.players, this).run();
         this.players.addLast(this.players.removeFirst());
@@ -111,7 +111,7 @@ public class Game {
     //choose a winner and notify he has won
     //notify the others that theey have lost
     // what else?
-    private void endGame(){
+    private void endGame()throws RemoteException{
         //to calculate points for the public goals
         this.getGametable().calculatePointsforAllPlayers(this.players);
 

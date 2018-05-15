@@ -165,7 +165,7 @@ public class Player implements Comparable<Player>{
         this.observerViewInterfaces.add(client);
     }
 
-    public void notifyError(String message){
+    public void notifyError(String message)  throws RemoteException{
         for(ObserverViewInterface observerViewInterface : this.observerViewInterfaces){
             observerViewInterface.showErrorMessage(message);
         }
@@ -182,19 +182,19 @@ public class Player implements Comparable<Player>{
         }
     }
 
-    public void notifyaDraw(){
+    public void notifyaDraw()throws RemoteException{
         for (ObserverViewInterface observerview: this.observerViewInterfaces) {
             observerview.notifyaDraw();
         }
     }
 
-    public void notifyaLose(){
+    public void notifyaLose()throws RemoteException{
         for (ObserverViewInterface observerview: this.observerViewInterfaces) {
             observerview.notifyaLose();
         }
     }
 
-    public void notifyaWin(){
+    public void notifyaWin()throws RemoteException{
         for (ObserverViewInterface observerview: this.observerViewInterfaces) {
             observerview.notifyaWin();
         }

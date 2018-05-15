@@ -12,42 +12,14 @@ import java.util.concurrent.Executors;
 
 import it.polimi.ingsw.model.*;
 public class Server {
-    private int port;
 
-    public Server(int port) {
-        this.port = port;
-    }
+
+    //controller
 
 
     //the method which starts the server for the socket part
     //the method creates a pool of thread and waits for connection from the client
-    public void startServer(ClientHandler controller) {
-        ExecutorService executor = Executors.newCachedThreadPool(); //crea thread quando necessario
-        ServerSocket serverSocket;
-        try {
-            serverSocket = new ServerSocket(port);
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
-            return;  // porta non disponibile
-        }
-        System.out.println("Server ready for the socket connection\n");
-        int i = 0;
-        while (i == 0) {
-            try {
-                Socket socket = serverSocket.accept();
-                executor.submit(new SocketClientHandler(socket, controller));
-            } catch (IOException e) {
-                i = 1;
-                break; //entrerei qui se serverSocket venisse chiuso
-            }
-        }
-        try {
-            serverSocket.close();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-        executor.shutdown();
-    }
+
 
     public static void main(String[] args) throws RemoteException{
         //creo i due "database" di cu idevo tenere consistenza nel server
@@ -69,8 +41,7 @@ public class Server {
 
 
         //socket part
-        Server server = new Server(1337);
-        server.startServer(controller);
+        new Thread(new StartServer(controller, 1337)).start();
 
 
 
@@ -84,6 +55,7 @@ public class Server {
 
 
     }
+
 }
 
 

@@ -14,23 +14,27 @@ public class Client {
 
     public static void main(String[] args) throws Exception {
         // Passing server IP as command line argument
-        String ipAddr = args[1];
+        //String ipAddr = args[1];
+        String ipAddr = "127.0.0.1";
         boolean correct = false;
         Scanner in = new Scanner(System.in);
 
 
 
         //avvio una view in client per poi chiamare alternativamnete in base alla scelta utente RMI o Socket
-        System.out.println("Benvenuto nel SetUP partita di Sagrada!\nQui puoi selezionare se giocare usando la connessione di tipo RMI (R) oppure Socket (S).\n Seleziona ora la tua scelta digitando R per RMI o S per Socket:");
+        System.out.println("Benvenuto nel SetUP partita di Sagrada!\n" +
+                "Qui puoi selezionare se giocare usando la connessione di tipo RMI (R) oppure Socket (S).\n " +
+                "Seleziona ora la tua scelta digitando R per RMI o S per Socket:");
         while (!correct) {
-            if (in.next() == "R" || in.next() == "r") {
+            String input = in.nextLine();
+            if (input.equals("R") || input.equals("r")) {
                 // Locating rmi register on the server
                 // looking for the controller on the registry
                 Registry rmiRegistry = LocateRegistry.getRegistry(ipAddr);
                 ClientHandlerInterface controller = (ClientHandlerInterface) rmiRegistry.lookup("ClientHandler");
                 new ObserverView(controller).run();
                 correct = true;
-            } else if (in.next() == "S" || in.next() == "s") {
+            } else if (in.nextLine().equals("S") || in.nextLine().equals("s")) {
                 Socket socket = new Socket(ipAddr, 1337);
                 System.out.println("Connessione stabilita\n");
                 ObserverView observerView = new ObserverView();

@@ -10,6 +10,7 @@ import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.LinkedList;
 import java.util.List;
 
 //all'inizio avevo pensato di mettere il client server per rmi in una classe a parte
@@ -192,6 +193,12 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
             throw new RemoteException(e.getMessage());
         }
     };
+
+
+    @Override
+    public List getActiveMatchList() throws RemoteException{
+        return null;
+    }
 
     // Implementing the getActiveMatchList
 }

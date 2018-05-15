@@ -28,6 +28,7 @@ public interface ClientHandlerInterface extends Remote {
     public List getPublicGoalCarddescriptions(String clientname) throws RemoteException;
     public List getPublicGoalCardids(String clientname) throws RemoteException;
     public List getPublicGoalCardnames(String clientname) throws RemoteException;
+    public List getActiveMatchList() throws RemoteException;
 
         // public getActiveMatchList() throws RemoteException;
         // Per questo metodo va deciso come ritornare il risultato
