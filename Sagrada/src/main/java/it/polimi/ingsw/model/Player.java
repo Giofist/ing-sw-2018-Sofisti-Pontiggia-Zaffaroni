@@ -64,8 +64,6 @@ public class Player implements Comparable<Player>{
             this.setSegnalini_favore(this.getSegnalini_favore()-cost);
         }
     }
-
-
     public void setPrivateGoalCard ( GoalCard privateGoalCard){
         this.privateGoalCard = privateGoalCard;
     }
@@ -153,7 +151,6 @@ public class Player implements Comparable<Player>{
 
 
 
-
     //metodo per l'oberserver design pattern
     //tutti questi metodi chiamano qualcosa della view tramite gli observer pattern
     public void feedObserverViews(FeedObserverView client) {
@@ -170,11 +167,13 @@ public class Player implements Comparable<Player>{
         }
     }
 
-    public void notifyGameisStarting(SchemeCard scheme1, SchemeCard scheme2)throws RemoteException{
+    public void startGame(SchemeCard scheme1, SchemeCard scheme2)throws RemoteException{
         try{
             for(ObserverViewInterface observerViewInterface : this.observerViewInterfaces){
+                observerViewInterface.notifyGameisStarting(this.getGame().getName());
                 observerViewInterface.showSchemeCards(scheme1,scheme2);
             }
+            //all'inizio della partita viene anche aggiunta ad ogni player una carta obiettivo privato
             setPrivateGoalCard(getGame().getGametable().getPrivateGoalCard());
         }catch(PrivateGoalCardException e){
             notifyError(e.getMessage());

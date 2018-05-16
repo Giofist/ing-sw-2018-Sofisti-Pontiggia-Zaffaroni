@@ -29,7 +29,9 @@ public class Tile {
     public void setColourConstrain(DiceColor tile_color_constrain){this.color_constrain = tile_color_constrain;}
     public void setNumberConstrain(int number_constrain){this.number_constrain = number_constrain;}
 
-    public DiceColor getColor_Constrain(){ return color_constrain;}
+    public DiceColor getColor_Constrain(){
+        return color_constrain;
+    }
     public int getNumber_Constrain(){ return number_constrain;}
 
 

@@ -89,16 +89,16 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
 
     @Override
     public void joinaGame(String clientname, String gamename) throws RemoteException{
-            try{
-                Player player = UsersList.Singleton().getUser(clientname).getPlayer();
-                Game game = GamesList.singleton().getGame(gamename);
-                //NB questa chiamata già aggiunge un riferimento a questo match in player
-                game.join(player);
-            }catch (UserNotExistantException e){
-                throw new RemoteException(e.getMessage());
-            }catch (GameNotExistantException e){
-                throw new RemoteException(e.getMessage());
-            }
+        try{
+            Player player = UsersList.Singleton().getUser(clientname).getPlayer();
+            Game game = GamesList.singleton().getGame(gamename);
+            //NB questa chiamata già aggiunge un riferimento a questo match in player
+            game.join(player);
+        }catch (UserNotExistantException e){
+            throw new RemoteException(e.getMessage());
+        }catch (GameNotExistantException e){
+            throw new RemoteException(e.getMessage());
+        }
     }
 
     @Override
@@ -186,5 +186,24 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
         return null;
     }
 
-    // Implementing the getActiveMatchList
+
+    @Override
+    public int getmyPoints(String clientname)throws RemoteException{
+        try{
+            Player player = UsersList.Singleton().getUser(clientname).getPlayer();
+            return player.getPoints();
+        }catch(UserNotExistantException e){
+            throw new RemoteException(e.getMessage());
+        }
+    }
+
+    @Override
+    public List getRanking(String clientname) throws RemoteException{
+        try{
+            Player player = UsersList.Singleton().getUser(clientname).getPlayer();
+            return player.getGame().getallPlayers();
+        }catch(UserNotExistantException e){
+            throw new RemoteException(e.getMessage());
+        }
+    }
 }

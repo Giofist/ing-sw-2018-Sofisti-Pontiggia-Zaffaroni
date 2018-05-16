@@ -253,6 +253,24 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
         return ThereisaDicenearYou;
     }
 
+    public String displayScheme(){
+        String  string = null;
+        for(int row =0; row < 4; row ++){
+            for( int column =0; column < 5; column++){
+                try{
+                    if(this.getTile(row, column).haveNumber_constrain()){
+                        string += this.getTile(row, column).getNumber_Constrain();
+                    }
+                    if(this.getTile(row, column).haveColor_constrain()){
+                        string += this.getTile(row, column).getColor_Constrain();
+                    }
+                }catch(OutOfMatrixException e){
+                    //impossible to get here
+                }
+            }
+        }
+    }
+
     //metodi private
     // lo setto private per non esporre l'implementazione
 

@@ -33,11 +33,8 @@ public class Server {
         System.out.println("Waiting for invocations from clients...\n");
 
 
-        //instruzioni per far partire un rmi registry
-
         //socket part
         new Thread(new StartServer(controller, 1337)).start();
-
 
 
         //carica un turnController

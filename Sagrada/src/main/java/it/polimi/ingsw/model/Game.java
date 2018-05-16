@@ -2,8 +2,6 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.Exceptions.DrawException;
 import it.polimi.ingsw.model.Exceptions.MapConstrainReadingException;
-import it.polimi.ingsw.model.PrivateGoalCards.PrivateGoalCardDeck;
-import it.polimi.ingsw.model.PublicGoalCards.PublicGoalCardDeck;
 
 
 import java.io.IOException;
@@ -53,8 +51,6 @@ public class Game {
     }
 
 
-
-
     public void start() throws IOException {
         gametable = new Gametable(this.players.size());
         
@@ -63,10 +59,10 @@ public class Game {
             while (!success) {
                 try {
                     // questo è per notificare che la partita sta per iniziare
-                    //nella notifica viene chiesto a ciascun utente di settare una schemecard scegliendola tra due
+                    // nella notifica viene chiesto a ciascun utente di settare una schemecard scegliendola tra due
                     // in realtà la scelta è tra quattro, perchè ogni scheme card ha due facce
                     //notifyGameISStarting fa aggiungere al playerv anche una schemecard
-                    player.notifyGameisStarting(getGametable().getSchemeCard(), getGametable().getSchemeCard());
+                    player.startGame(getGametable().getSchemeCard(), getGametable().getSchemeCard());
                     success = true;
                 } catch (MapConstrainReadingException e) {
                     //qui ho pensato che sul server fosse utile permettere all'amministratore di sistema poter gestire
@@ -114,6 +110,7 @@ public class Game {
     //notify the others that theey have lost
     // what else?
     private void endGame()throws RemoteException{
+
         //to calculate points for the public goals
         this.getGametable().calculatePointsforAllPlayers(this.players);
 
@@ -187,12 +184,18 @@ public class Game {
         return list;
     }
 
+    public LinkedList<Player> getallPlayers(){
+        LinkedList<Player> list = new LinkedList<>();
+        list.addAll(this.players);
+        return list;
+    }
+
+
     //da chiamare alla fine, quando un client vuole loasciare una partita e per esempio aggiungersi ad un'altra
     public void leavethegameattheend(Player player){
         this.players.remove(player);
         if(getNumberOfPlayers()==0){
-            //not implemented yet
-            //andrà a cancellare la partita da gameslist
+            GamesList.singleton().remove(player.getGame());
         }
     }
 

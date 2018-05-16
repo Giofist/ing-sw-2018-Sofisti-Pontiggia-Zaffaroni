@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.GamesList;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 
+import javax.swing.plaf.synth.SynthEditorPaneUI;
 import java.io.PrintWriter;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -14,17 +15,18 @@ import java.util.Scanner;
 
 //implemented by pon
 //non implemeta runnable
-public class ObserverView extends UnicastRemoteObject implements ObserverViewInterface, FeedObserverView{
+public class ObserverView extends UnicastRemoteObject implements ObserverViewInterface, FeedObserverView {
     private ClientHandlerInterface servercontroller;
     private final Scanner in;
     private final PrintWriter out;
     private String username;
 
     //constructor1
-    public ObserverView() throws RemoteException{
+    public ObserverView() throws RemoteException {
         this.in = new Scanner(System.in);
         this.out = new PrintWriter(System.out);
     }
+
     //constructor2
     public ObserverView(ClientHandlerInterface controller) throws RemoteException {
         this.in = new Scanner(System.in);
@@ -32,7 +34,8 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         this.servercontroller = controller;
     }
 
-    public void setServercontroller(ClientHandlerInterface servercontroller){
+
+    public void setServercontroller(ClientHandlerInterface servercontroller) {
         this.servercontroller = servercontroller;
     }
 
@@ -42,14 +45,6 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         loadingInt();
         loginInt();
         menuInt();
-
-
-
-        //NB: mentre per il server usiamo una sola classe che gestisce sia la connessione socket che RMI (di fatto la connessione socket invoca localmente
-        //i metodi che invece tramite RMI vengono invocati da remoto, invece sul client ci servono due clientController, appunto perchè uno chiederà via socket
-        //l'esecuzione di determinati metodi, l'altro invece li chiamerà direttamente perchè userà l'implementazione RMI
-
-        //questo purtroppo crea asimmetria, sad story
     }
 
     private void loadingInt() {
@@ -63,45 +58,48 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
                 "   ▄█    ███   ███    ███   ███    ███   ███    ███   ███    ███ ███   ▄███   ███    ███ \n" +
                 " ▄████████▀    ███    █▀    ████████▀    ███    ███   ███    █▀  ████████▀    ███    █▀  \n" +
                 "                                         ███    ███                                      \n\n");
-        System.out.println("Benvenuto in Sagrada!");
+        System.out.println("Benvenuto in Sagrada!\n");
+
+
     }
 
     private void loginInt() throws RemoteException {
+
         String password;
-        boolean successo = true;
+        boolean successo = false;
         boolean back = false;
 
-        do{
+        do {
             successo = true;
-            out.println("\n\n< Torna al menu. (B)\n");
+            System.out.println("\n\n< Torna al menu. (B)\n");
             if (in.next() == "B" || in.next() == "b") {
                 back = true;
             }
-        try {
-            out.println("Hai già un account? [S/N]\n");
-            if (in.next() == "S" || in.next() == "s") {
-                logInt();
-            } else {
-                        out.println("Inserisci un nuovo Username:\n");
-                        username = in.nextLine();
-                        out.println("Inserisci una password:\n");
-                        password= in.nextLine();
-                        try {
-                            servercontroller.register(username, password);
-                        }
-                        catch(RemoteException e){
-                            successo = false;
-                        }
-                out.println("Esegui il LogIn con l'account appena creato:");
-                logInt();
+            try {
+                System.out.println("Hai già un account? [S/N]\n");
+                if (in.next() == "S" || in.next() == "s") {
+                    logInt();
+                } else {
+                    System.out.println("Inserisci un nuovo Username:\n");
+                    username = in.nextLine();
+                    out.println("Inserisci una password:\n");
+                    password = in.nextLine();
+                    try {
+                        servercontroller.register(username, password);
+                    } catch (RemoteException e) {
+
+                    }
+                    out.println("Esegui il LogIn con l'account appena creato:");
+                    logInt();
+                }
+                successo = true;
+            } catch (RemoteException e) {
+                out.println("Qualcosa è andato storto con il LogIn!\n");
+                out.close();
+                in.close();
             }
-        } catch (RemoteException e) {
-            out.println("Qualcosa è andato storto con il LogIn!\n");
-            out.close();
-            in.close();
-        }
-    }while (successo == false || back == false);
-        if(back == true) menuInt();
+        } while (successo == false || back == false);
+        if (back == true) menuInt();
     }
 
 
@@ -110,25 +108,24 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         String password;
         boolean successo = true;
         boolean back = false;
-
         do {
             successo = true;
-            out.println("\n\n< Torna al menu. (B)\n");
+            System.out.println("\n\n< Torna al menu. (B)\n");
             if (in.next() == "B" || in.next() == "b") {
-                back=true;
+                back = true;
             }
             out.println("Inserisci username:\n");
             username = in.nextLine();
             out.println("Inserisci password:\n");
             password = in.nextLine();
-            try{
+            try {
                 servercontroller.login(username, password);
-            }
-            catch(RemoteException e){
+            } catch (RemoteException e) {
+                System.out.println(e.getMessage());
                 successo = false;
             }
-        } while (successo == false|| !back);
-        if(back){
+        } while (successo == false || !back);
+        if (back) {
             menuInt();   //usato per uscire dal ciclo e tronare al log in in caso di misstype.
         }
     }
@@ -152,11 +149,9 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         out.println("\n\n< Torna al menu. (B)");
         if (in.next() == "B" || in.next() == "b") {
             menuInt();
-        }
-        else if (in.next() == "C" || in.next() == "c") {
+        } else if (in.next() == "C" || in.next() == "c") {
             creaInt();
-        }
-        else partecipaInt();
+        } else partecipaInt();
     }
 
     private void partecipaInt() throws RemoteException {
@@ -172,8 +167,8 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         boolean chosen = false;
         while (!chosen) {
             out.println("Vuoi ancora partecipare ad una partita? [S/N]\n");
-            if (in.nextLine() == "S"||in.nextLine()=="s") {
-                while(!servercontroller.isMatchInList(gamename)) {
+            if (in.nextLine() == "S" || in.nextLine() == "s") {
+                while (!servercontroller.isMatchInList(gamename)) {
                     out.println("Digita il il nome della partita cui vuoi partecipare:\n");
                     gamename = in.nextLine();
                     try {
@@ -187,13 +182,13 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
                 startGameInt();
                 chosen = true;
 
-                } else {
+            } else {
                 multiInt();
             }
         }
     }
 
-    private void startGameInt(){
+    private void startGameInt() {
         Scanner in = new Scanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
         out.println("Il gioco inizia ora!");
@@ -223,7 +218,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
                 if (max < 2 || max > 4) {
                     throw new NumberOfPlayersNotAllowedException();
                 }
-                servercontroller.createGame(username,this,this, name);   //mancano observer e forse anche num players
+                servercontroller.createGame(username, this, this, name);   //mancano observer e forse anche num players
                 out.println("Attendi che alttri giocatori partecipino alla partita.\n Divertiti!\n");
                 success = true;
             } catch (Exception e) {
@@ -232,6 +227,14 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         }
     }
 
+    //metodi per il pattern observer
+    @Override
+    public void notifyGameisStarting(String gamename) throws RemoteException{
+        System.out.println("Game" + gamename + "is starting");
+    };
+
+
+
     @Override
     public void update() {
 
@@ -239,88 +242,45 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
 
     @Override
     public void showErrorMessage(String message) {
-
+        System.out.println(message);
     }
 
     @Override
-    public void showSchemeCards(SchemeCard scheme, SchemeCard card) {
-
+    public void showSchemeCards(SchemeCard schemeCard1, SchemeCard schemeCard2) {
+        System.out.println("Seleziona la carta schema che desideri tra le seguenti indicando il numero relativo");
+        System.out.println(schemeCard1.displayScheme());
+        System.out.println(schemeCard1.getTwinCard().displayScheme());
+        System.out.println(schemeCard2.displayScheme());
+        System.out.println(schemeCard1.getTwinCard().displayScheme());
     }
 
     @Override
     public void notifyaDraw() {
-
+        try{
+            System.out.println("Hai pareggiato:"+"Il tuo punteggio è" + servercontroller.getmyPoints(this.username));
+    }catch (RemoteException e ){
+        System.out.println(e.getMessage());
+    };
     }
 
     @Override
     public void notifyaLose() {
+        try{
+            System.out.println("Mi spiace, hai perso"+ "Il tuo punteggio è" + servercontroller.getmyPoints(this.username));
+        }catch (RemoteException e ){
+            System.out.println(e.getMessage());
+        }
 
     }
 
     @Override
     public void notifyaWin() {
-
-    }
-
-
-    //rimosse impostazioni non più necessarie in quanto la scelta verrà fatta all'atto dell login.
-/*
-    private void optionInt(){
-        Scanner in = new Scanner(System.in);
-        PrintWriter out = new PrintWriter(System.out);
-        out.println("/n/nSei nelle impostazioni del gioco! (per selezionare inserisci il numero a lato)");
-        out.println("1) Impostazioni di connessione.");
-        out.println("2) Impostazioni grafiche client.");
-        out.println("\n\n< Torna al menu. (B)");
-        if (in.next() == "B" || in.next() == "b") {
-            menuInt();
-        }
-        else if(in.next()=="1"){
-           connectionInt();
-        }
-        else{
-            graficInt();
-        }
-    }
-
-    private void connectionInt() { //da implemntare parte di switch tra RMI SOCKET
-        Scanner in = new Scanner(System.in);
-        PrintWriter out = new PrintWriter(System.out);
-        out.println("/n/nSei nelle impostazioni della connessione.");
-        out.println("Attualmente la connessione è in modalità: RMI");
-        out.println("Vuoi passare alla connessione tramite Socket? [S/N]");
-        out.println("\n\n< Torna al menu. (B)");
-        if (in.next() == "B" || in.next() == "b") {
-            optionInt();
-        }
-        else if(in.next() == "S" || in.next() == "s"){
-            out.println("Hai deciso di passare alla connessione Socket, il client si riavvierà in tale modalità tra qualche secondo.");
-            //implementare switch
-        }
-        else{
-            out.println("Rimarrai in modalità connessione RMI.");
+        try{
+            System.out.println("Congratulazioni, hai vinto"+ "Il tuo punteggio è" + servercontroller.getmyPoints(this.username));
+        }catch (RemoteException e ){
+            System.out.println(e.getMessage());
         }
     }
 
 
-    private void graficInt() { //da implementare lo switch
-        Scanner in = new Scanner(System.in);
-        PrintWriter out = new PrintWriter(System.out);
-        out.println("/n/nSei nelle impostazioni relative alla grafica.");
-        out.println("Attualmente il client è in modalità: CLI");
-        out.println("Vuoi passare al client Grafico? [S/N]");
-        out.println("\n\n< Torna al menu. (B)");
-        if (in.next() == "B" || in.next() == "b") {
-            optionInt();
-        }
-        else if(in.next() == "S" || in.next() == "s"){
-            out.println("Hai deciso di passare al client grafico, tra pochi secondi il client si chiuderà e dovrai riaprirlo usando ClientGrafico.");
-            //implementare switch
-        }
-        else{
-            out.println("Rimarrai in modalità client CLI.");
-        }
-    }
-    */
 }
-
