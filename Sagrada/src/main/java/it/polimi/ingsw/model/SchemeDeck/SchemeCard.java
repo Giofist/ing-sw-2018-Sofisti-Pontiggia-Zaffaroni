@@ -269,11 +269,13 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
                 }
             }
         }
+        return string;
     }
+
+
 
     //metodi private
     // lo setto private per non esporre l'implementazione
-
     private Tile getTile(int row, int column)throws OutOfMatrixException{
         if(row <0 || row > 3 || column <0 || column >4){
             throw new OutOfMatrixException();

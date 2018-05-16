@@ -87,7 +87,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
                     try {
                         servercontroller.register(username, password);
                     } catch (RemoteException e) {
-
+                        System.out.println(e.getMessage());
                     }
                     out.println("Esegui il LogIn con l'account appena creato:");
                     logInt();
