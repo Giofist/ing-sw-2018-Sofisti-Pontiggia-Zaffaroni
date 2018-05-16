@@ -22,7 +22,7 @@ public class ColoriDiversiColonnaTest {
     private int points;
 
     @Before
-    public void before() throws OutOfMatrixException, DiceNotExistantException {
+    public void before() {
         publicObjectiveCard = new ColoriDiversiColonna();
         mockPlayer = mock(Player.class);
         mockSchemeCard = mock(SchemeCard.class);
@@ -48,13 +48,12 @@ public class ColoriDiversiColonnaTest {
         when(mockSchemeCard.getDiceColour(1,0)).thenReturn(DiceColor.YELLOW);
         when(mockSchemeCard.getDiceColour(2,0)).thenReturn(DiceColor.BLUE);
         when(mockSchemeCard.getDiceColour(3,0)).thenReturn(DiceColor.RED);
-        when(mockSchemeCard.getDiceColour(4,0)).thenReturn(DiceColor.VIOLET);
+
 
         when(mockSchemeCard.getDiceColour(0,3)).thenReturn(DiceColor.GREEN);
         when(mockSchemeCard.getDiceColour(1,3)).thenReturn(DiceColor.YELLOW);
         when(mockSchemeCard.getDiceColour(2,3)).thenReturn(DiceColor.BLUE);
-        when(mockSchemeCard.getDiceColour(3,3)).thenReturn(DiceColor.RED);
-        when(mockSchemeCard.getDiceColour(4,3)).thenReturn(DiceColor.VIOLET);
+        when(mockSchemeCard.getDiceColour(3,3)).thenReturn(DiceColor.VIOLET);
 
         // Invoking the calculate point function
         publicObjectiveCard.calculatepoint(mockPlayer);
@@ -64,4 +63,39 @@ public class ColoriDiversiColonnaTest {
     }
 
     // Implement also the situation in which the objective is not satisfied
+    @Test
+    public void calculatePointNoNewPointsTest() throws OutOfMatrixException, DiceNotExistantException {
+        when(mockSchemeCard.getDiceColour(0,0)).thenReturn(DiceColor.GREEN);
+        when(mockSchemeCard.getDiceColour(1,0)).thenReturn(DiceColor.GREEN);
+        when(mockSchemeCard.getDiceColour(2,0)).thenReturn(DiceColor.BLUE);
+        when(mockSchemeCard.getDiceColour(3,0)).thenReturn(DiceColor.RED);
+
+
+        when(mockSchemeCard.getDiceColour(0,3)).thenReturn(DiceColor.GREEN);
+        when(mockSchemeCard.getDiceColour(1,3)).thenReturn(DiceColor.YELLOW);
+        when(mockSchemeCard.getDiceColour(2,3)).thenReturn(DiceColor.BLUE);
+        when(mockSchemeCard.getDiceColour(3,3)).thenReturn(DiceColor.RED);
+
+        // Invoking the calculate point function
+        publicObjectiveCard.calculatepoint(mockPlayer);
+
+        assertEquals(5, points);
+
+    }
+
+
+    @Test
+    public void getIdTest() {
+        assertEquals(2, publicObjectiveCard.getID());
+    }
+
+    @Test
+    public void getName() {
+        assertEquals("Colori Diversi - Colonna", publicObjectiveCard.getName());
+    }
+
+    @Test
+    public void getDescription() {
+        assertEquals("Colonne senza colori ripetuti.", publicObjectiveCard.getDescription());
+    }
 }
