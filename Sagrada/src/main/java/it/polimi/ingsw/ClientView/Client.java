@@ -21,7 +21,7 @@ public class Client {
 
         //avvio una view in client per poi chiamare alternativamnete in base alla scelta utente RMI o Socket
         System.out.println("Benvenuto nel SetUP partita di Sagrada!\n" +
-                "Qui puoi selezionare se giocare usando la connessione di tipo RMI (R) oppure Socket (S).\n " +
+                "Qui puoi selezionare se giocare usando la connessione di tipo RMI (R) oppure Socket (S).\n" +
                 "Seleziona ora la tua scelta digitando R per RMI o S per Socket:");
         while (!correct) {
             String input = in.nextLine();
@@ -32,9 +32,9 @@ public class Client {
                 ClientHandlerInterface controller = (ClientHandlerInterface) rmiRegistry.lookup("ClientHandler");
                 new ObserverView(controller).run();
                 correct = true;
-            } else if (input.equals("R") || input.equals("r")) {
+            } else if (input.equals("S") || input.equals("s")) {
                 Socket socket = new Socket(ipAddr, 1337);
-                System.out.println("Connessione stabilita\n");
+                System.out.println("Connessione stabilita!\n");
                 ObserverView observerView = new ObserverView();
                 SocketObserverView socketObserverView = new SocketObserverView(socket, observerView);
                 observerView.setServercontroller(socketObserverView);

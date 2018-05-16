@@ -26,7 +26,8 @@ public class Server {
         ClientHandler controller = new ClientHandler();
         TurnController turnController = new TurnController();
 
-        // System.setProperty("java.rmi.server.hostname","10.169.214.40");
+        System.setProperty("java.rmi.server.hostname","192.168.1.2");
+        //System.setProperty("java.rmi.server.hostname","10.169.214.40");
         Registry registry = LocateRegistry.getRegistry();
         registry.rebind("ClientHandler", controller);
         System.out.println("Waiting for invocations from clients...\n");
