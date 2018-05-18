@@ -50,4 +50,5 @@ public class PinzaSgrossatrice  implements ToolAction {
 
     @Override
     public String getCardTitle(){return cardTitle;}
+
 }
