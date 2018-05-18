@@ -14,6 +14,7 @@ import it.polimi.ingsw.model.*;
 public class Server {
 
     public static void main(String[] args) throws RemoteException{
+        int RMI_PORT = 1099;
         //creo i due "database" di cu idevo tenere consistenza nel server
         GamesList gameslist = GamesList.singleton();
         UsersList usersList = UsersList.Singleton();
@@ -28,7 +29,7 @@ public class Server {
 
         System.setProperty("java.rmi.server.hostname","192.168.1.2");
         //System.setProperty("java.rmi.server.hostname","10.169.214.40");
-        Registry registry = LocateRegistry.getRegistry();
+        Registry registry = LocateRegistry.createRegistry(RMI_PORT);
         registry.rebind("ClientHandler", controller);
         System.out.println("Waiting for invocations from clients...\n");
 
@@ -44,7 +45,6 @@ public class Server {
         //magari modo di usare un'altra calsse per il turno e cambiare grafica magari
         registry.rebind("TurnController",turnController );
         System.out.println("Waiting for invocations from clients...\n");
-
 
     }
 
