@@ -30,14 +30,14 @@ public class Dice implements Serializable {
     }
 
     public void increaseIntensity() throws IncreaseNotAllowedException {
-        if (this.INTENSITY == 6)
+        if (this.getIntensity() == 6)
             throw new IncreaseNotAllowedException();
 
         this.INTENSITY += 1;
     }
 
     public void decreaseIntensity () throws DecreaseNotAllowedException {
-        if (this.INTENSITY == 1)
+        if (this.getIntensity() == 1)
             throw new DecreaseNotAllowedException();
 
         this.INTENSITY -= 1;
