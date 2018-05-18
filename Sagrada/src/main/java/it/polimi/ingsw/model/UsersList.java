@@ -2,6 +2,7 @@ package it.polimi.ingsw.model;
 import it.polimi.ingsw.model.Exceptions.HomonymyException;
 import it.polimi.ingsw.model.Exceptions.UserNotExistantException;
 
+import javax.security.auth.login.LoginException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -63,13 +64,14 @@ public class UsersList {
     }
 
 
-    //metodo che controlla il login corretto
-    synchronized public boolean check( String name, String password){
+    //metodo che controlla la correttezza del login
+    // ho creato LoginException, ma sicome esiste già una classe loginExcpetion in una libreria standard di java, allora devo scrivere tutto il package
+    synchronized public boolean check( String name, String password)throws it.polimi.ingsw.model.Exceptions.LoginException {
         for (User user : this.users){
             if (user.getName() == name && user.getPassword() == password)
                 return true;
         }
-        return false;
+        throw new it.polimi.ingsw.model.Exceptions.LoginException();
     }
 
 

@@ -5,6 +5,7 @@ import it.polimi.ingsw.ClientView.ObserverViewInterface;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.Exceptions.GameNotExistantException;
 import it.polimi.ingsw.model.Exceptions.HomonymyException;
+import it.polimi.ingsw.model.Exceptions.LoginException;
 import it.polimi.ingsw.model.Exceptions.UserNotExistantException;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 
@@ -31,7 +32,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
         try {
             UsersList.Singleton().checkHomonymy(username);
         } catch (HomonymyException e) {
-            throw new RemoteException("Username already in use!\n");
+            throw new RemoteException(e.getMessage());
         }
 
         // Then we proceed to register and notify the new User
@@ -42,8 +43,10 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     // Implementing the login method
     @Override
     synchronized public void login(String username, String password) throws RemoteException{
-         if(UsersList.Singleton().check(username, password) == false){
-             throw new RemoteException("Invalid username or password!");
+         try{
+             UsersList.Singleton().check(username, password);
+         }catch(LoginException e){
+             throw new RemoteException(e.getMessage());
          }
     }
 

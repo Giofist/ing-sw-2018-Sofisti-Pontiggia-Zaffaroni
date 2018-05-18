@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model.Exceptions;
 
 public class IncreaseNotAllowedException extends Exception {
-    private static final String msg = "Increase not allowed";
+    private static final String msg = "Non puoi aumentare il valore di questo dado\n";
     public IncreaseNotAllowedException(String msg){
         super(msg);
     }

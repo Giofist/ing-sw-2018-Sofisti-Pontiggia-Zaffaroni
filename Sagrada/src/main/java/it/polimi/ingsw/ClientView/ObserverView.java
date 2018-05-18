@@ -15,7 +15,7 @@ import static java.lang.System.*;
 
 
 //implemented by pon
-//non implemeta runnable
+//non implementa runnable
 public class ObserverView extends UnicastRemoteObject implements ObserverViewInterface, FeedObserverView {
     private ClientHandlerInterface servercontroller;
     private final Scanner in;
@@ -109,7 +109,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
                 signInInt();
                 successo = true;
             }catch (RemoteException e) {
-                out.println("Qualcosa è andato storto con il LogIn!\n");
+                out.println(e.getMessage());
                 out.close();
                 in.close();
             }

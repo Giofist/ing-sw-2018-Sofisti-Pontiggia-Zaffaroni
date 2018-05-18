@@ -18,12 +18,11 @@ public class GamesList {
     private List<Game> games;
 
     //private constructor
-    //questo è un modo per ritornare
+
     private GamesList(){
         this.games = new LinkedList<Game>();
     }
-    //method to access/createGame the unique instance of the class
-    //qui per sincronizzare utilizzo il lock intrinseco che possiede ogni classe, e nello speficico la classe GamesList
+
     public  synchronized static GamesList singleton() {
         if (instance == null)
             instance = new GamesList();
@@ -33,8 +32,8 @@ public class GamesList {
 
 
     //createGame a game and add to the existant list
-    //secondo voi è giusto che qui la RemoteException venga rilanciata? Ne avremo un'idea più chiara quando vedrmeo bene come fare la classe Game
-    public synchronized Game createGame(Player player, String game_name) throws HomonymyException,RemoteException {
+
+    public synchronized Game createGame(Player player, String game_name) throws HomonymyException {
         for (Game previousGame: this.games){
             if (previousGame.getName()== game_name) {
                 throw new HomonymyException();

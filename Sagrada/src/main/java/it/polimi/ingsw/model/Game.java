@@ -8,10 +8,7 @@ import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.*;
 
-
-//non terminata
-//notate bene che da specifica il timer deve essere caricato da file
-//l'idea è che ogni partita sia gestita da un thread, per questo impleemnta runnable e ha un metodo run
+//manca solo il timer
 public class Game {
     private String game_name;
     private LinkedList<Player> players;
@@ -20,7 +17,7 @@ public class Game {
 
 
     //public constructor
-    public Game(Player player, String game_name) throws RemoteException {
+    public Game(Player player, String game_name)  {
         this.game_name = game_name;
         this.players = new LinkedList<>();
         this.players.addFirst(player);
@@ -61,12 +58,12 @@ public class Game {
                     // questo è per notificare che la partita sta per iniziare
                     // nella notifica viene chiesto a ciascun utente di settare una schemecard scegliendola tra due
                     // in realtà la scelta è tra quattro, perchè ogni scheme card ha due facce
-                    //notifyGameISStarting fa aggiungere al playerv anche una schemecard
+                    //notifyGameISStarting fa avere anche al player una carta obiettivo privato, questo ricordatevelo per l'esecuzione
                     player.startGame(getGametable().getSchemeCard(), getGametable().getSchemeCard());
                     success = true;
                 } catch (MapConstrainReadingException e) {
                     //qui ho pensato che sul server fosse utile permettere all'amministratore di sistema poter gestire
-                    //i casi in cui le mappe non vengono lette correttamente, per poterle correggere manualmente
+                    //i casi in cui le mappe non vengono lette correttamente, per poterle correggere manualmente nel file
                     System.out.println(e.getMessage());
                 }
             }
