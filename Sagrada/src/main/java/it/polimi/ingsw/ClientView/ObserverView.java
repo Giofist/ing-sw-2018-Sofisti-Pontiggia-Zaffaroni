@@ -6,11 +6,12 @@ import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.GamesList;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 
-import javax.swing.plaf.synth.SynthEditorPaneUI;
 import java.io.PrintWriter;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Scanner;
+
+import static java.lang.System.*;
 
 
 //implemented by pon
@@ -43,77 +44,85 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         String stringa = servercontroller.rmiTest("RMI");
         System.out.println("La connessione è in modalità: " + stringa);
         loadingInt();
+        choseInt();
         loginInt();
         menuInt();
     }
 
+    private void choseInt() throws RemoteException {
+        boolean successo = false;
+        String input;
+        while (!successo) {
+            System.out.println("Hai già un account? [S/N]\n");
+            input = in.nextLine();
+            if ( input.equals("S") || input.equals("s")) {
+                signInInt();
+                successo = true;
+            }
+            else if (input.equals("N") || input.equals("n")){
+                loginInt();
+                successo = true;
+            }
+            else
+                System.out.println("Hai sbagliato a digitare.");
+        }
+    }
+
     private void loadingInt() {
+        System.out.println("Benvenuto in...\n");
         System.out.print("\n" +
                 "   ▄████████    ▄████████    ▄██████▄     ▄████████    ▄████████ ████████▄     ▄████████ \n" +
                 "  ███    ███   ███    ███   ███    ███   ███    ███   ███    ███ ███   ▀███   ███    ███ \n" +
                 "  ███    █▀    ███    ███   ███    █▀    ███    ███   ███    ███ ███    ███   ███    ███ \n" +
                 "  ███          ███    ███  ▄███         ▄███▄▄▄▄██▀   ███    ███ ███    ███   ███    ███ \n" +
-                "▀███████████ ▀███████████ ▀▀███ ████▄  ▀▀███▀▀▀▀▀   ▀███████████ ███    ███ ▀███████████ \n" +
+                "  ▀███████████ ▀███████████ ▀▀███ ████▄  ▀▀███▀▀▀▀▀   ▀███████████ ███    ███ ▀███████████ \n" +
                 "         ███   ███    ███   ███    ███ ▀███████████   ███    ███ ███    ███   ███    ███ \n" +
                 "   ▄█    ███   ███    ███   ███    ███   ███    ███   ███    ███ ███   ▄███   ███    ███ \n" +
                 " ▄████████▀    ███    █▀    ████████▀    ███    ███   ███    █▀  ████████▀    ███    █▀  \n" +
                 "                                         ███    ███                                      \n\n");
-        System.out.println("Benvenuto in Sagrada!\n");
+
 
 
     }
 
     private void loginInt() throws RemoteException {
-
+        String username;
         String password;
-        boolean successo = false;
-        boolean back = false;
 
-        do {
-            successo = true;
-            System.out.println("\n\n< Torna al menu. (B)\n");
-            if (in.next() == "B" || in.next() == "b") {
-                back = true;
-            }
+        boolean successo = false;
+
+        while (successo == false) {
             try {
-                System.out.println("Hai già un account? [S/N]\n");
-                if (in.next() == "S" || in.next() == "s") {
-                    logInt();
-                } else {
-                    System.out.println("Inserisci un nuovo Username:\n");
-                    username = in.nextLine();
-                    out.println("Inserisci una password:\n");
-                    password = in.nextLine();
-                    try {
-                        servercontroller.register(username, password);
-                    } catch (RemoteException e) {
-                        System.out.println(e.getMessage());
-                    }
-                    out.println("Esegui il LogIn con l'account appena creato:");
-                    logInt();
+                System.out.println("Inserisci un nuovo Username:\n");
+                username = in.nextLine();
+                out.println("Inserisci una password:\n");
+                password = in.nextLine();
+                try {
+                    servercontroller.register(username, password);
+                } catch (RemoteException e) {
+                    System.out.println(e.getMessage());
                 }
+                out.println("Esegui il LogIn con l'account appena creato:");
+                signInInt();
                 successo = true;
-            } catch (RemoteException e) {
+            }catch (RemoteException e) {
                 out.println("Qualcosa è andato storto con il LogIn!\n");
                 out.close();
                 in.close();
             }
-        } while (successo == false || back == false);
-        if (back == true) menuInt();
+        }
     }
 
 
-    private void logInt() throws RemoteException {
+
+
+    private void signInInt() throws RemoteException {
         String username;
         String password;
         boolean successo = true;
-        boolean back = false;
         do {
             successo = true;
-            System.out.println("\n\n< Torna al menu. (B)\n");
-            if (in.next() == "B" || in.next() == "b") {
-                back = true;
-            }
+
             out.println("Inserisci username:\n");
             username = in.nextLine();
             out.println("Inserisci password:\n");
@@ -124,11 +133,9 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
                 System.out.println(e.getMessage());
                 successo = false;
             }
-        } while (successo == false || !back);
-        if (back) {
-            menuInt();   //usato per uscire dal ciclo e tronare al log in in caso di misstype.
+        } while (successo == false);
         }
-    }
+
 
     private void menuInt() throws RemoteException {
         Scanner in = new Scanner(System.in);

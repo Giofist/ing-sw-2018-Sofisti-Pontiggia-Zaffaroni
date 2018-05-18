@@ -31,7 +31,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
         try {
             UsersList.Singleton().checkHomonymy(username);
         } catch (HomonymyException e) {
-            throw new RemoteException("Username already in use\n");
+            throw new RemoteException("Username already in use!\n");
         }
 
         // Then we proceed to register and notify the new User
@@ -43,7 +43,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     @Override
     synchronized public void login(String username, String password) throws RemoteException{
          if(UsersList.Singleton().check(username, password) == false){
-             throw new RemoteException("Invalid username or password");
+             throw new RemoteException("Invalid username or password!");
          }
     }
 
