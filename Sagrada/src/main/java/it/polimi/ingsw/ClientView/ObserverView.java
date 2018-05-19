@@ -98,18 +98,18 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
             try {
                 System.out.println("Inserisci un nuovo Username:\n");
                 username = in.nextLine();
-                out.println("Inserisci una password:\n");
+                System.out.println("Inserisci una password:\n");
                 password = in.nextLine();
                 try {
                     servercontroller.register(username, password);
                 } catch (RemoteException e) {
                     System.out.println(e.getMessage());
                 }
-                out.println("Esegui il LogIn con l'account appena creato:");
+                System.out.println("Esegui il LogIn con l'account appena creato!");
                 signInInt();
                 successo = true;
             }catch (RemoteException e) {
-                out.println(e.getMessage());
+                System.out.println(e.getMessage());
                 out.close();
                 in.close();
             }
@@ -120,15 +120,15 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
 
 
     private void signInInt() throws RemoteException {
+        Scanner in = new Scanner(System.in);
         String username;
         String password;
-        boolean successo = true;
+        boolean successo;
         do {
             successo = true;
-
-            out.println("Inserisci username:\n");
+            System.out.println("Inserisci username:\n");
             username = in.nextLine();
-            out.println("Inserisci password:\n");
+            System.out.println("Inserisci password:\n");
             password = in.nextLine();
             try {
                 servercontroller.login(username, password);
@@ -142,11 +142,11 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
 
     private void menuInt() throws RemoteException {
         Scanner in = new Scanner(System.in);
-        PrintWriter out = new PrintWriter(System.out);
-        out.println("Benvenuto nel menù principale di Sagrada!");
-        out.println("- Multi Giocatore (M)");
-        out.println("- Giocatore Singolo (Coming soon!)");
-        //out.println("- Impostazioni (I)");
+
+        System.out.println("Benvenuto nel menù principale di Sagrada!");
+        System.out.println("- Multi Giocatore (M)");
+        System.out.println("- Giocatore Singolo (Coming soon!)");
+        //System.out.println("- Impostazioni (I)");
         if (in.next() == "M" || in.next() == "m") {
             multiInt();
         }
@@ -154,9 +154,9 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
 
     private void multiInt() throws RemoteException { //da implemnetare
         Scanner in = new Scanner(System.in);
-        PrintWriter out = new PrintWriter(System.out);
-        out.println("/n/nVuoi creare o partecipare ad una partita? [C/P]");
-        out.println("\n\n< Torna al menu. (B)");
+
+        System.out.println("/n/nVuoi creare o partecipare ad una partita? [C/P]");
+        System.out.println("\n\n< Torna al menu. (B)");
         if (in.next() == "B" || in.next() == "b") {
             menuInt();
         } else if (in.next() == "C" || in.next() == "c") {
@@ -167,24 +167,24 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
     private void partecipaInt() throws RemoteException {
         String gamename = null;
         Scanner in = new Scanner(System.in);
-        PrintWriter out = new PrintWriter(System.out);
-        out.println("Scegli la partita a cui vuoi partecipare dalla lista:");
+
+        System.out.println("Scegli la partita a cui vuoi partecipare dalla lista:");
         for (Game game : GamesList.singleton().getgames()) {
             // Correzione per pushare codice non rotto (ho tenuta la vecchia riga verifica che la nuova vada bene)
             //out.println(game.getName() + "; Giocatori che stanno partecipando: " + game.getActualNumberOfPlayers() + "Giocatori necessari alla partita: " + game.getMaxNumberPlayers() + "\n");
-            out.println(game.getName() + "; Giocatori che stanno partecipando: " + game.getNumberOfPlayers() + "Giocatori necessari alla partita: 4\n");
+            System.out.println(game.getName() + "; Giocatori che stanno partecipando: " + game.getNumberOfPlayers() + "Giocatori necessari alla partita: 4\n");
         }
         boolean chosen = false;
         while (!chosen) {
-            out.println("Vuoi ancora partecipare ad una partita? [S/N]\n");
+            System.out.println("Vuoi ancora partecipare ad una partita? [S/N]\n");
             if (in.nextLine() == "S" || in.nextLine() == "s") {
                 while (!servercontroller.isMatchInList(gamename)) {
-                    out.println("Digita il il nome della partita cui vuoi partecipare:\n");
+                    System.out.println("Digita il il nome della partita cui vuoi partecipare:\n");
                     gamename = in.nextLine();
                     try {
                         servercontroller.joinaGame(username, gamename);
                     } catch (RemoteException e) {
-                        out.println(e.getMessage());
+                        System.out.println(e.getMessage());
                     }
                 }
                 waitingInt();
@@ -201,7 +201,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
     private void startGameInt() {
         Scanner in = new Scanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        out.println("Il gioco inizia ora!");
+        System.out.println("Il gioco inizia ora!");
 
         //to be implemented.
     }
@@ -209,8 +209,8 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
     private void waitingInt() {
         Scanner in = new Scanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        out.println("Attendi che altri giocatori entrino in partita...\n");
-        ;
+        System.out.println("Attendi che altri giocatori entrino in partita...\n");
+
     }
 
 
@@ -218,21 +218,21 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         boolean success = false;
         Scanner in = new Scanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        out.println("Stai per creare una partita di sagrada./n" +
+        System.out.println("Stai per creare una partita di sagrada./n" +
                 "Inserisci il nome della partita:\n");
         while (!success) {
             try {
                 String name = in.nextLine();
-                out.println("Scegli il numero di giocatori necessario alla partita (incluso te stesso) [0/4]\n");
+                System.out.println("Scegli il numero di giocatori necessario alla partita (incluso te stesso) [0/4]\n");
                 int max = in.nextInt();
                 if (max < 2 || max > 4) {
                     throw new NumberOfPlayersNotAllowedException();
                 }
                 servercontroller.createGame(username, this, this, name);   //mancano observer e forse anche num players
-                out.println("Attendi che alttri giocatori partecipino alla partita.\n Divertiti!\n");
+                System.out.println("Attendi che alttri giocatori partecipino alla partita.\n Divertiti!\n");
                 success = true;
             } catch (Exception e) {
-                out.println(e.getMessage());
+                System.out.println(e.getMessage());
             }
         }
     }
