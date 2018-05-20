@@ -141,27 +141,33 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
 
 
     private void menuInt() throws RemoteException {
+        String input;
         Scanner in = new Scanner(System.in);
 
         System.out.println("Benvenuto nel menù principale di Sagrada!");
         System.out.println("- Multi Giocatore (M)");
         System.out.println("- Giocatore Singolo (Coming soon!)");
+        input = in.nextLine();
         //System.out.println("- Impostazioni (I)");
-        if (in.next() == "M" || in.next() == "m") {
+        if (input.equals("M") || input.equals("m")) {
             multiInt();
         }
     }
 
     private void multiInt() throws RemoteException { //da implemnetare
+        String input;
         Scanner in = new Scanner(System.in);
-
-        System.out.println("/n/nVuoi creare o partecipare ad una partita? [C/P]");
-        System.out.println("\n\n< Torna al menu. (B)");
-        if (in.next() == "B" || in.next() == "b") {
+        System.out.println("< Torna al menu. (B)");
+        System.out.println("Vuoi creare o partecipare ad una partita? [C/P]");
+        input = in.nextLine();
+        if (input.equals("B") || input.equals("b")) {
             menuInt();
-        } else if (in.next() == "C" || in.next() == "c") {
+        } else if (input.equals("C") || input.equals("c")) {
             creaInt();
-        } else partecipaInt();
+        } else if (input.equals("P") || input.equals("p")) {
+            partecipaInt();
+        }
+        else System.out.println("Hai sbagliato a digitare!");
     }
 
     private void partecipaInt() throws RemoteException {
@@ -218,7 +224,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         boolean success = false;
         Scanner in = new Scanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        System.out.println("Stai per creare una partita di sagrada./n" +
+        System.out.println("Stai per creare una partita di Sagrada.\n" +
                 "Inserisci il nome della partita:\n");
         while (!success) {
             try {
