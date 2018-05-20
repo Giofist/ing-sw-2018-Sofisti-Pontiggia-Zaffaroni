@@ -45,7 +45,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         System.out.println("La connessione è in modalità: " + stringa);
         loadingInt();
         choseInt();
-        loginInt();
+        //loginInt();
         menuInt();
     }
 
