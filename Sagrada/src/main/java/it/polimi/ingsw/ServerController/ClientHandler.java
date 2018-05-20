@@ -185,7 +185,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
 
 
     @Override
-    public List getActiveMatchList() throws RemoteException{
+    public List getActiveMatchList() throws RemoteException{//to be implemented
         return null;
     }
 
