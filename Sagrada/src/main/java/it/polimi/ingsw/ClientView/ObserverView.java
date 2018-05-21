@@ -9,7 +9,9 @@ import java.io.PrintWriter;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Scanner;
-//import org.fusesource.jansi.AnsiConsole;
+import org.fusesource.jansi.AnsiConsole;
+
+import static org.fusesource.jansi.Ansi.ansi;
 
 //implemented by pon
 //non implementa runnable
@@ -93,8 +95,10 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
 
         while (successo == false) {
             try {
-                //AnsiConsole.systemInstall();
-                System.out.println("Inserisci un nuovo Username:");
+                System.setProperty("jansi.passthrough", "true");
+                AnsiConsole.systemInstall();
+                System.out.println(ansi().eraseScreen().render("@|red Inserisci un nuovo Username:|@"));
+                AnsiConsole .systemUninstall();
                 username = in.nextLine();
                 this.yourName = username;
                 System.out.println("Inserisci una password:");
