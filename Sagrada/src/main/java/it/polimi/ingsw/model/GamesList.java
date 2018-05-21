@@ -18,11 +18,11 @@ public class GamesList {
     private List<Game> games;
 
     //private constructor
-
     private GamesList(){
         this.games = new LinkedList<Game>();
     }
 
+    //singleton design pattern
     public  synchronized static GamesList singleton() {
         if (instance == null)
             instance = new GamesList();
@@ -32,7 +32,6 @@ public class GamesList {
 
 
     //createGame a game and add to the existant list
-
     public synchronized Game createGame(Player player, String game_name) throws HomonymyException {
         for (Game previousGame: this.games){
             if (previousGame.getName().equals(game_name) ) {

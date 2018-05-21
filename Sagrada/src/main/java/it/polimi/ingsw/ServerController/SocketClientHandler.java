@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ServerController;
 
+import it.polimi.ingsw.ClientView.FeedObserverView;
 import it.polimi.ingsw.ClientView.ObserverViewInterface;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 
@@ -9,7 +10,7 @@ import java.net.Socket;
 import java.rmi.RemoteException;
 import java.util.Scanner;
 
-public class SocketClientHandler implements Runnable, ObserverViewInterface {
+public class SocketClientHandler implements Runnable, ObserverViewInterface, FeedObserverView {
     private Socket socket;
     private ClientHandler controller;
     Scanner in;
@@ -24,9 +25,48 @@ public class SocketClientHandler implements Runnable, ObserverViewInterface {
     }
     @Override
     public void run (){
-        switch(in.nextInt()){
-            case 1: out.println(1);
+        int i=0;
+        while (i==0){
+            String command = in.next();
+            System.out.println("the command I've received: " +command);
+            switch(command){
+                case "register": try{
+                    String username = in.next();
+                    String password = in.next();
+                    controller.register(username, password);
+                    out.println(1);
+                    out.flush();
+                }catch(RemoteException e){
+                    out.println(0 + " " +e.getMessage());
+                    out.flush();
+                }
+                break;
+                case "login": try{
+                    String username = in.next();
+                    String password = in.next();
+                    controller.login(username, password);
+                    out.println(1);
+                    out.flush();
+                }catch(RemoteException e){
+                    out.println(0 + " " +e.getMessage());
+                    out.flush();
+                }
+                break;
+                case "createGame": try{
+                    String username = in.next();
+                    String gamename = in.next();
+                    controller.createGame(username, this,this, gamename);
+                    out.println(1);
+                    out.flush();
+                }catch(RemoteException e){
+                    out.println(0 + " " +e.getMessage());
+                    out.flush();
+                }
+                break;
+
+            }
         }
+
     }
 
     @Override

@@ -15,7 +15,6 @@ public class SocketObserverView implements ClientHandlerInterface{
     private Socket socket;
     Scanner in;
     PrintWriter out;
-
     private ObserverViewInterface observerView;
 
     public SocketObserverView(Socket socket, ObserverViewInterface observerView) throws IOException{
@@ -34,21 +33,34 @@ public class SocketObserverView implements ClientHandlerInterface{
 
     @Override
     public void register(String username, String password) throws RemoteException {
-        out.println(1 + username + password);
+        out.println("register " + username + " " +password);
+        out.flush();
         switch(in.nextInt()){
             case 1: return;
+            case 0: throw new RemoteException(in.nextLine());
         }
 
     }
 
     @Override
-    public void login(String clientname, String password) throws RemoteException {
+    public void login(String username, String password) throws RemoteException {
+        out.println("login " + username + " " +password);
+        out.flush();
+        switch(in.nextInt()){
+            case 1: return;
+            case 0: throw new RemoteException(in.nextLine());
+        }
 
     }
 
     @Override
-    public void createGame(String clientname, ObserverViewInterface client, FeedObserverView Client, String gamename) throws RemoteException {
-
+    public void createGame(String username, ObserverViewInterface client, FeedObserverView Client, String gamename) throws RemoteException {
+        out.println("createGame " + username + " " +gamename);
+        out.flush();
+        switch(in.nextInt()){
+            case 1: return;
+            case 0: throw new RemoteException(in.nextLine());
+        }
     }
 
     @Override

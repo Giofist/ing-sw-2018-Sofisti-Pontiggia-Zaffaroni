@@ -113,7 +113,6 @@ public class Player implements Comparable<Player>{
             return this.diceforDiluenteperPastaSalda
             ;
         }
-
     }
     public void  removediceforDiluenteperPastaSalda(){
         this.diceforDiluenteperPastaSalda = null;
@@ -124,26 +123,21 @@ public class Player implements Comparable<Player>{
     public boolean getMustsetDice(){
         return this.mustsetdice;
     }
-
     public int getNumberoftimesyouhaveplayedthisround() {
         return numberoftimesyouhaveplayedthisround;
     }
-
     public void setNumberoftimesyouhaveplayedthisround(int numberoftimesyouhaveplayedthisround) {
         this.numberoftimesyouhaveplayedthisround += 1;
     }
-
     public DiceColor getColorConstrainForTaglierinaManuale() {
         return colorConstrainForTaglierinaManuale;
     }
     public void setColorConstrainForTaglierinaManuale(DiceColor dicecolor){
         this.colorConstrainForTaglierinaManuale = dicecolor;
     }
-
     public boolean MustpassTurn() {
         return mustpassTurn;
     }
-
     public void setMustpassTurn( boolean mustpassTurn) {
         this.mustpassTurn = mustpassTurn;
     }

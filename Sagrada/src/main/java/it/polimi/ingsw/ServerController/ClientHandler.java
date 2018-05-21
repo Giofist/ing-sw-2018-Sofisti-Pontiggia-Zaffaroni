@@ -13,7 +13,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
-
+// this is the controller
 public class ClientHandler extends UnicastRemoteObject implements ClientHandlerInterface {
 
     //constructor

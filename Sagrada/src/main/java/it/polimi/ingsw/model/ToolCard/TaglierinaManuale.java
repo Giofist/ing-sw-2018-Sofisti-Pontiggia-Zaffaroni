@@ -43,6 +43,7 @@ public class TaglierinaManuale  implements ToolAction {
             if (diceColors.contains(removedDice.getColor())){
                 player.getScheme().removeDice(oldRow1,oldColumn1);
                 player.getScheme().setDice(removedDice, newRow1,newColumn1,false,false,false);
+                player.setColorConstrainForTaglierinaManuale(removedDice.getColor());
             }else{
                 throw new TaglierinaManualeException("Non c'è nessun dado con lo stesso colore nel Tracciato Round\n");
             }
