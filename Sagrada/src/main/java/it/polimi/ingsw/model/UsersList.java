@@ -103,7 +103,7 @@ public class UsersList {
 
     synchronized public User getUser(String name) throws UserNotExistantException {
         for (User user: this.users) {
-            if (user.getName() == name)
+            if (user.getName().equals(name))
                 return user;
         }
         throw new UserNotExistantException();

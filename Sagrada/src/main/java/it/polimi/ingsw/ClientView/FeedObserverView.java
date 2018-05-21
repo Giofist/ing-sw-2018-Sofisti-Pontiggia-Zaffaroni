@@ -1,5 +1,8 @@
 package it.polimi.ingsw.ClientView;
 
-public interface FeedObserverView {
-    public void update();
+import java.io.Serializable;
+import java.rmi.Remote;
+
+public interface FeedObserverView extends Remote {
+    //public void update();
 }

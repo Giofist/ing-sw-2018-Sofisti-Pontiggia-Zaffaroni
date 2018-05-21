@@ -1,7 +1,6 @@
 package it.polimi.ingsw.ClientView;
 
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
-import it.polimi.ingsw.model.Exceptions.NumberOfPlayersNotAllowedException;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.GamesList;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
@@ -11,8 +10,6 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Scanner;
 
-import static java.lang.System.*;
-
 
 //implemented by pon
 //non implementa runnable
@@ -20,7 +17,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
     private ClientHandlerInterface servercontroller;
     private final Scanner in;
     private final PrintWriter out;
-    private String username;
+    private String yourName;
 
     //constructor1
     public ObserverView() throws RemoteException {
@@ -98,6 +95,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
             try {
                 System.out.println("Inserisci un nuovo Username:");
                 username = in.nextLine();
+                this.yourName = username;
                 System.out.println("Inserisci una password:");
                 password = in.nextLine();
                 try {
@@ -189,7 +187,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
                     System.out.println("Digita il il nome della partita cui vuoi partecipare:");
                     gamename = in.nextLine();
                     try {
-                        servercontroller.joinaGame(username, gamename);
+                        servercontroller.joinaGame(yourName, gamename);
                     } catch (RemoteException e) {
                         System.out.println(e.getMessage());
                     }
@@ -237,8 +235,9 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
                 if (max < 2 || max > 4) {
                     throw new NumberOfPlayersNotAllowedException();
                 }*/
-                servercontroller.createGame(username, this, this, gamename);
-                System.out.println("Attendi che alttri giocatori partecipino alla partita.\n Divertiti!");
+
+                servercontroller.createGame(yourName, this, this, gamename);
+                System.out.println("Attendi che altri giocatori partecipino alla partita.\n Divertiti!");
                 waitingInt();
                 success = true;
             } catch (Exception e) {
@@ -277,7 +276,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
     @Override
     public void notifyaDraw() {
         try{
-            System.out.println("Hai pareggiato:"+"Il tuo punteggio è" + servercontroller.getmyPoints(this.username));
+            System.out.println("Hai pareggiato:"+"Il tuo punteggio è" + servercontroller.getmyPoints(this.yourName));
     }catch (RemoteException e ){
         System.out.println(e.getMessage());
     };
@@ -286,7 +285,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
     @Override
     public void notifyaLose() {
         try{
-            System.out.println("Mi spiace, hai perso"+ "Il tuo punteggio è" + servercontroller.getmyPoints(this.username));
+            System.out.println("Mi spiace, hai perso"+ "Il tuo punteggio è" + servercontroller.getmyPoints(this.yourName));
         }catch (RemoteException e ){
             System.out.println(e.getMessage());
         }
@@ -296,7 +295,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
     @Override
     public void notifyaWin() {
         try{
-            System.out.println("Congratulazioni, hai vinto"+ "Il tuo punteggio è" + servercontroller.getmyPoints(this.username));
+            System.out.println("Congratulazioni, hai vinto"+ "Il tuo punteggio è" + servercontroller.getmyPoints(this.yourName));
         }catch (RemoteException e ){
             System.out.println(e.getMessage());
         }

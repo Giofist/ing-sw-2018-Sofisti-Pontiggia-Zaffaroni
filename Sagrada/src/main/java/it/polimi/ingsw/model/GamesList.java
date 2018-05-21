@@ -35,7 +35,7 @@ public class GamesList {
 
     public synchronized Game createGame(Player player, String game_name) throws HomonymyException {
         for (Game previousGame: this.games){
-            if (previousGame.getName()== game_name) {
+            if (previousGame.getName().equals(game_name) ) {
                 throw new HomonymyException();
             }
         }

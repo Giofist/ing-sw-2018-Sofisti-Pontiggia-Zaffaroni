@@ -57,7 +57,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
             //creo un player, lo associo ad uno user e viceversa;
             Player player = new Player();
             User user = UsersList.Singleton().getUser(clientname);
-            user.setPlayer(new Player());
+            user.setPlayer(player);
             player.setUser(user);
 
             //creo effettivamente la partita
