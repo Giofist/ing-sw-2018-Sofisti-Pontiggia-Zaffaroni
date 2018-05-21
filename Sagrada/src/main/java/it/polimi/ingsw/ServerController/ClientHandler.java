@@ -27,7 +27,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
 
 
     @Override
-    synchronized public  void register(String username, String password) throws RemoteException{
+    synchronized public void register(String username, String password) throws RemoteException{
         // When the User wants to register a new account we first verify that there isn't another User with the same username
         try {
             UsersList.Singleton().checkHomonymy(username);

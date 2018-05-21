@@ -25,7 +25,7 @@ public class Game {
     }
 
 
-    public synchronized Game join(Player player)  throws RemoteException{
+    public synchronized Game join(Player player) throws RemoteException{
         try {
             this.players.addLast(player);
             player.setGame(this);
@@ -48,7 +48,7 @@ public class Game {
     }
 
 
-    public void start() throws IOException {
+    private void start() throws IOException {
         gametable = new Gametable(this.players.size());
         
         for (Player player : this.players) {

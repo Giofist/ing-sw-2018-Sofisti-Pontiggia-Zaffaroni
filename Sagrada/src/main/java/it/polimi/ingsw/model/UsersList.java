@@ -66,21 +66,21 @@ public class UsersList {
 
     //metodo che controlla la correttezza del login
     // ho creato LoginException, ma sicome esiste già una classe loginExcpetion in una libreria standard di java, allora devo scrivere tutto il package
-    synchronized public boolean check( String name, String password)throws it.polimi.ingsw.model.Exceptions.LoginException {
+    synchronized public void check( String name, String password)throws it.polimi.ingsw.model.Exceptions.LoginException {
         for (User user : this.users){
             if (user.getName().equals(name) && user.getPassword().equals(password))
-                return true;
+                return ;
         }
         throw new it.polimi.ingsw.model.Exceptions.LoginException();
     }
 
 
     //classe che permette di registrarsi
-    synchronized public User register (String name,String password) {
+    synchronized public void register (String name,String password) {
         User user = new User(name, password);
         this.users.add(user);
         System.out.println(name + " è stato registrato");
-        return user;
+        return ;
     }
     // to check Homonymy
     synchronized public void checkHomonymy(String name) throws HomonymyException{
