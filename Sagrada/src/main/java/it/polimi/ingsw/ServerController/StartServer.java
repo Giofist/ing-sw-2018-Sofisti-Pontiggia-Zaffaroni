@@ -13,6 +13,7 @@ public class StartServer implements Runnable{
 
     public StartServer (ClientHandler controller, int port){
         this.controller = controller;
+        this.port = port;
     }
 
 
