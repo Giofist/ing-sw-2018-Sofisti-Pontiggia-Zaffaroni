@@ -14,7 +14,8 @@ public class DiluentePerPastaSalda2 implements ToolAction{
             "Scegli il valore del nuovo dado e piazzalo, rispettando tutte le restrizioni di piazzamento.";
 
 
-    int row; int column;
+    int row;
+    int column;
     int diceIntesityToset;
     public DiluentePerPastaSalda2( int row, int column, int diceIntesityToset){
 

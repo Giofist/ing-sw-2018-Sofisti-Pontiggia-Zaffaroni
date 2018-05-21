@@ -1,13 +1,10 @@
 package it.polimi.ingsw.model;
 import it.polimi.ingsw.model.Exceptions.HomonymyException;
-import it.polimi.ingsw.model.Exceptions.UserNotExistantException;
+import it.polimi.ingsw.model.Exceptions.IsAlreadyActiveException;
+import it.polimi.ingsw.model.Exceptions.UserNotExistentException;
 
-import javax.security.auth.login.LoginException;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.lang.reflect.Array;
-import java.net.Socket;
 import java.util.*;
 
 
@@ -66,10 +63,15 @@ public class UsersList {
 
     //metodo che controlla la correttezza del login
     // ho creato LoginException, ma sicome esiste già una classe loginExcpetion in una libreria standard di java, allora devo scrivere tutto il package
-    synchronized public void check( String name, String password)throws it.polimi.ingsw.model.Exceptions.LoginException {
+    synchronized public void check( String name, String password)throws it.polimi.ingsw.model.Exceptions.LoginException, IsAlreadyActiveException {
         for (User user : this.users){
             if (user.getName().equals(name) && user.getPassword().equals(password))
+                if (user.isActive()){
+                throw new IsAlreadyActiveException();
+                }else{
+                user.setActive(true);
                 return ;
+                }
         }
         throw new it.polimi.ingsw.model.Exceptions.LoginException();
     }
@@ -101,12 +103,12 @@ public class UsersList {
         return users;
     }
 
-    synchronized public User getUser(String name) throws UserNotExistantException {
+    synchronized public User getUser(String name) throws UserNotExistentException {
         for (User user: this.users) {
             if (user.getName().equals(name))
                 return user;
         }
-        throw new UserNotExistantException();
+        throw new UserNotExistentException();
     }
 
 }

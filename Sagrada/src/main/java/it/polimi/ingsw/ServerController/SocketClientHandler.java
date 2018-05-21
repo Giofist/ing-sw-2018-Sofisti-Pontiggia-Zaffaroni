@@ -63,6 +63,14 @@ public class SocketClientHandler implements Runnable, ObserverViewInterface, Fee
                     out.flush();
                 }
                 break;
+                case "getActiveMatchList" : try{
+                    String list =controller.getActiveMatchList();
+                    out.println(1 + " "+ list);
+                    out.flush();
+                }catch(RemoteException e){
+                    out.println(0 + " " +e.getMessage());
+                    out.flush();
+                }
 
             }
         }

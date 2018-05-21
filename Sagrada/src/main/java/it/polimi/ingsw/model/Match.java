@@ -13,6 +13,7 @@ public class Match {
     private String game_name;
     private LinkedList<Player> players;
     private Gametable gametable;
+    private boolean started;
     
 
 
@@ -168,20 +169,25 @@ public class Match {
     public Gametable getGametable() {
         return gametable;
     }
-
+    public boolean isStarted() {
+        return started;
+    }
+    public void setStarted(boolean started){
+        this.started= started;
+    }
 
     //assolutamente da testare
     //come esegue la remove? Correttamente?
     //molto utile per il pattern observer, per non mettere dei riferimenti agli altri player
     //all'interno della classe player
-    public LinkedList<Player> getallPlayersbutnotme(Player player){
+    public List<Player> getallPlayersbutnotme(Player player){
         LinkedList<Player> list = new LinkedList<>();
         list.addAll(this.players);
         list.remove(player);
         return list;
     }
 
-    public LinkedList<Player> getallPlayers(){
+    public List<Player> getallPlayers(){
         LinkedList<Player> list = new LinkedList<>();
         list.addAll(this.players);
         return list;

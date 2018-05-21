@@ -17,11 +17,11 @@ public class GamesList {
 
     //private constructor
     private GamesList(){
-        this.matches = new LinkedList<Match>();
+        this.matches = new LinkedList<>();
     }
 
     //singleton design pattern
-    public  synchronized static GamesList singleton() {
+    public static synchronized  GamesList singleton() {
         if (instance == null)
             instance = new GamesList();
         return instance;

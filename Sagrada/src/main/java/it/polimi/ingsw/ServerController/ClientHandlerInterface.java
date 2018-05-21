@@ -2,10 +2,12 @@ package it.polimi.ingsw.ServerController;
 
 import it.polimi.ingsw.ClientView.FeedObserverView;
 import it.polimi.ingsw.ClientView.ObserverViewInterface;
+import it.polimi.ingsw.model.Match;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -28,9 +30,8 @@ public interface ClientHandlerInterface extends Remote {
     public List getPublicGoalCarddescriptions(String clientname) throws RemoteException;
     public List getPublicGoalCardids(String clientname) throws RemoteException;
     public List getPublicGoalCardnames(String clientname) throws RemoteException;
-    public List getActiveMatchList() throws RemoteException;
+    public String getActiveMatchList() throws RemoteException;
     public int getmyPoints(String clientname) throws RemoteException;
     public List getRanking(String clientname) throws RemoteException;
-        // public getActiveMatchList() throws RemoteException;
-        // Per questo metodo va deciso come ritornare il risultato
+
 }
