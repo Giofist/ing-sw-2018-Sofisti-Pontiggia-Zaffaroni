@@ -16,7 +16,7 @@ public class Player implements Comparable<Player>{
     private int segnalini_favore;
     private SchemeCard scheme;
     private int points;
-    private Game game;
+    private Match match;
 
 
 
@@ -77,7 +77,7 @@ public class Player implements Comparable<Player>{
         return this.scheme;
     }
     public Gametable getGametable(){
-        return getGame().getGametable();
+        return getMatch().getGametable();
     }
     public void addPoints(int points){
         this.points += points;
@@ -94,11 +94,11 @@ public class Player implements Comparable<Player>{
         this.user = user;
     }
 
-    public Game getGame() {
-        return game;
+    public Match getMatch() {
+        return match;
     }
-    public void setGame(Game game) {
-        this.game = game;
+    public void setMatch(Match match) {
+        this.match = match;
     }
 
     //metodi per gli attributi per le toolcard
@@ -164,11 +164,11 @@ public class Player implements Comparable<Player>{
     public void startGame(SchemeCard scheme1, SchemeCard scheme2)throws RemoteException{
         try{
             for(ObserverViewInterface observerViewInterface : this.observerViewInterfaces){
-                observerViewInterface.notifyGameisStarting(this.getGame().getName());
+                observerViewInterface.notifyGameisStarting(this.getMatch().getName());
                 observerViewInterface.showSchemeCards(scheme1,scheme2);
             }
             //all'inizio della partita viene anche aggiunta ad ogni player una carta obiettivo privato
-            setPrivateGoalCard(getGame().getGametable().getPrivateGoalCard());
+            setPrivateGoalCard(getMatch().getGametable().getPrivateGoalCard());
         }catch(PrivateGoalCardException e){
             notifyError(e.getMessage());
         }

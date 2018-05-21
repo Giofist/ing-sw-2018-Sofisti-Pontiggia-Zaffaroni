@@ -78,7 +78,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     @Override
     public boolean isMatchInList(String gamename) throws RemoteException {
        /* try {                                                             //to be implemented
-            for (Game game : GamesList.singleton().getgames()) {
+            for (Match game : GamesList.singleton().getgames()) {
                 if (game.getName().equals(gamename)) {
                     return true;
                 }
@@ -94,9 +94,9 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     public void joinaGame(String clientname, String gamename) throws RemoteException{
         try{
             Player player = UsersList.Singleton().getUser(clientname).getPlayer();
-            Game game = GamesList.singleton().getGame(gamename);
+            Match match = GamesList.singleton().getGame(gamename);
             //NB questa chiamata già aggiunge un riferimento a questo match in player
-            game.join(player);
+            match.join(player);
         }catch (UserNotExistantException e){
             throw new RemoteException(e.getMessage());
         }catch (GameNotExistantException e){
@@ -154,7 +154,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     public List getPublicGoalCarddescriptions(String clientname) throws RemoteException{
         try{
             Player player = UsersList.Singleton().getUser(clientname).getPlayer();
-            return player.getGame().getGametable().getPublicGoalDescriptions();
+            return player.getMatch().getGametable().getPublicGoalDescriptions();
         }catch(UserNotExistantException e){
             throw new RemoteException(e.getMessage());
         }
@@ -166,7 +166,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     public List getPublicGoalCardids(String clientname) throws RemoteException{
         try{
             Player player = UsersList.Singleton().getUser(clientname).getPlayer();
-            return player.getGame().getGametable().getPublicGoalIDs();
+            return player.getMatch().getGametable().getPublicGoalIDs();
         }catch(UserNotExistantException e){
             throw new RemoteException(e.getMessage());
         }
@@ -177,7 +177,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     public List getPublicGoalCardnames(String clientname) throws RemoteException{
         try{
             Player player = UsersList.Singleton().getUser(clientname).getPlayer();
-            return player.getGame().getGametable().getPublicGoalNames();
+            return player.getMatch().getGametable().getPublicGoalNames();
         }catch(UserNotExistantException e){
             throw new RemoteException(e.getMessage());
         }
@@ -204,7 +204,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     public List getRanking(String clientname) throws RemoteException{
         try{
             Player player = UsersList.Singleton().getUser(clientname).getPlayer();
-            return player.getGame().getallPlayers();
+            return player.getMatch().getallPlayers();
         }catch(UserNotExistantException e){
             throw new RemoteException(e.getMessage());
         }

@@ -9,7 +9,7 @@ import java.rmi.RemoteException;
 import java.util.*;
 
 //manca solo il timer
-public class Game {
+public class Match {
     private String game_name;
     private LinkedList<Player> players;
     private Gametable gametable;
@@ -17,18 +17,18 @@ public class Game {
 
 
     //public constructor
-    public Game(Player player, String game_name)  {
+    public Match(Player player, String game_name)  {
         this.game_name = game_name;
         this.players = new LinkedList<>();
         this.players.addFirst(player);
-        player.setGame(this);
+        player.setMatch(this);
     }
 
 
-    public synchronized Game join(Player player) throws RemoteException{
+    public synchronized Match join(Player player) throws RemoteException{
         try {
             this.players.addLast(player);
-            player.setGame(this);
+            player.setMatch(this);
             if (checkIsready()) {
                 this.start();
             }
@@ -192,7 +192,7 @@ public class Game {
     public void leavethegameattheend(Player player){
         this.players.remove(player);
         if(getNumberOfPlayers()==0){
-            GamesList.singleton().remove(player.getGame());
+            GamesList.singleton().remove(player.getMatch());
         }
     }
 

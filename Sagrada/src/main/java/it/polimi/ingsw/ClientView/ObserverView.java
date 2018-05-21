@@ -1,7 +1,7 @@
 package it.polimi.ingsw.ClientView;
 
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
-import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.Match;
 import it.polimi.ingsw.model.GamesList;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 
@@ -179,10 +179,10 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
 
 
         System.out.println("Scegli la partita a cui vuoi partecipare dalla lista:");
-        for (Game game : GamesList.singleton().getgames()) {
+        for (Match match : GamesList.singleton().getgames()) {
             // Correzione per pushare codice non rotto (ho tenuta la vecchia riga verifica che la nuova vada bene)
-            //out.println(game.getName() + "; Giocatori che stanno partecipando: " + game.getActualNumberOfPlayers() + "Giocatori necessari alla partita: " + game.getMaxNumberPlayers() + "\n");
-            System.out.println(game.getName() + "; Giocatori che stanno partecipando: " + game.getNumberOfPlayers() + "Giocatori necessari alla partita: 4\n");
+            //out.println(match.getName() + "; Giocatori che stanno partecipando: " + match.getActualNumberOfPlayers() + "Giocatori necessari alla partita: " + match.getMaxNumberPlayers() + "\n");
+            System.out.println(match.getName() + "; Giocatori che stanno partecipando: " + match.getNumberOfPlayers() + "Giocatori necessari alla partita: 4\n");
         }
         boolean chosen = false;
         while (!chosen) {
@@ -254,7 +254,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
     //metodi per il pattern observer
     @Override
     public void notifyGameisStarting(String gamename) throws RemoteException{
-        System.out.println("Game" + gamename + "is starting");
+        System.out.println("Match" + gamename + "is starting");
     };
 
 
