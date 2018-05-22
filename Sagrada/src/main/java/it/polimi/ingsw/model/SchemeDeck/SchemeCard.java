@@ -254,7 +254,7 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
     }
 
     public String displayScheme(){
-        String  string = null;
+        String  string = "ID: " + this.getID() + "\n";
         for(int row =0; row < 4; row ++){
             for( int column =0; column < 5; column++){
                 try{

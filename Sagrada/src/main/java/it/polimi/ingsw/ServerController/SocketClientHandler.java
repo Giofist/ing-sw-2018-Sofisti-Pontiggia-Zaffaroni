@@ -71,7 +71,18 @@ public class SocketClientHandler implements Runnable, ObserverViewInterface, Fee
                     out.println(0 + " " +e.getMessage());
                     out.flush();
                 }
-
+                break;
+                case "setSchemeCard" : try{
+                    String username = in.next();
+                    int cardid = in.nextInt();
+                    controller.setSchemeCard(username,cardid);
+                    out.println(1);
+                    out.flush();
+                }catch(RemoteException e){
+                    out.println(0 + " " +e.getMessage());
+                    out.flush();
+                }
+                    break;
             }
         }
 
@@ -88,9 +99,10 @@ public class SocketClientHandler implements Runnable, ObserverViewInterface, Fee
     }
 
     @Override
-    public void showSchemeCards(SchemeCard scheme, SchemeCard card) {
+    public void showSchemeCards(String schemeCard1, String schemeCard2, String schemeCard3, String schemeCard4) throws RemoteException {
 
     }
+
 
     @Override
     public void notifyaDraw() {

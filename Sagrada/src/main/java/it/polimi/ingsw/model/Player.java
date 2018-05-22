@@ -1,19 +1,22 @@
 package it.polimi.ingsw.model;
 import it.polimi.ingsw.ClientView.FeedObserverView;
 import it.polimi.ingsw.ClientView.ObserverViewInterface;
+import it.polimi.ingsw.model.Exceptions.CardIdNotAllowedException;
 import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
 import it.polimi.ingsw.model.Exceptions.NotEnoughSegnaliniException;
 import it.polimi.ingsw.model.Exceptions.PrivateGoalCardException;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
+import sun.awt.image.ImageWatched;
 
 import java.rmi.RemoteException;
 import java.util.LinkedList;
 
-
+//implementa comparable per ordinare i giocatori in base al punteggio nellav lista di player
 public class Player implements Comparable<Player>{
     private User user;
     private GoalCard privateGoalCard;
     private int segnalini_favore;
+    private LinkedList<SchemeCard> extractedschemeCards;
     private SchemeCard scheme;
     private int points;
     private Match match;
@@ -43,6 +46,7 @@ public class Player implements Comparable<Player>{
         this.feedObserverViews = new LinkedList<>();
         this.mustpassTurn = false;
         this.points = 0;
+        this.extractedschemeCards = new LinkedList<>();
     }
 
 
@@ -70,8 +74,16 @@ public class Player implements Comparable<Player>{
     public GoalCard getPrivateGoalCard(){
         return this.privateGoalCard;
     }
-    public void setScheme ( SchemeCard scheme){
-        this.scheme = scheme;
+    public void setScheme ( int cardid) throws CardIdNotAllowedException{
+        if (cardid == this.extractedschemeCards.getFirst().getID()){
+            this.scheme = this.extractedschemeCards.getFirst();
+        }else if (cardid == this.extractedschemeCards.getFirst().getTwinCard().getID()) {
+            this.scheme = this.extractedschemeCards.getFirst().getTwinCard();
+        }else if (cardid == this.extractedschemeCards.getLast().getID()){
+            this.scheme = this.extractedschemeCards.getLast();
+        }else if (cardid == this.extractedschemeCards.getLast().getTwinCard().getID()) {
+            this.scheme = this.extractedschemeCards.getLast().getTwinCard();
+        }else throw new CardIdNotAllowedException();
     }
     public SchemeCard getScheme(){
         return this.scheme;
@@ -150,23 +162,22 @@ public class Player implements Comparable<Player>{
     public void feedObserverViews(FeedObserverView client) {
         this.feedObserverViews.add(client);
     }
-
     public void observerViews(ObserverViewInterface client){
         this.observerViewInterfaces.add(client);
     }
-
     public void notifyError(String message)  throws RemoteException{
         for(ObserverViewInterface observerViewInterface : this.observerViewInterfaces){
             observerViewInterface.showErrorMessage(message);
         }
     }
-
-    public void startGame(SchemeCard scheme1, SchemeCard scheme2)throws RemoteException{
+    public void startGame(SchemeCard schemeCard1, SchemeCard schemeCard2)throws RemoteException{
         try{
             for(ObserverViewInterface observerViewInterface : this.observerViewInterfaces){
                 observerViewInterface.notifyGameisStarting(this.getMatch().getName());
-                observerViewInterface.showSchemeCards(scheme1,scheme2);
+                observerViewInterface.showSchemeCards(schemeCard1.displayScheme(), schemeCard1.getTwinCard().displayScheme(),schemeCard2.displayScheme(),schemeCard2.getTwinCard().displayScheme());
             }
+            this.extractedschemeCards.add(schemeCard1);
+            this.extractedschemeCards.add(schemeCard2);
             //all'inizio della partita viene anche aggiunta ad ogni player una carta obiettivo privato
             setPrivateGoalCard(getMatch().getGametable().getPrivateGoalCard());
         }catch(PrivateGoalCardException e){

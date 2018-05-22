@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.Exceptions.*;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 
+import javax.smartcardio.Card;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.LinkedList;
@@ -105,15 +106,14 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     }
 
     @Override
-    public void setSchemeCard(String clientusername, int twin, SchemeCard schemecard) throws RemoteException{
+    public void setSchemeCard(String clientusername, int cardid) throws RemoteException{
         try{
             Player player = UsersList.Singleton().getUser(clientusername).getPlayer();
-            switch (twin) {
-                case 0: player.setScheme(schemecard);break;
-                case 1: player.setScheme(schemecard.getTwinCard()); break;
-            }
+            player.setScheme(cardid);
         }catch (UserNotExistentException e){
                 throw new RemoteException(e.getMessage());
+        }catch (CardIdNotAllowedException e){
+            throw new RemoteException(e.getMessage());
         }
     }
 

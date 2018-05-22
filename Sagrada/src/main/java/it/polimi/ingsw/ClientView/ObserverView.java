@@ -271,12 +271,23 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
     }
 
     @Override
-    public void showSchemeCards(SchemeCard schemeCard1, SchemeCard schemeCard2) {
+    public void showSchemeCards(String schemeCard1, String schemeCard2, String schemeCard3, String schemeCard4) {
         System.out.println("Seleziona la carta schema che desideri tra le seguenti indicando il numero relativo.");
-        System.out.println(schemeCard1.displayScheme());
-        System.out.println(schemeCard1.getTwinCard().displayScheme());
-        System.out.println(schemeCard2.displayScheme());
-        System.out.println(schemeCard1.getTwinCard().displayScheme());
+        System.out.println(schemeCard1);
+        System.out.println(schemeCard2);
+        System.out.println(schemeCard3);
+        System.out.println(schemeCard4);
+
+        boolean success = false;
+        while(!success){
+            try{
+                int myid = in.nextInt();
+                servercontroller.setSchemeCard(this.yourName, myid);
+                success = true;
+            }catch(RemoteException e){
+                System.out.print(e.getMessage());
+            }
+        }
     }
 
     @Override

@@ -26,6 +26,14 @@ public class SocketObserverView implements ClientHandlerInterface {
         this.observerView = observerView;
     }
 
+    public void run()throws RemoteException{
+        switch (in.nextInt()) {
+            case 1:
+                return;
+            case 0:
+                throw new RemoteException(in.nextLine());
+        }
+    }
     //all methods to be implemented here
     @Override
     public String rmiTest(String stringa) throws RemoteException {
@@ -37,12 +45,7 @@ public class SocketObserverView implements ClientHandlerInterface {
     public void register(String username, String password) throws RemoteException {
         out.println("register " + username + " " + password);
         out.flush();
-        switch (in.nextInt()) {
-            case 1:
-                return;
-            case 0:
-                throw new RemoteException(in.nextLine());
-        }
+        this.run();
 
     }
 
@@ -50,25 +53,14 @@ public class SocketObserverView implements ClientHandlerInterface {
     public void login(String username, String password) throws RemoteException {
         out.println("login " + username + " " + password);
         out.flush();
-        switch (in.nextInt()) {
-            case 1:
-                return;
-            case 0:
-                throw new RemoteException(in.nextLine());
-        }
-
+        this.run();
     }
 
     @Override
     public void createGame(String username, ObserverViewInterface client, FeedObserverView Client, String gamename) throws RemoteException {
         out.println("createGame " + username + " " + gamename);
         out.flush();
-        switch (in.nextInt()) {
-            case 1:
-                return;
-            case 0:
-                throw new RemoteException(in.nextLine());
-        }
+        this.run();
     }
 
     @Override
@@ -77,14 +69,25 @@ public class SocketObserverView implements ClientHandlerInterface {
     }
 
     @Override
-    public void joinaGame(String clientname, String gamename) throws RemoteException {
+    public void joinaGame(String username, String gamename) throws RemoteException {
+        out.println("joinaGame " + username + " " + gamename);
+        out.flush();
+        this.run();
 
     }
 
     @Override
-    public void setSchemeCard(String clientname, int twin, SchemeCard schemeCard) throws RemoteException {
-
+    public void setSchemeCard(String username, int cardid) throws RemoteException {
+        out.println("setSchemeCard " + username + " " + cardid);
+        out.flush();
+        switch (in.nextInt()) {
+            case 1:
+                return;
+            case 0:
+                throw new RemoteException(in.nextLine());
+        }
     }
+
 
     @Override
     public String getPrivateGoalCarddescription(String clientname) throws RemoteException {
