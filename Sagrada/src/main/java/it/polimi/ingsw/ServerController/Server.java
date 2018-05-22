@@ -1,14 +1,9 @@
 package it.polimi.ingsw.ServerController;
 
 //fatta da pon
-import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import it.polimi.ingsw.model.*;
 public class Server {
@@ -16,7 +11,7 @@ public class Server {
     public static void main(String[] args) throws RemoteException{
         int RMI_PORT = 1099;
         //creo i due "database" di cu idevo tenere consistenza nel server
-        GamesList gameslist = GamesList.singleton();
+        MatchesList gameslist = MatchesList.singleton();
         UsersList usersList = UsersList.Singleton();
 
 

@@ -4,12 +4,9 @@ import it.polimi.ingsw.ClientView.FeedObserverView;
 import it.polimi.ingsw.ClientView.ObserverViewInterface;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.Exceptions.*;
-import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 
-import javax.smartcardio.Card;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.LinkedList;
 import java.util.List;
 
 // this is the controller
@@ -63,7 +60,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
 
             //creo effettivamente la partita
             //NB: questa chiamata già aggiunge in player un riferimento alla partita a cui è iscritto
-            GamesList.singleton().createGame(player, gamename);
+            MatchesList.singleton().createGame(player, gamename);
 
             //observer pattern, mi registro per seguire gli aggiornamenti relativi a me
             player.feedObserverViews(Client);
@@ -79,7 +76,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     @Override
     public boolean isMatchInList(String gamename) throws RemoteException {
        /* try {                                                             //to be implemented
-            for (Match game : GamesList.singleton().getgames()) {
+            for (Match game : MatchesList.singleton().getgames()) {
                 if (game.getName().equals(gamename)) {
                     return true;
                 }
@@ -94,8 +91,11 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     @Override
     public void joinaGame(String clientname, String gamename) throws RemoteException{
         try{
-            Player player = UsersList.Singleton().getUser(clientname).getPlayer();
-            Match match = GamesList.singleton().getGame(gamename);
+            Player player = new Player();
+            User user = UsersList.Singleton().getUser(clientname);
+            user.setPlayer(player);
+            player.setUser(user);
+            Match match = MatchesList.singleton().getGame(gamename);
             //NB questa chiamata già aggiunge un riferimento a questo match in player
             match.join(player);
         }catch (UserNotExistentException e){
@@ -186,9 +186,13 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     @Override
     public String getActiveMatchList() throws RemoteException{
         String list = new String();
-        for (Match match: GamesList.singleton().getgames()) {
+        for (Match match: MatchesList.singleton().getgames()) {
             if (!match.isStarted()){
                 list += (match.getName());
+                list += " ";
+                for(Player player: match.getallPlayers()){
+                    list+= player.getAssociatedUser().getName();
+                }
                 list += "\n";
             }
         }

@@ -9,7 +9,7 @@ import java.rmi.RemoteException;
 import java.util.*;
 
 //manca solo il timer
-public class Match {
+public class Match implements Runnable{
     private String game_name;
     private LinkedList<Player> players;
     private Gametable gametable;
@@ -24,24 +24,39 @@ public class Match {
         this.players.addFirst(player);
         player.setMatch(this);
     }
-
-
-    public synchronized Match join(Player player) throws RemoteException{
-        try {
-            this.players.addLast(player);
-            player.setMatch(this);
-            if (checkIsready()) {
-                this.start();
+    public synchronized void run() {
+        try{ //to be implemented
+            while (!checkIsready()){
+                wait();
             }
-        } catch (IOException e) {
-            for (Player plaier : this.players) {
-                plaier.notifyError("Errore nel caricamento delle mappe\n");
+            this.start();
+        }catch (InterruptedException e){
+            e.printStackTrace();
+            try{
+                for(Player player: this.players){
+                    player.notifyError("Interrupted\n");
+                }
+            }catch(Exception err){
+                //do nothing
             }
-        }
-        return this;
+        }catch (IOException e){
+            try{
+                for(Player player: this.players){
+                    player.notifyError("Errore nel caricamento delle mappe\n");
+                }
+            }catch(Exception err){
+                //do nothing
+            }
+        };
     }
 
-    private boolean checkIsready() {
+    public synchronized void  join(Player player) throws RemoteException{
+        this.players.addLast(player);
+        player.setMatch(this);
+        notifyAll();
+    }
+
+    private synchronized boolean checkIsready() {
         // qua bisognerà inserire un controllo dovuto al timer
         if (this.players.size() == 4) {
             return true;
@@ -49,10 +64,11 @@ public class Match {
     }
 
 
-    private void start() throws IOException {
+    private synchronized void start() throws IOException {
         gametable = new Gametable(this.players.size());
         
         for (Player player : this.players) {
+            player.connectionTest();
             boolean success = false;
             while (!success) {
                 try {
@@ -71,12 +87,12 @@ public class Match {
 
         }
         //la partita può avere inizio.
-        this.run();
+        this.work();
 
     }
     
     //this is THE GAME: 10 ROUNDS
-    private void run()throws RemoteException{
+    private synchronized void work()throws RemoteException{
         //ad ogni round modifico l'ordine nella lista
         new Round(1, this.players, this).run();
         this.players.addLast(this.players.removeFirst());
@@ -107,7 +123,7 @@ public class Match {
     //choose a winner and notify he has won
     //notify the others that theey have lost
     // what else?
-    private void endGame()throws RemoteException{
+    private synchronized void endGame()throws RemoteException{
 
         //to calculate points for the public goals
         this.getGametable().calculatePointsforAllPlayers(this.players);
@@ -198,7 +214,7 @@ public class Match {
     public void leavethegameattheend(Player player){
         this.players.remove(player);
         if(getNumberOfPlayers()==0){
-            GamesList.singleton().remove(player.getMatch());
+            MatchesList.singleton().remove(player.getMatch());
         }
     }
 

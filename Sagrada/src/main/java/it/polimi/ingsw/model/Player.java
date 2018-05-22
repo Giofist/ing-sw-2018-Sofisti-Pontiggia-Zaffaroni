@@ -6,7 +6,6 @@ import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
 import it.polimi.ingsw.model.Exceptions.NotEnoughSegnaliniException;
 import it.polimi.ingsw.model.Exceptions.PrivateGoalCardException;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
-import sun.awt.image.ImageWatched;
 
 import java.rmi.RemoteException;
 import java.util.LinkedList;
@@ -207,5 +206,11 @@ public class Player implements Comparable<Player>{
     @Override
     public int compareTo(Player player) {
         return this.getPoints() - player.getPoints();
+    }
+
+    public void connectionTest()throws RemoteException{
+        for (ObserverViewInterface observerViewInterface : this.observerViewInterfaces){
+            observerViewInterface.testConnection(true);
+        }
     }
 }

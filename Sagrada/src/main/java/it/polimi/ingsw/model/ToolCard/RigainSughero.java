@@ -15,7 +15,6 @@ public class RigainSughero  implements ToolAction {
                                       "Devi rispettare tutte le restrizioni di piazzamento.";
 
     private int selectedDiceIndex;
-    private int operation;
     private int row;
     private int column;
     private Dice dice;

@@ -11,19 +11,19 @@ import it.polimi.ingsw.model.Exceptions.HomonymyException;
 //ho banalmente dichiarato tutti i metodi come synchronized
 // non so se questo va bene: forse bisognerebbe inserire un lock o usare una collection.synchronized
 //bisognerebbe testare e verificare
-public class GamesList {
-    private static GamesList instance;
+public class MatchesList {
+    private static MatchesList instance;
     private List<Match> matches;
 
     //private constructor
-    private GamesList(){
+    private MatchesList(){
         this.matches = new LinkedList<>();
     }
 
     //singleton design pattern
-    public static synchronized  GamesList singleton() {
+    public static synchronized MatchesList singleton() {
         if (instance == null)
-            instance = new GamesList();
+            instance = new MatchesList();
         return instance;
     }
 
@@ -38,6 +38,8 @@ public class GamesList {
         }
         Match match = new Match(player, game_name);
         this.matches.add(match);
+        //ogni match è un thread
+        new Thread(match).start();
         return match;
     }
 

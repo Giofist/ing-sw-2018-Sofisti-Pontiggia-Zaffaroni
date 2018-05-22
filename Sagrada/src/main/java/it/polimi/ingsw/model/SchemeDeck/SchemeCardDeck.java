@@ -38,8 +38,13 @@ public class SchemeCardDeck {
     //this is to get the number of maps uploaded by the player + the standards one
     private static int getNumMaps() throws IOException {
         String fileName = "Maps.txt";
+
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
-            return Integer.parseInt(br.readLine());
+            String s = br.readLine();
+            return Integer.parseInt(s);
+        }catch (IOException e){
+            e.printStackTrace();
+            return 24;
         }
     }
 }

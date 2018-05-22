@@ -123,4 +123,9 @@ public class SocketClientHandler implements Runnable, ObserverViewInterface, Fee
     public void notifyGameisStarting(String gamename) throws RemoteException {
 
     }
+
+    @Override
+    public void testConnection(boolean value) throws RemoteException {
+
+    }
 }
