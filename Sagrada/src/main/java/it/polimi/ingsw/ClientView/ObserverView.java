@@ -176,19 +176,16 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
     private void partecipaInt() throws RemoteException {
         String gamename = null;
         Scanner in = new Scanner(System.in);
-
+        String response;
 
         System.out.println("Scegli la partita a cui vuoi partecipare dalla lista:");
         System.out.println(servercontroller.getActiveMatchList());
-        for (Match match : GamesList.singleton().getgames()) {
-            // Correzione per pushare codice non rotto (ho tenuta la vecchia riga verifica che la nuova vada bene)
-            //out.println(match.getName() + "; Giocatori che stanno partecipando: " + match.getActualNumberOfPlayers() + "Giocatori necessari alla partita: " + match.getMaxNumberPlayers() + "\n");
-            System.out.println(match.getName() + "; Giocatori che stanno partecipando: " + match.getNumberOfPlayers() + "Giocatori necessari alla partita: 4\n");
-        }
+
         boolean chosen = false;
         while (!chosen) {
             System.out.println("Vuoi ancora partecipare ad una partita? [S/N]");
-            if (in.nextLine() == "S" || in.nextLine() == "s") {
+            response = in.nextLine();
+            if (response.equals("S")||response.equals("s")) {
                 while (!servercontroller.isMatchInList(gamename)) {
                     System.out.println("Digita il il nome della partita cui vuoi partecipare:");
                     gamename = in.nextLine();
@@ -199,31 +196,20 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
                     }
                 }
                 waitingInt();
-                //timer return and show
-                startGameInt();
                 chosen = true;
-
             } else {
                 multiInt();
             }
         }
     }
 
-    private void startGameInt() {
-        Scanner in = new Scanner(System.in);
-        PrintWriter out = new PrintWriter(System.out);
-        System.out.println("Il gioco inizia ora!");
 
-        //to be implemented.
-    }
 
     private void waitingInt() {
         Scanner in = new Scanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
         System.out.println("Attendi che altri giocatori entrino in partita...");
         //timer di attesa poi
-        startGameInt();
-
     }
 
 
@@ -243,7 +229,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
                 }*/
 
                 servercontroller.createGame(yourName, this, this, gamename);
-                System.out.println("Attendi che altri giocatori partecipino alla partita.\n Divertiti!");
+                System.out.println("Attendi che altri giocatori partecipino alla partita.");
                 waitingInt();
                 success = true;
             } catch (Exception e) {
@@ -256,6 +242,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
     @Override
     public void notifyGameisStarting(String gamename) throws RemoteException{
         System.out.println("Match" + gamename + "is starting");
+
     };
 
 
