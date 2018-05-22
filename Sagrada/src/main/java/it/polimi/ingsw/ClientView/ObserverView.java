@@ -2,7 +2,8 @@ package it.polimi.ingsw.ClientView;
 
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
 import it.polimi.ingsw.model.Match;
-import it.polimi.ingsw.model.MatchesList;
+import it.polimi.ingsw.model.GamesList;
+import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 
 import java.io.PrintWriter;
 import java.rmi.RemoteException;
@@ -19,12 +20,6 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
     private final Scanner in;
     private final PrintWriter out;
     private String yourName;
-    private boolean start = false;
-
-    @Override
-    public synchronized void testConnection(boolean value) throws RemoteException{
-        this.start = value;
-    }
 
     //constructor1
     public ObserverView() throws RemoteException {
@@ -185,23 +180,24 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
 
         System.out.println("Scegli la partita a cui vuoi partecipare dalla lista:");
         System.out.println(servercontroller.getActiveMatchList());
-        for (Match match : MatchesList.singleton().getgames()) {
+        for (Match match : GamesList.singleton().getgames()) {
+            // Correzione per pushare codice non rotto (ho tenuta la vecchia riga verifica che la nuova vada bene)
+            //out.println(match.getName() + "; Giocatori che stanno partecipando: " + match.getActualNumberOfPlayers() + "Giocatori necessari alla partita: " + match.getMaxNumberPlayers() + "\n");
             System.out.println(match.getName() + "; Giocatori che stanno partecipando: " + match.getNumberOfPlayers() + "Giocatori necessari alla partita: 4\n");
         }
-
         boolean chosen = false;
         while (!chosen) {
-            System.out.println("Vuoi partecipare ad una partita? [S/N]");
-            String input = in.nextLine();
-            if (input.equals("S") || input.equals("S")) {
-                System.out.println("Digita il il nome della partita cui vuoi partecipare:");
-                gamename = in.nextLine();
-                try {
-                    servercontroller.joinaGame(yourName, gamename);
-                } catch (RemoteException e) {
-                    System.out.println(e.getMessage());
+            System.out.println("Vuoi ancora partecipare ad una partita? [S/N]");
+            if (in.nextLine() == "S" || in.nextLine() == "s") {
+                while (!servercontroller.isMatchInList(gamename)) {
+                    System.out.println("Digita il il nome della partita cui vuoi partecipare:");
+                    gamename = in.nextLine();
+                    try {
+                        servercontroller.joinaGame(yourName, gamename);
+                    } catch (RemoteException e) {
+                        System.out.println(e.getMessage());
+                    }
                 }
-
                 waitingInt();
                 //timer return and show
                 startGameInt();
@@ -213,18 +209,10 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         }
     }
 
-    private synchronized void startGameInt() {
+    private void startGameInt() {
         Scanner in = new Scanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
         System.out.println("Il gioco inizia ora!");
-        while(!start){
-            try{
-                wait();
-            }catch(InterruptedException e){
-                //do nothing
-            }
-        }
-        System.out.println("SUCCESS!");
 
         //to be implemented.
     }
@@ -283,23 +271,12 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
     }
 
     @Override
-    public void showSchemeCards(String schemeCard1, String schemeCard2, String schemeCard3, String schemeCard4) {
+    public void showSchemeCards(SchemeCard schemeCard1, SchemeCard schemeCard2) {
         System.out.println("Seleziona la carta schema che desideri tra le seguenti indicando il numero relativo.");
-        System.out.println(schemeCard1);
-        System.out.println(schemeCard2);
-        System.out.println(schemeCard3);
-        System.out.println(schemeCard4);
-
-        boolean success = false;
-        while(!success){
-            try{
-                int myid = in.nextInt();
-                servercontroller.setSchemeCard(this.yourName, myid);
-                success = true;
-            }catch(RemoteException e){
-                System.out.print(e.getMessage());
-            }
-        }
+        System.out.println(schemeCard1.displayScheme());
+        System.out.println(schemeCard1.getTwinCard().displayScheme());
+        System.out.println(schemeCard2.displayScheme());
+        System.out.println(schemeCard1.getTwinCard().displayScheme());
     }
 
     @Override
