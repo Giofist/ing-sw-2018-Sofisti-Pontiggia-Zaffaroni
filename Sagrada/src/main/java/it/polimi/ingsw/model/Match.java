@@ -34,12 +34,13 @@ public class Match implements Runnable{
             e.printStackTrace();
             try{
                 for(Player player: this.players){
-                    player.notifyError("Interrupted\n");
+                    player.notifyError("InterruptedException");
                 }
             }catch(Exception err){
-                //do nothing
+                //do nothing: we are so unlucky here
             }
         }catch (IOException e){
+            System.out.println("Errore IO");
             try{
                 for(Player player: this.players){
                     player.notifyError("Errore nel caricamento delle mappe\n");
@@ -49,45 +50,48 @@ public class Match implements Runnable{
             }
         };
     }
-
     public synchronized void  join(Player player) throws RemoteException{
         this.players.addLast(player);
         player.setMatch(this);
+        // risveglio il thread con il lock che controlla se la partita è pronta per inizizare
         notifyAll();
     }
-
     private synchronized boolean checkIsready() {
         // qua bisognerà inserire un controllo dovuto al timer
-        if (this.players.size() == 4) {
+        // ho messo due per semplicità nel testing
+        if (this.players.size() == 2) {
             return true;
         } else return false;
     }
 
 
-    private synchronized void start() throws IOException {
+    private synchronized void start()throws  RemoteException {
         gametable = new Gametable(this.players.size());
         
         for (Player player : this.players) {
             player.connectionTest();
-            boolean success = false;
+            /*boolean success = false;
             while (!success) {
-                try {
+                //try {
                     // questo è per notificare che la partita sta per iniziare
                     // nella notifica viene chiesto a ciascun utente di settare una schemecard scegliendola tra due
                     // in realtà la scelta è tra quattro, perchè ogni scheme card ha due facce
                     //notifyGameISStarting fa avere anche al player una carta obiettivo privato, questo ricordatevelo per l'esecuzione
-                    player.startGame(getGametable().getSchemeCard(), getGametable().getSchemeCard());
+                    //player.startGame(getGametable().getSchemeCard(), getGametable().getSchemeCard());
                     success = true;
-                } catch (MapConstrainReadingException e) {
+                //} catch (MapConstrainReadingException e) {
                     //qui ho pensato che sul server fosse utile permettere all'amministratore di sistema poter gestire
                     //i casi in cui le mappe non vengono lette correttamente, per poterle correggere manualmente nel file
-                    System.out.println(e.getMessage());
-                }
+                    //System.out.println(e.getMessage());
+                //}
             }
+            */
 
         }
         //la partita può avere inizio.
-        this.work();
+        return;
+        //this.work();
+
 
     }
     

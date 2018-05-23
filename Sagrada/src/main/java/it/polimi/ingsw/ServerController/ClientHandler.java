@@ -73,28 +73,21 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
         }
     }
 
-    @Override
-    public boolean isMatchInList(String gamename) throws RemoteException {
-       /* try {                                                             //to be implemented
-            for (Match game : MatchesList.singleton().getgames()) {
-                if (game.getName().equals(gamename)) {
-                    return true;
-                }
-            }
-        }catch (GameNotExistantException e){
-            throw new RemoteException(e.getMessage());
-        }
-        return false;*/
-       return true;
-    }
+
 
     @Override
-    public void joinaGame(String clientname, String gamename) throws RemoteException{
+    public void joinaGame(String clientname, ObserverViewInterface client, FeedObserverView Client, String gamename) throws RemoteException{
         try{
             Player player = new Player();
             User user = UsersList.Singleton().getUser(clientname);
             user.setPlayer(player);
             player.setUser(user);
+
+            //observer pattern, mi registro per seguire gli aggiornamenti relativi a me
+            player.feedObserverViews(Client);
+            player.observerViews(client);
+
+            //gestione delle eccezioni
             Match match = MatchesList.singleton().getGame(gamename);
             //NB questa chiamata già aggiunge un riferimento a questo match in player
             match.join(player);
@@ -106,7 +99,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     }
 
     @Override
-    public void setSchemeCard(String clientusername, int cardid) throws RemoteException{
+    public synchronized void setSchemeCard(String clientusername, int cardid) throws RemoteException{
         try{
             Player player = UsersList.Singleton().getUser(clientusername).getPlayer();
             player.setScheme(cardid);

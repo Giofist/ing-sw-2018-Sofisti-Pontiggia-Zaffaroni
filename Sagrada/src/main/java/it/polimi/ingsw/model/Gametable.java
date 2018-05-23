@@ -31,11 +31,11 @@ public class Gametable {
 
 
     //constructor
-    public Gametable(int numberPlayers) throws IOException {
+    public Gametable(int numberPlayers)  {
         prepareGame(numberPlayers);
     }
     //first to do when preparing a game
-    private void prepareGame(int numberPlayers) throws IOException {
+    private void prepareGame(int numberPlayers)  {
         this.dicepool = new DicePool();
         this.tooldeck = new ToolCardsDeck();
         this.privategoalcardsdeck = new PrivateGoalCardDeck();

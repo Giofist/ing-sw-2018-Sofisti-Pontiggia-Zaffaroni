@@ -19,7 +19,6 @@ public class Client {
         Scanner in = new Scanner(System.in);
 
 
-        //avvio una view in client per poi chiamare alternativamnete in base alla scelta utente RMI o Socket
         System.out.println("Benvenuto nel SetUP partita di Sagrada!\n" +
                 "Qui puoi selezionare se giocare usando la connessione di tipo RMI (R) oppure Socket (S).\n" +
                 "Seleziona ora la tua scelta digitando R per RMI o S per Socket:");
@@ -41,7 +40,7 @@ public class Client {
                 observerView.run();
                 correct = true;
             } else {
-                System.out.println("Hai sbagliato a digitare.");
+                System.out.println("Hai sbagliato a digitare. Riprova");
             }
         }
     }

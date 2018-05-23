@@ -82,7 +82,17 @@ public class SocketClientHandler implements Runnable, ObserverViewInterface, Fee
                     out.println(0 + " " +e.getMessage());
                     out.flush();
                 }
-                    break;
+                break;
+                case "joinaGame": try{
+                    String username = in.next();
+                    String gamename = in.next();
+                    controller.joinaGame(username,this, this, gamename);
+                    out.println(1);
+                    out.flush();
+                }catch(RemoteException e){
+                    out.println(0 + " " +e.getMessage());
+                    out.flush();
+                }
             }
         }
 
@@ -126,6 +136,7 @@ public class SocketClientHandler implements Runnable, ObserverViewInterface, Fee
 
     @Override
     public void testConnection(boolean value) throws RemoteException {
-
+        out.println("testConnection");
+        out.flush();
     }
 }

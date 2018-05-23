@@ -21,8 +21,7 @@ public interface ClientHandlerInterface extends Remote {
     public void register(String username, String password) throws RemoteException;
     public void login(String clientname, String password) throws RemoteException;
     public  void createGame(String clientname, ObserverViewInterface client, FeedObserverView Client, String gamename ) throws  RemoteException;
-    public boolean isMatchInList(String gamename) throws RemoteException;
-    public void joinaGame(String clientname, String gamename) throws RemoteException;
+    public void joinaGame(String clientname, ObserverViewInterface client, FeedObserverView Client, String gamename) throws RemoteException;
     public void setSchemeCard(String clientname, int cardid) throws RemoteException;
     public String getPrivateGoalCarddescription(String clientname) throws RemoteException;
     public String getPrivateGoalCardname(String clientname) throws RemoteException;

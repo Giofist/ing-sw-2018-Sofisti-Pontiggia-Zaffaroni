@@ -210,6 +210,7 @@ public class Player implements Comparable<Player>{
 
     public void connectionTest()throws RemoteException{
         for (ObserverViewInterface observerViewInterface : this.observerViewInterfaces){
+            System.out.println("Connection test su questo player: " + this.getAssociatedUser().getName());
             observerViewInterface.testConnection(true);
         }
     }
