@@ -179,14 +179,20 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     @Override
     public String getActiveMatchList() throws RemoteException{
         String list = new String();
+        int i=4;
         for (Match match: MatchesList.singleton().getgames()) {
             if (!match.isStarted()){
+                list+= "-";
                 list += (match.getName());
-                list += " ";
+                list += "       I giocatori iscritti a questa partita sono: ";
                 for(Player player: match.getallPlayers()){
                     list+= player.getAssociatedUser().getName();
+                    list += " ";
+                    i--;
                 }
-                list += "\n";
+                list += "e ne mancano ancora, ";
+                list += i;
+                list += ".\n";
             }
         }
         return list;
