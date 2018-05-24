@@ -6,6 +6,7 @@ public class User {
     private String name;
     private String password;
     private Player player;
+    private boolean active;
 
     //constructor
     public User(String name, String password){
@@ -16,6 +17,13 @@ public class User {
     }
 
     //metodi getter e setter
+
+    public boolean isActive() {
+        return active;
+    }
+    public void setActive(boolean IsActive){
+        this.active = IsActive;
+    }
     public String getName(){
         return this. name;
     }

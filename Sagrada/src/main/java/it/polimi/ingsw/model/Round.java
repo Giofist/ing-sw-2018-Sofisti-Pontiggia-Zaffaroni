@@ -7,13 +7,13 @@ import java.util.LinkedList;
 public class Round {
     private int num_round;
     private LinkedList<Player> players;
-    private Game game;
+    private Match match;
 
 
 
     //constructor
-    public Round ( int num_round, LinkedList<Player> players, Game game){
-        this.game = game;
+    public Round ( int num_round, LinkedList<Player> players, Match match){
+        this.match = match;
         this.num_round = num_round;
         this.players = players;
     }
@@ -21,7 +21,7 @@ public class Round {
 
     public void run(){
         //questo metodo prepara il round con i dadi della Riserva ecc...
-        this.getGame().getGametable().setupRound();
+        this.getMatch().getGametable().setupRound();
 
         //qui la chiamata ai vari turn
 
@@ -29,7 +29,7 @@ public class Round {
 
         //termino il round aggiornando il tracciato round prendendo i dadi dalla riserva
         try{
-            this.getGame().getGametable().endRound(this.num_round);
+            this.getMatch().getGametable().endRound(this.num_round);
         }catch (RoundTrackException e){
             //nel caso in cui voglia aggiornare una casella del tracciato round che non esiste
             // per esempio la -1, o la 11
@@ -40,8 +40,8 @@ public class Round {
 
 
     //metodi getter e setter
-    public Game getGame() {
-        return game;
+    public Match getMatch() {
+        return match;
     }
     public int getNum_round() {
         return num_round;

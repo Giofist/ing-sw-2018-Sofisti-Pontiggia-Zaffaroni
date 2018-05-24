@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class PublicGoalCardDeck {
-    private LinkedList<GoalCard> deck = new LinkedList<GoalCard>();
+    private LinkedList<GoalCard> deck = new LinkedList<>();
     private ArrayList<Integer> cardsID = new ArrayList<>();
 
 

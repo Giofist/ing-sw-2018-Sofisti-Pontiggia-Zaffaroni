@@ -10,7 +10,7 @@ public class DicePool {
 
     // This constructor returns an empty DicePool
     public DicePool() {
-        this.dices = new LinkedList<Dice>();
+        this.dices = new LinkedList<>();
     }
 
     // This constructor returns a DicePool with the specified amount of Dice for each color

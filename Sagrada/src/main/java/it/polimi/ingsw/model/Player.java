@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model;
 import it.polimi.ingsw.ClientView.FeedObserverView;
 import it.polimi.ingsw.ClientView.ObserverViewInterface;
+import it.polimi.ingsw.model.Exceptions.CardIdNotAllowedException;
 import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
 import it.polimi.ingsw.model.Exceptions.NotEnoughSegnaliniException;
 import it.polimi.ingsw.model.Exceptions.PrivateGoalCardException;
@@ -9,14 +10,15 @@ import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 import java.rmi.RemoteException;
 import java.util.LinkedList;
 
-
+//implementa comparable per ordinare i giocatori in base al punteggio nellav lista di player
 public class Player implements Comparable<Player>{
     private User user;
     private GoalCard privateGoalCard;
     private int segnalini_favore;
+    private LinkedList<SchemeCard> extractedschemeCards;
     private SchemeCard scheme;
     private int points;
-    private Game game;
+    private Match match;
 
 
 
@@ -43,6 +45,7 @@ public class Player implements Comparable<Player>{
         this.feedObserverViews = new LinkedList<>();
         this.mustpassTurn = false;
         this.points = 0;
+        this.extractedschemeCards = new LinkedList<>();
     }
 
 
@@ -70,14 +73,22 @@ public class Player implements Comparable<Player>{
     public GoalCard getPrivateGoalCard(){
         return this.privateGoalCard;
     }
-    public void setScheme ( SchemeCard scheme){
-        this.scheme = scheme;
+    public void setScheme ( int cardid) throws CardIdNotAllowedException{
+        if (cardid == this.extractedschemeCards.getFirst().getID()){
+            this.scheme = this.extractedschemeCards.getFirst();
+        }else if (cardid == this.extractedschemeCards.getFirst().getTwinCard().getID()) {
+            this.scheme = this.extractedschemeCards.getFirst().getTwinCard();
+        }else if (cardid == this.extractedschemeCards.getLast().getID()){
+            this.scheme = this.extractedschemeCards.getLast();
+        }else if (cardid == this.extractedschemeCards.getLast().getTwinCard().getID()) {
+            this.scheme = this.extractedschemeCards.getLast().getTwinCard();
+        }else throw new CardIdNotAllowedException();
     }
     public SchemeCard getScheme(){
         return this.scheme;
     }
     public Gametable getGametable(){
-        return getGame().getGametable();
+        return getMatch().getGametable();
     }
     public void addPoints(int points){
         this.points += points;
@@ -94,11 +105,11 @@ public class Player implements Comparable<Player>{
         this.user = user;
     }
 
-    public Game getGame() {
-        return game;
+    public Match getMatch() {
+        return match;
     }
-    public void setGame(Game game) {
-        this.game = game;
+    public void setMatch(Match match) {
+        this.match = match;
     }
 
     //metodi per gli attributi per le toolcard
@@ -113,7 +124,6 @@ public class Player implements Comparable<Player>{
             return this.diceforDiluenteperPastaSalda
             ;
         }
-
     }
     public void  removediceforDiluenteperPastaSalda(){
         this.diceforDiluenteperPastaSalda = null;
@@ -124,26 +134,21 @@ public class Player implements Comparable<Player>{
     public boolean getMustsetDice(){
         return this.mustsetdice;
     }
-
     public int getNumberoftimesyouhaveplayedthisround() {
         return numberoftimesyouhaveplayedthisround;
     }
-
     public void setNumberoftimesyouhaveplayedthisround(int numberoftimesyouhaveplayedthisround) {
         this.numberoftimesyouhaveplayedthisround += 1;
     }
-
     public DiceColor getColorConstrainForTaglierinaManuale() {
         return colorConstrainForTaglierinaManuale;
     }
     public void setColorConstrainForTaglierinaManuale(DiceColor dicecolor){
         this.colorConstrainForTaglierinaManuale = dicecolor;
     }
-
     public boolean MustpassTurn() {
         return mustpassTurn;
     }
-
     public void setMustpassTurn( boolean mustpassTurn) {
         this.mustpassTurn = mustpassTurn;
     }
@@ -156,25 +161,24 @@ public class Player implements Comparable<Player>{
     public void feedObserverViews(FeedObserverView client) {
         this.feedObserverViews.add(client);
     }
-
     public void observerViews(ObserverViewInterface client){
         this.observerViewInterfaces.add(client);
     }
-
     public void notifyError(String message)  throws RemoteException{
         for(ObserverViewInterface observerViewInterface : this.observerViewInterfaces){
             observerViewInterface.showErrorMessage(message);
         }
     }
-
-    public void startGame(SchemeCard scheme1, SchemeCard scheme2)throws RemoteException{
+    public void startGame(SchemeCard schemeCard1, SchemeCard schemeCard2)throws RemoteException{
         try{
             for(ObserverViewInterface observerViewInterface : this.observerViewInterfaces){
-                observerViewInterface.notifyGameisStarting(this.getGame().getName());
-                observerViewInterface.showSchemeCards(scheme1,scheme2);
+                observerViewInterface.notifyGameisStarting(this.getMatch().getName());
+                observerViewInterface.showSchemeCards(schemeCard1.displayScheme(), schemeCard1.getTwinCard().displayScheme(),schemeCard2.displayScheme(),schemeCard2.getTwinCard().displayScheme());
             }
+            this.extractedschemeCards.add(schemeCard1);
+            this.extractedschemeCards.add(schemeCard2);
             //all'inizio della partita viene anche aggiunta ad ogni player una carta obiettivo privato
-            setPrivateGoalCard(getGame().getGametable().getPrivateGoalCard());
+            setPrivateGoalCard(getMatch().getGametable().getPrivateGoalCard());
         }catch(PrivateGoalCardException e){
             notifyError(e.getMessage());
         }
@@ -202,5 +206,12 @@ public class Player implements Comparable<Player>{
     @Override
     public int compareTo(Player player) {
         return this.getPoints() - player.getPoints();
+    }
+
+    public void connectionTest()throws RemoteException{
+        for (ObserverViewInterface observerViewInterface : this.observerViewInterfaces){
+            System.out.println("Connection test su questo player: " + this.getAssociatedUser().getName());
+            observerViewInterface.testConnection(true);
+        }
     }
 }

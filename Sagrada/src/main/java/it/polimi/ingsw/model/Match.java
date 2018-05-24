@@ -9,73 +9,94 @@ import java.rmi.RemoteException;
 import java.util.*;
 
 //manca solo il timer
-public class Game {
+public class Match implements Runnable{
     private String game_name;
     private LinkedList<Player> players;
     private Gametable gametable;
+    private boolean started;
     
 
 
     //public constructor
-    public Game(Player player, String game_name)  {
+    public Match(Player player, String game_name)  {
         this.game_name = game_name;
         this.players = new LinkedList<>();
         this.players.addFirst(player);
-        player.setGame(this);
+        player.setMatch(this);
     }
-
-
-    public synchronized Game join(Player player)  throws RemoteException{
-        try {
-            this.players.addLast(player);
-            player.setGame(this);
-            if (checkIsready()) {
-                this.start();
+    public synchronized void run() {
+        try{ //to be implemented
+            while (!checkIsready()){
+                wait();
             }
-        } catch (IOException e) {
-            for (Player plaier : this.players) {
-                plaier.notifyError("Errore nel caricamento delle mappe\n");
+            this.start();
+        }catch (InterruptedException e){
+            e.printStackTrace();
+            try{
+                for(Player player: this.players){
+                    player.notifyError("InterruptedException");
+                }
+            }catch(Exception err){
+                //do nothing: we are so unlucky here
             }
-        }
-        return this;
+        }catch (IOException e){
+            System.out.println("Errore IO");
+            try{
+                for(Player player: this.players){
+                    player.notifyError("Errore nel caricamento delle mappe\n");
+                }
+            }catch(Exception err){
+                //do nothing
+            }
+        };
     }
-
-    private boolean checkIsready() {
+    public synchronized void  join(Player player) throws RemoteException{
+        this.players.addLast(player);
+        player.setMatch(this);
+        // risveglio il thread con il lock che controlla se la partita è pronta per inizizare
+        notifyAll();
+    }
+    private synchronized boolean checkIsready() {
         // qua bisognerà inserire un controllo dovuto al timer
-        if (this.players.size() == 4) {
+        // ho messo due per semplicità nel testing
+        if (this.players.size() == 2) {
             return true;
         } else return false;
     }
 
 
-    public void start() throws IOException {
+    private synchronized void start()throws  RemoteException {
         gametable = new Gametable(this.players.size());
         
         for (Player player : this.players) {
-            boolean success = false;
+            player.connectionTest();
+            /*boolean success = false;
             while (!success) {
-                try {
+                //try {
                     // questo è per notificare che la partita sta per iniziare
                     // nella notifica viene chiesto a ciascun utente di settare una schemecard scegliendola tra due
                     // in realtà la scelta è tra quattro, perchè ogni scheme card ha due facce
                     //notifyGameISStarting fa avere anche al player una carta obiettivo privato, questo ricordatevelo per l'esecuzione
-                    player.startGame(getGametable().getSchemeCard(), getGametable().getSchemeCard());
+                    //player.startGame(getGametable().getSchemeCard(), getGametable().getSchemeCard());
                     success = true;
-                } catch (MapConstrainReadingException e) {
+                //} catch (MapConstrainReadingException e) {
                     //qui ho pensato che sul server fosse utile permettere all'amministratore di sistema poter gestire
                     //i casi in cui le mappe non vengono lette correttamente, per poterle correggere manualmente nel file
-                    System.out.println(e.getMessage());
-                }
+                    //System.out.println(e.getMessage());
+                //}
             }
+            */
 
         }
         //la partita può avere inizio.
-        this.run();
+        return;
+        //this.work();
+
 
     }
     
     //this is THE GAME: 10 ROUNDS
-    private void run()throws RemoteException{
+    private synchronized void work()throws RemoteException{
         //ad ogni round modifico l'ordine nella lista
         new Round(1, this.players, this).run();
         this.players.addLast(this.players.removeFirst());
@@ -106,7 +127,7 @@ public class Game {
     //choose a winner and notify he has won
     //notify the others that theey have lost
     // what else?
-    private void endGame()throws RemoteException{
+    private synchronized void endGame()throws RemoteException{
 
         //to calculate points for the public goals
         this.getGametable().calculatePointsforAllPlayers(this.players);
@@ -168,20 +189,25 @@ public class Game {
     public Gametable getGametable() {
         return gametable;
     }
-
+    public boolean isStarted() {
+        return started;
+    }
+    public void setStarted(boolean started){
+        this.started= started;
+    }
 
     //assolutamente da testare
     //come esegue la remove? Correttamente?
     //molto utile per il pattern observer, per non mettere dei riferimenti agli altri player
     //all'interno della classe player
-    public LinkedList<Player> getallPlayersbutnotme(Player player){
+    public List<Player> getallPlayersbutnotme(Player player){
         LinkedList<Player> list = new LinkedList<>();
         list.addAll(this.players);
         list.remove(player);
         return list;
     }
 
-    public LinkedList<Player> getallPlayers(){
+    public List<Player> getallPlayers(){
         LinkedList<Player> list = new LinkedList<>();
         list.addAll(this.players);
         return list;
@@ -192,7 +218,7 @@ public class Game {
     public void leavethegameattheend(Player player){
         this.players.remove(player);
         if(getNumberOfPlayers()==0){
-            GamesList.singleton().remove(player.getGame());
+            MatchesList.singleton().remove(player.getMatch());
         }
     }
 

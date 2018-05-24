@@ -12,7 +12,7 @@ import java.util.Collections;
 public class SchemeCardDeck {
     private ArrayList<Integer> maps;
 
-    public SchemeCardDeck()throws IOException {
+    public SchemeCardDeck() {
         this.maps = new ArrayList<>();
         for(int i=0; i<getNumMaps();i=i+2){
             this.maps.add(i);
@@ -36,10 +36,21 @@ public class SchemeCardDeck {
     }
 
     //this is to get the number of maps uploaded by the player + the standards one
-    private static int getNumMaps() throws IOException {
-        String fileName = "Maps.txt";
+    private static int getNumMaps() {
+        return 24;
+        //ho messo questo codice come commento perchè non riesco a farlo funzionare correttamente
+        //mi spiace
+        /*
+        String fileName = "C:\\Users\\ponti\\Documents\\GitHub\\ing-sw-2018-Sofisti-Pontiggia-Zaffaroni\\Sagrada\\src\\main\\java\\it\\polimi\\ingsw\\model\\SchemeDeck\\Maps.txt";
+
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
-            return Integer.parseInt(br.readLine());
+            String s = br.readLine();
+            return Integer.parseInt(s);
+        }catch (IOException e){
+            e.printStackTrace();
+            return 24;
         }
+        */
     }
+
 }
