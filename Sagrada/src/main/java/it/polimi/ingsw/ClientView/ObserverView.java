@@ -85,10 +85,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         boolean successo = false;
         boolean remoteException = false;
         while (!successo) {
-            System.setProperty("jansi.passthrough", "true");
-            AnsiConsole.systemInstall();
-            System.out.println(ansi().eraseScreen().render("@|red Inserisci un nuovo Username:|@"));
-            AnsiConsole .systemUninstall();
+            System.out.println("Inserisci un nuovo Username:");
             username = in.nextLine();
             this.yourName = username;
             System.out.println("Inserisci una password:");
@@ -224,15 +221,20 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         //to be implemented.
     }
 
+    private synchronized void choseMapInt(){
+        Scanner in = new Scanner(System.in);
+        String input;
+        System.out.println("Seleziona una di queste quattro mappe: [1/4]");
 
+        input = in.nextLine();
 
-
-
+    }
 
     //metodi per il pattern observer
     @Override
     public void notifyGameisStarting(String gamename) throws RemoteException{
-        System.out.println("Match" + gamename + "is starting");
+        System.out.println("Il match" + gamename + "sta iniziando!");
+        choseMapInt();
     }
 
 
