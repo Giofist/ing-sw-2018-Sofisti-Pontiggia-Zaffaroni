@@ -207,7 +207,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         Scanner in = new Scanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
         System.out.println("Attendi che altri giocatori entrino in partita...");
-        //timer di attesa poi
+        //timer di attesa poi appena arriva notify parte il gioco
     }
 
     private synchronized void startGameInt() {
