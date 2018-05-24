@@ -1,0 +1,73 @@
+24
+1. Kaledoscopic Dream
+4
+YB  1G 5 43 R G2  BY
+2. Firmitas
+5
+V6  35V3   2V1  15V4
+3. Fractal Drops
+3
+ 4 Y6R 2    RV1BY
+4. Ripples of Light
+5
+   R5  V4B B3Y6Y2G1R
+5. Lux Mundi
+6
+  1  1G3B2B546G B5G
+6. Lux Astram
+5
+ 1GV46V25G1G53V
+7. Gravitas
+5
+1 3B  2B  6B 4 B52 1
+8. Water of Life
+6
+6B  1 5B  4R2B G6Y3V
+9. Sun Catcher
+3
+ B2 Y 4 R   5Y G3  V
+10. Shadow Thief
+5
+6V  55 V  R6 V YR543
+11. Auroae Magnificus
+5
+5GBV2V   YY 6 V1  G4
+12. Aurora Sagradis
+4
+R B Y4V3G2 1 5   6
+13. Symphony of Light
+6
+2 5 1Y6V2R B4G  3 5
+14. Virus
+5
+4 25G  6G2 3G4 5G1
+15. Firelight
+5
+3415  62 Y   YR5 YR6
+16. Sun's Glory
+6
+1VY 4VY  6Y  53 5421
+17. Battlo
+5
+  6   5B4 3GYV214R53
+18. Bellesguard
+3
+B6  Y 3B   562  4 1G
+19. Fulgor del Cielo
+5
+ BR   45 BB2 R56R31
+20. Luz Celestial
+3
+  R5 V4 G36  B  Y2
+21. Chromatic Splendor
+4
+  G  2Y5B1 R3V 1 6 4
+22. Comitas
+5
+Y 2 6 4 5Y   Y512Y3
+23. Via Lux
+4
+Y 6   15 23YRV   43R
+24. Industria
+5
+1R3 654R2   5R1   3R
