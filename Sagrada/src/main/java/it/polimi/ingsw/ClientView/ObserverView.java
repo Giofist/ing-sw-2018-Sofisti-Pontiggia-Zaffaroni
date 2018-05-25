@@ -268,12 +268,26 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
             input = in.nextLine();
                 if ( input.equals("S") || input.equals("s")) {
                     servercontroller.setSchemeCard(yourName, response);
+                    goalInt();
                     successo = true;
                 }
                 else if (input.equals("N") || input.equals("n")){}
                 else
                     System.out.println("Hai sbagliato a digitare.");
         }
+    }
+
+    @Override
+    public void goalInt(){
+        String goaldescr;
+        System.out.println("Il tuo obiettivo privato è:");
+        /*System.out.println(servercontroller.getPrivateGoalCardname(yourName)); //to be fixed with fra
+        System.out.println(servercontroller.getPrivateGoalCarddescription(yourName));
+        System.out.println("Gli obiettivi publici di questa partita sono:");
+        System.out.println(servercontroller.getPublicGoalCardname(yourName)); //to be fixed with fra
+        for(goaldescr element:servercontroller.getPublicGoalCarddescriptions(yourName)) {
+            System.out.println(goaldescr);//printare carte e descrizioni assieme
+        }*/
     }
 
     @Override

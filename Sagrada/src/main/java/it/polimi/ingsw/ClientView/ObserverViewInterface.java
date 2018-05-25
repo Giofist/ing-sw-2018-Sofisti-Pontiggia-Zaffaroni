@@ -14,5 +14,6 @@ public interface ObserverViewInterface extends Remote{
     public void notifyaWin()throws RemoteException;
     public void notifyGameisStarting(String gamename) throws RemoteException;
     public void testConnection(boolean value) throws RemoteException;
+    public void goalInt();
 
 }
