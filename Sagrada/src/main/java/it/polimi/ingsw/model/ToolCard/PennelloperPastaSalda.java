@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.ToolCard;
 
 import it.polimi.ingsw.model.Dice;
+import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.Player;
 
@@ -26,7 +27,11 @@ public class PennelloperPastaSalda  implements ToolAction {
         boolean settable = false;
         for (int row =0; row <4; row ++){
             for (int column =0; column <5; column ++){
-              settable = settable || player.getScheme().SettableHere(dice, row,column,false, false);
+              try{
+                  settable = settable || player.getScheme().SettableHere(dice, row,column,false, false);
+              }catch (SchemeCardNotExistantException e){
+                  //do nothing
+              }
             }
         }
 

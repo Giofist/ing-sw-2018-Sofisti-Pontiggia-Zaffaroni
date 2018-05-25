@@ -1,10 +1,7 @@
 package it.polimi.ingsw.model;
 import it.polimi.ingsw.ClientView.FeedObserverView;
 import it.polimi.ingsw.ClientView.ObserverViewInterface;
-import it.polimi.ingsw.model.Exceptions.CardIdNotAllowedException;
-import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
-import it.polimi.ingsw.model.Exceptions.NotEnoughSegnaliniException;
-import it.polimi.ingsw.model.Exceptions.PrivateGoalCardException;
+import it.polimi.ingsw.model.Exceptions.*;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 
 import java.rmi.RemoteException;
@@ -85,10 +82,13 @@ public class Player implements Comparable<Player>{
             this.scheme = this.extractedschemeCards.getLast().getTwinCard();
         }else throw new CardIdNotAllowedException();
     }
-    public SchemeCard getScheme(){
-        return this.scheme;
+    public SchemeCard getScheme() throws SchemeCardNotExistantException{
+        if(this.scheme !=null){
+            return this.scheme;
+        }
+        throw new SchemeCardNotExistantException(this);
     }
-    public String getSchemeCardRappresentation (){
+    public String getSchemeCardRappresentation  () throws SchemeCardNotExistantException{
         return getScheme().displayScheme();
     }
     public Gametable getGametable(){
@@ -189,6 +189,15 @@ public class Player implements Comparable<Player>{
             }
         }catch(PrivateGoalCardException e){
             notifyError(e.getMessage());
+        }
+    }
+    public  void notifyEndMatch(){
+        try{
+            for(ObserverViewInterface observerViewInterface: this.observerViewInterfaces){
+                observerViewInterface.notifyendGame();
+            }
+        }catch(RemoteException e){
+            //do nothing
         }
     }
     /// /utile per ordinare i giocatori in base al punteggio

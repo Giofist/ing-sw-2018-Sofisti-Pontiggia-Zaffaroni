@@ -34,7 +34,7 @@ public class SfumatureMedieTest {
         }).when(mockPlayer).addPoints(2);
 
 
-        when(mockPlayer.getScheme()).thenReturn(mockSchemeCard);
+        //when(mockPlayer.getScheme()).thenReturn(mockSchemeCard);
         //doThrow(new DiceNotExistantException()).when(mockPlayer).getScheme().getDiceIntensity(anyInt(), anyInt());
     }
 

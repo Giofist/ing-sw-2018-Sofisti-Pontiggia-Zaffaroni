@@ -37,7 +37,7 @@ public class ColoriDiversiColonnaTest {
         }).when(mockPlayer).addPoints(5);
 
         // when(mockSchemeCard.getDiceColour(anyInt(), anyInt())).thenThrow(new DiceNotExistantException());
-        when(mockPlayer.getScheme()).thenReturn(mockSchemeCard);
+        //when(mockPlayer.getScheme()).thenReturn(mockSchemeCard);
     }
 
     @Test

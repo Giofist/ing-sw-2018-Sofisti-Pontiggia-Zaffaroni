@@ -224,4 +224,14 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
             throw new RemoteException(e.getMessage());
         }
     }
+
+    @Override
+    public void notifyGame(String clientname) throws RemoteException{
+        try{
+            Player player = UsersList.Singleton().getUser(clientname).getPlayer();
+            player.getMatch().notifyAll();
+        }catch (UserNotExistentException e){
+            throw new RemoteException(e.getMessage());
+        }
+    }
 }

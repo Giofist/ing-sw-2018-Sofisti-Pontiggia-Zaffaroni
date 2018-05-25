@@ -2,6 +2,7 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.Exceptions.DrawException;
 import it.polimi.ingsw.model.Exceptions.MapConstrainReadingException;
+import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
 
 
 import java.io.IOException;
@@ -55,21 +56,14 @@ public class Match implements Runnable{
                 //do nothing, we are so unlucky here
             }
         }
-        while()
-
-    }
-
-    private synchronized boolean checkIsreadyToStart() {
-        // qua bisognerà inserire un controllo dovuto al timer
-        // ho messo due per semplicità nel testing
-        if (this.players.size() == 2) {
-            return true;
-        } else return false;
-    }
-
-    //this is THE GAME: 10 ROUNDS
-    private synchronized void work()throws RemoteException{
-        //ad ogni round modifico l'ordine nella lista
+        while(!everyonehassettheschemecard()){
+            try {
+                wait();
+            }catch(InterruptedException e) {
+                //do nothing
+            }
+        }
+        //adesso la partita può avere inizio
         new Round(1, this.players, this).run();
         this.players.addLast(this.players.removeFirst());
         new Round(2, this.players, this).run();
@@ -89,66 +83,45 @@ public class Match implements Runnable{
         new Round(9, this.players, this).run();
         this.players.addLast(this.players.removeFirst());
         new Round(10, this.players, this).run();
-        endGame();
-    }
-
-    
-    //when the match ends, we need to:
-    // calculate points for the privategoalcard and for the public goal card
-    //notify all players that the match is ended
-    //choose a winner and notify he has won
-    //notify the others that theey have lost
-    // what else?
-    private synchronized void endGame()throws RemoteException{
 
         //to calculate points for the public goals
         this.getGametable().calculatePointsforAllPlayers(this.players);
-
-        // to calculate points for the private
+        // to calculate points for the private goals
         for (Player player:this.players) {
             player.getPrivateGoalCard().calculatepoint(player);
         }
         //qualche altro conto da fare? Non ho letto tutto il regolamento
 
-        //notifico ai vari giocatori la vittoria, il pareggio eventuale e la sconfitta
-        try{
-            Player winnerPlayer = whohaswon();
-            winnerPlayer.notifyaWin();
-            for (Player loser:this.getallPlayersbutnotme(winnerPlayer)) {
-                loser.notifyaLose();
-            }
-
-
-        }catch (DrawException e){
-            for (Player player: this.players) {
-                if(player.getPoints() == e.getPointsofthedraw()){
-                    player.notifyaDraw();
-                }else{
-                    player.notifyaLose();
-                }
-
-            }
+        //notifico ai vari giocatori la fine della partita dopo aver ordinato la lista in base al punteggio di ciascuno
+        Collections.sort(this.players);
+        for (Player player:this.players) {
+            player.notifyEndMatch();
         }
-
         //qui bisognerà chiudere la partita in qualche modo
 
 
 
     }
 
-
-    //per decidere chi ha vinto
-    //anche questa classe è assolutamente da testatr
-    private Player whohaswon() throws DrawException {
-        //sort è un metodo che ordina in base all'override che ho fatto di compareTo nella classe player, cioè in base
-        //al PUNTEGGIO
-       Collections.sort(this.players);
-       if (this.players.get(0).getPoints()== this.players.get(1).getPoints()){
-           throw new DrawException(this.players.get(0).getPoints(),"C'è stato un pareggio a" + this.players.get(0).getPoints() + "\n");
-       }else{
-           return this.players.getFirst();
-       }
+    private synchronized boolean checkIsreadyToStart() {
+        // qua bisognerà inserire un controllo dovuto al timer
+        // ho messo due per semplicità nel testing
+        if (this.players.size() == 2) {
+            return true;
+        } else return false;
     }
+    private synchronized boolean everyonehassettheschemecard(){
+        boolean returnValue = true;
+        try{
+            for (Player player: this.players){
+                returnValue = returnValue && player.getScheme() != null;
+            }
+        }catch (SchemeCardNotExistantException e){
+            return false;
+        }
+        return returnValue;
+    }
+
 
 
     //metodi getter e setter
@@ -167,8 +140,9 @@ public class Match implements Runnable{
     public void setStarted(boolean started){
         this.started= started;
     }
-    public void join(Player player){
+    public synchronized void join(Player player){
         this.players.addLast(player);
+        notifyAll();
     }
 
     //assolutamente da testare

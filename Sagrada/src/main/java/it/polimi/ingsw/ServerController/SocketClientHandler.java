@@ -116,18 +116,10 @@ public class SocketClientHandler implements Runnable, ObserverViewInterface, Fee
     }
 
     @Override
-    public void showSchemeCards(String schemeCard1, String schemeCard2, String schemeCard3, String schemeCard4) throws RemoteException {
-
-    }
-
-    @Override
     public void notifyendGame() throws RemoteException {
-
     }
-
 
     @Override
     public void notifyGameisStarting(String gamename) throws RemoteException {
-
     }
 }

@@ -33,4 +33,5 @@ public interface ClientHandlerInterface extends Remote {
     public List getRanking(String clientname) throws RemoteException;
     public String getSchemeCards(String clientname) throws RemoteException;
     public void setSchemeCard(String clientname, int cardid) throws RemoteException;
+    public void notifyGame(String clientname) throws RemoteException;
 }

@@ -16,11 +16,13 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
     private final Scanner in;
     private final PrintWriter out;
     private String yourName;
+    private boolean matchisEnded;
 
     //constructor1
     public ObserverView() throws RemoteException {
         this.in = new Scanner(System.in);
         this.out = new PrintWriter(System.out);
+        matchisEnded = false;
     }
 
     //constructor2
@@ -210,22 +212,34 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
     private synchronized void startGameInt() {
         Scanner in = new Scanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        try{
+        try {
             wait();
             //aspetto una notify dell'inizio della partita, per ora è solo un test connection
-        }catch(InterruptedException e){
-                //do nothing
+        } catch (InterruptedException e) {
+            //do nothing
         }
 
         System.out.println("Success in testing wait and notify!");
         System.out.println("Seleziona la carta schema che desideri tra le seguenti indicando il numero relativo.");
-        try{
+        try {
             System.out.println(servercontroller.getSchemeCards(this.yourName));
             servercontroller.setSchemeCard(this.yourName, in.nextInt());
-        }catch(RemoteException e){
+        } catch (RemoteException e) {
             System.out.println(e.getMessage());
         }
+        while (!matchisEnded) {
 
+        }
+
+        try {
+            System.out.println("la partita è finita: hai totalizzato" + servercontroller.getmyPoints(yourName) + "punti");
+            System.out.println("Ecco la classifica finale: ");
+            for (Object player : servercontroller.getRanking(yourName)){
+                System.out.println(player.toString());
+            }
+        } catch (RemoteException e) {
+            System.out.println(e.getMessage());
+        }
         //to be implemented.
     }
 
@@ -252,7 +266,8 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
 
     @Override
     public void notifyendGame() throws RemoteException {
-
+        this.matchisEnded = true;
+        notifyAll();
     }
 
 

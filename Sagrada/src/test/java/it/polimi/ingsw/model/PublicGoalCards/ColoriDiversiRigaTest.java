@@ -39,7 +39,7 @@ public class ColoriDiversiRigaTest {
         }).when(mockPlayer).addPoints(6);
 
 
-        when(mockPlayer.getScheme()).thenReturn(mockSchemeCard);
+        //when(mockPlayer.getScheme()).thenReturn(mockSchemeCard);
     }
 
     @Test

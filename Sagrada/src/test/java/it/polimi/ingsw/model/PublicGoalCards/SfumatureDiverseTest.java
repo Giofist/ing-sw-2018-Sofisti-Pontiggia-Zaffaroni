@@ -36,7 +36,7 @@ public class SfumatureDiverseTest {
         }).when(mockPlayer).addPoints(5);
 
         // when(mockSchemeCard.getDiceIntensity(anyInt(), anyInt())).thenThrow(new DiceNotExistantException());
-        when(mockPlayer.getScheme()).thenReturn(mockSchemeCard);
+        //when(mockPlayer.getScheme()).thenReturn(mockSchemeCard);
     }
 
     @Test

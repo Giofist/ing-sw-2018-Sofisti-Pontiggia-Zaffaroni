@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.Dice;
 import it.polimi.ingsw.model.DiceColor;
 import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
 import it.polimi.ingsw.model.Exceptions.OutOfMatrixException;
+import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
 import it.polimi.ingsw.model.Exceptions.TwoDiceSameColorException;
 import it.polimi.ingsw.model.GoalCard;
 import it.polimi.ingsw.model.Player;
@@ -39,6 +40,8 @@ public class ColoriDiversiColonna implements GoalCard {
                 //unfortunately you can't get the point: the column has an empty tile
             }catch ( OutOfMatrixException e){
                 //no way to get here
+            }catch (SchemeCardNotExistantException e){
+
             }
         }
     }

@@ -47,10 +47,11 @@ public class MatchesList {
     public synchronized void  join(Player player, String game_name) throws GameNotExistantException {
         try{
             Match match = this.getGame(game_name);
-            match.join(player);
             player.setMatch(match);
+            match.join(player);
+
             // risveglio il thread con il lock che controlla se la partita è pronta per inizizare
-            match.notifyAll();
+
         }catch (GameNotExistantException e){
             throw e;
         }

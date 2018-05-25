@@ -39,7 +39,7 @@ public class SfumatureDiverseRigaTest {
         }).when(mockPlayer).addPoints(5);
 
 
-        when(mockPlayer.getScheme()).thenReturn(mockSchemeCard);
+        //when(mockPlayer.getScheme()).thenReturn(mockSchemeCard);
     }
 
     @Test

@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.ToolCard;
 import it.polimi.ingsw.model.Dice;
 import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
 import it.polimi.ingsw.model.Exceptions.OutOfMatrixException;
+import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
 import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.AlesatorePerLaminadiRameException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
@@ -40,6 +41,8 @@ public class AlesatoreperLaminadiRame  implements ToolAction {
             throw new AlesatorePerLaminadiRameException(AlesatorePerLaminadiRameException.getMsg()+e.getMessage());
         }catch (TileConstrainException e){
             throw new AlesatorePerLaminadiRameException(AlesatorePerLaminadiRameException.getMsg()+ e.getMessage());
+        }catch(SchemeCardNotExistantException e){
+            //do nothing
         }
     }
 
