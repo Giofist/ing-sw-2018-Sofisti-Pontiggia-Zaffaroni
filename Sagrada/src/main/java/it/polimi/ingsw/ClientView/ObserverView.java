@@ -6,7 +6,6 @@ import java.io.PrintWriter;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Scanner;
-import org.fusesource.jansi.AnsiConsole;
 
 import static org.fusesource.jansi.Ansi.ansi;
 
@@ -68,18 +67,18 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
             System.out.println("Hai già un account? [S/N]");
             input = in.nextLine();
             if ( input.equals("S") || input.equals("s")) {
-                logInInt();
+                signInInt();
                 successo = true;
             }
             else if (input.equals("N") || input.equals("n")){
-                signInInt();
+                logInInt();
                 successo = true;
             }
             else
                 System.out.println("Hai sbagliato a digitare.");
         }
     }
-    private void signInInt(){
+    private void logInInt(){
         String username;
         String password;
         boolean successo = false;
@@ -98,14 +97,14 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
             }
             if (!remoteException){
                 System.out.println("Esegui il LogIn con l'account appena creato!");
-                logInInt();
+                signInInt();
                 successo = true;
             }
         }
     }
 
 
-    private void logInInt(){
+    private void signInInt(){
         Scanner in = new Scanner(System.in);
         String username;
         String password;
@@ -151,14 +150,14 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         if (input.equals("B") || input.equals("b")) {
             menuInt();
         } else if (input.equals("C") || input.equals("c")) {
-            creaInt();
+            createInt();
         } else if (input.equals("P") || input.equals("p")) {
-            partecipaInt();
+            joinGameInt();
         }
         else System.out.println("Hai sbagliato a digitare!");
     }
 
-    private void partecipaInt(){
+    private void joinGameInt(){
         String gamename;
         Scanner in = new Scanner(System.in);
         System.out.println("Ecco la lista delle partite attualmente attive:");
@@ -183,7 +182,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         }
     }
 
-    private void creaInt() {
+    private void createInt() {
         boolean success = false;
         Scanner in = new Scanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
@@ -221,7 +220,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         //to be implemented.
     }
 
-    private synchronized void choseMapInt(){
+    private synchronized void chooseMapInt(){
         Scanner in = new Scanner(System.in);
         String input;
         System.out.println("Seleziona una di queste quattro mappe: [1/4]");
@@ -234,7 +233,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
     @Override
     public void notifyGameisStarting(String gamename) throws RemoteException{
         System.out.println("Il match" + gamename + "sta iniziando!");
-        choseMapInt();
+        chooseMapInt();
     }
 
 
