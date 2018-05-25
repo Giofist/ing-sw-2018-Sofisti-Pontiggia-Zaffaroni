@@ -28,7 +28,7 @@ public class SocketObserverView implements ClientHandlerInterface, Runnable {
         int i=0;
         while(i==0){
             switch(in.next()){
-                case "testConnection"
+                case "testConnection":
 
             }
         }

@@ -33,7 +33,6 @@ public class AlesatoreperLaminadiRame  implements ToolAction {
             Dice dice = player.getScheme().getDice(row, column);
             player.getScheme().removeDice(row,column);
             player.getScheme().setDice(dice, newRow, newColumn, false, true, false);
-            ;
         }catch (DiceNotExistantException e){
             throw new AlesatorePerLaminadiRameException(AlesatorePerLaminadiRameException.getMsg()+e.getMessage());
         }catch (OutOfMatrixException e){
