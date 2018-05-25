@@ -18,7 +18,6 @@ public class Tile {
         this.haveColor_constrain = false;
         this.haveNumber_constrain = false;
         this.dice = null;
-
     }
 
     public void setHaveColor_constrain(boolean haveColor_constrain) {
