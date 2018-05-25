@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.Dice;
 import it.polimi.ingsw.model.DiceColor;
 import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
 import it.polimi.ingsw.model.Exceptions.OutOfMatrixException;
+import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
 import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.AlesatorePerLaminadiRameException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
@@ -21,6 +22,8 @@ import static org.mockito.Mockito.when;
 // che volevo spostare.
 // Il problema si presenta quindi o quando ho un errore legato ad un constrain, o quando ho una newRow newCol OutOfMatrix
 
+// POSSIBILE SOLUZIONE: CORREGGERE AlesatorePerLaminaDiRame COME PennelloperEglomise
+
 public class AlesatorePerLaminaDiRameTest {
 
     private AlesatoreperLaminadiRame alesatorePerLaminaDiRame;
@@ -29,7 +32,7 @@ public class AlesatorePerLaminaDiRameTest {
     private SchemeCard mockSchemeCard;
 
     @Before
-    public void before(){
+    public void before() throws SchemeCardNotExistantException {
         this.alesatorePerLaminaDiRame = new AlesatoreperLaminadiRame(0,1, 1, 2);
         this.mockPlayer = mock(Player.class);
         this.mockDice = mock(Dice.class);
