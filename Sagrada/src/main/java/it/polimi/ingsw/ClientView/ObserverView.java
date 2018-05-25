@@ -224,7 +224,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         try {
             System.out.println(servercontroller.getSchemeCards(this.yourName));
             servercontroller.setSchemeCard(this.yourName, in.nextInt());
-        } catch (RemoteException e) {
+        } catch (RemoteException e){
             System.out.println(e.getMessage());
         }
         while (!matchisEnded) {

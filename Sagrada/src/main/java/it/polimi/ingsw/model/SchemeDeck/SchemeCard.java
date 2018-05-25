@@ -32,7 +32,8 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
 
     //to initialize the schemecard
     public void initialize (int mapID ) throws IOException,MapConstrainReadingException {
-        String fileName = "Maps.txt";
+        this.ID = mapID;
+        String fileName = "C:\\Users\\ponti\\Documents\\GitHub\\ing-sw-2018-Sofisti-Pontiggia-Zaffaroni\\Sagrada\\src\\main\\resources\\Maps.txt";
         try (BufferedReader buffer = new BufferedReader(new FileReader(fileName))) {
 
             //SCANDISCO IL FILE FINO ALLA RIGA Dove si trova la mappa che devo caricare
@@ -54,6 +55,7 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
             //set Tiles
             for(int row=0; row<4; row++) {
                 for (int b = 0; b < 5; b++) {
+                    this.matrix[row][b] = new Tile();
                     Tile tile = this.matrix[row][b];
                     switch (map[row * 5 + b]) {
                         case 'Y':
@@ -95,6 +97,8 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
                         case '6':
                             tile.setNumberConstrain(6);
                             tile.setHaveNumber_constrain(true);
+                            break;
+                        case ' ':
                             break;
                         default:
                             throw new MapConstrainReadingException(this.getID());

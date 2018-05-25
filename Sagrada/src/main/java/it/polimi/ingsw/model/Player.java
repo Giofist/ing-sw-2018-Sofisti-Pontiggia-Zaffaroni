@@ -119,6 +119,7 @@ public class Player implements Comparable<Player>{
         String stringToreturn = "\n";
         for (SchemeCard schemeCard: this.extractedschemeCards) {
             stringToreturn += schemeCard.displayScheme();
+            stringToreturn += schemeCard.getTwinCard().displayScheme();
         }
         return stringToreturn;
     }
@@ -205,4 +206,5 @@ public class Player implements Comparable<Player>{
     public int compareTo(Player player) {
         return this.getPoints() - player.getPoints();
     }
+
 }
