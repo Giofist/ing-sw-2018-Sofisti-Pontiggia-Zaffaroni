@@ -19,7 +19,7 @@ public class RoundTrack {
     private DicePool round10Dices;
 
     public RoundTrack(){
-         round1Dices = new DicePool();
+        round1Dices = new DicePool();
         round2Dices = new DicePool();
         round3Dices = new DicePool();
         round4Dices = new DicePool();

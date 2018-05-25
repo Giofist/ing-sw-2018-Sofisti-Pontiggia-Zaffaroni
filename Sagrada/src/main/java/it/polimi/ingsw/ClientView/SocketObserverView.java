@@ -28,7 +28,7 @@ public class SocketObserverView implements ClientHandlerInterface, Runnable {
         int i=0;
         while(i==0){
             switch(in.next()){
-                case "testConnection":
+                case "testConnection": //do nothing
 
             }
         }
@@ -93,6 +93,11 @@ public class SocketObserverView implements ClientHandlerInterface, Runnable {
         }
     }
 
+    @Override
+    public void notifyGame(String clientname) throws RemoteException {
+
+    }
+
 
     @Override
     public String getPrivateGoalCarddescription(String clientname) throws RemoteException {
@@ -146,5 +151,10 @@ public class SocketObserverView implements ClientHandlerInterface, Runnable {
     public List getRanking(String username) throws RemoteException {
         return null;
 
+    }
+
+    @Override
+    public String getSchemeCards(String clientname) throws RemoteException {
+        return null;
     }
 }

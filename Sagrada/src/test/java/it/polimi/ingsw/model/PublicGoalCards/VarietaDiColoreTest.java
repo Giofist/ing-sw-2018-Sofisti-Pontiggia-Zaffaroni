@@ -37,7 +37,7 @@ public class VarietaDiColoreTest {
         }).when(mockPlayer).addPoints(4);
 
 
-        when(mockPlayer.getScheme()).thenReturn(mockSchemeCard);
+        //when(mockPlayer.getScheme()).thenReturn(mockSchemeCard);
     }
 
     @Test

@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.DiceColor;
 import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
 import it.polimi.ingsw.model.Exceptions.OutOfMatrixException;
 import it.polimi.ingsw.model.Exceptions.RoundTrackException;
+import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
 import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.TaglierinaManualeException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
@@ -56,6 +57,8 @@ public class TaglierinaManuale  implements ToolAction {
             throw new TaglierinaManualeException(TaglierinaManualeException.getMsg()+e.getMessage());
         }catch (RoundTrackException e){
             throw new TaglierinaManualeException(TaglierinaManualeException.getMsg()+e.getMessage());
+        }catch (SchemeCardNotExistantException e){
+            //
         }
 
 

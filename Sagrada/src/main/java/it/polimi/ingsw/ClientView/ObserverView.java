@@ -16,11 +16,13 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
     private final Scanner in;
     private final PrintWriter out;
     private String yourName;
+    private boolean matchisEnded;
 
     //constructor1
     public ObserverView() throws RemoteException {
         this.in = new Scanner(System.in);
         this.out = new PrintWriter(System.out);
+        matchisEnded = false;
     }
 
     //constructor2
@@ -49,17 +51,17 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
     private void loadingInterface() {
         System.out.println("Benvenuto in...\n");
         System.out.print("\n" +
-                " ▄▄▄▄▄▄▄▄▄▄▄   ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄   ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄   ▄▄▄▄▄▄▄▄▄▄    ▄▄▄▄▄▄▄▄▄▄▄ \n" +
-                "▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░▌  ▐░░░░░░░░░░░▌\n" +
+                " ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄   ▄▄▄▄▄▄▄▄▄▄▄ \n" +
+                "▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░▌ ▐░░░░░░░░░░░▌\n" +
                 "▐░█▀▀▀▀▀▀▀▀▀ ▐░█▀▀▀▀▀▀▀█░▌▐░█▀▀▀▀▀▀▀▀▀ ▐░█▀▀▀▀▀▀▀█░▌▐░█▀▀▀▀▀▀▀█░▌▐░█▀▀▀▀▀▀▀█░▌▐░█▀▀▀▀▀▀▀█░▌\n" +
-                "▐░▌                 ▐░▌            ▐░▌▐░▌                 ▐░▌            ▐░▌▐░▌            ▐░▌▐░▌             ▐░▌▐░▌            ▐░▌\n" +
-                "▐░█▄▄▄▄▄▄▄▄▄ ▐░█▄▄▄▄▄▄▄█░▌▐░▌  ▄▄▄▄▄▄▄▄  ▐░█▄▄▄▄▄▄▄█░▌▐░█▄▄▄▄▄▄▄█░▌▐░▌            ▐░▌▐░█▄▄▄▄▄▄▄█░▌\n" +
-                "▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░▌ ▐░░░░░░░░▌ ▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░▌            ▐░▌▐░░░░░░░░░░░▌\n" +
-                " ▀▀▀▀▀▀▀▀▀█░▌ ▐░█▀▀▀▀▀▀▀█░▌▐░▌  ▀▀▀▀▀▀█░▌ ▐░█▀▀▀▀█░█▀▀ ▐░█▀▀▀▀▀▀▀█░▌▐░▌            ▐░▌▐░█▀▀▀▀▀▀▀█░▌\n" +
-                "                ▐░▌ ▐░▌            ▐░▌▐░▌            ▐░▌ ▐░▌        ▐░▌     ▐░▌            ▐░▌▐░▌            ▐░▌▐░▌            ▐░▌\n" +
-                " ▄▄▄▄▄▄▄▄▄█░▌ ▐░▌            ▐░▌▐░█▄▄▄▄▄▄▄█░▌ ▐░▌        ▐░▌     ▐░▌            ▐░▌▐░█▄▄▄▄▄▄▄█░▌▐░▌           ▐░▌\n" +
-                "▐░░░░░░░░░░░▌▐░▌            ▐░▌▐░░░░░░░░░░░▌ ▐░▌        ▐░▌     ▐░▌            ▐░▌▐░░░░░░░░░░▌  ▐░▌           ▐░▌\n" +
-                " ▀▀▀▀▀▀▀▀▀▀▀   ▀               ▀  ▀▀▀▀▀▀▀▀▀▀▀   ▀           ▀       ▀               ▀  ▀▀▀▀▀▀▀▀▀▀     ▀             ▀ \n" +
+                "▐░▌          ▐░▌       ▐░▌▐░▌          ▐░▌       ▐░▌▐░▌       ▐░▌▐░▌       ▐░▌▐░▌       ▐░▌\n" +
+                "▐░█▄▄▄▄▄▄▄▄▄ ▐░█▄▄▄▄▄▄▄█░▌▐░▌ ▄▄▄▄▄▄▄▄ ▐░█▄▄▄▄▄▄▄█░▌▐░█▄▄▄▄▄▄▄█░▌▐░▌       ▐░▌▐░█▄▄▄▄▄▄▄█░▌\n" +
+                "▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░▌▐░░░░░░░░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░▌       ▐░▌▐░░░░░░░░░░░▌\n" +
+                " ▀▀▀▀▀▀▀▀▀█░▌▐░█▀▀▀▀▀▀▀█░▌▐░▌ ▀▀▀▀▀▀█░▌▐░█▀▀▀▀█░█▀▀ ▐░█▀▀▀▀▀▀▀█░▌▐░▌       ▐░▌▐░█▀▀▀▀▀▀▀█░▌\n" +
+                "          ▐░▌▐░▌       ▐░▌▐░▌       ▐░▌▐░▌     ▐░▌  ▐░▌       ▐░▌▐░▌       ▐░▌▐░▌       ▐░▌\n" +
+                " ▄▄▄▄▄▄▄▄▄█░▌▐░▌       ▐░▌▐░█▄▄▄▄▄▄▄█░▌▐░▌      ▐░▌ ▐░▌       ▐░▌▐░█▄▄▄▄▄▄▄█░▌▐░▌       ▐░▌\n" +
+                "▐░░░░░░░░░░░▌▐░▌       ▐░▌▐░░░░░░░░░░░▌▐░▌       ▐░▌▐░▌       ▐░▌▐░░░░░░░░░░▌ ▐░▌       ▐░▌\n" +
+                " ▀▀▀▀▀▀▀▀▀▀▀  ▀         ▀  ▀▀▀▀▀▀▀▀▀▀▀  ▀         ▀  ▀         ▀  ▀▀▀▀▀▀▀▀▀▀   ▀         ▀ \n" +
                 "                                                                                           \n");
 
         boolean successo = false;
@@ -85,10 +87,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         boolean successo = false;
         boolean remoteException = false;
         while (!successo) {
-            System.setProperty("jansi.passthrough", "true");
-            AnsiConsole.systemInstall();
-            System.out.println(ansi().eraseScreen().render("@|red Inserisci un nuovo Username:|@"));
-            AnsiConsole .systemUninstall();
+            System.out.println("Inserisci un nuovo Username:");
             username = in.nextLine();
             this.yourName = username;
             System.out.println("Inserisci una password:");
@@ -207,43 +206,56 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         Scanner in = new Scanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
         System.out.println("Attendi che altri giocatori entrino in partita...");
-        //timer di attesa poi
+        //timer di attesa poi appena arriva notify parte il gioco
     }
 
     private synchronized void startGameInt() {
         Scanner in = new Scanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        try{
+        try {
             wait();
             //aspetto una notify dell'inizio della partita, per ora è solo un test connection
-        }catch(InterruptedException e){
-                //do nothing
+        } catch (InterruptedException e) {
+            //do nothing
         }
-        System.out.println("Success in testing wait and notify!");
 
+        System.out.println("Success in testing wait and notify!");
+        System.out.println("Seleziona la carta schema che desideri tra le seguenti indicando il numero relativo.");
+        try {
+            System.out.println(servercontroller.getSchemeCards(this.yourName));
+            servercontroller.setSchemeCard(this.yourName, in.nextInt());
+        } catch (RemoteException e) {
+            System.out.println(e.getMessage());
+        }
+        while (!matchisEnded) {
+
+        }
+
+        try {
+            System.out.println("la partita è finita: hai totalizzato" + servercontroller.getmyPoints(yourName) + "punti");
+            System.out.println("Ecco la classifica finale: ");
+            for (Object player : servercontroller.getRanking(yourName)){
+                System.out.println(player.toString());
+            }
+        } catch (RemoteException e) {
+            System.out.println(e.getMessage());
+        }
         //to be implemented.
     }
-
-
-
 
 
 
     //metodi per il pattern observer
     @Override
     public void notifyGameisStarting(String gamename) throws RemoteException{
-        System.out.println("Match" + gamename + "is starting");
-    }
-
-
-    @Override
-    public synchronized void testConnection(boolean value) throws RemoteException{
-        System.out.println("Test connection");
+        System.out.println("Il match" + gamename + "sta iniziando!");
         notifyAll();
     }
 
+
     @Override
     public void update() {
+        notifyAll();
         }
 
     @Override
@@ -251,41 +263,11 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         System.out.println(message);
     }
 
-    @Override
-    public void showSchemeCards(String schemeCard1, String schemeCard2, String schemeCard3, String schemeCard4) {
-        System.out.println("Seleziona la carta schema che desideri tra le seguenti indicando il numero relativo.");
-        System.out.println(schemeCard1);
-        System.out.println(schemeCard2);
-        System.out.println(schemeCard3);
-        System.out.println(schemeCard4);
-    }
 
     @Override
-    public void notifyaDraw() {
-        try{
-            System.out.println("Hai pareggiato:"+"Il tuo punteggio è" + servercontroller.getmyPoints(this.yourName));
-    }catch (RemoteException e ){
-        System.out.println(e.getMessage());
-    };
-    }
-
-    @Override
-    public void notifyaLose() {
-        try{
-            System.out.println("Mi spiace, hai perso"+ "Il tuo punteggio è" + servercontroller.getmyPoints(this.yourName));
-        }catch (RemoteException e ){
-            System.out.println(e.getMessage());
-        }
-
-    }
-
-    @Override
-    public void notifyaWin() {
-        try{
-            System.out.println("Congratulazioni, hai vinto"+ "Il tuo punteggio è" + servercontroller.getmyPoints(this.yourName));
-        }catch (RemoteException e ){
-            System.out.println(e.getMessage());
-        }
+    public void notifyendGame() throws RemoteException {
+        this.matchisEnded = true;
+        notifyAll();
     }
 
 

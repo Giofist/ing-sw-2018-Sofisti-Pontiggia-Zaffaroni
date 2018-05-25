@@ -1,10 +1,7 @@
 package it.polimi.ingsw.model.PublicGoalCards;
 
 import it.polimi.ingsw.model.DiceColor;
-import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
-import it.polimi.ingsw.model.Exceptions.OutOfMatrixException;
-import it.polimi.ingsw.model.Exceptions.TwoDiceSameColorException;
-import it.polimi.ingsw.model.Exceptions.TwoDiceSameShadeException;
+import it.polimi.ingsw.model.Exceptions.*;
 import it.polimi.ingsw.model.GoalCard;
 import it.polimi.ingsw.model.Player;
 
@@ -39,6 +36,8 @@ public class SfumatureDiverseColonna implements GoalCard {
                 //unfortunately you can't get the points
             }catch (OutOfMatrixException e){
                 //impossible
+            }catch(SchemeCardNotExistantException e){
+
             }
         }
     }

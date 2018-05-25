@@ -34,7 +34,7 @@ public class FreeSpacesTest {
         }).when(mockPlayer).addPoints(-1);
 
 
-        when(mockPlayer.getScheme()).thenReturn(mockSchemeCard);
+        //when(mockPlayer.getScheme()).thenReturn(mockSchemeCard);
         //doThrow(new DiceNotExistantException()).when(mockPlayer).getScheme().getDiceIntensity(anyInt(), anyInt());
     }
 

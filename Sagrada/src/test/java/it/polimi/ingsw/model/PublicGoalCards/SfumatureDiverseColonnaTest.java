@@ -37,7 +37,7 @@ public class SfumatureDiverseColonnaTest {
         }).when(mockPlayer).addPoints(4);
 
         // when(mockSchemeCard.getDiceIntensity(anyInt(), anyInt())).thenThrow(new DiceNotExistantException());
-        when(mockPlayer.getScheme()).thenReturn(mockSchemeCard);
+        //when(mockPlayer.getScheme()).thenReturn(mockSchemeCard);
     }
 
     @Test

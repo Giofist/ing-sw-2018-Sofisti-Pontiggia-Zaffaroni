@@ -37,7 +37,7 @@ public class DiagonaliColorateTest {
         }).when(mockPlayer).addPoints(1);
 
 
-        when(mockPlayer.getScheme()).thenReturn(mockSchemeCard);
+        //when(mockPlayer.getScheme()).thenReturn(mockSchemeCard);
     }
 
     @Test

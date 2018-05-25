@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.PrivateGoalCards;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
 import it.polimi.ingsw.model.Exceptions.OutOfMatrixException;
+import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
 
 //obiettivo privato
 public class SfumatureRosse implements GoalCard {
@@ -23,6 +24,8 @@ public class SfumatureRosse implements GoalCard {
                 }catch (DiceNotExistantException e){
                     //zorry, there is no dice
                 }catch (OutOfMatrixException e){
+                    //
+                }catch (SchemeCardNotExistantException e){
                     //
                 }
             }
