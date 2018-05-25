@@ -220,20 +220,13 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         //to be implemented.
     }
 
-    private synchronized void chooseMapInt(){
-        Scanner in = new Scanner(System.in);
-        String input;
-        System.out.println("Seleziona una di queste quattro mappe: [1/4]");
-
-        input = in.nextLine();
-
-    }
 
     //metodi per il pattern observer
     @Override
     public void notifyGameisStarting(String gamename) throws RemoteException{
         System.out.println("Il match" + gamename + "sta iniziando!");
-        chooseMapInt();
+        //TODO implement here the gameInt call
+        //showSchemeCards();
     }
 
 
@@ -253,12 +246,34 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
     }
 
     @Override
-    public void showSchemeCards(String schemeCard1, String schemeCard2, String schemeCard3, String schemeCard4) {
-        System.out.println("Seleziona la carta schema che desideri tra le seguenti indicando il numero relativo.");
+    public void showSchemeCards(String schemeCard1, String schemeCard2, String schemeCard3, String schemeCard4) throws RemoteException {
+        Scanner in = new Scanner(System.in);
+        int response;
+        String input;
+        boolean successo = false;
+//TODO cambiare stampaggio celle a schermo
+        System.out.println("|Mappa 1|");
         System.out.println(schemeCard1);
+        System.out.println("|Mappa 2|");
         System.out.println(schemeCard2);
+        System.out.println("|Mappa 3|");
         System.out.println(schemeCard3);
+        System.out.println("|Mappa 4|");
         System.out.println(schemeCard4);
+
+        while (!successo){
+            System.out.println("Seleziona la carta schema che desideri tra le seguenti indicando il numero relativo. [1/4]");
+            response = in.nextInt();
+            System.out.println("Hai scelto la mappa " + response + ", è corretto? [S/N]");
+            input = in.nextLine();
+                if ( input.equals("S") || input.equals("s")) {
+                    servercontroller.setSchemeCard(yourName, response);
+                    successo = true;
+                }
+                else if (input.equals("N") || input.equals("n")){}
+                else
+                    System.out.println("Hai sbagliato a digitare.");
+        }
     }
 
     @Override

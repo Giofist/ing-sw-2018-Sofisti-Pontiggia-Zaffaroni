@@ -46,8 +46,9 @@ public class DiceTest {
         dice.increaseIntensity();
         assertEquals(4, dice.getIntensity());
 
-        dice.setIntensity(6);
+        dice.setIntensity(5);
         dice.increaseIntensity();
+        assertEquals(6, dice.getIntensity());
     }
 
     @Test
