@@ -37,7 +37,7 @@ public class SchemeCardDeck {
 
     //this is to get the number of maps uploaded by the player + the standards one
     private static int getNumMaps() throws IOException {
-        String fileName = "C:\\Users\\ponti\\Documents\\GitHub\\ing-sw-2018-Sofisti-Pontiggia-Zaffaroni\\Sagrada\\src\\main\\resources\\Maps.txt";
+        String fileName = "src/main/resources/Maps.txt";
 
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String s = br.readLine();

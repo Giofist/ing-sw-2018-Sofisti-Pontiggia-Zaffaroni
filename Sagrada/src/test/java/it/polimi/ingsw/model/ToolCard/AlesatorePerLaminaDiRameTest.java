@@ -35,7 +35,7 @@ public class AlesatorePerLaminaDiRameTest {
         this.mockDice = mock(Dice.class);
         this.mockSchemeCard = mock(SchemeCard.class);
 
-        when(mockPlayer.getScheme()).thenReturn(mockSchemeCard);
+        //when(mockPlayer.getScheme()).thenReturn(mockSchemeCard);
     }
 
     // This method tests if a Player specifies by mistake a wrong position on the schemeCard from where to pick a Dice
