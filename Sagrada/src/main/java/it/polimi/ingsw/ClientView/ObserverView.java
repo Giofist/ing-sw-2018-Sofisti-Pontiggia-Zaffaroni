@@ -216,36 +216,32 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         }catch(InterruptedException e){
                 //do nothing
         }
+
         System.out.println("Success in testing wait and notify!");
+        System.out.println("Seleziona la carta schema che desideri tra le seguenti indicando il numero relativo.");
+        try{
+            System.out.println(servercontroller.getSchemeCards(this.yourName));
+            servercontroller.setSchemeCard(this.yourName, in.nextInt());
+        }catch(RemoteException e){
+            System.out.println(e.getMessage());
+        }
 
         //to be implemented.
     }
 
-    private synchronized void choseMapInt(){
-        Scanner in = new Scanner(System.in);
-        String input;
-        System.out.println("Seleziona una di queste quattro mappe: [1/4]");
 
-        input = in.nextLine();
-
-    }
 
     //metodi per il pattern observer
     @Override
     public void notifyGameisStarting(String gamename) throws RemoteException{
         System.out.println("Il match" + gamename + "sta iniziando!");
-        choseMapInt();
-    }
-
-
-    @Override
-    public synchronized void testConnection(boolean value) throws RemoteException{
-        System.out.println("Test connection");
         notifyAll();
     }
 
+
     @Override
     public void update() {
+        notifyAll();
         }
 
     @Override
@@ -253,41 +249,10 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         System.out.println(message);
     }
 
-    @Override
-    public void showSchemeCards(String schemeCard1, String schemeCard2, String schemeCard3, String schemeCard4) {
-        System.out.println("Seleziona la carta schema che desideri tra le seguenti indicando il numero relativo.");
-        System.out.println(schemeCard1);
-        System.out.println(schemeCard2);
-        System.out.println(schemeCard3);
-        System.out.println(schemeCard4);
-    }
 
     @Override
-    public void notifyaDraw() {
-        try{
-            System.out.println("Hai pareggiato:"+"Il tuo punteggio è" + servercontroller.getmyPoints(this.yourName));
-    }catch (RemoteException e ){
-        System.out.println(e.getMessage());
-    };
-    }
+    public void notifyendGame() throws RemoteException {
 
-    @Override
-    public void notifyaLose() {
-        try{
-            System.out.println("Mi spiace, hai perso"+ "Il tuo punteggio è" + servercontroller.getmyPoints(this.yourName));
-        }catch (RemoteException e ){
-            System.out.println(e.getMessage());
-        }
-
-    }
-
-    @Override
-    public void notifyaWin() {
-        try{
-            System.out.println("Congratulazioni, hai vinto"+ "Il tuo punteggio è" + servercontroller.getmyPoints(this.yourName));
-        }catch (RemoteException e ){
-            System.out.println(e.getMessage());
-        }
     }
 
 

@@ -12,6 +12,7 @@ import it.polimi.ingsw.model.SchemeDeck.SchemeCardDeck;
 import it.polimi.ingsw.model.ToolCard.ToolAction;
 import it.polimi.ingsw.model.ToolCard.ToolCardsDeck;
 
+import java.io.IOError;
 import java.io.IOException;
 import java.util.List;
 
@@ -31,11 +32,11 @@ public class Gametable {
 
 
     //constructor
-    public Gametable(int numberPlayers)  {
+    public Gametable(int numberPlayers) throws IOException {
         prepareGame(numberPlayers);
     }
     //first to do when preparing a game
-    private void prepareGame(int numberPlayers)  {
+    private void prepareGame(int numberPlayers) throws IOException {
         this.dicepool = new DicePool();
         this.tooldeck = new ToolCardsDeck();
         this.privategoalcardsdeck = new PrivateGoalCardDeck();

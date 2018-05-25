@@ -46,6 +46,7 @@ public class Player implements Comparable<Player>{
         this.mustpassTurn = false;
         this.points = 0;
         this.extractedschemeCards = new LinkedList<>();
+        this.scheme = null;
     }
 
 
@@ -87,6 +88,9 @@ public class Player implements Comparable<Player>{
     public SchemeCard getScheme(){
         return this.scheme;
     }
+    public String getSchemeCardRappresentation (){
+        return getScheme().displayScheme();
+    }
     public Gametable getGametable(){
         return getMatch().getGametable();
     }
@@ -110,6 +114,13 @@ public class Player implements Comparable<Player>{
     }
     public void setMatch(Match match) {
         this.match = match;
+    }
+    public String getExtractedSchemeCards(){
+        String stringToreturn = "\n";
+        for (SchemeCard schemeCard: this.extractedschemeCards) {
+            stringToreturn += schemeCard.displayScheme();
+        }
+        return stringToreturn;
     }
 
     //metodi per gli attributi per le toolcard
@@ -154,16 +165,14 @@ public class Player implements Comparable<Player>{
     }
 
 
-
-
     //metodo per l'oberserver design pattern
-    //tutti questi metodi chiamano qualcosa della view tramite gli observer pattern
     public void feedObserverViews(FeedObserverView client) {
         this.feedObserverViews.add(client);
     }
     public void observerViews(ObserverViewInterface client){
         this.observerViewInterfaces.add(client);
     }
+    //tutti questi metodi chiamano qualcosa della view tramite gli observer pattern
     public void notifyError(String message)  throws RemoteException{
         for(ObserverViewInterface observerViewInterface : this.observerViewInterfaces){
             observerViewInterface.showErrorMessage(message);
@@ -171,47 +180,20 @@ public class Player implements Comparable<Player>{
     }
     public void startGame(SchemeCard schemeCard1, SchemeCard schemeCard2)throws RemoteException{
         try{
-            for(ObserverViewInterface observerViewInterface : this.observerViewInterfaces){
-                observerViewInterface.notifyGameisStarting(this.getMatch().getName());
-                observerViewInterface.showSchemeCards(schemeCard1.displayScheme(), schemeCard1.getTwinCard().displayScheme(),schemeCard2.displayScheme(),schemeCard2.getTwinCard().displayScheme());
-            }
             this.extractedschemeCards.add(schemeCard1);
             this.extractedschemeCards.add(schemeCard2);
             //all'inizio della partita viene anche aggiunta ad ogni player una carta obiettivo privato
             setPrivateGoalCard(getMatch().getGametable().getPrivateGoalCard());
+            for(ObserverViewInterface observerViewInterface : this.observerViewInterfaces){
+                observerViewInterface.notifyGameisStarting(this.getMatch().getName());
+            }
         }catch(PrivateGoalCardException e){
             notifyError(e.getMessage());
         }
     }
-
-    public void notifyaDraw()throws RemoteException{
-        for (ObserverViewInterface observerview: this.observerViewInterfaces) {
-            observerview.notifyaDraw();
-        }
-    }
-
-    public void notifyaLose()throws RemoteException{
-        for (ObserverViewInterface observerview: this.observerViewInterfaces) {
-            observerview.notifyaLose();
-        }
-    }
-
-    public void notifyaWin()throws RemoteException{
-        for (ObserverViewInterface observerview: this.observerViewInterfaces) {
-            observerview.notifyaWin();
-        }
-    }
-
     /// /utile per ordinare i giocatori in base al punteggio
     @Override
     public int compareTo(Player player) {
         return this.getPoints() - player.getPoints();
-    }
-
-    public void connectionTest()throws RemoteException{
-        for (ObserverViewInterface observerViewInterface : this.observerViewInterfaces){
-            System.out.println("Connection test su questo player: " + this.getAssociatedUser().getName());
-            observerViewInterface.testConnection(true);
-        }
     }
 }

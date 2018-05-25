@@ -24,39 +24,42 @@ public class Match implements Runnable{
         this.players.addFirst(player);
         player.setMatch(this);
     }
-    public synchronized void run() {
-        try{ //to be implemented
-            while (!checkIsready()){
+    public synchronized void run(){
+        while (!checkIsreadyToStart()){
+            try {
                 wait();
-            }
-            this.start();
-        }catch (InterruptedException e){
-            e.printStackTrace();
-            try{
-                for(Player player: this.players){
-                    player.notifyError("InterruptedException");
-                }
-            }catch(Exception err){
-                //do nothing: we are so unlucky here
-            }
-        }catch (IOException e){
-            System.out.println("Errore IO");
-            try{
-                for(Player player: this.players){
-                    player.notifyError("Errore nel caricamento delle mappe\n");
-                }
-            }catch(Exception err){
+            }catch(InterruptedException e) {
                 //do nothing
             }
-        };
+        }
+        //the match can start
+        try {
+            gametable = new Gametable(this.players.size());
+            for (Player player : this.players) {
+                boolean success = false;
+                while (!success) {
+                    try {
+                        player.startGame(this.getGametable().getSchemeCard(), getGametable().getSchemeCard());
+                        success = true;
+                    } catch (MapConstrainReadingException e) {
+                        System.out.println(e.getMessage());
+                    }
+                }
+            }
+        }catch(IOException e){
+            try{
+                for(Player player: this.players){
+                    player.notifyError("Impossibile leggere il file delle mappe, la partita non può iniziare!\n");
+                }
+            }catch(RemoteException err){
+                //do nothing, we are so unlucky here
+            }
+        }
+        while()
+
     }
-    public synchronized void  join(Player player) throws RemoteException{
-        this.players.addLast(player);
-        player.setMatch(this);
-        // risveglio il thread con il lock che controlla se la partita è pronta per inizizare
-        notifyAll();
-    }
-    private synchronized boolean checkIsready() {
+
+    private synchronized boolean checkIsreadyToStart() {
         // qua bisognerà inserire un controllo dovuto al timer
         // ho messo due per semplicità nel testing
         if (this.players.size() == 2) {
@@ -64,37 +67,6 @@ public class Match implements Runnable{
         } else return false;
     }
 
-
-    private synchronized void start()throws  RemoteException {
-        gametable = new Gametable(this.players.size());
-        
-        for (Player player : this.players) {
-            player.connectionTest();
-            /*boolean success = false;
-            while (!success) {
-                //try {
-                    // questo è per notificare che la partita sta per iniziare
-                    // nella notifica viene chiesto a ciascun utente di settare una schemecard scegliendola tra due
-                    // in realtà la scelta è tra quattro, perchè ogni scheme card ha due facce
-                    //notifyGameISStarting fa avere anche al player una carta obiettivo privato, questo ricordatevelo per l'esecuzione
-                    //player.startGame(getGametable().getSchemeCard(), getGametable().getSchemeCard());
-                    success = true;
-                //} catch (MapConstrainReadingException e) {
-                    //qui ho pensato che sul server fosse utile permettere all'amministratore di sistema poter gestire
-                    //i casi in cui le mappe non vengono lette correttamente, per poterle correggere manualmente nel file
-                    //System.out.println(e.getMessage());
-                //}
-            }
-            */
-
-        }
-        //la partita può avere inizio.
-        return;
-        //this.work();
-
-
-    }
-    
     //this is THE GAME: 10 ROUNDS
     private synchronized void work()throws RemoteException{
         //ad ogni round modifico l'ordine nella lista
@@ -194,6 +166,9 @@ public class Match implements Runnable{
     }
     public void setStarted(boolean started){
         this.started= started;
+    }
+    public void join(Player player){
+        this.players.addLast(player);
     }
 
     //assolutamente da testare

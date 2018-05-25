@@ -23,76 +23,83 @@ public class SocketClientHandler implements Runnable, ObserverViewInterface, Fee
         out = new PrintWriter(socket.getOutputStream());
         this.controller = controller;
     }
+
     @Override
-    public void run (){
-        int i=0;
-        while (i==0){
+    public void run() {
+        int i = 0;
+        while (i == 0) {
             String command = in.next();
-            System.out.println("the command I've received: " +command);
-            switch(command){
-                case "register": try{
-                    String username = in.next();
-                    String password = in.next();
-                    controller.register(username, password);
-                    out.println(1);
-                    out.flush();
-                }catch(RemoteException e){
-                    out.println(0 + " " +e.getMessage());
-                    out.flush();
-                }
-                break;
-                case "login": try{
-                    String username = in.next();
-                    String password = in.next();
-                    controller.login(username, password);
-                    out.println(1);
-                    out.flush();
-                }catch(RemoteException e){
-                    out.println(0 + " " +e.getMessage());
-                    out.flush();
-                }
-                break;
-                case "createGame": try{
-                    String username = in.next();
-                    String gamename = in.next();
-                    controller.createGame(username, this,this, gamename);
-                    out.println(1);
-                    out.flush();
-                }catch(RemoteException e){
-                    out.println(0 + " " +e.getMessage());
-                    out.flush();
-                }
-                break;
-                case "getActiveMatchList" : try{
-                    String list =controller.getActiveMatchList();
-                    out.println(1 + " "+ list);
-                    out.flush();
-                }catch(RemoteException e){
-                    out.println(0 + " " +e.getMessage());
-                    out.flush();
-                }
-                break;
-                case "setSchemeCard" : try{
-                    String username = in.next();
-                    int cardid = in.nextInt();
-                    controller.setSchemeCard(username,cardid);
-                    out.println(1);
-                    out.flush();
-                }catch(RemoteException e){
-                    out.println(0 + " " +e.getMessage());
-                    out.flush();
-                }
-                break;
-                case "joinaGame": try{
-                    String username = in.next();
-                    String gamename = in.next();
-                    controller.joinaGame(username,this, this, gamename);
-                    out.println(1);
-                    out.flush();
-                }catch(RemoteException e){
-                    out.println(0 + " " +e.getMessage());
-                    out.flush();
-                }
+            System.out.println("the command I've received: " + command);
+            switch (command) {
+                case "register":
+                    try {
+                        String username = in.next();
+                        String password = in.next();
+                        controller.register(username, password);
+                        out.println(1);
+                        out.flush();
+                    } catch (RemoteException e) {
+                        out.println(0 + " " + e.getMessage());
+                        out.flush();
+                    }
+                    break;
+                case "login":
+                    try {
+                        String username = in.next();
+                        String password = in.next();
+                        controller.login(username, password);
+                        out.println(1);
+                        out.flush();
+                    } catch (RemoteException e) {
+                        out.println(0 + " " + e.getMessage());
+                        out.flush();
+                    }
+                    break;
+                case "createGame":
+                    try {
+                        String username = in.next();
+                        String gamename = in.next();
+                        controller.createGame(username, this, this, gamename);
+                        out.println(1);
+                        out.flush();
+                    } catch (RemoteException e) {
+                        out.println(0 + " " + e.getMessage());
+                        out.flush();
+                    }
+                    break;
+                case "getActiveMatchList":
+                    try {
+                        String list = controller.getActiveMatchList();
+                        out.println(1 + " " + list);
+                        out.flush();
+                    } catch (RemoteException e) {
+                        out.println(0 + " " + e.getMessage());
+                        out.flush();
+                    }
+                    break;
+                case "setSchemeCard":
+                    try {
+                        String username = in.next();
+                        int cardid = in.nextInt();
+                        controller.setSchemeCard(username, cardid);
+                        out.println(1);
+                        out.flush();
+                    } catch (RemoteException e) {
+                        out.println(0 + " " + e.getMessage());
+                        out.flush();
+                    }
+                    break;
+                case "joinaGame":
+                    try {
+                        String username = in.next();
+                        String gamename = in.next();
+                        controller.joinaGame(username, this, this, gamename);
+                        out.println(1);
+                        out.flush();
+                    } catch (RemoteException e) {
+                        out.println(0 + " " + e.getMessage());
+                        out.flush();
+                    }
             }
         }
 
@@ -113,30 +120,14 @@ public class SocketClientHandler implements Runnable, ObserverViewInterface, Fee
 
     }
 
-
     @Override
-    public void notifyaDraw() {
+    public void notifyendGame() throws RemoteException {
 
     }
 
-    @Override
-    public void notifyaLose() {
-
-    }
-
-    @Override
-    public void notifyaWin() {
-
-    }
 
     @Override
     public void notifyGameisStarting(String gamename) throws RemoteException {
 
-    }
-
-    @Override
-    public void testConnection(boolean value) throws RemoteException {
-        out.println("testConnection");
-        out.flush();
     }
 }
