@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import static it.polimi.ingsw.model.DiceColor.GREEN;
+import static it.polimi.ingsw.model.DiceColor.RED;
 import static it.polimi.ingsw.model.DiceColor.VIOLET;
 
 //classe completa
@@ -48,7 +49,7 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
             this.difficulty = Integer.parseInt(buffer.readLine());
 
             //VARIABILE DI SUPPORTO
-            char[] map = new char[20];
+            char[] map;
             map = buffer.readLine().toCharArray();
 
             //set Tiles
@@ -63,6 +64,10 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
                             break;
                         case 'B':
                             tile.setColourConstrain(DiceColor.BLUE);
+                            tile.setHaveColor_constrain(true);
+                            break;
+                        case 'R':
+                            tile.setColourConstrain(RED);
                             tile.setHaveColor_constrain(true);
                             break;
                         case 'P':
