@@ -33,6 +33,18 @@ public class DiceTest {
         assertTrue("Intensity out of range " + dice.getIntensity(), 1 <= dice.getIntensity() && dice.getIntensity() <= 6);
     }
 
+    @Test (expected = IncreaseNotAllowedException.class)
+    public void increaseIntensityExceptionTest() throws IncreaseNotAllowedException {
+        dice.setIntensity(6);
+        dice.increaseIntensity();
+    }
+
+    @Test (expected = DecreaseNotAllowedException.class)
+    public void decreaseIntensityExceptionTest() throws DecreaseNotAllowedException {
+        dice.setIntensity(1);
+        dice.decreaseIntensity();
+    }
+
     @Test
     public void changeIntensityTest() throws DecreaseNotAllowedException, IncreaseNotAllowedException {
 
@@ -56,5 +68,17 @@ public class DiceTest {
         dice.setIntensity(5);
         dice.setOppositeIntensity();
         assertEquals(2, dice.getIntensity());
+    }
+
+    @Test
+    public void setIntensityTest() {
+        dice.setIntensity(4);
+        assertEquals(4, dice.getIntensity());
+    }
+
+    @Test
+    public void toStringTest() {
+        dice.setIntensity(2);
+        assertEquals("[DICE] color: YELLOW, intensity: 2", dice.toString());
     }
 }

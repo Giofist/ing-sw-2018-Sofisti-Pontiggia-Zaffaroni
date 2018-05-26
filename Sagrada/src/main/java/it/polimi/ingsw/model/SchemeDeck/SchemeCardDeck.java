@@ -18,7 +18,7 @@ public class SchemeCardDeck {
             this.maps.add(i);
         }
         Collections.shuffle(maps);
-        System.out.println(maps);
+        System.out.println("After shuffle " + maps);
     }
 
     //the most important, it will be invoked by the gametable
@@ -37,7 +37,7 @@ public class SchemeCardDeck {
     }
 
     //this is to get the number of maps uploaded by the player + the standards one
-    private static int getNumMaps() throws IOException {
+    protected static int getNumMaps() throws IOException {
         String fileName = "src/main/resources/Maps.txt";
 
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {

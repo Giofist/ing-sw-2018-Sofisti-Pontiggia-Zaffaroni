@@ -44,11 +44,12 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
 
             //set the map name
             this.MapName = buffer.readLine();
+            System.out.println("Titolo della mappa: " + this.getMapName());
 
             //setDifficulty
-            int diff = Integer.parseInt(buffer.readLine().trim());
-            System.out.println(diff);
+            int diff = Integer.parseInt(buffer.readLine());
             this.difficulty = diff;
+            System.out.println("Difficoltà: " + this.getDifficulty());
 
             //VARIABILE DI SUPPORTO
             char[] map;
@@ -112,11 +113,17 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
                     }
                 }
             }
+
+            System.out.println("--------------");
         }
         catch (Exception e){
             throw e;
         }
-        this.twinCard = new SchemeCard(mapID+1);
+    }
+
+    public void setTwinCard(int mapId) throws IOException, MapConstrainReadingException {
+        System.out.println("Twin Map");
+        this.twinCard = new SchemeCard(mapId+1);
     }
 
 
