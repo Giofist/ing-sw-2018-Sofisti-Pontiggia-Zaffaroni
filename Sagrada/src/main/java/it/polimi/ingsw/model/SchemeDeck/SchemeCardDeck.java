@@ -14,7 +14,7 @@ public class SchemeCardDeck {
 
     public SchemeCardDeck() throws IOException{
         this.maps = new ArrayList<>();
-        for(int i=0; i<getNumMaps();i=i+2){
+        for(int i=1; i<getNumMaps();i=i+2){
             this.maps.add(i);
         }
         Collections.shuffle(maps);
@@ -24,7 +24,9 @@ public class SchemeCardDeck {
     //the most important, it will be invoked by the gametable
     public SchemeCard getCard () throws IOException,MapConstrainReadingException {
         int mapID = this.getRandomID();
-        return new SchemeCard(mapID);
+        SchemeCard schemeCard = new SchemeCard(mapID);
+        schemeCard.setTwinCard(new SchemeCard(mapID+1));
+        return schemeCard;
 
     }
     // it returns a random value (well... the first, but we have shuffled before)

@@ -23,7 +23,7 @@ public class SchemeCardDeckTest {
     @Test
     public void getCardTest() throws IOException, MapConstrainReadingException {
         mockSchemeCard = schemeCardDeck.getCard();
-        mockSchemeCard.setTwinCard(mockSchemeCard.getID());
+        //mockSchemeCard.setTwinCard(mockSchemeCard.getID());
     }
 
     @Test

@@ -9,6 +9,6 @@ public interface ObserverViewInterface extends Remote{
     public void update() throws RemoteException;
     public void showErrorMessage(String message)throws RemoteException;
         public void notifyendGame()throws RemoteException;
-    public void notifyGameisStarting(String gamename) throws RemoteException;
+    public void notifyGameisStarting() throws RemoteException;
 
 }

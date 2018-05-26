@@ -2,6 +2,7 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.Exceptions.DrawException;
 import it.polimi.ingsw.model.Exceptions.MapConstrainReadingException;
+import it.polimi.ingsw.model.Exceptions.PrivateGoalCardException;
 import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
 
 
@@ -40,7 +41,14 @@ public class Match implements Runnable{
                 boolean success = false;
                 while (!success) {
                     try {
-                        player.startGame(this.getGametable().getSchemeCard(), getGametable().getSchemeCard());
+                        try{
+                            player.setPrivateGoalCard(getGametable().getPrivateGoalCard());
+                        }catch(PrivateGoalCardException e){
+                            // do nothing
+                        }
+                        player.addExtractedSchemeCard(getGametable().getSchemeCard());
+                        player.addExtractedSchemeCard(getGametable().getSchemeCard());
+                        player.startGame();
                         success = true;
                     } catch (MapConstrainReadingException e) {
                         System.out.println(e.getMessage());
@@ -169,6 +177,18 @@ public class Match implements Runnable{
         if(getNumberOfPlayers()==0){
             MatchesList.singleton().remove(player.getMatch());
         }
+    }
+
+    public synchronized void update() {
+        this.notifyAll();
+    }
+
+    public List getfinalRanking() {
+        List list = new LinkedList();
+        for(Player player: this.players){
+            list.add(player.toString());
+        }
+        return list;
     }
 
 }

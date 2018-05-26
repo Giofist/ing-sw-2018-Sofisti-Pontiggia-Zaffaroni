@@ -223,12 +223,19 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         System.out.println("Seleziona la carta schema che desideri tra le seguenti indicando il numero relativo.");
         try {
             System.out.println(servercontroller.getSchemeCards(this.yourName));
-            servercontroller.setSchemeCard(this.yourName, in.nextInt());
+            int selectedCard = in.nextInt();
+            servercontroller.setSchemeCard(this.yourName, selectedCard);
         } catch (RemoteException e){
             System.out.println(e.getMessage());
         }
+        System.out.println("fin qui tutto bene");
         while (!matchisEnded) {
-
+            try{
+                wait();
+            }catch(InterruptedException e){
+                // do nothing
+            }
+            System.out.println("ho superato una wait");
         }
 
         try {
@@ -247,8 +254,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
 
     //metodi per il pattern observer
     @Override
-    public void notifyGameisStarting(String gamename) throws RemoteException{
-        System.out.println("Il match" + gamename + "sta iniziando!");
+    public synchronized void notifyGameisStarting() throws RemoteException{
         notifyAll();
     }
 
@@ -259,13 +265,14 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         }
 
     @Override
-    public void showErrorMessage(String message) {
+    public synchronized void showErrorMessage(String message) {
         System.out.println(message);
+        notifyAll();
     }
 
 
     @Override
-    public void notifyendGame() throws RemoteException {
+    public synchronized void notifyendGame() throws RemoteException {
         this.matchisEnded = true;
         notifyAll();
     }

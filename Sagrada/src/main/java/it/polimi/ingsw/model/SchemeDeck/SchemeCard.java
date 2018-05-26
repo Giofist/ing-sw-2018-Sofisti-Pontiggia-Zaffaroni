@@ -38,7 +38,7 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
         try (BufferedReader buffer = new BufferedReader(new FileReader(fileName))) {
 
             //SCANDISCO IL FILE FINO ALLA RIGA Dove si trova la mappa che devo caricare
-            for (int j = 0; j < mapID * 3 + 1; j++) {
+            for (int j = 0; j < (mapID-1) * 3 + 1; j++) {
                 buffer.readLine();
             }
 
@@ -121,9 +121,9 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
         }
     }
 
-    public void setTwinCard(int mapId) throws IOException, MapConstrainReadingException {
-        System.out.println("Twin Map");
-        this.twinCard = new SchemeCard(mapId+1);
+    public void setTwinCard(SchemeCard schemeCard) throws IOException, MapConstrainReadingException {
+        System.out.println("This has been the Twin Map\n\n");
+        this.twinCard = schemeCard;
     }
 
 

@@ -120,6 +120,6 @@ public class SocketClientHandler implements Runnable, ObserverViewInterface, Fee
     }
 
     @Override
-    public void notifyGameisStarting(String gamename) throws RemoteException {
+    public void notifyGameisStarting() throws RemoteException {
     }
 }

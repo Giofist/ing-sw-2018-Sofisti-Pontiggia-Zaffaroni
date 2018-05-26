@@ -8,7 +8,7 @@ import java.rmi.RemoteException;
 import java.util.LinkedList;
 
 //implementa comparable per ordinare i giocatori in base al punteggio nellav lista di player
-public class Player implements Comparable<Player>{
+public class Player extends Observable implements Comparable<Player>{
     private User user;
     private GoalCard privateGoalCard;
     private int segnalini_favore;
@@ -20,9 +20,7 @@ public class Player implements Comparable<Player>{
 
 
 
-    //per il pattern observer
-    private LinkedList<ObserverViewInterface> observerViewInterfaces;
-    private LinkedList<FeedObserverView> feedObserverViews;
+
 
     //per la gestione delle toolCard, potremo pensare ad un'ottimizzazione
     private Dice diceforDiluenteperPastaSalda;
@@ -65,7 +63,7 @@ public class Player implements Comparable<Player>{
             this.setSegnalini_favore(this.getSegnalini_favore()-cost);
         }
     }
-    public void setPrivateGoalCard ( GoalCard privateGoalCard){
+    public synchronized void setPrivateGoalCard ( GoalCard privateGoalCard){
         this.privateGoalCard = privateGoalCard;
     }
     public GoalCard getPrivateGoalCard(){
@@ -81,6 +79,7 @@ public class Player implements Comparable<Player>{
         }else if (cardid == this.extractedschemeCards.getLast().getTwinCard().getID()) {
             this.scheme = this.extractedschemeCards.getLast().getTwinCard();
         }else throw new CardIdNotAllowedException();
+        this.getMatch().update();
     }
     public SchemeCard getScheme() throws SchemeCardNotExistantException{
         if(this.scheme !=null){
@@ -164,47 +163,22 @@ public class Player implements Comparable<Player>{
     public void setMustpassTurn( boolean mustpassTurn) {
         this.mustpassTurn = mustpassTurn;
     }
+    public void addExtractedSchemeCard(SchemeCard schemeCard){
+        this.extractedschemeCards.add(schemeCard);
+    }
 
 
-    //metodo per l'oberserver design pattern
-    public void feedObserverViews(FeedObserverView client) {
-        this.feedObserverViews.add(client);
-    }
-    public void observerViews(ObserverViewInterface client){
-        this.observerViewInterfaces.add(client);
-    }
-    //tutti questi metodi chiamano qualcosa della view tramite gli observer pattern
-    public void notifyError(String message)  throws RemoteException{
-        for(ObserverViewInterface observerViewInterface : this.observerViewInterfaces){
-            observerViewInterface.showErrorMessage(message);
-        }
-    }
-    public void startGame(SchemeCard schemeCard1, SchemeCard schemeCard2)throws RemoteException{
-        try{
-            this.extractedschemeCards.add(schemeCard1);
-            this.extractedschemeCards.add(schemeCard2);
-            //all'inizio della partita viene anche aggiunta ad ogni player una carta obiettivo privato
-            setPrivateGoalCard(getMatch().getGametable().getPrivateGoalCard());
-            for(ObserverViewInterface observerViewInterface : this.observerViewInterfaces){
-                observerViewInterface.notifyGameisStarting(this.getMatch().getName());
-            }
-        }catch(PrivateGoalCardException e){
-            notifyError(e.getMessage());
-        }
-    }
-    public  void notifyEndMatch(){
-        try{
-            for(ObserverViewInterface observerViewInterface: this.observerViewInterfaces){
-                observerViewInterface.notifyendGame();
-            }
-        }catch(RemoteException e){
-            //do nothing
-        }
-    }
+
     /// /utile per ordinare i giocatori in base al punteggio
     @Override
     public int compareTo(Player player) {
         return this.getPoints() - player.getPoints();
     }
+
+    @Override
+    public String toString(){
+        return this.getAssociatedUser().getName() + " " + this.getPoints();
+    }
+
 
 }

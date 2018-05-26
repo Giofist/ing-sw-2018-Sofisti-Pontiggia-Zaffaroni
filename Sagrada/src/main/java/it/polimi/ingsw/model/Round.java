@@ -2,6 +2,7 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.Exceptions.RoundTrackException;
 
+import java.rmi.RemoteException;
 import java.util.LinkedList;
 //not implemented yet
 public class Round {
@@ -25,7 +26,14 @@ public class Round {
 
         //qui la chiamata ai vari turn
 
+        for (Player player: this.players){
+            try{
+                player.notifyError("Questo è il round"+ this.num_round);
+            }catch(RemoteException e){
+                //do nothing
+            }
 
+        }
 
         //termino il round aggiornando il tracciato round prendendo i dadi dalla riserva
         try{
