@@ -18,6 +18,7 @@ public class SchemeCardDeck {
             this.maps.add(i);
         }
         Collections.shuffle(maps);
+        System.out.println(maps);
     }
 
     //the most important, it will be invoked by the gametable

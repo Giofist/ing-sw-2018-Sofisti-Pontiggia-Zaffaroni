@@ -50,15 +50,13 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
             //VARIABILE DI SUPPORTO
             char[] map = new char[20];
             map = buffer.readLine().toCharArray();
-            System.out.println(map);
-
 
             //set Tiles
             for(int row=0; row<4; row++) {
-                for (int b = 0; b < 5; b++) {
-                    this.matrix[row][b] = new Tile();
-                    Tile tile = this.matrix[row][b];
-                    switch (map[row * 5 + b]) {
+                for (int column = 0; column < 5; column++) {
+                    this.matrix[row][column] = new Tile();
+                    Tile tile = this.matrix[row][column];
+                    switch (map[row * 5 + column]) {
                         case 'Y':
                             tile.setColourConstrain(DiceColor.YELLOW);
                             tile.setHaveColor_constrain(true);
