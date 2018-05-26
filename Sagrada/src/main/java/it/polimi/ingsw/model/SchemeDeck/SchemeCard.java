@@ -20,7 +20,7 @@ import static it.polimi.ingsw.model.DiceColor.VIOLET;
 //classe completa
 
 public class SchemeCard implements Iterable<Tile>, Serializable{
-    private int difficulty;
+    private int difficulty=0;
     private Tile[][] matrix = new Tile[4][5];
     private SchemeCard twinCard;
     private int ID;
@@ -28,7 +28,7 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
 
     //constructor
     public SchemeCard(int mapID) throws IOException, MapConstrainReadingException {
-        this.initialize( mapID);
+        this.initialize(mapID);
     }
 
     //to initialize the schemecard
@@ -46,7 +46,9 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
             this.MapName = buffer.readLine();
 
             //setDifficulty
-            this.difficulty = Integer.parseInt(buffer.readLine());
+            int diff = Integer.parseInt(buffer.readLine().trim());
+            System.out.println(diff);
+            this.difficulty = diff;
 
             //VARIABILE DI SUPPORTO
             char[] map;
