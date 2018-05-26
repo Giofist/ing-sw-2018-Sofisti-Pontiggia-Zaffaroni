@@ -51,6 +51,7 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
             //VARIABILE DI SUPPORTO
             char[] map;
             map = buffer.readLine().toCharArray();
+            System.out.println(map);
 
             //set Tiles
             for(int row=0; row<4; row++) {
@@ -70,7 +71,7 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
                             tile.setColourConstrain(RED);
                             tile.setHaveColor_constrain(true);
                             break;
-                        case 'P':
+                        case 'V':
                             tile.setColourConstrain(VIOLET);
                             tile.setHaveColor_constrain(true);
                             break;
@@ -102,7 +103,7 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
                             tile.setNumberConstrain(6);
                             tile.setHaveNumber_constrain(true);
                             break;
-                        case ' ':
+                        case '_':
                             break;
                         default:
                             throw new MapConstrainReadingException(this.getID());
