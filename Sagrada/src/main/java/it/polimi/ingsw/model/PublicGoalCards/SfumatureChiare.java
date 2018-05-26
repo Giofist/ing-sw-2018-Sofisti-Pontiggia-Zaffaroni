@@ -1,8 +1,11 @@
 package it.polimi.ingsw.model.PublicGoalCards;
 
 import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
+import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
 import it.polimi.ingsw.model.GoalCard;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.SchemeDeck.Tile;
+
 import java.lang.Math.*;
     //revisionata by pon
 //obiettivo pubblico
@@ -17,19 +20,21 @@ public class SfumatureChiare implements GoalCard {
 
         int numerodi1 =0;
         int numerodi2=0;
-        for(int column=0; column<5; column++) {
-            for (int row = 0; row < 4; row++) {
+        try{
+            for(Tile tile: player.getScheme()) {
                 try{
-                    if(player.getScheme().getDiceIntensity(row, column)==1){
+                    if(tile.getDice().getIntensity()==1){
                         numerodi1++;
                     }
-                    if(player.getScheme().getDiceIntensity(row, column)==2){
+                    if(tile.getDice().getIntensity()==2){
                         numerodi2++;
                     }
                 }catch (Exception e){
                     //no dice, no point
                 }
             }
+        }catch(SchemeCardNotExistantException e){
+            //do nothing
         }
         if (numerodi1 <= numerodi2) {
             player.addPoints(numerodi1*2);

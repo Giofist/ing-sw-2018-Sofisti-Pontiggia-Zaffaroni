@@ -13,11 +13,23 @@ public class Tile {
     private int number_constrain;
     private boolean haveNumber_constrain;
     private Dice dice;
+    private int row;
+    private int column;
 
-    public Tile (){
+    public Tile (int row, int column){
         this.haveColor_constrain = false;
         this.haveNumber_constrain = false;
         this.dice = null;
+        this.row = row;
+        this.column= column;
+    }
+
+    public int getColumn() {
+        return column;
+    }
+
+    public int getRow() {
+        return row;
     }
 
     public void setHaveColor_constrain(boolean haveColor_constrain) {

@@ -59,7 +59,7 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
             //set Tiles
             for(int row=0; row<4; row++) {
                 for (int column = 0; column < 5; column++) {
-                    this.matrix[row][column] = new Tile();
+                    this.matrix[row][column] = new Tile(row,column);
                     Tile tile = this.matrix[row][column];
                     switch (map[row * 5 + column]) {
                         case 'Y':

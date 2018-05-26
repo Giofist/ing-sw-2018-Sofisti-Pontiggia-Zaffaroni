@@ -1,8 +1,11 @@
 package it.polimi.ingsw.model.PublicGoalCards;
 
 import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
+import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
 import it.polimi.ingsw.model.GoalCard;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
+import it.polimi.ingsw.model.SchemeDeck.Tile;
 
 //revisionata by pon
 //obiettivo pubblico
@@ -19,13 +22,10 @@ public class SfumatureDiverse implements GoalCard {
         int numerodi4 = 0;
         int numerodi5 = 0;
         int numerodi6 = 0;
-
-
-
-        for(int column=0; column<5; column++) {
-            for (int row = 0; row < 4; row++) {
+        try{
+            for(Tile tile: player.getScheme()) {
                 try {
-                    switch(player.getScheme().getDiceIntensity(row, column)){
+                    switch(tile.getDice().getIntensity()){
                         case 1:  numerodi1++; break;
                         case 2: numerodi2++; break;
                         case 3: numerodi3++; break;
@@ -34,11 +34,12 @@ public class SfumatureDiverse implements GoalCard {
                         case 6: numerodi6++; break;
                         default: ;
                     }
-
                 } catch (Exception e) {
                     //no dice, no point, zorry
                 }
             }
+        }catch(SchemeCardNotExistantException e){
+            //do nothing
         }
         int numerodiset=numerodi1; // numerodiset indica il numero dei set presenti, che è anche uguale a min( numerodix) per x = 1,2,3,4,5,6.
         if(numerodi2<numerodiset){

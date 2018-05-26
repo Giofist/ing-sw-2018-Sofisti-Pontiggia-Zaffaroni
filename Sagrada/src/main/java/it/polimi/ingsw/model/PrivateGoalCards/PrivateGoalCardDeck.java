@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.PrivateGoalCards;
 
 
+import it.polimi.ingsw.model.DiceColor;
 import it.polimi.ingsw.model.Exceptions.PrivateGoalCardException;
 import it.polimi.ingsw.model.GoalCard;
 
@@ -26,11 +27,11 @@ public class PrivateGoalCardDeck {
     public GoalCard getCard() throws PrivateGoalCardException{
         int CardID = this.getRandomID();
         switch (CardID) {
-            case 1: return new SfumatureRosse();
-            case 2: return new SfumatureGialle();
-            case 3: return new SfumatureVerdi();
-            case 4: return new SfumatureBlu();
-            case 5: return new SfumatureViola();
+            case 1: return new Sfumature(1,DiceColor.RED);
+            case 2: return new Sfumature(2, DiceColor.YELLOW);
+            case 3: return new Sfumature(3,DiceColor.GREEN);
+            case 4: return new Sfumature(4,DiceColor.BLUE);
+            case 5: return new Sfumature(5,DiceColor.VIOLET);
             default: throw new PrivateGoalCardException();
         }
     }

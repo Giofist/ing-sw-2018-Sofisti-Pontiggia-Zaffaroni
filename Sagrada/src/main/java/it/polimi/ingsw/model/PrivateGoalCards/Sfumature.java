@@ -10,15 +10,19 @@ import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.SchemeDeck.Tile;
 
 //obiettivo privato
-public class SfumatureViola implements GoalCard {
-    static private int ID = 5;
-    static private String name = "Sfumature Blu";
-    static private String description = "Somma dei valori su tutti i dadi viola.";
+public class Sfumature implements GoalCard {
+    private int ID;
+    private DiceColor color;
+    private String name = "Sfumature " + color;
+    private String description = "Somma dei valori su tutti i dadi "+ color + ".";
 
+    public Sfumature(int id, DiceColor diceColor){
+        this.color = diceColor;
+        this.ID = id;
+    }
 
     @Override
     public void calculatepoint(Player player) {
-        DiceColor color = DiceColor.VIOLET;
         try{
             for(Tile tile: player.getScheme()) {
                 try{
@@ -34,6 +38,7 @@ public class SfumatureViola implements GoalCard {
             //??
         }
     }
+
     @Override
     public  int getID() {
         return ID;
@@ -47,5 +52,5 @@ public class SfumatureViola implements GoalCard {
         return description;
     }
 
-
 }
+

@@ -4,8 +4,10 @@ package it.polimi.ingsw.model.PublicGoalCards;
 import it.polimi.ingsw.model.Dice;
 import it.polimi.ingsw.model.DiceColor;
 import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
+import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
 import it.polimi.ingsw.model.GoalCard;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.SchemeDeck.Tile;
 
 import java.util.LinkedList;
 
@@ -19,14 +21,16 @@ public class DiagonaliColorate implements GoalCard {
     static String description = "Numero di dadi dello stesso colore diagonalmente adiacenti.";
     @Override
     public void calculatepoint(Player player) {
-        for(int row=0; row <4; row++){
-            for(int column =0; column <5; column++){
+        try{
+            for(Tile tile: player.getScheme()){
                 LinkedList<Dice> list = new LinkedList<Dice>();
-                findsamecolordices(row,column,player,list);
+                findsamecolordices(tile.getRow(),tile.getColumn(),player,list);
                 if(list.size() >1){
                     player.addPoints(list.size());
                 }
             }
+        }catch(SchemeCardNotExistantException e){
+            // do nothing
         }
     }
 

@@ -1,8 +1,11 @@
 package it.polimi.ingsw.model.PublicGoalCards;
 
 import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
+import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
 import it.polimi.ingsw.model.GoalCard;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.SchemeDeck.Tile;
+
 //revisionata by pon
 //obiettivo pubblico
 public class SfumatureScure implements GoalCard {
@@ -14,20 +17,20 @@ public class SfumatureScure implements GoalCard {
     public void  calculatepoint(Player player) {
         int numerodi5=0;
         int numerodi6=0;
-
-        for(int column=0; column<5; column++) {
-            for (int row = 0; row < 4; row++) {
+        try{
+            for(Tile tile: player.getScheme()) {
                 try{
-                    if(player.getScheme().getDiceIntensity(row, column)==5){
+                    if(tile.getDice().getIntensity()==5){
                         numerodi5++;
-                    }else
-                    if(player.getScheme().getDiceIntensity(row, column)==6){
+                    }else if(tile.getDice().getIntensity()==6){
                         numerodi6++;
                     }
                 }catch (Exception e){
                     //no dice, do point
                 }
             }
+        }catch(SchemeCardNotExistantException e){
+            //do nothing
         }
         if (numerodi5 <= numerodi6) {
             player.addPoints(numerodi5*2);
