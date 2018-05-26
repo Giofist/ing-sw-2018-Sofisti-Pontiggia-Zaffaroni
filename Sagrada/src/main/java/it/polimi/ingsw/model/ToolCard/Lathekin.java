@@ -9,6 +9,7 @@ import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIlleg
 import it.polimi.ingsw.model.Player;
 //revisionata by pon
 public class Lathekin  implements ToolAction {
+    int cost;
     final static int ID = 4;
     final static String cardTitle = "Lathekin";
     final static String description = "Muovi esattamente due dadi.\n" +
@@ -18,7 +19,7 @@ public class Lathekin  implements ToolAction {
     Dice removedDice1, removedDice2;
 
     public Lathekin( int oldRow1, int oldColumn1, int newRow1, int newColumn1, int oldRow2, int oldColumn2, int newRow2, int newColumn2){
-
+        cost = 1;
         this.oldRow1 = oldRow1;
         this.oldRow2 = oldRow2;
         this.oldColumn1 = oldColumn1;
@@ -63,5 +64,12 @@ public class Lathekin  implements ToolAction {
     @Override
     public String getDescription(){
         return description;
+    }
+    public int getCost() {
+        return cost;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
     }
 }

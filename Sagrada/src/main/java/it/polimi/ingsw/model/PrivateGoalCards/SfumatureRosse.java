@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
 import it.polimi.ingsw.model.Exceptions.OutOfMatrixException;
 import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
+import it.polimi.ingsw.model.SchemeDeck.Tile;
 
 //obiettivo privato
 public class SfumatureRosse implements GoalCard {
@@ -15,20 +16,19 @@ public class SfumatureRosse implements GoalCard {
     @Override
     public void calculatepoint(Player player) {
         DiceColor color = DiceColor.RED;
-        for(int column=0; column<5; column++){
-            for(int row=0; row<4; row++) {
+        try{
+            for(Tile tile: player.getScheme()) {
                 try{
-                    if (player.getScheme().getDiceColour(row, column)== color) {
-                        player.addPoints(player.getScheme().getDiceIntensity(row, column));
+                    if (tile.getDice().getColor()== color) {
+                        player.addPoints(tile.getDice().getIntensity());
                     }
                 }catch (DiceNotExistantException e){
                     //zorry, there is no dice
-                }catch (OutOfMatrixException e){
-                    //
-                }catch (SchemeCardNotExistantException e){
                     //
                 }
             }
+        } catch (SchemeCardNotExistantException e){
+            //??
         }
     }
 

@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIlleg
 import it.polimi.ingsw.model.Player;
 
 public class PinzaSgrossatrice  implements ToolAction {
+    int cost;
     static final int ID = 1;
     static final String cardTitle = "Pinza Sgrossatrice";
     static final String description = "Dopo aver scelto un dado, aumenta o diminuisci il valore del dado scelto di 1.\n" +
@@ -19,7 +20,7 @@ public class PinzaSgrossatrice  implements ToolAction {
     private int operation;
 
     public PinzaSgrossatrice( int selectedDiceIndex, int operation){
-
+        cost=1;
         this.selectedDiceIndex = selectedDiceIndex;
         this.operation = operation;
     }
@@ -50,5 +51,12 @@ public class PinzaSgrossatrice  implements ToolAction {
 
     @Override
     public String getCardTitle(){return cardTitle;}
+    public int getCost() {
+        return cost;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
+    }
 
 }

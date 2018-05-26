@@ -10,6 +10,7 @@ import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIlleg
 import it.polimi.ingsw.model.Player;
 
 public class PennelloperEglomise  implements ToolAction {
+    int cost;
 
     final static int ID = 2;
     final static String cardTitle = "Pennello per Eglomise";
@@ -20,7 +21,7 @@ public class PennelloperEglomise  implements ToolAction {
     private Dice removedDice;
 
     public PennelloperEglomise( int row, int column, int newRow, int newColumn){
-
+        cost=1;
         this.row = row;
         this.column = column;
         this.newRow = newRow;
@@ -56,5 +57,12 @@ public class PennelloperEglomise  implements ToolAction {
     @Override
     public String getDescription(){
         return description;
+    }
+    public int getCost() {
+        return cost;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
     }
 }

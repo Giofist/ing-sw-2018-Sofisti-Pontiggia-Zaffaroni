@@ -10,6 +10,7 @@ import it.polimi.ingsw.model.Player;
 
 //scusate questa non l'ho capita
 public class TenagliaRotelle  implements ToolAction {
+    private int cost ;
     final static int ID = 8;
     final static String cardTitle = "Tenaglia a Rotelle";
     final static String description = "Dopo il tuo primo turno scegli immediatamente un altro dado.\n" +
@@ -20,6 +21,7 @@ public class TenagliaRotelle  implements ToolAction {
     private int selectedDiceIndex;
 
     public TenagliaRotelle(int selectedDiceIndex, int row, int column){
+        this.cost =1;
         this.selectedDiceIndex = selectedDiceIndex;
         this.column = column;
         this.row = row;
@@ -57,5 +59,13 @@ public class TenagliaRotelle  implements ToolAction {
     @Override
     public String getDescription(){
         return description;
+    }
+
+    public int getCost() {
+        return cost;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
     }
 }

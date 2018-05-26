@@ -328,7 +328,7 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
     @Override
     public Iterator<Tile> iterator() {
         return new Iterator<Tile>() {
-            private int currentRow, currentColumn;
+            private int currentRow=0, currentColumn=0;
             private boolean deadEnd = false;
 
 

@@ -10,6 +10,7 @@ import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIlleg
 import it.polimi.ingsw.model.Player;
 //revisionata by pon
 public class AlesatoreperLaminadiRame  implements ToolAction {
+    int cost;
     final static int ID = 3;
     final static String cardTitle = "Alesatore per lamina di rame";
     final static String description = "Muovi un qualsiasi dado nella tua vetrata ignorando le restrizioni di valore.\n" +
@@ -20,6 +21,7 @@ public class AlesatoreperLaminadiRame  implements ToolAction {
 
 
     public AlesatoreperLaminadiRame( int row, int column, int newRow, int newColumn){
+        cost=1;
         this.row = row;
         this.column = column;
         this.newColumn = newColumn;
@@ -56,4 +58,11 @@ public class AlesatoreperLaminadiRame  implements ToolAction {
 
     @Override
     public String getCardTitle() { return cardTitle; }
+    public int getCost() {
+        return cost;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
+    }
 }

@@ -9,8 +9,7 @@ import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIlleg
 import it.polimi.ingsw.model.Player;
 
 public class PennelloPerPastaSalda2 implements ToolAction{
-
-
+    private int cost;
     final static int ID = 0;
     final static String cardTitle = "Pennello per Pasta Salda parte seconda";
     final static String description =
@@ -21,6 +20,7 @@ public class PennelloPerPastaSalda2 implements ToolAction{
     int selectedDiceIndex;
 
     public PennelloPerPastaSalda2( int row, int column, int selectedDiceIndex){
+        cost=0;
         this. row = row;
         this. column = column;
         this.selectedDiceIndex = selectedDiceIndex;
@@ -54,5 +54,14 @@ public class PennelloPerPastaSalda2 implements ToolAction{
     @Override
     public String getCardTitle() {
         return cardTitle;
+    }
+
+    public int getCost() {
+        return cost;
+    }
+
+    @Override
+    public void setCost(int cost) {
+        this.cost= cost;
     }
 }
