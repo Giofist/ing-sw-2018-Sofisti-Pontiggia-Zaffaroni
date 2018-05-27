@@ -19,6 +19,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
     private final PrintWriter out;
     private String yourName;
     private boolean matchisEnded;
+    private char[] yourMap;
 
     //constructor1
     public ObserverView() throws RemoteException {
@@ -83,6 +84,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
                 System.out.println("Hai sbagliato a digitare.");
         }
     }
+
     private void signInInt(){
         String username;
         String password;
@@ -113,9 +115,9 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         Scanner in = new Scanner(System.in);
         String username;
         String password;
-        boolean successo;
+        boolean success;
         do {
-            successo = true;
+            success = true;
             System.out.println("Inserisci username:");
             username = in.nextLine();
             System.out.println("Inserisci password:");
@@ -124,22 +126,24 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
                 servercontroller.login(username, password);
             } catch (RemoteException e) {
                 System.out.println(e.getMessage());
-                successo = false;
+                success = false;
             }
-        } while (!successo);
+        } while (!success);
         }
 
 
     private void menuInt() throws RemoteException {
+        Scanner in = new Scanner(System.in);
         String input;
         boolean success = false;
-        while(!success){
-            Scanner in = new Scanner(System.in);
+
+        do{
             System.out.println("Benvenuto nel menù principale di Sagrada!");
             System.out.println("- Multi Giocatore (M)");
             System.out.println("- Giocatore Singolo (Coming soon!)");
             System.out.println("- LogOut (L)");
             input = in.nextLine();
+
             if (input.equals("M") || input.equals("m")) {
                 multiInt();
                 success = true;
@@ -147,9 +151,12 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
             if (input.equals("L") || input.equals("l")) {
                 servercontroller.logout(this.yourName);
                 System.exit(0);
+                success = true;
             }
-            else System.out.println("Hai sbagliato a digitare.");
+            else {
+                System.out.println("Hai sbagliato a digitare."); //non riesco a non farlo stampare dopo la creazione di una partita e non riesco a fixare
             }
+            }while(!success);
         }
 
 
@@ -244,49 +251,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
                 System.out.println(ansi().eraseScreen().fg(GREEN).a(schemeCardAttribute[0]).reset());
                 System.out.println("Difficoltà della mappa: " + schemeCardAttribute[1]);
                 char[] constrain = schemeCardAttribute[4].toCharArray();
-                for(int row = 0 ; row < Integer.parseInt(schemeCardAttribute[2]) ; row++){
-                    for(int column = 0 ; column < Integer.parseInt(schemeCardAttribute[3]) ; column++){
-                        switch (constrain[row * Integer.parseInt(schemeCardAttribute[3]) + column]) {
-                            case 'Y':
-                                System.out.print( ansi().eraseScreen().bg(YELLOW).a("   ").reset());
-                                break;
-                            case 'B':
-                                System.out.print( ansi().eraseScreen().bg(BLUE).a("   ").reset());
-                                break;
-                            case 'R':
-                                System.out.print( ansi().eraseScreen().bg(RED).a("   ").reset());
-                                break;
-                            case 'V':
-                                System.out.print( ansi().eraseScreen().bg(MAGENTA).a("   ").reset());
-                                break;
-                            case 'G':
-                                System.out.print( ansi().eraseScreen().bg(GREEN).a("   ").reset());
-                                break;
-                            case '1':
-                                System.out.print( ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" 1 ").reset());
-                                break;
-                            case '2':
-                                System.out.print( ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" 2 ").reset());
-                                break;
-                            case '3':
-                                System.out.print( ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" 3 ").reset());
-                                break;
-                            case '4':
-                                System.out.print( ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" 4 ").reset());
-                                break;
-                            case '5':
-                                System.out.print( ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" 5 ").reset());
-                                break;
-                            case '6':
-                                System.out.print( ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" 6 ").reset());
-                                break;
-                            case '_':
-                                System.out.print( ansi().eraseScreen().bg(WHITE).fg(BLACK).a("   ").reset());
-                                break;
-                        }
-                    }
-                    System.out.print("\n");
-                }
+                printMap(constrain,Integer.parseInt(schemeCardAttribute[2]),Integer.parseInt(schemeCardAttribute[3]));
                 System.out.print("\n");
             }
             AnsiConsole.systemUninstall();
@@ -295,13 +260,14 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
                 int selectedCard = in.nextInt();
                 try {
                 servercontroller.setSchemeCard(this.yourName, selectedCard);
+                //this.yourMap = ; TODO salvo qui una copia della mappa così da non dover scaricare tutte le volte da server ma aggiornarla volta per volta. Useremo lettere minuscole per indicare il colore dle dado e il relativo numero subito dopo. La mappa verrà stampata con numero nero invece che bianco e il colore dle dado.
                 correct = true;
                 } catch (RemoteException e){
                     System.out.println(e.getMessage());
                 }
             }
 
-        System.out.println("fin qui tutto bene");
+        System.out.println("Attendi che anche gli altri giocatori abbiano scelto la loro mappa.");
         while (!matchisEnded) {
             try{
                 wait();
@@ -310,7 +276,6 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
             }
             System.out.println("ho superato una wait");
         }
-
         try {
             System.out.println("la partita è finita: hai totalizzato" + servercontroller.getmyPoints(yourName) + "punti");
             System.out.println("Ecco la classifica finale: ");
@@ -329,6 +294,51 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         }
     }
 
+    public void printMap(char[] map, int maxRow, int maxColumn){
+        for(int row = 0 ; row < maxRow ; row++){
+            for(int column = 0 ; column < maxColumn ; column++){
+                switch (map[row * maxColumn+ column]) {
+                    case 'Y':
+                        System.out.print( ansi().eraseScreen().bg(YELLOW).a("   ").reset());
+                        break;
+                    case 'B':
+                        System.out.print( ansi().eraseScreen().bg(BLUE).a("   ").reset());
+                        break;
+                    case 'R':
+                        System.out.print( ansi().eraseScreen().bg(RED).a("   ").reset());
+                        break;
+                    case 'V':
+                        System.out.print( ansi().eraseScreen().bg(MAGENTA).a("   ").reset());
+                        break;
+                    case 'G':
+                        System.out.print( ansi().eraseScreen().bg(GREEN).a("   ").reset());
+                        break;
+                    case '1':
+                        System.out.print( ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" 1 ").reset());
+                        break;
+                    case '2':
+                        System.out.print( ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" 2 ").reset());
+                        break;
+                    case '3':
+                        System.out.print( ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" 3 ").reset());
+                        break;
+                    case '4':
+                        System.out.print( ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" 4 ").reset());
+                        break;
+                    case '5':
+                        System.out.print( ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" 5 ").reset());
+                        break;
+                    case '6':
+                        System.out.print( ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" 6 ").reset());
+                        break;
+                    case '_':
+                        System.out.print( ansi().eraseScreen().bg(WHITE).fg(BLACK).a("   ").reset());
+                        break;
+                }
+            }
+            System.out.print("\n");
+        }
+    }
 
 
     //metodi per il pattern observer
