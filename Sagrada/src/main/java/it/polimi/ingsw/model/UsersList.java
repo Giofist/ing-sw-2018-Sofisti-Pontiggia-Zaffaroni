@@ -76,6 +76,13 @@ public class UsersList {
         throw new it.polimi.ingsw.model.Exceptions.LoginException();
     }
 
+    synchronized public void logOut( String name){
+        for (User user : this.users){
+            if (name.equals(user.getName()))
+            user.setActive(false);
+        }
+    }
+
 
     //classe che permette di registrarsi
     synchronized public void register (String name,String password) {

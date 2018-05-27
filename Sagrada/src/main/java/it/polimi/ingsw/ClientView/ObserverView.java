@@ -138,13 +138,20 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
             System.out.println("Benvenuto nel menù principale di Sagrada!");
             System.out.println("- Multi Giocatore (M)");
             System.out.println("- Giocatore Singolo (Coming soon!)");
+            System.out.println("- LogOut (L)");
             input = in.nextLine();
             if (input.equals("M") || input.equals("m")) {
                 multiInt();
                 success = true;
             }
+            if (input.equals("L") || input.equals("l")) {
+                servercontroller.logout(this.yourName);
+                System.exit(0);
+            }
+            else System.out.println("Hai sbagliato a digitare.");
+            }
         }
-    }
+
 
     private void multiInt() throws RemoteException {
         String input;
@@ -315,6 +322,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         }
         //to be implemented.
         try {
+            System.out.println();
             menuInt();
         } catch (RemoteException e) {
             e.printStackTrace();

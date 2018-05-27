@@ -37,12 +37,17 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     @Override
     public synchronized void login(String username, String password) throws RemoteException{
         try{
-             UsersList.Singleton().check(username, password);
+            UsersList.Singleton().check(username, password);
         }catch(LoginException e){
             throw new RemoteException(e.getMessage());
         }catch (IsAlreadyActiveException e){
             throw new RemoteException(e.getMessage());
         }
+    }
+
+    @Override
+    public synchronized void logout(String username) throws RemoteException{
+            UsersList.Singleton().logOut(username);
     }
 
 

@@ -65,6 +65,13 @@ public class SocketObserverView implements ClientHandlerInterface, Runnable {
     }
 
     @Override
+    public void logout(String username) throws RemoteException {
+        out.println("logout " + username);
+        out.flush();
+        this.waitforAnswerfromServer();
+    }
+
+    @Override
     public void createGame(String username, ObserverViewInterface client, FeedObserverView Client, String gamename) throws RemoteException {
         out.println("createGame " + username + " " + gamename);
         out.flush();
