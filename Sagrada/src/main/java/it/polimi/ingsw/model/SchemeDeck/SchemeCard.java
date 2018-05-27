@@ -8,10 +8,7 @@ import it.polimi.ingsw.model.Exceptions.TileConstrainException.*;
 
 import java.io.*;
 import java.lang.String;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 import static it.polimi.ingsw.model.DiceColor.GREEN;
 import static it.polimi.ingsw.model.DiceColor.RED;
@@ -21,10 +18,14 @@ import static it.polimi.ingsw.model.DiceColor.VIOLET;
 
 public class SchemeCard implements Iterable<Tile>, Serializable{
     private int difficulty=0;
-    private Tile[][] matrix = new Tile[4][5];
+    private Tile[][] matrix;
     private SchemeCard twinCard;
     private int ID;
     private String MapName;
+    String mapString;
+    char[] map;
+    int maxRow;
+    int maxColumn;
 
     //constructor
     public SchemeCard(int mapID) throws IOException, MapConstrainReadingException {
@@ -38,7 +39,7 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
         try (BufferedReader buffer = new BufferedReader(new FileReader(fileName))) {
 
             //SCANDISCO IL FILE FINO ALLA RIGA Dove si trova la mappa che devo caricare
-            for (int j = 0; j < (mapID-1) * 3 + 1; j++) {
+            for (int j = 0; j < (mapID-1) * 5 + 1; j++) {
                 buffer.readLine();
             }
 
@@ -47,18 +48,24 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
             System.out.println("Titolo della mappa: " + this.getMapName());
 
             //setDifficulty
-            int diff = Integer.parseInt(buffer.readLine());
-            this.difficulty = diff;
+            this.difficulty = Integer.parseInt(buffer.readLine());
             System.out.println("Difficoltà: " + this.getDifficulty());
 
-            //VARIABILE DI SUPPORTO
-            char[] map;
-            map = buffer.readLine().toCharArray();
+            //setRow
+            this.maxRow = Integer.parseInt(buffer.readLine());
+
+            //setColumn
+            this.maxColumn = Integer.parseInt(buffer.readLine());
+
+            matrix = new Tile[maxRow][maxColumn];
+
+            this.mapString = buffer.readLine(); //mi serve per evitare problemi in fase di invio dati ai client altrimenti dovrei ricastare ad array ma cmabia completamente la formattazione ES 2_5_1Y6V2R_B4G__3_5_ -> [2, _, 5, _, 1, Y, 6, V, 2, R, _, B, 4, G, _, _, 3, _, 5, _]
+            this.map = mapString.toCharArray();
             System.out.println(map);
 
             //set Tiles
-            for(int row=0; row<4; row++) {
-                for (int column = 0; column < 5; column++) {
+            for(int row=0; row<maxRow; row++) {
+                for (int column = 0; column < maxColumn; column++) {
                     this.matrix[row][column] = new Tile(row,column);
                     Tile tile = this.matrix[row][column];
                     switch (map[row * 5 + column]) {
@@ -133,6 +140,8 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
     };
     public int getID(){ return this.ID; };
     public String getMapName(){ return this.MapName; }
+    public int getMaxRow(){return this.maxRow;}
+    public int getMaxColumn(){return this.maxColumn;}
 
 
     //to set a Dice, this method is a bit long just because off the big number of controls I need to do here
@@ -169,7 +178,7 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
 
         //if this is the first dice you set, there is a specific constrain
         if (EmptyScheme()){
-            if(row ==0 || row == 3 || column ==0 || column ==4){
+            if(row ==0 || row == getMaxRow()-1 || column ==0 || column == getMaxColumn()-1){ //TODO è corretto prima era (row ==0 || row == 3 || column ==0 || column == 4)
                 this.getTile(row,column).setDice(dice, IgnoreColor, IgnoreNumber);
             }else throw new FirstDiceNeedsToBeAtBordersException();
         }
@@ -192,7 +201,7 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
 
             //if this is the first dce you set, there is a specific constrain
             if (EmptyScheme()) {
-                if (row == 0 || row == 3 || column == 0 || column == 4) {
+                if (row ==0 || row == getMaxRow()-1 || column ==0 || column == getMaxColumn()-1) {
                     return this.getTile(row, column).settableDiceHere(dice, IgnoreColor, IgnoreNumber);
                 } else return false;
             } else {
@@ -227,7 +236,7 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
     //può essere utile questa classe?
     public boolean HaveFullColumn(int column) throws OutOfMatrixException{
         boolean havefullColumn = true;
-        for( int i=0; i<4;i++){
+        for(int i=0 ; i<getMaxRow() ; i++){
             havefullColumn = havefullColumn&&this.getTile(i,column).isOccupied();
         }
         return havefullColumn;
@@ -235,7 +244,7 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
     public boolean HaveFullRow(int row) throws OutOfMatrixException{
         boolean havefullRow = true;
         int i=0;
-        for( i=0; i<5;i++){
+        for(i=0 ; i<getMaxColumn() ; i++){
             havefullRow = havefullRow&&this.getTile(row,i).isOccupied();
         }
         return havefullRow;
@@ -271,9 +280,14 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
         return ThereisaDicenearYou;
     }
 
+    public char[] getMap(){
+        return this.map;
+    }
+
     public String displayScheme(){
-        String  string = "ID: " + this.getID() + "\n";
-        for(int row =0; row < 4; row ++){
+        String  string = "|" + this.getMapName() + "*" + getMaxRow() + "*" + getMaxColumn() + "*" + this.mapString + "|";
+
+        /*for(int row =0; row < 4; row ++){
             for( int column =0; column < 5; column++){
                 try{
                     if(this.getTile(row, column).haveNumber_constrain()){
@@ -286,7 +300,7 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
                     //impossible to get here
                 }
             }
-        }
+        }*/
         return string;
     }
 
@@ -295,7 +309,7 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
     //metodi private
     // lo setto private per non esporre l'implementazione
     private Tile getTile(int row, int column)throws OutOfMatrixException{
-        if(row <0 || row > 3 || column <0 || column >4){
+        if(row <0 || row > getMaxRow()-1 || column <0 || column > getMaxColumn()-1){
             throw new OutOfMatrixException();
         }
         return this.matrix[row][column];
@@ -303,8 +317,8 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
      private boolean EmptyScheme(){
         boolean empty = true;
         try{
-            for (int row=0; row < 4; row ++){
-                for(int column = 0; column <5; column ++){
+            for (int row=0; row < getMaxRow(); row ++){
+                for(int column = 0; column < getMaxColumn(); column ++){
                     empty = empty && !IsTileOccupied(row,column);
                 }
             }
@@ -331,8 +345,6 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
             private int currentRow=0, currentColumn=0;
             private boolean deadEnd = false;
 
-
-
             @Override
             public boolean hasNext() {
                 return !deadEnd;
@@ -353,18 +365,16 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
                 }
 
                 currentColumn++;
-                if (currentColumn == 5) {
+                if (currentColumn == getMaxColumn()) {
                     currentColumn = 0;
                     currentRow++;
-                    if (currentRow == 4) {
+                    if (currentRow == getMaxRow()) {
                         deadEnd = true;
                     }
                 }
 
                 return nextElement;
             }
-
-
         };
     }
 }

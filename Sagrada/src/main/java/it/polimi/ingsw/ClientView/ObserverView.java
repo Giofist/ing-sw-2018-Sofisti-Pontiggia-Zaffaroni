@@ -248,6 +248,11 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
             System.out.println(e.getMessage());
         }
         //to be implemented.
+        try {
+            menuInt();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
 
