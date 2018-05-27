@@ -78,7 +78,7 @@ public class UsersList {
 
     synchronized public void logOut( String name){
         for (User user : this.users){
-            if (name.equals(user.getName()))
+            if (user.getName().equals(name))
             user.setActive(false);
         }
     }

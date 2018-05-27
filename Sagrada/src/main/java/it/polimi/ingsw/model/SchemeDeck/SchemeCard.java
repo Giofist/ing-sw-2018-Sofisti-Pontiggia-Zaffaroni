@@ -29,11 +29,6 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
 
     //constructor
     public SchemeCard(int mapID) throws IOException, MapConstrainReadingException {
-        this.initialize(mapID);
-    }
-
-    //to initialize the schemecard
-    public void initialize (int mapID ) throws IOException,MapConstrainReadingException {
         this.ID = mapID;
         String fileName = "src/main/resources/Maps.txt";
         try (BufferedReader buffer = new BufferedReader(new FileReader(fileName))) {
@@ -150,8 +145,6 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
             throw new TileyetOccupiedException(); // you can't set a dice where there is another dice
         }
 
-
-
         //to control the color and intensity constrain of the matrix
         for(int i = row-1; i<= row+1; i++){
             for(int j = column-1; j<= column+1; j++){
@@ -188,6 +181,7 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
             } else throw new NotNearAnotherDiceException();  // there must be a dice near you mate!
         }
     }
+    //utilizzato in pennello per pasta salda
     public boolean SettableHere(Dice dice, int row, int column, boolean IgnoreColor, boolean IgnoreNumber) {
         try {
             if (IsTileOccupied(row, column)) {
@@ -286,24 +280,8 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
 
     public String displayScheme(){
         String  string = this.getMapName() + "-" + getDifficulty()+ "-" + getMaxRow() + "-" + getMaxColumn() + "-" + this.mapString;
-
-        /*for(int row =0; row < 4; row ++){
-            for( int column =0; column < 5; column++){
-                try{
-                    if(this.getTile(row, column).haveNumber_constrain()){
-                        string += this.getTile(row, column).getNumber_Constrain();
-                    }
-                    if(this.getTile(row, column).haveColor_constrain()){
-                        string += this.getTile(row, column).getColor_Constrain();
-                    }
-                }catch(OutOfMatrixException e){
-                    //impossible to get here
-                }
-            }
-        }*/
         return string;
     }
-
 
 
     //metodi private
@@ -341,6 +319,44 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
 
     @Override
     public Iterator<Tile> iterator() {
+        return new Iterator<Tile>() {
+            private int currentRow=0, currentColumn=0;
+            private boolean deadEnd = false;
+
+            @Override
+            public boolean hasNext() {
+                return !deadEnd;
+            }
+
+            @Override
+            public void remove() {
+                // To be implemented
+            }
+
+            @Override
+            public Tile next() {
+                Tile nextElement;
+                try {
+                    nextElement = getTile(currentRow, currentColumn);
+                } catch (OutOfMatrixException e) {
+                    throw new NoSuchElementException("Matrix dead end reached.");
+                }
+
+                currentColumn++;
+                if (currentColumn == getMaxColumn()) {
+                    currentColumn = 0;
+                    currentRow++;
+                    if (currentRow == getMaxRow()) {
+                        deadEnd = true;
+                    }
+                }
+
+                return nextElement;
+            }
+        };
+    }
+
+    public Iterator<Tile> columnIterator(){
         return new Iterator<Tile>() {
             private int currentRow=0, currentColumn=0;
             private boolean deadEnd = false;

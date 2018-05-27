@@ -81,17 +81,8 @@ public class Tile {
 
     //getandremove viene splittata nei due metodi sottostanti
     //lo ritengo più sicuro nelle toolcard che la chiamano: prima che il ddo che mi serve, poi lo rimuovo
-    public Dice getandremoveDice() throws DiceNotExistantException{
-        if(!this.isOccupied()){
-            throw new DiceNotExistantException();
-        }
-        Dice dice = this.dice;
-        this.dice = null;
-        return dice; }
 
-
-
-        //to get the dice of this tile for inspection
+    //to get the dice of this tile for inspection
     public Dice getDice()throws DiceNotExistantException {
         if(!this.isOccupied()){
             throw new DiceNotExistantException();
