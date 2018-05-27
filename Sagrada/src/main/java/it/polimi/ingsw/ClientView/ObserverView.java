@@ -71,7 +71,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         while (!successo) {
             System.out.println("Hai già un account? [S/N]");
             input = in.nextLine();
-            if ( input.equals("S") || input.equals("s")) {
+            if (input.equals("S") || input.equals("s")) {
                 logInInt();
                 successo = true;
             }
@@ -211,10 +211,11 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         //timer di attesa poi appena arriva notify parte il gioco
     }
 
-    private synchronized void startGameInt() {
+    private synchronized void startGameInt() throws RemoteException {
         Scanner in = new Scanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
         String schemeCards;
+        boolean correct = false;
         int index;
 
         try {
@@ -225,58 +226,55 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         }
 
         AnsiConsole.out.println("Success in testing wait and notify!");
-        System.out.println("Seleziona la carta schema che desideri tra le seguenti indicando il numero relativo.");
-        try {
+
             schemeCards = servercontroller.getSchemeCards(this.yourName);
             String[] schemeCardsArray = schemeCards.split("!"); //creo un array con le sngole mappe
             System.setProperty("jansi.passthrough", "true");
             AnsiConsole.systemInstall();
-            //System.out.println( ansi().eraseScreen().fg(RED).a("Hello").fg(GREEN).a(" World").reset() );
             AnsiConsole.systemUninstall();
             for (index = 0 ; index < 4 ; index++){
                 String[] schemeCardAttribute = schemeCardsArray[index].split("-");
-                System.out.println("(" + (index+1) + ")");
-                System.out.println(ansi().eraseScreen().fg(GREEN).a(schemeCardAttribute[0]));
-                System.out.println(schemeCardAttribute[1]);
+                System.out.println(ansi().eraseScreen().fg(GREEN).a(schemeCardAttribute[0]).reset());
+                System.out.println("Difficoltà della mappa: " + schemeCardAttribute[1]);
                 char[] constrain = schemeCardAttribute[4].toCharArray();
                 for(int row = 0 ; row < Integer.parseInt(schemeCardAttribute[2]) ; row++){
                     for(int column = 0 ; column < Integer.parseInt(schemeCardAttribute[3]) ; column++){
                         switch (constrain[row * Integer.parseInt(schemeCardAttribute[3]) + column]) {
                             case 'Y':
-                                System.out.print( ansi().eraseScreen().bg(YELLOW).a("   "));
+                                System.out.print( ansi().eraseScreen().bg(YELLOW).a("   ").reset());
                                 break;
                             case 'B':
-                                System.out.print( ansi().eraseScreen().bg(BLUE).a("   "));
+                                System.out.print( ansi().eraseScreen().bg(BLUE).a("   ").reset());
                                 break;
                             case 'R':
-                                System.out.print( ansi().eraseScreen().bg(RED).a("   "));
+                                System.out.print( ansi().eraseScreen().bg(RED).a("   ").reset());
                                 break;
                             case 'V':
-                                System.out.print( ansi().eraseScreen().bg(MAGENTA).a("   "));
+                                System.out.print( ansi().eraseScreen().bg(MAGENTA).a("   ").reset());
                                 break;
                             case 'G':
-                                System.out.print( ansi().eraseScreen().bg(GREEN).a("   "));
+                                System.out.print( ansi().eraseScreen().bg(GREEN).a("   ").reset());
                                 break;
                             case '1':
-                                System.out.print( ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" 1 "));
+                                System.out.print( ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" 1 ").reset());
                                 break;
                             case '2':
-                                System.out.print( ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" 2 "));
+                                System.out.print( ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" 2 ").reset());
                                 break;
                             case '3':
-                                System.out.print( ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" 3 "));
+                                System.out.print( ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" 3 ").reset());
                                 break;
                             case '4':
-                                System.out.print( ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" 4 "));
+                                System.out.print( ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" 4 ").reset());
                                 break;
                             case '5':
-                                System.out.print( ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" 5 "));
+                                System.out.print( ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" 5 ").reset());
                                 break;
                             case '6':
-                                System.out.print( ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" 6 "));
+                                System.out.print( ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" 6 ").reset());
                                 break;
                             case '_':
-                                System.out.print( ansi().eraseScreen().bg(WHITE).fg(BLACK).a("   "));
+                                System.out.print( ansi().eraseScreen().bg(WHITE).fg(BLACK).a("   ").reset());
                                 break;
                         }
                     }
@@ -285,12 +283,17 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
                 System.out.print("\n");
             }
             AnsiConsole.systemUninstall();
+            while(!correct){
+                System.out.println("Seleziona la carta schema che desideri tra le seguenti indicando il numero relativo.");
+                int selectedCard = in.nextInt();
+                try {
+                servercontroller.setSchemeCard(this.yourName, selectedCard);
+                correct = true;
+                } catch (RemoteException e){
+                    System.out.println(e.getMessage());
+                }
+            }
 
-            int selectedCard = in.nextInt();
-            servercontroller.setSchemeCard(this.yourName, selectedCard);
-        } catch (RemoteException e){
-            System.out.println(e.getMessage());
-        }
         System.out.println("fin qui tutto bene");
         while (!matchisEnded) {
             try{
