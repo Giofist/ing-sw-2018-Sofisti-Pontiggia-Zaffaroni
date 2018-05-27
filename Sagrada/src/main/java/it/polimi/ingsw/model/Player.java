@@ -116,9 +116,15 @@ public class Player extends Observable implements Comparable<Player>{
     }
     public String getExtractedSchemeCards(){
         String stringToreturn = "\n";
+        int index = 1;
         for (SchemeCard schemeCard: this.extractedschemeCards) {
             stringToreturn += schemeCard.displayScheme();
+            stringToreturn += "!";
             stringToreturn += schemeCard.getTwinCard().displayScheme();
+            if (index < this.extractedschemeCards.size()){
+                stringToreturn += "!";
+            }
+            index++;
         }
         return stringToreturn;
     }

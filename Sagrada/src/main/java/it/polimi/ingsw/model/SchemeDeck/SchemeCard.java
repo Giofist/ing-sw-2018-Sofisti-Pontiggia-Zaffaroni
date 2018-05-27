@@ -285,7 +285,7 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
     }
 
     public String displayScheme(){
-        String  string = "|" + this.getMapName() + "*" + getMaxRow() + "*" + getMaxColumn() + "*" + this.mapString + "|";
+        String  string = this.getMapName() + "-" + getDifficulty()+ "-" + getMaxRow() + "-" + getMaxColumn() + "-" + this.mapString;
 
         /*for(int row =0; row < 4; row ++){
             for( int column =0; column < 5; column++){

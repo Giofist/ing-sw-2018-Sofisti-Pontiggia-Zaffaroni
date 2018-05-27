@@ -6,8 +6,10 @@ import java.io.PrintWriter;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Scanner;
-import org.fusesource.jansi.AnsiConsole;
 
+import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
+import org.fusesource.jansi.AnsiConsole;
+import static org.fusesource.jansi.Ansi.Color.*;
 import static org.fusesource.jansi.Ansi.ansi;
 
 //implemented by pon
@@ -212,6 +214,9 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
     private synchronized void startGameInt() {
         Scanner in = new Scanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
+        String schemeCards;
+        int index;
+
         try {
             wait();
             //aspetto una notify dell'inizio della partita, per ora è solo un test connection
@@ -219,10 +224,68 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
             //do nothing
         }
 
-        System.out.println("Success in testing wait and notify!");
+        AnsiConsole.out.println("Success in testing wait and notify!");
         System.out.println("Seleziona la carta schema che desideri tra le seguenti indicando il numero relativo.");
         try {
-            System.out.println(servercontroller.getSchemeCards(this.yourName));
+            schemeCards = servercontroller.getSchemeCards(this.yourName);
+            String[] schemeCardsArray = schemeCards.split("!"); //creo un array con le sngole mappe
+            System.setProperty("jansi.passthrough", "true");
+            AnsiConsole.systemInstall();
+            //System.out.println( ansi().eraseScreen().fg(RED).a("Hello").fg(GREEN).a(" World").reset() );
+            AnsiConsole.systemUninstall();
+            for (index = 0 ; index < 4 ; index++){
+                String[] schemeCardAttribute = schemeCardsArray[index].split("-");
+                System.out.println("(" + (index+1) + ")");
+                System.out.println(ansi().eraseScreen().fg(GREEN).a(schemeCardAttribute[0]));
+                System.out.println(schemeCardAttribute[1]);
+                char[] constrain = schemeCardAttribute[4].toCharArray();
+                for(int row = 0 ; row < Integer.parseInt(schemeCardAttribute[2]) ; row++){
+                    for(int column = 0 ; column < Integer.parseInt(schemeCardAttribute[3]) ; column++){
+                        switch (constrain[row * Integer.parseInt(schemeCardAttribute[3]) + column]) {
+                            case 'Y':
+                                System.out.print( ansi().eraseScreen().bg(YELLOW).a("   "));
+                                break;
+                            case 'B':
+                                System.out.print( ansi().eraseScreen().bg(BLUE).a("   "));
+                                break;
+                            case 'R':
+                                System.out.print( ansi().eraseScreen().bg(RED).a("   "));
+                                break;
+                            case 'V':
+                                System.out.print( ansi().eraseScreen().bg(MAGENTA).a("   "));
+                                break;
+                            case 'G':
+                                System.out.print( ansi().eraseScreen().bg(GREEN).a("   "));
+                                break;
+                            case '1':
+                                System.out.print( ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" 1 "));
+                                break;
+                            case '2':
+                                System.out.print( ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" 2 "));
+                                break;
+                            case '3':
+                                System.out.print( ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" 3 "));
+                                break;
+                            case '4':
+                                System.out.print( ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" 4 "));
+                                break;
+                            case '5':
+                                System.out.print( ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" 5 "));
+                                break;
+                            case '6':
+                                System.out.print( ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" 6 "));
+                                break;
+                            case '_':
+                                System.out.print( ansi().eraseScreen().bg(WHITE).fg(BLACK).a("   "));
+                                break;
+                        }
+                    }
+                    System.out.print("\n");
+                }
+                System.out.print("\n");
+            }
+            AnsiConsole.systemUninstall();
+
             int selectedCard = in.nextInt();
             servercontroller.setSchemeCard(this.yourName, selectedCard);
         } catch (RemoteException e){
