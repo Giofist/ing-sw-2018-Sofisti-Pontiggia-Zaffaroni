@@ -113,9 +113,9 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         Scanner in = new Scanner(System.in);
         String username;
         String password;
-        boolean successo;
+        boolean success;
         do {
-            successo = true;
+            success = true;
             System.out.println("Inserisci username:");
             username = in.nextLine();
             System.out.println("Inserisci password:");
@@ -124,22 +124,23 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
                 servercontroller.login(username, password);
             } catch (RemoteException e) {
                 System.out.println(e.getMessage());
-                successo = false;
+                success = false;
             }
-        } while (!successo);
+        } while (!success);
         }
 
 
     private void menuInt() throws RemoteException {
         String input;
         boolean success = false;
+        Scanner in = new Scanner(System.in);
         while(!success){
-            Scanner in = new Scanner(System.in);
             System.out.println("Benvenuto nel menù principale di Sagrada!");
             System.out.println("- Multi Giocatore (M)");
             System.out.println("- Giocatore Singolo (Coming soon!)");
             System.out.println("- LogOut (L)");
             input = in.nextLine();
+
             if (input.equals("M") || input.equals("m")) {
                 multiInt();
                 success = true;
@@ -147,8 +148,11 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
             if (input.equals("L") || input.equals("l")) {
                 servercontroller.logout(this.yourName);
                 System.exit(0);
+                success = true;
             }
-            else System.out.println("Hai sbagliato a digitare.");
+            else {
+                System.out.println("Hai sbagliato a digitare."); //non riesco a non farlo stampare dopo la creazione di una partita e non riesco a fixare
+            }
             }
         }
 
