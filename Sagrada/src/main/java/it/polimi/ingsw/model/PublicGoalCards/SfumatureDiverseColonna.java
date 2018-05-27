@@ -4,6 +4,8 @@ import it.polimi.ingsw.model.DiceColor;
 import it.polimi.ingsw.model.Exceptions.*;
 import it.polimi.ingsw.model.GoalCard;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.SchemeDeck.ColumnIterator;
+import it.polimi.ingsw.model.SchemeDeck.RowIterator;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -17,29 +19,33 @@ public class SfumatureDiverseColonna implements GoalCard {
 
     @Override
     public void  calculatepoint(Player player) {
-        int column = 0;
-        for (column = 0; column < 5; column++) {
-            try {
-                List<Integer> existingshades = new ArrayList<Integer>();
-                for (int row = 0; row < 4; row++) {
-                    if (existingshades.contains(player.getScheme().getDiceIntensity(row, column))) {
-                        throw new TwoDiceSameShadeException();
-                    } else {
-                        existingshades.add(player.getScheme().getDiceIntensity(row, column));
+        try{
+            ColumnIterator columnIterator =  player.getScheme().columnIterator(0);
+            while(columnIterator.hasNext()) {
+                try {
+                    List<Integer> existingshades = new ArrayList<Integer>();
+                    RowIterator rowIterator = player.getScheme().rowIterator(columnIterator.getCurrentColumn());
+                    while(rowIterator.hasNext()) {
+                        int diceintensity = rowIterator.next().getDice().getIntensity();
+                        if (existingshades.contains(diceintensity)) {
+                            throw new TwoDiceSameShadeException();
+                        } else {
+                            existingshades.add(diceintensity);
+                        }
                     }
+                    //add the points for this column, which has respected the constrain
+                    player.addPoints(4);
+                    columnIterator.next();
+                } catch (TwoDiceSameShadeException e) {
+                    //unfortunately you can't get the points
+                }catch (DiceNotExistantException e){
+                    //unfortunately you can't get the points
                 }
-                //add the points for this column, which has respected the constrain
-                player.addPoints(4);
-            } catch (TwoDiceSameShadeException e) {
-                //unfortunately you can't get the points
-            }catch (DiceNotExistantException e){
-                //unfortunately you can't get the points
-            }catch (OutOfMatrixException e){
-                //impossible
-            }catch(SchemeCardNotExistantException e){
-
             }
+        }catch(SchemeCardNotExistantException e){
+            //do nothing
         }
+
     }
 
     @Override

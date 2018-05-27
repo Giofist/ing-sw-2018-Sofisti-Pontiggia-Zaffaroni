@@ -254,12 +254,6 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
     public void removeDice(int row, int column) throws DiceNotExistantException, OutOfMatrixException{
         this.getTile(row,column).removeDice();
     }
-    public DiceColor getColorConstrain( int row, int column){
-        return this.matrix[row][column].getColor_Constrain();
-    }
-    public int getNumberConstrain(int row, int column){
-        return this.matrix[row][column].getNumber_Constrain();
-    }
     public boolean ThereisaDicenearYou(int row, int column){
         boolean ThereisaDicenearYou = false;
         for (int i = row - 1; i <= row + 1; i++) {
@@ -286,7 +280,7 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
 
     //metodi private
     // lo setto private per non esporre l'implementazione
-    private Tile getTile(int row, int column)throws OutOfMatrixException{
+    public Tile getTile(int row, int column)throws OutOfMatrixException{
         if(row <0 || row > getMaxRow()-1 || column <0 || column > getMaxColumn()-1){
             throw new OutOfMatrixException();
         }
@@ -355,43 +349,13 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
             }
         };
     }
-
-    public Iterator<Tile> columnIterator(){
-        return new Iterator<Tile>() {
-            private int currentRow=0, currentColumn=0;
-            private boolean deadEnd = false;
-
-            @Override
-            public boolean hasNext() {
-                return !deadEnd;
-            }
-
-            @Override
-            public void remove() {
-                // To be implemented
-            }
-
-            @Override
-            public Tile next() {
-                Tile nextElement;
-                try {
-                    nextElement = getTile(currentRow, currentColumn);
-                } catch (OutOfMatrixException e) {
-                    throw new NoSuchElementException("Matrix dead end reached.");
-                }
-
-                currentColumn++;
-                if (currentColumn == getMaxColumn()) {
-                    currentColumn = 0;
-                    currentRow++;
-                    if (currentRow == getMaxRow()) {
-                        deadEnd = true;
-                    }
-                }
-
-                return nextElement;
-            }
-        };
+    //questi iteratori mi servono per gli obiettivi
+    public ColumnIterator<Tile> columnIterator(int row){
+        return new ColumnIterator<Tile>(this,row);
     }
+    public RowIterator<Tile> rowIterator(final int column){
+        return new RowIterator<Tile>(this,column);
+    }
+
 }
 

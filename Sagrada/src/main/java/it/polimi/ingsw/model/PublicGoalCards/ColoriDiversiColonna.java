@@ -8,8 +8,12 @@ import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
 import it.polimi.ingsw.model.Exceptions.TwoDiceSameColorException;
 import it.polimi.ingsw.model.GoalCard;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.SchemeDeck.ColumnIterator;
+import it.polimi.ingsw.model.SchemeDeck.RowIterator;
 
+import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -23,26 +27,31 @@ public class ColoriDiversiColonna implements GoalCard {
 
     @Override
     public void  calculatepoint(Player player) {
-        for (int column = 0; column < 5; column++) {
-            try {
-                List<DiceColor> existingcolors = new LinkedList<DiceColor>();
-                for (int row = 0; row < 4; row++) {
-                    if (existingcolors.contains(player.getScheme().getDiceColour(row, column))) {
-                        throw new TwoDiceSameColorException();
-                    } else {
-                        existingcolors.add(player.getScheme().getDiceColour(row, column));
+        try{
+            ColumnIterator columnIterator =  player.getScheme().columnIterator(0);
+            // do nothing
+            while(columnIterator.hasNext()) {
+                try {
+                    List<DiceColor> existingcolors = new LinkedList<DiceColor>();
+                    RowIterator rowIterator = player.getScheme().rowIterator(columnIterator.getCurrentColumn());
+                    while(rowIterator.hasNext()) {
+                        DiceColor diceColor = rowIterator.next().getDice().getColor();
+                        if (existingcolors.contains(diceColor)) {
+                            throw new TwoDiceSameColorException();
+                        } else {
+                            existingcolors.add(diceColor);
+                        }
                     }
+                    player.addPoints(5);
+                    columnIterator.next();
+                } catch (TwoDiceSameColorException e) {
+                    //unfortunately you can't get the points: there are two dices of the same color
+                } catch (DiceNotExistantException e) {
+                    //unfortunately you can't get the point: the column has an empty tile
                 }
-                player.addPoints(5);
-            } catch (TwoDiceSameColorException e) {
-                //unfortunately you can't get the points: there are two dices of the same color
-            }catch (DiceNotExistantException e){
-                //unfortunately you can't get the point: the column has an empty tile
-            }catch ( OutOfMatrixException e){
-                //no way to get here
-            }catch (SchemeCardNotExistantException e){
-
             }
+        }catch(SchemeCardNotExistantException e){
+            //do nothing
         }
     }
 
