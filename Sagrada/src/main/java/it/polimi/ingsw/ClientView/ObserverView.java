@@ -83,6 +83,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
                 System.out.println("Hai sbagliato a digitare.");
         }
     }
+
     private void signInInt(){
         String username;
         String password;
@@ -131,10 +132,11 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
 
 
     private void menuInt() throws RemoteException {
+        Scanner in = new Scanner(System.in);
         String input;
         boolean success = false;
-        Scanner in = new Scanner(System.in);
-        while(!success){
+
+        do{
             System.out.println("Benvenuto nel menù principale di Sagrada!");
             System.out.println("- Multi Giocatore (M)");
             System.out.println("- Giocatore Singolo (Coming soon!)");
@@ -153,7 +155,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
             else {
                 System.out.println("Hai sbagliato a digitare."); //non riesco a non farlo stampare dopo la creazione di una partita e non riesco a fixare
             }
-            }
+            }while(!success);
         }
 
 
