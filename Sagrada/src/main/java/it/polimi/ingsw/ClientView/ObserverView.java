@@ -20,6 +20,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
     private String yourName;
     private boolean matchisEnded;
     private char[] yourMap;
+    private int[] yourMapDiceIntensity;
     private int yourMapMaxRow = 0;
     private int yourMapMaxColumn = 0;
 
@@ -305,6 +306,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         }
     }
 
+    //metodo che stampa la mappa a schermo
     public void printMap(char[] map, int maxRow, int maxColumn){
         for(int row = 0 ; row < maxRow ; row++){
             for(int column = 0 ; column < maxColumn ; column++){
@@ -345,62 +347,27 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
                     case '_':
                         System.out.print( ansi().eraseScreen().bg(WHITE).fg(BLACK).a("   ").reset());
                         break;
-                }
-            }
-            System.out.print("\n");
-        }
-    }
-
-    /*public void updateMap(char[] map, int maxRow, int maxColumn){
-        for(int row = 0 ; row < maxRow ; row++){
-            for(int column = 0 ; column < maxColumn ; column++){
-                switch (map[row * maxColumn+ column]) {
-                    case 'Y':
-                        System.out.print( ansi().eraseScreen().bg(YELLOW).a("   ").reset());
-                        break;
-                    case 'B':
-                        System.out.print( ansi().eraseScreen().bg(BLUE).a("   ").reset());
-                        break;
-                    case 'R':
-                        System.out.print( ansi().eraseScreen().bg(RED).a("   ").reset());
-                        break;
-                    case 'V':
-                        System.out.print( ansi().eraseScreen().bg(MAGENTA).a("   ").reset());
-                        break;
-                    case 'G':
-                        System.out.print( ansi().eraseScreen().bg(GREEN).a("   ").reset());
-                        break;
-                    case '1':
-                        System.out.print( ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" 1 ").reset());
-                        break;
-                    case '2':
-                        System.out.print( ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" 2 ").reset());
-                        break;
-                    case '3':
-                        System.out.print( ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" 3 ").reset());
-                        break;
-                    case '4':
-                        System.out.print( ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" 4 ").reset());
-                        break;
-                    case '5':
-                        System.out.print( ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" 5 ").reset());
-                        break;
-                    case '6':
-                        System.out.print( ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" 6 ").reset());
-                        break;
-                    case '_':
-                        System.out.print( ansi().eraseScreen().bg(WHITE).fg(BLACK).a("   ").reset());
-                        break;
                     case 'y':
-                        System.out.print( ansi().eraseScreen().bg(YELLOW).a("  ").fg(WHITE).reset());
-
+                        System.out.print( ansi().eraseScreen().bg(YELLOW).fg(WHITE).a(" " + yourMapDiceIntensity[row * maxColumn+ column] + " ").reset());
+                        break;
+                    case 'b':
+                        System.out.print( ansi().eraseScreen().bg(BLUE).fg(WHITE).a(" " + yourMapDiceIntensity[row * maxColumn+ column] + " ").reset());
+                        break;
+                    case 'r':
+                        System.out.print( ansi().eraseScreen().bg(RED).fg(WHITE).a(" " + yourMapDiceIntensity[row * maxColumn+ column] + " ").reset());
+                        break;
+                    case 'v':
+                        System.out.print( ansi().eraseScreen().bg(MAGENTA).fg(WHITE).a(" " + yourMapDiceIntensity[row * maxColumn+ column] + " ").reset());
+                        break;
+                    case 'g':
+                        System.out.print( ansi().eraseScreen().bg(GREEN).fg(WHITE).a(" " + yourMapDiceIntensity[row * maxColumn+ column] + " ").reset());
                         break;
                 }
             }
             System.out.print("\n");
         }
     }
-    */
+
 
 
     //metodi per il pattern observer
