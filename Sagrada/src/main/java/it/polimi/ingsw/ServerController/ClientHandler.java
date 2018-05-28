@@ -240,6 +240,12 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     }
 
     @Override
+    public void setDice(String clientusername, int row, int column) throws RemoteException, UserNotExistentException, SchemeCardNotExistantException {/*
+        Player player = UsersList.Singleton().getUser(clientusername).getPlayer();
+        player.getScheme().setDice(dice ,row ,column);*/
+    }
+
+    @Override
     public void notifyGame(String clientname) throws RemoteException{
         try{
             Player player = UsersList.Singleton().getUser(clientname).getPlayer();

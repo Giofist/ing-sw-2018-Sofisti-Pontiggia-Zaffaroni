@@ -3,12 +3,10 @@ package it.polimi.ingsw.ServerController;
 import it.polimi.ingsw.ClientView.FeedObserverView;
 import it.polimi.ingsw.ClientView.ObserverViewInterface;
 import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
-import it.polimi.ingsw.model.Match;
-import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
+import it.polimi.ingsw.model.Exceptions.UserNotExistentException;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.util.LinkedList;
 import java.util.List;
 
 
@@ -38,5 +36,6 @@ public interface ClientHandlerInterface extends Remote {
     public List getRanking(String clientname) throws RemoteException;
     public String getSchemeCards(String clientname) throws RemoteException;
     public void setSchemeCard(String clientname, int cardid) throws RemoteException;
+    public void setDice(String clientname, int row, int column) throws RemoteException, UserNotExistentException, SchemeCardNotExistantException;
     public void notifyGame(String clientname) throws RemoteException;
 }
