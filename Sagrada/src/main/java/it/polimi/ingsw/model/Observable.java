@@ -39,4 +39,14 @@ public class Observable {
             //do nothing
         }
     }
+
+    public void notifyIsYourTurn() {
+        try {
+            for(ObserverViewInterface observerViewInterface : this.observerViewInterfaces){
+                observerViewInterface.notifyIsYourTurn("E' il tuo turno!");
+            }
+        } catch(RemoteException e){
+
+        }
+    }
 }

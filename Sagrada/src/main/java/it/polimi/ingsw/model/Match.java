@@ -72,25 +72,16 @@ public class Match implements Runnable{
             }
         }
         //adesso la partita può avere inizio
-        new Round(1, this.players, this).run();
-        this.players.addLast(this.players.removeFirst());
-        new Round(2, this.players, this).run();
-        this.players.addLast(this.players.removeFirst());
-        new Round(3, this.players, this).run();
-        this.players.addLast(this.players.removeFirst());
-        new Round(4, this.players, this).run();
-        this.players.addLast(this.players.removeFirst());
-        new Round(5, this.players, this).run();
-        this.players.addLast(this.players.removeFirst());
-        new Round(6, this.players, this).run();
-        this.players.addLast(this.players.removeFirst());
-        new Round(7, this.players, this).run();
-        this.players.addLast(this.players.removeFirst());
-        new Round(8, this.players, this).run();
-        this.players.addLast(this.players.removeFirst());
-        new Round(9, this.players, this).run();
-        this.players.addLast(this.players.removeFirst());
-        new Round(10, this.players, this).run();
+        for (int i = 1; i<=10; i++){
+            try {
+                new Round(i, this.players, this).run();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
 
         //to calculate points for the public goals
         this.getGametable().calculatePointsforAllPlayers(this.players);

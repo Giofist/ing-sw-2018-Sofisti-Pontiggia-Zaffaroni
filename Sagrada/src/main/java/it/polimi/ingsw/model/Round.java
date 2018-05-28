@@ -3,7 +3,11 @@ package it.polimi.ingsw.model;
 import it.polimi.ingsw.model.Exceptions.RoundTrackException;
 
 import java.rmi.RemoteException;
+import java.util.Collections;
 import java.util.LinkedList;
+
+import static java.util.Collections.*;
+
 //not implemented yet
 public class Round {
     private int num_round;
@@ -20,7 +24,7 @@ public class Round {
     }
 
 
-    public void run(){
+    public void run() throws RemoteException, InterruptedException {
         //questo metodo prepara il round con i dadi della Riserva ecc...
         this.getMatch().getGametable().setupRound();
 
@@ -34,6 +38,21 @@ public class Round {
             }
 
         }
+
+        // Primo giro
+        for (Player player: this.players) {
+            new Turn(player, match).run();
+        }
+
+        // Secondo giro
+        Collections.reverse(this.players);
+        for (Player player: this.players){
+            new Turn(player, match).run();
+        }
+
+        // Ripristino l'ordine della lista di partenza
+        Collections.reverse(this.players);
+
 
         //termino il round aggiornando il tracciato round prendendo i dadi dalla riserva
         try{

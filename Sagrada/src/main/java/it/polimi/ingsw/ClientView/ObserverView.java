@@ -429,4 +429,11 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
     }
 
 
+    @Override
+    public synchronized void notifyIsYourTurn(String message) throws RemoteException{
+        System.out.println(message);
+        // Fai partire la procedura di gestione del turno
+    }
+
+
 }
