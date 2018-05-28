@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ClientView;
 
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
+import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -86,6 +87,11 @@ public class SocketObserverView implements ClientHandlerInterface, Runnable {
         out.flush();
         this.waitforAnswerfromServer();
 
+    }
+
+    @Override
+    public String getMymapString(String clientname) throws RemoteException, SchemeCardNotExistantException {
+        return null;
     }
 
     @Override

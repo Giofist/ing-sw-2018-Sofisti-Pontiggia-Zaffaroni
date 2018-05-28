@@ -2,6 +2,7 @@ package it.polimi.ingsw.ServerController;
 
 import it.polimi.ingsw.ClientView.FeedObserverView;
 import it.polimi.ingsw.ClientView.ObserverViewInterface;
+import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
 import it.polimi.ingsw.model.Match;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 
@@ -23,6 +24,9 @@ public interface ClientHandlerInterface extends Remote {
     public void logout(String clientname) throws RemoteException;
     public  void createGame(String clientname, ObserverViewInterface client, FeedObserverView Client, String gamename ) throws  RemoteException;
     public void joinaGame(String clientname, ObserverViewInterface client, FeedObserverView Client, String gamename) throws RemoteException;
+
+    public String getMymapString(String clientname) throws RemoteException, SchemeCardNotExistantException;
+
     public String getPrivateGoalCarddescription(String clientname) throws RemoteException;
     public String getPrivateGoalCardname(String clientname) throws RemoteException;
     public int getPrivateGoalCardid(String clientname) throws RemoteException;

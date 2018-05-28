@@ -7,7 +7,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Scanner;
 
-import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
+import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
 import org.fusesource.jansi.AnsiConsole;
 import static org.fusesource.jansi.Ansi.Color.*;
 import static org.fusesource.jansi.Ansi.ansi;
@@ -20,6 +20,8 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
     private String yourName;
     private boolean matchisEnded;
     private char[] yourMap;
+    private int yourMapMaxRow = 0;
+    private int yourMapMaxColumn = 0;
 
     //constructor1
     public ObserverView() throws RemoteException {
@@ -39,7 +41,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         this.servercontroller = servercontroller;
     }
 
-    public void run() throws RemoteException {
+    public void run() throws RemoteException, SchemeCardNotExistantException {
         String stringa = servercontroller.rmiTest("RMI");
         System.out.println("La connessione è in modalità: " + stringa);
         loadingInterface();
@@ -169,14 +171,14 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         if (input.equals("B") || input.equals("b")) {
             menuInt();
         } else if (input.equals("C") || input.equals("c")) {
-            creaInt();
+            createInt();
         } else if (input.equals("P") || input.equals("p")) {
-            partecipaInt();
+            joinInt();
         }
         else System.out.println("Hai sbagliato a digitare!");
     }
 
-    private void partecipaInt(){
+    private void joinInt(){
         String gamename;
         Scanner in = new Scanner(System.in);
         System.out.println("Ecco la lista delle partite attualmente attive:");
@@ -201,7 +203,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         }
     }
 
-    private void creaInt() {
+    private void createInt() {
         boolean success = false;
         Scanner in = new Scanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
@@ -220,14 +222,12 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
 
     private void waitingInt() {
         Scanner in = new Scanner(System.in);
-        PrintWriter out = new PrintWriter(System.out);
         System.out.println("Attendi che altri giocatori entrino in partita...");
         //timer di attesa poi appena arriva notify parte il gioco
     }
 
-    private synchronized void startGameInt() throws RemoteException {
+    private synchronized void startGameInt() throws RemoteException, SchemeCardNotExistantException {
         Scanner in = new Scanner(System.in);
-        PrintWriter out = new PrintWriter(System.out);
         String schemeCards;
         boolean correct = false;
         int index;
@@ -239,35 +239,46 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
             //do nothing
         }
 
-        AnsiConsole.out.println("Success in testing wait and notify!");
+            AnsiConsole.out.println("Success in testing wait and notify!");
 
             schemeCards = servercontroller.getSchemeCards(this.yourName);
             String[] schemeCardsArray = schemeCards.split("!"); //creo un array con le sngole mappe
-            System.setProperty("jansi.passthrough", "true");
-            AnsiConsole.systemInstall();
-            AnsiConsole.systemUninstall();
-            for (index = 0 ; index < 4 ; index++){
+
+            for (index = 0 ; index < schemeCardsArray.length ; index++){
                 String[] schemeCardAttribute = schemeCardsArray[index].split("-");
+                //System.setProperty("jansi.passthrough", "true");
+                //AnsiConsole.systemInstall();
                 System.out.println(ansi().eraseScreen().fg(GREEN).a(schemeCardAttribute[0]).reset());
+                //AnsiConsole.systemUninstall();
                 System.out.println("Difficoltà della mappa: " + schemeCardAttribute[1]);
                 char[] constrain = schemeCardAttribute[4].toCharArray();
                 printMap(constrain,Integer.parseInt(schemeCardAttribute[2]),Integer.parseInt(schemeCardAttribute[3]));
                 System.out.print("\n");
             }
-            AnsiConsole.systemUninstall();
+
             while(!correct){
                 System.out.println("Seleziona la carta schema che desideri tra le seguenti indicando il numero relativo.");
                 int selectedCard = in.nextInt();
                 try {
-                servercontroller.setSchemeCard(this.yourName, selectedCard);
-                //this.yourMap = ; TODO salvo qui una copia della mappa così da non dover scaricare tutte le volte da server ma aggiornarla volta per volta. Useremo lettere minuscole per indicare il colore dle dado e il relativo numero subito dopo. La mappa verrà stampata con numero nero invece che bianco e il colore dle dado.
-                correct = true;
+                    servercontroller.setSchemeCard(this.yourName, selectedCard);
+                    correct = true;
                 } catch (RemoteException e){
                     System.out.println(e.getMessage());
                 }
             }
 
-        System.out.println("Attendi che anche gli altri giocatori abbiano scelto la loro mappa.");
+            System.out.println("La carta schema da te scelta è: ");
+            String[] yourSchemeCardAttribute = servercontroller.getMymapString(yourName).split("-");
+            this.yourMapMaxRow = Integer.parseInt(yourSchemeCardAttribute[0]);
+            this.yourMapMaxColumn = Integer.parseInt(yourSchemeCardAttribute[1]);
+            this.yourMap = yourSchemeCardAttribute[2].toCharArray();
+            //System.setProperty("jansi.passthrough", "true");
+            //AnsiConsole.systemInstall();
+            printMap(yourMap , yourMapMaxRow , yourMapMaxColumn);
+            //AnsiConsole.systemUninstall();
+            System.out.print("\n");
+            System.out.println("Attendi che anche gli altri giocatori abbiano scelto la loro mappa.");
+
         while (!matchisEnded) {
             try{
                 wait();
@@ -277,7 +288,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
             System.out.println("ho superato una wait");
         }
         try {
-            System.out.println("la partita è finita: hai totalizzato" + servercontroller.getmyPoints(yourName) + "punti");
+            System.out.println("La partita è finita: hai totalizzato" + servercontroller.getmyPoints(yourName) + "punti");
             System.out.println("Ecco la classifica finale: ");
             for (Object player : servercontroller.getRanking(yourName)){
                 System.out.println(player.toString());

@@ -97,7 +97,15 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
         }
     }
 
-
+    @Override
+    public String getMymapString(String clientname) throws RemoteException, SchemeCardNotExistantException {
+        try{
+            Player player = UsersList.Singleton().getUser(clientname).getPlayer();
+            return player.getScheme().getMapString();
+        }catch (UserNotExistentException e){
+            throw new RemoteException(e.getMessage());
+        }
+    }
 
     @Override
     public String getPrivateGoalCarddescription(String clientname) throws RemoteException{
@@ -168,8 +176,9 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     @Override
     public String getActiveMatchList() throws RemoteException{
         String list = new String();
-        int i=4;
+        int i;
         for (Match match: MatchesList.singleton().getgames()) {
+            i=4;
             if (!match.isStarted()){
                 list+= "-";
                 list += (match.getName());

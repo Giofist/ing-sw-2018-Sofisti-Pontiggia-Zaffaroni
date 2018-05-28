@@ -22,7 +22,7 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
     private SchemeCard twinCard;
     private int ID;
     private String MapName;
-    String mapString;
+    private String mapString;
     char[] map;
     int maxRow;
     int maxColumn;
@@ -137,6 +137,8 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
     public String getMapName(){ return this.MapName; }
     public int getMaxRow(){return this.maxRow;}
     public int getMaxColumn(){return this.maxColumn;}
+    public String getMapString(){ return (this.maxRow + "-" + this.maxColumn + "-" + this.mapString);}
+
 
 
     //to set a Dice, this method is a bit long just because off the big number of controls I need to do here
@@ -171,7 +173,7 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
 
         //if this is the first dice you set, there is a specific constrain
         if (EmptyScheme()){
-            if(row ==0 || row == getMaxRow()-1 || column ==0 || column == getMaxColumn()-1){ //TODO è corretto prima era (row ==0 || row == 3 || column ==0 || column == 4)
+            if(row ==0 || row == getMaxRow()-1 || column ==0 || column == getMaxColumn()-1){
                 this.getTile(row,column).setDice(dice, IgnoreColor, IgnoreNumber);
             }else throw new FirstDiceNeedsToBeAtBordersException();
         }
@@ -213,7 +215,6 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
             return false;
         }
     }
-
 
 
     public  DiceColor getDiceColour (int row, int column)throws OutOfMatrixException, DiceNotExistantException{
