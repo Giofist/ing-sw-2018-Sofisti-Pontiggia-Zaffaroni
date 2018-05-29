@@ -117,7 +117,6 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         }
     }
 
-
     private void logInInt(){
         Scanner in = new Scanner(System.in);
         String username;
@@ -137,7 +136,6 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
             }
         } while (!success);
         }
-
 
     private void menuInt() throws RemoteException {
         Scanner in = new Scanner(System.in);
@@ -165,7 +163,6 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
             }
             }while(!success);
         }
-
 
     private void multiInt() throws RemoteException {
         String input;
@@ -407,6 +404,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
     }
 
     public void printRoundDicePool(String roundDicePool){
+        int index = 0;
         char[] charDice;
         String[] dices = roundDicePool.split("-");
         System.out.println("Ecco i dadi disponibili in questo round:");
@@ -432,7 +430,13 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
             System.out.print(" ");
         }
         System.out.println();
+        for (String dice : dices) {
+            System.out.print(" " + index + "  ");
+            index++;
+        }
     }
+
+
     //metodi per il pattern observer
     @Override
     public synchronized void notifyGameisStarting() throws RemoteException{
