@@ -26,7 +26,6 @@ public class Player extends Observable implements Comparable<Player>{
     //per la gestione delle toolCard, potremo pensare ad un'ottimizzazione
     private Dice diceforDiluenteperPastaSalda;
     private boolean mustsetdice;
-    private int numberoftimesyouhaveplayedthisround;
     private DiceColor colorConstrainForTaglierinaManuale;
     private boolean mustpassTurn;
 
@@ -35,7 +34,6 @@ public class Player extends Observable implements Comparable<Player>{
     public Player(){
         this.diceforDiluenteperPastaSalda = null;
         this.mustsetdice = false;
-        this.numberoftimesyouhaveplayedthisround=0;
         this.colorConstrainForTaglierinaManuale = null;
         this.observerViewInterfaces = new LinkedList<>();
         this.feedObserverViews = new LinkedList<>();
@@ -87,9 +85,6 @@ public class Player extends Observable implements Comparable<Player>{
             return this.scheme;
         }
         throw new SchemeCardNotExistantException(this);
-    }
-    public String getSchemeCardRappresentation  () throws SchemeCardNotExistantException{
-        return getScheme().displayScheme();
     }
     public Gametable getGametable(){
         return getMatch().getGametable();
@@ -151,12 +146,6 @@ public class Player extends Observable implements Comparable<Player>{
     }
     public boolean getMustsetDice(){
         return this.mustsetdice;
-    }
-    public int getNumberoftimesyouhaveplayedthisround() {
-        return numberoftimesyouhaveplayedthisround;
-    }
-    public void setNumberoftimesyouhaveplayedthisround(int numberoftimesyouhaveplayedthisround) {
-        this.numberoftimesyouhaveplayedthisround += 1;
     }
     public DiceColor getColorConstrainForTaglierinaManuale() {
         return colorConstrainForTaglierinaManuale;

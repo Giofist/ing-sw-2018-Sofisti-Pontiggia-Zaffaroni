@@ -3,17 +3,16 @@ package it.polimi.ingsw.model.Turn;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.Round;
 
-import java.rmi.RemoteException;
-import java.util.List;
-
 public class Turn {
 
     private Player currentPlayer;
     private Round round;
+    private int turnID;
 
-    public Turn(Player player, Round round) {
+    public Turn(Player player, Round round, int turnID) {
         this.currentPlayer = player;
         this.round = round;
+        this.turnID = turnID;
     }
 
     public synchronized void run(){
@@ -31,7 +30,10 @@ public class Turn {
         }
 
         currentPlayer.setPlayerState(new NotYourTurnState());
+        return;
+    }
 
-
+    public int getTurnID() {
+        return turnID;
     }
 }

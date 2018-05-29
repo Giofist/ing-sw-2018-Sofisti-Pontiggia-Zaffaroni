@@ -60,26 +60,26 @@ public class PublicGoalCardDeck {
     }
 
     //to get the IDs, descriptions and Names of public goal cards
-    public List<Integer> getIDs(){
-         ArrayList<Integer>IDs = new ArrayList<>();
-         for (GoalCard goalCard: this.deck) {
-            IDs.add(goalCard.getID());
-         }
+    public String getIDs(){
+        String IDs = "";
+        for (GoalCard goalCard: this.deck) {
+           IDs += goalCard.getID();
+        }
          return IDs;
 
     }
-    public List<String> getDescriptions(){
-        ArrayList<String> descriptions = new ArrayList<String>();
+    public String getDescriptions(){
+        String descriptions = "";
         for (GoalCard goalCard: this.deck) {
-            descriptions.add(goalCard.getDescription());
+            descriptions += goalCard.getDescription();
         }
         return descriptions;
     }
 
-    public List<String> getCardsNames() {
-        ArrayList<String> names = new ArrayList<String>();
+    public String getCardsNames() {
+        String names = "";
         for (GoalCard goalCard : this.deck) {
-            names.add(goalCard.getName());
+            names += goalCard.getName();
 
         }
         return names;

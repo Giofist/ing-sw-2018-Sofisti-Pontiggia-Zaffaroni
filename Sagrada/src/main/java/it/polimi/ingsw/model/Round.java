@@ -40,13 +40,13 @@ public class Round {
 
         // Primo giro
         for (Player player: this.players) {
-            new Turn(player, this).run();
+            new Turn(player, this,1).run();
         }
 
         // Secondo giro
         Collections.reverse(this.players);
         for (Player player: this.players){
-            new Turn(player, this).run();
+            new Turn(player, this,2).run();
         }
 
         // Ripristino l'ordine della lista di partenza

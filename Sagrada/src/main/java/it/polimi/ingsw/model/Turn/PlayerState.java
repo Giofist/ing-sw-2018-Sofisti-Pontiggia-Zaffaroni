@@ -18,7 +18,14 @@ public class PlayerState {
     }
 
 
-    public List<TurnActions> getActions() throws NoActionAllowedException {
-        return this.actions;
+    public String getActions() throws NoActionAllowedException {
+        if(this.actions.size() ==0){
+            throw new NoActionAllowedException();
+        }
+        String actions = "";
+        for(TurnActions turnActions: this.actions){
+            actions += turnActions.toString();
+        }
+        return actions;
     }
 }

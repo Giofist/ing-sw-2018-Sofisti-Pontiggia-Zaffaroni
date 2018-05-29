@@ -103,14 +103,8 @@ public class DicePool {
     public String toString(){
         String stringDicePool = "";
         for (Dice dice : this.getallDicesbutnotremove()) {
-            if (dice == null){
-                return "Dice null";
-            }
             stringDicePool += dice.toString();
             stringDicePool += "-";
-        }
-        if(stringDicePool==null){
-            return "problema!!";
         }
         return stringDicePool;
     }

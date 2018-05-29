@@ -10,29 +10,23 @@ import it.polimi.ingsw.model.Player;
 
 
 //per implementare questa classe bisogna prima pensare al traccaito round
-public class TaglierinaCircolare  implements ToolAction {
+public class TaglierinaCircolare  extends ToolAction {
 
-    final static int ID = 5;
-    final static String cardTitle = "Taglierina circolare";
-    final static String description = "Dopo aver scelto un dado, scambia quel dado con un dado sul Tracciato Round.\n";
-    private int selectedRoundDicepoolDiceIndex;
-    private int roundWhereThediceis;
-    private int selectedRoundTrackDiceIndex;
-    public TaglierinaCircolare( int selectedRoundDicepoolDiceIndex, int roundWhereThediceis, int selectedRoundTrackDiceIndex){
-        this.selectedRoundDicepoolDiceIndex = selectedRoundDicepoolDiceIndex;
-        this.roundWhereThediceis = roundWhereThediceis;
-        this.selectedRoundTrackDiceIndex = selectedRoundTrackDiceIndex;
+    public TaglierinaCircolare(){
+        this.cost=1;
+        this.ID =5;
+        this.cardTitle = "Taglierina circolare";
+        this.description = "Dopo aver scelto un dado, scambia quel dado con un dado sul Tracciato Round.\n";
     }
-
     @Override
-    public void execute (Player player) throws ToolIllegalOperationException {
+    public void execute (Player player, RequestClass requestClass) throws ToolIllegalOperationException {
         try {
-            Dice RoundDicepooldice = player.getGametable().getRoundDicepool().getDice(selectedRoundDicepoolDiceIndex);
-            Dice RoundTrackdice = player.getGametable().getRoundTrack().getroundTrackDices(roundWhereThediceis).getDice(selectedRoundTrackDiceIndex);
-            player.getGametable().getRoundTrack().getroundTrackDices(roundWhereThediceis).addDice(RoundDicepooldice);
-            player.getGametable().getRoundDicepool().removeDice(selectedRoundDicepoolDiceIndex);
+            Dice RoundDicepooldice = player.getGametable().getRoundDicepool().getDice(requestClass.getSelectedRoundDicepoolDiceIndex());
+            Dice RoundTrackdice = player.getGametable().getRoundTrack().getroundTrackDices(requestClass.getRoundWhereThediceis()).getDice(requestClass.getSelectedRoundTrackDiceIndex());
+            player.getGametable().getRoundTrack().getroundTrackDices(requestClass.getRoundWhereThediceis()).addDice(RoundDicepooldice);
+            player.getGametable().getRoundDicepool().removeDice(requestClass.getSelectedRoundDicepoolDiceIndex());
             player.getGametable().getRoundDicepool().addDice(RoundTrackdice);
-            player.getGametable().getRoundTrack().getroundTrackDices(roundWhereThediceis).removeDice(selectedRoundTrackDiceIndex);
+            player.getGametable().getRoundTrack().getroundTrackDices(requestClass.getRoundWhereThediceis()).removeDice(requestClass.getSelectedRoundTrackDiceIndex());
         }catch(RoundTrackException e){
             throw new TaglierinaCircolareException(TaglierinaCircolareException.getMsg() + e.getMessage());
         }catch (EmpyDicepoolException e){
@@ -41,17 +35,6 @@ public class TaglierinaCircolare  implements ToolAction {
 
     }
 
-    @Override
-    public int getID(){
-        return ID;
-    }
 
-    @Override
-    public String getCardTitle(){return cardTitle;}
-
-    @Override
-    public String getDescription(){
-        return description;
-    }
 
 }

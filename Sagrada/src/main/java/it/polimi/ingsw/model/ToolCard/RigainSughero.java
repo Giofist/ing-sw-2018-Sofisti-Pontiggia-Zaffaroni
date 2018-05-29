@@ -8,38 +8,31 @@ import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.RigaInSug
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.Player;
 //revisionata by pon
-public class RigainSughero  implements ToolAction {
-    final static int ID = 9;
-    final static String cardTitle = "Riga in Sughero";
-    final static String description = "Dopo aver scelto un dado, piazzalo in una casella che non sia adiacente a un altro dado.\n" +
-                                      "Devi rispettare tutte le restrizioni di piazzamento.";
-
-    private int selectedDiceIndex;
-    private int row;
-    private int column;
+public class RigainSughero  extends ToolAction {
     private Dice dice;
-
-    public RigainSughero( int row, int column, int selectedDiceIndex){
-        this.selectedDiceIndex = selectedDiceIndex;
-        this.row = row;
-        this.column =column;
+    public RigainSughero(){
+        this.cost = 1;
+        this.ID=9;
+        this.cardTitle = "Riga in Sughero";
+        this.description = "Dopo aver scelto un dado, piazzalo in una casella che non sia adiacente a un altro dado.\n" +
+                "Devi rispettare tutte le restrizioni di piazzamento.";
     }
 
-    @Override
 
-    public void execute (Player player) throws ToolIllegalOperationException {
+    @Override
+    public void execute (Player player, RequestClass requestClass) throws ToolIllegalOperationException {
         //ricordarsi di fare get and remove dei dadi, non dimenticare la remove
         try {
-            dice = player.getGametable().getRoundDicepool().getDice(selectedDiceIndex);
-            player.getGametable().getRoundDicepool().removeDice(selectedDiceIndex);
-            boolean thereisadicenearyou = player.getScheme().ThereisaDicenearYou(this.row, this.column);
+            dice = player.getGametable().getRoundDicepool().getDice(requestClass.getSelectedRoundDicepoolDiceIndex());
+            player.getGametable().getRoundDicepool().removeDice(requestClass.getSelectedRoundDicepoolDiceIndex());
+            boolean thereisadicenearyou = player.getScheme().ThereisaDicenearYou(requestClass.getNewRow1(),requestClass.getNewColumn1());
             if (thereisadicenearyou) {
                 throw new RigaInSugheroException("Non puoi mettere un dado se ce n'è uno vicino!\n");
-            } else player.getScheme().setDice(dice, row, column, false, false, true);
+            } else player.getScheme().setDice(dice,requestClass.getNewRow1(),requestClass.getNewColumn1(), false, false, true);
 
         }catch (Exception e){
             try{
-                player.getGametable().getRoundDicepool().addDice(selectedDiceIndex,dice);
+                player.getGametable().getRoundDicepool().addDice(requestClass.getSelectedRoundDicepoolDiceIndex(),dice);
             }catch(Exception er){
                 //do nothing
             }
@@ -50,16 +43,5 @@ public class RigainSughero  implements ToolAction {
         //not implemented yet
     }
 
-    @Override
-    public int getID(){
-        return ID;
-    }
 
-    @Override
-    public String getCardTitle(){return cardTitle;}
-
-    @Override
-    public String getDescription(){
-        return description;
-    }
 }

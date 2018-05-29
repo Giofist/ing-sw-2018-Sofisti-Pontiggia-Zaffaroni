@@ -8,29 +8,21 @@ import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.DiluenteP
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.Player;
 //revisionato by pon
-public class DiluentePerPastaSalda2 implements ToolAction{
-    final static int ID = 0;
-    final static String cardTitle = "Diluente per Pasta Salda";
-    final static String description = "Parte Seconda.\n" +
-            "Scegli il valore del nuovo dado e piazzalo, rispettando tutte le restrizioni di piazzamento.";
+public class DiluentePerPastaSalda2 extends ToolAction{
+    public DiluentePerPastaSalda2(){
+        this.cost=0;
+        this.ID = 112;
+        this.cardTitle = "Diluente per Pasta Salda";
+        this.description = "Parte Seconda.\n" +
+                "Scegli il valore del nuovo dado e piazzalo, rispettando tutte le restrizioni di piazzamento.";
 
-
-    int row;
-    int column;
-    int diceIntesityToset;
-    public DiluentePerPastaSalda2( int row, int column, int diceIntesityToset){
-        this.row = row;
-        this.column = column;
-        this.diceIntesityToset = diceIntesityToset;
     }
-
-
     @Override
-    public void execute (Player player) throws ToolIllegalOperationException{
+    public void execute (Player player, RequestClass requestClass) throws ToolIllegalOperationException{
         try{
 
-            player.getdiceforDiluenteperPastaSalda().setIntensity(this.diceIntesityToset);
-            player.getScheme().setDice(player.getdiceforDiluenteperPastaSalda(),this.row, this.column, false, false, false);
+            player.getdiceforDiluenteperPastaSalda().setIntensity(requestClass.getDiceIntesityToset());
+            player.getScheme().setDice(player.getdiceforDiluenteperPastaSalda(),requestClass.getNewRow1(), requestClass.getNewColumn1(), false, false, false);
             // mi piace separare la set dalla remove
             player.removediceforDiluenteperPastaSalda();
         }catch (DiceNotExistantException e){
@@ -43,21 +35,5 @@ public class DiluentePerPastaSalda2 implements ToolAction{
             //do nothing
         }
 
-
     }
-
-    @Override
-    public int getID(){
-        return ID;
-    }
-    @Override
-    public String getDescription(){
-        return description;
-    }
-
-    @Override
-    public String getCardTitle() {
-        return cardTitle;
-    }
-
 }

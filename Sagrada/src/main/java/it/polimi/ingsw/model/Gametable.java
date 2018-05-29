@@ -10,8 +10,7 @@ import it.polimi.ingsw.model.PrivateGoalCards.PrivateGoalCardDeck;
 import it.polimi.ingsw.model.PublicGoalCards.PublicGoalCardDeck;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCardDeck;
-import it.polimi.ingsw.model.ToolCard.ToolAction;
-import it.polimi.ingsw.model.ToolCard.ToolCardsDeck;
+import it.polimi.ingsw.model.ToolCard.*;
 
 import java.io.IOError;
 import java.io.IOException;
@@ -68,8 +67,8 @@ public class Gametable {
     }
 
     //per la gestione delle toolAction
-    public void useaToolCard(ToolAction toolAction, Player player) throws Exception {
-        //this.tooldeck.doAction(toolAction, player);
+    public void useaToolCard(RequestClass requestClass, Player player) throws Exception {
+        this.tooldeck.doAction(requestClass.getToolCardID(),player, requestClass);
 
     }
 
@@ -85,11 +84,11 @@ public class Gametable {
 
 
     //to get IDs and description and names of the public goals
-    public List getPublicGoalDescriptions() {
+    public String getPublicGoalDescriptions() {
         return this.publicGoalCardDeck.getDescriptions();
     }
-    public List getPublicGoalNames(){return this.publicGoalCardDeck.getCardsNames();};
-    public List getPublicGoalIDs() {
+    public String getPublicGoalNames(){return this.publicGoalCardDeck.getCardsNames();};
+    public String getPublicGoalIDs() {
         return this.publicGoalCardDeck.getIDs();
     }
 

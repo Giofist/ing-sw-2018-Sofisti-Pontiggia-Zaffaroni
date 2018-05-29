@@ -14,7 +14,7 @@ import static org.fusesource.jansi.Ansi.Color.*;
 import static org.fusesource.jansi.Ansi.ansi;
 
 //implemented by pon
-public class ObserverView extends UnicastRemoteObject implements ObserverViewInterface, FeedObserverView {
+public class ObserverView extends UnicastRemoteObject implements ObserverViewInterface, FeedObserverView{
     private ClientHandlerInterface servercontroller;
     private final Scanner in;
     private final PrintWriter out;

@@ -11,47 +11,29 @@ import it.polimi.ingsw.model.Player;
 //boh in realtà mi sembrava un problema ai tempi, adesso non tantissimo
 //beh se qualcuno vuole sistemare prego
 //(pon)
-public class DiluenteperPastaSalda  implements ToolAction {
-    final static int ID = 11;
-    final static String cardTitle = "Diluente per Pasta Salda";
-    final static String description = "Dopo aver scelto un dado, riponilo nel Sacchetto, poi pescane uno dal sacchetto.\n" +
-                                      "Scegli il valore del nuovo dado e piazzalo, rispettando tutte le restrizioni di piazzamento.";
+public class DiluenteperPastaSalda  extends ToolAction {
 
-    private int selectedDiceIndex;
 
-    public DiluenteperPastaSalda( int selectedDiceIndex){
-        this.selectedDiceIndex =selectedDiceIndex;
+    public DiluenteperPastaSalda(){
+        this.cost =1;
+        this.ID = 11;
+        this.cardTitle = "Diluente per Pasta Salda";
+        this.description = "Dopo aver scelto un dado, riponilo nel Sacchetto, poi pescane uno dal sacchetto.\n" +
+                "Scegli il valore del nuovo dado e piazzalo, rispettando tutte le restrizioni di piazzamento.";
     }
-
     @Override
-    public void execute (Player player) throws ToolIllegalOperationException{
+    public void execute (Player player, RequestClass requestClass) throws ToolIllegalOperationException{
 
         //removes a dice e puts it into the dicepool, but before we need to remember its color
         try{
-            DiceColor color = player.getGametable().getRoundDicepool().getDice(this.selectedDiceIndex).getColor();
+            DiceColor color = player.getGametable().getRoundDicepool().getDice(requestClass.getSelectedDIceIndex()).getColor();
             player.getGametable().getDicepool().insertDice(color);
-            player.getGametable().getRoundDicepool().removeDice(this.selectedDiceIndex);
+            player.getGametable().getRoundDicepool().removeDice(requestClass.getSelectedDIceIndex());
 
             //poi pescane uno
             player.setDiceforDiluenteperPastaSalda(player.getGametable().getDicepool().extractDice());
         }catch(EmpyDicepoolException e){
             throw new ToolIllegalOperationException(e.getMessage());
         }
-
-
-    }
-
-    @Override
-    public int getID(){
-        return ID;
-    }
-    @Override
-    public String getDescription(){
-        return description;
-    }
-
-    @Override
-    public String getCardTitle() {
-        return cardTitle;
     }
 }
