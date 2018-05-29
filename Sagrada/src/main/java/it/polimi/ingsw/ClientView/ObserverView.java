@@ -283,14 +283,14 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
             printMap(yourMap ,yourMapDiceIntensity, yourMapMaxRow , yourMapMaxColumn);
             //AnsiConsole.systemUninstall();
             System.out.print("\n");
-            System.out.println("Attendi che anche gli altri giocatori abbiano scelto la loro mappa.");
+            System.out.println("Attendi che anche gli altri giocatori abbiano scelto la loro mappa.\n");
 
         while (!matchisEnded) {
             try{
                 wait();
                 this.roundDicepool = servercontroller.getRoundDicepool(yourName);
-                System.out.println(this.roundDicepool);
                 printRoundDicePool(roundDicepool);
+                System.out.println();
             }catch(InterruptedException e){
                 // do nothing
             }

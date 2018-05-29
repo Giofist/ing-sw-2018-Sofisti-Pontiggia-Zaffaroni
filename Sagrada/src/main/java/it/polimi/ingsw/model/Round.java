@@ -31,7 +31,7 @@ public class Round {
         //questa notifica verrà tolta
         for (Player player: this.players){
             try{
-                player.notifyError("Questo è il round"+ this.num_round);
+                player.notifyError("Questo è il round: "+ this.num_round);
             }catch(RemoteException e){
                 //do nothing
             }
