@@ -17,6 +17,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+// Dovrebbe essere fixato
 // Uno dei grossi problemi evidenziati da questo test è il fatto che nel momento in cui un giocatore
 // specifica una newRow e una newColumn che per qualche ragione danno errore, io perdo il dado in posizione (row, column)
 // che volevo spostare.
