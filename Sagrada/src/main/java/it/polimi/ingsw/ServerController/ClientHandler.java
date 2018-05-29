@@ -241,6 +241,16 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     }
 
     @Override
+    public String getRoundTrack(String clientname) throws RemoteException {
+        try {
+            Player player = UsersList.Singleton().getUser(clientname).getPlayer();
+            return player.getGametable().getRoundTrack().toString();
+        } catch (UserNotExistentException e) {
+            throw new RemoteException(e.getMessage());
+        }
+    }
+
+    @Override
     public synchronized void setSchemeCard(String clientusername, int cardid) throws RemoteException{
         try{
             Player player = UsersList.Singleton().getUser(clientusername).getPlayer();

@@ -8,6 +8,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.Scanner;
 
 import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
+import it.polimi.ingsw.model.Exceptions.UserNotExistentException;
 import org.fusesource.jansi.AnsiConsole;
 import static org.fusesource.jansi.Ansi.Color.*;
 import static org.fusesource.jansi.Ansi.ansi;
@@ -23,10 +24,11 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
     private int[] yourMapDiceIntensity;
     private int yourMapMaxRow = 0;
     private int yourMapMaxColumn = 0;
-    private int round=10;
+    private int numOfDice;
     private char[] roundTrackDiceColour; // = {'g','y','b','y','b','r','r','b','r','g','y','_','g','b','_','_','_','_','_','_','_','_','r','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_'};  //Test values
     private int[] roundTrackDiceIntensity; //= {1,3,5,6,0,0,0,0,0,0,3,0,2,1,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}; //test values
     private String roundDicepool; // = "6RED-5YELLOW-2RED-2GREEN-3BLUE-";
+    private String roundTrack; // ="6RED-5YELLOW-2BLUE-!3BLUE-4RED-1GREEN-!2RED-4BLUE-!1YELLOW-!6RED-5YELLOW-2BLUE-!-!2RED-4BLUE-!1YELLOW-!2GREEN-!3VIOLET-!";
 
     //constructor1
     public ObserverView() throws RemoteException {
@@ -231,7 +233,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         //timer di attesa poi appena arriva notify parte il gioco
     }
 
-    private synchronized void startGameInt() throws RemoteException, SchemeCardNotExistantException {
+    private synchronized void startGameInt() throws RemoteException {
         Scanner in = new Scanner(System.in);
         String schemeCards;
         boolean correct = false;
@@ -288,9 +290,11 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         while (!matchisEnded) {
             try{
                 wait();
-                this.roundDicepool = servercontroller.getRoundDicepool(yourName);
-                printRoundDicePool(roundDicepool);
+                printRoundTrack();
+                printRoundDicePool();
                 System.out.println();
+                //TODO interfaccia di scelta operazioni di gioco
+                //placeDice();
             }catch(InterruptedException e){
                 // do nothing
             }
@@ -309,6 +313,35 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         } catch (RemoteException e) {
             e.printStackTrace();
         }
+    }
+
+    //metodo che permette di piazzare un dado
+    public void placeDice() throws RemoteException {
+        Scanner in = new Scanner(System.in);
+        int diceIndex=numOfDice+2;
+        int row = 100;
+        int column = 100;
+        while (diceIndex > this.numOfDice+1) {
+            System.out.println("Seleziona il dado da piazzare usando l'indice numerico sotto riportato:");
+            printRoundDicePool();
+            diceIndex = in.nextInt();
+        }
+        while(row > 3) {
+            System.out.println("Seleziona la riga in cui posizionare il dado: [0/3]"); //controlli sugli input vanno bene??
+            row = in.nextInt();
+        }
+        while(column > 4) {
+            System.out.println("Seleziona la riga in cui posizionare il dado: [0/4]");
+            column = in.nextInt();
+        }
+        try {
+            servercontroller.setDice(yourName, diceIndex, row,column);
+        } catch (UserNotExistentException e) {
+            System.out.println(e);
+        } catch (SchemeCardNotExistantException e) {
+            System.out.println(e);
+        }
+        //TODO aggiornare la versione locale. Penso a questo punto che per semplicità mi riscaricherò volta per volta l'intera mappa perchè è meglio e rivedo eccezioni come gestirle.
     }
 
     //metodo che stampa la mappa a schermo
@@ -373,42 +406,53 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         }
     }
 
-    public void printRoundTrack(char[] dicecolour, int[] diceIntensity, int round) {
-        for (int i = 1; i < round + 1; i++) {
-            System.out.print(" " + i + " ");
-        }
-        System.out.println();
-        for (int row = 0; row < 8; row++) {
-            for (int column = 0; column < round; column++) {
-                switch (dicecolour[row * round + column]) {
-                    case '_':
-                        System.out.print(ansi().eraseScreen().fg(BLACK).a("   ").reset());
-                        break;
-                    case 'y':
-                        System.out.print(ansi().eraseScreen().bg(YELLOW).fg(BLACK).a(" " + diceIntensity[row * 10 + column] + " ").reset());
-                        break;
-                    case 'b':
-                        System.out.print(ansi().eraseScreen().bg(BLUE).fg(BLACK).a(" " + diceIntensity[row * 10 + column] + " ").reset());
-                        break;
-                    case 'r':
-                        System.out.print(ansi().eraseScreen().bg(RED).fg(BLACK).a(" " + diceIntensity[row * 10 + column] + " ").reset());
-                        break;
-                    case 'v':
-                        System.out.print(ansi().eraseScreen().bg(MAGENTA).fg(BLACK).a(" " + diceIntensity[row * 10 + column] + " ").reset());
-                        break;
-                    case 'g':
-                        System.out.print(ansi().eraseScreen().bg(GREEN).fg(BLACK).a(" " + diceIntensity[row * 10 + column] + " ").reset());
-                        break;
-                }
+    //metodo che stampa a shcermo il roundTrack
+    public void printRoundTrack() throws RemoteException {
+        System.out.println("Round track:");
+        int round =10;
+        int i=1;
+        char[] charDice;
+        this.roundTrack = servercontroller.getRoundTrack(yourName);
+        System.out.println(this.roundTrack); //only for testing
+        String[] dices = this.roundTrack.split("!");
+        for (String diceList : dices){
+            if(i<10) {
+                System.out.print(ansi().eraseScreen().bg(WHITE).fg(BLACK).a("  " + i + " ").reset());
             }
-            System.out.println();
+            else System.out.print(ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" " + i + " ").reset());
+            String[] singleDice = diceList.split("-");
+            for(String stringDice :singleDice) {
+                charDice = stringDice.toCharArray();
+                    switch (charDice[1]) {
+                        case 'Y':
+                            System.out.print(ansi().eraseScreen().bg(YELLOW).fg(BLACK).a(" " + charDice[0] + " ").reset());
+                            break;
+                        case 'B':
+                            System.out.print(ansi().eraseScreen().bg(BLUE).fg(BLACK).a(" " + charDice[0] + " ").reset());
+                            break;
+                        case 'R':
+                            System.out.print(ansi().eraseScreen().bg(RED).fg(BLACK).a(" " + charDice[0] + " ").reset());
+                            break;
+                        case 'V':
+                            System.out.print(ansi().eraseScreen().bg(MAGENTA).fg(BLACK).a(" " + charDice[0] + " ").reset());
+                            break;
+                        case 'G':
+                            System.out.print(ansi().eraseScreen().bg(GREEN).fg(BLACK).a(" " + charDice[0] + " ").reset());
+                            break;
+                    }
+                }
+                System.out.println();
+                i++;
+            }
+            this.numOfDice = i;
         }
-    }
 
-    public void printRoundDicePool(String roundDicePool){
+    //metodo che stampa i dadi estratti
+    public void printRoundDicePool() throws RemoteException {
         int index = 0;
         char[] charDice;
-        String[] dices = roundDicePool.split("-");
+        this.roundDicepool = servercontroller.getRoundDicepool(yourName);
+        String[] dices = this.roundDicepool.split("-");
         System.out.println("Ecco i dadi disponibili in questo round:");
         for (String dice : dices) {
             charDice = dice.toCharArray();
@@ -436,6 +480,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
             System.out.print(" " + index + "  ");
             index++;
         }
+        System.out.println();
     }
 
 

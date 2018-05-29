@@ -59,7 +59,7 @@ public class RoundTrack {
             case 8: this.round8Dices.addallDices(dices);break;
             case 9: this.round9Dices.addallDices(dices);break;
             case 10: this.round10Dices.addallDices(dices);break;
-            default: throw new RoundTrackException("id round sbagliato\n");
+            default: throw new RoundTrackException("Id round sbagliato\n");
         }
     }
 
@@ -77,6 +77,29 @@ public class RoundTrack {
         return list;
     }
 
-
-
+    @Override
+    public String toString() {
+        String roundTrackString = "";
+        roundTrackString += round1Dices.toString();
+        roundTrackString += "!";
+        roundTrackString += round2Dices.toString();
+        roundTrackString += "!";
+        roundTrackString += round3Dices.toString();
+        roundTrackString += "!";
+        roundTrackString += round4Dices.toString();
+        roundTrackString += "!";
+        roundTrackString += round5Dices.toString();
+        roundTrackString += "!";
+        roundTrackString += round6Dices.toString();
+        roundTrackString += "!";
+        roundTrackString += round7Dices.toString();
+        roundTrackString += "!";
+        roundTrackString += round8Dices.toString();
+        roundTrackString += "!";
+        roundTrackString += round9Dices.toString();
+        roundTrackString += "!";
+        roundTrackString += round10Dices.toString();
+        roundTrackString += "!";
+        return roundTrackString;
+    }
 }

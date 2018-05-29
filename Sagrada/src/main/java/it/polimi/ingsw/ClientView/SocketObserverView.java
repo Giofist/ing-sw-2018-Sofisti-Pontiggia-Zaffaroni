@@ -221,4 +221,9 @@ public class SocketObserverView implements ClientHandlerInterface, Runnable {
     public String getRoundDicepool(String clientname) throws RemoteException {
         return null;
     }
+
+    @Override
+    public String getRoundTrack(String clientname) throws RemoteException {
+        return null;
+    }
 }
