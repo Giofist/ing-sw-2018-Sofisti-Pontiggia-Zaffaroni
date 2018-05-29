@@ -6,11 +6,16 @@ import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.Player;
 
-public class PennelloperPastaSalda  implements ToolAction {
-    final static int ID = 6;
-    final static String cardTitle = "Pennello per Pasta Salda";
-    final static String description = "Dopo aver scelto un dado tira nuovamente quel dado.\n" +
-            "Se non puoi piazzarlo, riponilo nella riserva.";
+public class PennelloperPastaSalda  extends ToolAction {
+
+
+    public PennelloperPastaSalda(){
+        this.cost =1;
+        this.ID =6;
+        this.cardTitle = "Pennello per Pasta Salda";
+        this.description = "Dopo aver scelto un dado tira nuovamente quel dado.\n" +
+                "Se non puoi piazzarlo, riponilo nella riserva.";
+    }
 
 
     @Override
@@ -39,17 +44,6 @@ public class PennelloperPastaSalda  implements ToolAction {
 
     }
 
-    @Override
-    public int getID(){
-        return ID;
-    }
 
-    @Override
-    public String getDescription(){
-        return description;
-    }
-
-    @Override
-    public String getCardTitle(){ return cardTitle;};
 
 }

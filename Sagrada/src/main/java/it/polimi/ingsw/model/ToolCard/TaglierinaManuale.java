@@ -14,13 +14,15 @@ import it.polimi.ingsw.model.Player;
 import java.util.List;
 
 // DA TERMINARE
-public class TaglierinaManuale  implements ToolAction {
-    final static int ID = 12;
-    final static String cardTitle = "Taglierina Manuale";
-    final static String description = "Muovi fino a due dadi dello stesso colore  di un solo dado sul Tracciato dei Round.\n" +
-                                      "Devi rispettare tutte le restrizioni di piazzamento.";
+public class TaglierinaManuale  extends ToolAction {
     Dice removedDice;
-
+    public TaglierinaManuale(){
+        this.cost = 1;
+        this.ID =12;
+        this.cardTitle = "Taglierina Manuale";
+        this.description = "Muovi fino a due dadi dello stesso colore  di un solo dado sul Tracciato dei Round.\n" +
+                "Devi rispettare tutte le restrizioni di piazzamento.";
+    }
 
     @Override
     public void execute(Player player, RequestClass requestClass)throws ToolIllegalOperationException {
@@ -54,18 +56,4 @@ public class TaglierinaManuale  implements ToolAction {
 
     }
 
-    @Override
-    public int getID(){
-        return ID;
-    }
-
-    @Override
-    public String getCardTitle() {
-        return cardTitle;
-    }
-
-    @Override
-    public String getDescription(){
-        return description;
-    }
 }

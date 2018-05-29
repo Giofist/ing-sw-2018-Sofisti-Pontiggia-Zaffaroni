@@ -30,8 +30,7 @@ public class Turn {
         }
 
         currentPlayer.setPlayerState(new NotYourTurnState());
-
-
+        return;
     }
 
     public int getTurnID() {

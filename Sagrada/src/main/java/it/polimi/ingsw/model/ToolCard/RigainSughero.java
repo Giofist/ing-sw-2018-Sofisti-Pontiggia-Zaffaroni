@@ -8,14 +8,15 @@ import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.RigaInSug
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.Player;
 //revisionata by pon
-public class RigainSughero  implements ToolAction {
-    final static int ID = 9;
-    final static String cardTitle = "Riga in Sughero";
-    final static String description = "Dopo aver scelto un dado, piazzalo in una casella che non sia adiacente a un altro dado.\n" +
-                                      "Devi rispettare tutte le restrizioni di piazzamento.";
-
-
+public class RigainSughero  extends ToolAction {
     private Dice dice;
+    public RigainSughero(){
+        this.cost = 1;
+        this.ID=9;
+        this.cardTitle = "Riga in Sughero";
+        this.description = "Dopo aver scelto un dado, piazzalo in una casella che non sia adiacente a un altro dado.\n" +
+                "Devi rispettare tutte le restrizioni di piazzamento.";
+    }
 
 
     @Override
@@ -42,16 +43,5 @@ public class RigainSughero  implements ToolAction {
         //not implemented yet
     }
 
-    @Override
-    public int getID(){
-        return ID;
-    }
 
-    @Override
-    public String getCardTitle(){return cardTitle;}
-
-    @Override
-    public String getDescription(){
-        return description;
-    }
 }

@@ -1,16 +1,19 @@
 package it.polimi.ingsw.model.ToolCard;
 
 import it.polimi.ingsw.model.Exceptions.EmpyDicepoolException;
+import it.polimi.ingsw.model.Exceptions.MapConstrainReadingException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.MartellettoException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.Player;
 
-public class Martelletto  implements ToolAction {
-    final static int ID = 7;
-    final static String cardTitle = "Martelletto";
-    final static String description = "Tira nuovamente tutti i dadi della riserva.\n" +
-                                      "Questa carta può essere usata solo durante il tuo secondo turno, prima di scegliere il secondo dado.";
+public class Martelletto  extends ToolAction {
+    public Martelletto(){
+        this.cost =1;
+        this.cardTitle = "Martelletto";
+        this.description = "Tira nuovamente tutti i dadi della riserva.\n" +
+                "Questa carta può essere usata solo durante il tuo secondo turno, prima di scegliere il secondo dado.";
 
+    }
 
     @Override
 
@@ -28,17 +31,5 @@ public class Martelletto  implements ToolAction {
 
     }
 
-    @Override
-    public int getID(){
-        return ID;
-    }
-
-    @Override
-    public String getCardTitle(){return cardTitle;}
-
-    @Override
-    public String getDescription(){
-        return description;
-    }
 
 }

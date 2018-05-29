@@ -10,13 +10,17 @@ import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.PennelloP
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.Player;
 //revisionata by pon
-public class AlesatoreperLaminadiRame  implements ToolAction {
-    final static int ID = 3;
-    final static String cardTitle = "Alesatore per lamina di rame";
-    final static String description = "Muovi un qualsiasi dado nella tua vetrata ignorando le restrizioni di valore.\n" +
-                                      "Devi rispettare tutte le altre restrizioni di piazzamento.";
+public class AlesatoreperLaminadiRame  extends ToolAction {
 
 
+
+    public AlesatoreperLaminadiRame(){
+        this.cost =1;
+        this.ID = 3;
+        this.cardTitle = "Alesatore per lamina di rame";
+        this.description = "Muovi un qualsiasi dado nella tua vetrata ignorando le restrizioni di valore.\n" +
+                "Devi rispettare tutte le altre restrizioni di piazzamento.";
+    }
     private Dice removedDice;
 
     @Override
@@ -35,15 +39,4 @@ public class AlesatoreperLaminadiRame  implements ToolAction {
         }
     }
 
-    @Override
-    public int getID(){
-        return ID;
-    }
-    @Override
-    public String getDescription(){
-        return description;
-    }
-
-    @Override
-    public String getCardTitle() { return cardTitle; }
 }

@@ -8,12 +8,15 @@ import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.DiluenteP
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.Player;
 //revisionato by pon
-public class DiluentePerPastaSalda2 implements ToolAction{
-    final static int ID = 0;
-    final static String cardTitle = "Diluente per Pasta Salda";
-    final static String description = "Parte Seconda.\n" +
-            "Scegli il valore del nuovo dado e piazzalo, rispettando tutte le restrizioni di piazzamento.";
+public class DiluentePerPastaSalda2 extends ToolAction{
+    public DiluentePerPastaSalda2(){
+        this.cost=0;
+        this.ID = 112;
+        this.cardTitle = "Diluente per Pasta Salda";
+        this.description = "Parte Seconda.\n" +
+                "Scegli il valore del nuovo dado e piazzalo, rispettando tutte le restrizioni di piazzamento.";
 
+    }
     @Override
     public void execute (Player player, RequestClass requestClass) throws ToolIllegalOperationException{
         try{
@@ -32,21 +35,5 @@ public class DiluentePerPastaSalda2 implements ToolAction{
             //do nothing
         }
 
-
     }
-
-    @Override
-    public int getID(){
-        return ID;
-    }
-    @Override
-    public String getDescription(){
-        return description;
-    }
-
-    @Override
-    public String getCardTitle() {
-        return cardTitle;
-    }
-
 }

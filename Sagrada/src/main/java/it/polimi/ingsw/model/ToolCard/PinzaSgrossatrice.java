@@ -7,13 +7,17 @@ import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.PinzaSgro
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.Player;
 
-public class PinzaSgrossatrice  implements ToolAction {
-    static final int ID = 1;
-    static final String cardTitle = "Pinza Sgrossatrice";
-    static final String description = "Dopo aver scelto un dado, aumenta o diminuisci il valore del dado scelto di 1.\n" +
-                                        "Non puoi cambiare un 6 in 1 o un 1 in 6.";
+public class PinzaSgrossatrice  extends ToolAction {
 
 
+
+    public PinzaSgrossatrice(){
+        this.cost =1;
+        this.ID=1;
+        this.cardTitle = "Pinza Sgrossatrice";
+        this.description = "Dopo aver scelto un dado, aumenta o diminuisci il valore del dado scelto di 1.\n" +
+                "Non puoi cambiare un 6 in 1 o un 1 in 6.";
+    }
 
 
     @Override
@@ -32,17 +36,5 @@ public class PinzaSgrossatrice  implements ToolAction {
         }
     }
 
-    @Override
-    public int getID(){
-        return ID;
-    }
-
-    @Override
-    public String getDescription(){
-        return description;
-    }
-
-    @Override
-    public String getCardTitle(){return cardTitle;}
 
 }

@@ -12,40 +12,46 @@ import java.util.LinkedList;
 import java.util.Random;
 
 
-//questa classe è quella su cui ho lavorato di più ( pon)
-// il pattern è il command, copiato pari pari da Wikipedia
-//credo che per le nostre limitate esigenze si possa snellire il tutto,
-//ma per ora funziona ed è chiara quindi ce la teniamo così
 public class ToolCardsDeck {
-    //array of costs of action
     private ArrayList<Integer> cardsID;
-    private int[] costs;
-
-
+    private LinkedList<ToolAction> deck;
 
     // constructor
     public ToolCardsDeck(){
-        this.costs = new int[4];
-        this.costs[0]=0;
-        for (int i=1; i<=3; i++){
-            this.costs[1] = 1;
-        }
         this.cardsID = new ArrayList<>();
         for(int i =1; i<=12; i++){
             this.cardsID.add(i);
         }
-
+        this.deck = new LinkedList<>();
         Collections.shuffle(cardsID);
-        for(int i=1; i<=9; i++){
-            this.cardsID.remove(0);
+        addCardToDeck();
+        addCardToDeck();
+        addCardToDeck();
+    }
+    public void addCardToDeck() {
+        int cardID = this.getValue();
+        switch (cardID){
+            case 1: this.deck.add(new PinzaSgrossatrice());  break;
+            case 2: this.deck.add(new PennelloperEglomise()); break;
+            case 3: this.deck.add(new AlesatoreperLaminadiRame()); break;
+            case 4: this.deck.add(new Lathekin()); break;
+            case 5: this.deck.add(new TaglierinaCircolare()); break;
+            case 6: this.deck.add(new PennelloperPastaSalda()); this.deck.add(new PennelloPerPastaSalda2()); break;
+            case 7: this.deck.add(new Martelletto()); break;
+            case 8: this.deck.add(new TenagliaRotelle()); break;
+            case 9: this.deck.add(new RigainSughero()); break;
+            case 10: this.deck.add(new TamponeDiamantato()); break;
+            case 11: this.deck.add(new DiluenteperPastaSalda()); this.deck.add(new DiluentePerPastaSalda2()); break;
+            case 12: this.deck.add(new TaglierinaManuale()); this.deck.add(new TaglierinaManuale2()); break;
+            default: break;
         }
-        this.cardsID.add(0);
     }
 
+
     public int getCost(int toolcardID)throws WrongToolCardIDException{
-        for(int ID: this.cardsID){
-            if (ID  == toolcardID){
-                return this.costs[toolcardID];
+        for(ToolAction toolAction: this.deck){
+            if (toolAction.getID()== toolcardID){
+                return toolAction.getCost();
             }
         }
         throw new WrongToolCardIDException();
@@ -54,34 +60,34 @@ public class ToolCardsDeck {
 
     //dopo il primo utilizzo, il costo sale a due
     public void setCostOfAction(int toolcardID) throws WrongToolCardIDException{
-        for(int ID: this.cardsID){
-            if (ID== toolcardID){
-                if (this.costs[toolcardID] == 1){
-                    this.costs[toolcardID]= 2;
+        for(ToolAction toolAction: this.deck){
+            if (toolAction.getID()== toolcardID){
+                if(toolAction.getCost()==1){
+                    toolAction.setCost(2);
                     return;
-                }
-
-                if(this.costs[toolcardID] == 0){
+                }else if(toolAction.getCost()==0){
+                    // le seconde toolcard sono a costo
                     return;
                 }
             }
         }
         throw new WrongToolCardIDException();
-
     }
     //command design pattern
     //questa classe fa pagare per la toolcard corrispondente e lancia un'eccezione se il giocatore è povero per quell'azione
-    public void doAction(ToolAction toolAction, Player player, RequestClass requestClass) throws WrongToolCardIDException,ToolIllegalOperationException, NotEnoughSegnaliniException {
-        player.payforTool( this.getCost(toolAction.getID()));
-        setCostOfAction(toolAction.getID());
-        for(int toolActionID: this.cardsID){
-            if(toolAction.getID() == toolActionID){
+    public void doAction(int toolActionID, Player player, RequestClass requestClass) throws WrongToolCardIDException,ToolIllegalOperationException, NotEnoughSegnaliniException {
+        player.payforTool( this.getCost(toolActionID));
+        setCostOfAction(toolActionID);
+        for(ToolAction toolAction: this.deck){
+            if(toolAction.getID() == toolActionID) {
                 toolAction.execute(player, requestClass);
-            }else
-                throw new WrongToolCardIDException();
-
+            }
         }
-
+        throw new WrongToolCardIDException();
     }
-
+    private int getValue(){
+        int value =this.cardsID.get(0);
+        this.cardsID.remove(0);
+        return value;
+    }
 }

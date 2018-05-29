@@ -68,23 +68,7 @@ public class Gametable {
 
     //per la gestione delle toolAction
     public void useaToolCard(RequestClass requestClass, Player player) throws Exception {
-        ToolAction toolAction;
-        switch (requestClass.getToolCardID()){
-            case 1: toolAction = new PinzaSgrossatrice(); break;
-            case 2: toolAction = new PennelloperPastaSalda(); break;
-            case 3: toolAction = new AlesatoreperLaminadiRame(); break;
-            case 4: toolAction = new Lathekin(); break;
-            case 5: toolAction = new TaglierinaCircolare(); break;
-            case 6: toolAction = new PennelloperPastaSalda(); break;
-            case 7: toolAction = new Martelletto(); break;
-            case 8: toolAction = new TenagliaRotelle(); break;
-            case 9: toolAction = new RigainSughero(); break;
-            case 10: toolAction = new TamponeDiamantato(); break;
-            case 11: toolAction = new DiluenteperPastaSalda(); break;
-            case 12: toolAction = new TaglierinaManuale(); break;
-            default: throw new Exception();
-        }
-        this.tooldeck.doAction(toolAction,player, requestClass);
+        this.tooldeck.doAction(requestClass.getToolCardID(),player, requestClass);
 
     }
 
@@ -100,11 +84,11 @@ public class Gametable {
 
 
     //to get IDs and description and names of the public goals
-    public List getPublicGoalDescriptions() {
+    public String getPublicGoalDescriptions() {
         return this.publicGoalCardDeck.getDescriptions();
     }
-    public List getPublicGoalNames(){return this.publicGoalCardDeck.getCardsNames();};
-    public List getPublicGoalIDs() {
+    public String getPublicGoalNames(){return this.publicGoalCardDeck.getCardsNames();};
+    public String getPublicGoalIDs() {
         return this.publicGoalCardDeck.getIDs();
     }
 

@@ -8,13 +8,16 @@ import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.LathekinE
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.Player;
 //revisionata by pon
-public class Lathekin  implements ToolAction {
-    final static int ID = 4;
-    final static String cardTitle = "Lathekin";
-    final static String description = "Muovi esattamente due dadi.\n" +
-                                      "Rispetta tutte le restrizioni di piazzamento.";
+public class Lathekin  extends ToolAction {
 
 
+    public Lathekin(){
+        this.cost =1;
+        this.ID =4;
+        this.cardTitle = "Lathekin";
+        this.description = "Muovi esattamente due dadi.\n" +
+                "Rispetta tutte le restrizioni di piazzamento.";
+    }
     Dice removedDice1, removedDice2;
 
     @Override
@@ -40,17 +43,5 @@ public class Lathekin  implements ToolAction {
 
     }
 
-    @Override
-    public int getID(){
-        return ID;
-    }
-
-    @Override
-    public String getCardTitle(){return cardTitle;}
-
-    @Override
-    public String getDescription(){
-        return description;
-    }
 
 }

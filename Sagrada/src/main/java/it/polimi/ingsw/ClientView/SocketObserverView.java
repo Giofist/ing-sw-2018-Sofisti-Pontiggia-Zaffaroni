@@ -152,13 +152,19 @@ public class SocketObserverView implements ClientHandlerInterface, Runnable {
     }
 
 
+
     @Override
-    public void notifyGame(String clientname) throws RemoteException {
+    public void useaToolCard(String clientname, RequestClass requestClass) throws RemoteException {
 
     }
 
     @Override
-    public void useaToolCard(String clientname, RequestClass requestClass) throws RemoteException {
+    public String getPossibleActions(String clientname) throws RemoteException {
+        return null;
+    }
+
+    @Override
+    public void passTurn(String clientname) throws RemoteException {
 
     }
 
@@ -178,17 +184,17 @@ public class SocketObserverView implements ClientHandlerInterface, Runnable {
     }
 
     @Override
-    public synchronized List getPublicGoalCarddescriptions(String clientname) throws RemoteException {
+    public synchronized String getPublicGoalCarddescriptions(String clientname) throws RemoteException {
         return null;
     }
 
     @Override
-    public synchronized List getPublicGoalCardids(String clientname) throws RemoteException {
+    public synchronized String getPublicGoalCardids(String clientname) throws RemoteException {
         return null;
     }
 
     @Override
-    public synchronized List getPublicGoalCardnames(String clientname) throws RemoteException {
+    public synchronized String getPublicGoalCardnames(String clientname) throws RemoteException {
         return null;
     }
 

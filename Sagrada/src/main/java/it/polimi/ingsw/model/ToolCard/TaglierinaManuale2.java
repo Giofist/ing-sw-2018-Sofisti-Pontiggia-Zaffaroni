@@ -14,12 +14,15 @@ import it.polimi.ingsw.model.Player;
 import java.util.List;
 
 //dA TERMINARE
-public class TaglierinaManuale2 implements ToolAction{
-    final static int ID = 0;
-    final static String cardTitle = "Taglierina Manuale: gestione del secondo dado";
-    final static String description = "Muovi fino a due dadi dello stesso colore  di un solo dado sul Tracciato dei Round.\n" +
-            "Devi rispettare tutte le restrizioni di piazzamento.";
+public class TaglierinaManuale2 extends ToolAction{
 
+    public TaglierinaManuale2(){
+        this.cost = 1;
+        this.ID = 122;
+        this.cardTitle = "Taglierina Manuale: gestione del secondo dado";
+        this.description = "Muovi fino a due dadi dello stesso colore  di un solo dado sul Tracciato dei Round.\n" +
+                "Devi rispettare tutte le restrizioni di piazzamento.";
+    }
 
     Dice removedDice;
 
@@ -50,16 +53,5 @@ public class TaglierinaManuale2 implements ToolAction{
         }
     }
 
-    @Override
-    public int getID(){
-        return ID;
-    }
-    @Override
-    public String getCardTitle() {
-        return cardTitle;
-    }
-    @Override
-    public String getDescription(){
-        return description;
-    }
+
 }

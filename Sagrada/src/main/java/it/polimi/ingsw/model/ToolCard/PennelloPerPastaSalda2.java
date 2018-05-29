@@ -9,11 +9,14 @@ import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.PennelloP
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.Player;
 
-public class PennelloPerPastaSalda2 implements ToolAction{
-    final static int ID = 0;
-    final static String cardTitle = "Pennello per Pasta Salda parte seconda";
-    final static String description =
-            "Devi piazzere il dado.\n";
+public class PennelloPerPastaSalda2 extends ToolAction{
+
+    public PennelloPerPastaSalda2(){
+        this.cost = 0;
+        this.ID = 62;
+        this.cardTitle = "Pennello per Pasta Salda parte seconda";
+        this.description = "Devi piazzere il dado.\n";
+    }
 
     @Override
     public void execute(Player player, RequestClass requestClass) throws ToolIllegalOperationException{
@@ -31,20 +34,6 @@ public class PennelloPerPastaSalda2 implements ToolAction{
         }catch (EmpyDicepoolException e){
 
         }
-    }
-    @Override
-    public int getID() {
-        return 0;
-    }
-
-    @Override
-    public String getDescription() {
-        return description;
-    }
-
-    @Override
-    public String getCardTitle() {
-        return cardTitle;
     }
 
 }

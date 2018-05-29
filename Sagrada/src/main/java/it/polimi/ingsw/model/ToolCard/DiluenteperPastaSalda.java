@@ -11,13 +11,16 @@ import it.polimi.ingsw.model.Player;
 //boh in realtà mi sembrava un problema ai tempi, adesso non tantissimo
 //beh se qualcuno vuole sistemare prego
 //(pon)
-public class DiluenteperPastaSalda  implements ToolAction {
-    final static int ID = 11;
-    final static String cardTitle = "Diluente per Pasta Salda";
-    final static String description = "Dopo aver scelto un dado, riponilo nel Sacchetto, poi pescane uno dal sacchetto.\n" +
-                                      "Scegli il valore del nuovo dado e piazzalo, rispettando tutte le restrizioni di piazzamento.";
+public class DiluenteperPastaSalda  extends ToolAction {
 
 
+    public DiluenteperPastaSalda(){
+        this.cost =1;
+        this.ID = 11;
+        this.cardTitle = "Diluente per Pasta Salda";
+        this.description = "Dopo aver scelto un dado, riponilo nel Sacchetto, poi pescane uno dal sacchetto.\n" +
+                "Scegli il valore del nuovo dado e piazzalo, rispettando tutte le restrizioni di piazzamento.";
+    }
     @Override
     public void execute (Player player, RequestClass requestClass) throws ToolIllegalOperationException{
 
@@ -32,21 +35,5 @@ public class DiluenteperPastaSalda  implements ToolAction {
         }catch(EmpyDicepoolException e){
             throw new ToolIllegalOperationException(e.getMessage());
         }
-
-
-    }
-
-    @Override
-    public int getID(){
-        return ID;
-    }
-    @Override
-    public String getDescription(){
-        return description;
-    }
-
-    @Override
-    public String getCardTitle() {
-        return cardTitle;
     }
 }
