@@ -17,20 +17,15 @@ public class DiluenteperPastaSalda  implements ToolAction {
     final static String description = "Dopo aver scelto un dado, riponilo nel Sacchetto, poi pescane uno dal sacchetto.\n" +
                                       "Scegli il valore del nuovo dado e piazzalo, rispettando tutte le restrizioni di piazzamento.";
 
-    private int selectedDiceIndex;
-
-    public DiluenteperPastaSalda( int selectedDiceIndex){
-        this.selectedDiceIndex =selectedDiceIndex;
-    }
 
     @Override
-    public void execute (Player player) throws ToolIllegalOperationException{
+    public void execute (Player player, RequestClass requestClass) throws ToolIllegalOperationException{
 
         //removes a dice e puts it into the dicepool, but before we need to remember its color
         try{
-            DiceColor color = player.getGametable().getRoundDicepool().getDice(this.selectedDiceIndex).getColor();
+            DiceColor color = player.getGametable().getRoundDicepool().getDice(requestClass.getSelectedDIceIndex()).getColor();
             player.getGametable().getDicepool().insertDice(color);
-            player.getGametable().getRoundDicepool().removeDice(this.selectedDiceIndex);
+            player.getGametable().getRoundDicepool().removeDice(requestClass.getSelectedDIceIndex());
 
             //poi pescane uno
             player.setDiceforDiluenteperPastaSalda(player.getGametable().getDicepool().extractDice());

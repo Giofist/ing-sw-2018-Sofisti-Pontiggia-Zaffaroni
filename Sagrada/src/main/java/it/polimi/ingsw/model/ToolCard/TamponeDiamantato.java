@@ -8,18 +8,13 @@ public class TamponeDiamantato implements ToolAction {
     final static String cardTitle = "Tampone Diamantato";
     final static String description = "Dopo aver scelto un dado, giralo sulla faccia opposta.\n" +
                                       "6 diventa 1, 5 diventa 2, 4 diventa 3 ecc.";
-    ;
-    private int selectedDiceIndex;
 
-    public TamponeDiamantato( int selectedDiceIndex){
-        this.selectedDiceIndex = selectedDiceIndex;
-    }
 
     @Override
 
-    public void execute (Player player) {
+    public void execute (Player player, RequestClass requestClass) {
         try{
-            player.getGametable().getRoundDicepool().getDice(this.selectedDiceIndex).setOppositeIntensity();
+            player.getGametable().getRoundDicepool().getDice(requestClass.getSelectedDIceIndex()).setOppositeIntensity();
         }catch(EmpyDicepoolException e){
 
         }

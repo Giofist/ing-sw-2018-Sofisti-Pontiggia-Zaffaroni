@@ -15,29 +15,22 @@ public class PennelloperEglomise  implements ToolAction {
     final static String description = "Muovi un qualsiasi dado nella tua vetrata ignorando le restrizioni di colore.\n" +
                                       "Devi rispettare tutte le altre restrizioni di piazzamento.";
 
-    private int row, column, newRow, newColumn;
-    private Dice removedDice;
 
-    public PennelloperEglomise( int row, int column, int newRow, int newColumn){
-        this.row = row;
-        this.column = column;
-        this.newRow = newRow;
-        this.newColumn = newColumn;
-    }
+    private Dice removedDice;
 
     @Override
 
-    public void execute (Player player) throws ToolIllegalOperationException{
+    public void execute (Player player, RequestClass requestClass) throws ToolIllegalOperationException{
         try{
-             removedDice = player.getScheme().getDice(row, column);
-            player.getScheme().removeDice(row,column);
-            player.getScheme().setDice(removedDice, newRow, newColumn, true, false, false);
+             removedDice = player.getScheme().getDice(requestClass.getOldRow1(), requestClass.getOldColumn1());
+            player.getScheme().removeDice(requestClass.getOldRow1(), requestClass.getOldColumn1());
+            player.getScheme().setDice(removedDice, requestClass.getNewRow1(), requestClass.getNewColumn1(), true, false, false);
 
         }catch(Exception e) {
             try{
-                player.getScheme().setDice(removedDice, row, column, true, false, false);
+                player.getScheme().setDice(removedDice, requestClass.getOldRow1(), requestClass.getOldColumn1(), true, false, false);
             }catch(Exception er){
-                //do nothing
+                //do nothing, sorry!
             }
             throw new PennelloPerEglomiseException(PennelloPerEglomiseException.getMsg() + e.getMessage());
         }

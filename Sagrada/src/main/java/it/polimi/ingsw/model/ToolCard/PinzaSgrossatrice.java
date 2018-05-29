@@ -15,23 +15,14 @@ public class PinzaSgrossatrice  implements ToolAction {
 
 
 
-    private int selectedDiceIndex;
-    // Operation is set to 0 if the player wants to decrease the value of the dice otherwise is set to 1
-    private int operation;
-
-    public PinzaSgrossatrice( int selectedDiceIndex, int operation){
-
-        this.selectedDiceIndex = selectedDiceIndex;
-        this.operation = operation;
-    }
 
     @Override
-    public void execute (Player player) throws ToolIllegalOperationException {
+    public void execute (Player player, RequestClass requestClass) throws ToolIllegalOperationException {
         try{
-            if (this.operation == 0) {  // Decrease selected dice value
-                player.getGametable().getRoundDicepool().getDice(this.selectedDiceIndex).decreaseIntensity();
+            if (requestClass.getOperationforPinzaSgrossatrice() ==0) {  // Decrease selected dice value
+                player.getGametable().getRoundDicepool().getDice(requestClass.getSelectedDIceIndex()).decreaseIntensity();
             } else {    // Increase selected dice value
-                player.getGametable().getRoundDicepool().getDice(this.selectedDiceIndex).increaseIntensity(); }
+                player.getGametable().getRoundDicepool().getDice(requestClass.getSelectedDIceIndex()).increaseIntensity(); }
         }catch(DecreaseNotAllowedException e){
             throw new PinzaSgrossatriceException(PinzaSgrossatriceException.getMsg()+ e.getMessage());
         }catch (IncreaseNotAllowedException e){

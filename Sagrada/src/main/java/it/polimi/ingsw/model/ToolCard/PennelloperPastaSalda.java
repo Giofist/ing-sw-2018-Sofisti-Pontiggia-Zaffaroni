@@ -12,19 +12,13 @@ public class PennelloperPastaSalda  implements ToolAction {
     final static String description = "Dopo aver scelto un dado tira nuovamente quel dado.\n" +
             "Se non puoi piazzarlo, riponilo nella riserva.";
 
-    private int selectedDiceIndex;
-
-    public PennelloperPastaSalda( int selectedDiceIndex){
-        this.selectedDiceIndex = selectedDiceIndex;
-    }
 
     @Override
-
-    public void execute (Player player) {
+    public void execute (Player player, RequestClass requestClass) {
         //ricordarsi sempre di fare gt and remove
         try{
-            Dice dice= player.getGametable().getRoundDicepool().getDice(this.selectedDiceIndex);
-            player.getGametable().getRoundDicepool().getDice(this.selectedDiceIndex).setRandomIntensity();
+            Dice dice= player.getGametable().getRoundDicepool().getDice(requestClass.getSelectedDIceIndex());
+            player.getGametable().getRoundDicepool().getDice(requestClass.getSelectedDIceIndex()).setRandomIntensity();
 
 
         boolean settable = false;

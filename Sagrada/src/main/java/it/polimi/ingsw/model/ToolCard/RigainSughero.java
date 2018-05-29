@@ -14,32 +14,24 @@ public class RigainSughero  implements ToolAction {
     final static String description = "Dopo aver scelto un dado, piazzalo in una casella che non sia adiacente a un altro dado.\n" +
                                       "Devi rispettare tutte le restrizioni di piazzamento.";
 
-    private int selectedDiceIndex;
-    private int row;
-    private int column;
+
     private Dice dice;
 
-    public RigainSughero( int row, int column, int selectedDiceIndex){
-        this.selectedDiceIndex = selectedDiceIndex;
-        this.row = row;
-        this.column =column;
-    }
 
     @Override
-
-    public void execute (Player player) throws ToolIllegalOperationException {
+    public void execute (Player player, RequestClass requestClass) throws ToolIllegalOperationException {
         //ricordarsi di fare get and remove dei dadi, non dimenticare la remove
         try {
-            dice = player.getGametable().getRoundDicepool().getDice(selectedDiceIndex);
-            player.getGametable().getRoundDicepool().removeDice(selectedDiceIndex);
-            boolean thereisadicenearyou = player.getScheme().ThereisaDicenearYou(this.row, this.column);
+            dice = player.getGametable().getRoundDicepool().getDice(requestClass.getSelectedRoundDicepoolDiceIndex());
+            player.getGametable().getRoundDicepool().removeDice(requestClass.getSelectedRoundDicepoolDiceIndex());
+            boolean thereisadicenearyou = player.getScheme().ThereisaDicenearYou(requestClass.getNewRow1(),requestClass.getNewColumn1());
             if (thereisadicenearyou) {
                 throw new RigaInSugheroException("Non puoi mettere un dado se ce n'è uno vicino!\n");
-            } else player.getScheme().setDice(dice, row, column, false, false, true);
+            } else player.getScheme().setDice(dice,requestClass.getNewRow1(),requestClass.getNewColumn1(), false, false, true);
 
         }catch (Exception e){
             try{
-                player.getGametable().getRoundDicepool().addDice(selectedDiceIndex,dice);
+                player.getGametable().getRoundDicepool().addDice(requestClass.getSelectedRoundDicepoolDiceIndex(),dice);
             }catch(Exception er){
                 //do nothing
             }

@@ -10,8 +10,7 @@ import it.polimi.ingsw.model.PrivateGoalCards.PrivateGoalCardDeck;
 import it.polimi.ingsw.model.PublicGoalCards.PublicGoalCardDeck;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCardDeck;
-import it.polimi.ingsw.model.ToolCard.ToolAction;
-import it.polimi.ingsw.model.ToolCard.ToolCardsDeck;
+import it.polimi.ingsw.model.ToolCard.*;
 
 import java.io.IOError;
 import java.io.IOException;
@@ -68,8 +67,24 @@ public class Gametable {
     }
 
     //per la gestione delle toolAction
-    public void useaToolCard(ToolAction toolAction, Player player) throws Exception {
-        //this.tooldeck.doAction(toolAction, player);
+    public void useaToolCard(RequestClass requestClass, Player player) throws Exception {
+        ToolAction toolAction;
+        switch (requestClass.getToolCardID()){
+            case 1: toolAction = new PinzaSgrossatrice(); break;
+            case 2: toolAction = new PennelloperPastaSalda(); break;
+            case 3: toolAction = new AlesatoreperLaminadiRame(); break;
+            case 4: toolAction = new Lathekin(); break;
+            case 5: toolAction = new TaglierinaCircolare(); break;
+            case 6: toolAction = new PennelloperPastaSalda(); break;
+            case 7: toolAction = new Martelletto(); break;
+            case 8: toolAction = new TenagliaRotelle(); break;
+            case 9: toolAction = new RigainSughero(); break;
+            case 10: toolAction = new TamponeDiamantato(); break;
+            case 11: toolAction = new DiluenteperPastaSalda(); break;
+            case 12: toolAction = new TaglierinaManuale(); break;
+            default: throw new Exception();
+        }
+        this.tooldeck.doAction(toolAction,player, requestClass);
 
     }
 

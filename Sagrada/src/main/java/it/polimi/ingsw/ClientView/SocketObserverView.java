@@ -2,6 +2,7 @@ package it.polimi.ingsw.ClientView;
 
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
 import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
+import it.polimi.ingsw.model.ToolCard.RequestClass;
 import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 import it.polimi.ingsw.model.Exceptions.UserNotExistentException;
 
@@ -32,41 +33,47 @@ public class SocketObserverView implements ClientHandlerInterface, Runnable {
         int i=0;
         while(i==0){
             //try{
-                System.out.println("é partito il socket listening");
-                String message = in.next();
-                switch(message){
-                    case "notifyGameisStarting": try{
-                        System.out.println("ho ricevuto una notifica\n");
-                        observerView.notifyGameisStarting();
-                        out.println(1);
-                    }catch (RemoteException e){
-                        out.println(0+e.getMessage());
+            System.out.println("é partito il socket listening");
+            System.out.println(in.hasNext());
+                if(in.next() != null){
+                    System.out.println("é partito il socket");
+                    String message = in.next();
+                    switch(message){
+                        case "notifyGameisStarting": try{
+                            System.out.println("ho ricevuto una notifica\n");
+                            observerView.notifyGameisStarting();
+                            out.println(1);
+                        }catch (RemoteException e){
+                            out.println(0+e.getMessage());
+                        }
+                            out.flush();
+                            break;
+                        case "update": try{
+                            observerView.update();
+                            out.println(1);
+                        }catch (RemoteException e){
+                            out.println(0+e.getMessage());
+                        }
+                            out.flush();
+                            break;
+                        case "showErrorMessage": try{
+                            observerView.showErrorMessage(in.next());
+                            out.println(1);
+                        }catch (RemoteException e){
+                            out.println(0+e.getMessage());
+                        }
+                            out.flush();
+                            break;
+                        default: System.out.println("niente di nuovo sul fronte occipitale");
                     }
-                        out.flush();
-                        break;
-                    case "update": try{
-                        observerView.update();
-                        out.println(1);
-                    }catch (RemoteException e){
-                        out.println(0+e.getMessage());
-                    }
-                        out.flush();
-                        break;
-                    case "showErrorMessage": try{
-                        observerView.showErrorMessage(in.next());
-                        out.println(1);
-                    }catch (RemoteException e){
-                        out.println(0+e.getMessage());
-                    }
-                        out.flush();
-                        break;
-                    default: System.out.println("niente di nuovo sul fronte occipitale");
-                }
-            //}catch(NoSuchElementException e){
-                //do nothing
-            //}
+                    //}catch(NoSuchElementException e){
+                    //do nothing
+                    //}
 
-        }
+                }
+            System.out.println("é packet listening");
+                }
+
     }
     public void waitforAnswerfromServer()throws RemoteException{
         switch (in.nextInt()) {
@@ -147,6 +154,11 @@ public class SocketObserverView implements ClientHandlerInterface, Runnable {
 
     @Override
     public void notifyGame(String clientname) throws RemoteException {
+
+    }
+
+    @Override
+    public void useaToolCard(String clientname, RequestClass requestClass) throws RemoteException {
 
     }
 

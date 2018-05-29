@@ -14,23 +14,12 @@ public class DiluentePerPastaSalda2 implements ToolAction{
     final static String description = "Parte Seconda.\n" +
             "Scegli il valore del nuovo dado e piazzalo, rispettando tutte le restrizioni di piazzamento.";
 
-
-    int row;
-    int column;
-    int diceIntesityToset;
-    public DiluentePerPastaSalda2( int row, int column, int diceIntesityToset){
-        this.row = row;
-        this.column = column;
-        this.diceIntesityToset = diceIntesityToset;
-    }
-
-
     @Override
-    public void execute (Player player) throws ToolIllegalOperationException{
+    public void execute (Player player, RequestClass requestClass) throws ToolIllegalOperationException{
         try{
 
-            player.getdiceforDiluenteperPastaSalda().setIntensity(this.diceIntesityToset);
-            player.getScheme().setDice(player.getdiceforDiluenteperPastaSalda(),this.row, this.column, false, false, false);
+            player.getdiceforDiluenteperPastaSalda().setIntensity(requestClass.getDiceIntesityToset());
+            player.getScheme().setDice(player.getdiceforDiluenteperPastaSalda(),requestClass.getNewRow1(), requestClass.getNewColumn1(), false, false, false);
             // mi piace separare la set dalla remove
             player.removediceforDiluenteperPastaSalda();
         }catch (DiceNotExistantException e){

@@ -5,6 +5,7 @@ import it.polimi.ingsw.ClientView.ObserverViewInterface;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.Exceptions.*;
 import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
+import it.polimi.ingsw.model.ToolCard.RequestClass;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -280,6 +281,18 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
             Player player = UsersList.Singleton().getUser(clientname).getPlayer();
             player.getMatch().notifyAll();
         }catch (UserNotExistentException e){
+            throw new RemoteException(e.getMessage());
+        }
+    }
+
+    @Override
+    public void useaToolCard(String clientname, RequestClass requestClass) throws RemoteException {
+        try{
+            Player player = UsersList.Singleton().getUser(clientname).getPlayer();
+            player.getGametable().useaToolCard(requestClass,player);
+        }catch (UserNotExistentException e){
+            throw new RemoteException(e.getMessage());
+        }catch (Exception e){
             throw new RemoteException(e.getMessage());
         }
     }

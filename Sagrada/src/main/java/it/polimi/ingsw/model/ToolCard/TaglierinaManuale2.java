@@ -20,30 +20,19 @@ public class TaglierinaManuale2 implements ToolAction{
     final static String description = "Muovi fino a due dadi dello stesso colore  di un solo dado sul Tracciato dei Round.\n" +
             "Devi rispettare tutte le restrizioni di piazzamento.";
 
-    int oldRow1;
-    int oldColumn1;
-    int newRow1;
-    int newColumn1;
+
     Dice removedDice;
 
 
-    public TaglierinaManuale2( int oldRow1, int oldColumn1,  int newRow1, int newColumn1){
-        this.oldRow1 = oldRow1;
-        this.oldColumn1 = oldColumn1;
-        this.newRow1 = newRow1;
-        this.newRow1 = newRow1;
-        this.newColumn1 = newColumn1;
-    }
-
     @Override
 
-    public void execute(Player player) throws ToolIllegalOperationException {
+    public void execute(Player player, RequestClass requestClass) throws ToolIllegalOperationException {
         try{
-            removedDice = player.getScheme().getDice(oldRow1,oldColumn1);
+            removedDice = player.getScheme().getDice(requestClass.getOldRow1(),requestClass.getOldColumn1());
             DiceColor coloritmustbe = player.getColorConstrainForTaglierinaManuale();
             if (removedDice.getColor() == coloritmustbe){
-                player.getScheme().removeDice(oldRow1,oldColumn1);
-                player.getScheme().setDice(removedDice, newRow1,newColumn1,false,false,false);
+                player.getScheme().removeDice(requestClass.getOldRow1(),requestClass.getOldColumn1());
+                player.getScheme().setDice(removedDice, requestClass.getNewRow1(),requestClass.getNewColumn1(),false,false,false);
             }else{
                 throw new TaglierinaManualeException("Il colore non corrisponde a quello del primo dado\n");
             }
@@ -53,7 +42,7 @@ public class TaglierinaManuale2 implements ToolAction{
             throw new TaglierinaManualeException(TaglierinaManualeException.getMsg()+e.getMessage());
         }catch (TileConstrainException e){
             try{
-                player.getScheme().setDice(removedDice, oldRow1,oldColumn1,false,false,false);
+                player.getScheme().setDice(removedDice,requestClass.getOldRow1(),requestClass.getOldColumn1(),false,false,false);
             }catch (Exception ecpt){ }
             throw new TaglierinaManualeException(TaglierinaManualeException.getMsg()+e.getMessage());
         }catch (SchemeCardNotExistantException e){

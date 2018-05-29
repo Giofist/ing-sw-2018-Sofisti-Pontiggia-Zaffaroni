@@ -8,7 +8,7 @@ import it.polimi.ingsw.model.Player;
 
 public interface ToolAction {
 
-    public void execute (Player player) throws ToolIllegalOperationException;
+    public void execute (Player player, RequestClass requestClass) throws ToolIllegalOperationException;
     //DicenotExistant in DiluenteperPastaSlada
     public int getID();
     public  String getDescription();

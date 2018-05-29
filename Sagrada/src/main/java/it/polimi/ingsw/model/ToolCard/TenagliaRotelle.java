@@ -16,26 +16,15 @@ public class TenagliaRotelle  implements ToolAction {
     final static String description = "Dopo il tuo primo turno scegli immediatamente un altro dado.\n" +
                                       "Salta il secondo turno di questo round.";
 
-    private int row;
-    private int column;
-    private int selectedDiceIndex;
-
-    public TenagliaRotelle(int selectedDiceIndex, int row, int column){
-        this.selectedDiceIndex = selectedDiceIndex;
-        this.column = column;
-        this.row = row;
-
-
-    }
 
     @Override
 
-    public void execute (Player player) throws ToolIllegalOperationException{
-        if(player.getNumberoftimesyouhaveplayedthisround()==2){
+    public void execute (Player player, RequestClass requestClass) throws ToolIllegalOperationException{
+        if(player.getTurn().getTurnID()==2){
             throw new TenagliaRotelleException("sei al secondo turno: non puoi usare questa carta al secondo turno!");
         }
         try{
-            player.getScheme().setDice(  player.getGametable().getRoundDicepool().getDice(selectedDiceIndex), row, column, false,false,false  );
+            player.getScheme().setDice(  player.getGametable().getRoundDicepool().getDice(requestClass.getSelectedRoundDicepoolDiceIndex()), requestClass.getNewRow1(),requestClass.getNewColumn1(), false,false,false  );
             player.setMustpassTurn(true);
         }catch(TileConstrainException e){
             throw new TenagliaRotelleException(TenagliaRotelleException.getMsg()+e.getMessage());
