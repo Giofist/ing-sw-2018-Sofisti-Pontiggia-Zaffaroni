@@ -75,6 +75,8 @@ public class Match implements Runnable{
         for (int i = 1; i<=10; i++){
             try {
                 new Round(i, this.players, this).run();
+                //ad ogni ciclo for devo cambiare l'ordine di inizio round
+                this.players.addLast(this.players.removeFirst());
             } catch (RemoteException e) {
                 e.printStackTrace();
             } catch (InterruptedException e) {
@@ -85,6 +87,7 @@ public class Match implements Runnable{
 
         //to calculate points for the public goals
         this.getGametable().calculatePointsforAllPlayers(this.players);
+        System.out.println("fin qui tutto bene");
         // to calculate points for the private goals
         for (Player player:this.players) {
             player.getPrivateGoalCard().calculatepoint(player);
@@ -105,7 +108,7 @@ public class Match implements Runnable{
     private synchronized boolean checkIsreadyToStart() {
         // qua bisognerà inserire un controllo dovuto al timer
         // ho messo due per semplicità nel testing
-        if (this.players.size() == 2) {
+        if (this.players.size() == 1) {
             return true;
         } else return false;
     }
@@ -174,12 +177,12 @@ public class Match implements Runnable{
         this.notifyAll();
     }
 
-    public List getfinalRanking() {
-        List list = new LinkedList();
+    public String getfinalRanking() {
+        String string = "\n";
         for(Player player: this.players){
-            list.add(player.toString());
+            string += player.toString();
         }
-        return list;
+        return string;
     }
 
 }

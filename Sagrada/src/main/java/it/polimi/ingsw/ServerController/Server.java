@@ -20,14 +20,11 @@ public class Server {
         //anche RMitter ha gentilmente contribuito
         System.out.println("Binding server implementation to registry...\n");
         ClientHandler controller = new ClientHandler();
-        TurnController turnController = new TurnController();
 
         System.setProperty("java.rmi.server.hostname","192.168.1.2");
         //System.setProperty("java.rmi.server.hostname","10.169.214.40");
         Registry registry = LocateRegistry.createRegistry(RMI_PORT);
         registry.rebind("ClientHandler", controller);
-        System.out.println("Waiting for invocations from clients...\n");
-
 
         //socket part
         new Thread(new StartServer(controller, 1337)).start();
@@ -38,8 +35,7 @@ public class Server {
         //avremmo messo troppi metodi in clienthandler
         // così il client, dovendo cercare un turncontroller sul registro, avremo
         //magari modo di usare un'altra calsse per il turno e cambiare grafica magari
-        registry.rebind("TurnController",turnController );
-        System.out.println("Waiting for invocations from clients...\n");
+        System.out.println("Waiting for invocations from clients...");
 
     }
 

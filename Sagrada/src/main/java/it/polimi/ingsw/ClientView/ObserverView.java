@@ -226,6 +226,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
 
     private void waitingInt() {
         Scanner in = new Scanner(System.in);
+        PrintWriter out = new PrintWriter(System.out);
         System.out.println("Attendi che altri giocatori entrino in partita...");
         //timer di attesa poi appena arriva notify parte il gioco
     }
@@ -237,6 +238,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         int index;
 
         try {
+            System.out.println("sto aspettando una notifica\n");
             wait();
             //aspetto una notify dell'inizio della partita, per ora è solo un test connection
         } catch (InterruptedException e) {
@@ -292,11 +294,8 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
             System.out.println("ho superato una wait");
         }
         try {
-            System.out.println("La partita è finita: hai totalizzato" + servercontroller.getmyPoints(yourName) + "punti");
-            System.out.println("Ecco la classifica finale: ");
-            for (Object player : servercontroller.getRanking(yourName)){
-                System.out.println(player.toString());
-            }
+            System.out.println("la partita è finita: hai totalizzato" + servercontroller.getmyPoints(yourName) + "punti");
+            System.out.println("Ecco la classifica finale: " + servercontroller.getRanking(yourName));
         } catch (RemoteException e) {
             System.out.println(e.getMessage());
         }
@@ -442,6 +441,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
     public synchronized void notifyGameisStarting() throws RemoteException{
         notifyAll();
     }
+
 
 
     @Override

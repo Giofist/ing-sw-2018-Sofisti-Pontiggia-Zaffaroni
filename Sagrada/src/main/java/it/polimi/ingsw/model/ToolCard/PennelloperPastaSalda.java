@@ -6,7 +6,6 @@ import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIlleg
 import it.polimi.ingsw.model.Player;
 
 public class PennelloperPastaSalda  implements ToolAction {
-    int cost;
     final static int ID = 6;
     final static String cardTitle = "Pennello per Pasta Salda";
     final static String description = "Dopo aver scelto un dado tira nuovamente quel dado.\n" +
@@ -15,7 +14,6 @@ public class PennelloperPastaSalda  implements ToolAction {
     private int selectedDiceIndex;
 
     public PennelloperPastaSalda( int selectedDiceIndex){
-        cost=1;
         this.selectedDiceIndex = selectedDiceIndex;
     }
 
@@ -52,11 +50,5 @@ public class PennelloperPastaSalda  implements ToolAction {
 
     @Override
     public String getCardTitle(){ return cardTitle;};
-    public int getCost() {
-        return cost;
-    }
 
-    public void setCost(int cost) {
-        this.cost = cost;
-    }
 }

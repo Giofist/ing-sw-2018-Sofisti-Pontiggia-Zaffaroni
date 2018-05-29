@@ -37,7 +37,9 @@ public class Client {
                 ObserverView observerView = new ObserverView();
                 SocketObserverView socketObserverView = new SocketObserverView(socket, observerView);
                 observerView.setServercontroller(socketObserverView);
+                new Thread(socketObserverView).run();
                 observerView.run();
+
                 correct = true;
             } else {
                 System.out.println("Hai sbagliato a digitare. Riprova");

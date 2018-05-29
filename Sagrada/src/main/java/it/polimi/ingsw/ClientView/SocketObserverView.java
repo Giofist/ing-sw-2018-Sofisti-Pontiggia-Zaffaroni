@@ -2,6 +2,7 @@ package it.polimi.ingsw.ClientView;
 
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
 import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
+import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 import it.polimi.ingsw.model.Exceptions.UserNotExistentException;
 
 import java.io.IOException;
@@ -9,6 +10,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.rmi.RemoteException;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 // implemented by pon
@@ -29,16 +31,47 @@ public class SocketObserverView implements ClientHandlerInterface, Runnable {
     public void run(){
         int i=0;
         while(i==0){
-            switch(in.next()){
-                case "testConnection": //do nothing
+            //try{
+                System.out.println("é partito il socket listening");
+                String message = in.next();
+                switch(message){
+                    case "notifyGameisStarting": try{
+                        System.out.println("ho ricevuto una notifica\n");
+                        observerView.notifyGameisStarting();
+                        out.println(1);
+                    }catch (RemoteException e){
+                        out.println(0+e.getMessage());
+                    }
+                        out.flush();
+                        break;
+                    case "update": try{
+                        observerView.update();
+                        out.println(1);
+                    }catch (RemoteException e){
+                        out.println(0+e.getMessage());
+                    }
+                        out.flush();
+                        break;
+                    case "showErrorMessage": try{
+                        observerView.showErrorMessage(in.next());
+                        out.println(1);
+                    }catch (RemoteException e){
+                        out.println(0+e.getMessage());
+                    }
+                        out.flush();
+                        break;
+                    default: System.out.println("niente di nuovo sul fronte occipitale");
+                }
+            //}catch(NoSuchElementException e){
+                //do nothing
+            //}
 
-            }
         }
-
     }
     public void waitforAnswerfromServer()throws RemoteException{
         switch (in.nextInt()) {
             case 1:
+                System.out.println("sono stato notificato");
                 return;
             case 0:
                 throw new RemoteException(in.nextLine());
@@ -46,35 +79,34 @@ public class SocketObserverView implements ClientHandlerInterface, Runnable {
     }
     //all methods to be implemented here
     @Override
-    public String rmiTest(String stringa) throws RemoteException {
+    public synchronized String rmiTest(String stringa) throws RemoteException {
 
         return null;
     }
 
     @Override
-    public void register(String username, String password) throws RemoteException {
+    public synchronized void register(String username, String password) throws RemoteException {
         out.println("register " + username + " " + password);
         out.flush();
         this.waitforAnswerfromServer();
-
     }
 
     @Override
-    public void login(String username, String password) throws RemoteException {
+    public synchronized void login(String username, String password) throws RemoteException {
         out.println("login " + username + " " + password);
         out.flush();
         this.waitforAnswerfromServer();
     }
 
     @Override
-    public void logout(String username) throws RemoteException {
+    public synchronized void logout(String username) throws RemoteException {
         out.println("logout " + username);
         out.flush();
         this.waitforAnswerfromServer();
     }
 
     @Override
-    public void createGame(String username, ObserverViewInterface client, FeedObserverView Client, String gamename) throws RemoteException {
+    public synchronized void createGame(String username, ObserverViewInterface client, FeedObserverView Client, String gamename) throws RemoteException {
         out.println("createGame " + username + " " + gamename);
         out.flush();
         this.waitforAnswerfromServer();
@@ -83,7 +115,7 @@ public class SocketObserverView implements ClientHandlerInterface, Runnable {
 
 
     @Override
-    public void joinaGame(String username, ObserverViewInterface client, FeedObserverView Client,String gamename) throws RemoteException {
+    public synchronized void joinaGame(String username, ObserverViewInterface client, FeedObserverView Client,String gamename) throws RemoteException {
         out.println("joinaGame " + username + " " + gamename);
         out.flush();
         this.waitforAnswerfromServer();
@@ -91,12 +123,12 @@ public class SocketObserverView implements ClientHandlerInterface, Runnable {
     }
 
     @Override
-    public String getMymapString(String clientname) throws RemoteException, SchemeCardNotExistantException {
+    public synchronized String getMymapString(String clientname) throws RemoteException {
         return null;
     }
 
     @Override
-    public void setSchemeCard(String username, int cardid) throws RemoteException {
+    public synchronized void setSchemeCard(String username, int cardid) throws RemoteException {
         out.println("setSchemeCard " + username + " " + cardid);
         out.flush();
         switch (in.nextInt()) {
@@ -108,48 +140,48 @@ public class SocketObserverView implements ClientHandlerInterface, Runnable {
     }
 
     @Override
-    public void setDice(String clientname, int row, int column) throws RemoteException, UserNotExistentException, SchemeCardNotExistantException {
+    public void setDice(String clientname, int diceindex, int row, int column) throws RemoteException, UserNotExistentException, SchemeCardNotExistantException {
 
     }
+
 
     @Override
     public void notifyGame(String clientname) throws RemoteException {
 
     }
 
-
     @Override
-    public String getPrivateGoalCarddescription(String clientname) throws RemoteException {
+    public synchronized String getPrivateGoalCarddescription(String clientname) throws RemoteException {
         return null;
     }
 
     @Override
-    public String getPrivateGoalCardname(String clientname) throws RemoteException {
+    public synchronized String getPrivateGoalCardname(String clientname) throws RemoteException {
         return null;
     }
 
     @Override
-    public int getPrivateGoalCardid(String clientname) throws RemoteException {
+    public synchronized int getPrivateGoalCardid(String clientname) throws RemoteException {
         return 0;
     }
 
     @Override
-    public List getPublicGoalCarddescriptions(String clientname) throws RemoteException {
+    public synchronized List getPublicGoalCarddescriptions(String clientname) throws RemoteException {
         return null;
     }
 
     @Override
-    public List getPublicGoalCardids(String clientname) throws RemoteException {
+    public synchronized List getPublicGoalCardids(String clientname) throws RemoteException {
         return null;
     }
 
     @Override
-    public List getPublicGoalCardnames(String clientname) throws RemoteException {
+    public synchronized List getPublicGoalCardnames(String clientname) throws RemoteException {
         return null;
     }
 
     @Override
-    public String getActiveMatchList() throws RemoteException {
+    public synchronized String getActiveMatchList() throws RemoteException {
         out.println("getActiveMatchList ");
         out.flush();
         switch (in.nextInt()) {
@@ -162,18 +194,31 @@ public class SocketObserverView implements ClientHandlerInterface, Runnable {
     }
 
     @Override
-    public int getmyPoints(String clientname) throws RemoteException {
-        return 0;
+    public synchronized int getmyPoints(String clientname) throws RemoteException {
+        out.println("getActiveMatchList ");
+        out.flush();
+        switch (in.nextInt()) {
+            case 1:
+                return in.nextInt();
+            case 0:
+                throw new RemoteException(in.nextLine());
+        }
+        throw  new RemoteException();
     }
 
     @Override
-    public List getRanking(String username) throws RemoteException {
+    public synchronized String getRanking(String username) throws RemoteException {
         return null;
 
     }
 
     @Override
     public String getSchemeCards(String clientname) throws RemoteException {
+        return null;
+    }
+
+    @Override
+    public String getRoundDicepool(String clientname) throws RemoteException {
         return null;
     }
 }

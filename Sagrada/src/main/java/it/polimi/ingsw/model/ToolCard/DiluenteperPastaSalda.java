@@ -10,7 +10,6 @@ import it.polimi.ingsw.model.Player;
 //beh se qualcuno vuole sistemare prego
 //(pon)
 public class DiluenteperPastaSalda  implements ToolAction {
-    int cost;
     final static int ID = 11;
     final static String cardTitle = "Diluente per Pasta Salda";
     final static String description = "Dopo aver scelto un dado, riponilo nel Sacchetto, poi pescane uno dal sacchetto.\n" +
@@ -19,7 +18,6 @@ public class DiluenteperPastaSalda  implements ToolAction {
     private int selectedDiceIndex;
 
     public DiluenteperPastaSalda( int selectedDiceIndex){
-        cost=1;
         this.selectedDiceIndex =selectedDiceIndex;
     }
 
@@ -48,12 +46,5 @@ public class DiluenteperPastaSalda  implements ToolAction {
     @Override
     public String getCardTitle() {
         return cardTitle;
-    }
-    public int getCost() {
-        return cost;
-    }
-
-    public void setCost(int cost) {
-        this.cost = cost;
     }
 }

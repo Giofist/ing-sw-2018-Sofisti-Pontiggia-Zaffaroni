@@ -17,14 +17,19 @@ import java.util.LinkedList;
 //ma per ora funziona ed è chiara quindi ce la teniamo così
 public class ToolCardsDeck {
     //array of costs of action
+    /*
     private ArrayList<Integer> cardsID;
-    private LinkedList<ToolAction> deck ;
+    private int[] costs;
 
 
 
     // constructor
     public ToolCardsDeck(){
-        this.deck = new LinkedList<>();
+        this.costs = new int[13];
+        this.costs[0]=0;
+        for (int i=1; i<=12; i++){
+            this.costs[1] = 1;
+        }
         this.cardsID = new ArrayList<>();
         for(int i=1; i<=12;i++){
             this.cardsID.add(i);
@@ -39,8 +44,8 @@ public class ToolCardsDeck {
     public void addCardToDeck(){
         int cardID = this.getValue();
         //questo  codice non compila e non compilerà per un bel po', quindi l'ho messo ocommentato
-        /*switch (cardID){
-            case 1: this.deck.add(new PinzaSgrossatrice()); break;
+        switch (cardID){
+            case 1:  this.deck.add(new PinzaSgrossatrice()); break;
             case 2 : this.deck.add(new PennelloperEglomise())); break;
             case 3 : this.deck.add(new AlesatoreperLaminadiRame()); break;
             case 4 : this.deck.add(new Lathekin());break;
@@ -54,7 +59,7 @@ public class ToolCardsDeck {
             case 12 : this.deck.add(new TaglierinaManuale()); break;
             default: break; // add an Exception here
         }
-        */
+
     }
 
     public int getCost(int id)throws WrongToolCardIDException{
@@ -80,27 +85,17 @@ public class ToolCardsDeck {
     }
     //command design pattern
     //questa classe fa pagare per la toolcard corrispondente e lancia un'eccezione se il giocatore è povero per quell'azione
-    public void doAction(int toolActionID, Player player) throws ToolIllegalOperationException, NotEnoughSegnaliniException {
-        try{
-            player.payforTool( this.getCost(toolActionID));
-            setCostOfAction(toolActionID);
-            for(ToolAction toolAction: this.deck){
-                if(toolAction.getID() == toolActionID){
-                    toolAction.execute(player);
-                }
+    public void doAction(ToolAction toolAction, Player player) throws WrongToolCardIDException,ToolIllegalOperationException, NotEnoughSegnaliniException {
+        player.payforTool( this.getCost(toolAction.getID()));
+        setCostOfAction(toolAction.getID());
+        for(int toolActionID: this.cardsID){
+            if(toolAction.getID() == toolActionID){
+                toolAction.execute(player);
             }
-            }catch (WrongToolCardIDException e){
-            //this toolaction has no cost
-            //usato per toolcard doppie
+
         }
 
     }
-    public int getValue(){
-        int value =this.cardsID.get(0);
-        this.cardsID.remove(0);
-        return value;
-    }
 
-
-
+*/
 }

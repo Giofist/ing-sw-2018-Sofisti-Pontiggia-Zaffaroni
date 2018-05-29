@@ -4,6 +4,7 @@ import it.polimi.ingsw.ClientView.FeedObserverView;
 import it.polimi.ingsw.ClientView.ObserverViewInterface;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.Exceptions.*;
+import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -98,11 +99,13 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     }
 
     @Override
-    public String getMymapString(String clientname) throws RemoteException, SchemeCardNotExistantException {
+    public String getMymapString(String clientname) throws RemoteException {
         try{
             Player player = UsersList.Singleton().getUser(clientname).getPlayer();
             return player.getScheme().getMapString();
         }catch (UserNotExistentException e){
+            throw new RemoteException(e.getMessage());
+        }catch(SchemeCardNotExistantException e){
             throw new RemoteException(e.getMessage());
         }
     }
@@ -208,7 +211,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     }
 
     @Override
-    public List getRanking(String clientname) throws RemoteException{
+    public String getRanking(String clientname) throws RemoteException{
         try{
             Player player = UsersList.Singleton().getUser(clientname).getPlayer();
             return player.getMatch().getfinalRanking();
@@ -218,11 +221,21 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     }
 
     @Override
-    public String getSchemeCards(String clientname) throws RemoteException {
+    public synchronized String getSchemeCards(String clientname) throws RemoteException {
         try {
             Player player = UsersList.Singleton().getUser(clientname).getPlayer();
             return player.getExtractedSchemeCards();
         } catch (UserNotExistentException e) {
+            throw new RemoteException(e.getMessage());
+        }
+    }
+
+    @Override
+    public synchronized String getRoundDicepool(String clientname) throws RemoteException {
+        try{
+            Player player = UsersList.Singleton().getUser(clientname).getPlayer();
+            return player.getGametable().getRoundDicepool().toString();
+        }catch(UserNotExistentException e){
             throw new RemoteException(e.getMessage());
         }
     }
@@ -240,10 +253,24 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     }
 
     @Override
-    public void setDice(String clientusername, int row, int column) throws RemoteException, UserNotExistentException, SchemeCardNotExistantException {/*
-        Player player = UsersList.Singleton().getUser(clientusername).getPlayer();
-        player.getScheme().setDice(dice ,row ,column);*/
+    public void setDice(String clientusername, int diceindex, int row, int column) throws RemoteException{
+        try{
+            Player player = UsersList.Singleton().getUser(clientusername).getPlayer();
+            Dice dice = player.getGametable().getRoundDicepool().getDice(diceindex);
+            player.getGametable().getRoundDicepool().removeDice(diceindex);
+            player.getScheme().setDice(dice ,row ,column, false, false, false);
+        }catch(UserNotExistentException e){
+            throw new RemoteException(e.getMessage());
+        }catch (SchemeCardNotExistantException e){
+            throw new RemoteException(e.getMessage());
+        }catch(OutOfMatrixException e){
+            throw new RemoteException(e.getMessage());
+        }catch(TileConstrainException e){
+            throw new RemoteException(e.getMessage());
+        }
+
     }
+
 
     @Override
     public void notifyGame(String clientname) throws RemoteException{

@@ -15,7 +15,6 @@ import java.util.List;
 
 // DA TERMINARE
 public class TaglierinaManuale  implements ToolAction {
-    int cost;
     final static int ID = 12;
     final static String cardTitle = "Taglierina Manuale";
     final static String description = "Muovi fino a due dadi dello stesso colore  di un solo dado sul Tracciato dei Round.\n" +
@@ -28,7 +27,6 @@ public class TaglierinaManuale  implements ToolAction {
     Dice removedDice;
 
     public TaglierinaManuale( int oldRow1, int oldColumn1,  int newRow1, int newColumn1) {
-        cost =1;
         this.oldRow1 = oldRow1;
         this.oldColumn1 = oldColumn1;
         this.newRow1 = newRow1;
@@ -81,12 +79,5 @@ public class TaglierinaManuale  implements ToolAction {
     @Override
     public String getDescription(){
         return description;
-    }
-    public int getCost() {
-        return cost;
-    }
-
-    public void setCost(int cost) {
-        this.cost = cost;
     }
 }

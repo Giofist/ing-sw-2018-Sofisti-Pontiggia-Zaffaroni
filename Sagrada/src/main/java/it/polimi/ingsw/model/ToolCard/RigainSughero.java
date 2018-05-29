@@ -9,7 +9,6 @@ import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIlleg
 import it.polimi.ingsw.model.Player;
 //revisionata by pon
 public class RigainSughero  implements ToolAction {
-    int cost;
     final static int ID = 9;
     final static String cardTitle = "Riga in Sughero";
     final static String description = "Dopo aver scelto un dado, piazzalo in una casella che non sia adiacente a un altro dado.\n" +
@@ -21,7 +20,6 @@ public class RigainSughero  implements ToolAction {
     private Dice dice;
 
     public RigainSughero( int row, int column, int selectedDiceIndex){
-        cost=1;
         this.selectedDiceIndex = selectedDiceIndex;
         this.row = row;
         this.column =column;
@@ -63,12 +61,5 @@ public class RigainSughero  implements ToolAction {
     @Override
     public String getDescription(){
         return description;
-    }
-    public int getCost() {
-        return cost;
-    }
-
-    public void setCost(int cost) {
-        this.cost = cost;
     }
 }

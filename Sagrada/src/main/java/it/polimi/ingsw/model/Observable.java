@@ -10,12 +10,13 @@ import java.util.LinkedList;
 
 public class Observable {
     //per il pattern observer
-    protected LinkedList<ObserverViewInterface> observerViewInterfaces;
     protected LinkedList<FeedObserverView> feedObserverViews;
-    //metodo per l'oberserver design pattern
-    public void feedObserverViews(FeedObserverView client) {
+    protected LinkedList<ObserverViewInterface> observerViewInterfaces;
+    public void feedObserverViews(FeedObserverView client){
         this.feedObserverViews.add(client);
     }
+
+    //metodo per l'oberserver design pattern
     public void observerViews(ObserverViewInterface client){
         this.observerViewInterfaces.add(client);
     }
@@ -49,4 +50,5 @@ public class Observable {
 
         }
     }
+
 }

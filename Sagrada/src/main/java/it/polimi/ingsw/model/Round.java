@@ -1,12 +1,11 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.Exceptions.RoundTrackException;
+import it.polimi.ingsw.model.Turn.Turn;
 
 import java.rmi.RemoteException;
 import java.util.Collections;
 import java.util.LinkedList;
-
-import static java.util.Collections.*;
 
 //not implemented yet
 public class Round {
@@ -29,7 +28,7 @@ public class Round {
         this.getMatch().getGametable().setupRound();
 
         //qui la chiamata ai vari turn
-
+        //questa notifica verrà tolta
         for (Player player: this.players){
             try{
                 player.notifyError("Questo è il round"+ this.num_round);
@@ -41,13 +40,13 @@ public class Round {
 
         // Primo giro
         for (Player player: this.players) {
-            new Turn(player, match).run();
+            new Turn(player, this).run();
         }
 
         // Secondo giro
         Collections.reverse(this.players);
         for (Player player: this.players){
-            new Turn(player, match).run();
+            new Turn(player, this).run();
         }
 
         // Ripristino l'ordine della lista di partenza

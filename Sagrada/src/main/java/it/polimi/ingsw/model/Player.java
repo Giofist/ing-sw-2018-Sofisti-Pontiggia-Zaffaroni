@@ -1,10 +1,9 @@
 package it.polimi.ingsw.model;
-import it.polimi.ingsw.ClientView.FeedObserverView;
-import it.polimi.ingsw.ClientView.ObserverViewInterface;
 import it.polimi.ingsw.model.Exceptions.*;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
+import it.polimi.ingsw.model.Turn.PlayerState;
+import it.polimi.ingsw.model.Turn.Turn;
 
-import java.rmi.RemoteException;
 import java.util.LinkedList;
 
 //implementa comparable per ordinare i giocatori in base al punteggio nellav lista di player
@@ -16,6 +15,8 @@ public class Player extends Observable implements Comparable<Player>{
     private SchemeCard scheme;
     private int points;
     private Match match;
+    private PlayerState playerState;
+    private Turn turn;
 
 
 
@@ -163,7 +164,7 @@ public class Player extends Observable implements Comparable<Player>{
     public void setColorConstrainForTaglierinaManuale(DiceColor dicecolor){
         this.colorConstrainForTaglierinaManuale = dicecolor;
     }
-    public boolean MustpassTurn() {
+    public boolean mustpassTurn() {
         return mustpassTurn;
     }
     public void setMustpassTurn( boolean mustpassTurn) {
@@ -172,8 +173,18 @@ public class Player extends Observable implements Comparable<Player>{
     public void addExtractedSchemeCard(SchemeCard schemeCard){
         this.extractedschemeCards.add(schemeCard);
     }
-
-
+    public PlayerState getPlayerState(){
+        return this.playerState;
+    }
+    public void setPlayerState(PlayerState playerState){
+        this.playerState = playerState;
+    }
+    public Turn getTurn() {
+        return turn;
+    }
+    public void setTurn(Turn turn){
+        this.turn = turn;
+    }
 
     /// /utile per ordinare i giocatori in base al punteggio
     @Override
@@ -183,7 +194,7 @@ public class Player extends Observable implements Comparable<Player>{
 
     @Override
     public String toString(){
-        return this.getAssociatedUser().getName() + " " + this.getPoints();
+        return this.getAssociatedUser().getName() + " " + this.getPoints() + "\n";
     }
 
 

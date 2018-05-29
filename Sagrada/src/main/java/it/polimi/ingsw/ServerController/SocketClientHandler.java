@@ -105,25 +105,46 @@ public class SocketClientHandler implements Runnable, ObserverViewInterface, Fee
 
     }
 
+    public void waitforAnswerfromClient()throws RemoteException{
+        int message = in.nextInt();
+        System.out.println(message);
+        switch (message) {
+            case 1:
+                return;
+            case 0:
+                throw new RemoteException(in.next());
+        }
+    }
     @Override
-    public void update() {
-
+    public synchronized void update()throws RemoteException {
+        out.println("update");
+        out.flush();
+        waitforAnswerfromClient();
     }
 
     @Override
-    public void showErrorMessage(String message) {
-
+    public synchronized void showErrorMessage(String message)throws RemoteException {
+        out.println("showErrorMessage");
+        out.flush();
+        waitforAnswerfromClient();
     }
 
     @Override
-    public void notifyendGame() throws RemoteException {
+    public synchronized void notifyendGame() throws RemoteException {
+        out.println("notifyendGame");
+        out.flush();
+        waitforAnswerfromClient();
     }
 
     @Override
-    public void notifyGameisStarting() throws RemoteException {
+    public synchronized void notifyGameisStarting() throws RemoteException {
+        out.println("notifyGameisStarting");
+        out.flush();
+        waitforAnswerfromClient();
     }
 
     @Override
     public void notifyIsYourTurn(String message) throws RemoteException {
     }
+
 }

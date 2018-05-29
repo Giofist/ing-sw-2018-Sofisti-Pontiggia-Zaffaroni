@@ -9,7 +9,6 @@ import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIlleg
 import it.polimi.ingsw.model.Player;
 //revisionato by pon
 public class DiluentePerPastaSalda2 implements ToolAction{
-    private int cost;
     final static int ID = 0;
     final static String cardTitle = "Diluente per Pasta Salda";
     final static String description = "Parte Seconda.\n" +
@@ -20,7 +19,6 @@ public class DiluentePerPastaSalda2 implements ToolAction{
     int column;
     int diceIntesityToset;
     public DiluentePerPastaSalda2( int row, int column, int diceIntesityToset){
-        this.cost=0;
         this.row = row;
         this.column = column;
         this.diceIntesityToset = diceIntesityToset;
@@ -62,12 +60,4 @@ public class DiluentePerPastaSalda2 implements ToolAction{
         return cardTitle;
     }
 
-    public int getCost() {
-        return cost;
-    }
-
-    @Override
-    public void setCost(int cost) {
-        this.cost= cost;
-    }
 }

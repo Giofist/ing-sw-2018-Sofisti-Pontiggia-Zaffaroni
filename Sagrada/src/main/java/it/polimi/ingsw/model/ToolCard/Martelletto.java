@@ -4,7 +4,6 @@ import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIlleg
 import it.polimi.ingsw.model.Player;
 
 public class Martelletto  implements ToolAction {
-    int cost;
     final static int ID = 7;
     final static String cardTitle = "Martelletto";
     final static String description = "Tira nuovamente tutti i dadi della riserva.\n" +
@@ -14,7 +13,6 @@ public class Martelletto  implements ToolAction {
     private int operation;
 
     public Martelletto( int selectedDiceIndex, int operation){
-        cost=1;
         this.selectedDiceIndex = selectedDiceIndex;
         this.operation = operation;
     }
@@ -40,11 +38,5 @@ public class Martelletto  implements ToolAction {
     public String getDescription(){
         return description;
     }
-    public int getCost() {
-        return cost;
-    }
 
-    public void setCost(int cost) {
-        this.cost = cost;
-    }
 }

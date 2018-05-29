@@ -62,8 +62,8 @@ public class Gametable {
     }
 
     //per la gestione delle toolAction
-    public void useaToolCard(int  toolActionID, Player player) throws Exception {
-        this.tooldeck.doAction(toolActionID, player);
+    public void useaToolCard(ToolAction toolAction, Player player) throws Exception {
+        //this.tooldeck.doAction(toolAction, player);
 
     }
 
