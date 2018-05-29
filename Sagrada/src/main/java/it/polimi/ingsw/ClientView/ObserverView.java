@@ -23,8 +23,9 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
     private int[] yourMapDiceIntensity;
     private int yourMapMaxRow = 0;
     private int yourMapMaxColumn = 0;
-    private char[][] roundTrackDiceColour;// = {{'g','y','b','y','b','r','r','b','r','g','_'},{'y','_','g','b','_','_','_','_','_','_','_'},{'_','_','r','_','_','_','_','_','_','_','_'},{'_','_','_','_','_','_','_','_','_','_','_'},{'_','_','_','_','_','_','_','_','_','_','_'},{'_','_','_','_','_','_','_','_','_','_','_'},{'_','_','_','_','_','_','_','_','_','_','_'},{'_','_','_','_','_','_','_','_','_','_','_'},{'_','_','_','_','_','_','_','_','_','_','_'}};  Test values
-    private int[][] roundTrackDiceIntensity; //= {{1,3,5,6,0,0,0,0,0,0,0},{3,0,2,1,0,0,0,0,0,0,0},{0,0,4,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0,0,0}}; test values
+    private int round=10;
+    private char[] roundTrackDiceColour; // = {'g','y','b','y','b','r','r','b','r','g','y','_','g','b','_','_','_','_','_','_','_','_','r','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_'};  //Test values
+    private int[] roundTrackDiceIntensity; //= {1,3,5,6,0,0,0,0,0,0,3,0,2,1,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}; //test values
 
     //constructor1
     public ObserverView() throws RemoteException {
@@ -47,7 +48,6 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
     public void run() throws RemoteException, SchemeCardNotExistantException {
         String stringa = servercontroller.rmiTest("RMI");
         System.out.println("La connessione è in modalità: " + stringa);
-        printRoundTrack(roundTrackDiceColour, roundTrackDiceIntensity, 10);
         loadingInterface();
         menuInt();
         waitingInt();
@@ -154,13 +154,13 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
                 multiInt();
                 success = true;
             }
-            if (input.equals("L") || input.equals("l")) {
+            else if (input.equals("L") || input.equals("l")) {
                 servercontroller.logout(this.yourName);
                 System.exit(0);
                 success = true;
             }
             else {
-                System.out.println("Hai sbagliato a digitare."); //non riesco a non farlo stampare dopo la creazione di una partita e non riesco a fixare
+                System.out.println("Hai sbagliato a digitare.");
             }
             }while(!success);
         }
@@ -174,9 +174,11 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         input = in.nextLine();
         if (input.equals("B") || input.equals("b")) {
             menuInt();
-        } else if (input.equals("C") || input.equals("c")) {
+        }
+        else if (input.equals("C") || input.equals("c")) {
             createInt();
-        } else if (input.equals("P") || input.equals("p")) {
+        }
+        else if (input.equals("P") || input.equals("p")) {
             joinInt();
         }
         else System.out.println("Hai sbagliato a digitare!");
@@ -313,7 +315,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
     public void printMap(char[] map, int[] yourMapDiceIntensity, int maxRow, int maxColumn){
         for(int row = 0 ; row < maxRow ; row++){
             for(int column = 0 ; column < maxColumn ; column++){
-                switch (map[row * maxColumn+ column]) {
+                switch (map[row * maxColumn + column]) {
                     case 'Y':
                         System.out.print( ansi().eraseScreen().bg(YELLOW).a("   ").reset());
                         break;
@@ -371,31 +373,31 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         }
     }
 
-    public void printRoundTrack(char[][] dicecolour, int[][] diceIntensity, int round) {
+    public void printRoundTrack(char[] dicecolour, int[] diceIntensity, int round) {
         for (int i = 1; i < round + 1; i++) {
             System.out.print(" " + i + " ");
         }
         System.out.println();
         for (int row = 0; row < 8; row++) {
             for (int column = 0; column < round; column++) {
-                switch (dicecolour[row][column]) {
+                switch (dicecolour[row * round + column]) {
                     case '_':
                         System.out.print(ansi().eraseScreen().fg(BLACK).a("   ").reset());
                         break;
                     case 'y':
-                        System.out.print(ansi().eraseScreen().bg(YELLOW).fg(BLACK).a(" " + diceIntensity[row][column] + " ").reset());
+                        System.out.print(ansi().eraseScreen().bg(YELLOW).fg(BLACK).a(" " + diceIntensity[row * 10 + column] + " ").reset());
                         break;
                     case 'b':
-                        System.out.print(ansi().eraseScreen().bg(BLUE).fg(BLACK).a(" " + diceIntensity[row][column] + " ").reset());
+                        System.out.print(ansi().eraseScreen().bg(BLUE).fg(BLACK).a(" " + diceIntensity[row * 10 + column] + " ").reset());
                         break;
                     case 'r':
-                        System.out.print(ansi().eraseScreen().bg(RED).fg(BLACK).a(" " + diceIntensity[row][column] + " ").reset());
+                        System.out.print(ansi().eraseScreen().bg(RED).fg(BLACK).a(" " + diceIntensity[row * 10 + column] + " ").reset());
                         break;
                     case 'v':
-                        System.out.print(ansi().eraseScreen().bg(MAGENTA).fg(BLACK).a(" " + diceIntensity[row][column] + " ").reset());
+                        System.out.print(ansi().eraseScreen().bg(MAGENTA).fg(BLACK).a(" " + diceIntensity[row * 10 + column] + " ").reset());
                         break;
                     case 'g':
-                        System.out.print(ansi().eraseScreen().bg(GREEN).fg(BLACK).a(" " + diceIntensity[row][column] + " ").reset());
+                        System.out.print(ansi().eraseScreen().bg(GREEN).fg(BLACK).a(" " + diceIntensity[row * 10 + column] + " ").reset());
                         break;
                 }
             }
