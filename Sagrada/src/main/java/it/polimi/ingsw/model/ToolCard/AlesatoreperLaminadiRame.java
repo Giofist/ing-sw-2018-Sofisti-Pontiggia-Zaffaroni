@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.Exceptions.OutOfMatrixException;
 import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
 import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.AlesatorePerLaminadiRameException;
+import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.PennelloPerEglomiseException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.Player;
 //revisionata by pon
@@ -18,6 +19,7 @@ public class AlesatoreperLaminadiRame  implements ToolAction {
 
 
     private int  row, column, newRow, newColumn;
+    private Dice removedDice;
 
 
     public AlesatoreperLaminadiRame( int row, int column, int newRow, int newColumn){
@@ -33,17 +35,16 @@ public class AlesatoreperLaminadiRame  implements ToolAction {
 
     public void execute (Player player) throws  ToolIllegalOperationException {
         try{
-            Dice dice = player.getScheme().getDice(row, column);
+            removedDice = player.getScheme().getDice(row, column);
             player.getScheme().removeDice(row,column);
-            player.getScheme().setDice(dice, newRow, newColumn, false, true, false);
-        }catch (DiceNotExistantException e){
-            throw new AlesatorePerLaminadiRameException(AlesatorePerLaminadiRameException.getMsg()+e.getMessage());
-        }catch (OutOfMatrixException e){
-            throw new AlesatorePerLaminadiRameException(AlesatorePerLaminadiRameException.getMsg()+e.getMessage());
-        }catch (TileConstrainException e){
-            throw new AlesatorePerLaminadiRameException(AlesatorePerLaminadiRameException.getMsg()+ e.getMessage());
-        }catch(SchemeCardNotExistantException e){
-            //do nothing
+            player.getScheme().setDice(removedDice, newRow, newColumn, false, true, false);
+        }catch (Exception e) {
+            try {
+                player.getScheme().setDice(removedDice, row, column, true, false, false);
+            } catch (Exception er) {
+                //do nothing
+            }
+            throw new AlesatorePerLaminadiRameException(AlesatorePerLaminadiRameException.getMsg() + e.getMessage());
         }
     }
 
