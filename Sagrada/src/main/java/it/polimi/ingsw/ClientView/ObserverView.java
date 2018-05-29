@@ -23,6 +23,8 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
     private int[] yourMapDiceIntensity;
     private int yourMapMaxRow = 0;
     private int yourMapMaxColumn = 0;
+    private char[][] roundTrackDiceColour;// = {{'g','y','b','y','b','r','r','b','r','g','_'},{'y','_','g','b','_','_','_','_','_','_','_'},{'_','_','r','_','_','_','_','_','_','_','_'},{'_','_','_','_','_','_','_','_','_','_','_'},{'_','_','_','_','_','_','_','_','_','_','_'},{'_','_','_','_','_','_','_','_','_','_','_'},{'_','_','_','_','_','_','_','_','_','_','_'},{'_','_','_','_','_','_','_','_','_','_','_'},{'_','_','_','_','_','_','_','_','_','_','_'}};  Test values
+    private int[][] roundTrackDiceIntensity; //= {{1,3,5,6,0,0,0,0,0,0,0},{3,0,2,1,0,0,0,0,0,0,0},{0,0,4,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0,0,0}}; test values
 
     //constructor1
     public ObserverView() throws RemoteException {
@@ -45,6 +47,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
     public void run() throws RemoteException, SchemeCardNotExistantException {
         String stringa = servercontroller.rmiTest("RMI");
         System.out.println("La connessione è in modalità: " + stringa);
+        printRoundTrack(roundTrackDiceColour, roundTrackDiceIntensity, 10);
         loadingInterface();
         menuInt();
         waitingInt();
@@ -253,7 +256,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
                 //AnsiConsole.systemUninstall();
                 System.out.println("Difficoltà della mappa: " + schemeCardAttribute[1]);
                 char[] constrain = schemeCardAttribute[4].toCharArray();
-                printMap(constrain,Integer.parseInt(schemeCardAttribute[2]),Integer.parseInt(schemeCardAttribute[3]));
+                printMap(constrain,yourMapDiceIntensity,Integer.parseInt(schemeCardAttribute[2]),Integer.parseInt(schemeCardAttribute[3]));
                 System.out.print("\n");
             }
 
@@ -275,7 +278,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
             this.yourMap = yourSchemeCardAttribute[2].toCharArray();
             //System.setProperty("jansi.passthrough", "true");
             //AnsiConsole.systemInstall();
-            printMap(yourMap , yourMapMaxRow , yourMapMaxColumn);
+            printMap(yourMap ,yourMapDiceIntensity, yourMapMaxRow , yourMapMaxColumn);
             //AnsiConsole.systemUninstall();
             System.out.print("\n");
             System.out.println("Attendi che anche gli altri giocatori abbiano scelto la loro mappa.");
@@ -307,7 +310,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
     }
 
     //metodo che stampa la mappa a schermo
-    public void printMap(char[] map, int maxRow, int maxColumn){
+    public void printMap(char[] map, int[] yourMapDiceIntensity, int maxRow, int maxColumn){
         for(int row = 0 ; row < maxRow ; row++){
             for(int column = 0 ; column < maxColumn ; column++){
                 switch (map[row * maxColumn+ column]) {
@@ -368,6 +371,37 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         }
     }
 
+    public void printRoundTrack(char[][] dicecolour, int[][] diceIntensity, int round) {
+        for (int i = 1; i < round + 1; i++) {
+            System.out.print(" " + i + " ");
+        }
+        System.out.println();
+        for (int row = 0; row < 8; row++) {
+            for (int column = 0; column < round; column++) {
+                switch (dicecolour[row][column]) {
+                    case '_':
+                        System.out.print(ansi().eraseScreen().fg(BLACK).a("   ").reset());
+                        break;
+                    case 'y':
+                        System.out.print(ansi().eraseScreen().bg(YELLOW).fg(BLACK).a(" " + diceIntensity[row][column] + " ").reset());
+                        break;
+                    case 'b':
+                        System.out.print(ansi().eraseScreen().bg(BLUE).fg(BLACK).a(" " + diceIntensity[row][column] + " ").reset());
+                        break;
+                    case 'r':
+                        System.out.print(ansi().eraseScreen().bg(RED).fg(BLACK).a(" " + diceIntensity[row][column] + " ").reset());
+                        break;
+                    case 'v':
+                        System.out.print(ansi().eraseScreen().bg(MAGENTA).fg(BLACK).a(" " + diceIntensity[row][column] + " ").reset());
+                        break;
+                    case 'g':
+                        System.out.print(ansi().eraseScreen().bg(GREEN).fg(BLACK).a(" " + diceIntensity[row][column] + " ").reset());
+                        break;
+                }
+            }
+            System.out.println();
+        }
+    }
 
 
     //metodi per il pattern observer

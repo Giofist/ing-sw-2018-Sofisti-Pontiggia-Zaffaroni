@@ -2,6 +2,7 @@ package it.polimi.ingsw.ClientView;
 
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
 import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
+import it.polimi.ingsw.model.Exceptions.UserNotExistentException;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -104,6 +105,11 @@ public class SocketObserverView implements ClientHandlerInterface, Runnable {
             case 0:
                 throw new RemoteException(in.nextLine());
         }
+    }
+
+    @Override
+    public void setDice(String clientname, int row, int column) throws RemoteException, UserNotExistentException, SchemeCardNotExistantException {
+
     }
 
     @Override
