@@ -8,7 +8,7 @@ import java.util.Random;
 
 public class Dice implements Serializable {
     private final DiceColor color;
-    private int INTENSITY;
+    private int intensity;
 
     public Dice(DiceColor diceColor){
         this.color = diceColor;
@@ -17,38 +17,38 @@ public class Dice implements Serializable {
 
     // Getters
     public DiceColor getColor() { return color; }
-    public int getIntensity() { return INTENSITY; }
+    public int getIntensity() { return intensity; }
 
 
     public void setRandomIntensity (){
         Random rn = new Random();
-        this.INTENSITY = rn.nextInt(6) + 1;
+        this.intensity = rn.nextInt(6) + 1;
     }
 
     public void setIntensity(int intens){
-        this.INTENSITY = intens;
+        this.intensity = intens;
     }
 
     public void increaseIntensity() throws IncreaseNotAllowedException {
         if (this.getIntensity() == 6)
             throw new IncreaseNotAllowedException();
 
-        this.INTENSITY += 1;
+        this.intensity += 1;
     }
 
     public void decreaseIntensity () throws DecreaseNotAllowedException {
         if (this.getIntensity() == 1)
             throw new DecreaseNotAllowedException();
 
-        this.INTENSITY -= 1;
+        this.intensity -= 1;
     }
 
     public void setOppositeIntensity (){
-        this.INTENSITY = 7 - this.INTENSITY;
+        this.intensity = 7 - this.intensity;
     }
 
     @Override
     public String toString() {
-        return "[DICE] color: " + this.color + ", intensity: "+ this.INTENSITY;
+        return this.intensity + this.getColor().toString();
     }
 }

@@ -26,6 +26,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
     private int round=10;
     private char[] roundTrackDiceColour; // = {'g','y','b','y','b','r','r','b','r','g','y','_','g','b','_','_','_','_','_','_','_','_','r','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_'};  //Test values
     private int[] roundTrackDiceIntensity; //= {1,3,5,6,0,0,0,0,0,0,3,0,2,1,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}; //test values
+    private String roundDicepool; // = "6RED-5YELLOW-2RED-2GREEN-3BLUE-";
 
     //constructor1
     public ObserverView() throws RemoteException {
@@ -405,7 +406,33 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         }
     }
 
-
+    public void printRoundDicePool(String roundDicePool){
+        char[] charDice;
+        String[] dices = roundDicePool.split("-");
+        System.out.println("Ecco i dadi disponibili in questo round:");
+        for (String dice : dices) {
+            charDice = dice.toCharArray();
+            switch(charDice[1]){
+            case 'Y':
+                System.out.print( ansi().eraseScreen().bg(YELLOW).fg(BLACK).a(" " + charDice[0] + " ").reset());
+                break;
+            case 'B':
+                System.out.print( ansi().eraseScreen().bg(BLUE).fg(BLACK).a(" " + charDice[0] + " ").reset());
+                break;
+            case 'R':
+                System.out.print( ansi().eraseScreen().bg(RED).fg(BLACK).a(" " + charDice[0] + " ").reset());
+                break;
+            case 'V':
+                System.out.print( ansi().eraseScreen().bg(MAGENTA).fg(BLACK).a(" " + charDice[0] + " ").reset());
+                break;
+            case 'G':
+                System.out.print( ansi().eraseScreen().bg(GREEN).fg(BLACK).a(" " + charDice[0] + " ").reset());
+                break;
+            }
+            System.out.print(" ");
+        }
+        System.out.println();
+    }
     //metodi per il pattern observer
     @Override
     public synchronized void notifyGameisStarting() throws RemoteException{

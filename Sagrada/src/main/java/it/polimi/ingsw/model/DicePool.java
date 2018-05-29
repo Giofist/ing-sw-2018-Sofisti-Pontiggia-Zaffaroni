@@ -97,6 +97,14 @@ public class DicePool {
         this.dices.addAll(dices);
     }
 
-
+    @Override
+    public String toString(){
+        String stringDicePool = null;
+        for (Dice dice : this.getallDicesbutnotremove()) {
+            stringDicePool += dice.toString();
+            stringDicePool += "-";
+        }
+        return stringDicePool;
+    }
 
 }
