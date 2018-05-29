@@ -287,9 +287,10 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
 
         while (!matchisEnded) {
             try{
-                //this.roundDicepool = servercontroller.getRoundDicepool();
-                printRoundDicePool(roundDicepool);
                 wait();
+                this.roundDicepool = servercontroller.getRoundDicepool(yourName);
+                System.out.println(this.roundDicepool);
+                printRoundDicePool(roundDicepool);
             }catch(InterruptedException e){
                 // do nothing
             }

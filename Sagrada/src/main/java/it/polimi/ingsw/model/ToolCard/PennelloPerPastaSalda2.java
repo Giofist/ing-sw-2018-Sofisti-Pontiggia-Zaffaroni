@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.ToolCard;
 
+import it.polimi.ingsw.model.Exceptions.EmpyDicepoolException;
 import it.polimi.ingsw.model.Exceptions.OutOfMatrixException;
 import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
 import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
@@ -36,6 +37,8 @@ public class PennelloPerPastaSalda2 implements ToolAction{
         }catch (TileConstrainException e){
             throw new PennelloPerPastaSaldaException(PennelloPerPastaSaldaException.getMsg()+ e.getMessage());
         }catch (SchemeCardNotExistantException e){
+
+        }catch (EmpyDicepoolException e){
 
         }
     }

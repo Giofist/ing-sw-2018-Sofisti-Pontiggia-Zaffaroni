@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.ToolCard;
 
 import it.polimi.ingsw.model.Exceptions.DecreaseNotAllowedException;
+import it.polimi.ingsw.model.Exceptions.EmpyDicepoolException;
 import it.polimi.ingsw.model.Exceptions.IncreaseNotAllowedException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.PinzaSgrossatriceException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
@@ -35,6 +36,8 @@ public class PinzaSgrossatrice  implements ToolAction {
             throw new PinzaSgrossatriceException(PinzaSgrossatriceException.getMsg()+ e.getMessage());
         }catch (IncreaseNotAllowedException e){
             throw new PinzaSgrossatriceException(PinzaSgrossatriceException.getMsg()+ e.getMessage());
+        }catch (EmpyDicepoolException e){
+
         }
     }
 

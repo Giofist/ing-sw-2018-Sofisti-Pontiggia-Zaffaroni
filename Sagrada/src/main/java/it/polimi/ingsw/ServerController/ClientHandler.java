@@ -267,6 +267,8 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
             throw new RemoteException(e.getMessage());
         }catch(TileConstrainException e){
             throw new RemoteException(e.getMessage());
+        }catch (EmpyDicepoolException e){
+            System.out.println(e.getMessage());
         }
 
     }

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.Exceptions.EmpyDicepoolException;
 import it.polimi.ingsw.model.Exceptions.RoundTrackException;
 
 import java.util.LinkedList;
@@ -66,7 +67,11 @@ public class RoundTrack {
         List list = new LinkedList<DiceColor>();
         for (int i=1; i<11; i++){
             for(int j=0; j<getroundTrackDices(i).getDicePoolSize();j++){
-                list.add(getroundTrackDices(i).getDice(j).getColor());
+                try{
+                    list.add(getroundTrackDices(i).getDice(j).getColor());
+                }catch(EmpyDicepoolException e){
+                    System.out.println("errore");
+                }
             }
         }
         return list;

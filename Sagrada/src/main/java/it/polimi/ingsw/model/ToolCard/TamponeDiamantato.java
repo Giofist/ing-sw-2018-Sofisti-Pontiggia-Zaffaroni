@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.ToolCard;
 
+import it.polimi.ingsw.model.Exceptions.EmpyDicepoolException;
 import it.polimi.ingsw.model.Player;
 
 public class TamponeDiamantato implements ToolAction {
@@ -17,7 +18,11 @@ public class TamponeDiamantato implements ToolAction {
     @Override
 
     public void execute (Player player) {
-        player.getGametable().getRoundDicepool().getDice(this.selectedDiceIndex).setOppositeIntensity();
+        try{
+            player.getGametable().getRoundDicepool().getDice(this.selectedDiceIndex).setOppositeIntensity();
+        }catch(EmpyDicepoolException e){
+
+        }
     }
 
     @Override

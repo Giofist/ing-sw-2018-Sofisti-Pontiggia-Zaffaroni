@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.ToolCard;
 
 import it.polimi.ingsw.model.Dice;
+import it.polimi.ingsw.model.Exceptions.EmpyDicepoolException;
 import it.polimi.ingsw.model.Exceptions.OutOfMatrixException;
 import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
 import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
@@ -41,6 +42,8 @@ public class TenagliaRotelle  implements ToolAction {
         }catch(OutOfMatrixException e){
             throw new TenagliaRotelleException(TenagliaRotelleException.getMsg()+e.getMessage());
         }catch (SchemeCardNotExistantException e){
+
+        }catch (EmpyDicepoolException e){
 
         }
 

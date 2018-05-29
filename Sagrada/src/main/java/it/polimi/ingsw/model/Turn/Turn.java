@@ -16,7 +16,7 @@ public class Turn {
         this.round = round;
     }
 
-    public void run(){
+    public synchronized void run(){
         if (currentPlayer.mustpassTurn()){
             currentPlayer.setPlayerState(new MustPassTurnState());
         }else{

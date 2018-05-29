@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.Exceptions.EmpyDicepoolException;
 import it.polimi.ingsw.model.Exceptions.MapConstrainReadingException;
 import it.polimi.ingsw.model.Exceptions.PrivateGoalCardException;
 import it.polimi.ingsw.model.Exceptions.RoundTrackException;
@@ -37,7 +38,7 @@ public class Gametable {
     }
     //first to do when preparing a game
     private void prepareGame(int numberPlayers) throws IOException {
-        this.dicepool = new DicePool();
+        this.dicepool = new DicePool(18,18,18,18,18);
         this.tooldeck = new ToolCardsDeck();
         this.privategoalcardsdeck = new PrivateGoalCardDeck();
         this.publicGoalCardDeck = new PublicGoalCardDeck();
@@ -50,8 +51,13 @@ public class Gametable {
     //to do when preparing a round
     public void setupRound() {
         this.roundDicepool = new DicePool();
-        for (int i = 1; i < numberPlayers * 2 + 1; i++) {
-            this.getRoundDicepool().addDice(this.getRoundDicepool().extractDice());
+        for (int i = 0; i < numberPlayers * 2 + 1; i++) {
+            try{
+                this.getRoundDicepool().addDice(this.getDicepool().extractDice());
+            }catch(EmpyDicepoolException e){
+                System.out.println("errore");
+            }
+            System.out.println("Ho aggiunto un dado");
         }
     }
 

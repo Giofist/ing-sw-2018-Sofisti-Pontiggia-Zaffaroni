@@ -1,6 +1,8 @@
 package it.polimi.ingsw.model.ToolCard;
 
 import it.polimi.ingsw.model.DiceColor;
+import it.polimi.ingsw.model.Exceptions.EmpyDicepoolException;
+import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.Player;
 
 //l'ho lasciata stare perchè ho fatto altro
@@ -22,15 +24,20 @@ public class DiluenteperPastaSalda  implements ToolAction {
     }
 
     @Override
-    public void execute (Player player){
+    public void execute (Player player) throws ToolIllegalOperationException{
 
         //removes a dice e puts it into the dicepool, but before we need to remember its color
-        DiceColor color = player.getGametable().getRoundDicepool().getDice(this.selectedDiceIndex).getColor();
-        player.getGametable().getDicepool().insertDice(color);
-        player.getGametable().getRoundDicepool().removeDice(this.selectedDiceIndex);
+        try{
+            DiceColor color = player.getGametable().getRoundDicepool().getDice(this.selectedDiceIndex).getColor();
+            player.getGametable().getDicepool().insertDice(color);
+            player.getGametable().getRoundDicepool().removeDice(this.selectedDiceIndex);
 
-        //poi pescane uno
-        player.setDiceforDiluenteperPastaSalda(player.getGametable().getDicepool().extractDice());
+            //poi pescane uno
+            player.setDiceforDiluenteperPastaSalda(player.getGametable().getDicepool().extractDice());
+        }catch(EmpyDicepoolException e){
+            throw new ToolIllegalOperationException(e.getMessage());
+        }
+
 
     }
 

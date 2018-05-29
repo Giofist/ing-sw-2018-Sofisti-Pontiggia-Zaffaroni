@@ -1,4 +1,6 @@
 package it.polimi.ingsw.model;
+import it.polimi.ingsw.model.Exceptions.EmpyDicepoolException;
+
 import java.util.*;
 
 // NB: questa classe si usa sia per il sacchetto dei 90 dadi che per i dadi del round, che però sono due cose concettualmente
@@ -56,18 +58,18 @@ public class DicePool {
 
 
     //do not use for RoundDicepool
-    public Dice extractDice() {
+    public Dice extractDice() throws EmpyDicepoolException {
         if (dices.isEmpty()){
-            return null;
+            throw new EmpyDicepoolException();
         }
         return dices.removeFirst();
     }
 
     //do use for RoundDicepool
     // il metodo get non elimina dalla lista
-    public Dice getDice(int diceIndex){
+    public Dice getDice(int diceIndex)throws EmpyDicepoolException{
         if (dices.isEmpty()){
-            return null;
+            throw new EmpyDicepoolException();
         }
         return dices.get(diceIndex);
     }
@@ -80,8 +82,8 @@ public class DicePool {
         }
     }
 
-    public List<Dice> getallDicesbutnotremove(){
-        List list = new LinkedList<Dice>();
+    public LinkedList<Dice> getallDicesbutnotremove(){
+        LinkedList list = new LinkedList<Dice>();
         list.addAll(this.dices);
         return list;
     }
@@ -99,10 +101,16 @@ public class DicePool {
 
     @Override
     public String toString(){
-        String stringDicePool = null;
+        String stringDicePool = "";
         for (Dice dice : this.getallDicesbutnotremove()) {
+            if (dice == null){
+                return "Dice null";
+            }
             stringDicePool += dice.toString();
             stringDicePool += "-";
+        }
+        if(stringDicePool==null){
+            return "problema!!";
         }
         return stringDicePool;
     }

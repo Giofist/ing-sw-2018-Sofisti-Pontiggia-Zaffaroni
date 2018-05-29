@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.ToolCard;
 import it.polimi.ingsw.model.Dice;
 import it.polimi.ingsw.model.DicePool;
 import it.polimi.ingsw.model.Exceptions.DecreaseNotAllowedException;
+import it.polimi.ingsw.model.Exceptions.EmpyDicepoolException;
 import it.polimi.ingsw.model.Exceptions.IncreaseNotAllowedException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.PinzaSgrossatriceException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
@@ -39,7 +40,11 @@ public class PinzaSgrossatriceTest {
 
         when(this.mockPlayer.getGametable()).thenReturn(mockGametable);
         when(this.mockGametable.getRoundDicepool()).thenReturn(mockRoundDicePool);
-        when(this.mockRoundDicePool.getDice(3)).thenReturn(mockDice);
+        try {
+            when(this.mockRoundDicePool.getDice(3)).thenReturn(mockDice);
+        } catch (EmpyDicepoolException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -50,7 +55,11 @@ public class PinzaSgrossatriceTest {
         // Here we prepare the PinzaSgrossatrice object with 2 as Dice index to change and we try to decrease its intensity
         // in a situation where is equal to 1
         pinzaSgrossatrice = new PinzaSgrossatrice(2, 0);
-        when(this.mockRoundDicePool.getDice(2)).thenReturn(mockDice);
+        try {
+            when(this.mockRoundDicePool.getDice(2)).thenReturn(mockDice);
+        } catch (EmpyDicepoolException e) {
+            e.printStackTrace();
+        }
 
         // The mockDice will throw a DecreaseNotAllowedException because we are trying to decrease from 1 to 6
         doThrow(new DecreaseNotAllowedException()).when(mockDice).decreaseIntensity();

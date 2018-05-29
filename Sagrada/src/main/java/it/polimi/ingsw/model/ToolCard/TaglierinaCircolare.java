@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.ToolCard;
 
 
 import it.polimi.ingsw.model.Dice;
+import it.polimi.ingsw.model.Exceptions.EmpyDicepoolException;
 import it.polimi.ingsw.model.Exceptions.RoundTrackException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.TaglierinaCircolareException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
@@ -34,6 +35,8 @@ public class TaglierinaCircolare  implements ToolAction {
             player.getGametable().getRoundTrack().getroundTrackDices(roundWhereThediceis).removeDice(selectedRoundTrackDiceIndex);
         }catch(RoundTrackException e){
             throw new TaglierinaCircolareException(TaglierinaCircolareException.getMsg() + e.getMessage());
+        }catch (EmpyDicepoolException e){
+
         }
 
     }

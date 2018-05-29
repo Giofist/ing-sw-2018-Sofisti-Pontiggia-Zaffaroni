@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.ToolCard;
 
 import it.polimi.ingsw.model.Dice;
+import it.polimi.ingsw.model.Exceptions.EmpyDicepoolException;
 import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.Player;
@@ -21,8 +22,11 @@ public class PennelloperPastaSalda  implements ToolAction {
 
     public void execute (Player player) {
         //ricordarsi sempre di fare gt and remove
-        Dice dice= player.getGametable().getRoundDicepool().getDice(this.selectedDiceIndex);
-        player.getGametable().getRoundDicepool().getDice(this.selectedDiceIndex).setRandomIntensity();
+        try{
+            Dice dice= player.getGametable().getRoundDicepool().getDice(this.selectedDiceIndex);
+            player.getGametable().getRoundDicepool().getDice(this.selectedDiceIndex).setRandomIntensity();
+
+
         boolean settable = false;
         for (int row =0; row <4; row ++){
             for (int column =0; column <5; column ++){
@@ -35,6 +39,9 @@ public class PennelloperPastaSalda  implements ToolAction {
         }
 
         player.setMustsetdice(settable);
+        }catch (EmpyDicepoolException e){
+
+        }
 
     }
 

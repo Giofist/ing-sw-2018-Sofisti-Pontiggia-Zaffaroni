@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.Exceptions.EmpyDicepoolException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -65,7 +66,11 @@ public class DicePoolTest {
 
         dicePool.insertDice(DiceColor.YELLOW);
         assertEquals(1, dicePool.getDicePoolSize());
-        assertEquals(DiceColor.YELLOW, dicePool.getDice(0).getColor());
+        try {
+            assertEquals(DiceColor.YELLOW, dicePool.getDice(0).getColor());
+        } catch (EmpyDicepoolException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -75,7 +80,12 @@ public class DicePoolTest {
         assertEquals(0, dicePool.getDicePoolSize());
         dicePool.addDice(mockDice);
         assertEquals(1, dicePool.getDicePoolSize());
-        Dice dice = dicePool.getDice(0);
+        Dice dice = null;
+        try {
+            dice = dicePool.getDice(0);
+        } catch (EmpyDicepoolException e) {
+            e.printStackTrace();
+        }
         assertEquals(2, dice.getIntensity());
         assertEquals(DiceColor.GREEN, dice.getColor());
     }
@@ -85,8 +95,16 @@ public class DicePoolTest {
     @Test
     public void addDiceTest2() {
         dicePool.addDice(0, mockDice);
-        assertEquals(2, dicePool.getDice(0).getIntensity());
-        assertEquals(DiceColor.GREEN, dicePool.getDice(0).getColor());
+        try {
+            assertEquals(2, dicePool.getDice(0).getIntensity());
+        } catch (EmpyDicepoolException e) {
+            e.printStackTrace();
+        }
+        try {
+            assertEquals(DiceColor.GREEN, dicePool.getDice(0).getColor());
+        } catch (EmpyDicepoolException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -96,10 +114,23 @@ public class DicePoolTest {
     public void getDiceTest() {
         dicePool = new DicePool(18, 18, 18, 18, 18);
         assertEquals(90, dicePool.getDicePoolSize());
-        Dice dice = dicePool.getDice(23);
+        Dice dice = null;
+        try {
+            dice = dicePool.getDice(23);
+        } catch (EmpyDicepoolException e) {
+            e.printStackTrace();
+        }
         assertEquals(90, dicePool.getDicePoolSize());
-        assertEquals(dice.getIntensity(), dicePool.getDice(23).getIntensity());
-        assertEquals(dice.getColor(), dicePool.getDice(23).getColor());
+        try {
+            assertEquals(dice.getIntensity(), dicePool.getDice(23).getIntensity());
+        } catch (EmpyDicepoolException e) {
+            e.printStackTrace();
+        }
+        try {
+            assertEquals(dice.getColor(), dicePool.getDice(23).getColor());
+        } catch (EmpyDicepoolException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -130,8 +161,16 @@ public class DicePoolTest {
         assertEquals(90, dicePool.getDicePoolSize());
 
         for (int i = 0; i < dicePool.getDicePoolSize(); i++){
-            assertEquals(dices.get(i).getIntensity(), dicePool.getDice(i).getIntensity());
-            assertEquals(dices.get(i).getColor(), dicePool.getDice(i).getColor());
+            try {
+                assertEquals(dices.get(i).getIntensity(), dicePool.getDice(i).getIntensity());
+            } catch (EmpyDicepoolException e) {
+                e.printStackTrace();
+            }
+            try {
+                assertEquals(dices.get(i).getColor(), dicePool.getDice(i).getColor());
+            } catch (EmpyDicepoolException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -140,7 +179,11 @@ public class DicePoolTest {
     // This method in the tested class will soon throw an EmptyException
     @Test
     public void extractFromEmptyDicePoolTest() {
-        assertNull(dicePool.extractDice());
+        try {
+            assertNull(dicePool.extractDice());
+        } catch (EmpyDicepoolException e) {
+            e.printStackTrace();
+        }
     }
 
 

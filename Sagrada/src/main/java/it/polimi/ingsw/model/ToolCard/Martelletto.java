@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.ToolCard;
 
+import it.polimi.ingsw.model.Exceptions.EmpyDicepoolException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.Player;
 
@@ -21,8 +22,12 @@ public class Martelletto  implements ToolAction {
 
     public void execute (Player player)throws ToolIllegalOperationException{
         //se non lancia eccezioni ci siamo dimenticati di qualcosa
-        for(int i=0; i<player.getGametable().getRoundDicepool().getDicePoolSize();i++)
-        player.getGametable().getRoundDicepool().getDice(i).setRandomIntensity();
+        try{
+            for(int i=0; i<player.getGametable().getRoundDicepool().getDicePoolSize();i++)
+                player.getGametable().getRoundDicepool().getDice(i).setRandomIntensity();
+        }catch (EmpyDicepoolException e){
+
+        }
 
     }
 
