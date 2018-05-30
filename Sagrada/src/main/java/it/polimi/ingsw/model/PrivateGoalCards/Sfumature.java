@@ -13,7 +13,7 @@ import it.polimi.ingsw.model.SchemeDeck.Tile;
 public class Sfumature implements GoalCard {
     private int ID;
     private DiceColor color;
-    private String name = "Sfumature " + color;
+    private String name = "Sfumature " + color + ".";
     private String description = "Somma dei valori su tutti i dadi "+ color + ".";
 
     public Sfumature(int id, DiceColor diceColor){

@@ -64,6 +64,7 @@ public class PublicGoalCardDeck {
         String IDs = "";
         for (GoalCard goalCard: this.deck) {
            IDs += goalCard.getID();
+           IDs += "!";
         }
          return IDs;
 
@@ -72,6 +73,7 @@ public class PublicGoalCardDeck {
         String descriptions = "";
         for (GoalCard goalCard: this.deck) {
             descriptions += goalCard.getDescription();
+            descriptions += "!";
         }
         return descriptions;
     }
@@ -80,7 +82,7 @@ public class PublicGoalCardDeck {
         String names = "";
         for (GoalCard goalCard : this.deck) {
             names += goalCard.getName();
-
+            names += "!";
         }
         return names;
     }

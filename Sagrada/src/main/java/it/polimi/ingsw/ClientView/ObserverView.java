@@ -258,10 +258,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
 
             for (index = 0 ; index < schemeCardsArray.length ; index++){
                 String[] schemeCardAttribute = schemeCardsArray[index].split("-");
-                //System.setProperty("jansi.passthrough", "true");
-                //AnsiConsole.systemInstall();
                 System.out.println(ansi().eraseScreen().fg(GREEN).a(schemeCardAttribute[0]).reset());
-                //AnsiConsole.systemUninstall();
                 System.out.println("Difficoltà della mappa: " + schemeCardAttribute[1]);
                 char[] constrain = schemeCardAttribute[4].toCharArray();
                 printMap(constrain,yourMapDiceIntensity,Integer.parseInt(schemeCardAttribute[2]),Integer.parseInt(schemeCardAttribute[3]));
@@ -284,9 +281,8 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
             this.yourMapMaxRow = Integer.parseInt(yourSchemeCardAttribute[0]);
             this.yourMapMaxColumn = Integer.parseInt(yourSchemeCardAttribute[1]);
             this.yourMap = yourSchemeCardAttribute[2].toCharArray();
-            //System.setProperty("jansi.passthrough", "true");
-            //AnsiConsole.systemInstall();
             printMap(yourMap ,yourMapDiceIntensity, yourMapMaxRow , yourMapMaxColumn);
+            printGoalCards();
             //AnsiConsole.systemUninstall();
             System.out.print("\n");
             System.out.println("Attendi che anche gli altri giocatori abbiano scelto la loro mappa.\n");
@@ -510,8 +506,10 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
     }
 
     public void printGoalCards(){
-        System.out.println("-Ecco gli obbiettivi di questa partita-");
-        System.out.println("Obbiettivo privato:");
+        String[] cardName = new String[0];
+        String[] description = new String[0];
+        System.out.println("\n-Ecco gli obbiettivi di questa partita-");
+        System.out.println("\nObbiettivo privato:\n");
         try {
             System.out.println(servercontroller.getPrivateGoalCardname(yourName));
         } catch (RemoteException e) {
@@ -522,8 +520,25 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         } catch (RemoteException e) {
             System.out.println(e.getMessage());
         }
-        
+        System.out.println("\nObbiettivo pubblico:\n");
 
+
+        try {
+            System.out.println(servercontroller.getPublicGoalCardnames(yourName));
+            cardName = servercontroller.getPublicGoalCardnames(yourName).split("!");
+        } catch (RemoteException e) {
+            System.out.println(e.getMessage());
+        }
+        try {
+            System.out.println(servercontroller.getPublicGoalCarddescriptions(yourName));
+            description = servercontroller.getPublicGoalCarddescriptions(yourName).split("!");
+        } catch (RemoteException e) {
+            System.out.println(e.getMessage());
+        }
+
+        for (int i=0; i < cardName.length; i++) {
+            System.out.println(cardName[i] + "\n" + description[i]);
+        }
     }
 
     //metodo che serve per selozioanre possibili azioni
@@ -547,18 +562,23 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
                     success = true;
                     break;
                 }
-                case "getmaps":
+                case "getmaps": {
                     System.out.println("Not yet implemented!");
                     break;
-                case "usetoolcard":
+                }
+                case "usetoolcard": {
                     useToolcard();
                     break;
-                case "passturn":
+                }
+                case "passturn": {
                     passYourTurn();
                     success = true;
                     break;
-                default:
+                }
+                default:{
                     System.out.println("Hai sbagliato a digitare!");
+                    break;
+                }
             }
         }
     }
