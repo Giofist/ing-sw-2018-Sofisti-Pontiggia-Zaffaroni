@@ -288,7 +288,11 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
 
     }
 
-
+    @Override
+    public synchronized String getToolCards(String clientname) throws RemoteException{
+        //TODO non so bene dove recuperare e come. lascio il formato che mi serve  nomecarta1-costo-descrizione-!nomecarta2-costo-descrizione-!nomecarta3-costo-descrizione-!
+        return null;
+    }
 
     @Override
     public synchronized void useaToolCard(String clientname, RequestClass requestClass) throws RemoteException {

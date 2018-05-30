@@ -431,7 +431,6 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         } catch (RemoteException e) {
             System.out.println(e.getMessage());
         }
-        System.out.println(this.roundTrack); //only for testing
         String[] dices = this.roundTrack.split("!");
         for (String diceList : dices){
             if(i<10) {
@@ -463,6 +462,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
                 i++;
             }
             this.numOfDice = i;
+        System.out.println();
         }
 
     //metodo che stampa i dadi estratti
@@ -509,7 +509,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         String[] cardName = new String[0];
         String[] description = new String[0];
         System.out.println("\n-Ecco gli obbiettivi di questa partita-");
-        System.out.println("\nObbiettivo privato:\n");
+        System.out.println("\nObbiettivo privato:");
         try {
             System.out.println(servercontroller.getPrivateGoalCardname(yourName));
         } catch (RemoteException e) {
@@ -520,17 +520,15 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         } catch (RemoteException e) {
             System.out.println(e.getMessage());
         }
-        System.out.println("\nObbiettivo pubblico:\n");
+        System.out.println("\nObbiettivo pubblico:");
 
 
         try {
-            System.out.println(servercontroller.getPublicGoalCardnames(yourName));
             cardName = servercontroller.getPublicGoalCardnames(yourName).split("!");
         } catch (RemoteException e) {
             System.out.println(e.getMessage());
         }
         try {
-            System.out.println(servercontroller.getPublicGoalCarddescriptions(yourName));
             description = servercontroller.getPublicGoalCarddescriptions(yourName).split("!");
         } catch (RemoteException e) {
             System.out.println(e.getMessage());

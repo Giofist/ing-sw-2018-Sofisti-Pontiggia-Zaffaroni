@@ -43,6 +43,9 @@ public interface ClientHandlerInterface extends Remote {
     public String getRoundTrack(String clientname) throws RemoteException;
     public void setSchemeCard(String clientname, int cardid) throws RemoteException;
     public void setDice(String clientname,int diceindex, int row, int column) throws RemoteException, UserNotExistentException, SchemeCardNotExistantException;
+
+    public String getToolCards(String clientname) throws RemoteException;
+
     public void useaToolCard(String clientname, RequestClass requestClass) throws RemoteException;
     public String getPossibleActions(String clientname) throws RemoteException;
     public void passTurn(String clientname) throws RemoteException;
