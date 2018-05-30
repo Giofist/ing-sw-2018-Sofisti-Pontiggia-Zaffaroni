@@ -4,12 +4,10 @@ import it.polimi.ingsw.model.Exceptions.NotEnoughSegnaliniException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.Exceptions.WrongToolCardIDException;
 import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.PublicGoalCards.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
-import java.util.Random;
 
 
 public class ToolCardsDeck {
@@ -75,12 +73,12 @@ public class ToolCardsDeck {
     }
     //command design pattern
     //questa classe fa pagare per la toolcard corrispondente e lancia un'eccezione se il giocatore è povero per quell'azione
-    public void doAction(int toolActionID, Player player, RequestClass requestClass) throws WrongToolCardIDException,ToolIllegalOperationException, NotEnoughSegnaliniException {
+    public void doAction(int toolActionID, Player player, ToolRequestClass toolRequestClass) throws WrongToolCardIDException,ToolIllegalOperationException, NotEnoughSegnaliniException {
         player.payforTool( this.getCost(toolActionID));
         setCostOfAction(toolActionID);
         for(ToolAction toolAction: this.deck){
             if(toolAction.getID() == toolActionID) {
-                toolAction.execute(player, requestClass);
+                toolAction.execute(player, toolRequestClass);
             }
         }
         throw new WrongToolCardIDException();

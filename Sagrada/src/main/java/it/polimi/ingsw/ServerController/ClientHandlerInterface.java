@@ -4,7 +4,7 @@ import it.polimi.ingsw.ClientView.FeedObserverView;
 import it.polimi.ingsw.ClientView.ObserverViewInterface;
 import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
 import it.polimi.ingsw.model.Exceptions.UserNotExistentException;
-import it.polimi.ingsw.model.ToolCard.RequestClass;
+import it.polimi.ingsw.model.ToolCard.ToolRequestClass;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -43,10 +43,10 @@ public interface ClientHandlerInterface extends Remote {
     public String getRoundTrack(String clientname) throws RemoteException;
     public void setSchemeCard(String clientname, int cardid) throws RemoteException;
     public void setDice(String clientname,int diceindex, int row, int column) throws RemoteException, UserNotExistentException, SchemeCardNotExistantException;
+    public void useaToolCard(String clientname, ToolRequestClass toolRequestClass) throws RemoteException;
 
     public String getToolCards(String clientname) throws RemoteException;
 
-    public void useaToolCard(String clientname, RequestClass requestClass) throws RemoteException;
     public String getPossibleActions(String clientname) throws RemoteException;
     public void passTurn(String clientname) throws RemoteException;
 }

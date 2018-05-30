@@ -5,6 +5,8 @@ import it.polimi.ingsw.ClientView.ObserverViewInterface;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.rmi.RemoteException;
@@ -15,20 +17,23 @@ public class SocketClientHandler implements Runnable, ObserverViewInterface, Fee
     private ClientHandler controller;
     Scanner in;
     PrintWriter out;
-
+    private ObjectInputStream is;
+    private ObjectOutputStream os;
 
     public SocketClientHandler(Socket socket, ClientHandler controller) throws RemoteException, IOException {
         this.socket = socket;
-        in = new Scanner(socket.getInputStream());
-        out = new PrintWriter(socket.getOutputStream());
+        this.in = new Scanner(socket.getInputStream());
+        this.out = new PrintWriter(socket.getOutputStream());
         this.controller = controller;
+        this.is = new ObjectInputStream(socket.getInputStream());
+        this.os = new ObjectOutputStream(socket.getOutputStream());
+
     }
 
     @Override
     public void run() {
         int i = 0;
         while (i == 0) {
-
             if (in.hasNext()){
                 String command = in.next();
                 System.out.println("the command I've received: " + command);
@@ -38,10 +43,10 @@ public class SocketClientHandler implements Runnable, ObserverViewInterface, Fee
                             String username = in.next();
                             String password = in.next();
                             controller.register(username, password);
-                            out.println(1);
+                            out.println("1");
                             out.flush();
                         } catch (RemoteException e) {
-                            out.println(0 + " " + e.getMessage());
+                            out.println("0" + " " + e.getMessage());
                             out.flush();
                         }
                         break;
@@ -50,10 +55,10 @@ public class SocketClientHandler implements Runnable, ObserverViewInterface, Fee
                             String username = in.next();
                             String password = in.next();
                             controller.login(username, password);
-                            out.println(1);
+                            out.println("1");
                             out.flush();
                         } catch (RemoteException e) {
-                            out.println(0 + " " + e.getMessage());
+                            out.println("0" + " " + e.getMessage());
                             out.flush();
                         }
                         break;
@@ -62,20 +67,20 @@ public class SocketClientHandler implements Runnable, ObserverViewInterface, Fee
                             String username = in.next();
                             String gamename = in.next();
                             controller.createGame(username, this, this, gamename);
-                            out.println(1);
+                            out.println("1");
                             out.flush();
                         } catch (RemoteException e) {
-                            out.println(0 + " " + e.getMessage());
+                            out.println("0" + " " + e.getMessage());
                             out.flush();
                         }
                         break;
                     case "getActiveMatchList":
                         try {
                             String list = controller.getActiveMatchList();
-                            out.println(1 + " " + list);
+                            out.println("1" + " " + list);
                             out.flush();
                         } catch (RemoteException e) {
-                            out.println(0 + " " + e.getMessage());
+                            out.println("0" + " " + e.getMessage());
                             out.flush();
                         }
                         break;
@@ -84,10 +89,10 @@ public class SocketClientHandler implements Runnable, ObserverViewInterface, Fee
                             String username = in.next();
                             int cardid = in.nextInt();
                             controller.setSchemeCard(username, cardid);
-                            out.println(1);
+                            out.println("1");
                             out.flush();
                         } catch (RemoteException e) {
-                            out.println(0 + " " + e.getMessage());
+                            out.println("0" + " " + e.getMessage());
                             out.flush();
                         }
                         break;
@@ -96,10 +101,10 @@ public class SocketClientHandler implements Runnable, ObserverViewInterface, Fee
                             String username = in.next();
                             String gamename = in.next();
                             controller.joinaGame(username, this, this, gamename);
-                            out.println(1);
+                            out.println("1");
                             out.flush();
                         } catch (RemoteException e) {
-                            out.println(0 + " " + e.getMessage());
+                            out.println("0" + " " + e.getMessage());
                             out.flush();
                         }
                 }

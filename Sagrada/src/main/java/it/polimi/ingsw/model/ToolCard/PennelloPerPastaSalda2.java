@@ -4,7 +4,6 @@ import it.polimi.ingsw.model.Exceptions.EmpyDicepoolException;
 import it.polimi.ingsw.model.Exceptions.OutOfMatrixException;
 import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
 import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
-import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.PennelloPerEglomiseException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.PennelloPerPastaSaldaException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.Player;
@@ -19,11 +18,11 @@ public class PennelloPerPastaSalda2 extends ToolAction{
     }
 
     @Override
-    public void execute(Player player, RequestClass requestClass) throws ToolIllegalOperationException{
+    public void execute(Player player, ToolRequestClass toolRequestClass) throws ToolIllegalOperationException{
         //ricordarsi sempre di fare get and remove
         try{
-            player.getScheme().setDice(player.getGametable().getRoundDicepool().getDice(requestClass.getSelectedDIceIndex()),requestClass.getNewRow1(), requestClass.getNewColumn1(), false, false, false);
-            player.getGametable().getRoundDicepool().removeDice(requestClass.getSelectedDIceIndex());
+            player.getScheme().setDice(player.getGametable().getRoundDicepool().getDice(toolRequestClass.getSelectedDIceIndex()), toolRequestClass.getNewRow1(), toolRequestClass.getNewColumn1(), false, false, false);
+            player.getGametable().getRoundDicepool().removeDice(toolRequestClass.getSelectedDIceIndex());
             player.setMustsetdice(false);
         }catch (OutOfMatrixException e){
             throw new PennelloPerPastaSaldaException(PennelloPerPastaSaldaException.getMsg()+ e.getMessage());

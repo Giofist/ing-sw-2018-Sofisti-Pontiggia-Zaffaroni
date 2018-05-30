@@ -2,9 +2,6 @@ package it.polimi.ingsw.model.ToolCard;
 
 
 import it.polimi.ingsw.model.Dice;
-import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
-import it.polimi.ingsw.model.Exceptions.OutOfMatrixException;
-import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.PennelloPerEglomiseException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.Player;
@@ -22,15 +19,15 @@ public class PennelloperEglomise extends ToolAction {
 
     @Override
 
-    public void execute (Player player, RequestClass requestClass) throws ToolIllegalOperationException{
+    public void execute (Player player, ToolRequestClass toolRequestClass) throws ToolIllegalOperationException{
         try{
-             removedDice = player.getScheme().getDice(requestClass.getOldRow1(), requestClass.getOldColumn1());
-            player.getScheme().removeDice(requestClass.getOldRow1(), requestClass.getOldColumn1());
-            player.getScheme().setDice(removedDice, requestClass.getNewRow1(), requestClass.getNewColumn1(), true, false, false);
+             removedDice = player.getScheme().getDice(toolRequestClass.getOldRow1(), toolRequestClass.getOldColumn1());
+            player.getScheme().removeDice(toolRequestClass.getOldRow1(), toolRequestClass.getOldColumn1());
+            player.getScheme().setDice(removedDice, toolRequestClass.getNewRow1(), toolRequestClass.getNewColumn1(), true, false, false);
 
         }catch(Exception e) {
             try{
-                player.getScheme().setDice(removedDice, requestClass.getOldRow1(), requestClass.getOldColumn1(), true, false, false);
+                player.getScheme().setDice(removedDice, toolRequestClass.getOldRow1(), toolRequestClass.getOldColumn1(), true, false, false);
             }catch(Exception er){
                 //do nothing, sorry!
             }

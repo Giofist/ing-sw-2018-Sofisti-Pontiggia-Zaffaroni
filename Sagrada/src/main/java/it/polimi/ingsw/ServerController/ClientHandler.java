@@ -5,12 +5,11 @@ import it.polimi.ingsw.ClientView.ObserverViewInterface;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.Exceptions.*;
 import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
-import it.polimi.ingsw.model.ToolCard.RequestClass;
+import it.polimi.ingsw.model.ToolCard.ToolRequestClass;
 import it.polimi.ingsw.model.Turn.TurnActions;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.List;
 
 // this is the controller
 public class ClientHandler extends UnicastRemoteObject implements ClientHandlerInterface {
@@ -295,11 +294,11 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     }
 
     @Override
-    public synchronized void useaToolCard(String clientname, RequestClass requestClass) throws RemoteException {
+    public synchronized void useaToolCard(String clientname, ToolRequestClass toolRequestClass) throws RemoteException {
         try{
             Player player = UsersList.Singleton().getUser(clientname).getPlayer();
             player.getPlayerState().checkAction(TurnActions.USEATOOLCARD);
-            player.getGametable().useaToolCard(requestClass,player);
+            player.getGametable().useaToolCard(toolRequestClass,player);
         }catch (UserNotExistentException e){
             throw new RemoteException(e.getMessage());
         }catch (Exception e){

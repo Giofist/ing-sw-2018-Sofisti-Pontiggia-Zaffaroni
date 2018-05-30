@@ -25,13 +25,13 @@ public class TaglierinaManuale  extends ToolAction {
     }
 
     @Override
-    public void execute(Player player, RequestClass requestClass)throws ToolIllegalOperationException {
+    public void execute(Player player, ToolRequestClass toolRequestClass)throws ToolIllegalOperationException {
         try{
-            removedDice = player.getScheme().getDice(requestClass.getOldRow1(),requestClass.getOldColumn1());
+            removedDice = player.getScheme().getDice(toolRequestClass.getOldRow1(), toolRequestClass.getOldColumn1());
             List<DiceColor> diceColors = player.getGametable().getRoundTrack().allColors();
             if (diceColors.contains(removedDice.getColor())){
-                player.getScheme().removeDice(requestClass.getOldRow1(),requestClass.getOldColumn1());
-                player.getScheme().setDice(removedDice, requestClass.getNewRow1(),requestClass.getNewColumn1(),false,false,false);
+                player.getScheme().removeDice(toolRequestClass.getOldRow1(), toolRequestClass.getOldColumn1());
+                player.getScheme().setDice(removedDice, toolRequestClass.getNewRow1(), toolRequestClass.getNewColumn1(),false,false,false);
                 player.setColorConstrainForTaglierinaManuale(removedDice.getColor());
             }else{
                 throw new TaglierinaManualeException("Non c'è nessun dado con lo stesso colore nel Tracciato Round\n");
@@ -42,7 +42,7 @@ public class TaglierinaManuale  extends ToolAction {
             throw new TaglierinaManualeException(TaglierinaManualeException.getMsg()+e.getMessage());
         }catch (TileConstrainException e){
             try{
-                player.getScheme().setDice(removedDice, requestClass.getOldRow1(),requestClass.getOldColumn1(),false,false,false);
+                player.getScheme().setDice(removedDice, toolRequestClass.getOldRow1(), toolRequestClass.getOldColumn1(),false,false,false);
             }catch (Exception ecpt){ }
             throw new TaglierinaManualeException(TaglierinaManualeException.getMsg()+e.getMessage());
         }catch (RoundTrackException e){

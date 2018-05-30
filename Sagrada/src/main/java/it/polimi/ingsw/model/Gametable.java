@@ -4,15 +4,12 @@ import it.polimi.ingsw.model.Exceptions.EmpyDicepoolException;
 import it.polimi.ingsw.model.Exceptions.MapConstrainReadingException;
 import it.polimi.ingsw.model.Exceptions.PrivateGoalCardException;
 import it.polimi.ingsw.model.Exceptions.RoundTrackException;
-import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
-import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.PrivateGoalCards.PrivateGoalCardDeck;
 import it.polimi.ingsw.model.PublicGoalCards.PublicGoalCardDeck;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCardDeck;
 import it.polimi.ingsw.model.ToolCard.*;
 
-import java.io.IOError;
 import java.io.IOException;
 import java.util.List;
 
@@ -67,8 +64,8 @@ public class Gametable {
     }
 
     //per la gestione delle toolAction
-    public void useaToolCard(RequestClass requestClass, Player player) throws Exception {
-        this.tooldeck.doAction(requestClass.getToolCardID(),player, requestClass);
+    public void useaToolCard(ToolRequestClass toolRequestClass, Player player) throws Exception {
+        this.tooldeck.doAction(toolRequestClass.getToolCardID(),player, toolRequestClass);
 
     }
 

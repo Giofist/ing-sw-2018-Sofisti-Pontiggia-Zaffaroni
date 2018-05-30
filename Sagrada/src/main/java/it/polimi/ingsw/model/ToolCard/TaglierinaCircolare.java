@@ -19,14 +19,14 @@ public class TaglierinaCircolare  extends ToolAction {
         this.description = "Dopo aver scelto un dado, scambia quel dado con un dado sul Tracciato Round.\n";
     }
     @Override
-    public void execute (Player player, RequestClass requestClass) throws ToolIllegalOperationException {
+    public void execute (Player player, ToolRequestClass toolRequestClass) throws ToolIllegalOperationException {
         try {
-            Dice RoundDicepooldice = player.getGametable().getRoundDicepool().getDice(requestClass.getSelectedRoundDicepoolDiceIndex());
-            Dice RoundTrackdice = player.getGametable().getRoundTrack().getroundTrackDices(requestClass.getRoundWhereThediceis()).getDice(requestClass.getSelectedRoundTrackDiceIndex());
-            player.getGametable().getRoundTrack().getroundTrackDices(requestClass.getRoundWhereThediceis()).addDice(RoundDicepooldice);
-            player.getGametable().getRoundDicepool().removeDice(requestClass.getSelectedRoundDicepoolDiceIndex());
+            Dice RoundDicepooldice = player.getGametable().getRoundDicepool().getDice(toolRequestClass.getSelectedRoundDicepoolDiceIndex());
+            Dice RoundTrackdice = player.getGametable().getRoundTrack().getroundTrackDices(toolRequestClass.getRoundWhereThediceis()).getDice(toolRequestClass.getSelectedRoundTrackDiceIndex());
+            player.getGametable().getRoundTrack().getroundTrackDices(toolRequestClass.getRoundWhereThediceis()).addDice(RoundDicepooldice);
+            player.getGametable().getRoundDicepool().removeDice(toolRequestClass.getSelectedRoundDicepoolDiceIndex());
             player.getGametable().getRoundDicepool().addDice(RoundTrackdice);
-            player.getGametable().getRoundTrack().getroundTrackDices(requestClass.getRoundWhereThediceis()).removeDice(requestClass.getSelectedRoundTrackDiceIndex());
+            player.getGametable().getRoundTrack().getroundTrackDices(toolRequestClass.getRoundWhereThediceis()).removeDice(toolRequestClass.getSelectedRoundTrackDiceIndex());
         }catch(RoundTrackException e){
             throw new TaglierinaCircolareException(TaglierinaCircolareException.getMsg() + e.getMessage());
         }catch (EmpyDicepoolException e){

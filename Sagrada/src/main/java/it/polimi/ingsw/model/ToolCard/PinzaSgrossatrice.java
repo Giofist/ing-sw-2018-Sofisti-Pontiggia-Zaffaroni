@@ -21,12 +21,12 @@ public class PinzaSgrossatrice  extends ToolAction {
 
 
     @Override
-    public void execute (Player player, RequestClass requestClass) throws ToolIllegalOperationException {
+    public void execute (Player player, ToolRequestClass toolRequestClass) throws ToolIllegalOperationException {
         try{
-            if (requestClass.getOperationforPinzaSgrossatrice() ==0) {  // Decrease selected dice value
-                player.getGametable().getRoundDicepool().getDice(requestClass.getSelectedDIceIndex()).decreaseIntensity();
+            if (toolRequestClass.getOperationforPinzaSgrossatrice() ==0) {  // Decrease selected dice value
+                player.getGametable().getRoundDicepool().getDice(toolRequestClass.getSelectedDIceIndex()).decreaseIntensity();
             } else {    // Increase selected dice value
-                player.getGametable().getRoundDicepool().getDice(requestClass.getSelectedDIceIndex()).increaseIntensity(); }
+                player.getGametable().getRoundDicepool().getDice(toolRequestClass.getSelectedDIceIndex()).increaseIntensity(); }
         }catch(DecreaseNotAllowedException e){
             throw new PinzaSgrossatriceException(PinzaSgrossatriceException.getMsg()+ e.getMessage());
         }catch (IncreaseNotAllowedException e){

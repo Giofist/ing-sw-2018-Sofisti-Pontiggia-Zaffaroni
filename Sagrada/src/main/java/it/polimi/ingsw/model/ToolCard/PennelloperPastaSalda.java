@@ -3,7 +3,6 @@ package it.polimi.ingsw.model.ToolCard;
 import it.polimi.ingsw.model.Dice;
 import it.polimi.ingsw.model.Exceptions.EmpyDicepoolException;
 import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
-import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.Player;
 
 public class PennelloperPastaSalda  extends ToolAction {
@@ -19,11 +18,11 @@ public class PennelloperPastaSalda  extends ToolAction {
 
 
     @Override
-    public void execute (Player player, RequestClass requestClass) {
+    public void execute (Player player, ToolRequestClass toolRequestClass) {
         //ricordarsi sempre di fare gt and remove
         try{
-            Dice dice= player.getGametable().getRoundDicepool().getDice(requestClass.getSelectedDIceIndex());
-            player.getGametable().getRoundDicepool().getDice(requestClass.getSelectedDIceIndex()).setRandomIntensity();
+            Dice dice= player.getGametable().getRoundDicepool().getDice(toolRequestClass.getSelectedDIceIndex());
+            player.getGametable().getRoundDicepool().getDice(toolRequestClass.getSelectedDIceIndex()).setRandomIntensity();
 
 
         boolean settable = false;

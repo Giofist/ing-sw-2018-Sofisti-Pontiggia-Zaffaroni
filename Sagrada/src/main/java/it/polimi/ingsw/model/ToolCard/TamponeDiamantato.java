@@ -13,9 +13,9 @@ public class TamponeDiamantato extends ToolAction {
 
     }
     @Override
-    public void execute (Player player, RequestClass requestClass) {
+    public void execute (Player player, ToolRequestClass toolRequestClass) {
         try{
-            player.getGametable().getRoundDicepool().getDice(requestClass.getSelectedDIceIndex()).setOppositeIntensity();
+            player.getGametable().getRoundDicepool().getDice(toolRequestClass.getSelectedDIceIndex()).setOppositeIntensity();
         }catch(EmpyDicepoolException e){
 
         }

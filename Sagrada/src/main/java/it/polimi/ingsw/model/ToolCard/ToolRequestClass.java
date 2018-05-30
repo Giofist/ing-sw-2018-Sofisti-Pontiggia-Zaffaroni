@@ -2,7 +2,7 @@ package it.polimi.ingsw.model.ToolCard;
 
 import java.io.Serializable;
 
-public class RequestClass implements Serializable {
+public class ToolRequestClass implements Serializable {
     private int ToolCardID;
     private int oldRow1;
     private int oldColumn1;

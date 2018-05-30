@@ -2,8 +2,6 @@ package it.polimi.ingsw.model.ToolCard;
 
 
 import it.polimi.ingsw.model.Dice;
-import it.polimi.ingsw.model.Exceptions.OutOfMatrixException;
-import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.RigaInSugheroException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.Player;
@@ -20,19 +18,19 @@ public class RigainSughero  extends ToolAction {
 
 
     @Override
-    public void execute (Player player, RequestClass requestClass) throws ToolIllegalOperationException {
+    public void execute (Player player, ToolRequestClass toolRequestClass) throws ToolIllegalOperationException {
         //ricordarsi di fare get and remove dei dadi, non dimenticare la remove
         try {
-            dice = player.getGametable().getRoundDicepool().getDice(requestClass.getSelectedRoundDicepoolDiceIndex());
-            player.getGametable().getRoundDicepool().removeDice(requestClass.getSelectedRoundDicepoolDiceIndex());
-            boolean thereisadicenearyou = player.getScheme().ThereisaDicenearYou(requestClass.getNewRow1(),requestClass.getNewColumn1());
+            dice = player.getGametable().getRoundDicepool().getDice(toolRequestClass.getSelectedRoundDicepoolDiceIndex());
+            player.getGametable().getRoundDicepool().removeDice(toolRequestClass.getSelectedRoundDicepoolDiceIndex());
+            boolean thereisadicenearyou = player.getScheme().ThereisaDicenearYou(toolRequestClass.getNewRow1(), toolRequestClass.getNewColumn1());
             if (thereisadicenearyou) {
                 throw new RigaInSugheroException("Non puoi mettere un dado se ce n'è uno vicino!\n");
-            } else player.getScheme().setDice(dice,requestClass.getNewRow1(),requestClass.getNewColumn1(), false, false, true);
+            } else player.getScheme().setDice(dice, toolRequestClass.getNewRow1(), toolRequestClass.getNewColumn1(), false, false, true);
 
         }catch (Exception e){
             try{
-                player.getGametable().getRoundDicepool().addDice(requestClass.getSelectedRoundDicepoolDiceIndex(),dice);
+                player.getGametable().getRoundDicepool().addDice(toolRequestClass.getSelectedRoundDicepoolDiceIndex(),dice);
             }catch(Exception er){
                 //do nothing
             }

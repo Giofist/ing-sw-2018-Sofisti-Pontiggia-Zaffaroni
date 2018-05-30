@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model.ToolCard;
 
-import it.polimi.ingsw.model.Dice;
 import it.polimi.ingsw.model.Exceptions.EmpyDicepoolException;
 import it.polimi.ingsw.model.Exceptions.OutOfMatrixException;
 import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
@@ -21,12 +20,12 @@ public class TenagliaRotelle  extends ToolAction {
     }
     @Override
 
-    public void execute (Player player, RequestClass requestClass) throws ToolIllegalOperationException{
+    public void execute (Player player, ToolRequestClass toolRequestClass) throws ToolIllegalOperationException{
         if(player.getTurn().getTurnID()==2){
             throw new TenagliaRotelleException("sei al secondo turno: non puoi usare questa carta al secondo turno!");
         }
         try{
-            player.getScheme().setDice(  player.getGametable().getRoundDicepool().getDice(requestClass.getSelectedRoundDicepoolDiceIndex()), requestClass.getNewRow1(),requestClass.getNewColumn1(), false,false,false  );
+            player.getScheme().setDice(  player.getGametable().getRoundDicepool().getDice(toolRequestClass.getSelectedRoundDicepoolDiceIndex()), toolRequestClass.getNewRow1(), toolRequestClass.getNewColumn1(), false,false,false  );
             player.setMustpassTurn(true);
         }catch(TileConstrainException e){
             throw new TenagliaRotelleException(TenagliaRotelleException.getMsg()+e.getMessage());

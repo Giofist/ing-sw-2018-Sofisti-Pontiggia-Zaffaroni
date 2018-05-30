@@ -3,7 +3,6 @@ package it.polimi.ingsw.ClientView;
 
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
 
-import java.net.Socket;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.Scanner;
@@ -32,12 +31,10 @@ public class Client {
                 new ObserverView(controller).run();
                 correct = true;
             } else if (input.equals("S") || input.equals("s")) {
-                Socket socket = new Socket(ipAddr, 1337);
-                System.out.println("Connessione stabilita!\n");
                 ObserverView observerView = new ObserverView();
-                SocketObserverView socketObserverView = new SocketObserverView(socket, observerView);
-                observerView.setServercontroller(socketObserverView);
-                new Thread(socketObserverView).run();
+                SocketClientController socketClientController = new SocketClientController(ipAddr, observerView);
+                observerView.setServercontroller(socketClientController);
+                new Thread(socketClientController).start();
                 observerView.run();
 
                 correct = true;

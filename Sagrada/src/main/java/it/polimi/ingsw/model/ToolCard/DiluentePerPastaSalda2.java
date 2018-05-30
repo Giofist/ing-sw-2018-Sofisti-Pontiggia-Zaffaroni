@@ -18,11 +18,11 @@ public class DiluentePerPastaSalda2 extends ToolAction{
 
     }
     @Override
-    public void execute (Player player, RequestClass requestClass) throws ToolIllegalOperationException{
+    public void execute (Player player, ToolRequestClass toolRequestClass) throws ToolIllegalOperationException{
         try{
 
-            player.getdiceforDiluenteperPastaSalda().setIntensity(requestClass.getDiceIntesityToset());
-            player.getScheme().setDice(player.getdiceforDiluenteperPastaSalda(),requestClass.getNewRow1(), requestClass.getNewColumn1(), false, false, false);
+            player.getdiceforDiluenteperPastaSalda().setIntensity(toolRequestClass.getDiceIntesityToset());
+            player.getScheme().setDice(player.getdiceforDiluenteperPastaSalda(), toolRequestClass.getNewRow1(), toolRequestClass.getNewColumn1(), false, false, false);
             // mi piace separare la set dalla remove
             player.removediceforDiluenteperPastaSalda();
         }catch (DiceNotExistantException e){

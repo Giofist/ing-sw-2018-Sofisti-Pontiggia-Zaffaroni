@@ -591,12 +591,12 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
 
 
     @Override
-    public void update() {
+    public void update() throws RemoteException{
         notifyAll();
         }
 
     @Override
-    public synchronized void showErrorMessage(String message) {
+    public synchronized void showErrorMessage(String message) throws RemoteException {
         System.out.println(message);
         notifyAll();
     }
