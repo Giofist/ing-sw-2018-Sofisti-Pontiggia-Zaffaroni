@@ -24,8 +24,11 @@ public class PlayerState {
         }
         String actions = "";
         for(TurnActions turnActions: this.actions){
-            actions += turnActions.toString();
+            actions += "- ";
+            actions += turnActions.toString().toLowerCase();
+            actions +="\n";
         }
+        System.out.println("OK "+actions);
         return actions;
     }
 }

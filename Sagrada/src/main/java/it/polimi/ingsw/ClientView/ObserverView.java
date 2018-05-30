@@ -168,20 +168,24 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
 
     private void multiInt() throws RemoteException {
         String input;
+        boolean success = false;
         Scanner in = new Scanner(System.in);
-        System.out.println("< Torna al menu. (B)");
-        System.out.println("Vuoi creare o partecipare ad una partita? [C/P]");
-        input = in.nextLine();
-        if (input.equals("B") || input.equals("b")) {
-            menuInt();
+
+        while (!success) {
+            System.out.println("< Torna al menu. (B)");
+            System.out.println("Vuoi creare o partecipare ad una partita? [C/P]");
+            input = in.nextLine();
+            if (input.equals("B") || input.equals("b")) {
+                menuInt();
+                success = true;
+            } else if (input.equals("C") || input.equals("c")) {
+                createInt();
+                success = true;
+            } else if (input.equals("P") || input.equals("p")) {
+                joinInt();
+                success = true;
+            } else System.out.println("Hai sbagliato a digitare!");
         }
-        else if (input.equals("C") || input.equals("c")) {
-            createInt();
-        }
-        else if (input.equals("P") || input.equals("p")) {
-            joinInt();
-        }
-        else System.out.println("Hai sbagliato a digitare!");
     }
 
     private void joinInt(){
@@ -293,8 +297,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
                 printRoundTrack();
                 printRoundDicePool();
                 System.out.println();
-                //TODO interfaccia di scelta operazioni di gioco
-                //placeDice();
+
             }catch(InterruptedException e){
                 // do nothing
             }
@@ -316,32 +319,47 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
     }
 
     //metodo che permette di piazzare un dado
-    public void placeDice() throws RemoteException {
+    public void placeDice(){
         Scanner in = new Scanner(System.in);
-        int diceIndex=numOfDice+2;
+        int diceIndex = numOfDice + 2;
         int row = 100;
         int column = 100;
-        while (diceIndex > this.numOfDice+1) {
+        boolean success = false;
+        while (!success) {
+            success =true;
             System.out.println("Seleziona il dado da piazzare usando l'indice numerico sotto riportato:");
             printRoundDicePool();
             diceIndex = in.nextInt();
-        }
-        while(row > 3) {
-            System.out.println("Seleziona la riga in cui posizionare il dado: [0/3]"); //controlli sugli input vanno bene??
+            System.out.println("Seleziona la riga in cui posizionare il dado: [0/3]");
             row = in.nextInt();
-        }
-        while(column > 4) {
             System.out.println("Seleziona la riga in cui posizionare il dado: [0/4]");
             column = in.nextInt();
+            try {
+                servercontroller.setDice(yourName, diceIndex, row, column);
+            } catch (UserNotExistentException e) {
+                System.out.println(e.getMessage());
+                success = false;
+            } catch (SchemeCardNotExistantException e) {
+                System.out.println(e.getMessage());
+                success = false;
+            } catch (RemoteException e) {
+                System.out.println(e.getMessage());
+            }
+            //TODO aggiornare la versione locale. Penso a questo punto che per semplicità mi riscaricherò volta per volta l'intera mappa perchè è meglio e rivedo eccezioni come gestirle.
         }
+    }
+
+    public void passYourTurn(){
         try {
-            servercontroller.setDice(yourName, diceIndex, row,column);
-        } catch (UserNotExistentException e) {
-            System.out.println(e);
-        } catch (SchemeCardNotExistantException e) {
-            System.out.println(e);
+            servercontroller.passTurn(yourName);
+        } catch (RemoteException e) {
+            System.out.println(e.getMessage());
         }
-        //TODO aggiornare la versione locale. Penso a questo punto che per semplicità mi riscaricherò volta per volta l'intera mappa perchè è meglio e rivedo eccezioni come gestirle.
+    }
+
+    public void useToolcard(){
+        System.out.println("Quale carta utensile vuoi usare?");
+
     }
 
     //metodo che stampa la mappa a schermo
@@ -407,12 +425,16 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
     }
 
     //metodo che stampa a shcermo il roundTrack
-    public void printRoundTrack() throws RemoteException {
+    public void printRoundTrack(){
         System.out.println("Round track:");
         int round =10;
         int i=1;
         char[] charDice;
-        this.roundTrack = servercontroller.getRoundTrack(yourName);
+        try {
+            this.roundTrack = servercontroller.getRoundTrack(yourName);
+        } catch (RemoteException e) {
+            System.out.println(e.getMessage());
+        }
         System.out.println(this.roundTrack); //only for testing
         String[] dices = this.roundTrack.split("!");
         for (String diceList : dices){
@@ -448,10 +470,14 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         }
 
     //metodo che stampa i dadi estratti
-    public void printRoundDicePool() throws RemoteException {
+    public void printRoundDicePool() {
         int index = 0;
         char[] charDice;
-        this.roundDicepool = servercontroller.getRoundDicepool(yourName);
+        try {
+            this.roundDicepool = servercontroller.getRoundDicepool(yourName);
+        } catch (RemoteException e) {
+            System.out.println(e.getMessage());
+        }
         String[] dices = this.roundDicepool.split("-");
         System.out.println("Ecco i dadi disponibili in questo round:");
         for (String dice : dices) {
@@ -481,6 +507,60 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
             index++;
         }
         System.out.println();
+    }
+
+    public void printGoalCards(){
+        System.out.println("-Ecco gli obbiettivi di questa partita-");
+        System.out.println("Obbiettivo privato:");
+        try {
+            System.out.println(servercontroller.getPrivateGoalCardname(yourName));
+        } catch (RemoteException e) {
+            System.out.println(e.getMessage());
+        }
+        try {
+            System.out.println(servercontroller.getPrivateGoalCarddescription(yourName));
+        } catch (RemoteException e) {
+            System.out.println(e.getMessage());
+        }
+        
+
+    }
+
+    //metodo che serve per selozioanre possibili azioni
+    public void selectAction() {
+        Scanner in = new Scanner(System.in);
+        String input;
+        boolean success = false;
+
+        while (!success) {
+            System.out.println("Scegli una delle seguenti azioni:");
+            try {
+                System.out.println(servercontroller.getPossibleActions(yourName));
+            } catch (RemoteException e) {
+                System.out.println(e.getMessage());
+            }
+            input = in.nextLine().toLowerCase();
+
+            switch (input) {
+                case "setdice": {
+                    placeDice();
+                    success = true;
+                    break;
+                }
+                case "getmaps":
+                    System.out.println("Not yet implemented!");
+                    break;
+                case "usetoolcard":
+                    useToolcard();
+                    break;
+                case "passturn":
+                    passYourTurn();
+                    success = true;
+                    break;
+                default:
+                    System.out.println("Hai sbagliato a digitare!");
+            }
+        }
     }
 
 
