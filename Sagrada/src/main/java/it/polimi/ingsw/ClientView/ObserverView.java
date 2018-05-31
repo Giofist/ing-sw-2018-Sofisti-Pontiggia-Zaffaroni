@@ -310,7 +310,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
             System.out.println();
             menuInt();
         } catch (RemoteException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 
@@ -354,8 +354,12 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
     }
 
     public void useToolcard(){
+        Scanner in = new Scanner(System.in);
+        String input;
+        printToolcard();
         System.out.println("Quale carta utensile vuoi usare?");
-
+        input = in.nextLine();
+        //servercontroller.useaToolCard(yourName, input);
     }
 
     //metodo che stampa la mappa a schermo
@@ -539,6 +543,20 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         }
     }
 
+    //metodo che stampa le toolcard
+    public void printToolcard(){
+        System.out.println("Queste sono le carte utensile disponibili:");
+        try {
+            String[] toolCard = servercontroller.getToolCards(yourName).split("!");
+            for (String element: toolCard) {
+                String[] field = element.split("-");
+                System.out.println(field[0] + "\nIl costo della carta utensile è: " + field[1] + "\nDescrizione:\n" + field[2]);
+            }
+        } catch (RemoteException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     //metodo che serve per selozioanre possibili azioni
     public void selectAction() {
         Scanner in = new Scanner(System.in);
@@ -548,7 +566,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         while (!success) {
             System.out.println("Scegli una delle seguenti azioni:");
             try {
-                System.out.println(servercontroller.getPossibleActions(yourName));
+                System.out.println(servercontroller.getPossibleActions(yourName)); //todo altra possibilità sarebbe dividere questa stringa e vedere se l'azione selezionata è contenuta tra quelle fattibili.
             } catch (RemoteException e) {
                 System.out.println(e.getMessage());
             }
@@ -588,8 +606,6 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         notifyAll();
     }
 
-
-
     @Override
     public void update() throws RemoteException{
         notifyAll();
@@ -601,19 +617,15 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         notifyAll();
     }
 
-
     @Override
     public synchronized void notifyendGame() throws RemoteException {
         this.matchisEnded = true;
         notifyAll();
     }
 
-
     @Override
     public synchronized void notifyIsYourTurn(String message) throws RemoteException{
         System.out.println(message);
         // Fai partire la procedura di gestione del turno
     }
-
-
 }
