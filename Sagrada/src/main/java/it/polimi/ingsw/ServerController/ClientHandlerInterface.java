@@ -40,7 +40,7 @@ public interface ClientHandlerInterface extends Remote {
     public String getRanking(String clientname) throws RemoteException;
     public String getSchemeCards(String clientname) throws RemoteException;
 
-    String getScemeCard(String clientname);
+    String getSchemeCard(String clientname);
 
     public String getRoundDicepool(String clientname) throws RemoteException;
     public String getRoundTrack(String clientname) throws RemoteException;

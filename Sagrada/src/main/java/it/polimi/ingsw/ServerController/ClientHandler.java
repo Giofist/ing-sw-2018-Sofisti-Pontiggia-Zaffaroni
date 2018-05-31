@@ -232,7 +232,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     }
 
     @Override
-    public synchronized  String getScemeCard(String clientname){
+    public synchronized  String getSchemeCard(String clientname){
         //TODO mi serve lo schema utente relativo a clientname con seguente formato 6*-0_-0_-1*-4red-!0RED-0_-0YELLOW_-1*-4blue-!.... L'idea è ciò che è mappa verrà mandato in maiuscolo o numero* i dadi invece minuscoli con numero davanti (string toLowercase per ridurre il carattere. infine per evitare di mandare e ciclare metto un separatore ! così splitto e stampo per rghe.
 
         return null;
