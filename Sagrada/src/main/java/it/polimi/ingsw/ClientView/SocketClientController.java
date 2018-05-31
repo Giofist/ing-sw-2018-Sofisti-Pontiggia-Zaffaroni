@@ -102,6 +102,11 @@ public class SocketClientController implements ClientHandlerInterface, Runnable 
     }
 
     @Override
+    public String getScemeCard(String clientname) {
+        return null;
+    }
+
+    @Override
     public String getRoundDicepool(String clientname) throws RemoteException {
         return null;
     }
