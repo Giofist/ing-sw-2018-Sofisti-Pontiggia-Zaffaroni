@@ -3,6 +3,7 @@ import it.polimi.ingsw.model.Exceptions.NotEnoughSegnaliniException;
 
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.Exceptions.WrongToolCardIDException;
+import it.polimi.ingsw.model.GoalCard;
 import it.polimi.ingsw.model.Player;
 
 import java.util.ArrayList;
@@ -87,5 +88,33 @@ public class ToolCardsDeck {
         int value =this.cardsID.get(0);
         this.cardsID.remove(0);
         return value;
+    }
+
+    //to get the IDs, descriptions and Names of public goal cards
+    public String getIDs(){
+        String IDs = "";
+        for (GoalCard goalCard: this.deck) {
+            IDs += goalCard.getID();
+            IDs += "!";
+        }
+        return IDs;
+
+    }
+    public String getDescriptions(){
+        String descriptions = "";
+        for (ToolAction  toolAction: this.deck) {
+            descriptions += toolAction.getDescription();
+            descriptions += "!";
+        }
+        return descriptions;
+    }
+
+    public String getCardsNames() {
+        String names = "";
+        for (GoalCard goalCard : this.deck) {
+            names += goalCard.getName();
+            names += "!";
+        }
+        return names;
     }
 }

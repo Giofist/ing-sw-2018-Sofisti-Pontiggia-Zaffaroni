@@ -111,6 +111,10 @@ public class Gametable {
     public RoundTrack getRoundTrack() {
         return roundTrack;
     }
+
+    public String getToolCardsIDs() {
+        return this.tooldeck.getDescriptions();
+    }
 }
 
 
