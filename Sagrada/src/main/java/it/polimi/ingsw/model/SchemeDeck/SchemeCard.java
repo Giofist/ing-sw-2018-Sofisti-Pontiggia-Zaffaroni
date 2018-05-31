@@ -307,11 +307,8 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
      }
 
 
-     //NB: ho scelto di farla come classe anonima perchè boh, mi piaceva di più
-    //ah ecco, perchè noi stiamo dando un iteratore solo dentro le classi schemecard, non un iteratore in generale, come affo ha fatto
-    //l'override è dovuto al fatto che implemento iterable
-    //per le classi anonime pag. 333
 
+    //per le classi anonime pag. 333
     @Override
     public Iterator<Tile> iterator() {
         return new Iterator<Tile>() {
