@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainExce
 import it.polimi.ingsw.model.ToolCard.ToolRequestClass;
 import it.polimi.ingsw.model.Turn.TurnActions;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
@@ -232,13 +233,20 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     }
 
     @Override
-    public synchronized  String getSchemeCard(String clientname){
-        //TODO mi serve lo schema utente relativo a clientname con seguente formato 6*-0_-0_-1*-4red-!0RED-0_-0YELLOW_-1*-4blue-!.... L'idea è ciò che è mappa verrà mandato in maiuscolo o numero* i dadi invece minuscoli con numero davanti (string toLowercase per ridurre il carattere. infine per evitare di mandare e ciclare metto un separatore ! così splitto e stampo per rghe.
-
-        return null;
+    public synchronized  String getSchemeCard(String clientname) throws RemoteException {
+        try {
+            Player player = UsersList.Singleton().getUser(clientname).getPlayer();
+            return player.getGametable().getSchemeCard().toString();
+        } catch (UserNotExistentException e) {
+            throw new RemoteException(e.getMessage());
+        } catch (MapConstrainReadingException e) {
+            throw new RemoteException(e.getMessage());
+        } catch (IOException e) {
+            throw new RemoteException(e.getMessage());
+        }
     }
 
-    @Override
+        @Override
     public synchronized String getRoundDicepool(String clientname) throws RemoteException {
         try{
             Player player = UsersList.Singleton().getUser(clientname).getPlayer();

@@ -261,7 +261,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
                 System.out.println(ansi().eraseScreen().fg(GREEN).a(schemeCardAttribute[0]).reset());
                 System.out.println("Difficoltà della mappa: " + schemeCardAttribute[1]);
                 char[] constrain = schemeCardAttribute[4].toCharArray();
-                printMap(constrain,yourMapDiceIntensity,Integer.parseInt(schemeCardAttribute[2]),Integer.parseInt(schemeCardAttribute[3]));
+                printMaps(constrain,yourMapDiceIntensity,Integer.parseInt(schemeCardAttribute[2]),Integer.parseInt(schemeCardAttribute[3]));
                 System.out.print("\n");
             }
 
@@ -277,11 +277,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
             }
 
             System.out.println("La carta schema da te scelta è: ");
-            String[] yourSchemeCardAttribute = servercontroller.getMymapString(yourName).split("-");
-            this.yourMapMaxRow = Integer.parseInt(yourSchemeCardAttribute[0]);
-            this.yourMapMaxColumn = Integer.parseInt(yourSchemeCardAttribute[1]);
-            this.yourMap = yourSchemeCardAttribute[2].toCharArray();
-            printMap(yourMap ,yourMapDiceIntensity, yourMapMaxRow , yourMapMaxColumn);
+            printMap();
             printGoalCards();
             //AnsiConsole.systemUninstall();
             System.out.print("\n");
@@ -362,8 +358,8 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         //servercontroller.useaToolCard(yourName, input);
     }
 
-    //metodo che stampa la mappa a schermo
-    public void printMap(char[] map, int[] yourMapDiceIntensity, int maxRow, int maxColumn){
+    //metodo che stampa la mappa a schermo in fase iniziale di scelta
+    public void printMaps(char[] map, int[] yourMapDiceIntensity, int maxRow, int maxColumn){
         for(int row = 0 ; row < maxRow ; row++){
             for(int column = 0 ; column < maxColumn ; column++){
                 switch (map[row * maxColumn + column]) {
@@ -423,6 +419,65 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
             System.out.print("\n");
         }
     }
+
+   public void printMap(){
+        char[] charTile;
+        String map = null;
+        try {
+            map = servercontroller.getSchemeCard(yourName);
+            System.out.println(map);
+        } catch (RemoteException e) {
+            System.out.println(e.getMessage());
+        }
+        String[] tiles = map.split("!");
+       for (String rowTile: tiles){
+           String[] column = rowTile.split("-");
+           for (String el : column) {
+               charTile = el.toCharArray();
+               switch (charTile[1]) {
+                   case 'Y':
+                       System.out.print(ansi().eraseScreen().bg(YELLOW).a("   ").reset());
+                       break;
+                   case 'B':
+                       System.out.print(ansi().eraseScreen().bg(BLUE).a("   ").reset());
+                       break;
+                   case 'R':
+                       System.out.print(ansi().eraseScreen().bg(RED).a("   ").reset());
+                       break;
+                   case 'V':
+                       System.out.print(ansi().eraseScreen().bg(MAGENTA).a("   ").reset());
+                       break;
+                   case 'G':
+                       System.out.print(ansi().eraseScreen().bg(GREEN).a("   ").reset());
+                       break;
+                   case '*':
+                       System.out.print(ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" " + charTile[0] + " ").reset());
+                       break;
+                   case '_':
+                       System.out.print(ansi().eraseScreen().bg(WHITE).fg(BLACK).a("   ").reset());
+                       break;
+                   case 'y':
+                       System.out.print(ansi().eraseScreen().bg(YELLOW).fg(WHITE).a(" " + charTile[0] + " ").reset());
+                       break;
+                   case 'b':
+                       System.out.print(ansi().eraseScreen().bg(BLUE).fg(WHITE).a(" " + charTile[0] + " ").reset());
+                       break;
+                   case 'r':
+                       System.out.print(ansi().eraseScreen().bg(RED).fg(WHITE).a(" " + charTile[0] + " ").reset());
+                       break;
+                   case 'v':
+                       System.out.print(ansi().eraseScreen().bg(MAGENTA).fg(WHITE).a(" " + charTile[0] + " ").reset());
+                       break;
+                   case 'g':
+                       System.out.print(ansi().eraseScreen().bg(GREEN).fg(WHITE).a(" " + charTile[0] + " ").reset());
+                       break;
+               }
+           }
+           System.out.print("\n");
+       }
+
+   }
+
 
     //metodo che stampa a shcermo il roundTrack
     public void printRoundTrack(){
