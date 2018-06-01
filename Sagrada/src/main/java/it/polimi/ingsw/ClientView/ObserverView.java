@@ -501,19 +501,19 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
                 charDice = stringDice.toCharArray();
                     switch (charDice[1]) {
                         case 'Y':
-                            System.out.print(ansi().eraseScreen().bg(YELLOW).fg(BLACK).a(" " + charDice[0] + " ").reset());
+                            System.out.print(ansi().eraseScreen().bg(YELLOW).fg(WHITE).a(" " + charDice[0] + " ").reset());
                             break;
                         case 'B':
-                            System.out.print(ansi().eraseScreen().bg(BLUE).fg(BLACK).a(" " + charDice[0] + " ").reset());
+                            System.out.print(ansi().eraseScreen().bg(BLUE).fg(WHITE).a(" " + charDice[0] + " ").reset());
                             break;
                         case 'R':
-                            System.out.print(ansi().eraseScreen().bg(RED).fg(BLACK).a(" " + charDice[0] + " ").reset());
+                            System.out.print(ansi().eraseScreen().bg(RED).fg(WHITE).a(" " + charDice[0] + " ").reset());
                             break;
                         case 'V':
-                            System.out.print(ansi().eraseScreen().bg(MAGENTA).fg(BLACK).a(" " + charDice[0] + " ").reset());
+                            System.out.print(ansi().eraseScreen().bg(MAGENTA).fg(WHITE).a(" " + charDice[0] + " ").reset());
                             break;
                         case 'G':
-                            System.out.print(ansi().eraseScreen().bg(GREEN).fg(BLACK).a(" " + charDice[0] + " ").reset());
+                            System.out.print(ansi().eraseScreen().bg(GREEN).fg(WHITE).a(" " + charDice[0] + " ").reset());
                             break;
                     }
                 }
@@ -539,19 +539,19 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
             charDice = dice.toCharArray();
             switch(charDice[1]){
             case 'Y':
-                System.out.print( ansi().eraseScreen().bg(YELLOW).fg(BLACK).a(" " + charDice[0] + " ").reset());
+                System.out.print( ansi().eraseScreen().bg(YELLOW).fg(WHITE).a(" " + charDice[0] + " ").reset());
                 break;
             case 'B':
-                System.out.print( ansi().eraseScreen().bg(BLUE).fg(BLACK).a(" " + charDice[0] + " ").reset());
+                System.out.print( ansi().eraseScreen().bg(BLUE).fg(WHITE).a(" " + charDice[0] + " ").reset());
                 break;
             case 'R':
-                System.out.print( ansi().eraseScreen().bg(RED).fg(BLACK).a(" " + charDice[0] + " ").reset());
+                System.out.print( ansi().eraseScreen().bg(RED).fg(WHITE).a(" " + charDice[0] + " ").reset());
                 break;
             case 'V':
-                System.out.print( ansi().eraseScreen().bg(MAGENTA).fg(BLACK).a(" " + charDice[0] + " ").reset());
+                System.out.print( ansi().eraseScreen().bg(MAGENTA).fg(WHITE).a(" " + charDice[0] + " ").reset());
                 break;
             case 'G':
-                System.out.print( ansi().eraseScreen().bg(GREEN).fg(BLACK).a(" " + charDice[0] + " ").reset());
+                System.out.print( ansi().eraseScreen().bg(GREEN).fg(WHITE).a(" " + charDice[0] + " ").reset());
                 break;
             }
             System.out.print(" ");
