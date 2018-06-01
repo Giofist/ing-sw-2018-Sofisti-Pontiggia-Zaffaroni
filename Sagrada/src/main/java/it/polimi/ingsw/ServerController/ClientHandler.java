@@ -99,7 +99,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
             throw new RemoteException(e.getMessage());
         }
     }
-    
+
     @Override
     public String getPrivateGoalCarddescription(String clientname) throws RemoteException{
         try{
@@ -163,7 +163,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
         }catch(UserNotExistentException e){
             throw new RemoteException(e.getMessage());
         }
-    };
+    }
 
 
     @Override
