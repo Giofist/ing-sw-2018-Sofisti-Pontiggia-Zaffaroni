@@ -54,7 +54,7 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
 
             matrix = new Tile[maxRow][maxColumn];
 
-            this.mapString = buffer.readLine(); //mi serve per evitare problemi in fase di invio dati ai client altrimenti dovrei ricastare ad array ma cmabia completamente la formattazione ES 2_5_1Y6V2R_B4G__3_5_ -> [2, _, 5, _, 1, Y, 6, V, 2, R, _, B, 4, G, _, _, 3, _, 5, _]
+            this.mapString = buffer.readLine();
             this.map = mapString.toCharArray();
             System.out.println(map);
 
