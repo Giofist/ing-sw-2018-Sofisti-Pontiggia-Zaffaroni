@@ -119,7 +119,7 @@ public class ToolCardsDeck {
     }
 
     public String getCardsCosts() {
-        String names = "";
+        String names = " ";
         for (ToolAction toolAction : this.deck) {
             names += toolAction.getCost();
             names += "!";
