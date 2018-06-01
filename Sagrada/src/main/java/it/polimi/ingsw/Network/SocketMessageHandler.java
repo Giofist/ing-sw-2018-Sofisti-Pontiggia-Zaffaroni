@@ -1,18 +1,27 @@
-package it.polimi.ingsw.ClientView;
+package it.polimi.ingsw.Network;
+
+import it.polimi.ingsw.ClientView.ObserverView;
 
 import java.rmi.RemoteException;
 
-public class SocketMessageHandler {
-    SocketClientController clientController;
+public class SocketMessageHandler implements Runnable{
+    SocketController clientController;
     ObserverView observerView;
     SocketListener listener;
-    public SocketMessageHandler(SocketClientController clientController, ObserverView observerView, SocketListener listener){
+    private String message;
+    private RemoteException exception;
+    public SocketMessageHandler(SocketController clientController, ObserverView observerView, SocketListener listener, String message){
         this.clientController = clientController;
         this.observerView = observerView;
         this.listener = listener;
+        this.message = message;
     }
-    public synchronized void handleString(String message){
+    public synchronized void run(){
         switch(message){
+            case "OK":
+                clientController.notifyAll();
+                break;
+                default: this.exception = new RemoteException(message);
             case "notifyGameisStarting": try{
                 System.out.println("ho ricevuto una notifica\n");
                 observerView.notifyGameisStarting();
@@ -35,11 +44,14 @@ public class SocketMessageHandler {
                 listener.sendString("0"+e.getMessage());
             }
             break;
-            default: System.out.println("niente di nuovo sul fronte occipitale");
         }
 
     }
-    public synchronized void handleMessage(SocketMessageClass socketMessageClass){
+    public synchronized void check() throws RemoteException{
+        if(this.exception == null){
+            return;
+        }
+        throw this.exception;
 
     }
 }

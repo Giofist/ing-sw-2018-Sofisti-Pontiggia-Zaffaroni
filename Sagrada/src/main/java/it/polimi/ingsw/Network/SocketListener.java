@@ -1,4 +1,4 @@
-package it.polimi.ingsw.ClientView;
+package it.polimi.ingsw.Network;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -6,7 +6,6 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
-import java.util.concurrent.Executors;
 
 public class SocketListener implements Runnable {
     private Socket socket;
@@ -16,8 +15,8 @@ public class SocketListener implements Runnable {
     private ObjectOutputStream os;
     private SocketMessageHandler messageHandler;
 
-    private SocketClientController socketClientController;
-    public SocketListener(String ipAddr, SocketClientController socketClientController, SocketMessageHandler messageHandler) throws IOException{
+    private SocketController socketClientController;
+    public SocketListener(String ipAddr, SocketController socketClientController, SocketMessageHandler messageHandler) throws IOException{
         Socket socket = new Socket(ipAddr, 1337);
         System.out.println("Connessione stabilita!\n");
         this.socket = socket;
@@ -36,7 +35,10 @@ public class SocketListener implements Runnable {
     public void run() {
         int i=0;
         while (i==0){
-            if (in.hasNext()){
+            if (in.hasNextInt()){
+                if(in.nextInt() == '1'){
+
+                }
                 messageHandler.handleString(in.nextLine());
             }
             try{

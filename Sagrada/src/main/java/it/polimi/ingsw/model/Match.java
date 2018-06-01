@@ -35,6 +35,7 @@ public class Match implements Runnable{
             }
         }
         //the match can start
+        this.setStarted(true);
         try {
             gametable = new Gametable(this.players.size());
             for (Player player : this.players) {
@@ -87,7 +88,6 @@ public class Match implements Runnable{
 
         //to calculate points for the public goals
         this.getGametable().calculatePointsforAllPlayers(this.players);
-        System.out.println("fin qui tutto bene");
         // to calculate points for the private goals
         for (Player player:this.players) {
             player.getPrivateGoalCard().calculatepoint(player);
@@ -171,10 +171,6 @@ public class Match implements Runnable{
         if(getNumberOfPlayers()==0){
             MatchesList.singleton().remove(player.getMatch());
         }
-    }
-
-    public synchronized void update() {
-        this.notifyAll();
     }
 
     public String getfinalRanking() {

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ClientView;
 
 
+import it.polimi.ingsw.Network.SocketController;
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
 
 import java.rmi.registry.LocateRegistry;
@@ -31,12 +32,12 @@ public class Client {
                 new ObserverView(controller).run();
                 correct = true;
             } else if (input.equals("S") || input.equals("s")) {
-                ObserverView observerView = new ObserverView();
-                SocketClientController socketClientController = new SocketClientController(ipAddr, observerView);
+                /*ObserverView observerView = new ObserverView();
+                SocketController socketController = new SocketController(ipAddr, observerView);
                 observerView.setServercontroller(socketClientController);
                 new Thread(socketClientController).start();
                 observerView.run();
-
+                */
                 correct = true;
             } else {
                 System.out.println("Hai sbagliato a digitare. Riprova");

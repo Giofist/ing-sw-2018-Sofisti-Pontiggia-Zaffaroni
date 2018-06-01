@@ -8,7 +8,6 @@ import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainExce
 import it.polimi.ingsw.model.ToolCard.ToolRequestClass;
 import it.polimi.ingsw.model.Turn.TurnActions;
 
-import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
@@ -242,8 +241,6 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
         }catch(SchemeCardNotExistantException e){
             throw new RemoteException(e.getMessage());
         }
-        //TODO mi serve lo schema utente relativo a clientname con seguente formato 6*-0_-0_-1*-4red-!0RED-0_-0YELLOW_-1*-4blue-!.... L'idea è ciò che è mappa verrà mandato in maiuscolo o numero* i dadi invece minuscoli con numero davanti (string toLowercase per ridurre il carattere. infine per evitare di mandare e ciclare metto un separatore ! così splitto e stampo per rghe.
-
     }
 
         @Override
@@ -307,8 +304,9 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
         try{
             Player player = UsersList.Singleton().getUser(clientname).getPlayer();
             player.getGametable().getToolCardsIDs();
+        }catch(UserNotExistentException e){
+            throw new RemoteException(e.getMessage());
         }
-        //TODO non so bene dove recuperare e come. lascio il formato che mi serve  nomecarta1-costo-descrizione-!nomecarta2-costo-descrizione-!nomecarta3-costo-descrizione-!
         return null;
     }
 
@@ -316,17 +314,19 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
         try{
             Player player = UsersList.Singleton().getUser(clientname).getPlayer();
             player.getGametable().getToolCardsDescriptions();
+        }catch(UserNotExistentException e){
+            throw new RemoteException(e.getMessage());
         }
-        //TODO non so bene dove recuperare e come. lascio il formato che mi serve  nomecarta1-costo-descrizione-!nomecarta2-costo-descrizione-!nomecarta3-costo-descrizione-!
         return null;
     }
 
     public synchronized String getToolCardsNames(String clientname) throws RemoteException{
         try{
             Player player = UsersList.Singleton().getUser(clientname).getPlayer();
-            player.getGametable().getToolCardsNames();
+            player.getGametable().getToolCardsTitles();
+        }catch(UserNotExistentException e){
+            throw new RemoteException(e.getMessage());
         }
-        //TODO non so bene dove recuperare e come. lascio il formato che mi serve  nomecarta1-costo-descrizione-!nomecarta2-costo-descrizione-!nomecarta3-costo-descrizione-!
         return null;
     }
 

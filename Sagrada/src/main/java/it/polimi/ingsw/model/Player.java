@@ -68,7 +68,7 @@ public class Player extends Observable implements Comparable<Player>{
     public GoalCard getPrivateGoalCard(){
         return this.privateGoalCard;
     }
-    public void setScheme ( int cardid) throws CardIdNotAllowedException{
+    public synchronized void setScheme ( int cardid) throws CardIdNotAllowedException{
         if (cardid == this.extractedschemeCards.getFirst().getID()){
             this.scheme = this.extractedschemeCards.getFirst();
         }else if (cardid == this.extractedschemeCards.getFirst().getTwinCard().getID()) {
@@ -78,7 +78,7 @@ public class Player extends Observable implements Comparable<Player>{
         }else if (cardid == this.extractedschemeCards.getLast().getTwinCard().getID()) {
             this.scheme = this.extractedschemeCards.getLast().getTwinCard();
         }else throw new CardIdNotAllowedException();
-        this.getMatch().update();
+        this.getMatch().notifyAll();
     }
     public SchemeCard getScheme() throws SchemeCardNotExistantException{
         if(this.scheme !=null){

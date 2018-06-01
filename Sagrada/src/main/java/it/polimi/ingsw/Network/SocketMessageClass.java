@@ -1,4 +1,4 @@
-package it.polimi.ingsw.ClientView;
+package it.polimi.ingsw.Network;
 
 public class SocketMessageClass {
 }

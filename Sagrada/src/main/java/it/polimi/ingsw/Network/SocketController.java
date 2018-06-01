@@ -1,6 +1,11 @@
-package it.polimi.ingsw.ClientView;
+package it.polimi.ingsw.Network;
 
+import it.polimi.ingsw.ClientView.FeedObserverView;
+import it.polimi.ingsw.ClientView.ObserverViewInterface;
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
+import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
+import it.polimi.ingsw.model.Exceptions.UserNotExistentException;
+import it.polimi.ingsw.model.ToolCard.ToolRequestClass;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -10,38 +15,23 @@ import java.util.List;
 import java.util.Scanner;
 
 // implemented by pon
-public class SocketObserverView implements ClientHandlerInterface, Runnable {
-    private Socket socket;
-    Scanner in;
-    PrintWriter out;
-    private ObserverViewInterface observerView;
+public class SocketController implements ClientHandlerInterface {
 
-    public SocketObserverView (Socket socket, ObserverViewInterface observerView)  throws IOException {
-        this.socket = socket;
-        in = new Scanner(socket.getInputStream());
-        out = new PrintWriter(socket.getOutputStream());
+    private ObserverViewInterface observerView;
+    private SocketMessageHandler messageHandler;
+    private SocketListener socketListener;
+
+    public SocketController( ObserverViewInterface observerView, SocketListener socketListener)  throws IOException {
+
+        this.socketListener = socketListener;
         this.observerView = observerView;
     }
 
-    @Override
-    public void run(){
-        int i=0;
-        while(i==0){
-            switch(in.next()){
-                case "testConnection": //do nothing
+   public void setMessageHandler(SocketMessageHandler messageHandler){
+        this.messageHandler = messageHandler;
+   }
 
-            }
-        }
 
-    }
-    public void waitforAnswerfromServer()throws RemoteException{
-        switch (in.nextInt()) {
-            case 1:
-                return;
-            case 0:
-                throw new RemoteException(in.nextLine());
-        }
-    }
     //all methods to be implemented here
     @Override
     public String rmiTest(String stringa) throws RemoteException {
@@ -51,17 +41,23 @@ public class SocketObserverView implements ClientHandlerInterface, Runnable {
 
     @Override
     public void register(String username, String password) throws RemoteException {
-        out.println("register " + username + " " + password);
+        /*out.println("register " + username + " " + password);
         out.flush();
-        this.waitforAnswerfromServer();
+        try{
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
+*/
     }
 
     @Override
     public void   login(String username, String password) throws RemoteException {
-        out.println("login " + username + " " + password);
+        /*out.println("login " + username + " " + password);
         out.flush();
         this.waitforAnswerfromServer();
+        */
     }
 
     @Override
@@ -89,6 +85,11 @@ public class SocketObserverView implements ClientHandlerInterface, Runnable {
     }
 
     @Override
+    public String getMymapString(String clientname) throws RemoteException {
+        return null;
+    }
+
+    @Override
     public void setSchemeCard(String username, int cardid) throws RemoteException {
         out.println("setSchemeCard " + username + " " + cardid);
         out.flush();
@@ -98,6 +99,41 @@ public class SocketObserverView implements ClientHandlerInterface, Runnable {
             case 0:
                 throw new RemoteException(in.nextLine());
         }
+    }
+
+    @Override
+    public void setDice(String clientname, int diceindex, int row, int column) throws RemoteException, UserNotExistentException, SchemeCardNotExistantException {
+
+    }
+
+    @Override
+    public void useaToolCard(String clientname, ToolRequestClass toolRequestClass) throws RemoteException {
+
+    }
+
+    @Override
+    public String getToolCardsIDs(String clientname) throws RemoteException {
+        return null;
+    }
+
+    @Override
+    public String getToolCardsNames(String clientname) throws RemoteException {
+        return null;
+    }
+
+    @Override
+    public String getToolCardsDescriptions(String clientname) throws RemoteException {
+        return null;
+    }
+
+    @Override
+    public String getPossibleActions(String clientname) throws RemoteException {
+        return null;
+    }
+
+    @Override
+    public void passTurn(String clientname) throws RemoteException {
+
     }
 
     @Override
@@ -162,6 +198,21 @@ public class SocketObserverView implements ClientHandlerInterface, Runnable {
 
     @Override
     public String getSchemeCards(String clientname) throws RemoteException {
+        return null;
+    }
+
+    @Override
+    public String getSchemeCard(String clientname) throws RemoteException {
+        return null;
+    }
+
+    @Override
+    public String getRoundDicepool(String clientname) throws RemoteException {
+        return null;
+    }
+
+    @Override
+    public String getRoundTrack(String clientname) throws RemoteException {
         return null;
     }
 }

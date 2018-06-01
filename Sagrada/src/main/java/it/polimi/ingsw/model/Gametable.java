@@ -115,6 +115,14 @@ public class Gametable {
     public String getToolCardsIDs() {
         return this.tooldeck.getDescriptions();
     }
+
+    public String getToolCardsDescriptions() {
+        return this.tooldeck.getDescriptions();
+    }
+
+    public String getToolCardsTitles() {
+        return this.tooldeck.getCardsTitles();
+    }
 }
 
 

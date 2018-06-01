@@ -93,8 +93,8 @@ public class ToolCardsDeck {
     //to get the IDs, descriptions and Names of public goal cards
     public String getIDs(){
         String IDs = "";
-        for (GoalCard goalCard: this.deck) {
-            IDs += goalCard.getID();
+        for (ToolAction toolAction: this.deck) {
+            IDs += toolAction.getID();
             IDs += "!";
         }
         return IDs;
@@ -109,10 +109,10 @@ public class ToolCardsDeck {
         return descriptions;
     }
 
-    public String getCardsNames() {
+    public String getCardsTitles() {
         String names = "";
-        for (GoalCard goalCard : this.deck) {
-            names += goalCard.getName();
+        for (ToolAction toolAction : this.deck) {
+            names += toolAction.getCardTitle();
             names += "!";
         }
         return names;
