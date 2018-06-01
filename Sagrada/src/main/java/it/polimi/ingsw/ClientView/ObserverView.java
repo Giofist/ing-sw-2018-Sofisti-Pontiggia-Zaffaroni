@@ -2,20 +2,25 @@ package it.polimi.ingsw.ClientView;
 
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
 
+import java.awt.*;
 import java.io.PrintWriter;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Scanner;
 
+import it.polimi.ingsw.model.DiceColor;
 import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
 import it.polimi.ingsw.model.Exceptions.UserNotExistentException;
 import org.fusesource.jansi.AnsiConsole;
 
 import static it.polimi.ingsw.model.DiceColor.*;
-import static java.awt.Color.BLACK;
-import static java.awt.Color.MAGENTA;
-import static java.awt.Color.WHITE;
+
 import static org.fusesource.jansi.Ansi.Color.*;
+import static org.fusesource.jansi.Ansi.Color.BLUE;
+import static org.fusesource.jansi.Ansi.Color.GREEN;
+import static org.fusesource.jansi.Ansi.Color.RED;
+import static org.fusesource.jansi.Ansi.Color.YELLOW;
+import static org.fusesource.jansi.Ansi.Color.WHITE;
 import static org.fusesource.jansi.Ansi.ansi;
 
 //implemented by pon
@@ -397,7 +402,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
                        System.out.print(ansi().eraseScreen().bg(BLUE).fg(WHITE).a(" " + charTile[0] + " ").reset());
                        break;
                    case 'r':
-                       System.out.print(ansi().eraseScreen().bg(RED).fg(WHITE).a(" " + charTile[0] + " ").reset());
+                       System.out.print(ansi().eraseScreen().bg(RED).fg(RED).a(" " + charTile[0] + " ").reset());
                        break;
                    case 'v':
                        System.out.print(ansi().eraseScreen().bg(MAGENTA).fg(WHITE).a(" " + charTile[0] + " ").reset());

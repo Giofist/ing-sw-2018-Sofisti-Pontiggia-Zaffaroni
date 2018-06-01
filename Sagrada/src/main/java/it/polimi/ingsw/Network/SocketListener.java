@@ -22,12 +22,14 @@ public class SocketListener implements Runnable {
 
     public SocketListener(String ipAddr) throws IOException{
         Socket socket = new Socket(ipAddr, 1337);
-        System.out.println("Connessione stabilita!\n");
         this.socket = socket;
         in = new Scanner(socket.getInputStream());
         out = new PrintWriter(socket.getOutputStream());
-        this.is = new ObjectInputStream(socket.getInputStream());
-        this.os = new ObjectOutputStream(socket.getOutputStream());
+
+        //this.is = new ObjectInputStream(socket.getInputStream());
+
+        //this.os = new ObjectOutputStream(socket.getOutputStream());
+        System.out.println("Connessione stabilita!\n");
 
 
     }
@@ -41,20 +43,23 @@ public class SocketListener implements Runnable {
     public void run() {
         ExecutorService executor = Executors.newCachedThreadPool(); //crea thread quando necessario
         int i=0;
+        System.out.println("sono arrivato al run del listener");
         while (i==0){
             if (in.hasNextInt()) {
-                if (in.nextInt() == 1) {
+                int h = in.nextInt();
+                System.out.println(h);
+                if (h ==1) {
                     executor.submit(new SocketStringHandler(this.controller, this.observerView, this, "OK" ,true));
                 }
-                if(in.nextInt()==0){
+                if(h==0){
                     executor.submit(new SocketStringHandler(this.controller, this.observerView, this, in.nextLine(),true));
                 }
-                if (in.nextInt() == 33){
+                if (h == 33){
                     executor.submit(new SocketStringHandler(this.controller, this.observerView, this, in.nextLine(),false));
 
                 }
             }
-            try{
+            /*try{
                 SocketMessageClass message =(SocketMessageClass)is.readObject();
                 executor.submit(new SocketMessageHandler());
 
@@ -62,7 +67,7 @@ public class SocketListener implements Runnable {
                 //do something
             }catch (ClassNotFoundException e){
                 //do something
-            }
+            }*/
         }
 
 

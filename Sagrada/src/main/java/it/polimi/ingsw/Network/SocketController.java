@@ -96,7 +96,7 @@ public class SocketController implements ClientHandlerInterface {
 
     }
 
-    @Override
+    /*@Override
     public synchronized String getMymapString(String clientname) throws RemoteException {
         listener.sendString("getMymapString " + clientname);
         try{
@@ -109,6 +109,7 @@ public class SocketController implements ClientHandlerInterface {
         this.stringHandler = null;
         return message;
     }
+    */
 
     @Override
     public synchronized void setSchemeCard(String username, int cardid) throws RemoteException {
@@ -133,6 +134,11 @@ public class SocketController implements ClientHandlerInterface {
         }
         this.stringHandler.check();
         this.stringHandler = null;
+    }
+
+    @Override
+    public String getToolCardsCosts(String clientname) throws RemoteException {
+        return null;
     }
 
     @Override
