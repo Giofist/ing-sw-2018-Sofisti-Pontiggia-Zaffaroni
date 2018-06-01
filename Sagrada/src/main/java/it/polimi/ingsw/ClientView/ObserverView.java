@@ -289,6 +289,8 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
                 printRoundTrack();
                 printRoundDicePool();
                 System.out.println();
+                placeDice();
+                printMap();
 
             }catch(InterruptedException e){
                 // do nothing
@@ -352,7 +354,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
     public void useToolcard(){
         Scanner in = new Scanner(System.in);
         String input;
-        printToolcard();
+        //printToolcard();
         System.out.println("Quale carta utensile vuoi usare?");
         input = in.nextLine();
         //servercontroller.useaToolCard(yourName, input);
@@ -599,7 +601,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
     }
 
     //metodo che stampa le toolcard
-    public void printToolcard(){
+    /*public void printToolcard(){
         System.out.println("Queste sono le carte utensile disponibili:");
         try {
             String[] toolCard = servercontroller.getToolCards(yourName).split("!");
@@ -610,7 +612,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         } catch (RemoteException e) {
             System.out.println(e.getMessage());
         }
-    }
+    }*/
 
     //metodo che serve per selozioanre possibili azioni
     public void selectAction() {

@@ -1,7 +1,7 @@
 package it.polimi.ingsw.ClientView;
 
 
-import it.polimi.ingsw.Network.SocketController;
+//import it.polimi.ingsw.Network.SocketController;
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
 
 import java.rmi.registry.LocateRegistry;

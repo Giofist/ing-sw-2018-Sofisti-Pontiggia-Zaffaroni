@@ -78,7 +78,9 @@ public class Player extends Observable implements Comparable<Player>{
         }else if (cardid == this.extractedschemeCards.getLast().getTwinCard().getID()) {
             this.scheme = this.extractedschemeCards.getLast().getTwinCard();
         }else throw new CardIdNotAllowedException();
-        this.getMatch().notifyAll();
+        synchronized (this.getMatch()) {
+            this.getMatch().notifyAll();
+        }
     }
     public SchemeCard getScheme() throws SchemeCardNotExistantException{
         if(this.scheme !=null){
