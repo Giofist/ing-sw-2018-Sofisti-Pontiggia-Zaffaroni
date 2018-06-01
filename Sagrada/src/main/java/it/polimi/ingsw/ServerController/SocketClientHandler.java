@@ -77,7 +77,7 @@ public class SocketClientHandler implements Runnable, ObserverViewInterface, Fee
                     case "getActiveMatchList":
                         try {
                             String list = controller.getActiveMatchesList();
-                            out.println("1" + " " + list);
+                            out.println("33" + " " + list);
                             out.flush();
                         } catch (RemoteException e) {
                             out.println("0" + " " + e.getMessage());

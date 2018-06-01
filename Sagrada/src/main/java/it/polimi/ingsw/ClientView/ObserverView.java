@@ -10,7 +10,16 @@ import java.util.Scanner;
 import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
 import it.polimi.ingsw.model.Exceptions.UserNotExistentException;
 import org.fusesource.jansi.AnsiConsole;
+
+import static it.polimi.ingsw.model.DiceColor.*;
+import static java.awt.Color.BLACK;
+import static java.awt.Color.MAGENTA;
+import static java.awt.Color.WHITE;
 import static org.fusesource.jansi.Ansi.Color.*;
+import static org.fusesource.jansi.Ansi.Color.BLUE;
+import static org.fusesource.jansi.Ansi.Color.GREEN;
+import static org.fusesource.jansi.Ansi.Color.RED;
+import static org.fusesource.jansi.Ansi.Color.YELLOW;
 import static org.fusesource.jansi.Ansi.ansi;
 
 //implemented by pon
@@ -531,7 +540,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
     public void printToolcard(){
         System.out.println("Queste sono le carte utensile disponibili:");
         try {
-            String[] toolCard = servercontroller.getToolCards(yourName).split("!");
+            //String[] toolCard = servercontroller.getToolCards(yourName).split("!");
             for (String element: toolCard) {
                 String[] field = element.split("-");
                 System.out.println(field[0] + "\nIl costo della carta utensile è: " + field[1] + "\nDescrizione:\n" + field[2]);

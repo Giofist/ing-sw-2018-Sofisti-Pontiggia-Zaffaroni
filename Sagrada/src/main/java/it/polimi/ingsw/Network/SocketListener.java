@@ -17,11 +17,10 @@ public class SocketListener implements Runnable {
     private PrintWriter out;
     private ObjectInputStream is;
     private ObjectOutputStream os;
-    private SocketStringHandler messageHandler;
     private ObserverView observerView;
     private SocketController controller;
 
-    public SocketListener(String ipAddr, SocketController controller, SocketStringHandler messageHandler) throws IOException{
+    public SocketListener(String ipAddr) throws IOException{
         Socket socket = new Socket(ipAddr, 1337);
         System.out.println("Connessione stabilita!\n");
         this.socket = socket;
@@ -29,10 +28,12 @@ public class SocketListener implements Runnable {
         out = new PrintWriter(socket.getOutputStream());
         this.is = new ObjectInputStream(socket.getInputStream());
         this.os = new ObjectOutputStream(socket.getOutputStream());
-        this.controller=controller;
-        this.messageHandler = messageHandler;
 
 
+    }
+
+    public void setController(SocketController controller){
+        this.controller = controller;
     }
 
 
@@ -43,10 +44,14 @@ public class SocketListener implements Runnable {
         while (i==0){
             if (in.hasNextInt()) {
                 if (in.nextInt() == 1) {
-                    executor.submit(new SocketStringHandler(this.controller, this.observerView, this, "OK" ));
+                    executor.submit(new SocketStringHandler(this.controller, this.observerView, this, "OK" ,true));
                 }
                 if(in.nextInt()==0){
-                    executor.submit(new SocketStringHandler(this.controller, this.observerView, this, in.nextLine()));
+                    executor.submit(new SocketStringHandler(this.controller, this.observerView, this, in.nextLine(),true));
+                }
+                if (in.nextInt() == 33){
+                    executor.submit(new SocketStringHandler(this.controller, this.observerView, this, in.nextLine(),false));
+
                 }
             }
             try{

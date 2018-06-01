@@ -8,17 +8,13 @@ import it.polimi.ingsw.model.Exceptions.UserNotExistentException;
 import it.polimi.ingsw.model.ToolCard.ToolRequestClass;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.Socket;
 import java.rmi.RemoteException;
-import java.util.List;
-import java.util.Scanner;
 
 // implemented by pon
 public class SocketController implements ClientHandlerInterface {
 
     private ObserverViewInterface observerView;
-    private SocketStringHandler messageHandler;
+    private SocketStringHandler stringHandler;
     private SocketListener listener;
 
     public SocketController( ObserverViewInterface observerView, SocketListener socketListener)  throws IOException {
@@ -26,8 +22,8 @@ public class SocketController implements ClientHandlerInterface {
         this.observerView = observerView;
     }
 
-   public void setMessageHandler(SocketStringHandler messageHandler){
-        this.messageHandler = messageHandler;
+   public void setStringHandler(SocketStringHandler stringHandler){
+        this.stringHandler = stringHandler;
    }
 
 
@@ -45,8 +41,8 @@ public class SocketController implements ClientHandlerInterface {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        this.messageHandler.check();
-        this.messageHandler = null;
+        this.stringHandler.check();
+        this.stringHandler = null;
     }
 
     @Override
@@ -57,8 +53,8 @@ public class SocketController implements ClientHandlerInterface {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        this.messageHandler.check();
-        this.messageHandler = null;
+        this.stringHandler.check();
+        this.stringHandler = null;
     }
 
     @Override
@@ -69,8 +65,8 @@ public class SocketController implements ClientHandlerInterface {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        this.messageHandler.check();
-        this.messageHandler = null;
+        this.stringHandler.check();
+        this.stringHandler = null;
     }
 
     @Override
@@ -81,8 +77,8 @@ public class SocketController implements ClientHandlerInterface {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        this.messageHandler.check();
-        this.messageHandler = null;
+        this.stringHandler.check();
+        this.stringHandler = null;
     }
 
 
@@ -95,8 +91,8 @@ public class SocketController implements ClientHandlerInterface {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        this.messageHandler.check();
-        this.messageHandler = null;
+        this.stringHandler.check();
+        this.stringHandler = null;
 
     }
 
@@ -108,8 +104,9 @@ public class SocketController implements ClientHandlerInterface {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        String message = this.messageHandler.getMessage();
-        this.messageHandler = null;
+        this.stringHandler.check();
+        String message = this.stringHandler.getMessage();
+        this.stringHandler = null;
         return message;
     }
 
@@ -121,19 +118,39 @@ public class SocketController implements ClientHandlerInterface {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        this.messageHandler.check();
-        this.messageHandler = null;
+        this.stringHandler.check();
+        this.stringHandler = null;
 
     }
 
     @Override
     public void setDice(String clientname, int diceindex, int row, int column) throws RemoteException, UserNotExistentException, SchemeCardNotExistantException {
-
+        listener.sendString("joinaGame " + clientname  + diceindex + row + column);
+        try{
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.stringHandler.check();
+        this.stringHandler = null;
     }
 
     @Override
-    public void useaToolCard(String clientname, ToolRequestClass toolRequestClass) throws RemoteException {
-
+    public void useaToolCard(String clientname, ToolRequestClass requestClass) throws RemoteException {
+        SocketMessageClass message = new SocketMessageClass(clientname);
+        message.setRequestClass(requestClass);
+        try{
+            listener.sendMessage(message);
+        }catch (IOException e){
+            throw new RemoteException(e.getMessage());
+        }
+        try{
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.stringHandler.check();
+        this.stringHandler = null;
     }
 
     @Override
@@ -194,15 +211,16 @@ public class SocketController implements ClientHandlerInterface {
     }
 
     @Override
-    public String getActiveMatchList(String clientname) throws RemoteException {
-        listener.sendString("getActiveMatchList " + clientname);
+    public synchronized String getActiveMatchesList() throws RemoteException {
+        listener.sendString("getActiveMatchList ");
         try{
             wait();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        String message = this.messageHandler.getMessage();
-        this.messageHandler = null;
+        this.stringHandler.check();
+        String message = this.stringHandler.getMessage();
+        this.stringHandler = null;
         return message;
     }
 
