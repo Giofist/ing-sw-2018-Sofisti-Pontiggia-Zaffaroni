@@ -528,7 +528,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
     }
 
     //metodo che stampa le toolcard
-    /*public void printToolcard(){
+    public void printToolcard(){
         System.out.println("Queste sono le carte utensile disponibili:");
         try {
             String[] toolCard = servercontroller.getToolCards(yourName).split("!");
@@ -539,7 +539,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         } catch (RemoteException e) {
             System.out.println(e.getMessage());
         }
-    }*/
+    }
 
     //metodo che serve per selozioanre possibili azioni
     public void selectAction() {
