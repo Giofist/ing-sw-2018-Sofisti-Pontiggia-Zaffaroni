@@ -20,15 +20,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
     private final PrintWriter out;
     private String yourName;
     private boolean matchisEnded;
-    private char[] yourMap;
-    private int[] yourMapDiceIntensity;
-    private int yourMapMaxRow = 0;
-    private int yourMapMaxColumn = 0;
     private int numOfDice;
-    private char[] roundTrackDiceColour; // = {'g','y','b','y','b','r','r','b','r','g','y','_','g','b','_','_','_','_','_','_','_','_','r','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_'};  //Test values
-    private int[] roundTrackDiceIntensity; //= {1,3,5,6,0,0,0,0,0,0,3,0,2,1,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}; //test values
-    private String roundDicepool; // = "6RED-5YELLOW-2RED-2GREEN-3BLUE-";
-    private String roundTrack; // ="6RED-5YELLOW-2BLUE-!3BLUE-4RED-1GREEN-!2RED-4BLUE-!1YELLOW-!6RED-5YELLOW-2BLUE-!-!2RED-4BLUE-!1YELLOW-!2GREEN-!3VIOLET-!";
 
     //constructor1
     public ObserverView() throws RemoteException {
@@ -314,6 +306,11 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         int row = 100;
         int column = 100;
         boolean success = false;
+        try {
+            printMap(servercontroller.getSchemeCard(yourName));
+        } catch (RemoteException e) {
+           System.out.println(e.getMessage());
+        }
         while (!success) {
             success =true;
             System.out.println("Seleziona il dado da piazzare usando l'indice numerico sotto riportato:");
@@ -328,13 +325,13 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
             } catch (UserNotExistentException e) {
                 System.out.println(e.getMessage());
                 success = false;
+            } catch (RemoteException e) {
+                System.out.println(e.getMessage());
+                success = false;
             } catch (SchemeCardNotExistantException e) {
                 System.out.println(e.getMessage());
                 success = false;
-            } catch (RemoteException e) {
-                System.out.println(e.getMessage());
             }
-            //TODO aggiornare la versione locale. Penso a questo punto che per semplicità mi riscaricherò volta per volta l'intera mappa perchè è meglio e rivedo eccezioni come gestirle.
         }
     }
 
@@ -354,69 +351,6 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         input = in.nextLine();
         //servercontroller.useaToolCard(yourName, input);
     }
-
-    //metodo che stampa la mappa a schermo in fase iniziale di scelta
-    public void printMaps(char[] map, int[] yourMapDiceIntensity, int maxRow, int maxColumn){
-        for(int row = 0 ; row < maxRow ; row++){
-            for(int column = 0 ; column < maxColumn ; column++){
-                switch (map[row * maxColumn + column]) {
-                    case 'Y':
-                        System.out.print( ansi().eraseScreen().bg(YELLOW).a("   ").reset());
-                        break;
-                    case 'B':
-                        System.out.print( ansi().eraseScreen().bg(BLUE).a("   ").reset());
-                        break;
-                    case 'R':
-                        System.out.print( ansi().eraseScreen().bg(RED).a("   ").reset());
-                        break;
-                    case 'V':
-                        System.out.print( ansi().eraseScreen().bg(MAGENTA).a("   ").reset());
-                        break;
-                    case 'G':
-                        System.out.print( ansi().eraseScreen().bg(GREEN).a("   ").reset());
-                        break;
-                    case '1':
-                        System.out.print( ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" 1 ").reset());
-                        break;
-                    case '2':
-                        System.out.print( ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" 2 ").reset());
-                        break;
-                    case '3':
-                        System.out.print( ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" 3 ").reset());
-                        break;
-                    case '4':
-                        System.out.print( ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" 4 ").reset());
-                        break;
-                    case '5':
-                        System.out.print( ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" 5 ").reset());
-                        break;
-                    case '6':
-                        System.out.print( ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" 6 ").reset());
-                        break;
-                    case '_':
-                        System.out.print( ansi().eraseScreen().bg(WHITE).fg(BLACK).a("   ").reset());
-                        break;
-                    case 'y':
-                        System.out.print( ansi().eraseScreen().bg(YELLOW).fg(WHITE).a(" " + yourMapDiceIntensity[row * maxColumn+ column] + " ").reset());
-                        break;
-                    case 'b':
-                        System.out.print( ansi().eraseScreen().bg(BLUE).fg(WHITE).a(" " + yourMapDiceIntensity[row * maxColumn+ column] + " ").reset());
-                        break;
-                    case 'r':
-                        System.out.print( ansi().eraseScreen().bg(RED).fg(WHITE).a(" " + yourMapDiceIntensity[row * maxColumn+ column] + " ").reset());
-                        break;
-                    case 'v':
-                        System.out.print( ansi().eraseScreen().bg(MAGENTA).fg(WHITE).a(" " + yourMapDiceIntensity[row * maxColumn+ column] + " ").reset());
-                        break;
-                    case 'g':
-                        System.out.print( ansi().eraseScreen().bg(GREEN).fg(WHITE).a(" " + yourMapDiceIntensity[row * maxColumn+ column] + " ").reset());
-                        break;
-                }
-            }
-            System.out.print("\n");
-        }
-    }
-
 
     public void printMap(String map){
         char[] charTile;
@@ -472,19 +406,19 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
 
    }
 
-
     //metodo che stampa a shcermo il roundTrack
     public void printRoundTrack(){
         System.out.println("Round track:");
         int round =10;
         int i=1;
         char[] charDice;
+
+        String[] dices = new String[0];
         try {
-            this.roundTrack = servercontroller.getRoundTrack(yourName);
+            dices = this.servercontroller.getRoundTrack(yourName).split("!");
         } catch (RemoteException e) {
             System.out.println(e.getMessage());
         }
-        String[] dices = this.roundTrack.split("!");
         for (String diceList : dices){
             if(i<10) {
                 System.out.print(ansi().eraseScreen().bg(WHITE).fg(BLACK).a("  " + i + " ").reset());
@@ -522,12 +456,13 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
     public void printRoundDicePool() {
         int index = 0;
         char[] charDice;
+        String[] dices = new String[0];
+
         try {
-            this.roundDicepool = servercontroller.getRoundDicepool(yourName);
+            dices = servercontroller.getRoundDicepool(yourName).split("-");
         } catch (RemoteException e) {
             System.out.println(e.getMessage());
         }
-        String[] dices = this.roundDicepool.split("-");
         System.out.println("Ecco i dadi disponibili in questo round:");
         for (String dice : dices) {
             charDice = dice.toCharArray();
