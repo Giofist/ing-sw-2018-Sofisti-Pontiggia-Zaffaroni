@@ -68,9 +68,19 @@ public class MatchesList {
     }
 
     //get the list of the existant matches
-    public List<Match> getgames(){
+    public List<Match> getmatches(){
         return this.matches;
     }
+    public List<Match> getActiveMatches(){
+        LinkedList<Match> activematches = new LinkedList<>();
+        for(Match match: this.matches){
+            if (!match.isStarted()){
+                activematches.add(match);
+            }
+        }
+        return activematches;
+    }
+
 
     public Match getGame(String game_name) throws GameNotExistantException
     {

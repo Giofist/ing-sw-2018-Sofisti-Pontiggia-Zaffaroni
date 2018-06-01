@@ -32,7 +32,7 @@ public interface ClientHandlerInterface extends Remote {
     public String getPublicGoalCarddescriptions(String clientname) throws RemoteException;
     public String getPublicGoalCardids(String clientname) throws RemoteException;
     public String getPublicGoalCardnames(String clientname) throws RemoteException;
-    public String getActiveMatchList() throws RemoteException;
+    public String getActiveMatchList(String clientname) throws RemoteException;
 
 
     //fine partita
