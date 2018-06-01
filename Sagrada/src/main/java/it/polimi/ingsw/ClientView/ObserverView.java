@@ -16,10 +16,6 @@ import static java.awt.Color.BLACK;
 import static java.awt.Color.MAGENTA;
 import static java.awt.Color.WHITE;
 import static org.fusesource.jansi.Ansi.Color.*;
-import static org.fusesource.jansi.Ansi.Color.BLUE;
-import static org.fusesource.jansi.Ansi.Color.GREEN;
-import static org.fusesource.jansi.Ansi.Color.RED;
-import static org.fusesource.jansi.Ansi.Color.YELLOW;
 import static org.fusesource.jansi.Ansi.ansi;
 
 //implemented by pon
@@ -285,6 +281,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
                 printRoundTrack();
                 printRoundDicePool();
                 System.out.println();
+                printToolcard();
                 placeDice();
                 printMap(servercontroller.getSchemeCard(yourName));
 
@@ -538,12 +535,16 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
 
     //metodo che stampa le toolcard
     public void printToolcard(){
+        int index =0;
         System.out.println("Queste sono le carte utensile disponibili:");
         try {
-            //String[] toolCard = servercontroller.getToolCards(yourName).split("!");
-            for (String element: toolCard) {
-                String[] field = element.split("-");
-                System.out.println(field[0] + "\nIl costo della carta utensile è: " + field[1] + "\nDescrizione:\n" + field[2]);
+            String[] toolCardID = servercontroller.getToolCardsIDs(yourName).split("!");
+            String[] toolCardName = servercontroller.getToolCardsNames(yourName).split("!");
+            String[] toolCardCost = servercontroller.getToolCardsCosts(yourName).split("!");
+            String[] toolCardDescription = servercontroller.getToolCardsDescriptions(yourName).split("!");
+            for (String element: toolCardID) {
+                System.out.println(toolCardID[index] +". " + toolCardName[index] + "\nIl costo della carta utensile è: " + toolCardCost[index] + "\nDescrizione:\n" + toolCardDescription[index]);
+                index++;
             }
         } catch (RemoteException e) {
             System.out.println(e.getMessage());

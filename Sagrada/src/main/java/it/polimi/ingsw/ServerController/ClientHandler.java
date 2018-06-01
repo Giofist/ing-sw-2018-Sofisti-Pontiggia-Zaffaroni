@@ -309,6 +309,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
         return null;
     }
 
+    @Override
     public synchronized String getToolCardsDescriptions(String clientname) throws RemoteException{
         try{
             Player player = UsersList.Singleton().getUser(clientname).getPlayer();
@@ -319,10 +320,22 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
         return null;
     }
 
+    @Override
     public synchronized String getToolCardsNames(String clientname) throws RemoteException{
         try{
             Player player = UsersList.Singleton().getUser(clientname).getPlayer();
             player.getGametable().getToolCardsTitles();
+        }catch(UserNotExistentException e){
+            throw new RemoteException(e.getMessage());
+        }
+        return null;
+    }
+
+    @Override
+    public synchronized String getToolCardsCosts(String clientname) throws RemoteException{
+        try{
+            Player player = UsersList.Singleton().getUser(clientname).getPlayer();
+            player.getGametable().getToolCardsCosts();
         }catch(UserNotExistentException e){
             throw new RemoteException(e.getMessage());
         }
