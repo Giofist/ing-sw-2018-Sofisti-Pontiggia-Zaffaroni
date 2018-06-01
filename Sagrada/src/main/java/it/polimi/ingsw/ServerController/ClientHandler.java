@@ -99,19 +99,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
             throw new RemoteException(e.getMessage());
         }
     }
-
-    @Override
-    public String getMymapString(String clientname) throws RemoteException {
-        try{
-            Player player = UsersList.Singleton().getUser(clientname).getPlayer();
-            return player.getScheme().getMapString();
-        }catch (UserNotExistentException e){
-            throw new RemoteException(e.getMessage());
-        }catch(SchemeCardNotExistantException e){
-            throw new RemoteException(e.getMessage());
-        }
-    }
-
+    
     @Override
     public String getPrivateGoalCarddescription(String clientname) throws RemoteException{
         try{
@@ -179,7 +167,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
 
 
     @Override
-    public String getActiveMatchList() throws RemoteException{
+    public String getActiveMatchesList() throws RemoteException{
         String list = new String();
         int i;
         for (Match match: MatchesList.singleton().getActiveMatches()) {
@@ -228,11 +216,11 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
             String stringToreturn = "\n";
             int index = 1;
             for (SchemeCard schemeCard: player.getExtractedSchemeCards()) {
-                stringToreturn += schemeCard.displayScheme();
-                stringToreturn += "!";
-                stringToreturn += schemeCard.getTwinCard().displayScheme();
+                stringToreturn += schemeCard.toString();
+                stringToreturn += "'";
+                stringToreturn += schemeCard.getTwinCard().toString();
                 if (index < player.getExtractedSchemeCards().size()){
-                  stringToreturn += "!";
+                  stringToreturn += "'";
                 }
                 index++;
             }

@@ -24,7 +24,6 @@ public interface ClientHandlerInterface extends Remote {
     public  void createGame(String clientname, ObserverViewInterface client, FeedObserverView Client, String gamename ) throws  RemoteException;
     public void joinaGame(String clientname, ObserverViewInterface client, FeedObserverView Client, String gamename) throws RemoteException;
 
-    public String getMymapString(String clientname) throws RemoteException;
 
     public String getPrivateGoalCarddescription(String clientname) throws RemoteException;
     public String getPrivateGoalCardname(String clientname) throws RemoteException;
@@ -32,7 +31,7 @@ public interface ClientHandlerInterface extends Remote {
     public String getPublicGoalCarddescriptions(String clientname) throws RemoteException;
     public String getPublicGoalCardids(String clientname) throws RemoteException;
     public String getPublicGoalCardnames(String clientname) throws RemoteException;
-    public String getActiveMatchList(String clientname) throws RemoteException;
+    public String getActiveMatchesList() throws RemoteException;
 
 
     //fine partita

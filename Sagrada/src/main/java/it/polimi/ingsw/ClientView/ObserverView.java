@@ -194,7 +194,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         System.out.println("Ecco la lista delle partite attualmente attive:");
         boolean remoteException = true;
         try{
-            System.out.println(servercontroller.getActiveMatchList());
+            System.out.println(servercontroller.getActiveMatchesList());
         }catch (RemoteException e){
             System.out.println(e.getMessage());
             remoteException = false;
@@ -254,15 +254,10 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
             AnsiConsole.out.println("Success in testing wait and notify!");
 
             schemeCards = servercontroller.getSchemeCards(this.yourName);
-            String[] schemeCardsArray = schemeCards.split("!"); //creo un array con le sngole mappe
+            String[] schemeCardsArray = schemeCards.split("'"); //creo un array con le sngole mappe
 
             for (index = 0 ; index < schemeCardsArray.length ; index++){
-                String[] schemeCardAttribute = schemeCardsArray[index].split("-");
-                System.out.println(ansi().eraseScreen().fg(GREEN).a(schemeCardAttribute[0]).reset());
-                System.out.println("Difficoltà della mappa: " + schemeCardAttribute[1]);
-                char[] constrain = schemeCardAttribute[4].toCharArray();
-                printMaps(constrain,yourMapDiceIntensity,Integer.parseInt(schemeCardAttribute[2]),Integer.parseInt(schemeCardAttribute[3]));
-                System.out.print("\n");
+                printMap(schemeCardsArray[index]);
             }
 
             while(!correct){
@@ -277,7 +272,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
             }
 
             System.out.println("La carta schema da te scelta è: ");
-            printMap();
+            printMap(servercontroller.getSchemeCard(yourName));
             printGoalCards();
             //AnsiConsole.systemUninstall();
             System.out.print("\n");
@@ -290,7 +285,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
                 printRoundDicePool();
                 System.out.println();
                 placeDice();
-                printMap();
+                printMap(servercontroller.getSchemeCard(yourName));
 
             }catch(InterruptedException e){
                 // do nothing
@@ -422,16 +417,13 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
         }
     }
 
-   public void printMap(){
+
+    public void printMap(String map){
         char[] charTile;
-        String map = null;
-        try {
-            map = servercontroller.getSchemeCard(yourName);
-            System.out.println(map);
-        } catch (RemoteException e) {
-            System.out.println(e.getMessage());
-        }
-        String[] tiles = map.split("!");
+        String[] element = map.split("%");
+        System.out.println(element[0]);
+        System.out.println(element[1]);
+        String[] tiles = element[2].split("!");
        for (String rowTile: tiles){
            String[] column = rowTile.split("-");
            for (String el : column) {

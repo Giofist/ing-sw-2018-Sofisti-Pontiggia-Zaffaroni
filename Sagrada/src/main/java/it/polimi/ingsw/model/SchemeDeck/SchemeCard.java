@@ -358,6 +358,10 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
     @Override
     public String toString(){
         String schemeCardstring = "";
+        schemeCardstring += getMapName();
+        schemeCardstring += "%Difficoltà della mappa: ";
+        schemeCardstring += getDifficulty();
+        schemeCardstring += "%";
         for (int row = 0; row < maxRow; row++) {
             for (int column = 0 ; column < maxColumn; column++) {
                 if (this.matrix[row][column].isOccupied()){
