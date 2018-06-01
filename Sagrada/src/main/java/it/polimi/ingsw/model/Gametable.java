@@ -123,6 +123,9 @@ public class Gametable {
     public String getToolCardsTitles() {
         return this.tooldeck.getCardsTitles();
     }
+    public String getToolCardsCosts() {
+        return this.tooldeck.getCardsCosts();
+    }
 }
 
 
