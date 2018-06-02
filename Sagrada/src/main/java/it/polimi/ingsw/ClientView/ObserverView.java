@@ -2,18 +2,17 @@ package it.polimi.ingsw.ClientView;
 
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
 
-import java.awt.*;
 import java.io.PrintWriter;
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+
 import java.util.Scanner;
 
-import it.polimi.ingsw.model.DiceColor;
 import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
 import it.polimi.ingsw.model.Exceptions.UserNotExistentException;
+import it.polimi.ingsw.model.Observable;
 import org.fusesource.jansi.AnsiConsole;
-
-import static it.polimi.ingsw.model.DiceColor.*;
 
 import static org.fusesource.jansi.Ansi.Color.*;
 import static org.fusesource.jansi.Ansi.Color.BLUE;
@@ -24,7 +23,7 @@ import static org.fusesource.jansi.Ansi.Color.WHITE;
 import static org.fusesource.jansi.Ansi.ansi;
 
 //implemented by pon
-public class ObserverView extends UnicastRemoteObject implements ObserverViewInterface, FeedObserverView{
+public class ObserverView extends UnicastRemoteObject implements Observer {
     private ClientHandlerInterface servercontroller;
     private final Scanner in;
     private final PrintWriter out;
@@ -206,7 +205,7 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
             System.out.println("Digita il il nome della partita cui vuoi partecipare:");
             gamename = in.nextLine();
             try {
-                servercontroller.joinaGame(yourName, this, this, gamename);
+                servercontroller.joinaGame(yourName, this, gamename);
                 chosen= true;
             } catch (RemoteException e) {
                 System.out.println(e.getMessage());
@@ -224,10 +223,12 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
                 System.out.println("Stai per creare una partita di Sagrada." +
                         "Inserisci il nome della partita:");
                 String gamename = in.nextLine();
-                servercontroller.createGame(yourName, this, this, gamename);
+                servercontroller.createGame(yourName, this, gamename);
                 success = true;
             } catch (Exception e) {
                 System.out.println(e.getMessage());
+                e.printStackTrace();
+
             }
         }
     }
@@ -599,32 +600,9 @@ public class ObserverView extends UnicastRemoteObject implements ObserverViewInt
     }
 
 
-    //metodi per il pattern observer
-    @Override
-    public synchronized void notifyGameisStarting() throws RemoteException{
-        notifyAll();
-    }
 
-    @Override
-    public void update() throws RemoteException{
-        notifyAll();
-        }
-
-    @Override
-    public synchronized void showErrorMessage(String message) throws RemoteException {
-        System.out.println(message);
-        notifyAll();
-    }
-
-    @Override
-    public synchronized void notifyendGame() throws RemoteException {
-        this.matchisEnded = true;
-        notifyAll();
-    }
-
-    @Override
-    public synchronized void notifyIsYourTurn(String message) throws RemoteException{
-        System.out.println(message);
-        // Fai partire la procedura di gestione del turno
+    public synchronized void update(Observable o, Object arg) {
+        // voglio fare qualcosa con questo oggetto? credo proprio di sì!
+        this.notifyAll();
     }
 }

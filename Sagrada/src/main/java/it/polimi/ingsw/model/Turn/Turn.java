@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.Turn;
 
-import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.PlayerPackage.Player;
+import it.polimi.ingsw.model.PlayerPackage.*;
 import it.polimi.ingsw.model.Round;
 
 public class Turn {
@@ -17,19 +18,19 @@ public class Turn {
 
     public synchronized void run(){
         if (currentPlayer.mustpassTurn()){
-            currentPlayer.setPlayerState(new MustPassTurnState());
+            currentPlayer.setPlayerState(State.NOTYOURTURNSTATE);
         }else{
-            currentPlayer.setPlayerState(new StartTurnState());
+            currentPlayer.setPlayerState(State.STARTTURNSTATE);
         }
         currentPlayer.setTurn(this);
-        currentPlayer.notifyIsYourTurn();
+        currentPlayer.notifyObservers();
         try{
             wait();
         }catch(InterruptedException e){
             // do nothing
         }
 
-        currentPlayer.setPlayerState(new NotYourTurnState());
+        currentPlayer.setPlayerState(State.NOTYOURTURNSTATE);
         return;
     }
 

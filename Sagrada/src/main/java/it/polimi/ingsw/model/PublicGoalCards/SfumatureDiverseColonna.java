@@ -1,14 +1,12 @@
 package it.polimi.ingsw.model.PublicGoalCards;
 
-import it.polimi.ingsw.model.DiceColor;
 import it.polimi.ingsw.model.Exceptions.*;
 import it.polimi.ingsw.model.GoalCard;
-import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.SchemeDeck.ColumnIterator;
 import it.polimi.ingsw.model.SchemeDeck.RowIterator;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 //revisionata by pon
 //obiettivo pubblico

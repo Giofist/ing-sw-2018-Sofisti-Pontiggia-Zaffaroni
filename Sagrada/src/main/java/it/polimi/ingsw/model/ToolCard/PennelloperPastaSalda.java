@@ -3,7 +3,8 @@ package it.polimi.ingsw.model.ToolCard;
 import it.polimi.ingsw.model.Dice;
 import it.polimi.ingsw.model.Exceptions.EmpyDicepoolException;
 import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
-import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.PlayerPackage.Player;
+import it.polimi.ingsw.model.PlayerPackage.State;
 
 public class PennelloperPastaSalda  extends ToolAction {
 
@@ -22,7 +23,7 @@ public class PennelloperPastaSalda  extends ToolAction {
         //ricordarsi sempre di fare gt and remove
         try{
             Dice dice= player.getGametable().getRoundDicepool().getDice(toolRequestClass.getSelectedDIceIndex());
-            player.getGametable().getRoundDicepool().getDice(toolRequestClass.getSelectedDIceIndex()).setRandomIntensity();
+            dice.setRandomIntensity();
 
 
         boolean settable = false;
@@ -36,7 +37,12 @@ public class PennelloperPastaSalda  extends ToolAction {
             }
         }
 
-        player.setMustsetdice(settable);
+        if(settable){
+            player.setDiceforToolCardUse(dice);
+            player.getGametable().getRoundDicepool().removeDice(toolRequestClass.getSelectedDIceIndex());
+            player.setPlayerState(State.MUSTSETPENNELLOPERPASTASALDASTATE);
+
+        }
         }catch (EmpyDicepoolException e){
 
         }

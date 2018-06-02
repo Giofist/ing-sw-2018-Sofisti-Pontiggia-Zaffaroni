@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model;
 
-import java.net.*;
+import it.polimi.ingsw.model.PlayerPackage.Player;
 
 public class User {
     private String name;

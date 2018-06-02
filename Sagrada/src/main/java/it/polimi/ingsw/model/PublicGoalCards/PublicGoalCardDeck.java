@@ -1,12 +1,11 @@
 package it.polimi.ingsw.model.PublicGoalCards;
 
 import it.polimi.ingsw.model.GoalCard;
-import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.PlayerPackage.Player;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
-import java.util.List;
 
 public class PublicGoalCardDeck {
     private LinkedList<GoalCard> deck = new LinkedList<>();

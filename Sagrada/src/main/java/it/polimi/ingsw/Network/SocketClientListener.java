@@ -11,16 +11,16 @@ import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class SocketListener implements Runnable {
+public class SocketClientListener implements Runnable {
     private Socket socket;
     private Scanner in;
     private PrintWriter out;
     private ObjectInputStream is;
     private ObjectOutputStream os;
-    private ObserverView observerView;
+    private ObserverView observerViewView;
     private SocketController controller;
 
-    public SocketListener(String ipAddr) throws IOException{
+    public SocketClientListener(String ipAddr) throws IOException{
         Socket socket = new Socket(ipAddr, 1337);
         this.socket = socket;
         in = new Scanner(socket.getInputStream());
@@ -42,23 +42,28 @@ public class SocketListener implements Runnable {
     @Override
     public void run() {
         ExecutorService executor = Executors.newCachedThreadPool(); //crea thread quando necessario
+        //convenzione usata:
+        // 1: sto ricevendo la risposta  ad una richiesta di un metodo VOID, che è andata a buon fine,
+        // 0: sto ricevendo la risposta ad una richiesta, che è fallita, quindi gestisco il relativo errore
+        // 33: sto ricevendo una risposta positiva ad una richiesta di un metodo NON VOID, quindi devo inoltrare la String che ho ricevuto
         int i=0;
         System.out.println("sono arrivato al run del listener");
         while (i==0){
             if (in.hasNextInt()) {
-                int h = in.nextInt();
-                System.out.println(h);
-                if (h ==1) {
-                    executor.submit(new SocketStringHandler(this.controller, this.observerView, this, "OK" ,true));
+                int messagecodex = in.nextInt();
+                System.out.println(messagecodex);
+                if (messagecodex ==1) {
+                    executor.submit(new SocketStringHandler(this.controller, this.observerViewView, this, "OK" ,true));
                 }
-                if(h==0){
-                    executor.submit(new SocketStringHandler(this.controller, this.observerView, this, in.nextLine(),true));
+                if(messagecodex==0){
+                    executor.submit(new SocketStringHandler(this.controller, this.observerViewView, this, in.nextLine(),true));
                 }
-                if (h == 33){
-                    executor.submit(new SocketStringHandler(this.controller, this.observerView, this, in.nextLine(),false));
+                if (messagecodex == 33){
+                    executor.submit(new SocketStringHandler(this.controller, this.observerViewView, this, in.nextLine(),false));
 
                 }
             }
+            // utilizzo invece una classe per gli update
             /*try{
                 SocketMessageClass message =(SocketMessageClass)is.readObject();
                 executor.submit(new SocketMessageHandler());

@@ -3,8 +3,7 @@ import it.polimi.ingsw.model.Exceptions.NotEnoughSegnaliniException;
 
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.Exceptions.WrongToolCardIDException;
-import it.polimi.ingsw.model.GoalCard;
-import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.PlayerPackage.Player;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -35,13 +34,13 @@ public class ToolCardsDeck {
             case 3: this.deck.add(new AlesatoreperLaminadiRame()); break;
             case 4: this.deck.add(new Lathekin()); break;
             case 5: this.deck.add(new TaglierinaCircolare()); break;
-            case 6: this.deck.add(new PennelloperPastaSalda()); this.deck.add(new PennelloPerPastaSalda2()); break;
+            case 6: this.deck.add(new PennelloperPastaSalda()); break;
             case 7: this.deck.add(new Martelletto()); break;
             case 8: this.deck.add(new TenagliaRotelle()); break;
             case 9: this.deck.add(new RigainSughero()); break;
             case 10: this.deck.add(new TamponeDiamantato()); break;
-            case 11: this.deck.add(new DiluenteperPastaSalda()); this.deck.add(new DiluentePerPastaSalda2()); break;
-            case 12: this.deck.add(new TaglierinaManuale()); this.deck.add(new TaglierinaManuale2()); break;
+            case 11: this.deck.add(new DiluenteperPastaSalda());  break;
+            case 12: this.deck.add(new TaglierinaManuale());  break;
             default: break;
         }
     }
@@ -75,7 +74,7 @@ public class ToolCardsDeck {
     //command design pattern
     //questa classe fa pagare per la toolcard corrispondente e lancia un'eccezione se il giocatore è povero per quell'azione
     public void doAction(int toolActionID, Player player, ToolRequestClass toolRequestClass) throws WrongToolCardIDException,ToolIllegalOperationException, NotEnoughSegnaliniException {
-        player.payforTool( this.getCost(toolActionID));
+        player.payforToolAction( this.getCost(toolActionID));
         setCostOfAction(toolActionID);
         for(ToolAction toolAction: this.deck){
             if(toolAction.getID() == toolActionID) {

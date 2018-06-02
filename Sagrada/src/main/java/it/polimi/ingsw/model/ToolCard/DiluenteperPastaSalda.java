@@ -3,7 +3,7 @@ package it.polimi.ingsw.model.ToolCard;
 import it.polimi.ingsw.model.DiceColor;
 import it.polimi.ingsw.model.Exceptions.EmpyDicepoolException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
-import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.PlayerPackage.Player;
 
 //l'ho lasciata stare perchè ho fatto altro
 //ma l'idea che ho avuto è dividere l'esecuioni in due DiluentiPerPastaCalda, perchè
@@ -31,7 +31,7 @@ public class DiluenteperPastaSalda  extends ToolAction {
             player.getGametable().getRoundDicepool().removeDice(toolRequestClass.getSelectedDIceIndex());
 
             //poi pescane uno
-            player.setDiceforDiluenteperPastaSalda(player.getGametable().getDicepool().extractDice());
+            player.setDiceforToolCardUse(player.getGametable().getDicepool().extractDice());
         }catch(EmpyDicepoolException e){
             throw new ToolIllegalOperationException(e.getMessage());
         }

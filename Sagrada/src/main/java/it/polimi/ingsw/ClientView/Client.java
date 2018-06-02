@@ -3,7 +3,7 @@ package it.polimi.ingsw.ClientView;
 
 //import it.polimi.ingsw.Network.SocketController;
 import it.polimi.ingsw.Network.SocketController;
-import it.polimi.ingsw.Network.SocketListener;
+import it.polimi.ingsw.Network.SocketClientListener;
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
 
 import java.rmi.registry.LocateRegistry;
@@ -34,13 +34,13 @@ public class Client {
                 new ObserverView(controller).run();
                 correct = true;
             } else if (input.equals("S") || input.equals("s")) {
-                ObserverView observerView = new ObserverView();
-                SocketListener listener = new SocketListener(ipAddr);
-                SocketController socketController = new SocketController(observerView, listener);
+                ObserverView observerViewView = new ObserverView();
+                SocketClientListener listener = new SocketClientListener(ipAddr);
+                SocketController socketController = new SocketController(observerViewView, listener);
                 listener.setController(socketController);
-                observerView.setServercontroller(socketController);
+                observerViewView.setServercontroller(socketController);
                 new Thread(listener).start();
-                observerView.run();
+                observerViewView.run();
 
                 correct = true;
             } else {

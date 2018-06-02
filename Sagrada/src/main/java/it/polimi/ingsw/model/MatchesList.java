@@ -1,9 +1,9 @@
 package it.polimi.ingsw.model;
-import java.rmi.RemoteException;
 import java.util.*;
 
 import it.polimi.ingsw.model.Exceptions.GameNotExistantException;
 import it.polimi.ingsw.model.Exceptions.HomonymyException;
+import it.polimi.ingsw.model.PlayerPackage.Player;
 
 
 //design pattern singleton

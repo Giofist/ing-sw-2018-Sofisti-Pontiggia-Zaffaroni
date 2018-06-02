@@ -1,54 +1,23 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.ClientView.FeedObserverView;
-import it.polimi.ingsw.ClientView.ObserverViewInterface;
-import it.polimi.ingsw.model.Exceptions.PrivateGoalCardException;
-import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
+import it.polimi.ingsw.ClientView.Observer;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.LinkedList;
 
-public class Observable {
-    //per il pattern observer
-    protected LinkedList<FeedObserverView> feedObserverViews;
-    protected LinkedList<ObserverViewInterface> observerViewInterfaces;
-    public void feedObserverViews(FeedObserverView client){
-        this.feedObserverViews.add(client);
+public class Observable implements Serializable{
+    protected LinkedList<Observer> observers;
+    public void addObserver(Observer observer){
+        this.observers.addLast(observer);
     }
-
-    //metodo per l'oberserver design pattern
-    public void observerViews(ObserverViewInterface client){
-        this.observerViewInterfaces.add(client);
-    }
-    //tutti questi metodi chiamano qualcosa della view tramite gli observer pattern
-    public void notifyError(String message)  throws RemoteException {
-        for(ObserverViewInterface observerViewInterface : this.observerViewInterfaces){
-            observerViewInterface.showErrorMessage(message);
-        }
-    }
-    public void startGame()throws RemoteException{
-        for(ObserverViewInterface observerViewInterface : this.observerViewInterfaces){
-            observerViewInterface.notifyGameisStarting();
-        }
-    }
-    public  void notifyEndMatch(){
-        try{
-            for(ObserverViewInterface observerViewInterface: this.observerViewInterfaces){
-                observerViewInterface.notifyendGame();
+    public void notifyObservers(){
+        for (Observer observer: this.observers){
+            try {
+                observer.update(null, null);
+            } catch (RemoteException e) {
+                e.printStackTrace();
             }
-        }catch(RemoteException e){
-            //do nothing
         }
     }
-
-    public void notifyIsYourTurn() {
-        try {
-            for(ObserverViewInterface observerViewInterface : this.observerViewInterfaces){
-                observerViewInterface.notifyIsYourTurn("E' il tuo turno!");
-            }
-        } catch(RemoteException e){
-
-        }
-    }
-
 }

@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class ToolRequestClass implements Serializable {
     private int ToolCardID;
+    private int numberofDicesyouwanttomove;
     private int oldRow1;
     private int oldColumn1;
     private int newRow1;
@@ -18,6 +19,7 @@ public class ToolRequestClass implements Serializable {
     private int roundWhereThediceis;
     private int selectedRoundTrackDiceIndex;
     private int diceIntesityToset;
+
 
 
     public int getSelectedRoundTrackDiceIndex() {
@@ -138,5 +140,13 @@ public class ToolRequestClass implements Serializable {
 
     public void setToolCardID(int toolCardID) {
         ToolCardID = toolCardID;
+    }
+
+    public int getNumberofDicesyouwanttomove() {
+        return numberofDicesyouwanttomove;
+    }
+
+    public void setNumberofDicesyouwanttomove(int numberofDicesyouwanttomove) {
+        this.numberofDicesyouwanttomove = numberofDicesyouwanttomove;
     }
 }

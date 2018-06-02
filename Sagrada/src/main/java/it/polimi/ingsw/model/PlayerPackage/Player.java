@@ -1,14 +1,15 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.PlayerPackage;
+import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.Exceptions.*;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
-import it.polimi.ingsw.model.Turn.PlayerState;
 import it.polimi.ingsw.model.Turn.Turn;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Observable;
 
 //implementa comparable per ordinare i giocatori in base al punteggio nellav lista di player
-public class Player extends Observable implements Comparable<Player>{
+public class Player extends it.polimi.ingsw.model.Observable implements Comparable<Player> {
     private User user;
     private GoalCard privateGoalCard;
     private int segnalini_favore;
@@ -25,23 +26,20 @@ public class Player extends Observable implements Comparable<Player>{
 
 
     //per la gestione delle toolCard, potremo pensare ad un'ottimizzazione
-    private Dice diceforDiluenteperPastaSalda;
-    private boolean mustsetdice;
-    private DiceColor colorConstrainForTaglierinaManuale;
+    private Dice diceforToolCard;
     private boolean mustpassTurn;
 
 
     //costruttore
     public Player(){
-        this.diceforDiluenteperPastaSalda = null;
-        this.mustsetdice = false;
-        this.colorConstrainForTaglierinaManuale = null;
-        this.observerViewInterfaces = new LinkedList<>();
-        this.feedObserverViews = new LinkedList<>();
+        this.diceforToolCard = null;
         this.mustpassTurn = false;
         this.points = 0;
         this.extractedschemeCards = new LinkedList<>();
         this.scheme = null;
+        this.playerState = new PlayerState();
+        setPlayerState(State.MATCHNOTSTARTEDYETSTATE);
+        this.observers = new LinkedList<>();
     }
 
 
@@ -55,7 +53,7 @@ public class Player extends Observable implements Comparable<Player>{
     public void setSegnalini_favore(int segnalinifavore) {
         this.segnalini_favore = segnalinifavore;
     }
-    public void payforTool(int cost)throws NotEnoughSegnaliniException {
+    public void payforToolAction(int cost)throws NotEnoughSegnaliniException {
         if(this.getSegnalini_favore() < cost){
             throw new NotEnoughSegnaliniException();
         }
@@ -95,9 +93,6 @@ public class Player extends Observable implements Comparable<Player>{
     public void addPoints(int points){
         this.points += points;
     }
-    public void setPoints(int points) {
-        this.points = points;
-    }
     public int getPoints(){
         return this.points;
     }
@@ -118,33 +113,24 @@ public class Player extends Observable implements Comparable<Player>{
     }
 
     //metodi per gli attributi per le toolcard
-    public void setDiceforDiluenteperPastaSalda(Dice dice){
-        this.diceforDiluenteperPastaSalda = dice;
+    public void setDiceforToolCardUse(Dice dice){
+        this.diceforToolCard = dice;
     }
-    public Dice getdiceforDiluenteperPastaSalda() throws DiceNotExistantException{
-        if (this.diceforDiluenteperPastaSalda ==null){
+    public Dice getdiceforToolCardUse() throws DiceNotExistantException{
+        if (this.diceforToolCard ==null){
             throw new DiceNotExistantException();
         }
         else {
-            return this.diceforDiluenteperPastaSalda
-            ;
+            return this.diceforToolCard;
+
         }
     }
-    public void  removediceforDiluenteperPastaSalda(){
-        this.diceforDiluenteperPastaSalda = null;
+    public void  removediceforToolCardUse(){
+        this.diceforToolCard = null;
+        this.getPlayerState().updateState(State.MUSTPASSTURNSTATE);
+
     }
-    public void setMustsetdice(boolean settable){
-        this.mustsetdice = settable;
-    }
-    public boolean getMustsetDice(){
-        return this.mustsetdice;
-    }
-    public DiceColor getColorConstrainForTaglierinaManuale() {
-        return colorConstrainForTaglierinaManuale;
-    }
-    public void setColorConstrainForTaglierinaManuale(DiceColor dicecolor){
-        this.colorConstrainForTaglierinaManuale = dicecolor;
-    }
+
     public boolean mustpassTurn() {
         return mustpassTurn;
     }
@@ -157,8 +143,8 @@ public class Player extends Observable implements Comparable<Player>{
     public PlayerState getPlayerState(){
         return this.playerState;
     }
-    public void setPlayerState(PlayerState playerState){
-        this.playerState = playerState;
+    public void setPlayerState(State state){
+        this.playerState.updateState(state);
     }
     public Turn getTurn() {
         return turn;
@@ -177,6 +163,5 @@ public class Player extends Observable implements Comparable<Player>{
     public String toString(){
         return this.getAssociatedUser().getName() + " " + this.getPoints() + "\n";
     }
-
 
 }

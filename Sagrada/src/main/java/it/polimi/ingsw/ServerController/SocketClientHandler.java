@@ -1,18 +1,17 @@
 package it.polimi.ingsw.ServerController;
 
-import it.polimi.ingsw.ClientView.FeedObserverView;
-import it.polimi.ingsw.ClientView.ObserverViewInterface;
-import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Scanner;
 
-public class SocketClientHandler implements Runnable, ObserverViewInterface, FeedObserverView {
+public class SocketClientHandler implements Runnable, it.polimi.ingsw.ClientView.Observer {
     private Socket socket;
     private ClientHandler controller;
     Scanner in;
@@ -70,7 +69,7 @@ public class SocketClientHandler implements Runnable, ObserverViewInterface, Fee
                         try {
                             String username = in.next();
                             String gamename = in.next();
-                            controller.createGame(username, this, this, gamename);
+                            controller.createGame(username, this, gamename);
                             out.println(1);
                             out.flush();
                         } catch (RemoteException e) {
@@ -104,7 +103,7 @@ public class SocketClientHandler implements Runnable, ObserverViewInterface, Fee
                         try {
                             String username = in.next();
                             String gamename = in.next();
-                            controller.joinaGame(username, this, this, gamename);
+                            controller.joinaGame(username, this, gamename);
                             out.println(1);
                             out.flush();
                         } catch (RemoteException e) {
@@ -118,46 +117,9 @@ public class SocketClientHandler implements Runnable, ObserverViewInterface, Fee
 
     }
 
-    public void waitforAnswerfromClient()throws RemoteException{
-        int message = in.nextInt();
-        System.out.println(message);
-        switch (message) {
-            case 1:
-                return;
-            case 0:
-                throw new RemoteException(in.next());
-        }
-    }
-    @Override
-    public synchronized void update()throws RemoteException {
-        out.println("update");
-        out.flush();
-        waitforAnswerfromClient();
-    }
 
     @Override
-    public synchronized void showErrorMessage(String message)throws RemoteException {
-        out.println("showErrorMessage");
-        out.flush();
-        waitforAnswerfromClient();
-    }
+    public void update(it.polimi.ingsw.model.Observable o, Object arg) {
 
-    @Override
-    public synchronized void notifyendGame() throws RemoteException {
-        out.println("notifyendGame");
-        out.flush();
-        waitforAnswerfromClient();
     }
-
-    @Override
-    public synchronized void notifyGameisStarting() throws RemoteException {
-        out.println("notifyGameisStarting");
-        out.flush();
-        waitforAnswerfromClient();
-    }
-
-    @Override
-    public void notifyIsYourTurn(String message) throws RemoteException {
-    }
-
 }

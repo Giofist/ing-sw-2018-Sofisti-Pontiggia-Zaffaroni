@@ -1,13 +1,13 @@
 package it.polimi.ingsw.ServerController;
 
-import it.polimi.ingsw.ClientView.FeedObserverView;
-import it.polimi.ingsw.ClientView.ObserverViewInterface;
+import it.polimi.ingsw.ClientView.Observer;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.Exceptions.*;
 import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
+import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 import it.polimi.ingsw.model.ToolCard.ToolRequestClass;
-import it.polimi.ingsw.model.Turn.TurnActions;
+import it.polimi.ingsw.model.PlayerPackage.TurnActions;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -55,21 +55,21 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
 
 
     @Override
-    public void createGame(String clientname, ObserverViewInterface client, FeedObserverView Client, String gamename ) throws  RemoteException {
+    public void createGame(String clientname, Observer client, String gamename ) throws  RemoteException {
         try {
             //creo un player, lo associo ad uno user e viceversa;
             Player player = new Player();
             User user = UsersList.Singleton().getUser(clientname);
+            System.out.println("fin qui tutto bene");
+
             user.setPlayer(player);
             player.setUser(user);
 
             //creo effettivamente la partita
             //NB: questa chiamata già aggiunge in player un riferimento alla partita a cui è iscritto
             MatchesList.singleton().createGame(player, gamename);
-
             //observer pattern, mi registro per seguire gli aggiornamenti relativi a me
-            player.feedObserverViews(Client);
-            player.observerViews(client);
+            player.addObserver(client);
             //gestione delle eccezioni
         } catch (HomonymyException e) {
             throw new RemoteException(e.getMsg());
@@ -81,16 +81,16 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
 
 
     @Override
-    public void joinaGame(String clientname, ObserverViewInterface client, FeedObserverView Client, String gamename) throws RemoteException{
+    public void joinaGame(String clientname, Observer observerView, String gamename) throws RemoteException{
         try{
             Player player = new Player();
             User user = UsersList.Singleton().getUser(clientname);
             user.setPlayer(player);
             player.setUser(user);
 
-            //observer pattern, mi registro per seguire gli aggiornamenti relativi a me
-            player.feedObserverViews(Client);
-            player.observerViews(client);
+            //observerView pattern, mi registro per seguire gli aggiornamenti relativi a me
+            player.addObserver(observerView);
+            player.addObserver(observerView);
 
             MatchesList.singleton().join(player,gamename);
         }catch (UserNotExistentException e){
@@ -342,7 +342,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     public synchronized void useaToolCard(String clientname, ToolRequestClass toolRequestClass) throws RemoteException {
         try{
             Player player = UsersList.Singleton().getUser(clientname).getPlayer();
-            player.getPlayerState().checkAction(TurnActions.USEATOOLCARD);
+            player.getPlayerState().checkAction(TurnActions.USEALLTOOLCARD);
             player.getGametable().useaToolCard(toolRequestClass,player);
         }catch (UserNotExistentException e){
             throw new RemoteException(e.getMessage());
@@ -368,8 +368,56 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     public synchronized void passTurn(String clientname) throws RemoteException {
         try{
             Player player = UsersList.Singleton().getUser(clientname).getPlayer();
-            player.getTurn().notify();
+            player.getPlayerState().checkAction(TurnActions.PASSTURN);
+            synchronized (player.getTurn()){
+                player.getTurn().notify();
+            }
         }catch (UserNotExistentException e){
+            throw new RemoteException(e.getMessage());
+        }catch (NotAllowedActionException e){
+            throw new RemoteException(e.getMessage());
+        }
+    }
+
+    @Override
+    public void leavethematch(String clientname) throws RemoteException {
+
+    }
+
+    @Override
+    public void setToolCardDice(String clientname, int row, int column) throws RemoteException {
+        try{
+            Player player = UsersList.Singleton().getUser(clientname).getPlayer();
+            player.getPlayerState().checkAction(TurnActions.SETTOOLCARDDICE);
+            player.getScheme().setDice(player.getdiceforToolCardUse(), row,column, false, false, false);
+            player.removediceforToolCardUse();
+
+        }catch (UserNotExistentException e){
+            throw new RemoteException(e.getMessage());
+        }catch(DiceNotExistantException e){
+            throw new RemoteException(e.getMessage());
+        }catch (SchemeCardNotExistantException e){
+            throw new RemoteException(e.getMessage());
+        }catch (NotAllowedActionException e){
+            throw new RemoteException(e.getMessage());
+        }catch (OutOfMatrixException e){
+            throw new RemoteException(e.getMessage());
+        }catch (TileConstrainException e){
+            throw new RemoteException(e.getMessage());
+        }
+    }
+
+    @Override
+    public void setToolCardDiceIntensity(String clientname, int intensity) throws RemoteException {
+        try{
+            Player player = UsersList.Singleton().getUser(clientname).getPlayer();
+            player.getPlayerState().checkAction(TurnActions.SETTOOLCARDDICEINTENSITY);
+            player.getdiceforToolCardUse().setIntensity(intensity);
+        }catch(UserNotExistentException e){
+            throw new RemoteException(e.getMessage());
+        }catch(NotAllowedActionException e){
+            throw new RemoteException(e.getMessage());
+        }catch(DiceNotExistantException e){
             throw new RemoteException(e.getMessage());
         }
     }

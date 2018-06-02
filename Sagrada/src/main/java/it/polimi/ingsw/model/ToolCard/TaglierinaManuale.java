@@ -9,13 +9,12 @@ import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
 import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.TaglierinaManualeException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
-import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.PlayerPackage.Player;
 
 import java.util.List;
 
 // DA TERMINARE
 public class TaglierinaManuale  extends ToolAction {
-    Dice removedDice;
     public TaglierinaManuale(){
         this.cost = 1;
         this.ID =12;
@@ -23,7 +22,8 @@ public class TaglierinaManuale  extends ToolAction {
         this.description = "Muovi fino a due dadi dello stesso colore  di un solo dado sul Tracciato dei Round.\n" +
                 "Devi rispettare tutte le restrizioni di piazzamento.";
     }
-
+    Dice removedDice;
+    Dice removedDice2;
     @Override
     public void execute(Player player, ToolRequestClass toolRequestClass)throws ToolIllegalOperationException {
         try{
@@ -32,9 +32,17 @@ public class TaglierinaManuale  extends ToolAction {
             if (diceColors.contains(removedDice.getColor())){
                 player.getScheme().removeDice(toolRequestClass.getOldRow1(), toolRequestClass.getOldColumn1());
                 player.getScheme().setDice(removedDice, toolRequestClass.getNewRow1(), toolRequestClass.getNewColumn1(),false,false,false);
-                player.setColorConstrainForTaglierinaManuale(removedDice.getColor());
             }else{
                 throw new TaglierinaManualeException("Non c'è nessun dado con lo stesso colore nel Tracciato Round\n");
+            }
+            if(toolRequestClass.getNumberofDicesyouwanttomove() ==2){
+                removedDice2 = player.getScheme().getDice(toolRequestClass.getOldRow1(), toolRequestClass.getOldColumn1());
+                if (removedDice2.getColor() == removedDice.getColor()){
+                    player.getScheme().removeDice(toolRequestClass.getOldRow2(), toolRequestClass.getOldColumn2());
+                    player.getScheme().setDice(removedDice2, toolRequestClass.getNewRow2(), toolRequestClass.getNewColumn2(),false,false,false);
+                }else{
+                    throw new TaglierinaManualeException("Il colore non corrisponde a quello del primo dado\n");
+                }
             }
         }catch (OutOfMatrixException e){
             throw new TaglierinaManualeException(TaglierinaManualeException.getMsg()+e.getMessage());
@@ -43,6 +51,7 @@ public class TaglierinaManuale  extends ToolAction {
         }catch (TileConstrainException e){
             try{
                 player.getScheme().setDice(removedDice, toolRequestClass.getOldRow1(), toolRequestClass.getOldColumn1(),false,false,false);
+                player.getScheme().setDice(removedDice2, toolRequestClass.getOldRow2(), toolRequestClass.getOldColumn2(),false,false,false);
             }catch (Exception ecpt){ }
             throw new TaglierinaManualeException(TaglierinaManualeException.getMsg()+e.getMessage());
         }catch (RoundTrackException e){

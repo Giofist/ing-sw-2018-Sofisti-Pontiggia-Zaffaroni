@@ -2,9 +2,12 @@ package it.polimi.ingsw.Network;
 
 import it.polimi.ingsw.model.ToolCard.ToolRequestClass;
 
-public class SocketMessageClass {
+import java.io.Serializable;
+
+public class SocketMessageClass implements Serializable{
     String clientname;
     ToolRequestClass requestClass;
+    // questa classe dovrà essere popolata a seconda delle richieste
 
     //constructor
     public SocketMessageClass(String clientname){

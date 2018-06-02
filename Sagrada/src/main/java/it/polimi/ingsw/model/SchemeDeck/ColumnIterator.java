@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model.SchemeDeck;
 
 import it.polimi.ingsw.model.Exceptions.OutOfMatrixException;
-import it.polimi.ingsw.model.Player;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;

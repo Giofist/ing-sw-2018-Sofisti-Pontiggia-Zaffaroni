@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.Exceptions.RoundTrackException;
+import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.Turn.Turn;
 
 import java.rmi.RemoteException;
@@ -27,16 +28,6 @@ public class Round {
         //questo metodo prepara il round con i dadi della Riserva ecc...
         this.getMatch().getGametable().setupRound();
 
-        //qui la chiamata ai vari turn
-        //questa notifica verrà tolta
-        for (Player player: this.players){
-            try{
-                player.notifyError("Questo è il round: "+ this.num_round);
-            }catch(RemoteException e){
-                //do nothing
-            }
-
-        }
 
         // Primo giro
         for (Player player: this.players) {

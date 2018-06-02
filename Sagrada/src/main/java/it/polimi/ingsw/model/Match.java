@@ -1,9 +1,10 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.model.Exceptions.DrawException;
 import it.polimi.ingsw.model.Exceptions.MapConstrainReadingException;
 import it.polimi.ingsw.model.Exceptions.PrivateGoalCardException;
 import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
+import it.polimi.ingsw.model.PlayerPackage.Player;
+import it.polimi.ingsw.model.PlayerPackage.State;
 
 
 import java.io.IOException;
@@ -49,7 +50,8 @@ public class Match implements Runnable{
                         }
                         player.addExtractedSchemeCard(getGametable().getSchemeCard());
                         player.addExtractedSchemeCard(getGametable().getSchemeCard());
-                        player.startGame();
+                        player.setPlayerState(State.MUSTSETSCHEMECARD);
+                        player.notifyObservers();
                         success = true;
                     } catch (MapConstrainReadingException e) {
                         System.out.println(e.getMessage());
@@ -59,9 +61,9 @@ public class Match implements Runnable{
         }catch(IOException e){
             try{
                 for(Player player: this.players){
-                    player.notifyError("Impossibile leggere il file delle mappe, la partita non può iniziare!\n");
+                    player.notifyObservers();//"Impossibile leggere il file delle mappe, la partita non può iniziare!\n");
                 }
-            }catch(RemoteException err){
+            }catch(Exception err){
                 //do nothing, we are so unlucky here
             }
         }
@@ -97,13 +99,11 @@ public class Match implements Runnable{
         //notifico ai vari giocatori la fine della partita dopo aver ordinato la lista in base al punteggio di ciascuno
         Collections.sort(this.players);
         for (Player player:this.players) {
-            player.notifyEndMatch();
-        }
+            player.notifyObservers();
         //qui bisognerà chiudere la partita in qualche modo
-
-
-
+        }
     }
+
 
     private synchronized boolean checkIsreadyToStart() {
         // qua bisognerà inserire un controllo dovuto al timer

@@ -1,7 +1,7 @@
 package it.polimi.ingsw.Network;
 
-import it.polimi.ingsw.ClientView.FeedObserverView;
-import it.polimi.ingsw.ClientView.ObserverViewInterface;
+import it.polimi.ingsw.ClientView.Observer;
+import it.polimi.ingsw.ClientView.ObserverView;
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
 import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
 import it.polimi.ingsw.model.Exceptions.UserNotExistentException;
@@ -13,13 +13,13 @@ import java.rmi.RemoteException;
 // implemented by pon
 public class SocketController implements ClientHandlerInterface {
 
-    private ObserverViewInterface observerView;
+    private ObserverView observerViewView;
     private SocketStringHandler stringHandler;
-    private SocketListener listener;
+    private SocketClientListener listener;
 
-    public SocketController( ObserverViewInterface observerView, SocketListener socketListener)  throws IOException {
-        this.listener = socketListener;
-        this.observerView = observerView;
+    public SocketController(ObserverView observerViewView, SocketClientListener socketClientListener)  throws IOException {
+        this.listener = socketClientListener;
+        this.observerViewView = observerViewView;
     }
 
    public void setStringHandler(SocketStringHandler stringHandler){
@@ -70,7 +70,7 @@ public class SocketController implements ClientHandlerInterface {
     }
 
     @Override
-    public synchronized void createGame(String username, ObserverViewInterface client, FeedObserverView Client, String gamename) throws RemoteException {
+    public synchronized void createGame(String username, Observer client, String gamename) throws RemoteException {
         listener.sendString("createGame " + username + " " + gamename);
         try{
             wait();
@@ -84,7 +84,7 @@ public class SocketController implements ClientHandlerInterface {
 
 
     @Override
-    public synchronized void joinaGame(String username, ObserverViewInterface client, FeedObserverView Client,String gamename) throws RemoteException {
+    public synchronized void joinaGame(String username, Observer client, String gamename) throws RemoteException {
         listener.sendString("joinaGame " + username + " " + gamename);
         try{
             wait();
@@ -184,6 +184,20 @@ public class SocketController implements ClientHandlerInterface {
 
     }
 
+    @Override
+    public void leavethematch(String clientname) throws RemoteException {
+
+    }
+
+    @Override
+    public void setToolCardDice(String clientname, int row, int column) throws RemoteException {
+
+    }
+
+    @Override
+    public void setToolCardDiceIntensity(String clientname, int intensity) throws RemoteException {
+
+    }
 
 
     @Override

@@ -1,14 +1,13 @@
 package it.polimi.ingsw.ServerController;
 
-import it.polimi.ingsw.ClientView.FeedObserverView;
-import it.polimi.ingsw.ClientView.ObserverViewInterface;
+import it.polimi.ingsw.ClientView.Observer;
+import it.polimi.ingsw.ClientView.ObserverView;
 import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
 import it.polimi.ingsw.model.Exceptions.UserNotExistentException;
 import it.polimi.ingsw.model.ToolCard.ToolRequestClass;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.util.List;
 
 
 public interface ClientHandlerInterface extends Remote {
@@ -21,8 +20,8 @@ public interface ClientHandlerInterface extends Remote {
     public void register(String username, String password) throws RemoteException;
     public void login(String clientname, String password) throws RemoteException;
     public void logout(String clientname) throws RemoteException;
-    public  void createGame(String clientname, ObserverViewInterface client, FeedObserverView Client, String gamename ) throws  RemoteException;
-    public void joinaGame(String clientname, ObserverViewInterface client, FeedObserverView Client, String gamename) throws RemoteException;
+    public  void createGame(String clientname, Observer client, String gamename ) throws  RemoteException;
+    public void joinaGame(String clientname, Observer  client, String gamename) throws RemoteException;
 
 
     public String getPrivateGoalCarddescription(String clientname) throws RemoteException;
@@ -56,4 +55,8 @@ public interface ClientHandlerInterface extends Remote {
 
     public String getPossibleActions(String clientname) throws RemoteException;
     public void passTurn(String clientname) throws RemoteException;
+    public void leavethematch(String clientname) throws RemoteException;
+    public void setToolCardDice(String clientname, int row, int column)throws RemoteException;
+
+    public void setToolCardDiceIntensity(String clientname, int intensity) throws RemoteException;
 }
