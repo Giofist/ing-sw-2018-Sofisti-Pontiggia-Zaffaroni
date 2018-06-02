@@ -117,4 +117,13 @@ public class ToolCardsDeck {
         }
         return names;
     }
+
+    public String getCardsCosts() {
+        String names = " ";
+        for (ToolAction toolAction : this.deck) {
+            names += toolAction.getCost();
+            names += "!";
+        }
+        return names;
+    }
 }

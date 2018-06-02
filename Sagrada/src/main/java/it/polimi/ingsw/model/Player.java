@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.Turn.PlayerState;
 import it.polimi.ingsw.model.Turn.Turn;
 
 import java.util.LinkedList;
+import java.util.List;
 
 //implementa comparable per ordinare i giocatori in base al punteggio nellav lista di player
 public class Player extends Observable implements Comparable<Player>{
@@ -68,7 +69,7 @@ public class Player extends Observable implements Comparable<Player>{
     public GoalCard getPrivateGoalCard(){
         return this.privateGoalCard;
     }
-    public synchronized void setScheme ( int cardid) throws CardIdNotAllowedException{
+    public  void setScheme ( int cardid) throws CardIdNotAllowedException{
         if (cardid == this.extractedschemeCards.getFirst().getID()){
             this.scheme = this.extractedschemeCards.getFirst();
         }else if (cardid == this.extractedschemeCards.getFirst().getTwinCard().getID()) {
@@ -78,7 +79,7 @@ public class Player extends Observable implements Comparable<Player>{
         }else if (cardid == this.extractedschemeCards.getLast().getTwinCard().getID()) {
             this.scheme = this.extractedschemeCards.getLast().getTwinCard();
         }else throw new CardIdNotAllowedException();
-        synchronized (this.getMatch()) {
+        synchronized (this.getMatch()){
             this.getMatch().notifyAll();
         }
     }
@@ -112,19 +113,8 @@ public class Player extends Observable implements Comparable<Player>{
     public void setMatch(Match match) {
         this.match = match;
     }
-    public String getExtractedSchemeCards(){
-        String stringToreturn = "\n";
-        int index = 1;
-        for (SchemeCard schemeCard: this.extractedschemeCards) {
-            stringToreturn += schemeCard.displayScheme();
-            stringToreturn += "!";
-            stringToreturn += schemeCard.getTwinCard().displayScheme();
-            if (index < this.extractedschemeCards.size()){
-                stringToreturn += "!";
-            }
-            index++;
-        }
-        return stringToreturn;
+    public List<SchemeCard> getExtractedSchemeCards(){
+        return this.extractedschemeCards;
     }
 
     //metodi per gli attributi per le toolcard

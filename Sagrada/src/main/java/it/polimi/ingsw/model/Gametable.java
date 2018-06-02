@@ -113,7 +113,7 @@ public class Gametable {
     }
 
     public String getToolCardsIDs() {
-        return this.tooldeck.getDescriptions();
+        return this.tooldeck.getIDs();
     }
 
     public String getToolCardsDescriptions() {
@@ -122,6 +122,9 @@ public class Gametable {
 
     public String getToolCardsTitles() {
         return this.tooldeck.getCardsTitles();
+    }
+    public String getToolCardsCosts() {
+        return this.tooldeck.getCardsCosts();
     }
 }
 

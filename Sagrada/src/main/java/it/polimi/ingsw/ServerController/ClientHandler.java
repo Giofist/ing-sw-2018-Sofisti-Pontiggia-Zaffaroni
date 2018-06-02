@@ -5,6 +5,7 @@ import it.polimi.ingsw.ClientView.ObserverViewInterface;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.Exceptions.*;
 import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
+import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 import it.polimi.ingsw.model.ToolCard.ToolRequestClass;
 import it.polimi.ingsw.model.Turn.TurnActions;
 
@@ -100,18 +101,6 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     }
 
     @Override
-    public String getMymapString(String clientname) throws RemoteException {
-        try{
-            Player player = UsersList.Singleton().getUser(clientname).getPlayer();
-            return player.getScheme().getMapString();
-        }catch (UserNotExistentException e){
-            throw new RemoteException(e.getMessage());
-        }catch(SchemeCardNotExistantException e){
-            throw new RemoteException(e.getMessage());
-        }
-    }
-
-    @Override
     public String getPrivateGoalCarddescription(String clientname) throws RemoteException{
         try{
             Player player = UsersList.Singleton().getUser(clientname).getPlayer();
@@ -174,29 +163,28 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
         }catch(UserNotExistentException e){
             throw new RemoteException(e.getMessage());
         }
-    };
+    }
 
 
     @Override
-    public String getActiveMatchList() throws RemoteException{
+    public String getActiveMatchesList() throws RemoteException{
         String list = new String();
         int i;
-        for (Match match: MatchesList.singleton().getgames()) {
+        for (Match match: MatchesList.singleton().getActiveMatches()) {
             i=4;
-            if (!match.isStarted()){
-                list+= "-";
-                list += (match.getName());
-                list += "       I giocatori iscritti a questa partita sono: ";
-                for(Player player: match.getallPlayers()){
-                    list+= player.getAssociatedUser().getName();
-                    list += " ";
-                    i--;
-                }
-                list += "e ne mancano ancora ";
-                list += i;
-                list += ".\n";
+            list+= "-";
+            list += (match.getName());
+            list += "       I giocatori iscritti a questa partita sono: ";
+            for(Player player: match.getallPlayers()){
+                list+= player.getAssociatedUser().getName();
+                list += " ";
+                i--;
             }
+            list += "e ne mancano ancora ";
+            list += i;
+            list += ".\n";
         }
+
         return list;
     }
 
@@ -225,7 +213,18 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     public synchronized String getSchemeCards(String clientname) throws RemoteException {
         try {
             Player player = UsersList.Singleton().getUser(clientname).getPlayer();
-            return player.getExtractedSchemeCards();
+            String stringToreturn = "\n";
+            int index = 1;
+            for (SchemeCard schemeCard: player.getExtractedSchemeCards()) {
+                stringToreturn += schemeCard.toString();
+                stringToreturn += "'";
+                stringToreturn += schemeCard.getTwinCard().toString();
+                if (index < player.getExtractedSchemeCards().size()){
+                  stringToreturn += "'";
+                }
+                index++;
+            }
+            return stringToreturn;
         } catch (UserNotExistentException e) {
             throw new RemoteException(e.getMessage());
         }
@@ -303,31 +302,40 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     public synchronized String getToolCardsIDs(String clientname) throws RemoteException{
         try{
             Player player = UsersList.Singleton().getUser(clientname).getPlayer();
-            player.getGametable().getToolCardsIDs();
+            return player.getGametable().getToolCardsIDs();
         }catch(UserNotExistentException e){
             throw new RemoteException(e.getMessage());
         }
-        return null;
     }
 
+    @Override
     public synchronized String getToolCardsDescriptions(String clientname) throws RemoteException{
         try{
             Player player = UsersList.Singleton().getUser(clientname).getPlayer();
-            player.getGametable().getToolCardsDescriptions();
+            return player.getGametable().getToolCardsDescriptions();
         }catch(UserNotExistentException e){
             throw new RemoteException(e.getMessage());
         }
-        return null;
     }
 
+    @Override
     public synchronized String getToolCardsNames(String clientname) throws RemoteException{
         try{
             Player player = UsersList.Singleton().getUser(clientname).getPlayer();
-            player.getGametable().getToolCardsTitles();
+            return player.getGametable().getToolCardsTitles();
         }catch(UserNotExistentException e){
             throw new RemoteException(e.getMessage());
         }
-        return null;
+    }
+
+    @Override
+    public synchronized String getToolCardsCosts(String clientname) throws RemoteException{
+        try{
+            Player player = UsersList.Singleton().getUser(clientname).getPlayer();
+            return player.getGametable().getToolCardsCosts();
+        }catch(UserNotExistentException e){
+            throw new RemoteException(e.getMessage());
+        }
     }
 
     @Override

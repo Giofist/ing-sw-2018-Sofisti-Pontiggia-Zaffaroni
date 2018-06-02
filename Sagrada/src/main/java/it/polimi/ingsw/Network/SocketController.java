@@ -8,107 +8,155 @@ import it.polimi.ingsw.model.Exceptions.UserNotExistentException;
 import it.polimi.ingsw.model.ToolCard.ToolRequestClass;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.Socket;
 import java.rmi.RemoteException;
-import java.util.List;
-import java.util.Scanner;
 
 // implemented by pon
 public class SocketController implements ClientHandlerInterface {
 
     private ObserverViewInterface observerView;
-    private SocketMessageHandler messageHandler;
-    private SocketListener socketListener;
+    private SocketStringHandler stringHandler;
+    private SocketListener listener;
 
     public SocketController( ObserverViewInterface observerView, SocketListener socketListener)  throws IOException {
-
-        this.socketListener = socketListener;
+        this.listener = socketListener;
         this.observerView = observerView;
     }
 
-   public void setMessageHandler(SocketMessageHandler messageHandler){
-        this.messageHandler = messageHandler;
+   public void setStringHandler(SocketStringHandler stringHandler){
+        this.stringHandler = stringHandler;
    }
 
 
     //all methods to be implemented here
     @Override
     public String rmiTest(String stringa) throws RemoteException {
-
         return null;
     }
 
     @Override
-    public void register(String username, String password) throws RemoteException {
-        /*out.println("register " + username + " " + password);
-        out.flush();
+    public synchronized void register(String username, String password) throws RemoteException {
+        listener.sendString("register " + username + " " + password);
         try{
             wait();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-*/
+        this.stringHandler.check();
+        this.stringHandler = null;
     }
 
     @Override
-    public void   login(String username, String password) throws RemoteException {
-        /*out.println("login " + username + " " + password);
-        out.flush();
-        this.waitforAnswerfromServer();
-        */
-    }
-
-    @Override
-    public void logout(String username) throws RemoteException {
-        out.println("logout " + username);
-        out.flush();
-        this.waitforAnswerfromServer();
-    }
-
-    @Override
-    public void createGame(String username, ObserverViewInterface client, FeedObserverView Client, String gamename) throws RemoteException {
-        out.println("createGame " + username + " " + gamename);
-        out.flush();
-        this.waitforAnswerfromServer();
-    }
-
-
-
-    @Override
-    public void joinaGame(String username, ObserverViewInterface client, FeedObserverView Client,String gamename) throws RemoteException {
-        out.println("joinaGame " + username + " " + gamename);
-        out.flush();
-        this.waitforAnswerfromServer();
-
-    }
-
-    @Override
-    public String getMymapString(String clientname) throws RemoteException {
-        return null;
-    }
-
-    @Override
-    public void setSchemeCard(String username, int cardid) throws RemoteException {
-        out.println("setSchemeCard " + username + " " + cardid);
-        out.flush();
-        switch (in.nextInt()) {
-            case 1:
-                return;
-            case 0:
-                throw new RemoteException(in.nextLine());
+    public synchronized void   login(String username, String password) throws RemoteException {
+        listener.sendString("login " + username + " " + password);
+        try{
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
+        this.stringHandler.check();
+        this.stringHandler = null;
+    }
+
+    @Override
+    public synchronized void logout(String username) throws RemoteException {
+        listener.sendString("logout " + username);
+        try{
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.stringHandler.check();
+        this.stringHandler = null;
+    }
+
+    @Override
+    public synchronized void createGame(String username, ObserverViewInterface client, FeedObserverView Client, String gamename) throws RemoteException {
+        listener.sendString("createGame " + username + " " + gamename);
+        try{
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.stringHandler.check();
+        this.stringHandler = null;
+    }
+
+
+
+    @Override
+    public synchronized void joinaGame(String username, ObserverViewInterface client, FeedObserverView Client,String gamename) throws RemoteException {
+        listener.sendString("joinaGame " + username + " " + gamename);
+        try{
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.stringHandler.check();
+        this.stringHandler = null;
+
+    }
+
+    /*@Override
+    public synchronized String getMymapString(String clientname) throws RemoteException {
+        listener.sendString("getMymapString " + clientname);
+        try{
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.stringHandler.check();
+        String message = this.stringHandler.getMessage();
+        this.stringHandler = null;
+        return message;
+    }
+    */
+
+    @Override
+    public synchronized void setSchemeCard(String username, int cardid) throws RemoteException {
+        listener.sendString("joinaGame " + username + " " + cardid);
+        try{
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.stringHandler.check();
+        this.stringHandler = null;
+
     }
 
     @Override
     public void setDice(String clientname, int diceindex, int row, int column) throws RemoteException, UserNotExistentException, SchemeCardNotExistantException {
-
+        listener.sendString("joinaGame " + clientname  + diceindex + row + column);
+        try{
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.stringHandler.check();
+        this.stringHandler = null;
     }
 
     @Override
-    public void useaToolCard(String clientname, ToolRequestClass toolRequestClass) throws RemoteException {
+    public String getToolCardsCosts(String clientname) throws RemoteException {
+        return null;
+    }
 
+    @Override
+    public void useaToolCard(String clientname, ToolRequestClass requestClass) throws RemoteException {
+        SocketMessageClass message = new SocketMessageClass(clientname);
+        message.setRequestClass(requestClass);
+        try{
+            listener.sendMessage(message);
+        }catch (IOException e){
+            throw new RemoteException(e.getMessage());
+        }
+        try{
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.stringHandler.check();
+        this.stringHandler = null;
     }
 
     @Override
@@ -136,10 +184,6 @@ public class SocketController implements ClientHandlerInterface {
 
     }
 
-    @Override
-    public void notifyGame(String clientname) throws RemoteException {
-
-    }
 
 
     @Override
@@ -158,31 +202,32 @@ public class SocketController implements ClientHandlerInterface {
     }
 
     @Override
-    public List getPublicGoalCarddescriptions(String clientname) throws RemoteException {
+    public String getPublicGoalCarddescriptions(String clientname) throws RemoteException {
         return null;
     }
 
     @Override
-    public List getPublicGoalCardids(String clientname) throws RemoteException {
+    public String getPublicGoalCardids(String clientname) throws RemoteException {
         return null;
     }
 
     @Override
-    public List getPublicGoalCardnames(String clientname) throws RemoteException {
+    public String getPublicGoalCardnames(String clientname) throws RemoteException {
         return null;
     }
 
     @Override
-    public String getActiveMatchList() throws RemoteException {
-        out.println("getActiveMatchList ");
-        out.flush();
-        switch (in.nextInt()) {
-            case 1:
-                return in.nextLine();
-            case 0:
-                throw new RemoteException(in.nextLine());
+    public synchronized String getActiveMatchesList() throws RemoteException {
+        listener.sendString("getActiveMatchList ");
+        try{
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-        throw  new RemoteException();
+        this.stringHandler.check();
+        String message = this.stringHandler.getMessage();
+        this.stringHandler = null;
+        return message;
     }
 
     @Override
@@ -191,7 +236,7 @@ public class SocketController implements ClientHandlerInterface {
     }
 
     @Override
-    public List getRanking(String username) throws RemoteException {
+    public String getRanking(String username) throws RemoteException {
         return null;
 
     }
