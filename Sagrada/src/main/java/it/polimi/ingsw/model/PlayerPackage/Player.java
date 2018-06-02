@@ -88,7 +88,7 @@ public class Player extends it.polimi.ingsw.model.Observable implements Comparab
         throw new SchemeCardNotExistantException(this);
     }
     public Gametable getGametable(){
-        return getMatch().getGametable();
+        return this.getMatch().getGametable();
     }
     public void addPoints(int points){
         this.points += points;
@@ -103,7 +103,7 @@ public class Player extends it.polimi.ingsw.model.Observable implements Comparab
     }
 
     public Match getMatch() {
-        return match;
+        return this.match;
     }
     public void setMatch(Match match) {
         this.match = match;
