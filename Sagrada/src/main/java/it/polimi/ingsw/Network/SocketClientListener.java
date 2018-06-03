@@ -50,13 +50,13 @@ public class SocketClientListener implements Runnable {
                 int messagecodex = in.nextInt();
                 System.out.println(messagecodex);
                 if (messagecodex ==1) {
-                    executor.submit(new SocketStringHandler(this.controller, this.observerViewView, this, "OK" ,true));
+                    executor.submit(new SocketStringHandler(this.controller, this.observerView, this, "OK" ,true));
                 }
                 if(messagecodex==0){
-                    executor.submit(new SocketStringHandler(this.controller, this.observerViewView, this, in.nextLine(),true));
+                    executor.submit(new SocketStringHandler(this.controller, this.observerView, this, in.nextLine(),true));
                 }
                 if (messagecodex == 33){
-                    executor.submit(new SocketStringHandler(this.controller, this.observerViewView, this, in.nextLine(),false));
+                    executor.submit(new SocketStringHandler(this.controller, this.observerView, this, in.nextLine(),false));
 
                 }
             }

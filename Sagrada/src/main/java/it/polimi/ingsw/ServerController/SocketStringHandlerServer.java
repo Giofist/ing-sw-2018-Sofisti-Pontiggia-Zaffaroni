@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ServerController;
 
+
 import it.polimi.ingsw.ClientView.ObserverView;
 import it.polimi.ingsw.Network.SocketClientListener;
 import it.polimi.ingsw.Network.SocketController;
@@ -45,4 +46,4 @@ public class SocketStringHandlerServer implements Runnable {
 }
 
 
-}
+

@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class SocketMessageClass implements Serializable{
     ToolRequestClass requestClass;
     // questa classe dovrà essere popolata a seconda delle richieste
-
+    String methodtoinvoke;
     // Parametri delle richieste
     String clientname;
     String password;
@@ -21,9 +21,16 @@ public class SocketMessageClass implements Serializable{
     int intensity;
 
     //constructor
-    public SocketMessageClass(String clientname){
-        this.clientname = clientname;
+
+
+    public String getMethodtoinvoke() {
+        return methodtoinvoke;
     }
+
+    public void setMethodtoinvoke(String methodtoinvoke) {
+        this.methodtoinvoke = methodtoinvoke;
+    }
+
 
     public void setRequestClass(ToolRequestClass requestClass){
         this.requestClass = requestClass;

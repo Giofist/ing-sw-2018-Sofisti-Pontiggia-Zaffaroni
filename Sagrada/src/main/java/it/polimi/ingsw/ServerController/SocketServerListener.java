@@ -29,12 +29,11 @@ public class SocketServerListener implements Runnable{
         this.controller = controller;
         this.is = new ObjectInputStream(socket.getInputStream());
         this.os = new ObjectOutputStream(socket.getOutputStream());
+        this.client  = new SocketClient(this);
 
 
     }
-    public void setClient(SocketClient client){
-        this.client= client;
-    }
+
     @Override
     public void run() {
         ExecutorService executor = Executors.newCachedThreadPool(); //crea thread quando necessario
@@ -42,30 +41,31 @@ public class SocketServerListener implements Runnable{
         // 1: sto ricevendo la risposta  ad una richiesta di un metodo VOID, che è andata a buon fine,
         // 0: sto ricevendo la risposta ad una richiesta, che è fallita, quindi gestisco il relativo errore
         // 33: sto ricevendo una risposta positiva ad una richiesta di un metodo NON VOID, quindi devo inoltrare la String che ho ricevuto
-        int i=0;
-        while (i==0){
+        int i = 0;
+        while (i == 0) {
             if (in.hasNextInt()) {
                 int messagecodex = in.nextInt();
                 System.out.println(messagecodex);
-                if (messagecodex ==1) {
-                    executor.submit(new SocketStringHandlerServer(this.client,  this, "OK" ));
+                if (messagecodex == 1) {
+                    executor.submit(new SocketStringHandlerServer(this.client, this, "OK"));
                 }
-                if(messagecodex==0){
+                if (messagecodex == 0) {
                     executor.submit(new SocketStringHandlerServer(this.client, this, in.nextLine()));
                 }
 
             }
             // utilizzo invece una classe per gli update
-            /*try{
-                SocketMessageClass message =(SocketMessageClass)is.readObject();
-                executor.submit(new SocketMessageHandler());
+            try {
+                SocketMessageClass message = (SocketMessageClass) is.readObject();
+                executor.submit(new SocketMessageHandlerServer(message,this.controller,this));
 
-            }catch (IOException e){
+            } catch (IOException e) {
                 //do something
-            }catch (ClassNotFoundException e){
+            } catch (ClassNotFoundException e) {
                 //do something
-            }*/
+            }
 
+        }
     }
 
     public void sendString(int messagecodex, String message){
