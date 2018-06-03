@@ -10,6 +10,7 @@ import it.polimi.ingsw.model.PlayerPackage.State;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.*;
+import java.util.concurrent.CountDownLatch;
 
 //manca solo il timer
 public class Match implements Runnable{
@@ -17,7 +18,9 @@ public class Match implements Runnable{
     private LinkedList<Player> players;
     private Gametable gametable;
     private boolean started;
-    
+    private CountDownLatch doneSignal;
+
+
 
 
     //public constructor
@@ -26,6 +29,8 @@ public class Match implements Runnable{
         this.players = new LinkedList<>();
         this.players.addFirst(player);
         player.setMatch(this);
+
+
     }
     public synchronized void run(){
         while (!checkIsreadyToStart()){
@@ -67,12 +72,11 @@ public class Match implements Runnable{
                 //do nothing, we are so unlucky here
             }
         }
-        while(!everyonehassettheschemecard()){
-            try {
-                wait();
-            }catch(InterruptedException e) {
-                //do nothing
-            }
+        doneSignal = new CountDownLatch(this.getNumberOfPlayers());
+        try {
+            doneSignal.await();
+        }catch(InterruptedException e) {
+            //do nothing
         }
         //adesso la partita può avere inizio
         for (int i = 1; i<=10; i++){
@@ -112,18 +116,6 @@ public class Match implements Runnable{
             return true;
         } else return false;
     }
-    private synchronized boolean everyonehassettheschemecard(){
-        boolean returnValue = true;
-        try{
-            for (Player player: this.players){
-                returnValue = returnValue && player.getScheme() != null;
-            }
-        }catch (SchemeCardNotExistantException e){
-            return false;
-        }
-        return returnValue;
-    }
-
 
 
     //metodi getter e setter
@@ -181,4 +173,7 @@ public class Match implements Runnable{
         return string;
     }
 
+    public void countDown() {
+        this.doneSignal.countDown();
+    }
 }

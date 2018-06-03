@@ -17,7 +17,7 @@ public class SocketClientListener implements Runnable {
     private PrintWriter out;
     private ObjectInputStream is;
     private ObjectOutputStream os;
-    private ObserverView observerViewView;
+    private ObserverView observerView;
     private SocketController controller;
 
     public SocketClientListener(String ipAddr) throws IOException{
@@ -26,12 +26,9 @@ public class SocketClientListener implements Runnable {
         in = new Scanner(socket.getInputStream());
         out = new PrintWriter(socket.getOutputStream());
 
-        //this.is = new ObjectInputStream(socket.getInputStream());
-
-        //this.os = new ObjectOutputStream(socket.getOutputStream());
+        this.is = new ObjectInputStream(socket.getInputStream());
+        this.os = new ObjectOutputStream(socket.getOutputStream());
         System.out.println("Connessione stabilita!\n");
-
-
     }
 
     public void setController(SocketController controller){
@@ -63,8 +60,8 @@ public class SocketClientListener implements Runnable {
 
                 }
             }
-            // utilizzo invece una classe per gli update
-            /*try{
+            //utilizzo invece una classe per gli update
+            try{
                 SocketMessageClass message =(SocketMessageClass)is.readObject();
                 executor.submit(new SocketMessageHandler());
 
@@ -72,7 +69,7 @@ public class SocketClientListener implements Runnable {
                 //do something
             }catch (ClassNotFoundException e){
                 //do something
-            }*/
+            }
         }
 
 

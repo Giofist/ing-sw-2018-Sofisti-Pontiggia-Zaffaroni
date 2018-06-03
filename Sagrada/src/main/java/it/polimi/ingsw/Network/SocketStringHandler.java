@@ -6,14 +6,14 @@ import java.rmi.RemoteException;
 
 public class SocketStringHandler implements Runnable{
     private SocketController controller;
-    private ObserverView observerViewView;
+    private ObserverView observerView;
     private String message;
     private RemoteException exception;
     boolean errorMessage;
 
     public SocketStringHandler(SocketController controller, ObserverView observerViewView, SocketClientListener listener, String message, boolean errorMessage){
         this.controller = controller;
-        this.observerViewView = observerViewView;
+        this.observerView = observerViewView;
         this.message = message;
         this.errorMessage = errorMessage;
     }

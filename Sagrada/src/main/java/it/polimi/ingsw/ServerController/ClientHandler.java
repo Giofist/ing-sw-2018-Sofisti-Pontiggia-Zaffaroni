@@ -263,13 +263,16 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     }
 
     @Override
-    public synchronized void setSchemeCard(String clientusername, int cardid) throws RemoteException{
-        try{
+    public synchronized void setSchemeCard(String clientusername, int cardid) throws RemoteException {
+        try {
             Player player = UsersList.Singleton().getUser(clientusername).getPlayer();
+            player.getPlayerState().checkAction(TurnActions.SETSCHEMECARD);
             player.setScheme(cardid);
-        }catch (UserNotExistentException e){
+        } catch (UserNotExistentException e) {
             throw new RemoteException(e.getMessage());
-        }catch (CardIdNotAllowedException e){
+        } catch (CardIdNotAllowedException e) {
+            throw new RemoteException(e.getMessage());
+        } catch (NotAllowedActionException e) {
             throw new RemoteException(e.getMessage());
         }
     }
@@ -370,7 +373,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
             Player player = UsersList.Singleton().getUser(clientname).getPlayer();
             player.getPlayerState().checkAction(TurnActions.PASSTURN);
             synchronized (player.getTurn()){
-                player.getTurn().notify();
+                player.getTurn().countDown();
             }
         }catch (UserNotExistentException e){
             throw new RemoteException(e.getMessage());

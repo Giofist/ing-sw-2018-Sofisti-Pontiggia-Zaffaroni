@@ -61,7 +61,7 @@ public class Player extends it.polimi.ingsw.model.Observable implements Comparab
             this.setSegnalini_favore(this.getSegnalini_favore()-cost);
         }
     }
-    public synchronized void setPrivateGoalCard ( GoalCard privateGoalCard){
+    public  void setPrivateGoalCard ( GoalCard privateGoalCard){
         this.privateGoalCard = privateGoalCard;
     }
     public GoalCard getPrivateGoalCard(){
@@ -78,7 +78,7 @@ public class Player extends it.polimi.ingsw.model.Observable implements Comparab
             this.scheme = this.extractedschemeCards.getLast().getTwinCard();
         }else throw new CardIdNotAllowedException();
         synchronized (this.getMatch()){
-            this.getMatch().notifyAll();
+            this.getMatch().countDown();
         }
     }
     public SchemeCard getScheme() throws SchemeCardNotExistantException{
