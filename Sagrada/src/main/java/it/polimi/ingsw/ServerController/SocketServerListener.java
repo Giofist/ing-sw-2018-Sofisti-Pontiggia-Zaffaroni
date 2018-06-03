@@ -40,7 +40,6 @@ public class SocketServerListener implements Runnable{
         //convenzione usata:
         // 1: sto ricevendo la risposta  ad una richiesta di un metodo VOID, che è andata a buon fine,
         // 0: sto ricevendo la risposta ad una richiesta, che è fallita, quindi gestisco il relativo errore
-        // 33: sto ricevendo una risposta positiva ad una richiesta di un metodo NON VOID, quindi devo inoltrare la String che ho ricevuto
         int i = 0;
         while (i == 0) {
             if (in.hasNextInt()) {
@@ -54,7 +53,6 @@ public class SocketServerListener implements Runnable{
                 }
 
             }
-            // utilizzo invece una classe per gli update
             try {
                 SocketMessageClass message = (SocketMessageClass) is.readObject();
                 executor.submit(new SocketMessageHandlerServer(message,this.controller,this));

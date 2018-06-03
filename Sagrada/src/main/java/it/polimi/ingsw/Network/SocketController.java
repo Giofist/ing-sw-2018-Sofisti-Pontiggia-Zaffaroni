@@ -166,13 +166,9 @@ public class SocketController implements ClientHandlerInterface {
 
     @Override
     public void useaToolCard(String clientname, ToolRequestClass requestClass) throws RemoteException {
-        SocketMessageClass message = new SocketMessageClass(clientname);
-        message.setRequestClass(requestClass);
-        try{
-            listener.sendMessage(message);
-        }catch (IOException e){
-            throw new RemoteException(e.getMessage());
-        }
+        //SocketMessageClass message = new SocketMessageClass(clientname);
+        //message.setRequestClass(requestClass);
+
         try{
             wait();
         } catch (InterruptedException e) {

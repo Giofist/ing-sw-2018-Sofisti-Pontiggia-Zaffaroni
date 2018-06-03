@@ -26,8 +26,8 @@ public class SocketClientListener implements Runnable {
         in = new Scanner(socket.getInputStream());
         out = new PrintWriter(socket.getOutputStream());
 
-        this.is = new ObjectInputStream(socket.getInputStream());
-        this.os = new ObjectOutputStream(socket.getOutputStream());
+        is = new ObjectInputStream(socket.getInputStream());
+        os = new ObjectOutputStream(socket.getOutputStream());
         System.out.println("Connessione stabilita!\n");
     }
 
