@@ -164,4 +164,6 @@ public class Player extends it.polimi.ingsw.model.Observable implements Comparab
         return this.getAssociatedUser().getName() + " " + this.getPoints() + "\n";
     }
 
+    protected void setPoints(int points) { this.points = points; }
+
 }

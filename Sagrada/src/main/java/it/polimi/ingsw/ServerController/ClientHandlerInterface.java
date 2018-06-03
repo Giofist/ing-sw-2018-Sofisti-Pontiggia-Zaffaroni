@@ -17,7 +17,7 @@ public interface ClientHandlerInterface extends Remote {
     public String rmiTest(String stringa) throws RemoteException;
 
 
-    public void register(String username, String password) throws RemoteException;
+    public void register(String clientname, String password) throws RemoteException;
     public void login(String clientname, String password) throws RemoteException;
     public void logout(String clientname) throws RemoteException;
     public  void createGame(String clientname, Observer client, String gamename ) throws  RemoteException;
