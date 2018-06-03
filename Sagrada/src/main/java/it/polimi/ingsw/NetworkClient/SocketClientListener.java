@@ -1,6 +1,8 @@
 package it.polimi.ingsw.NetworkClient;
 
 import it.polimi.ingsw.ClientView.ObserverView;
+import it.polimi.ingsw.model.ClientMessagePackage.ClientMessage;
+import it.polimi.ingsw.model.ServerMessagePackage.ServerMessage;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -47,22 +49,22 @@ public class SocketClientListener implements Runnable {
         System.out.println("sono arrivato al run del listener");
         while (i == 0) {
             try {
-                SocketMessageClass message = (SocketMessageClass) is.readObject();
+                ServerMessage message = (ServerMessage) is.readObject();
                 System.out.println("ho ricevuto un oggetto");
                 int messagecodex = message.getMessagecodex();
                 if (messagecodex == 1) {
                     System.out.println("ottimo");
-                    executor.submit(new SocketStringHandler(this.controller, this.observerView, this, "OK", true));
+                    executor.submit(new SocketStringHandler(this.controller, this, "OK", true));
                 }
                 if (messagecodex == 0) {
-                    executor.submit(new SocketStringHandler(this.controller, this.observerView, this, message.getErrorMessage(), true));
+                    executor.submit(new SocketStringHandler(this.controller, this, message.getErrorMessage(), true));
                 }
                 if (messagecodex == 33) {
-                    executor.submit(new SocketStringHandler(this.controller, this.observerView, this, message.getAnswermessage(), false));
+                    executor.submit(new SocketStringHandler(this.controller,  this, message.getAnswermessage(), false));
 
                 }
                 if(messagecodex == 44){
-                    executor.submit(new SocketMessageHandler(this.controller, this.observerView, this, message, false));
+                    executor.submit(new SocketMessageHandler(this.controller, this.observerView, this, message));
 
                 }
             } catch (Exception e) {
@@ -75,7 +77,7 @@ public class SocketClientListener implements Runnable {
     out.println(string);
     out.flush();
     }
-    public synchronized void sendMessage (SocketMessageClass message)throws IOException{
+    public synchronized void sendMessage (ClientMessage message)throws IOException{
         os.writeObject(message);
         os.flush();
     }

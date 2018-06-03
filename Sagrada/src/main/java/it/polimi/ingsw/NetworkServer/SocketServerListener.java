@@ -1,11 +1,11 @@
 package it.polimi.ingsw.NetworkServer;
 
-import it.polimi.ingsw.NetworkClient.SocketMessageClass;
+import it.polimi.ingsw.model.ClientMessagePackage.ClientMessage;
 import it.polimi.ingsw.ServerController.ClientHandler;
+import it.polimi.ingsw.model.ServerMessagePackage.ServerMessage;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -36,7 +36,7 @@ public class SocketServerListener implements Runnable{
         int h =0;
         while (i == 0) {
             try{
-                SocketMessageClass message = (SocketMessageClass) is.readObject();
+                ClientMessage message = (ClientMessage) is.readObject();
                 int messagecodex = message.getMessagecodex();
                 System.out.println(messagecodex);
                 if (messagecodex == 1) {
@@ -57,7 +57,7 @@ public class SocketServerListener implements Runnable{
 
 
 
-    public synchronized void sendMessage(SocketMessageClass message)throws IOException{
+    public synchronized void sendMessage(ServerMessage message)throws IOException{
         os.writeObject(message);
         os.flush();
     }

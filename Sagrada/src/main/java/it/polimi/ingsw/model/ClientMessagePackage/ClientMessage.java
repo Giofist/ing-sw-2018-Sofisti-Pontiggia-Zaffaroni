@@ -1,17 +1,18 @@
-package it.polimi.ingsw.NetworkClient;
+package it.polimi.ingsw.model.ClientMessagePackage;
 
 import it.polimi.ingsw.ClientView.Observer;
+import it.polimi.ingsw.NetworkServer.SocketServerListener;
+import it.polimi.ingsw.ServerController.ClientHandler;
 import it.polimi.ingsw.model.ToolCard.ToolRequestClass;
 
 import java.io.Serializable;
 
-public class SocketMessageClass implements Serializable{
+public abstract class ClientMessage implements Serializable{
     int messagecodex;
     String errorMessage;
     String answermessage;
     ToolRequestClass requestClass;
     // questa classe dovrà essere popolata a seconda delle richieste
-    String methodtoinvoke;
     // Parametri delle richieste
     String clientname;
     String password;
@@ -25,7 +26,7 @@ public class SocketMessageClass implements Serializable{
     String playername;
 
     //constructor
-    public SocketMessageClass() {
+    public ClientMessage() {
         // Do nothing
     }
 
@@ -60,18 +61,6 @@ public class SocketMessageClass implements Serializable{
     public int getMessagecodex() {
         return messagecodex;
     }
-
-    public String getMethodtoinvoke() {
-        if (this.methodtoinvoke == null){
-            return "catania";
-        }
-        return methodtoinvoke;
-    }
-
-    public void setMethodtoinvoke(String methodtoinvoke) {
-        this.methodtoinvoke = methodtoinvoke;
-    }
-
 
     public void setRequestClass(ToolRequestClass requestClass){
         this.requestClass = requestClass;
@@ -151,5 +140,8 @@ public class SocketMessageClass implements Serializable{
     public int getIntensity() {
         return this.intensity;
     }
+
+    public  abstract void performAction(ClientHandler clientHandler, SocketServerListener listener);
+
 
 }
