@@ -1,8 +1,7 @@
-package it.polimi.ingsw.ServerController;
+package it.polimi.ingsw.NetworkServer;
 
-import it.polimi.ingsw.Network.SocketController;
-import it.polimi.ingsw.Network.SocketMessageClass;
-import it.polimi.ingsw.Network.SocketStringHandler;
+import it.polimi.ingsw.NetworkClient.SocketMessageClass;
+import it.polimi.ingsw.ServerController.ClientHandler;
 
 import java.io.*;
 import java.net.Socket;
@@ -14,15 +13,11 @@ public class SocketServerListener implements Runnable{
     private Socket socket;
     private ClientHandler controller;
     private SocketClient client;
-    Scanner in;
-    PrintWriter out;
     private ObjectInputStream is;
     private ObjectOutputStream os;
 
     public SocketServerListener(Socket socket, ClientHandler controller) throws IOException {
         this.socket = socket;
-        this.in = new Scanner(socket.getInputStream());
-        this.out = new PrintWriter(socket.getOutputStream());
         this.controller = controller;
         this.os = new ObjectOutputStream(socket.getOutputStream());
         this.is = new ObjectInputStream(socket.getInputStream());
@@ -65,7 +60,6 @@ public class SocketServerListener implements Runnable{
     public synchronized void sendMessage(SocketMessageClass message)throws IOException{
         os.writeObject(message);
         os.flush();
-        System.out.println("ho inviato il dado");
     }
 
 }

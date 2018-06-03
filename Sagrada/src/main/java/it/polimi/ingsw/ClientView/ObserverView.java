@@ -639,8 +639,8 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
     }
 
 
-
-    public synchronized void update(Observable o, Object arg) {
+    @Override
+    public synchronized void update(Observable o, Object arg) throws RemoteException {
         // voglio fare qualcosa con questo oggetto? credo proprio di sì!
         this.notifyAll();
     }

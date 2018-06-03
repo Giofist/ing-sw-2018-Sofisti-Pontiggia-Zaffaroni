@@ -1,9 +1,5 @@
-package it.polimi.ingsw.ServerController;
+package it.polimi.ingsw.NetworkServer;
 
-
-import it.polimi.ingsw.ClientView.ObserverView;
-import it.polimi.ingsw.Network.SocketClientListener;
-import it.polimi.ingsw.Network.SocketController;
 
 import java.rmi.RemoteException;
 
@@ -28,7 +24,6 @@ public class SocketStringHandlerServer implements Runnable {
                 break;
         }
         synchronized (client){
-            System.out.println("Sono arrivato qui\n");
             client.setStringHandler(this);
             client.notifyAll();
         }

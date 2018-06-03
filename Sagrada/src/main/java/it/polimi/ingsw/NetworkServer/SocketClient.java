@@ -1,9 +1,8 @@
-package it.polimi.ingsw.ServerController;
+package it.polimi.ingsw.NetworkServer;
 
 import it.polimi.ingsw.ClientView.Observer;
-import it.polimi.ingsw.ClientView.ObserverView;
-import it.polimi.ingsw.Network.SocketClientListener;
-import it.polimi.ingsw.Network.SocketStringHandler;
+import it.polimi.ingsw.NetworkServer.SocketServerListener;
+import it.polimi.ingsw.NetworkServer.SocketStringHandlerServer;
 import it.polimi.ingsw.model.Observable;
 
 import java.io.IOException;

@@ -59,4 +59,8 @@ public interface ClientHandlerInterface extends Remote {
     public void setToolCardDice(String clientname, int row, int column)throws RemoteException;
 
     public void setToolCardDiceIntensity(String clientname, int intensity) throws RemoteException;
-}
+    public String getPlayersinmymatch (String clientname) throws RemoteException;
+    public String getmapofthePlayer(String clientname, String player) throws RemoteException;
+    public String getToolCardDice(String clientname)throws RemoteException;
+
+    }

@@ -1,19 +1,16 @@
 package it.polimi.ingsw.ServerController;
 
+import it.polimi.ingsw.NetworkServer.SocketServerListener;
+
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class StartServer implements Runnable{
     private int port;
     private ClientHandler controller;
-    ArrayList<ObjectOutputStream> clientstreams = new ArrayList<ObjectOutputStream>();
-    //ArrayList<ObjectInputStream> clientstreamsinput = new ArrayList<ObjectInputStream>();
 
 
 
@@ -38,8 +35,6 @@ public class StartServer implements Runnable{
         while (i == 0) {
             try {
                 Socket socket = serverSocket.accept();
-                clientstreams.add(new ObjectOutputStream(socket.getOutputStream()));
-                //clientstreamsinput.add(new ObjectInputStream (socket.getInputStream()));
                 System.out.println("Ho ricevuto una nuova richiesta di connessione\n");
                 executor.submit(new SocketServerListener(socket, this.controller));
             } catch (IOException e) {

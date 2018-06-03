@@ -1,4 +1,4 @@
-package it.polimi.ingsw.Network;
+package it.polimi.ingsw.NetworkClient;
 
 import it.polimi.ingsw.ClientView.Observer;
 import it.polimi.ingsw.model.ToolCard.ToolRequestClass;
@@ -22,10 +22,19 @@ public class SocketMessageClass implements Serializable{
     int row;
     int column;
     int intensity;
+    String playername;
 
     //constructor
     public SocketMessageClass() {
         // Do nothing
+    }
+
+    public String getPlayername(){
+        return this.playername;
+    }
+
+    public void setPlayername(String playername) {
+        this.playername = playername;
     }
 
     public void setAnswermessage(String answermessage) {

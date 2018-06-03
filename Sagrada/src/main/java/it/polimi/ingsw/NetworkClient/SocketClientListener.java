@@ -1,4 +1,4 @@
-package it.polimi.ingsw.Network;
+package it.polimi.ingsw.NetworkClient;
 
 import it.polimi.ingsw.ClientView.ObserverView;
 
@@ -48,6 +48,7 @@ public class SocketClientListener implements Runnable {
         while (i == 0) {
             try {
                 SocketMessageClass message = (SocketMessageClass) is.readObject();
+                System.out.println("ho ricevuto un oggetto");
                 int messagecodex = message.getMessagecodex();
                 if (messagecodex == 1) {
                     System.out.println("ottimo");
@@ -60,8 +61,12 @@ public class SocketClientListener implements Runnable {
                     executor.submit(new SocketStringHandler(this.controller, this.observerView, this, message.getAnswermessage(), false));
 
                 }
+                if(messagecodex == 44){
+                    executor.submit(new SocketMessageHandler(this.controller, this.observerView, this, message, false));
+
+                }
             } catch (Exception e) {
-                e.printStackTrace();
+
             }
         }
     }

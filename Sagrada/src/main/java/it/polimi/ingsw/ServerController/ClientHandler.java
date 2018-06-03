@@ -424,4 +424,48 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
             throw new RemoteException(e.getMessage());
         }
     }
+
+    @Override
+    public String getPlayersinmymatch(String clientname) throws RemoteException {
+        String list = " ";
+        try{
+            Player player = UsersList.Singleton().getUser(clientname).getPlayer();
+
+            for (Player other_player : player.getMatch().getallPlayersbutnotme(player)){
+                list += other_player.getAssociatedUser().getName();
+                list += '\n';
+            }
+        }catch(UserNotExistentException e){
+            throw new RemoteException(e.getMessage());
+        }
+        return list;
+    }
+
+    @Override
+    public String getmapofthePlayer(String clientname, String playername) throws RemoteException {
+        try{
+            Player player = UsersList.Singleton().getUser(clientname).getPlayer();
+            for (Player other_player : player.getMatch().getallPlayersbutnotme(player)){
+                if (other_player.getAssociatedUser().getName().equals(playername)){
+                    return other_player.getScheme().toString();
+                }
+            }
+            throw new RemoteException("Nessun giocatore con questo nome nella tua partita");
+        }catch(UserNotExistentException e){
+            throw new RemoteException(e.getMessage());
+        }catch (SchemeCardNotExistantException e){
+            throw new RemoteException(e.getMessage());
+        }
+    }
+    @Override
+    public String getToolCardDice(String clientname)throws RemoteException {
+        try {
+            Player player = UsersList.Singleton().getUser(clientname).getPlayer();
+            return player.getdiceforToolCardUse().toString();
+        } catch (UserNotExistentException e) {
+            throw new RemoteException(e.getMessage());
+        } catch (DiceNotExistantException e) {
+            throw new RemoteException(e.getMessage());
+        }
+    }
 }

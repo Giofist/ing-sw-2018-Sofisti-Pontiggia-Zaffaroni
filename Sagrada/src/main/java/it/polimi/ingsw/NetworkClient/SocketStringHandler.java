@@ -1,4 +1,4 @@
-package it.polimi.ingsw.Network;
+package it.polimi.ingsw.NetworkClient;
 
 import it.polimi.ingsw.ClientView.ObserverView;
 

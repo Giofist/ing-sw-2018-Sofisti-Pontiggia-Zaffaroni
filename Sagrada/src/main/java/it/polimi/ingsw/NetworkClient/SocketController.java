@@ -1,4 +1,4 @@
-package it.polimi.ingsw.Network;
+package it.polimi.ingsw.NetworkClient;
 
 import it.polimi.ingsw.ClientView.Observer;
 import it.polimi.ingsw.ClientView.ObserverView;
@@ -46,13 +46,11 @@ public class SocketController implements ClientHandlerInterface {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("Sono in attesa");
         try{
             wait();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("Ho finito l'attesa");
         this.stringHandler.check();
         this.stringHandler = null;
 
