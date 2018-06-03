@@ -33,7 +33,7 @@ public class StartServer implements Runnable{
             try {
                 Socket socket = serverSocket.accept();
                 System.out.println("Ho ricevuto una nuova richiesta di connessione\n");
-                executor.submit(new SocketClientHandler(socket, this.controller));
+                executor.submit(new SocketServerListener(socket, this.controller));
             } catch (IOException e) {
                 i = 1;
                 break; //entrerei qui se serverSocket venisse chiuso
