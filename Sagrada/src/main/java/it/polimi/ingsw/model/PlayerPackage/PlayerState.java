@@ -43,9 +43,13 @@ public class PlayerState  extends  Object{
                 break;
             case HASSETADICESTATE:
                 this.actions.addLast(TurnActions.PASSTURN);
+                this.actions.addLast(TurnActions.USEALLTOOLCARD);
+                this.actions.addLast(TurnActions.PASSTURN);
+
                 break;
             case HASUSEDATOOLCARDACTIONSTATE:
                 this.actions.addLast(TurnActions.PASSTURN);
+                this.actions.addLast(TurnActions.SETDICE);
                 break;
             case MATCHNOTSTARTEDYETSTATE:
                 this.actions.addLast(TurnActions.LEAVEMATCH);

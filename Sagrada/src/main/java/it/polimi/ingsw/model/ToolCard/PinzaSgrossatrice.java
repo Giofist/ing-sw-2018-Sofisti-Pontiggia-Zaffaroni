@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.Exceptions.IncreaseNotAllowedException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.PinzaSgrossatriceException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.PlayerPackage.Player;
+import it.polimi.ingsw.model.PlayerPackage.State;
 
 public class PinzaSgrossatrice  extends ToolAction {
 
@@ -27,6 +28,9 @@ public class PinzaSgrossatrice  extends ToolAction {
                 player.getGametable().getRoundDicepool().getDice(toolRequestClass.getSelectedDIceIndex()).decreaseIntensity();
             } else {    // Increase selected dice value
                 player.getGametable().getRoundDicepool().getDice(toolRequestClass.getSelectedDIceIndex()).increaseIntensity(); }
+            if (player.getPlayerState().getState().equals(State.HASSETADICESTATE)){
+                player.setPlayerState(State.MUSTPASSTURNSTATE);
+            }else player.setPlayerState(State.HASUSEDATOOLCARDACTIONSTATE);
         }catch(DecreaseNotAllowedException e){
             throw new PinzaSgrossatriceException(PinzaSgrossatriceException.getMsg()+ e.getMessage());
         }catch (IncreaseNotAllowedException e){

@@ -10,6 +10,7 @@ import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainExce
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.TaglierinaManualeException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.PlayerPackage.Player;
+import it.polimi.ingsw.model.PlayerPackage.State;
 
 import java.util.List;
 
@@ -44,6 +45,9 @@ public class TaglierinaManuale  extends ToolAction {
                     throw new TaglierinaManualeException("Il colore non corrisponde a quello del primo dado\n");
                 }
             }
+            if (player.getPlayerState().getState().equals(State.HASSETADICESTATE)){
+                player.setPlayerState(State.MUSTPASSTURNSTATE);
+            }else player.setPlayerState(State.HASUSEDATOOLCARDACTIONSTATE);
         }catch (OutOfMatrixException e){
             throw new TaglierinaManualeException(TaglierinaManualeException.getMsg()+e.getMessage());
         }catch (DiceNotExistantException e){

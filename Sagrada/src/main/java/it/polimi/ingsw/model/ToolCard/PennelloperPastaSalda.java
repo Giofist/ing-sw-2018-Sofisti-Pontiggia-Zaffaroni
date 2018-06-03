@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.ToolCard;
 import it.polimi.ingsw.model.Dice;
 import it.polimi.ingsw.model.Exceptions.EmpyDicepoolException;
 import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
+import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PlayerPackage.State;
 
@@ -19,12 +20,14 @@ public class PennelloperPastaSalda  extends ToolAction {
 
 
     @Override
-    public void execute (Player player, ToolRequestClass toolRequestClass) {
+    public void execute (Player player, ToolRequestClass toolRequestClass)throws ToolIllegalOperationException {
         //ricordarsi sempre di fare gt and remove
         try{
             Dice dice= player.getGametable().getRoundDicepool().getDice(toolRequestClass.getSelectedDIceIndex());
             dice.setRandomIntensity();
-
+            if(player.HassetaDicethisturn()){
+                throw new ToolIllegalOperationException("non puoi piazzare due dadi nello stesso turno");
+            }
 
         boolean settable = false;
         for (int row =0; row <4; row ++){
@@ -43,6 +46,7 @@ public class PennelloperPastaSalda  extends ToolAction {
             player.setPlayerState(State.MUSTSETPENNELLOPERPASTASALDASTATE);
 
         }
+
         }catch (EmpyDicepoolException e){
 
         }

@@ -4,6 +4,9 @@ import it.polimi.ingsw.model.DiceColor;
 import it.polimi.ingsw.model.Exceptions.EmpyDicepoolException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.PlayerPackage.Player;
+import it.polimi.ingsw.model.PlayerPackage.State;
+
+import java.rmi.RemoteException;
 
 //l'ho lasciata stare perchè ho fatto altro
 //ma l'idea che ho avuto è dividere l'esecuioni in due DiluentiPerPastaCalda, perchè
@@ -26,12 +29,16 @@ public class DiluenteperPastaSalda  extends ToolAction {
 
         //removes a dice e puts it into the dicepool, but before we need to remember its color
         try{
+            if(player.HassetaDicethisturn()){
+                throw new ToolIllegalOperationException("non puoi piazzare due dadi nello stesso turno");
+            }
             DiceColor color = player.getGametable().getRoundDicepool().getDice(toolRequestClass.getSelectedDIceIndex()).getColor();
             player.getGametable().getDicepool().insertDice(color);
             player.getGametable().getRoundDicepool().removeDice(toolRequestClass.getSelectedDIceIndex());
 
             //poi pescane uno
             player.setDiceforToolCardUse(player.getGametable().getDicepool().extractDice());
+            player.setPlayerState(State.MUSTSSETDILUENTEPERPASTASALDASTATE);
         }catch(EmpyDicepoolException e){
             throw new ToolIllegalOperationException(e.getMessage());
         }

@@ -28,6 +28,7 @@ public class Player extends it.polimi.ingsw.model.Observable implements Comparab
     //per la gestione delle toolCard, potremo pensare ad un'ottimizzazione
     private Dice diceforToolCard;
     private boolean mustpassTurn;
+    private boolean hassetaDicethisturn;
 
 
     //costruttore
@@ -47,6 +48,14 @@ public class Player extends it.polimi.ingsw.model.Observable implements Comparab
 
 
     //metodi setter e getter
+    public boolean HassetaDicethisturn(){
+        return this.hassetaDicethisturn;
+    }
+
+    public void setHassetaDicethisturn(boolean value){
+        this.hassetaDicethisturn = value;
+    }
+
     public int getSegnalini_favore() {
         return segnalini_favore;
     }
@@ -127,8 +136,6 @@ public class Player extends it.polimi.ingsw.model.Observable implements Comparab
     }
     public void  removediceforToolCardUse(){
         this.diceforToolCard = null;
-        this.getPlayerState().updateState(State.MUSTPASSTURNSTATE);
-
     }
 
     public boolean mustpassTurn() {
