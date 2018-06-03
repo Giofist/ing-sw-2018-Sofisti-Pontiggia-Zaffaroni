@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.Exceptions.*;
 import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
 import it.polimi.ingsw.model.PlayerPackage.Player;
+import it.polimi.ingsw.model.PlayerPackage.State;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 import it.polimi.ingsw.model.ToolCard.ToolRequestClass;
 import it.polimi.ingsw.model.PlayerPackage.TurnActions;
@@ -285,6 +286,11 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
             Dice dice = player.getGametable().getRoundDicepool().getDice(diceindex);
             player.getGametable().getRoundDicepool().removeDice(diceindex);
             player.getScheme().setDice(dice ,row ,column, false, false, false);
+            player.setHassetaDicethisturn(true);
+            if (player.getPlayerState().getState().equals(State.HASUSEDATOOLCARDACTIONSTATE)){
+                player.setPlayerState(State.MUSTPASSTURNSTATE);
+            }else player.setPlayerState(State.HASSETADICESTATE);
+
         }catch(UserNotExistentException e){
             throw new RemoteException(e.getMessage());
         }catch (SchemeCardNotExistantException e){
@@ -372,6 +378,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
         try{
             Player player = UsersList.Singleton().getUser(clientname).getPlayer();
             player.getPlayerState().checkAction(TurnActions.PASSTURN);
+            player.setHassetaDicethisturn(false);
             synchronized (player.getTurn()){
                 player.getTurn().countDown();
             }
@@ -393,7 +400,9 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
             Player player = UsersList.Singleton().getUser(clientname).getPlayer();
             player.getPlayerState().checkAction(TurnActions.SETTOOLCARDDICE);
             player.getScheme().setDice(player.getdiceforToolCardUse(), row,column, false, false, false);
+            player.setHassetaDicethisturn(true);
             player.removediceforToolCardUse();
+            player.getPlayerState().updateState(State.MUSTPASSTURNSTATE);
 
         }catch (UserNotExistentException e){
             throw new RemoteException(e.getMessage());

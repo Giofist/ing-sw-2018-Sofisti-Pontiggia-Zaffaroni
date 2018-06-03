@@ -3,8 +3,11 @@ package it.polimi.ingsw.NetworkClient;
 import it.polimi.ingsw.ClientView.Observer;
 import it.polimi.ingsw.ClientView.ObserverView;
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
+import it.polimi.ingsw.model.ClientMessagePackage.LoginMessage;
+import it.polimi.ingsw.model.ClientMessagePackage.RegisterMessage;
 import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
 import it.polimi.ingsw.model.Exceptions.UserNotExistentException;
+import it.polimi.ingsw.model.ClientMessagePackage.ClientMessage;
 import it.polimi.ingsw.model.ToolCard.ToolRequestClass;
 
 import java.io.IOException;
@@ -36,8 +39,7 @@ public class SocketController implements ClientHandlerInterface {
     @Override
     public synchronized void register(String username, String password) throws RemoteException {
 
-        SocketMessageClass registerMessage = new SocketMessageClass();
-        registerMessage.setMethodtoinvoke("register");
+        ClientMessage registerMessage = new RegisterMessage();
         registerMessage.setMessagecodex(44);
         registerMessage.setClientName(username);
         registerMessage.setPassword(password);
@@ -58,7 +60,7 @@ public class SocketController implements ClientHandlerInterface {
 
     @Override
     public synchronized void   login(String username, String password) throws RemoteException {
-        SocketMessageClass loginMessage = new SocketMessageClass();
+        ClientMessage loginMessage = new LoginMessage();
         loginMessage.setClientName(username);
         loginMessage.setPassword(password);
         try {
@@ -69,6 +71,7 @@ public class SocketController implements ClientHandlerInterface {
 
     }
 
+    //da qui in poi è tutto da rifare, ma una volta che hai la struttura, non cè niente da pensare
     @Override
     public synchronized void logout(String username) throws RemoteException {
         listener.sendString("logout " + username);
@@ -155,7 +158,7 @@ public class SocketController implements ClientHandlerInterface {
 
     @Override
     public void useaToolCard(String clientname, ToolRequestClass requestClass) throws RemoteException {
-        //SocketMessageClass message = new SocketMessageClass(clientname);
+        //ClientMessage message = new ClientMessage(clientname);
         //message.setRequestClass(requestClass);
 
         try{
@@ -205,6 +208,21 @@ public class SocketController implements ClientHandlerInterface {
     @Override
     public void setToolCardDiceIntensity(String clientname, int intensity) throws RemoteException {
 
+    }
+
+    @Override
+    public String getPlayersinmymatch(String clientname) throws RemoteException {
+        return null;
+    }
+
+    @Override
+    public String getmapofthePlayer(String clientname, String player) throws RemoteException {
+        return null;
+    }
+
+    @Override
+    public String getToolCardDice(String clientname) throws RemoteException {
+        return null;
     }
 
 

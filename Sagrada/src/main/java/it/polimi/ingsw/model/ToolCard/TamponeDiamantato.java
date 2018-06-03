@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.ToolCard;
 
 import it.polimi.ingsw.model.Exceptions.EmpyDicepoolException;
 import it.polimi.ingsw.model.PlayerPackage.Player;
+import it.polimi.ingsw.model.PlayerPackage.State;
 
 public class TamponeDiamantato extends ToolAction {
     public TamponeDiamantato(){
@@ -17,6 +18,9 @@ public class TamponeDiamantato extends ToolAction {
     public void execute (Player player, ToolRequestClass toolRequestClass) {
         try{
             player.getGametable().getRoundDicepool().getDice(toolRequestClass.getSelectedDIceIndex()).setOppositeIntensity();
+            if (player.getPlayerState().getState().equals(State.HASSETADICESTATE)){
+                player.setPlayerState(State.MUSTPASSTURNSTATE);
+            }else player.setPlayerState(State.HASUSEDATOOLCARDACTIONSTATE);
         }catch(EmpyDicepoolException e){
 
         }

@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.Exceptions.EmpyDicepoolException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.MartellettoException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.PlayerPackage.Player;
+import it.polimi.ingsw.model.PlayerPackage.State;
 
 public class Martelletto  extends ToolAction {
     public Martelletto(){
@@ -23,8 +24,14 @@ public class Martelletto  extends ToolAction {
             if (player.getTurn().getTurnID() == 1){
                 throw new MartellettoException("non puoi giocare Martelletto nel primo turno");
             }
+            if(player.HassetaDicethisturn()){
+                throw new ToolIllegalOperationException("puoi usarla solo prima di scegliere il secondo dado");
+            }
             for(int i=0; i<player.getGametable().getRoundDicepool().getDicePoolSize();i++)
                 player.getGametable().getRoundDicepool().getDice(i).setRandomIntensity();
+            if (player.getPlayerState().getState().equals(State.HASSETADICESTATE)){
+                player.setPlayerState(State.MUSTPASSTURNSTATE);
+            }else player.setPlayerState(State.HASUSEDATOOLCARDACTIONSTATE);
         }catch (EmpyDicepoolException e){
 
         }

@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.Exceptions.RoundTrackException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.TaglierinaCircolareException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.PlayerPackage.Player;
+import it.polimi.ingsw.model.PlayerPackage.State;
 
 
 //per implementare questa classe bisogna prima pensare al traccaito round
@@ -27,6 +28,9 @@ public class TaglierinaCircolare  extends ToolAction {
             player.getGametable().getRoundDicepool().removeDice(toolRequestClass.getSelectedRoundDicepoolDiceIndex());
             player.getGametable().getRoundDicepool().addDice(RoundTrackdice);
             player.getGametable().getRoundTrack().getroundTrackDices(toolRequestClass.getRoundWhereThediceis()).removeDice(toolRequestClass.getSelectedRoundTrackDiceIndex());
+            if (player.getPlayerState().getState().equals(State.HASSETADICESTATE)){
+                player.setPlayerState(State.MUSTPASSTURNSTATE);
+            }else player.setPlayerState(State.HASUSEDATOOLCARDACTIONSTATE);
         }catch(RoundTrackException e){
             throw new TaglierinaCircolareException(TaglierinaCircolareException.getMsg() + e.getMessage());
         }catch (EmpyDicepoolException e){
