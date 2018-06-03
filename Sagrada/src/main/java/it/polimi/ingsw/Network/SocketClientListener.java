@@ -81,7 +81,8 @@ public class SocketClientListener implements Runnable {
     }
     public synchronized void sendMessage (SocketMessageClass message)throws IOException{
         os.writeObject(message);
-        out.flush();
+        os.flush();
+        System.out.println("Ho inviato il dado");
     }
 
 }

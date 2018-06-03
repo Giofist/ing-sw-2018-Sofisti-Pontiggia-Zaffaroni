@@ -16,6 +16,13 @@ public class SocketMessageHandlerServer implements Runnable {
     }
     @Override
     public void run() {
+        System.out.println("messagehandler");
+        if (messageClass.getMethodtoinvoke().equals("catania")){
+            System.out.println("pellissier");
+        }
+        if(messageClass.getMethodtoinvoke() != null){
+            System.out.println("ottimo");
+        }
         switch (messageClass.getMethodtoinvoke()){
             case "register" : try{
                 clientHandler.register(messageClass.getClientName(), messageClass.getPassword());
@@ -23,9 +30,14 @@ public class SocketMessageHandlerServer implements Runnable {
             }catch(RemoteException e){
                 listener.sendString(0, e.getMessage());
             }
+            break;
+            default:
+                System.out.println("errore");
+                listener.sendString(0,"chievo");
 
 
         }
+        System.out.println("forza MIlan");
 
     }
 }

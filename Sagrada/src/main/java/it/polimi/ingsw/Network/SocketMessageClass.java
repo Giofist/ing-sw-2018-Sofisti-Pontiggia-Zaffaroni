@@ -27,6 +27,9 @@ public class SocketMessageClass implements Serializable{
 
 
     public String getMethodtoinvoke() {
+        if (this.methodtoinvoke == null){
+            return "catania";
+        }
         return methodtoinvoke;
     }
 

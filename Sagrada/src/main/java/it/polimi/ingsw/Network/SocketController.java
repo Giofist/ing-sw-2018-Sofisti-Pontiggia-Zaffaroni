@@ -37,6 +37,7 @@ public class SocketController implements ClientHandlerInterface {
     public synchronized void register(String username, String password) throws RemoteException {
 
         SocketMessageClass registerMessage = new SocketMessageClass();
+        registerMessage.setMethodtoinvoke("register");
         registerMessage.setClientName(username);
         registerMessage.setPassword(password);
         try {
@@ -45,8 +46,6 @@ public class SocketController implements ClientHandlerInterface {
             e.printStackTrace();
         }
 
-        /*
-        listener.sendString("register " + username + " " + password);
         try{
             wait();
         } catch (InterruptedException e) {
@@ -54,7 +53,7 @@ public class SocketController implements ClientHandlerInterface {
         }
         this.stringHandler.check();
         this.stringHandler = null;
-        */
+
     }
 
     @Override

@@ -55,6 +55,8 @@ public class SocketServerListener implements Runnable{
             }
             try {
                 SocketMessageClass message = (SocketMessageClass) is.readObject();
+                System.out.println(message.getMethodtoinvoke());
+                System.out.println("forza roma");
                 executor.submit(new SocketMessageHandlerServer(message,this.controller,this));
 
             } catch (IOException e) {
