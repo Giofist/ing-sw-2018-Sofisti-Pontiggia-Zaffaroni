@@ -273,7 +273,6 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
                     System.out.println(e.getMessage());
                 }
             }
-
             System.out.println("La carta schema da te scelta è: ");
             printMap(servercontroller.getSchemeCard(yourName));
             printGoalCards();
@@ -358,10 +357,10 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
     public void useToolcard(){
         Scanner in = new Scanner(System.in);
         String input;
-        //printToolcard();
+        printToolcard();
         System.out.println("Quale carta utensile vuoi usare?");
         input = in.nextLine();
-        //servercontroller.useaToolCard(yourName, input);
+        //servercontroller.useaToolCard(yourName,);
     }
 
     public void printMap(String map){
@@ -561,34 +560,74 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
     public void selectAction() {
         Scanner in = new Scanner(System.in);
         String input;
+        String map = null;
         boolean success = false;
+        boolean correct = false;
 
         while (!success) {
             System.out.println("Scegli una delle seguenti azioni:");
             try {
-                System.out.println(servercontroller.getPossibleActions(yourName)); //todo altra possibilità sarebbe dividere questa stringa e vedere se l'azione selezionata è contenuta tra quelle fattibili.
+                System.out.println(servercontroller.getPossibleActions(yourName));
             } catch (RemoteException e) {
                 System.out.println(e.getMessage());
             }
-            input = in.nextLine().toLowerCase();
+            input = in.nextLine().toUpperCase();
 
             switch (input) {
-                case "setdice": {
+                case "SETDICE": {
                     placeDice();
                     success = true;
                     break;
                 }
-                case "getmaps": {
-                    System.out.println("Not yet implemented!");
+                case "GETMAPS": {
+                    while (!correct){
+                        System.out.println("Seleziona l'utente di cui vedere la mappa digitando il nome utente:");
+                        //System.out.println(servercontroller.getPlayers());
+                        try {
+                            map = servercontroller.getSchemeCard(in.nextLine());
+                            correct = true;
+                        } catch (RemoteException e) {
+                            System.out.println(e.getMessage());
+                        }
+                    }
+                    printMap(map);
+                    success = true;
                     break;
                 }
-                case "usetoolcard": {
+                case "USEALLTOOLCARD": {
                     useToolcard();
+                    success = true;
                     break;
                 }
-                case "passturn": {
+                case "LEAVEMATCH": {
+                    try {
+                        servercontroller.leavethematch(yourName);
+                    } catch (RemoteException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    success = true;
+                    break;
+                }
+                case "SETTOOLCARDDICE": {
+                    success = true;
+                    break;
+                }
+                case "SETTOOLCARDDICEINTENSITY": {
+                    success = true;
+                    break;
+                }
+                case "SETSCHEMECARD": { //metodo da non usare eventualmente valuterò
+                    success = true;
+                    break;
+                }
+                case "PASSTURN": {
                     passYourTurn();
                     success = true;
+                    try {
+                        wait();
+                    } catch (InterruptedException e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
                 }
                 default:{
