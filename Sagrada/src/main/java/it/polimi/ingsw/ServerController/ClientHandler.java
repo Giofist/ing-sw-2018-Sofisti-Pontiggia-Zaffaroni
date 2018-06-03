@@ -384,7 +384,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
 
     @Override
     public void leavethematch(String clientname) throws RemoteException {
-
+        //TODO implement here
     }
 
     @Override
@@ -427,13 +427,14 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
 
     @Override
     public String getPlayersinmymatch(String clientname) throws RemoteException {
-        String list = " ";
+        String list = "";
         try{
             Player player = UsersList.Singleton().getUser(clientname).getPlayer();
 
             for (Player other_player : player.getMatch().getallPlayersbutnotme(player)){
+                list += "   -";
                 list += other_player.getAssociatedUser().getName();
-                list += '\n';
+                list += "\n";
             }
         }catch(UserNotExistentException e){
             throw new RemoteException(e.getMessage());
@@ -457,6 +458,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
             throw new RemoteException(e.getMessage());
         }
     }
+
     @Override
     public String getToolCardDice(String clientname)throws RemoteException {
         try {

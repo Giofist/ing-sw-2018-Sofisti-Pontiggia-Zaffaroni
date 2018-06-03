@@ -12,6 +12,7 @@ import java.util.Scanner;
 import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
 import it.polimi.ingsw.model.Exceptions.UserNotExistentException;
 import it.polimi.ingsw.model.Observable;
+import it.polimi.ingsw.model.ToolCard.ToolRequestClass;
 import org.fusesource.jansi.AnsiConsole;
 
 import static org.fusesource.jansi.Ansi.Color.*;
@@ -354,13 +355,192 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
         }
     }
 
-    public void useToolcard(){
+    public void useToolcard() {
         Scanner in = new Scanner(System.in);
-        String input;
+        ToolRequestClass data = null;
+        String input = "0";
+        String[] toolCardID = new String[0];
         printToolcard();
-        System.out.println("Quale carta utensile vuoi usare?");
-        input = in.nextLine();
-        //servercontroller.useaToolCard(yourName,);
+        int numOfDicesToMove=0;
+
+        try {
+            toolCardID = servercontroller.getToolCardsIDs(yourName).split("!");
+        } catch (RemoteException e) {
+            System.out.println(e.getMessage());
+        }
+        while (input != toolCardID[0]|| input != toolCardID[1]|| input != toolCardID[2]) {
+            System.out.println("Quale carta utensile vuoi usare?");
+            input = in.nextLine();
+        }
+        data.setToolCardID(Integer.parseInt(input));
+        switch (input) {
+            case "1": { //1. Pinze Sgrossatrice
+                printRoundDicePool();
+                System.out.println("Seleziona il dado su cui applicare la Pinza Sgrossatrice:");
+                data.setSelectedRoundDicepoolDiceIndex(in.nextInt());
+                printRoundDicePool();
+                break;
+            }
+            case "2": { //2. Pennello per Eglomise
+                try {
+                    printMap(servercontroller.getSchemeCard(yourName));
+                } catch (RemoteException e) {
+                    System.out.println(e.getMessage());
+                }
+                System.out.println("Seleziona il dado da spostare. Indica la riga:");
+                data.setOldRow1(in.nextInt());
+                System.out.println("Indica la colonna:");
+                data.setOldColumn1(in.nextInt());
+                System.out.println("Seleziona nuova riga:");
+                data.setNewRow1(in.nextInt());
+                System.out.println("Seleziona nuova colonna:");
+                data.setNewColumn1(in.nextInt());
+                break;
+            }
+            case "3": { //3. Alesatore per lamina di rame
+                try {
+                    printMap(servercontroller.getSchemeCard(yourName));
+                } catch (RemoteException e) {
+                    System.out.println(e.getMessage());
+                }
+                System.out.println("Seleziona il dado da spostare. Indica la riga:");
+                data.setOldRow1(in.nextInt());
+                System.out.println("Indica la colonna:");
+                data.setOldColumn1(in.nextInt());
+                System.out.println("Seleziona nuova riga:");
+                data.setNewRow1(in.nextInt());
+                System.out.println("Seleziona nuova colonna:");
+                data.setNewColumn1(in.nextInt());
+                break;
+            }
+            case "4": { //4. Lathekin
+                try {
+                    printMap(servercontroller.getSchemeCard(yourName));
+                } catch (RemoteException e) {
+                    System.out.println(e.getMessage());
+                }
+                    System.out.println("Seleziona il primo dado da spostare. Indica la riga:");
+                    data.setOldRow1(in.nextInt());
+                    System.out.println("Indica la colonna:");
+                    data.setOldColumn1(in.nextInt());
+                    System.out.println("Seleziona nuova riga:");
+                    data.setNewRow1(in.nextInt());
+                    System.out.println("Seleziona nuova colonna:");
+                    data.setNewColumn1(in.nextInt());
+                    System.out.println("Seleziona il secondo dado da spostare. Indica la riga:");
+                    data.setOldRow2(in.nextInt());
+                    System.out.println("Indica la colonna:");
+                    data.setOldColumn2(in.nextInt());
+                    System.out.println("Seleziona nuova riga:");
+                    data.setNewRow2(in.nextInt());
+                    System.out.println("Seleziona nuova colonna:");
+                    data.setNewColumn2(in.nextInt());
+                break;
+            }
+            case "5": { //5. Taglierina circolare
+                printRoundDicePool();
+                System.out.println("Seleziona il dado da scambiare con uno del ound Track. Indica l'indice:");
+                data.setSelectedDIceIndex(in.nextInt());
+                printRoundTrack();
+                System.out.println("Seleziona il dado da scambiare sulla RoundTrack. Indica il round:");
+                data.setRoundWhereThediceis(in.nextInt());
+                System.out.println("Indica la posizione: [0/8]");
+                data.setSelectedRoundTrackDiceIndex(in.nextInt());
+                break;
+            }
+            case "6": { //6. Pennello per Pasta Salda
+                System.out.println("Seleziona il dado da tirare nuovamente. Indica l'indice:");
+                data.setSelectedDIceIndex(in.nextInt());
+                break;
+            }
+            case "7": { //7. Martelletto
+                break; //nulla da fare ritira tutti i dadi nella riserva
+            }
+            case "8": { //8. Tenaglia a Rotelle
+                printRoundDicePool();
+                System.out.println("Seleziona il dado da scambiare con uno del ound Track. Indica l'indice:");
+                data.setSelectedDIceIndex(in.nextInt());
+                break;
+            }
+            case "9": { //9. Riga in Sughero
+                printRoundDicePool();
+                System.out.println("Seleziona il dado da posizionare nella mappa. Indica l'indice:");
+                data.setSelectedDIceIndex(in.nextInt());
+                try {
+                    printMap(servercontroller.getSchemeCard(yourName));
+                } catch (RemoteException e) {
+                    System.out.println(e.getMessage());
+                }
+                System.out.println("Seleziona la cella isolata in cui piazzarlo. Indica la riga:");
+                data.setNewRow1(in.nextInt());
+                System.out.println("Indica la colonna:");
+                data.setNewColumn1(in.nextInt());
+                break;
+            }
+            case "10": { //10. Tampone Diamantato
+                printRoundDicePool();
+                System.out.println("Seleziona il dado da girare sulla faccia opposta. Indica l'indice:");
+                data.setSelectedDIceIndex(in.nextInt());
+                break;
+            }
+            case "11": { //11. Diluente per Pasta Salda
+                printRoundDicePool();
+                System.out.println("Seleziona il dado rimettere nel sacchetto. Indica l'indice:");
+                data.setSelectedDIceIndex(in.nextInt());  //TODO come selezionerò l'intensità del nuovo dado? non posso saperla a priori in quanto non so il colore del dado nuovo.
+                break;
+            }
+            case "12": { //12. Taglierina Manuale
+                try {
+                    printMap(servercontroller.getSchemeCard(yourName));
+                } catch (RemoteException e) {
+                    System.out.println(e.getMessage());
+                }
+                while(numOfDicesToMove!=1||numOfDicesToMove!=2) {
+                    System.out.println("Seleziona il numero di dadi da spostare: [1/2]");
+                    numOfDicesToMove =in.nextInt();
+                }
+                data.setNumberofDicesyouwanttomove(numOfDicesToMove);
+                if (numOfDicesToMove ==1) {
+                    System.out.println("Seleziona il primo dado da spostare. Indica la riga:");
+                    data.setOldRow1(in.nextInt());
+                    System.out.println("Indica la colonna:");
+                    data.setOldColumn1(in.nextInt());
+                    System.out.println("Seleziona nuova riga:");
+                    data.setNewRow1(in.nextInt());
+                    System.out.println("Seleziona nuova colonna:");
+                    data.setNewColumn1(in.nextInt());
+                }
+                else {
+                    System.out.println("Seleziona il primo dado da spostare. Indica la riga:");
+                    data.setOldRow1(in.nextInt());
+                    System.out.println("Indica la colonna:");
+                    data.setOldColumn1(in.nextInt());
+                    System.out.println("Seleziona nuova riga:");
+                    data.setNewRow1(in.nextInt());
+                    System.out.println("Seleziona nuova colonna:");
+                    data.setNewColumn1(in.nextInt());
+                    System.out.println("Seleziona il primo dado da spostare. Indica la riga:");
+                    data.setOldRow1(in.nextInt());
+                    System.out.println("Indica la colonna:");
+                    data.setOldColumn1(in.nextInt());
+                    System.out.println("Seleziona nuova riga:");
+                    data.setNewRow1(in.nextInt());
+                    System.out.println("Seleziona nuova colonna:");
+                    data.setNewColumn1(in.nextInt());
+                }
+                break;
+            }
+
+            default: {
+                System.out.println("Hai sbagliato a digitare!");
+                break;
+            }
+        }
+        try {
+            servercontroller.useaToolCard(yourName, data);
+        } catch (RemoteException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void printMap(String map){
@@ -582,8 +762,8 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
                 case "GETMAPS": {
                     while (!correct){
                         System.out.println("Seleziona l'utente di cui vedere la mappa digitando il nome utente:");
-                        //System.out.println(servercontroller.getPlayers());
                         try {
+                            System.out.println(servercontroller.getPlayersinmymatch(yourName));
                             map = servercontroller.getSchemeCard(in.nextLine());
                             correct = true;
                         } catch (RemoteException e) {
