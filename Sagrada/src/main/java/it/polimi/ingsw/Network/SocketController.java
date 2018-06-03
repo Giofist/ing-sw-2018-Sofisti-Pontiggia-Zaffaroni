@@ -35,6 +35,17 @@ public class SocketController implements ClientHandlerInterface {
 
     @Override
     public synchronized void register(String username, String password) throws RemoteException {
+
+        SocketMessageClass registerMessage = new SocketMessageClass();
+        registerMessage.setClientName(username);
+        registerMessage.setPassword(password);
+        try {
+            listener.sendMessage(registerMessage);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        /*
         listener.sendString("register " + username + " " + password);
         try{
             wait();
@@ -43,10 +54,21 @@ public class SocketController implements ClientHandlerInterface {
         }
         this.stringHandler.check();
         this.stringHandler = null;
+        */
     }
 
     @Override
     public synchronized void   login(String username, String password) throws RemoteException {
+        SocketMessageClass loginMessage = new SocketMessageClass();
+        loginMessage.setClientName(username);
+        loginMessage.setPassword(password);
+        try {
+            listener.sendMessage(loginMessage);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        /*
         listener.sendString("login " + username + " " + password);
         try{
             wait();
@@ -55,6 +77,7 @@ public class SocketController implements ClientHandlerInterface {
         }
         this.stringHandler.check();
         this.stringHandler = null;
+        */
     }
 
     @Override

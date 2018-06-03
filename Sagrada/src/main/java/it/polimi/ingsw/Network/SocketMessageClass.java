@@ -21,8 +21,8 @@ public class SocketMessageClass implements Serializable{
     int intensity;
 
     //constructor
-    public SocketMessageClass(String clientname){
-        this.clientname = clientname;
+    public SocketMessageClass(){
+        // Do nothing
     }
 
     public void setRequestClass(ToolRequestClass requestClass){
