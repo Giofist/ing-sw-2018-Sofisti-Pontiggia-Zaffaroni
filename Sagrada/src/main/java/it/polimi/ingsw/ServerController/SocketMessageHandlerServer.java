@@ -3,6 +3,7 @@ package it.polimi.ingsw.ServerController;
 import it.polimi.ingsw.ClientView.Client;
 import it.polimi.ingsw.Network.SocketMessageClass;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
 
 public class SocketMessageHandlerServer implements Runnable {
@@ -16,28 +17,34 @@ public class SocketMessageHandlerServer implements Runnable {
     }
     @Override
     public void run() {
-        System.out.println("messagehandler");
-        if (messageClass.getMethodtoinvoke().equals("catania")){
-            System.out.println("pellissier");
-        }
-        if(messageClass.getMethodtoinvoke() != null){
-            System.out.println("ottimo");
-        }
         switch (messageClass.getMethodtoinvoke()){
             case "register" : try{
                 clientHandler.register(messageClass.getClientName(), messageClass.getPassword());
-                listener.sendString(1,null);
+                SocketMessageClass messageClass = new SocketMessageClass();
+                messageClass.setMessagecodex(1);
+                try {
+                    listener.sendMessage(messageClass);
+                    System.out.println("ecco fatto");
+
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
             }catch(RemoteException e){
-                listener.sendString(0, e.getMessage());
+                SocketMessageClass messageClass = new SocketMessageClass();
+                messageClass.setMessagecodex(0);
+                messageClass.setErrorMessage(e.getMessage());
+                try {
+                    listener.sendMessage(messageClass);
+                }catch (IOException err){
+                    e.printStackTrace();
+                }
             }
             break;
-            default:
-                System.out.println("errore");
-                listener.sendString(0,"chievo");
+
 
 
         }
-        System.out.println("forza MIlan");
+
 
     }
 }

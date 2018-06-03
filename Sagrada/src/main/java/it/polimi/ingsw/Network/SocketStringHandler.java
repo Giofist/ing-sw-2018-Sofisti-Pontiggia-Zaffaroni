@@ -29,7 +29,6 @@ public class SocketStringHandler implements Runnable{
                 break;
         }
         synchronized (controller){
-            System.out.println("Sono arrivato qui\n");
             controller.setStringHandler(this);
             controller.notifyAll();
         }

@@ -25,9 +25,9 @@ public class SocketClientListener implements Runnable {
         this.socket = socket;
         in = new Scanner(socket.getInputStream());
         out = new PrintWriter(socket.getOutputStream());
-
-        is = new ObjectInputStream(socket.getInputStream());
         os = new ObjectOutputStream(socket.getOutputStream());
+        is = new ObjectInputStream(socket.getInputStream());
+
         System.out.println("Connessione stabilita!\n");
     }
 
@@ -43,36 +43,27 @@ public class SocketClientListener implements Runnable {
         // 1: sto ricevendo la risposta  ad una richiesta di un metodo VOID, che è andata a buon fine,
         // 0: sto ricevendo la risposta ad una richiesta, che è fallita, quindi gestisco il relativo errore
         // 33: sto ricevendo una risposta positiva ad una richiesta di un metodo NON VOID, quindi devo inoltrare la String che ho ricevuto
-        int i=0;
+        int i = 0;
         System.out.println("sono arrivato al run del listener");
-        while (i==0){
-            if (in.hasNextInt()) {
-                int messagecodex = in.nextInt();
-                System.out.println(messagecodex);
-                if (messagecodex ==1) {
-                    executor.submit(new SocketStringHandler(this.controller, this.observerView, this, "OK" ,true));
+        while (i == 0) {
+            try {
+                SocketMessageClass message = (SocketMessageClass) is.readObject();
+                int messagecodex = message.getMessagecodex();
+                if (messagecodex == 1) {
+                    System.out.println("ottimo");
+                    executor.submit(new SocketStringHandler(this.controller, this.observerView, this, "OK", true));
                 }
-                if(messagecodex==0){
-                    executor.submit(new SocketStringHandler(this.controller, this.observerView, this, in.nextLine(),true));
+                if (messagecodex == 0) {
+                    executor.submit(new SocketStringHandler(this.controller, this.observerView, this, message.getErrorMessage(), true));
                 }
-                if (messagecodex == 33){
-                    executor.submit(new SocketStringHandler(this.controller, this.observerView, this, in.nextLine(),false));
+                if (messagecodex == 33) {
+                    executor.submit(new SocketStringHandler(this.controller, this.observerView, this, message.getAnswermessage(), false));
 
                 }
-            }
-            //utilizzo invece una classe per gli update
-            try{
-                SocketMessageClass message =(SocketMessageClass)is.readObject();
-                executor.submit(new SocketMessageHandler());
-
-            }catch (IOException e){
-                //do something
-            }catch (ClassNotFoundException e){
-                //do something
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
-
-
     }
 
     public synchronized void sendString(String string) {
@@ -82,7 +73,6 @@ public class SocketClientListener implements Runnable {
     public synchronized void sendMessage (SocketMessageClass message)throws IOException{
         os.writeObject(message);
         os.flush();
-        System.out.println("Ho inviato il dado");
     }
 
 }

@@ -6,6 +6,9 @@ import it.polimi.ingsw.model.ToolCard.ToolRequestClass;
 import java.io.Serializable;
 
 public class SocketMessageClass implements Serializable{
+    int messagecodex;
+    String errorMessage;
+    String answermessage;
     ToolRequestClass requestClass;
     // questa classe dovrà essere popolata a seconda delle richieste
     String methodtoinvoke;
@@ -25,6 +28,29 @@ public class SocketMessageClass implements Serializable{
         // Do nothing
     }
 
+    public void setAnswermessage(String answermessage) {
+        this.answermessage = answermessage;
+    }
+
+    public String getAnswermessage() {
+        return answermessage;
+    }
+
+    public void setErrorMessage(String errorMessage){
+        this.errorMessage =errorMessage;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void setMessagecodex(int messagecodex) {
+        this.messagecodex = messagecodex;
+    }
+
+    public int getMessagecodex() {
+        return messagecodex;
+    }
 
     public String getMethodtoinvoke() {
         if (this.methodtoinvoke == null){

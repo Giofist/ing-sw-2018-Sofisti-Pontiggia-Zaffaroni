@@ -38,6 +38,7 @@ public class SocketController implements ClientHandlerInterface {
 
         SocketMessageClass registerMessage = new SocketMessageClass();
         registerMessage.setMethodtoinvoke("register");
+        registerMessage.setMessagecodex(44);
         registerMessage.setClientName(username);
         registerMessage.setPassword(password);
         try {
@@ -45,12 +46,13 @@ public class SocketController implements ClientHandlerInterface {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        System.out.println("Sono in attesa");
         try{
             wait();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        System.out.println("Ho finito l'attesa");
         this.stringHandler.check();
         this.stringHandler = null;
 
@@ -67,16 +69,6 @@ public class SocketController implements ClientHandlerInterface {
             e.printStackTrace();
         }
 
-        /*
-        listener.sendString("login " + username + " " + password);
-        try{
-            wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        this.stringHandler.check();
-        this.stringHandler = null;
-        */
     }
 
     @Override

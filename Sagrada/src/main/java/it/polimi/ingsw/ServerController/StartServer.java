@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ServerController;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -12,6 +13,8 @@ public class StartServer implements Runnable{
     private int port;
     private ClientHandler controller;
     ArrayList<ObjectOutputStream> clientstreams = new ArrayList<ObjectOutputStream>();
+    //ArrayList<ObjectInputStream> clientstreamsinput = new ArrayList<ObjectInputStream>();
+
 
 
     public StartServer (ClientHandler controller, int port){
@@ -36,6 +39,7 @@ public class StartServer implements Runnable{
             try {
                 Socket socket = serverSocket.accept();
                 clientstreams.add(new ObjectOutputStream(socket.getOutputStream()));
+                //clientstreamsinput.add(new ObjectInputStream (socket.getInputStream()));
                 System.out.println("Ho ricevuto una nuova richiesta di connessione\n");
                 executor.submit(new SocketServerListener(socket, this.controller));
             } catch (IOException e) {
