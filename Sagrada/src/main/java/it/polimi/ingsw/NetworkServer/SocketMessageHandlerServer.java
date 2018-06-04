@@ -18,29 +18,6 @@ public class SocketMessageHandlerServer implements Runnable {
     }
     @Override
     public void run() {
-        try {
-            this.messageClass.performAction(this.clientHandler, this.listener);
-            ServerMessage messageClass = new ServerMessage();
-            messageClass.setMessagecodex(1);
-            try {
-                listener.sendMessage(messageClass);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } catch (RemoteException e) {
-            ServerMessage messageClass = new ServerMessage();
-            messageClass.setMessagecodex(0);
-            messageClass.setErrorMessage(e.getMessage());
-            try {
-                listener.sendMessage(messageClass);
-            } catch (IOException err) {
-                e.printStackTrace();
-            }
-        }
+        this.messageClass.performAction(this.clientHandler, this.listener);
     }
-
-
-
-
-        }
+}

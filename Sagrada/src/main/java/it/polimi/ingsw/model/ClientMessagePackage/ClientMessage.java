@@ -11,7 +11,6 @@ import java.rmi.RemoteException;
 public abstract class ClientMessage implements Serializable{
     int messagecodex;
     String errorMessage;
-    String answermessage;
     ToolRequestClass requestClass;
     // questa classe dovrà essere popolata a seconda delle richieste
     // Parametri delle richieste
@@ -36,14 +35,6 @@ public abstract class ClientMessage implements Serializable{
 
     public void setPlayername(String playername) {
         this.playername = playername;
-    }
-
-    public void setAnswermessage(String answermessage) {
-        this.answermessage = answermessage;
-    }
-
-    public String getAnswermessage() {
-        return answermessage;
     }
 
     public void setErrorMessage(String errorMessage){
@@ -134,7 +125,7 @@ public abstract class ClientMessage implements Serializable{
         return this.intensity;
     }
 
-    public  abstract void performAction(ClientHandler clientHandler, SocketServerListener listener) throws RemoteException;
+    public  abstract void performAction(ClientHandler clientHandler, SocketServerListener listener);
 
 
 }

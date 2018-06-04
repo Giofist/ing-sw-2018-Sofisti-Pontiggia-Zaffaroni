@@ -391,7 +391,12 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
 
     @Override
     public void leavethematch(String clientname) throws RemoteException {
-        //TODO implement here
+        try{
+            Player player = UsersList.Singleton().getUser(clientname).getPlayer();
+            player.getMatch().leavethegameattheend(player);
+        }catch(UserNotExistentException e){
+            throw new RemoteException(e.getMessage());
+        }
     }
 
     @Override
