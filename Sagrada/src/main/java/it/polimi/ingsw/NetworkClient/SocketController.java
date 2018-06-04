@@ -65,9 +65,17 @@ public class SocketController implements ClientHandlerInterface {
             e.printStackTrace();
         }
 
+        try{
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.stringHandler.check();
+        this.stringHandler = null;
+
     }
 
-    //da qui in poi è tutto da rifare, ma una volta che hai la struttura, non cè niente da pensare
+
     @Override
     public synchronized void logout(String username) throws RemoteException {
         ClientMessage logoutMessage = new LogoutMessage();
@@ -78,6 +86,14 @@ public class SocketController implements ClientHandlerInterface {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        try{
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.stringHandler.check();
+        this.stringHandler = null;
 
     }
 
@@ -142,7 +158,7 @@ public class SocketController implements ClientHandlerInterface {
     */
 
     @Override
-    public synchronized void setSchemeCard(String username, int cardid) {
+    public synchronized void setSchemeCard(String username, int cardid) throws RemoteException {
         ClientMessage setSchemeCardMessage = new SetSchemeCardMessage();
         setSchemeCardMessage.setClientName(username);
         setSchemeCardMessage.setCardId(cardid);
@@ -153,11 +169,18 @@ public class SocketController implements ClientHandlerInterface {
             e.printStackTrace();
         }
 
+        try{
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.stringHandler.check();
+        this.stringHandler = null;
     }
 
 
     @Override
-    public void setDice(String clientname, int diceindex, int row, int column) {
+    public void setDice(String clientname, int diceindex, int row, int column) throws RemoteException {
         ClientMessage setDiceMessage = new SetDiceMessage();
         setDiceMessage.setClientName(clientname);
         setDiceMessage.setDiceIndex(diceindex);
@@ -169,6 +192,14 @@ public class SocketController implements ClientHandlerInterface {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        try{
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.stringHandler.check();
+        this.stringHandler = null;
     }
 
 
@@ -182,7 +213,17 @@ public class SocketController implements ClientHandlerInterface {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+
+        try{
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.stringHandler.check();
+        String value = this.stringHandler.getMessage();
+        this.stringHandler = null;
+
+        return value;
     }
 
 
@@ -197,6 +238,14 @@ public class SocketController implements ClientHandlerInterface {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        try{
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.stringHandler.check();
+        this.stringHandler = null;
     }
 
 
@@ -210,7 +259,17 @@ public class SocketController implements ClientHandlerInterface {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+
+        try{
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.stringHandler.check();
+        String value = this.stringHandler.getMessage();
+        this.stringHandler = null;
+
+        return value;
     }
 
 
@@ -224,7 +283,17 @@ public class SocketController implements ClientHandlerInterface {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+
+        try{
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.stringHandler.check();
+        String value = this.stringHandler.getMessage();
+        this.stringHandler = null;
+
+        return value;
     }
 
 
@@ -238,7 +307,17 @@ public class SocketController implements ClientHandlerInterface {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+
+        try{
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.stringHandler.check();
+        String value = this.stringHandler.getMessage();
+        this.stringHandler = null;
+
+        return value;
     }
 
 
@@ -252,7 +331,17 @@ public class SocketController implements ClientHandlerInterface {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+
+        try{
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.stringHandler.check();
+        String value = this.stringHandler.getMessage();
+        this.stringHandler = null;
+
+        return value;
     }
 
     @Override
@@ -265,6 +354,14 @@ public class SocketController implements ClientHandlerInterface {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        try{
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.stringHandler.check();
+        this.stringHandler = null;
     }
 
 
@@ -278,6 +375,14 @@ public class SocketController implements ClientHandlerInterface {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        try{
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.stringHandler.check();
+        this.stringHandler = null;
     }
 
 
@@ -293,6 +398,14 @@ public class SocketController implements ClientHandlerInterface {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        try{
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.stringHandler.check();
+        this.stringHandler = null;
     }
 
 
@@ -307,6 +420,14 @@ public class SocketController implements ClientHandlerInterface {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        try{
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.stringHandler.check();
+        this.stringHandler = null;
     }
 
 
@@ -320,7 +441,17 @@ public class SocketController implements ClientHandlerInterface {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+
+        try{
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.stringHandler.check();
+        String value = this.stringHandler.getMessage();
+        this.stringHandler = null;
+
+        return value;
     }
 
 
@@ -335,7 +466,18 @@ public class SocketController implements ClientHandlerInterface {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+
+
+        try {
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.stringHandler.check();
+        String value = this.stringHandler.getMessage();
+        this.stringHandler = null;
+
+        return value;
     }
 
 
@@ -349,7 +491,17 @@ public class SocketController implements ClientHandlerInterface {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+
+        try {
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.stringHandler.check();
+        String value = this.stringHandler.getMessage();
+        this.stringHandler = null;
+
+        return value;
     }
 
 
@@ -363,7 +515,17 @@ public class SocketController implements ClientHandlerInterface {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+
+        try {
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.stringHandler.check();
+        String value = this.stringHandler.getMessage();
+        this.stringHandler = null;
+
+        return value;
     }
 
 
@@ -377,7 +539,17 @@ public class SocketController implements ClientHandlerInterface {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+
+        try {
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.stringHandler.check();
+        String value = this.stringHandler.getMessage();
+        this.stringHandler = null;
+
+        return value;
     }
 
 
@@ -391,7 +563,17 @@ public class SocketController implements ClientHandlerInterface {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return 0;
+
+        try {
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.stringHandler.check();
+        String value = this.stringHandler.getMessage();
+        this.stringHandler = null;
+
+        return Integer.parseInt(value);
     }
 
 
@@ -405,7 +587,17 @@ public class SocketController implements ClientHandlerInterface {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+
+        try {
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.stringHandler.check();
+        String value = this.stringHandler.getMessage();
+        this.stringHandler = null;
+
+        return value;
     }
 
 
@@ -419,7 +611,17 @@ public class SocketController implements ClientHandlerInterface {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+
+        try {
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.stringHandler.check();
+        String value = this.stringHandler.getMessage();
+        this.stringHandler = null;
+
+        return value;
     }
 
 
@@ -433,7 +635,17 @@ public class SocketController implements ClientHandlerInterface {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+
+        try {
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.stringHandler.check();
+        String value = this.stringHandler.getMessage();
+        this.stringHandler = null;
+
+        return value;
     }
 
 
@@ -447,7 +659,17 @@ public class SocketController implements ClientHandlerInterface {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+
+        try {
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.stringHandler.check();
+        String value = this.stringHandler.getMessage();
+        this.stringHandler = null;
+
+        return value;
     }
 
 
@@ -461,7 +683,17 @@ public class SocketController implements ClientHandlerInterface {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return 0;
+
+        try {
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.stringHandler.check();
+        String value = this.stringHandler.getMessage();
+        this.stringHandler = null;
+
+        return Integer.parseInt(value);
     }
 
 
@@ -475,7 +707,18 @@ public class SocketController implements ClientHandlerInterface {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+
+
+        try {
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.stringHandler.check();
+        String value = this.stringHandler.getMessage();
+        this.stringHandler = null;
+
+        return value;
 
     }
 
@@ -490,7 +733,17 @@ public class SocketController implements ClientHandlerInterface {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+
+        try {
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.stringHandler.check();
+        String value = this.stringHandler.getMessage();
+        this.stringHandler = null;
+
+        return value;
     }
 
 
@@ -504,7 +757,17 @@ public class SocketController implements ClientHandlerInterface {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+
+        try {
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.stringHandler.check();
+        String value = this.stringHandler.getMessage();
+        this.stringHandler = null;
+
+        return value;
     }
 
 
@@ -518,7 +781,17 @@ public class SocketController implements ClientHandlerInterface {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+
+        try {
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.stringHandler.check();
+        String value = this.stringHandler.getMessage();
+        this.stringHandler = null;
+
+        return value;
     }
 
 
@@ -532,6 +805,16 @@ public class SocketController implements ClientHandlerInterface {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+
+        try {
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.stringHandler.check();
+        String value = this.stringHandler.getMessage();
+        this.stringHandler = null;
+
+        return value;
     }
 }
