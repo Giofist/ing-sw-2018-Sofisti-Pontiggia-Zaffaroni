@@ -22,8 +22,10 @@ public class SocketServerListener implements Runnable{
         this.os = new ObjectOutputStream(socket.getOutputStream());
         this.is = new ObjectInputStream(socket.getInputStream());
         this.client  = new SocketClient(this);
+    }
 
-
+    public SocketClient getClient() {
+        return client;
     }
 
     @Override

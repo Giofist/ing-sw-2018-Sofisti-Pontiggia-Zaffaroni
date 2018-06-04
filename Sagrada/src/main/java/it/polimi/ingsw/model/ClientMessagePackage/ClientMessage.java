@@ -6,6 +6,7 @@ import it.polimi.ingsw.ServerController.ClientHandler;
 import it.polimi.ingsw.model.ToolCard.ToolRequestClass;
 
 import java.io.Serializable;
+import java.rmi.RemoteException;
 
 public abstract class ClientMessage implements Serializable{
     int messagecodex;
@@ -17,7 +18,6 @@ public abstract class ClientMessage implements Serializable{
     String clientname;
     String password;
     String gameName;
-    Observer client;
     int cardId;
     int diceIndex;
     int row;
@@ -80,10 +80,6 @@ public abstract class ClientMessage implements Serializable{
         this.gameName = gameName;
     }
 
-    public void setClient(Observer client){
-        this.client = client;
-    }
-
     public void setCardId(int cardId) {
         this.cardId = cardId;
     }
@@ -117,9 +113,6 @@ public abstract class ClientMessage implements Serializable{
         return this.gameName;
     }
 
-    public Observer getClient(){
-        return this.client;
-    }
 
     public int getCardId() {
         return this.cardId;
@@ -141,7 +134,7 @@ public abstract class ClientMessage implements Serializable{
         return this.intensity;
     }
 
-    public  abstract void performAction(ClientHandler clientHandler, SocketServerListener listener);
+    public  abstract void performAction(ClientHandler clientHandler, SocketServerListener listener) throws RemoteException;
 
 
 }

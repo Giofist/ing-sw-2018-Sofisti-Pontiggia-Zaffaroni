@@ -100,7 +100,7 @@ public class SocketController implements ClientHandlerInterface {
 
     @Override
     public synchronized void joinaGame(String username, Observer client, String gamename) throws RemoteException {
-        listener.sendString("joinaGame " + username + " " + gamename);
+        listener.sendString("joinaGameMessage " + username + " " + gamename);
         try{
             wait();
         } catch (InterruptedException e) {
@@ -128,7 +128,7 @@ public class SocketController implements ClientHandlerInterface {
 
     @Override
     public synchronized void setSchemeCard(String username, int cardid) throws RemoteException {
-        listener.sendString("joinaGame " + username + " " + cardid);
+        listener.sendString("joinaGameMessage " + username + " " + cardid);
         try{
             wait();
         } catch (InterruptedException e) {
@@ -141,7 +141,7 @@ public class SocketController implements ClientHandlerInterface {
 
     @Override
     public void setDice(String clientname, int diceindex, int row, int column) throws RemoteException, UserNotExistentException, SchemeCardNotExistantException {
-        listener.sendString("joinaGame " + clientname  + diceindex + row + column);
+        listener.sendString("joinaGameMessage " + clientname  + diceindex + row + column);
         try{
             wait();
         } catch (InterruptedException e) {
