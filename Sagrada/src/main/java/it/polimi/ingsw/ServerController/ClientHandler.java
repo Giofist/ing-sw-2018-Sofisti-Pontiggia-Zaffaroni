@@ -168,7 +168,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
 
 
     @Override
-    public String getActiveMatchesList() throws RemoteException{
+    public String getActiveMatchesList(String clientname) throws RemoteException{
         String list = new String();
         int i;
         for (Match match: MatchesList.singleton().getActiveMatches()) {

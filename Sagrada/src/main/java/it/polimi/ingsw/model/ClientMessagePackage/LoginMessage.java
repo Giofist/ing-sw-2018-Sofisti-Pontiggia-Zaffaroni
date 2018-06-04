@@ -9,9 +9,11 @@ import java.io.IOException;
 import java.rmi.RemoteException;
 
 public class LoginMessage extends ClientMessage {
+
     public LoginMessage(){
         this.messagecodex = 44;
     }
+
     @Override
     public void performAction(ClientHandlerInterface clientHandler, SocketServerListener listener) {
 
@@ -19,9 +21,9 @@ public class LoginMessage extends ClientMessage {
             clientHandler.login(this.getClientName(), this.getPassword());
             ServerMessage messageClass = new ServerMessage();
             messageClass.setMessagecodex(1);
+
             try {
                 listener.sendMessage(messageClass);
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -29,6 +31,7 @@ public class LoginMessage extends ClientMessage {
             ServerMessage messageClass = new ServerMessage();
             messageClass.setMessagecodex(0);
             messageClass.setErrorMessage(e.getMessage());
+
             try {
                 listener.sendMessage(messageClass);
             } catch (IOException err) {

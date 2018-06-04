@@ -8,6 +8,11 @@ import java.io.IOException;
 import java.rmi.RemoteException;
 
 public class LogoutMessage extends ClientMessage {
+
+    public LogoutMessage(){
+        this.messagecodex = 44;
+    }
+
     @Override
     public void performAction(ClientHandlerInterface clientHandler, SocketServerListener listener) {
 

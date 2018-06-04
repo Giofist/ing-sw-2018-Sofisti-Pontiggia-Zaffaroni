@@ -9,24 +9,28 @@ import java.io.IOException;
 import java.rmi.RemoteException;
 
 public class RegisterMessage  extends ClientMessage {
+
     public RegisterMessage(){
         this.messagecodex = 44;
     }
+
     @Override
     public void performAction(ClientHandlerInterface clientHandler, SocketServerListener listener) {
-     try{
+
+    try{
         clientHandler.register(getClientName(), getPassword());
         ServerMessage messageClass = new ServerMessage();
         messageClass.setMessagecodex(1);
+
         try {
             listener.sendMessage(messageClass);
-
         } catch (IOException e) {
             e.printStackTrace();
         }
     } catch (RemoteException e) {
         ServerMessage messageClass = new ServerMessage();
         messageClass.setMessagecodex(0);
+
         messageClass.setErrorMessage(e.getMessage());
         try {
             listener.sendMessage(messageClass);
