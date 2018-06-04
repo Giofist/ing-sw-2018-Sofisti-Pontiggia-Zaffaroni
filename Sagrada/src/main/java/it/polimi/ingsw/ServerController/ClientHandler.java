@@ -218,10 +218,10 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
             int index = 1;
             for (SchemeCard schemeCard: player.getExtractedSchemeCards()) {
                 stringToreturn += schemeCard.toString();
-                stringToreturn += "'";
+                stringToreturn += "&";
                 stringToreturn += schemeCard.getTwinCard().toString();
                 if (index < player.getExtractedSchemeCards().size()){
-                  stringToreturn += "'";
+                  stringToreturn += "&";
                 }
                 index++;
             }
@@ -267,14 +267,14 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     public synchronized void setSchemeCard(String clientusername, int cardid) throws RemoteException {
         try {
             Player player = UsersList.Singleton().getUser(clientusername).getPlayer();
-            player.getPlayerState().checkAction(TurnActions.SETSCHEMECARD);
+            //player.getPlayerState().checkAction(TurnActions.SETSCHEMECARD);
             player.setScheme(cardid);
         } catch (UserNotExistentException e) {
             throw new RemoteException(e.getMessage());
         } catch (CardIdNotAllowedException e) {
             throw new RemoteException(e.getMessage());
-        } catch (NotAllowedActionException e) {
-            throw new RemoteException(e.getMessage());
+        //} catch (NotAllowedActionException e) {
+         //   throw new RemoteException(e.getMessage());
         }
     }
 

@@ -235,8 +235,6 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
     }
 
     private void waitingInt() {
-        Scanner in = new Scanner(System.in);
-        PrintWriter out = new PrintWriter(System.out);
         System.out.println("Attendi che altri giocatori entrino in partita...");
         //timer di attesa poi appena arriva notify parte il gioco
     }
@@ -248,38 +246,30 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
         int index;
 
         try {
-            System.out.println("sto aspettando una notifica\n");
+            System.out.println("Sto aspettando una notifica!\n");
             wait();
             //aspetto una notify dell'inizio della partita, per ora è solo un test connection
         } catch (InterruptedException e) {
             //do nothing
         }
-
-            AnsiConsole.out.println("Success in testing wait and notify!");
-
             schemeCards = servercontroller.getSchemeCards(this.yourName);
-            String[] schemeCardsArray = schemeCards.split("'"); //creo un array con le sngole mappe
-
+            String[] schemeCardsArray = schemeCards.split("&"); //creo un array con le sngole mappe
             for (index = 0 ; index < schemeCardsArray.length ; index++){
                 printMap(schemeCardsArray[index]);
             }
 
             while(!correct){
-                System.out.println("Seleziona la carta schema che desideri tra le seguenti indicando il numero relativo.");
-                int selectedCard = in.nextInt();
-                try {
-                    servercontroller.setSchemeCard(this.yourName, selectedCard);
-                    correct = true;
-                } catch (RemoteException e){
-                    System.out.println(e.getMessage());
-                }
+                System.out.println("Seleziona la carta schema che desideri tra le seguenti indicando il numero relativo:");
+                System.out.println("test");
+                servercontroller.setSchemeCard(yourName, in.nextInt());
+                System.out.println("test!!");
+                correct = true;
             }
             System.out.println("La carta schema da te scelta è: ");
             printMap(servercontroller.getSchemeCard(yourName));
             printGoalCards();
             //AnsiConsole.systemUninstall();
-            System.out.print("\n");
-            System.out.println("Attendi che anche gli altri giocatori abbiano scelto la loro mappa.\n");
+            System.out.println("\nAttendi che anche gli altri giocatori abbiano scelto la loro mappa.\n");
 
         while (!matchisEnded) {
             try{
@@ -288,8 +278,7 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
                 printRoundDicePool();
                 System.out.println();
                 printToolcard();
-                placeDice();
-                printMap(servercontroller.getSchemeCard(yourName));
+                selectAction();
 
             }catch(InterruptedException e){
                 // do nothing
@@ -545,6 +534,7 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
 
     public void printMap(String map){
         char[] charTile;
+        //System.out.println(map);
         String[] element = map.split("%");
         System.out.println(element[0]);
         System.out.println(element[1]);
@@ -789,10 +779,45 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
                     break;
                 }
                 case "SETTOOLCARDDICE": {
+
+                    //TODO implement here
                     success = true;
                     break;
                 }
                 case "SETTOOLCARDDICEINTENSITY": {
+                    char[] charDice = new char[0];
+                    while(!correct) {
+                        System.out.println("Seleziona l'intensità del dado pescao:");
+                        try {
+                            servercontroller.setToolCardDiceIntensity(yourName, in.nextInt());
+                            correct = true;
+                        } catch (RemoteException e) {
+                            System.out.println(e.getMessage());
+                        }
+                    }
+                        try {
+                            charDice = servercontroller.getToolCardDice(yourName).toCharArray();
+                        } catch (RemoteException e) {
+                            System.out.println(e.getMessage());
+                        }
+                        switch(charDice[1]){
+                            case 'Y':
+                                System.out.print( ansi().eraseScreen().bg(YELLOW).fg(WHITE).a(" " + charDice[0] + " ").reset());
+                                break;
+                            case 'B':
+                                System.out.print( ansi().eraseScreen().bg(BLUE).fg(WHITE).a(" " + charDice[0] + " ").reset());
+                                break;
+                            case 'R':
+                                System.out.print( ansi().eraseScreen().bg(RED).fg(WHITE).a(" " + charDice[0] + " ").reset());
+                                break;
+                            case 'V':
+                                System.out.print( ansi().eraseScreen().bg(MAGENTA).fg(WHITE).a(" " + charDice[0] + " ").reset());
+                                break;
+                            case 'G':
+                                System.out.print( ansi().eraseScreen().bg(GREEN).fg(WHITE).a(" " + charDice[0] + " ").reset());
+                                break;
+                        }
+                        System.out.println();
                     success = true;
                     break;
                 }
@@ -816,6 +841,7 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
                 }
             }
         }
+        selectAction(); //non so se corretto
     }
 
 
