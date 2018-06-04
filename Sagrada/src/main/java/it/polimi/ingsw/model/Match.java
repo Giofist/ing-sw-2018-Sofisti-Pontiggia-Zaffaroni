@@ -46,13 +46,13 @@ public class Match implements Runnable{
             gametable = new Gametable(this.players.size());
             for (Player player : this.players) {
                 boolean success = false;
+                try{
+                    player.setPrivateGoalCard(getGametable().getPrivateGoalCard());
+                }catch(PrivateGoalCardException e){
+                    // do nothing
+                }
                 while (!success) {
                     try {
-                        try{
-                            player.setPrivateGoalCard(getGametable().getPrivateGoalCard());
-                        }catch(PrivateGoalCardException e){
-                            // do nothing
-                        }
                         player.addExtractedSchemeCard(getGametable().getSchemeCard());
                         player.addExtractedSchemeCard(getGametable().getSchemeCard());
                         player.setPlayerState(State.MUSTSETSCHEMECARD);
@@ -74,21 +74,18 @@ public class Match implements Runnable{
         }
         doneSignal = new CountDownLatch(this.getNumberOfPlayers());
         try {
+            System.out.println("Sono fermo sulla wait");
             doneSignal.await();
+            System.out.println("Ho superato la  wait");
+
         }catch(InterruptedException e) {
             //do nothing
         }
         //adesso la partita può avere inizio
         for (int i = 1; i<=10; i++){
-            try {
-                new Round(i, this.players, this).run();
-                //ad ogni ciclo for devo cambiare l'ordine di inizio round
-                this.players.addLast(this.players.removeFirst());
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            new Round(i, this.players, this).run();
+            //ad ogni ciclo for devo cambiare l'ordine di inizio round
+            this.players.addLast(this.players.removeFirst());
         }
 
 
@@ -174,6 +171,7 @@ public class Match implements Runnable{
     }
 
     public void countDown() {
+        System.out.println("ho risvegliato il donesignal");
         this.doneSignal.countDown();
     }
 }

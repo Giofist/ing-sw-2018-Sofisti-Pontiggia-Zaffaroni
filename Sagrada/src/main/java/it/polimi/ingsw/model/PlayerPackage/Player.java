@@ -86,9 +86,7 @@ public class Player extends it.polimi.ingsw.model.Observable implements Comparab
         }else if (cardid == this.extractedschemeCards.getLast().getTwinCard().getID()) {
             this.scheme = this.extractedschemeCards.getLast().getTwinCard();
         }else throw new CardIdNotAllowedException();
-        synchronized (this.getMatch()){
-            this.getMatch().countDown();
-        }
+        this.getMatch().countDown();
     }
     public SchemeCard getScheme() throws SchemeCardNotExistantException{
         if(this.scheme !=null){

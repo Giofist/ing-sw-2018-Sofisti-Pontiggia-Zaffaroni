@@ -14,8 +14,7 @@ public class Round {
     private LinkedList<Player> players;
     private Match match;
 
-
-
+    
     //constructor
     public Round ( int num_round, LinkedList<Player> players, Match match){
         this.match = match;
@@ -24,10 +23,9 @@ public class Round {
     }
 
 
-    public void run() throws RemoteException, InterruptedException {
+    public void run() {
         //questo metodo prepara il round con i dadi della Riserva ecc...
         this.getMatch().getGametable().setupRound();
-
 
         // Primo giro
         for (Player player: this.players) {
@@ -43,7 +41,6 @@ public class Round {
         // Ripristino l'ordine della lista di partenza
         Collections.reverse(this.players);
 
-
         //termino il round aggiornando il tracciato round prendendo i dadi dalla riserva
         try{
             this.getMatch().getGametable().endRound(this.num_round);
@@ -51,11 +48,7 @@ public class Round {
             //nel caso in cui voglia aggiornare una casella del tracciato round che non esiste
             // per esempio la -1, o la 11
         }
-
     }
-
-
-
     //metodi getter e setter
     public Match getMatch() {
         return match;
