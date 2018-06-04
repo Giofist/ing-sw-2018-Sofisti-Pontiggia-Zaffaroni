@@ -5,8 +5,7 @@ import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.Turn.Turn;
 
 import java.rmi.RemoteException;
-import java.util.Collections;
-import java.util.LinkedList;
+import java.util.*;
 
 //not implemented yet
 public class Round {
@@ -14,7 +13,7 @@ public class Round {
     private LinkedList<Player> players;
     private Match match;
 
-    
+
     //constructor
     public Round ( int num_round, LinkedList<Player> players, Match match){
         this.match = match;
@@ -29,7 +28,25 @@ public class Round {
 
         // Primo giro
         for (Player player: this.players) {
-            new Turn(player, this,1).run();
+            Turn turn = new Turn(player, this,1);
+            final Thread thread = new Thread(turn);
+            Timer timer  = new Timer(false);
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    System.out.println("Turn started at:"+new Date());
+                    try {
+                        //assuming it takes 20 secs to complete the task
+                        Thread.sleep(20000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println("Turn ended at:"+new Date());
+                    thread.interrupt();
+                }
+            },0);
+            thread.start();
+
         }
 
         // Secondo giro
@@ -49,6 +66,9 @@ public class Round {
             // per esempio la -1, o la 11
         }
     }
+
+
+
     //metodi getter e setter
     public Match getMatch() {
         return match;
