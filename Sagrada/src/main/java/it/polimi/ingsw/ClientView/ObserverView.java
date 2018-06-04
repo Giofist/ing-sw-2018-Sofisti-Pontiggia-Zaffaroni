@@ -3,7 +3,6 @@ package it.polimi.ingsw.ClientView;
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
 
 import java.io.PrintWriter;
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
@@ -13,7 +12,6 @@ import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
 import it.polimi.ingsw.model.Exceptions.UserNotExistentException;
 import it.polimi.ingsw.model.Observable;
 import it.polimi.ingsw.model.ToolCard.ToolRequestClass;
-import org.fusesource.jansi.AnsiConsole;
 
 import static org.fusesource.jansi.Ansi.Color.*;
 import static org.fusesource.jansi.Ansi.Color.BLUE;
@@ -769,9 +767,9 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
                     success = true;
                     break;
                 }
-                case "LEAVEMATCH": {
+                case "LEAVEMATCHATTHEEND": {
                     try {
-                        servercontroller.leavethematch(yourName);
+                        servercontroller.leavethematchatthend(yourName);
                     } catch (RemoteException e) {
                         System.out.println(e.getMessage());
                     }

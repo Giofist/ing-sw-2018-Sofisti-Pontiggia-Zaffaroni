@@ -195,7 +195,7 @@ public class SocketController implements ClientHandlerInterface {
     }
 
     @Override
-    public void leavethematch(String clientname) throws RemoteException {
+    public void leavethematchatthend(String clientname) throws RemoteException {
 
     }
 

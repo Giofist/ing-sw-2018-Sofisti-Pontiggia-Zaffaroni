@@ -19,19 +19,28 @@ public class Match implements Runnable{
     private Gametable gametable;
     private boolean started;
     private CountDownLatch doneSignal;
+    private Timer timer;
+    private boolean isreadyTostart;
 
 
 
 
     //public constructor
-    public Match(Player player, String game_name)  {
+    public Match(Player player, String game_name, Timer timer)  {
         this.game_name = game_name;
         this.players = new LinkedList<>();
         this.players.addFirst(player);
         player.setMatch(this);
+        this.timer = timer;
+        this.isreadyTostart = false;
 
 
     }
+
+    public void setIsreadyTostart(boolean value){
+        this.isreadyTostart = value;
+    }
+
     public synchronized void run(){
         while (!checkIsreadyToStart()){
             try {
@@ -155,12 +164,18 @@ public class Match implements Runnable{
 
 
     //da chiamare alla fine, quando un client vuole loasciare una partita e per esempio aggiungersi ad un'altra
-    public void leavethematch(Player player){
+    public  void leavethematchatthend(Player player){
         this.players.remove(player);
         if(getNumberOfPlayers()==0){
             MatchesList.singleton().remove(player.getMatch());
         }
     }
+
+    public void leavethematch(Player player){
+        this.players.remove(player);
+        if
+    }
+
 
     public String getfinalRanking() {
         String string = "\n";

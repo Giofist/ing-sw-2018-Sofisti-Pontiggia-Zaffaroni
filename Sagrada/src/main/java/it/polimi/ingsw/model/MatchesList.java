@@ -37,9 +37,26 @@ public class MatchesList {
                 throw new HomonymyException();
             }
         }
-        Match match = new Match(player, game_name);
+        Timer timer  = new Timer(false);
+        final Match match = new Match(player, game_name, timer);
         this.matches.add(match);
         //ogni match è un thread
+        final Thread thread = new Thread(match);
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                System.out.println("Match started at:"+new Date());
+                try {
+                    //assuming it takes 20 secs to complete the task
+                    Thread.sleep(10000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                if(!match.isStarted())
+                System.out.println("Match ended at:"+new Date());
+                thread.interrupt();
+            }
+        },0);
         new Thread(match).start();
         return match;
     }

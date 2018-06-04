@@ -37,7 +37,7 @@ public class PlayerState  extends  Object{
         this.actions = new LinkedList<>();
         switch (state){
             case ENDMATCHSTATE:
-                this.actions.addLast(TurnActions.LEAVEMATCH);
+                this.actions.addLast(TurnActions.LEAVEMATCHATTHEEND);
                 break;
             case ERRORSTATE:
                 break;
@@ -52,7 +52,7 @@ public class PlayerState  extends  Object{
                 this.actions.addLast(TurnActions.SETDICE);
                 break;
             case MATCHNOTSTARTEDYETSTATE:
-                this.actions.addLast(TurnActions.LEAVEMATCH);
+                this.actions.addLast(TurnActions.LEAVEMATCHBEFORESTARTING);
                 break;
             case MUSTPASSTURNSTATE:
                 this.actions.addLast(TurnActions.PASSTURN);
