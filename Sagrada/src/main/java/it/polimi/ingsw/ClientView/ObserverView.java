@@ -260,10 +260,13 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
 
             while(!correct){
                 System.out.println("Seleziona la carta schema che desideri tra le seguenti indicando il numero relativo:");
-                System.out.println("test");
-                servercontroller.setSchemeCard(yourName, in.nextInt());
-                System.out.println("test!!");
-                correct = true;
+                try {
+                    servercontroller.setSchemeCard(yourName, in.nextInt());
+                    correct = true;
+                }
+                catch(RemoteException e){
+                    System.out.println(e.getMessage());
+                }
             }
             System.out.println("La carta schema da te scelta è: ");
             printMap(servercontroller.getSchemeCard(yourName));
@@ -313,8 +316,7 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
            System.out.println(e.getMessage());
         }
         while (!success) {
-            success =true;
-            System.out.println("Seleziona il dado da piazzare usando l'indice numerico sotto riportato:");
+            System.out.println("Seleziona il dado da piazzare usando l'indice numerico sotto riportato:"); //I have to fix with better exception usage
             printRoundDicePool();
             diceIndex = in.nextInt();
             System.out.println("Seleziona la riga in cui posizionare il dado: [0/3]");
@@ -323,15 +325,13 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
             column = in.nextInt();
             try {
                 servercontroller.setDice(yourName, diceIndex, row, column);
+                success = true;
             } catch (UserNotExistentException e) {
                 System.out.println(e.getMessage());
-                success = false;
             } catch (RemoteException e) {
                 System.out.println(e.getMessage());
-                success = false;
             } catch (SchemeCardNotExistantException e) {
                 System.out.println(e.getMessage());
-                success = false;
             }
         }
     }
@@ -475,7 +475,7 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
             case "11": { //11. Diluente per Pasta Salda
                 printRoundDicePool();
                 System.out.println("Seleziona il dado rimettere nel sacchetto. Indica l'indice:");
-                data.setSelectedDIceIndex(in.nextInt());  //TODO come selezionerò l'intensità del nuovo dado? non posso saperla a priori in quanto non so il colore del dado nuovo.
+                data.setSelectedDIceIndex(in.nextInt());
                 break;
             }
             case "12": { //12. Taglierina Manuale
@@ -779,8 +779,18 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
                     break;
                 }
                 case "SETTOOLCARDDICE": {
-
-                    //TODO implement here
+                    while (!correct) {
+                        System.out.println("Seleziona la riga in cui posizionare il dado: [0/3]");
+                        int row = in.nextInt();
+                        System.out.println("Seleziona la riga in cui posizionare il dado: [0/4]");
+                        int column = in.nextInt();
+                        try {
+                            servercontroller.setToolCardDice(yourName, row, column);
+                            correct = true;
+                        } catch (RemoteException e) {
+                            System.out.println(e.getMessage());
+                        }
+                    }
                     success = true;
                     break;
                 }
