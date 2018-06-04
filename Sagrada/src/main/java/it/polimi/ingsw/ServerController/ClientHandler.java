@@ -267,14 +267,15 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     public synchronized void setSchemeCard(String clientusername, int cardid) throws RemoteException {
         try {
             Player player = UsersList.Singleton().getUser(clientusername).getPlayer();
-            //player.getPlayerState().checkAction(TurnActions.SETSCHEMECARD);
+            player.getPlayerState().checkAction(TurnActions.SETSCHEMECARD);
+            System.out.println("Ho chiamato il set");
             player.setScheme(cardid);
         } catch (UserNotExistentException e) {
             throw new RemoteException(e.getMessage());
         } catch (CardIdNotAllowedException e) {
             throw new RemoteException(e.getMessage());
-        //} catch (NotAllowedActionException e) {
-         //   throw new RemoteException(e.getMessage());
+        } catch (NotAllowedActionException e) {
+           throw new RemoteException(e.getMessage());
         }
     }
 
@@ -379,9 +380,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
             Player player = UsersList.Singleton().getUser(clientname).getPlayer();
             player.getPlayerState().checkAction(TurnActions.PASSTURN);
             player.setHassetaDicethisturn(false);
-            synchronized (player.getTurn()){
-                player.getTurn().countDown();
-            }
+            player.getTurn().countDown();
         }catch (UserNotExistentException e){
             throw new RemoteException(e.getMessage());
         }catch (NotAllowedActionException e){
@@ -390,10 +389,10 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     }
 
     @Override
-    public void leavethematch(String clientname) throws RemoteException {
+    public void leavethematchatthend(String clientname) throws RemoteException {
         try{
             Player player = UsersList.Singleton().getUser(clientname).getPlayer();
-            player.getMatch().leavethematch(player);
+            player.getMatch().leavethematchatthend(player);
             UsersList.Singleton().getUser(clientname).removePlayer();
         }catch(UserNotExistentException e){
             throw new RemoteException(e.getMessage());

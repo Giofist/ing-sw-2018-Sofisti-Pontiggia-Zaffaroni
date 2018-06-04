@@ -55,7 +55,7 @@ public interface ClientHandlerInterface extends Remote {
 
     public String getPossibleActions(String clientname) throws RemoteException;
     public void passTurn(String clientname) throws RemoteException;
-    public void leavethematch(String clientname) throws RemoteException;
+    public void leavethematchatthend(String clientname) throws RemoteException;
     public void setToolCardDice(String clientname, int row, int column)throws RemoteException;
 
     public void setToolCardDiceIntensity(String clientname, int intensity) throws RemoteException;

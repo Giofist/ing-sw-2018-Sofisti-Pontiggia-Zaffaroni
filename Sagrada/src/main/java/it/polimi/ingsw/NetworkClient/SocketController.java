@@ -365,7 +365,7 @@ public class SocketController implements ClientHandlerInterface {
     }
 
 
-    @Override
+
     public void leavethematch(String clientname) throws RemoteException {
         ClientMessage leaveTheMatchMessage = new LeaveTheMatchMessage();
         leaveTheMatchMessage.setClientName(clientname);

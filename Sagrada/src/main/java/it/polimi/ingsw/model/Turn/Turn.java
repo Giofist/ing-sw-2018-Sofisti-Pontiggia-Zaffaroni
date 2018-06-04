@@ -4,9 +4,12 @@ import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PlayerPackage.*;
 import it.polimi.ingsw.model.Round;
 
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.CountDownLatch;
 
-public class Turn {
+public class Turn implements Runnable{
 
     private Player currentPlayer;
     private Round round;
@@ -19,7 +22,7 @@ public class Turn {
         this.turnID = turnID;
         doneSignal = new CountDownLatch(player.getMatch().getNumberOfPlayers());
     }
-
+    @Override
     public synchronized void run(){
         if (currentPlayer.mustpassTurn()){
             currentPlayer.setPlayerState(State.NOTYOURTURNSTATE);
@@ -27,11 +30,15 @@ public class Turn {
             currentPlayer.setPlayerState(State.STARTTURNSTATE);
         }
         currentPlayer.setTurn(this);
-        currentPlayer.notifyObservers();
+        for (Player player: this.round.getPlayers()){
+            player.notifyObservers();
+        }
+
         try{
             doneSignal.await();
         }catch(InterruptedException e){
-            // do nothing
+            // finisco qui se non ricevo un passturn da tutti
+            System.out.println("Sono stato interrotto");
         }
 
         currentPlayer.setPlayerState(State.NOTYOURTURNSTATE);

@@ -5,15 +5,13 @@ import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.Turn.Turn;
 
 import java.rmi.RemoteException;
-import java.util.Collections;
-import java.util.LinkedList;
+import java.util.*;
 
 //not implemented yet
 public class Round {
     private int num_round;
     private LinkedList<Player> players;
     private Match match;
-
 
 
     //constructor
@@ -24,14 +22,31 @@ public class Round {
     }
 
 
-    public void run() throws RemoteException, InterruptedException {
+    public void run() {
         //questo metodo prepara il round con i dadi della Riserva ecc...
         this.getMatch().getGametable().setupRound();
 
-
         // Primo giro
         for (Player player: this.players) {
-            new Turn(player, this,1).run();
+            Turn turn = new Turn(player, this,1);
+            final Thread thread = new Thread(turn);
+            Timer timer  = new Timer(false);
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    System.out.println("Turn started at:"+new Date());
+                    try {
+                        //assuming it takes 20 secs to complete the task
+                        Thread.sleep(20000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println("Turn ended at:"+new Date());
+                    thread.interrupt();
+                }
+            },0);
+            thread.start();
+
         }
 
         // Secondo giro
@@ -43,7 +58,6 @@ public class Round {
         // Ripristino l'ordine della lista di partenza
         Collections.reverse(this.players);
 
-
         //termino il round aggiornando il tracciato round prendendo i dadi dalla riserva
         try{
             this.getMatch().getGametable().endRound(this.num_round);
@@ -51,7 +65,6 @@ public class Round {
             //nel caso in cui voglia aggiornare una casella del tracciato round che non esiste
             // per esempio la -1, o la 11
         }
-
     }
 
 

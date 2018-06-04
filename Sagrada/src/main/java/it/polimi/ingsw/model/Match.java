@@ -19,19 +19,28 @@ public class Match implements Runnable{
     private Gametable gametable;
     private boolean started;
     private CountDownLatch doneSignal;
+    private Timer timer;
+    private boolean isreadyTostart;
 
 
 
 
     //public constructor
-    public Match(Player player, String game_name)  {
+    public Match(Player player, String game_name, Timer timer)  {
         this.game_name = game_name;
         this.players = new LinkedList<>();
         this.players.addFirst(player);
         player.setMatch(this);
+        this.timer = timer;
+        this.isreadyTostart = false;
 
 
     }
+
+    public void setIsreadyTostart(boolean value){
+        this.isreadyTostart = value;
+    }
+
     public synchronized void run(){
         while (!checkIsreadyToStart()){
             try {
@@ -46,13 +55,13 @@ public class Match implements Runnable{
             gametable = new Gametable(this.players.size());
             for (Player player : this.players) {
                 boolean success = false;
+                try{
+                    player.setPrivateGoalCard(getGametable().getPrivateGoalCard());
+                }catch(PrivateGoalCardException e){
+                    // do nothing
+                }
                 while (!success) {
                     try {
-                        try{
-                            player.setPrivateGoalCard(getGametable().getPrivateGoalCard());
-                        }catch(PrivateGoalCardException e){
-                            // do nothing
-                        }
                         player.addExtractedSchemeCard(getGametable().getSchemeCard());
                         player.addExtractedSchemeCard(getGametable().getSchemeCard());
                         player.setPlayerState(State.MUSTSETSCHEMECARD);
@@ -74,21 +83,18 @@ public class Match implements Runnable{
         }
         doneSignal = new CountDownLatch(this.getNumberOfPlayers());
         try {
+            System.out.println("Sono fermo sulla wait");
             doneSignal.await();
+            System.out.println("Ho superato la  wait");
+
         }catch(InterruptedException e) {
             //do nothing
         }
         //adesso la partita può avere inizio
         for (int i = 1; i<=10; i++){
-            try {
-                new Round(i, this.players, this).run();
-                //ad ogni ciclo for devo cambiare l'ordine di inizio round
-                this.players.addLast(this.players.removeFirst());
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            new Round(i, this.players, this).run();
+            //ad ogni ciclo for devo cambiare l'ordine di inizio round
+            this.players.addLast(this.players.removeFirst());
         }
 
 
@@ -158,12 +164,18 @@ public class Match implements Runnable{
 
 
     //da chiamare alla fine, quando un client vuole loasciare una partita e per esempio aggiungersi ad un'altra
-    public void leavethematch(Player player){
+    public  void leavethematchatthend(Player player){
         this.players.remove(player);
         if(getNumberOfPlayers()==0){
             MatchesList.singleton().remove(player.getMatch());
         }
     }
+
+    public void leavethematch(Player player){
+        this.players.remove(player);
+        if
+    }
+
 
     public String getfinalRanking() {
         String string = "\n";
@@ -174,6 +186,7 @@ public class Match implements Runnable{
     }
 
     public void countDown() {
+        System.out.println("ho risvegliato il donesignal");
         this.doneSignal.countDown();
     }
 }
