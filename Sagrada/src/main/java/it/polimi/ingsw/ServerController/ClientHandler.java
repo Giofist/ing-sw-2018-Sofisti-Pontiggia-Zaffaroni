@@ -393,7 +393,8 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     public void leavethematch(String clientname) throws RemoteException {
         try{
             Player player = UsersList.Singleton().getUser(clientname).getPlayer();
-            player.getMatch().leavethegameattheend(player);
+            player.getMatch().leavethematch(player);
+            UsersList.Singleton().getUser(clientname).removePlayer();
         }catch(UserNotExistentException e){
             throw new RemoteException(e.getMessage());
         }

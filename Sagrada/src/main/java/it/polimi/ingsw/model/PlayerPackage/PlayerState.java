@@ -75,6 +75,9 @@ public class PlayerState  extends  Object{
                 break;
             case MUSTSETSCHEMECARD:
                 this.actions.addLast(TurnActions.SETSCHEMECARD);
+                break;
+            case MATCHISSTARTEDSTATE:
+                break;
 
 
 

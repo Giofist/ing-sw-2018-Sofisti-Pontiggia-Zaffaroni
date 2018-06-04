@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.ClientMessagePackage;
 import it.polimi.ingsw.ClientView.Observer;
 import it.polimi.ingsw.NetworkServer.SocketServerListener;
 import it.polimi.ingsw.ServerController.ClientHandler;
+import it.polimi.ingsw.ServerController.ClientHandlerInterface;
 import it.polimi.ingsw.model.ToolCard.ToolRequestClass;
 
 import java.io.Serializable;
@@ -125,7 +126,7 @@ public abstract class ClientMessage implements Serializable{
         return this.intensity;
     }
 
-    public  abstract void performAction(ClientHandler clientHandler, SocketServerListener listener);
+    public  abstract void performAction(ClientHandlerInterface clientHandler, SocketServerListener listener);
 
 
 }

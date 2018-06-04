@@ -40,7 +40,6 @@ public class SocketController implements ClientHandlerInterface {
     public synchronized void register(String username, String password) throws RemoteException {
 
         ClientMessage registerMessage = new RegisterMessage();
-        registerMessage.setMessagecodex(44);
         registerMessage.setClientName(username);
         registerMessage.setPassword(password);
         try {

@@ -158,7 +158,7 @@ public class Match implements Runnable{
 
 
     //da chiamare alla fine, quando un client vuole loasciare una partita e per esempio aggiungersi ad un'altra
-    public void leavethegameattheend(Player player){
+    public void leavethematch(Player player){
         this.players.remove(player);
         if(getNumberOfPlayers()==0){
             MatchesList.singleton().remove(player.getMatch());

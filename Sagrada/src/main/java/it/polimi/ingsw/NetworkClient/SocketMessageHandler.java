@@ -17,6 +17,7 @@ public class SocketMessageHandler implements Runnable {
     }
     @Override
     public void run() {
-       message.performAction(this.observerView, this.listener);
+
+        message.performAction(this.observerView, this.listener);
     }
 }

@@ -42,4 +42,7 @@ public class User {
     public Player getPlayer() {
         return player;
     }
+    public void removePlayer(){
+        this.player = null;
+    }
 }
