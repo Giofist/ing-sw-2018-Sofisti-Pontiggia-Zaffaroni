@@ -13,6 +13,5 @@ public class HasSetDicesStateView implements Runnable {
 
     @Override
     public void run() {
-
     }
 }

@@ -13,6 +13,6 @@ public class ErrorStateView implements Runnable {
 
     @Override
     public void run() {
-
+        System.out.println("Impossibile caricare le mappe!\nLa partita non può iniziare. :(");
     }
 }

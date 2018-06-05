@@ -384,4 +384,32 @@ public class Setter {
         }
     }
 
+    public void selectSchemeCard(ClientHandlerInterface serverController, String yourName){
+        Scanner in = new Scanner(System.in);
+        String schemeCards = null;
+        boolean correct = false;
+        int index;
+        try {
+            schemeCards = serverController.getSchemeCards(yourName);
+        } catch (RemoteException e) {
+            System.out.println(e.getMessage());
+        }
+        String[] schemeCardsArray = schemeCards.split("'"); //creo un array con le sngole mappe
+
+        for (index = 0 ; index < schemeCardsArray.length ; index++){
+            Printer.Singleton().printMap(schemeCardsArray[index]);
+        }
+
+        while(!correct){
+            System.out.println("Seleziona la carta schema che desideri tra le seguenti indicando il numero relativo.");
+            int selectedCard = in.nextInt();
+            try {
+                serverController.setSchemeCard(yourName, selectedCard);
+                correct = true;
+            } catch (RemoteException e){
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
 }
