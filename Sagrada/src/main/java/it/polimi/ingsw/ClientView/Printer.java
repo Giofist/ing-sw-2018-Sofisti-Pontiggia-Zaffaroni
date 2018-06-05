@@ -16,12 +16,11 @@ public class Printer {
     private static Printer printer;
     //costruttore privato
     private Printer(){
-        this.printer= new Printer();
     }
 
 
     //metodo che crea/dà accesso se già creata all'unica istanza
-    public static Printer Singleton(){
+    public synchronized static Printer Singleton(){
         if (printer == null) {
             printer = new Printer();
         }
@@ -29,11 +28,13 @@ public class Printer {
     }
 
     public void printMap(String map){
+        System.out.println(map);
         char[] charTile;
         String[] element = map.split("%");
         System.out.println(element[0]);
         System.out.println(element[1]);
         String[] tiles = element[2].split("!");
+
         for (String rowTile: tiles){
             String[] column = rowTile.split("-");
             for (String el : column) {
@@ -76,6 +77,7 @@ public class Printer {
                         System.out.print(ansi().eraseScreen().bg(GREEN).fg(WHITE).a(" " + charTile[0] + " ").reset());
                         break;
                 }
+
             }
             System.out.print("\n");
         }
@@ -85,8 +87,8 @@ public class Printer {
     public void printGoalCards(ClientHandlerInterface serverController, String yourName){
         String[] cardName = new String[0];
         String[] description = new String[0];
-        System.out.println("\n-Ecco gli obbiettivi di questa partita-");
-        System.out.println("\nObbiettivo privato:");
+        System.out.println("\n-Ecco gli obiettivi di questa partita-");
+        System.out.println("\nObiettivo privato:");
         try {
             System.out.println(serverController.getPrivateGoalCardname(yourName));
         } catch (RemoteException e) {

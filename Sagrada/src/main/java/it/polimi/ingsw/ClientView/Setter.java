@@ -15,9 +15,7 @@ import static org.fusesource.jansi.Ansi.ansi;
 public class Setter {
     private static Setter setter;
     //costruttore privato
-    private Setter(){
-        this.setter= new Setter();
-    }
+    private Setter(){ }
 
     //metodo che crea/dà accesso se già creata all'unica istanza
     public static Setter Singleton(){
@@ -394,8 +392,7 @@ public class Setter {
         } catch (RemoteException e) {
             System.out.println(e.getMessage());
         }
-        String[] schemeCardsArray = schemeCards.split("'"); //creo un array con le sngole mappe
-
+        String[] schemeCardsArray = schemeCards.split("&"); //creo un array con le sngole mappe
         for (index = 0 ; index < schemeCardsArray.length ; index++){
             Printer.Singleton().printMap(schemeCardsArray[index]);
         }

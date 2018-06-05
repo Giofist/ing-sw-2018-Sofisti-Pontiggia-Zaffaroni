@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.Turn;
 import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PlayerPackage.*;
 import it.polimi.ingsw.model.Round;
+import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 
 import java.rmi.RemoteException;
 import java.util.Date;
@@ -58,7 +59,9 @@ public class Turn implements Runnable{
             // finisco qui se non ricevo un passturn da tutti
             System.out.println("Sono stato interrotto");
         }
-
+        synchronized (this.round){
+            this.round.notify();
+        }
         return;
     }
 

@@ -22,7 +22,7 @@ public class Round {
     }
 
 
-    public void run() {
+    public synchronized void run() {
         //questo metodo prepara il round con i dadi della Riserva ecc...
         this.getMatch().getGametable().setupRound();
 
@@ -37,7 +37,7 @@ public class Round {
                     System.out.println("Turn started at:"+new Date());
                     try {
                         //assuming it takes 20 secs to complete the task
-                        Thread.sleep(20000);
+                        Thread.sleep(120000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -45,8 +45,12 @@ public class Round {
                     thread.interrupt();
                 }
             },0);
-            thread.start();
-
+            try{
+                thread.start();
+                wait();
+            }catch (InterruptedException e){
+                //do notihng
+            }
         }
 
         // Secondo giro

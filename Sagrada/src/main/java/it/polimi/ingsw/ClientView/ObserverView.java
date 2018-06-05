@@ -23,6 +23,8 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
     private boolean matchisEnded;
     private int numOfDice;
     private Thread thread;
+    boolean leaveSagrada = false;
+    boolean leaveMatch = false;
 
     //constructor1
     public ObserverView() throws RemoteException {
@@ -36,24 +38,31 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
         this.in = new Scanner(System.in);
         this.out = new PrintWriter(System.out);
         this.serverController = controller;
+
     }
 
     public void setServerController(ClientHandlerInterface serverController) {
         this.serverController = serverController;
     }
 
-    public void run() throws RemoteException, SchemeCardNotExistantException {
+    public synchronized void run() throws RemoteException {
         boolean partita = true;
         String stringa = serverController.rmiTest("RMI");
         System.out.println("La connessione è in modalità: " + stringa);
         loadingInterface();
-        menuInt();
-
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        while (!leaveSagrada){
+            menuInt();
+            while (!leaveMatch){
+                try {
+                    wait();
+                    this.thread.start();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
+
+        }
+
     }
 
     private void loadingInterface() {
@@ -134,6 +143,9 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
             }
         } while (!success);
         }
+
+
+
 
     private void menuInt() throws RemoteException {
         Scanner in = new Scanner(System.in);
@@ -230,64 +242,58 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
 
     @Override
     public synchronized void update(Observable o, Object arg) throws RemoteException {
-        this.thread.interrupt();
+        if(this.thread !=null){
+            this.thread.interrupt();
+        }
+        this.thread = null;
         State state =  o.getState();
         switch (state){
             case ERRORSTATE: {
                 this.thread = new Thread(new ErrorStateView(serverController, yourName));
-                this.thread.start();
                 break;
             }
             case HASSETADICESTATE: {
                 this.thread = new Thread(new HasSetDicesStateView(serverController, yourName));
-                this.thread.start();
                 break;
             }
             case HASUSEDATOOLCARDACTIONSTATE: {
                 this.thread = new Thread(new HasUsedAToolcardActionStateView(serverController, yourName));
-                this.thread.start();
                 break;
             }
             case MATCHNOTSTARTEDYETSTATE: {
                 this.thread = new Thread(new MatchNotStartedYetStateView(serverController, yourName));
-                this.thread.start();
                 break;
             }
             case MUSTPASSTURNSTATE: {
                 this.thread = new Thread(new MustPassTurnStateView(serverController, yourName));
-                this.thread.start();
                 break;
             }
             case MUSTSSETDILUENTEPERPASTASALDASTATE: {
                 this.thread = new Thread(new MustSetDiluentePerPastaSaldanteStateView(serverController, yourName));
-                this.thread.start();
                 break;
             }
             case MUSTSETPENNELLOPERPASTASALDASTATE: {
                 this.thread = new Thread(new MustSetPennelloPerPastaSaldanteStateView(serverController, yourName));
-                this.thread.start();
                 break;
             }
             case NOTYOURTURNSTATE: {
                 this.thread = new Thread(new NotYourTurnStateView(serverController, yourName));
-                this.thread.start();
                 break;
             }
             case STARTTURNSTATE: {
-                this.thread = new Thread(new StartTurnView(serverController, yourName));
-                this.thread.start();
+
+                this.thread = new Thread(new StartTurnView());
                 break;
             }
             case ENDMATCHSTATE: {
                 this.thread = new Thread(new EndMatchStateView(serverController, yourName));
-                this.thread.start();
                 break;
             }
             case MUSTSETSCHEMECARD: {
                 this.thread = new Thread(new MustSetSchemeCardStateView(serverController, yourName));
-                this.thread.start();
                 break;
             }
         }
+        this.notifyAll();
     }
 }
