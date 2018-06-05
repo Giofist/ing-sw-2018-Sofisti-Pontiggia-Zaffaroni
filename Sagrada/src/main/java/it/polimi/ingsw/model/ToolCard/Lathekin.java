@@ -6,6 +6,8 @@ import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIlleg
 import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PlayerPackage.State;
 
+import java.rmi.RemoteException;
+
 //revisionata by pon
 public class Lathekin  extends ToolAction {
 
@@ -28,9 +30,14 @@ public class Lathekin  extends ToolAction {
             player.getScheme().removeDice(toolRequestClass.getOldRow2(), toolRequestClass.getOldColumn2());
             player.getScheme().setDice(removedDice1, toolRequestClass.getNewRow1(), toolRequestClass.getNewColumn1(), false, false, false);
             player.getScheme().setDice(removedDice2, toolRequestClass.getNewRow2(), toolRequestClass.getNewColumn2(),false,false, false);
-            if (player.getPlayerState().getState().equals(State.HASSETADICESTATE)){
-                player.setPlayerState(State.MUSTPASSTURNSTATE);
-            }else player.setPlayerState(State.HASUSEDATOOLCARDACTIONSTATE);
+            try{
+                if (player.getPlayerState().getState().equals(State.HASSETADICESTATE)){
+                    player.setPlayerState(State.MUSTPASSTURNSTATE);
+                }else player.setPlayerState(State.HASUSEDATOOLCARDACTIONSTATE);
+            }catch (RemoteException e){
+                player.getTurn().countDown();
+            }
+
 
         }catch( Exception e){
             try{

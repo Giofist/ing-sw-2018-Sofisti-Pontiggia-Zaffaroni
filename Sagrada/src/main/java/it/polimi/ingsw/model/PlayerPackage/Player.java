@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.Exceptions.*;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 import it.polimi.ingsw.model.Turn.Turn;
 
+import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Observable;
@@ -40,7 +41,6 @@ public class Player  implements Comparable<Player> {
         this.extractedschemeCards = new LinkedList<>();
         this.scheme = null;
         this.playerState = new PlayerState();
-        setPlayerState(State.MATCHNOTSTARTEDYETSTATE);
 
     }
 
@@ -149,7 +149,7 @@ public class Player  implements Comparable<Player> {
     public PlayerState getPlayerState(){
         return this.playerState;
     }
-    public void setPlayerState(State state){
+    public void setPlayerState(State state)throws RemoteException{
         this.playerState.updateState(state);
         this.playerState.notifyObservers();
     }

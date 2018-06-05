@@ -4,6 +4,8 @@ import it.polimi.ingsw.model.Exceptions.EmpyDicepoolException;
 import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PlayerPackage.State;
 
+import java.rmi.RemoteException;
+
 public class TamponeDiamantato extends ToolAction {
     public TamponeDiamantato(){
         this.cost =1;
@@ -23,6 +25,8 @@ public class TamponeDiamantato extends ToolAction {
             }else player.setPlayerState(State.HASUSEDATOOLCARDACTIONSTATE);
         }catch(EmpyDicepoolException e){
 
+        } catch (RemoteException e) {
+            player.getTurn().countDown();
         }
     }
 

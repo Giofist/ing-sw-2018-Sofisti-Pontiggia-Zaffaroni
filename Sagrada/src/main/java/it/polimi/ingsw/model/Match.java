@@ -55,30 +55,31 @@ public class Match implements Runnable{
             gametable = new Gametable(this.players.size());
             for (Player player : this.players) {
                 boolean success = false;
-                try{
-                    player.setPrivateGoalCard(getGametable().getPrivateGoalCard());
-                }catch(PrivateGoalCardException e){
-                    // do nothing
-                }
                 while (!success) {
                     try {
+                        player.setPrivateGoalCard(getGametable().getPrivateGoalCard());
                         player.addExtractedSchemeCard(getGametable().getSchemeCard());
                         player.addExtractedSchemeCard(getGametable().getSchemeCard());
                         player.setPlayerState(State.MUSTSETSCHEMECARD);
-                        player.notifyObservers();
+
                         success = true;
                     } catch (MapConstrainReadingException e) {
                         System.out.println(e.getMessage());
+                    }catch(PrivateGoalCardException e){
+                        // do nothing
+                    }catch (RemoteException e){
+                        leavethematch(player);
+                        success = true;
                     }
                 }
             }
         }catch(IOException e){
-            try{
-                for(Player player: this.players){
-                    player.notifyObservers();//"Impossibile leggere il file delle mappe, la partita non può iniziare!\n");
+            for(Player player: this.players){
+                try{
+                    player.setPlayerState(State.ERRORSTATE);//"Impossibile leggere il file delle mappe, la partita non può iniziare!\n");
+                }catch(Exception err){
+                    //do nothing, we are so unlucky here
                 }
-            }catch(Exception err){
-                //do nothing, we are so unlucky here
             }
         }
         doneSignal = new CountDownLatch(this.getNumberOfPlayers());
@@ -107,7 +108,11 @@ public class Match implements Runnable{
         //notifico ai vari giocatori la fine della partita dopo aver ordinato la lista in base al punteggio di ciascuno
         Collections.sort(this.players);
         for (Player player:this.players) {
-            player.notifyObservers();
+            try{
+                player.setPlayerState(State.ENDMATCHSTATE);
+            }catch (RemoteException e){
+                leavethematchatthend(player);
+            }
         //qui bisognerà chiudere la partita in qualche modo
         }
     }
@@ -171,9 +176,7 @@ public class Match implements Runnable{
 
     public void leavethematch(Player player){
         this.players.remove(player);
-        if ()
     }
-
 
     public String getfinalRanking() {
         String string = "\n";

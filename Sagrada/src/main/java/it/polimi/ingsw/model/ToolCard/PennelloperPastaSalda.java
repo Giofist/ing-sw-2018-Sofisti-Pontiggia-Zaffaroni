@@ -9,6 +9,8 @@ import it.polimi.ingsw.model.PlayerPackage.State;
 import it.polimi.ingsw.model.SchemeDeck.ColumnIterator;
 import it.polimi.ingsw.model.SchemeDeck.RowIterator;
 
+import java.rmi.RemoteException;
+
 public class PennelloperPastaSalda  extends ToolAction {
 
 
@@ -39,9 +41,9 @@ public class PennelloperPastaSalda  extends ToolAction {
                 }
             }
             if(settable){
-            player.setDiceforToolCardUse(dice);
-            player.getGametable().getRoundDicepool().removeDice(toolRequestClass.getSelectedDIceIndex());
-            player.setPlayerState(State.MUSTSETPENNELLOPERPASTASALDASTATE);
+                player.setDiceforToolCardUse(dice);
+                player.getGametable().getRoundDicepool().removeDice(toolRequestClass.getSelectedDIceIndex());
+                player.setPlayerState(State.MUSTSETPENNELLOPERPASTASALDASTATE);
             }else{
                 if (player.getPlayerState().getState().equals(State.HASSETADICESTATE)){
                     player.setPlayerState(State.MUSTPASSTURNSTATE);
@@ -52,6 +54,8 @@ public class PennelloperPastaSalda  extends ToolAction {
             throw new ToolIllegalOperationException(e.getMessage());
         }catch (SchemeCardNotExistantException e){
             throw new ToolIllegalOperationException(e.getMessage());
+        }catch (RemoteException e){
+            player.getTurn().countDown();
         }
 
     }

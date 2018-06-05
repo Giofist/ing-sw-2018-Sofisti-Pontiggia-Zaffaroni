@@ -7,6 +7,8 @@ import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIlleg
 import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PlayerPackage.State;
 
+import java.rmi.RemoteException;
+
 public class PennelloperEglomise extends ToolAction {
 
     private Dice removedDice;
@@ -25,9 +27,14 @@ public class PennelloperEglomise extends ToolAction {
              removedDice = player.getScheme().getDice(toolRequestClass.getOldRow1(), toolRequestClass.getOldColumn1());
             player.getScheme().removeDice(toolRequestClass.getOldRow1(), toolRequestClass.getOldColumn1());
             player.getScheme().setDice(removedDice, toolRequestClass.getNewRow1(), toolRequestClass.getNewColumn1(), true, false, false);
-            if (player.getPlayerState().getState().equals(State.HASSETADICESTATE)){
-                player.setPlayerState(State.MUSTPASSTURNSTATE);
-            }else player.setPlayerState(State.HASUSEDATOOLCARDACTIONSTATE);
+            try{
+                if (player.getPlayerState().getState().equals(State.HASSETADICESTATE)){
+                    player.setPlayerState(State.MUSTPASSTURNSTATE);
+                }else player.setPlayerState(State.HASUSEDATOOLCARDACTIONSTATE);
+            }catch (RemoteException e){
+                player.getTurn().countDown();
+            }
+
         }catch(Exception e) {
             try{
                 player.getScheme().setDice(removedDice, toolRequestClass.getOldRow1(), toolRequestClass.getOldColumn1(), true, false, false);

@@ -8,6 +8,8 @@ import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIlleg
 import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PlayerPackage.State;
 
+import java.rmi.RemoteException;
+
 public class PinzaSgrossatrice  extends ToolAction {
 
 
@@ -37,6 +39,8 @@ public class PinzaSgrossatrice  extends ToolAction {
             throw new PinzaSgrossatriceException(PinzaSgrossatriceException.getMsg()+ e.getMessage());
         }catch (EmpyDicepoolException e){
 
+        }catch (RemoteException e){
+            player.getTurn().countDown();
         }
     }
 

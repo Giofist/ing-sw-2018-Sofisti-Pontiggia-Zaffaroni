@@ -29,7 +29,7 @@ public class DiluenteperPastaSalda  extends ToolAction {
 
         //removes a dice e puts it into the dicepool, but before we need to remember its color
         try{
-            if(player.HassetaDicethisturn()){
+            if(player.getPlayerState().getState().equals(State.HASSETADICESTATE)){
                 throw new ToolIllegalOperationException("non puoi piazzare due dadi nello stesso turno");
             }
             DiceColor color = player.getGametable().getRoundDicepool().getDice(toolRequestClass.getSelectedDIceIndex()).getColor();
@@ -38,7 +38,11 @@ public class DiluenteperPastaSalda  extends ToolAction {
 
             //poi pescane uno
             player.setDiceforToolCardUse(player.getGametable().getDicepool().extractDice());
-            player.setPlayerState(State.MUSTSSETDILUENTEPERPASTASALDASTATE);
+            try{
+                player.setPlayerState(State.MUSTSSETDILUENTEPERPASTASALDASTATE);
+            }catch (RemoteException e){
+                player.getTurn().countDown();
+            }
         }catch(EmpyDicepoolException e){
             throw new ToolIllegalOperationException(e.getMessage());
         }

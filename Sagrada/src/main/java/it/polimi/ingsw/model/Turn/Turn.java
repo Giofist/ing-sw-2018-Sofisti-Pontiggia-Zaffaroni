@@ -25,24 +25,31 @@ public class Turn implements Runnable{
     }
     @Override
     public synchronized void run(){
-        if (currentPlayer.mustpassTurn()){
-            currentPlayer.setPlayerState(State.NOTYOURTURNSTATE);
-        }else{
-            currentPlayer.setPlayerState(State.STARTTURNSTATE);
-        }
         currentPlayer.setTurn(this);
-        for (Player player: this.round.getPlayers()){
-            try{
-                player.notifyObservers();
-            }catch (RemoteException e){
+        if (currentPlayer.mustpassTurn()){
+            try {
+                currentPlayer.setPlayerState(State.NOTYOURTURNSTATE);
+            } catch (RemoteException e1) {
                 this.doneSignal.countDown();
-                // ogni eccezione remota significa che un player si è disconnesso
-
+            }
+        }else {
+            try {
+                currentPlayer.setPlayerState(State.STARTTURNSTATE);
+            } catch (RemoteException e2) {
+                this.doneSignal.countDown();
             }
         }
+        for (Player player: this.round.getMatch().getallPlayersbutnotme(currentPlayer)) {
+            try{
+                player.setPlayerState(State.NOTYOURTURNSTATE);
+            } catch (RemoteException e){
+                this.doneSignal.countDown();
+                }
+            }
+
         // se è rimasto un solo giocatore, la partita finisce immediatamente
         if (this.doneSignal.getCount() == 1){
-            currentPlayer.getMatch().forceendmatch()
+            //currentPlayer.getMatch().forceendmatch();
         }
 
         try{
@@ -52,7 +59,6 @@ public class Turn implements Runnable{
             System.out.println("Sono stato interrotto");
         }
 
-        currentPlayer.setPlayerState(State.NOTYOURTURNSTATE);
         return;
     }
 

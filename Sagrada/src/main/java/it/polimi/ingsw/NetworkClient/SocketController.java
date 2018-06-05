@@ -635,16 +635,13 @@ public class SocketController implements ClientHandlerInterface {
 
 
     @Override
-    public synchronized String getActiveMatchesList(String clientname) throws RemoteException {
+    public synchronized String getActiveMatchesList() throws RemoteException {
         ClientMessage getActiveMatchesListMessage = new GetActiveMatchesListMessage();
-        getActiveMatchesListMessage.setClientName(clientname);
-
         try {
             listener.sendMessage(getActiveMatchesListMessage);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         try {
             wait();
         } catch (InterruptedException e) {
@@ -653,7 +650,6 @@ public class SocketController implements ClientHandlerInterface {
         this.stringHandler.check();
         String value = this.stringHandler.getMessage();
         this.stringHandler = null;
-
         return value;
     }
 

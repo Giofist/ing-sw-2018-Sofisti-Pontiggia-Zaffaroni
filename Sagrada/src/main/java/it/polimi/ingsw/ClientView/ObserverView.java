@@ -860,8 +860,10 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
         this.thread.interrupt();
         State state =  o.getState();
         switch (state){
-            case STARTTURNSTATE: this.thread = new Thread(StartTurnView).start();
+            case STARTTURNSTATE: this.thread = new Thread(new StartTurnView()); this.thread.start();
+
         }
+
 
         // voglio fare qualcosa con questo oggetto? credo proprio di sì!
     }

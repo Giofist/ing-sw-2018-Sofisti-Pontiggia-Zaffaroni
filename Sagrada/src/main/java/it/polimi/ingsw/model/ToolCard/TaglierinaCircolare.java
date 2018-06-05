@@ -9,6 +9,8 @@ import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIlleg
 import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PlayerPackage.State;
 
+import java.rmi.RemoteException;
+
 
 //per implementare questa classe bisogna prima pensare al traccaito round
 public class TaglierinaCircolare  extends ToolAction {
@@ -35,6 +37,8 @@ public class TaglierinaCircolare  extends ToolAction {
             throw new TaglierinaCircolareException(TaglierinaCircolareException.getMsg() + e.getMessage());
         }catch (EmpyDicepoolException e){
 
+        }catch(RemoteException e){
+            player.getTurn().countDown();
         }
 
     }

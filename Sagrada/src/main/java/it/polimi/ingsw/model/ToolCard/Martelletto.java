@@ -6,6 +6,8 @@ import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIlleg
 import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PlayerPackage.State;
 
+import java.rmi.RemoteException;
+
 public class Martelletto  extends ToolAction {
     public Martelletto(){
         this.cost =1;
@@ -24,16 +26,18 @@ public class Martelletto  extends ToolAction {
             if (player.getTurn().getTurnID() == 1){
                 throw new MartellettoException("non puoi giocare Martelletto nel primo turno");
             }
-            if(player.HassetaDicethisturn()){
+            if(player.getPlayerState().getState().equals(State.HASSETADICESTATE)){
                 throw new ToolIllegalOperationException("puoi usarla solo prima di scegliere il secondo dado");
             }
             for(int i=0; i<player.getGametable().getRoundDicepool().getDicePoolSize();i++)
                 player.getGametable().getRoundDicepool().getDice(i).setRandomIntensity();
-            if (player.getPlayerState().getState().equals(State.HASSETADICESTATE)){
-                player.setPlayerState(State.MUSTPASSTURNSTATE);
-            }else player.setPlayerState(State.HASUSEDATOOLCARDACTIONSTATE);
+            try{
+                player.setPlayerState(State.HASUSEDATOOLCARDACTIONSTATE);
+            }catch (RemoteException e){
+                player.getTurn().countDown();
+            }
         }catch (EmpyDicepoolException e){
-
+            throw new MartellettoException(MartellettoException.getMsg()+e.getMessage());
         }
 
     }

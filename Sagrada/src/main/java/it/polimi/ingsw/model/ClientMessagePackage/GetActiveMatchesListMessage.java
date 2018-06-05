@@ -15,7 +15,7 @@ public class GetActiveMatchesListMessage extends ClientMessage {
     public void performAction(ClientHandlerInterface clientHandler, SocketServerListener listener) {
 
         try {
-            String answer = clientHandler.getActiveMatchesList(getClientName());
+            String answer = clientHandler.getActiveMatchesList();
             ServerMessage messageClass = new ServerMessage();
             messageClass.setMessagecodex(33);
             messageClass.setAnswermessage(answer);

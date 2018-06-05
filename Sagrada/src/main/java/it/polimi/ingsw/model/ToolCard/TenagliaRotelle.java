@@ -9,6 +9,8 @@ import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIlleg
 import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PlayerPackage.State;
 
+import java.rmi.RemoteException;
+
 //scusate questa non l'ho capita
 public class TenagliaRotelle  extends ToolAction {
 
@@ -25,7 +27,7 @@ public class TenagliaRotelle  extends ToolAction {
         if(player.getTurn().getTurnID()==2){
             throw new TenagliaRotelleException("sei al secondo turno: non puoi usare questa carta al secondo turno!");
         }
-        if(!player.HassetaDicethisturn()){
+        if(!player.getPlayerState().getState().equals(State.HASSETADICESTATE)){
             throw new ToolIllegalOperationException("puoi usare questa carta solo alla fine del turno");
         }
         try{
@@ -42,6 +44,8 @@ public class TenagliaRotelle  extends ToolAction {
 
         }catch (EmpyDicepoolException e){
 
+        }catch (RemoteException e){
+            player.getTurn().countDown();
         }
 
     }

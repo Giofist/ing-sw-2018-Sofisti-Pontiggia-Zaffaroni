@@ -166,7 +166,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
 
 
     @Override
-    public String getActiveMatchesList(String clientname) throws RemoteException{
+    public String getActiveMatchesList() throws RemoteException{
         String list = new String();
         int i;
         for (Match match: MatchesList.singleton().getActiveMatches()) {
@@ -405,7 +405,11 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
             player.getScheme().setDice(player.getdiceforToolCardUse(), row,column, false, false, false);
             player.setHassetaDicethisturn(true);
             player.removediceforToolCardUse();
-            player.setPlayerState(State.MUSTPASSTURNSTATE);
+            try{
+                player.setPlayerState(State.MUSTPASSTURNSTATE);
+            }catch (RemoteException e){
+                player.getTurn().countDown();
+            }
 
         }catch (UserNotExistentException e){
             throw new RemoteException(e.getMessage());

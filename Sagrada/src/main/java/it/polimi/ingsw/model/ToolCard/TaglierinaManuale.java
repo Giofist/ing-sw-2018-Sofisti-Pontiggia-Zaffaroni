@@ -12,6 +12,7 @@ import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIlleg
 import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PlayerPackage.State;
 
+import java.rmi.RemoteException;
 import java.util.List;
 
 // DA TERMINARE
@@ -33,18 +34,19 @@ public class TaglierinaManuale  extends ToolAction {
             if (diceColors.contains(removedDice.getColor())){
                 player.getScheme().removeDice(toolRequestClass.getOldRow1(), toolRequestClass.getOldColumn1());
                 player.getScheme().setDice(removedDice, toolRequestClass.getNewRow1(), toolRequestClass.getNewColumn1(),false,false,false);
+                if(toolRequestClass.getNumberofDicesyouwanttomove() ==2){
+                    removedDice2 = player.getScheme().getDice(toolRequestClass.getOldRow1(), toolRequestClass.getOldColumn1());
+                    if (removedDice2.getColor() == removedDice.getColor()){
+                        player.getScheme().removeDice(toolRequestClass.getOldRow2(), toolRequestClass.getOldColumn2());
+                        player.getScheme().setDice(removedDice2, toolRequestClass.getNewRow2(), toolRequestClass.getNewColumn2(),false,false,false);
+                    }else{
+                        throw new TaglierinaManualeException("Il colore non corrisponde a quello del primo dado\n");
+                    }
+                }
             }else{
                 throw new TaglierinaManualeException("Non c'è nessun dado con lo stesso colore nel Tracciato Round\n");
             }
-            if(toolRequestClass.getNumberofDicesyouwanttomove() ==2){
-                removedDice2 = player.getScheme().getDice(toolRequestClass.getOldRow1(), toolRequestClass.getOldColumn1());
-                if (removedDice2.getColor() == removedDice.getColor()){
-                    player.getScheme().removeDice(toolRequestClass.getOldRow2(), toolRequestClass.getOldColumn2());
-                    player.getScheme().setDice(removedDice2, toolRequestClass.getNewRow2(), toolRequestClass.getNewColumn2(),false,false,false);
-                }else{
-                    throw new TaglierinaManualeException("Il colore non corrisponde a quello del primo dado\n");
-                }
-            }
+
             if (player.getPlayerState().getState().equals(State.HASSETADICESTATE)){
                 player.setPlayerState(State.MUSTPASSTURNSTATE);
             }else player.setPlayerState(State.HASUSEDATOOLCARDACTIONSTATE);
@@ -62,6 +64,8 @@ public class TaglierinaManuale  extends ToolAction {
             throw new TaglierinaManualeException(TaglierinaManualeException.getMsg()+e.getMessage());
         }catch (SchemeCardNotExistantException e){
             //
+        } catch (RemoteException e) {
+            player.getTurn().countDown();
         }
 
 
