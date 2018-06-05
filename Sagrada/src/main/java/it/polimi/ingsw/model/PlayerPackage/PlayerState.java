@@ -1,13 +1,23 @@
 package it.polimi.ingsw.model.PlayerPackage;
 
+import it.polimi.ingsw.ClientView.Observer;
 import it.polimi.ingsw.model.Exceptions.NoActionAllowedException;
 import it.polimi.ingsw.model.Exceptions.NotAllowedActionException;
+import it.polimi.ingsw.model.Observable;
 
+import java.rmi.RemoteException;
 import java.util.LinkedList;
 
-public class PlayerState{
-    protected LinkedList<TurnActions> actions;
+public class PlayerState implements Observable{
+    private LinkedList<TurnActions> actions;
+    private LinkedList<Observer> observers;
     private State state;
+
+
+    public PlayerState(){
+        this.actions = new LinkedList<>();
+        this.observers = new LinkedList<>();
+    }
 
     public void checkAction(TurnActions action) throws NotAllowedActionException {
         for (TurnActions allowedactions: this.actions){
@@ -79,13 +89,19 @@ public class PlayerState{
             case MATCHISSTARTEDSTATE:
                 break;
 
-
-
-
+        }
+    }
+    public void addObserver(Observer observer){
+        this.observers.addLast(observer);
+    }
+    public void notifyObservers()throws RemoteException {
+        for (Observer observer: this.observers){
+            observer.update(this, null);
         }
     }
 
     public State getState() {
         return state;
     }
+
 }

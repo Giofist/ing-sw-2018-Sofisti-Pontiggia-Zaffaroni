@@ -70,7 +70,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
             //NB: questa chiamata già aggiunge in player un riferimento alla partita a cui è iscritto
             MatchesList.singleton().createGame(player, gamename);
             //observer pattern, mi registro per seguire gli aggiornamenti relativi a me
-            player.addObserver(client);
+            player.getPlayerState().addObserver(client);
             //gestione delle eccezioni
         } catch (HomonymyException e) {
             throw new RemoteException(e.getMsg());
@@ -90,9 +90,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
             player.setUser(user);
 
             //observerView pattern, mi registro per seguire gli aggiornamenti relativi a me
-            player.addObserver(observerView);
-            player.addObserver(observerView);
-
+            player.getPlayerState().addObserver(observerView);
             MatchesList.singleton().join(player,gamename);
         }catch (UserNotExistentException e){
             throw new RemoteException(e.getMessage());

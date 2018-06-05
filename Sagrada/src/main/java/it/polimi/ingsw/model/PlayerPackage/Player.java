@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Observable;
 
 //implementa comparable per ordinare i giocatori in base al punteggio nellav lista di player
-public class Player extends it.polimi.ingsw.model.Observable implements Comparable<Player> {
+public class Player  implements Comparable<Player> {
     private transient User user;
     private GoalCard privateGoalCard;
     private int segnalini_favore;
