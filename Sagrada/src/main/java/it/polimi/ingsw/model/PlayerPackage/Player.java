@@ -151,6 +151,7 @@ public class Player  implements Comparable<Player> {
     }
     public void setPlayerState(State state){
         this.playerState.updateState(state);
+        this.playerState.notifyObservers();
     }
     public Turn getTurn() {
         return turn;

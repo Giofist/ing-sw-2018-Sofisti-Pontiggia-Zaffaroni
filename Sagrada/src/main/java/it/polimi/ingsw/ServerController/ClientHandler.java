@@ -405,7 +405,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
             player.getScheme().setDice(player.getdiceforToolCardUse(), row,column, false, false, false);
             player.setHassetaDicethisturn(true);
             player.removediceforToolCardUse();
-            player.getPlayerState().updateState(State.MUSTPASSTURNSTATE);
+            player.setPlayerState(State.MUSTPASSTURNSTATE);
 
         }catch (UserNotExistentException e){
             throw new RemoteException(e.getMessage());
