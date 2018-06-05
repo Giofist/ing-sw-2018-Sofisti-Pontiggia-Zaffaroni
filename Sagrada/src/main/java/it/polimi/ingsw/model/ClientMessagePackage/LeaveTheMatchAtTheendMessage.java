@@ -7,15 +7,15 @@ import it.polimi.ingsw.model.ServerMessagePackage.ServerMessage;
 import java.io.IOException;
 import java.rmi.RemoteException;
 
-public class LeaveTheMatchMessage extends ClientMessage {
+public class LeaveTheMatchAtTheendMessage extends ClientMessage {
 
-    public LeaveTheMatchMessage() { this.messagecodex = 44; }
+    public LeaveTheMatchAtTheendMessage() { this.messagecodex = 44; }
 
     @Override
     public void performAction(ClientHandlerInterface clientHandler, SocketServerListener listener) {
 
         try {
-            clientHandler.leavethematch(getClientName());
+            clientHandler.leavethematchatthend(getClientName());
             ServerMessage messageClass = new ServerMessage();
             messageClass.setMessagecodex(1);
 

@@ -11,6 +11,7 @@ import java.util.Scanner;
 import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
 import it.polimi.ingsw.model.Exceptions.UserNotExistentException;
 import it.polimi.ingsw.model.Observable;
+import it.polimi.ingsw.model.PlayerPackage.State;
 import it.polimi.ingsw.model.ToolCard.ToolRequestClass;
 
 import static org.fusesource.jansi.Ansi.Color.*;
@@ -29,6 +30,7 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
     private String yourName;
     private boolean matchisEnded;
     private int numOfDice;
+    private Thread thread;
 
     //constructor1
     public ObserverView() throws RemoteException {
@@ -855,7 +857,12 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
 
     @Override
     public synchronized void update(Observable o, Object arg) throws RemoteException {
+        this.thread.interrupt();
+        State state =  o.getState();
+        switch (state){
+            case STARTTURNSTATE: this.thread = new Thread(StartTurnView).start();
+        }
+
         // voglio fare qualcosa con questo oggetto? credo proprio di sì!
-        this.notifyAll();
     }
 }

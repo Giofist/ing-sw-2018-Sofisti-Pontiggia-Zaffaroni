@@ -83,9 +83,7 @@ public class Match implements Runnable{
         }
         doneSignal = new CountDownLatch(this.getNumberOfPlayers());
         try {
-            System.out.println("Sono fermo sulla wait");
             doneSignal.await();
-            System.out.println("Ho superato la  wait");
 
         }catch(InterruptedException e) {
             //do nothing
@@ -173,7 +171,7 @@ public class Match implements Runnable{
 
     public void leavethematch(Player player){
         this.players.remove(player);
-        if
+        if ()
     }
 
 
@@ -186,7 +184,6 @@ public class Match implements Runnable{
     }
 
     public void countDown() {
-        System.out.println("ho risvegliato il donesignal");
         this.doneSignal.countDown();
     }
 }

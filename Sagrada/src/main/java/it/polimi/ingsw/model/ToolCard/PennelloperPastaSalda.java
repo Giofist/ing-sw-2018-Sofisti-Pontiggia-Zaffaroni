@@ -6,6 +6,8 @@ import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PlayerPackage.State;
+import it.polimi.ingsw.model.SchemeDeck.ColumnIterator;
+import it.polimi.ingsw.model.SchemeDeck.RowIterator;
 
 public class PennelloperPastaSalda  extends ToolAction {
 
@@ -28,27 +30,28 @@ public class PennelloperPastaSalda  extends ToolAction {
             if(player.HassetaDicethisturn()){
                 throw new ToolIllegalOperationException("non puoi piazzare due dadi nello stesso turno");
             }
-
-        boolean settable = false;
-        for (int row =0; row <4; row ++){
-            for (int column =0; column <5; column ++){
-              try{
-                  settable = settable || player.getScheme().SettableHere(dice, row,column,false, false);
-              }catch (SchemeCardNotExistantException e){
-                  //do nothing
-              }
+            boolean settable = false;
+            RowIterator rowIterator =  player.getScheme().rowIterator(0);
+            while(rowIterator.hasNext()) {
+                ColumnIterator columnIterator = player.getScheme().columnIterator(rowIterator.getCurrentRow());
+                while(columnIterator.hasNext()){
+                    settable = settable || player.getScheme().SettableHere(dice, rowIterator.getCurrentRow(),columnIterator.getCurrentColumn(),false, false);
+                }
             }
-        }
-
-        if(settable){
+            if(settable){
             player.setDiceforToolCardUse(dice);
             player.getGametable().getRoundDicepool().removeDice(toolRequestClass.getSelectedDIceIndex());
             player.setPlayerState(State.MUSTSETPENNELLOPERPASTASALDASTATE);
-
-        }
+            }else{
+                if (player.getPlayerState().getState().equals(State.HASSETADICESTATE)){
+                    player.setPlayerState(State.MUSTPASSTURNSTATE);
+                }else player.setPlayerState(State.HASUSEDATOOLCARDACTIONSTATE);
+            }
 
         }catch (EmpyDicepoolException e){
-
+            throw new ToolIllegalOperationException(e.getMessage());
+        }catch (SchemeCardNotExistantException e){
+            throw new ToolIllegalOperationException(e.getMessage());
         }
 
     }

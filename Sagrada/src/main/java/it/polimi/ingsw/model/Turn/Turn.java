@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PlayerPackage.*;
 import it.polimi.ingsw.model.Round;
 
+import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -31,7 +32,17 @@ public class Turn implements Runnable{
         }
         currentPlayer.setTurn(this);
         for (Player player: this.round.getPlayers()){
-            player.notifyObservers();
+            try{
+                player.notifyObservers();
+            }catch (RemoteException e){
+                this.doneSignal.countDown();
+                // ogni eccezione remota significa che un player si è disconnesso
+
+            }
+        }
+        // se è rimasto un solo giocatore, la partita finisce immediatamente
+        if (this.doneSignal.getCount() == 1){
+            currentPlayer.getMatch().forceendmatch()
         }
 
         try{

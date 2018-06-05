@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.Exceptions.NotAllowedActionException;
 
 import java.util.LinkedList;
 
-public class PlayerState  extends  Object{
+public class PlayerState{
     protected LinkedList<TurnActions> actions;
     private State state;
 

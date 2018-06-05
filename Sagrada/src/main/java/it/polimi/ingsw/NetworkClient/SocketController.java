@@ -1,6 +1,5 @@
 package it.polimi.ingsw.NetworkClient;
 
-import it.polimi.ingsw.ClientView.Client;
 import it.polimi.ingsw.ClientView.Observer;
 import it.polimi.ingsw.ClientView.ObserverView;
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
@@ -141,21 +140,6 @@ public class SocketController implements ClientHandlerInterface {
         this.stringHandler = null;
 
     }
-
-    /*@Override
-    public synchronized String getMymapString(String clientname) throws RemoteException {
-        listener.sendString("getMymapString " + clientname);
-        try{
-            wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        this.stringHandler.check();
-        String message = this.stringHandler.getMessage();
-        this.stringHandler = null;
-        return message;
-    }
-    */
 
     @Override
     public synchronized void setSchemeCard(String username, int cardid) throws RemoteException {
@@ -366,8 +350,9 @@ public class SocketController implements ClientHandlerInterface {
 
 
 
-    public void leavethematch(String clientname) throws RemoteException {
-        ClientMessage leaveTheMatchMessage = new LeaveTheMatchMessage();
+    @Override
+    public void leavethematchatthend(String clientname) throws RemoteException {
+        ClientMessage leaveTheMatchMessage = new LeaveTheMatchAtTheendMessage();
         leaveTheMatchMessage.setClientName(clientname);
 
         try {

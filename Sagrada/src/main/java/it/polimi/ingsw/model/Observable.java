@@ -11,13 +11,10 @@ public class Observable implements Serializable{
     public void addObserver(Observer observer){
         this.observers.addLast(observer);
     }
-    public void notifyObservers(){
+    public void notifyObservers()throws RemoteException{
         for (Observer observer: this.observers){
-            try {
-                observer.update(null, null);
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            }
+            observer.update(this, null);
         }
     }
+
 }

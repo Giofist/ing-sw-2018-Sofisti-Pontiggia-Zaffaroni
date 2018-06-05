@@ -10,7 +10,7 @@ import java.util.Observable;
 
 //implementa comparable per ordinare i giocatori in base al punteggio nellav lista di player
 public class Player extends it.polimi.ingsw.model.Observable implements Comparable<Player> {
-    private User user;
+    private transient User user;
     private GoalCard privateGoalCard;
     private int segnalini_favore;
     private LinkedList<SchemeCard> extractedschemeCards;
@@ -33,6 +33,7 @@ public class Player extends it.polimi.ingsw.model.Observable implements Comparab
 
     //costruttore
     public Player(){
+        super();
         this.diceforToolCard = null;
         this.mustpassTurn = false;
         this.points = 0;
@@ -40,7 +41,7 @@ public class Player extends it.polimi.ingsw.model.Observable implements Comparab
         this.scheme = null;
         this.playerState = new PlayerState();
         setPlayerState(State.MATCHNOTSTARTEDYETSTATE);
-        this.observers = new LinkedList<>();
+
     }
 
 

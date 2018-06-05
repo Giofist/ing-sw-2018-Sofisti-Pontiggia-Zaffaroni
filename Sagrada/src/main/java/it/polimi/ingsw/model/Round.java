@@ -52,7 +52,25 @@ public class Round {
         // Secondo giro
         Collections.reverse(this.players);
         for (Player player: this.players){
-            new Turn(player, this,2).run();
+            Turn turn = new Turn(player, this,2);
+            final Thread thread = new Thread(turn);
+            Timer timer  = new Timer(false);
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    System.out.println("Turn started at:"+new Date());
+                    try {
+                        //quanto vogliamo farlo durare un turno? 5 minuti?
+                        Thread.sleep(20000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println("Turn ended at:"+new Date());
+                    thread.interrupt();
+                }
+            },0);
+
+            thread.start();
         }
 
         // Ripristino l'ordine della lista di partenza

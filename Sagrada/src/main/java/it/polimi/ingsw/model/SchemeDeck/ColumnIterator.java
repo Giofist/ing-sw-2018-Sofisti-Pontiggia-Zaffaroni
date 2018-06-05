@@ -26,6 +26,8 @@ public class ColumnIterator<T> implements Iterator<Tile> {
         // To be implemented
     }
 
+
+
     @Override
     public Tile next() {
         Tile nextElement;
