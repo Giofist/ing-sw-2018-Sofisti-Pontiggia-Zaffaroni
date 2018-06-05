@@ -19,7 +19,6 @@ public class Setter {
         this.setter= new Setter();
     }
 
-
     //metodo che crea/dà accesso se già creata all'unica istanza
     public static Setter Singleton(){
         if (setter == null) {
@@ -40,7 +39,6 @@ public class Setter {
             System.out.println("Scegli una delle seguenti azioni: ");
             try {
                 System.out.println(serverController.getPossibleActions(yourName));
-                System.out.println(" -Donothig");
             } catch (RemoteException e) {
                 System.out.println(e.getMessage());
             }
@@ -146,9 +144,6 @@ public class Setter {
                     } catch (InterruptedException e) {
                         System.out.println(e.getMessage());
                     }
-                    break;
-                }
-                case "DONOTHING":{
                     break;
                 }
                 default:{
