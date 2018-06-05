@@ -13,6 +13,6 @@ public class HasUsedAToolcardActionStateView implements Runnable {
 
     @Override
     public void run() {
-
+        Setter.Singleton().useToolcard(serverController, yourName);
     }
 }

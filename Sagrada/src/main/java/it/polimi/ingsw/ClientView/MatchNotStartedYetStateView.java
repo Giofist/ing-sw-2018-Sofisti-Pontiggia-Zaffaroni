@@ -13,6 +13,6 @@ public class MatchNotStartedYetStateView implements Runnable {
 
     @Override
     public void run() {
-
+        System.out.println("Attendi che gli altri giocatori entrino in partita...");
     }
 }
