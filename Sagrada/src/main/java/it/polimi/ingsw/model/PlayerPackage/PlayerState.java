@@ -86,8 +86,7 @@ public class PlayerState implements Observable{
             case MUSTSETSCHEMECARD:
                 this.actions.addLast(TurnActions.SETSCHEMECARD);
                 break;
-            case MATCHISSTARTEDSTATE:
-                break;
+
 
         }
     }

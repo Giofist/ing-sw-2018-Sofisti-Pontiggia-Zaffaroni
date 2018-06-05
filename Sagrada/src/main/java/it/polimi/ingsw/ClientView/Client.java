@@ -38,7 +38,7 @@ public class Client {
                 SocketClientListener listener = new SocketClientListener(ipAddr);
                 SocketController socketController = new SocketController(observerViewView, listener);
                 listener.setController(socketController);
-                observerViewView.setServercontroller(socketController);
+                observerViewView.setServerController(socketController);
                 new Thread(listener).start();
                 observerViewView.run();
 
