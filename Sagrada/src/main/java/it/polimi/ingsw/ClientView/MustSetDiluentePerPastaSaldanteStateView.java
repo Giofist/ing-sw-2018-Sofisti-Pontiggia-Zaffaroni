@@ -13,6 +13,7 @@ public class MustSetDiluentePerPastaSaldanteStateView implements Runnable {
 
     @Override
     public void run() {
-
-    }
+        Setter.Singleton().selectExtractedDiceIntensity(serverController, yourName);
+        Setter.Singleton().placeSingleDice(serverController, yourName);
+        }
 }

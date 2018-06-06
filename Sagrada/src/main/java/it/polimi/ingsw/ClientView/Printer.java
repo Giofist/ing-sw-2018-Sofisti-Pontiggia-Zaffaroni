@@ -14,19 +14,20 @@ import static org.fusesource.jansi.Ansi.ansi;
 
 public class Printer {
     private static Printer printer;
+
     //costruttore privato
-    private Printer(){
+    private Printer() {
     }
 
     //metodo che crea/dà accesso se già creata all'unica istanza
-    public synchronized static Printer Singleton(){
+    public synchronized static Printer Singleton() {
         if (printer == null) {
             printer = new Printer();
         }
         return printer;
     }
 
-    public void printMap(String map){
+    public void printMap(String map) {
         char[] charTile;
 
         String[] element = map.split("%");
@@ -34,7 +35,7 @@ public class Printer {
         System.out.println(element[1]);
         String[] tiles = element[2].split("!");
 
-        for (String rowTile: tiles){
+        for (String rowTile : tiles) {
             String[] column = rowTile.split("-");
             for (String el : column) {
                 charTile = el.toCharArray();
@@ -84,7 +85,7 @@ public class Printer {
 
     }
 
-    public void printGoalCards(ClientHandlerInterface serverController, String yourName){
+    public void printGoalCards(ClientHandlerInterface serverController, String yourName) {
         String[] cardName = new String[0];
         String[] description = new String[0];
         System.out.println("\n-Ecco gli obiettivi di questa partita-");
@@ -113,15 +114,15 @@ public class Printer {
             System.out.println(e.getMessage());
         }
 
-        for (int i=0; i < cardName.length; i++) {
+        for (int i = 0; i < cardName.length; i++) {
             System.out.println(cardName[i] + "\n" + description[i]);
         }
     }
 
-    public void printRoundTrack(ClientHandlerInterface serverController, String yourName){
+    public void printRoundTrack(ClientHandlerInterface serverController, String yourName) {
         System.out.println("Round track:");
-        int round =10;
-        int i=1;
+        int round = 10;
+        int i = 1;
         char[] charDice;
 
         String[] dices = new String[0];
@@ -130,13 +131,12 @@ public class Printer {
         } catch (RemoteException e) {
             System.out.println(e.getMessage());
         }
-        for (String diceList : dices){
-            if(i<10) {
+        for (String diceList : dices) {
+            if (i < 10) {
                 System.out.print(ansi().eraseScreen().bg(WHITE).fg(BLACK).a("  " + i + " ").reset());
-            }
-            else System.out.print(ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" " + i + " ").reset());
+            } else System.out.print(ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" " + i + " ").reset());
             String[] singleDice = diceList.split("-");
-            for(String stringDice :singleDice) {
+            for (String stringDice : singleDice) {
                 charDice = stringDice.toCharArray();
                 switch (charDice[1]) {
                     case 'Y':
@@ -177,21 +177,21 @@ public class Printer {
         System.out.println("Ecco i dadi disponibili in questo round:");
         for (String dice : dices) {
             charDice = dice.toCharArray();
-            switch(charDice[1]){
+            switch (charDice[1]) {
                 case 'Y':
-                    System.out.print( ansi().eraseScreen().bg(YELLOW).fg(WHITE).a(" " + charDice[0] + " ").reset());
+                    System.out.print(ansi().eraseScreen().bg(YELLOW).fg(WHITE).a(" " + charDice[0] + " ").reset());
                     break;
                 case 'B':
-                    System.out.print( ansi().eraseScreen().bg(BLUE).fg(WHITE).a(" " + charDice[0] + " ").reset());
+                    System.out.print(ansi().eraseScreen().bg(BLUE).fg(WHITE).a(" " + charDice[0] + " ").reset());
                     break;
                 case 'R':
-                    System.out.print( ansi().eraseScreen().bg(RED).fg(WHITE).a(" " + charDice[0] + " ").reset());
+                    System.out.print(ansi().eraseScreen().bg(RED).fg(WHITE).a(" " + charDice[0] + " ").reset());
                     break;
                 case 'V':
-                    System.out.print( ansi().eraseScreen().bg(MAGENTA).fg(WHITE).a(" " + charDice[0] + " ").reset());
+                    System.out.print(ansi().eraseScreen().bg(MAGENTA).fg(WHITE).a(" " + charDice[0] + " ").reset());
                     break;
                 case 'G':
-                    System.out.print( ansi().eraseScreen().bg(GREEN).fg(WHITE).a(" " + charDice[0] + " ").reset());
+                    System.out.print(ansi().eraseScreen().bg(GREEN).fg(WHITE).a(" " + charDice[0] + " ").reset());
                     break;
             }
             System.out.print(" ");
@@ -205,16 +205,16 @@ public class Printer {
     }
 
     //metodo che stampa le toolcard
-    public void printToolcard(ClientHandlerInterface serverController, String yourName){
-        int index =0;
+    public void printToolcard(ClientHandlerInterface serverController, String yourName) {
+        int index = 0;
         System.out.println("Queste sono le carte utensile disponibili:");
         try {
             String[] toolCardID = serverController.getToolCardsIDs(yourName).split("!");
             String[] toolCardName = serverController.getToolCardsNames(yourName).split("!");
             String[] toolCardCost = serverController.getToolCardsCosts(yourName).split("!");
             String[] toolCardDescription = serverController.getToolCardsDescriptions(yourName).split("!");
-            for (String element: toolCardID) {
-                System.out.println(toolCardID[index] +". " + toolCardName[index] + "\nIl costo della carta utensile è: " + toolCardCost[index] + "\nDescrizione:\n" + toolCardDescription[index]);
+            for (String element : toolCardID) {
+                System.out.println(toolCardID[index] + ". " + toolCardName[index] + "\nIl costo della carta utensile è: " + toolCardCost[index] + "\nDescrizione:\n" + toolCardDescription[index]);
                 index++;
             }
         } catch (RemoteException e) {
@@ -222,4 +222,31 @@ public class Printer {
         }
     }
 
+    public void printExtractedDice(ClientHandlerInterface serverController, String yourName) {
+        System.out.println("Questo è il dado estratto:");
+        char[] charDice = new char[0];
+        try {
+            charDice = serverController.getToolCardDice(yourName).toCharArray();
+        } catch (RemoteException e) {
+            System.out.println(e.getMessage());
+        }
+        switch (charDice[1]) {
+            case 'Y':
+                System.out.print(ansi().eraseScreen().bg(YELLOW).fg(WHITE).a(" " + charDice[0] + " ").reset());
+                break;
+            case 'B':
+                System.out.print(ansi().eraseScreen().bg(BLUE).fg(WHITE).a(" " + charDice[0] + " ").reset());
+                break;
+            case 'R':
+                System.out.print(ansi().eraseScreen().bg(RED).fg(WHITE).a(" " + charDice[0] + " ").reset());
+                break;
+            case 'V':
+                System.out.print(ansi().eraseScreen().bg(MAGENTA).fg(WHITE).a(" " + charDice[0] + " ").reset());
+                break;
+            case 'G':
+                System.out.print(ansi().eraseScreen().bg(GREEN).fg(WHITE).a(" " + charDice[0] + " ").reset());
+                break;
+        }
+        System.out.print(" ");
+    }
 }
