@@ -41,6 +41,7 @@ public class DiluenteperPastaSalda  extends ToolAction {
             try{
                 player.setPlayerState(State.MUSTSSETDILUENTEPERPASTASALDASTATE);
             }catch (RemoteException e){
+                player.getAssociatedUser().setActive(false);
                 player.getTurn().countDown();
             }
         }catch(EmpyDicepoolException e){

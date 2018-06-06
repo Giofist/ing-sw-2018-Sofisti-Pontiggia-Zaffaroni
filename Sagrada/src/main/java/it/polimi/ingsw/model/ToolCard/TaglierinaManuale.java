@@ -65,6 +65,7 @@ public class TaglierinaManuale  extends ToolAction {
         }catch (SchemeCardNotExistantException e){
             //
         } catch (RemoteException e) {
+            player.getAssociatedUser().setActive(false);
             player.getTurn().countDown();
         }
 

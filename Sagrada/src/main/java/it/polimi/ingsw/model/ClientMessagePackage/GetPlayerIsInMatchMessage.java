@@ -14,7 +14,7 @@ public class GetPlayerIsInMatchMessage extends ClientMessage {
     @Override
     public void performAction(ClientHandlerInterface clientHandler, SocketServerListener listener) {
 
-        try {
+        /*try {
             String answer = clientHandler.getPlayersinmymatch(getClientName());
             ServerMessage messageClass = new ServerMessage();
             messageClass.setMessagecodex(33);
@@ -35,6 +35,6 @@ public class GetPlayerIsInMatchMessage extends ClientMessage {
             } catch (IOException err) {
                 e.printStackTrace();
             }
-        }
+        } */
     }
 }

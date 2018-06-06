@@ -7,7 +7,9 @@ import it.polimi.ingsw.model.Exceptions.TileConstrainException.NotRespectedNumbe
 import it.polimi.ingsw.model.Exceptions.TileConstrainException.NotRispectedColorConstrainException;
 import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
 
-public class Tile {
+import java.io.Serializable;
+
+public class Tile implements Serializable {
     private DiceColor color_constrain;
     private boolean haveColor_constrain;
     private int number_constrain;

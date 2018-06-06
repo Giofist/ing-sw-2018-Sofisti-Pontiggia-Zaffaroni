@@ -14,11 +14,11 @@ public class GetSchemeCardsMessage extends ClientMessage {
     @Override
     public void performAction(ClientHandlerInterface clientHandler, SocketServerListener listener) {
 
-        try {
-            String answer = clientHandler.getExtractedSchemeCard(getClientName());
+        /*try {
+            //String answer = clientHandler.getExtractedSchemeCard(getClientName());
             ServerMessage messageClass = new ServerMessage();
             messageClass.setMessagecodex(33);
-            messageClass.setAnswermessage(answer);
+            messageClass.setAnswermessage();
 
             try {
                 listener.sendMessage(messageClass);
@@ -35,6 +35,6 @@ public class GetSchemeCardsMessage extends ClientMessage {
             } catch (IOException err) {
                 e.printStackTrace();
             }
-        }
+        }*/
     }
 }

@@ -29,7 +29,7 @@ public class Printer {
 
     public void printMap(String map) {
         char[] charTile;
-
+        System.out.println(map);
         String[] element = map.split("%");
         System.out.println(element[0]);
         System.out.println(element[1]);

@@ -55,6 +55,7 @@ public class PennelloperPastaSalda  extends ToolAction {
         }catch (SchemeCardNotExistantException e){
             throw new ToolIllegalOperationException(e.getMessage());
         }catch (RemoteException e){
+            player.getAssociatedUser().setActive(false);
             player.getTurn().countDown();
         }
 

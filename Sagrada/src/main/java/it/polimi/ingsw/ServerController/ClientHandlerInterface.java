@@ -37,7 +37,7 @@ public interface ClientHandlerInterface extends Remote {
     //fine partita
     public int getmyPoints(String clientname) throws RemoteException;
     public String getRanking(String clientname) throws RemoteException;
-    public String getExtractedSchemeCard(String clientname) throws RemoteException;
+    public List getExtractedSchemeCard(String clientname) throws RemoteException;
 
     String getSchemeCard(String clientname) throws RemoteException;
 
@@ -61,7 +61,7 @@ public interface ClientHandlerInterface extends Remote {
 
     public int getToken(String clientname) throws RemoteException;
     public void setToolCardDiceIntensity(String clientname, int intensity) throws RemoteException;
-    public String getPlayersinmymatch (String clientname) throws RemoteException;
+    public  List getPlayersinmymatch (String clientname) throws RemoteException;
     public List getSchemeCardsoftheotherPlayers(String clientname) throws RemoteException;
     public String getToolCardDice(String clientname)throws RemoteException;
 

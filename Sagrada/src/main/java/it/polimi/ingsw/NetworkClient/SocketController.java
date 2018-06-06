@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.ToolCard.ToolRequestClass;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.util.LinkedList;
 import java.util.List;
 
 // implemented by pon
@@ -423,7 +424,7 @@ public class SocketController implements ClientHandlerInterface {
 
 
     @Override
-    public String getPlayersinmymatch(String clientname) throws RemoteException {
+    public List getPlayersinmymatch(String clientname) throws RemoteException {
         ClientMessage getPlayerIsInMatchMessage = new GetPlayerIsInMatchMessage();
         getPlayerIsInMatchMessage.setClientName(clientname);
 
@@ -442,7 +443,7 @@ public class SocketController implements ClientHandlerInterface {
         String value = this.stringHandler.getMessage();
         this.stringHandler = null;
 
-        return value;
+        return new LinkedList();
     }
 
     @Override
@@ -451,7 +452,7 @@ public class SocketController implements ClientHandlerInterface {
     }
 
 
-    @Override
+
     public String getmapofthePlayer(String clientname, String player) throws RemoteException {
         ClientMessage getMapOfThePlayerMessage = new GetMapOfThePlayerMessage();
         getMapOfThePlayerMessage.setClientName(clientname);
@@ -716,7 +717,7 @@ public class SocketController implements ClientHandlerInterface {
 
 
     @Override
-    public String getExtractedSchemeCard(String clientname) throws RemoteException {
+    public List getExtractedSchemeCard(String clientname) throws RemoteException {
         ClientMessage getSchemeCardsMessage = new GetSchemeCardsMessage();
         getSchemeCardsMessage.setClientName(clientname);
 
@@ -735,7 +736,7 @@ public class SocketController implements ClientHandlerInterface {
         String value = this.stringHandler.getMessage();
         this.stringHandler = null;
 
-        return value;
+        return new LinkedList();
     }
 
 

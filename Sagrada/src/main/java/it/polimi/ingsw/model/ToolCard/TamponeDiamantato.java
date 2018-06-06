@@ -26,6 +26,7 @@ public class TamponeDiamantato extends ToolAction {
         }catch(EmpyDicepoolException e){
 
         } catch (RemoteException e) {
+            player.getAssociatedUser().setActive(false);
             player.getTurn().countDown();
         }
     }

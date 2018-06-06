@@ -34,6 +34,7 @@ public class Martelletto  extends ToolAction {
             try{
                 player.setPlayerState(State.HASUSEDATOOLCARDACTIONSTATE);
             }catch (RemoteException e){
+                player.getAssociatedUser().setActive(false);
                 player.getTurn().countDown();
             }
         }catch (EmpyDicepoolException e){

@@ -39,6 +39,7 @@ public class RigainSughero  extends ToolAction {
                 player.setPlayerState(State.MUSTPASSTURNSTATE);
             } else player.setPlayerState(State.HASUSEDATOOLCARDACTIONSTATE);
         }catch(RemoteException e){
+            player.getAssociatedUser().setActive(false);
             player.getTurn().countDown();
         }catch (Exception e){
             try{

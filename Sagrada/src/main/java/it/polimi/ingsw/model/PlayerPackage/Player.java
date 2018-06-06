@@ -155,7 +155,13 @@ public class Player  implements Comparable<Player> {
     /// /utile per ordinare i giocatori in base al punteggio
     @Override
     public int compareTo(Player player) {
-        return this.getPoints() - player.getPoints();
+        if(this.getPoints() != player.getPoints()){
+            return this.getPoints() - player.getPoints();
+        }
+        else if (this.getToken() != player.getToken()){
+            return this.getToken() - this.getToken();
+        }
+        else return this.getMatch().getallPlayers().indexOf(this) - player.getMatch().getallPlayers().indexOf(player);
     }
 
     @Override

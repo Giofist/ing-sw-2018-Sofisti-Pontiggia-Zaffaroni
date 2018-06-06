@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.Exceptions.UserNotExistentException;
 import it.polimi.ingsw.model.ToolCard.ToolRequestClass;
 
 import java.rmi.RemoteException;
+import java.util.List;
 import java.util.Scanner;
 
 import static org.fusesource.jansi.Ansi.Color.*;
@@ -28,7 +29,6 @@ public class Setter {
     public void selectAction(ClientHandlerInterface serverController, String yourName) {
         Scanner in = new Scanner(System.in);
         String input;
-        String map = null;
         boolean success = false;
         boolean correct = false;
 
@@ -49,16 +49,20 @@ public class Setter {
                 }
                 case "GETMAPS": {
                     while (!correct){
-                        System.out.println("Seleziona l'utente di cui vedere la mappa digitando il nome utente:");
+                        System.out.println("Ecco le mappe aggiornate degli altri giocatori");
                         try {
-                            System.out.println(serverController.getPlayersinmymatch(yourName));
-                            map = serverController.getSchemeCard(in.nextLine());
+                            List players = serverController.getPlayersinmymatch(yourName);
+                            List schemecards = serverController.getSchemeCardsoftheotherPlayers(yourName);
+                            int i =0;
+                            while (i< players.size()){
+                                System.out.println(players.get(i).toString());
+                                Printer.Singleton().printMap(schemecards.get(i).toString());
+                            }
                             correct = true;
                         } catch (RemoteException e) {
                             System.out.println(e.getMessage());
                         }
                     }
-                    Printer.Singleton().printMap(map);
                     success = true;
                     break;
                 }
@@ -408,15 +412,12 @@ public class Setter {
         boolean correct = false;
         int index;
         try {
-            schemeCards = serverController.getExtractedSchemeCard(yourName);
+            for (Object o: serverController.getExtractedSchemeCard(yourName)){
+                Printer.Singleton().printMap(o.toString());
+            }
         } catch (RemoteException e) {
             System.out.println(e.getMessage());
         }
-        String[] schemeCardsArray = schemeCards.split("&"); //creo un array con le sngole mappe
-        for (index = 0 ; index < schemeCardsArray.length ; index++){
-            Printer.Singleton().printMap(schemeCardsArray[index]);
-        }
-
         while(!correct){
             System.out.println("Seleziona la carta schema che desideri tra le seguenti indicando il numero relativo.");
             int selectedCard = in.nextInt();

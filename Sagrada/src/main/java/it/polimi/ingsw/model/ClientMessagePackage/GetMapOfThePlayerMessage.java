@@ -14,7 +14,7 @@ public class GetMapOfThePlayerMessage extends ClientMessage {
     @Override
     public void performAction(ClientHandlerInterface clientHandler, SocketServerListener listener) {
 
-        try {
+        /*try {
             String answer = clientHandler.getmapofthePlayer(getClientName(), getPlayername());
             ServerMessage messageClass = new ServerMessage();
             messageClass.setMessagecodex(33);
@@ -36,5 +36,6 @@ public class GetMapOfThePlayerMessage extends ClientMessage {
                 e.printStackTrace();
             }
         }
+        */
     }
 }

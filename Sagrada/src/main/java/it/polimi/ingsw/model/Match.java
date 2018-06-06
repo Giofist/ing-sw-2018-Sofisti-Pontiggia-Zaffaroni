@@ -20,7 +20,7 @@ public class Match implements Runnable{
     private boolean started;
     private CountDownLatch doneSignal;
     private Timer timer;
-    private boolean isreadyTostart;
+    public boolean isreadyTostart;
 
 
 
@@ -35,10 +35,6 @@ public class Match implements Runnable{
         this.isreadyTostart = false;
 
 
-    }
-
-    public void setIsreadyTostart(boolean value){
-        this.isreadyTostart = value;
     }
 
     public synchronized void run(){
@@ -68,6 +64,7 @@ public class Match implements Runnable{
                     }catch(PrivateGoalCardException e){
                         // do nothing
                     }catch (RemoteException e){
+                        player.getAssociatedUser().setActive(false);
                         leavethematch(player);
                         success = true;
                     }
@@ -196,7 +193,7 @@ public class Match implements Runnable{
     @Override
     public  String toString(){
         String string = "";
-        string += this.game_name + " " + "Players:";
+        string += this.game_name + " " + "Giocatori in questa partita:";
         for (Player player: this.players){
             string += player.toString();
         }
