@@ -18,7 +18,7 @@ public class SocketController implements ClientHandlerInterface {
     private SocketStringHandler stringHandler;
     private SocketClientListener listener;
 
-    public SocketController(ObserverView observerViewView, SocketClientListener socketClientListener)  throws IOException {
+    public SocketController(ObserverView observerViewView, SocketClientListener socketClientListener) {
         this.listener = socketClientListener;
         this.observerViewView = observerViewView;
     }
@@ -30,7 +30,7 @@ public class SocketController implements ClientHandlerInterface {
 
     //all methods to be implemented here
     @Override
-    public String rmiTest(String stringa) throws RemoteException {
+    public String rmiTest(String stringa) {
         return null;
     }
 
@@ -56,7 +56,7 @@ public class SocketController implements ClientHandlerInterface {
     }
 
     @Override
-    public void login(String clientname, String password, Observer observer) throws RemoteException {
+    public void login(String clientname, String password, Observer observer) {
 
     }
 
@@ -355,7 +355,7 @@ public class SocketController implements ClientHandlerInterface {
     }
 
     @Override
-    public void leavethematch(String clientname) throws RemoteException {
+    public void leavethematch(String clientname) {
 
     }
 
@@ -404,7 +404,7 @@ public class SocketController implements ClientHandlerInterface {
     }
 
     @Override
-    public int getToken(String clientname) throws RemoteException {
+    public int getToken(String clientname) {
         return 0;
     }
 
@@ -455,7 +455,7 @@ public class SocketController implements ClientHandlerInterface {
     }
 
     @Override
-    public List getSchemeCardsoftheotherPlayers(String clientname) throws RemoteException {
+    public List getSchemeCardsoftheotherPlayers(String clientname) {
         return null;
     }
 

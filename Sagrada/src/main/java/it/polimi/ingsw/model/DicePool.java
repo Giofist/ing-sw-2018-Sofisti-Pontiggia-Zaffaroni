@@ -1,7 +1,10 @@
 package it.polimi.ingsw.model;
+
 import it.polimi.ingsw.model.Exceptions.EmpyDicepoolException;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 // NB: questa classe si usa sia per il sacchetto dei 90 dadi che per i dadi del round, che però sono due cose concettualmente
 //leggermente diverse: proprio per questo sono stati creati metodi diversi per fare cose diverse: fate attenzione a quale

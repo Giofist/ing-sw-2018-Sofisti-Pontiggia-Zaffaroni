@@ -1,7 +1,5 @@
 package it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions;
 
-import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
-
 public class DiluentePerPastaSalda2Exception extends ToolIllegalOperationException{
     private static final String msg = "Errore in diluente per Pasta salda\n";
 

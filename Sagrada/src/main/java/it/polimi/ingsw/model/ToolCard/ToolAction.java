@@ -13,17 +13,21 @@ public abstract  class ToolAction {
     //DicenotExistant in DiluenteperPastaSlada
     public int getID(){
         return  this.ID;
-    };
+    }
+
     public  String getDescription(){
         return this.description;
-    };
+    }
+
     public  String getCardTitle(){
         return this.cardTitle;
-    };
+    }
+
     public int getCost(){
         return this.cost;
-    };
+    }
+
     public void setCost(int cost){
         this.cost = cost;
-    };
+    }
 }

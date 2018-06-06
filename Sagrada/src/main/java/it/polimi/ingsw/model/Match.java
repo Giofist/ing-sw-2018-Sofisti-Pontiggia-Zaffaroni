@@ -2,14 +2,15 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.Exceptions.MapConstrainReadingException;
 import it.polimi.ingsw.model.Exceptions.PrivateGoalCardException;
-import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
 import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PlayerPackage.State;
 
-
 import java.io.IOException;
 import java.rmi.RemoteException;
-import java.util.*;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Timer;
 import java.util.concurrent.CountDownLatch;
 
 //manca solo il timer

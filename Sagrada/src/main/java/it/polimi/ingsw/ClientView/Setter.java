@@ -1,8 +1,6 @@
 package it.polimi.ingsw.ClientView;
 
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
-import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
-import it.polimi.ingsw.model.Exceptions.UserNotExistentException;
 import it.polimi.ingsw.model.ToolCard.ToolRequestClass;
 
 import java.rmi.RemoteException;
@@ -48,17 +46,22 @@ public class Setter {
                     break;
                 }
                 case "GETMAPS": {
-                    while (!correct){
-                        System.out.println("Ecco le mappe aggiornate degli altri giocatori");
+                    List players = null;
+                    List schemecards = null;
+
+
+                    while (!correct) {
                         try {
-                            List players = serverController.getPlayersinmymatch(yourName);
-                            List schemecards = serverController.getSchemeCardsoftheotherPlayers(yourName);
-                            int i =0;
-                            while (i< players.size()){
+                            players = serverController.getPlayersinmymatch(yourName);
+                            schemecards = serverController.getSchemeCardsoftheotherPlayers(yourName);
+                            correct = true;
+                            System.out.println("Ecco le mappe aggiornate degli altri giocatori");
+                            int i = 0;
+                            while (i < players.size()) {
                                 System.out.println(players.get(i).toString());
                                 Printer.Singleton().printMap(schemecards.get(i).toString());
+                                i++;
                             }
-                            correct = true;
                         } catch (RemoteException e) {
                             System.out.println(e.getMessage());
                         }
@@ -155,9 +158,14 @@ public class Setter {
         ToolRequestClass data = null;
         String input = "0";
         String[] toolCardID = new String[0];
-        Printer.Singleton().printToolcard(serverController, yourName);
         int numOfDicesToMove=0;
 
+        try {
+            System.out.println("Hai a disposizione "+ serverController.getToken(yourName) + " segnalini favore.");
+        } catch (RemoteException e) {
+            System.out.println(e.getMessage());
+        }
+        Printer.Singleton().printToolcard(serverController, yourName);
         try {
             toolCardID = serverController.getToolCardsIDs(yourName).split("!");
         } catch (RemoteException e) {
@@ -361,11 +369,7 @@ public class Setter {
             try {
                 serverController.setDice(yourName, diceIndex, row, column);
                 success = true;
-            } catch (UserNotExistentException e) {
-                System.out.println(e.getMessage());
             } catch (RemoteException e) {
-                System.out.println(e.getMessage());
-            } catch (SchemeCardNotExistantException e) {
                 System.out.println(e.getMessage());
             }
         }

@@ -1,15 +1,10 @@
 package it.polimi.ingsw.ClientView;
 
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
-import it.polimi.ingsw.model.User;
-import it.polimi.ingsw.model.UsersList;
 
 import java.rmi.RemoteException;
-import java.util.LinkedList;
 
 import static org.fusesource.jansi.Ansi.Color.*;
-import static org.fusesource.jansi.Ansi.Color.GREEN;
-import static org.fusesource.jansi.Ansi.Color.WHITE;
 import static org.fusesource.jansi.Ansi.ansi;
 
 public class Printer {
@@ -29,7 +24,6 @@ public class Printer {
 
     public void printMap(String map) {
         char[] charTile;
-        System.out.println(map);
         String[] element = map.split("%");
         System.out.println(element[0]);
         System.out.println(element[1]);

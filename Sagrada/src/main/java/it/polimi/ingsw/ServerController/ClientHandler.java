@@ -6,9 +6,9 @@ import it.polimi.ingsw.model.Exceptions.*;
 import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
 import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PlayerPackage.State;
+import it.polimi.ingsw.model.PlayerPackage.TurnActions;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 import it.polimi.ingsw.model.ToolCard.ToolRequestClass;
-import it.polimi.ingsw.model.PlayerPackage.TurnActions;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -19,10 +19,10 @@ import java.util.List;
 public class ClientHandler extends UnicastRemoteObject implements ClientHandlerInterface {
 
     //constructor
-    public ClientHandler ()throws RemoteException {};
+    public ClientHandler ()throws RemoteException {}
 
     @Override
-    public String rmiTest(String stringa) throws RemoteException {
+    public String rmiTest(String stringa) {
         return "Test " + stringa;
     }
     @Override
@@ -52,7 +52,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     }
 
     @Override
-    public synchronized void logout(String username) throws RemoteException{
+    public synchronized void logout(String username) {
             UsersList.Singleton().logOut(username);
     }
 
@@ -168,7 +168,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
 
 
     @Override
-    public String getActiveMatchesList() throws RemoteException{
+    public String getActiveMatchesList() {
         String list = "";
         for (Match match: MatchesList.singleton().getActiveMatches()) {
            list += match.toString();

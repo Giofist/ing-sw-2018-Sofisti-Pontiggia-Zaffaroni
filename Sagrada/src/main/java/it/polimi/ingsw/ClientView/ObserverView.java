@@ -1,18 +1,13 @@
 package it.polimi.ingsw.ClientView;
 
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
+import it.polimi.ingsw.model.Observable;
+import it.polimi.ingsw.model.PlayerPackage.State;
 
 import java.io.PrintWriter;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-
 import java.util.Scanner;
-
-import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
-import it.polimi.ingsw.model.Observable;
-import it.polimi.ingsw.model.PlayerPackage.State;
-
-import static org.fusesource.jansi.Ansi.ansi;
 
 //implemented by pon
 public class ObserverView extends UnicastRemoteObject implements Observer {
@@ -250,7 +245,7 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
     }
 
     @Override
-    public synchronized void update(Observable o, Object arg) throws RemoteException {
+    public synchronized void update(Observable o, Object arg) {
         if(this.thread !=null){
             this.thread.interrupt();
         }

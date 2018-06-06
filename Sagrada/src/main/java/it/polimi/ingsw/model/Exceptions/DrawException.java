@@ -9,7 +9,8 @@ public class DrawException extends Exception {
     public DrawException(String msg){ super(msg); }
     public int getPointsofthedraw(){
         return this.pointsofthedraw;
-    };
+    }
+
     public DrawException(int points, String message){
         super(message);
         this.pointsofthedraw = points;

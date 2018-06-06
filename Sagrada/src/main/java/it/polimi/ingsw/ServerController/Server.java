@@ -1,11 +1,13 @@
 package it.polimi.ingsw.ServerController;
 
 //fatta da pon
+
+import it.polimi.ingsw.model.MatchesList;
+import it.polimi.ingsw.model.UsersList;
+
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-
-import it.polimi.ingsw.model.*;
 public class Server {
 
     public static void main(String[] args) throws RemoteException{

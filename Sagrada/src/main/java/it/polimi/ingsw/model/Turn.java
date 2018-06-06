@@ -1,14 +1,9 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.PlayerPackage.Player;
-import it.polimi.ingsw.model.PlayerPackage.*;
-import it.polimi.ingsw.model.Round;
-import org.omg.Messaging.SYNC_WITH_TRANSPORT;
+import it.polimi.ingsw.model.PlayerPackage.State;
 
 import java.rmi.RemoteException;
-import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.CountDownLatch;
 
 public class Turn implements Runnable{

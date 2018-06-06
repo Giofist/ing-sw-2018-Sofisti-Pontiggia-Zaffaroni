@@ -1,8 +1,11 @@
 package it.polimi.ingsw.model.PlayerPackage;
+
 import it.polimi.ingsw.model.*;
-import it.polimi.ingsw.model.Exceptions.*;
+import it.polimi.ingsw.model.Exceptions.CardIdNotAllowedException;
+import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
+import it.polimi.ingsw.model.Exceptions.NotEnoughSegnaliniException;
+import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
-import it.polimi.ingsw.model.Turn;
 
 import java.rmi.RemoteException;
 import java.util.LinkedList;

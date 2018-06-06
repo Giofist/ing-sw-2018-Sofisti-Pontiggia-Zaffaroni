@@ -9,7 +9,8 @@ import it.polimi.ingsw.model.PrivateGoalCards.PrivateGoalCardDeck;
 import it.polimi.ingsw.model.PublicGoalCards.PublicGoalCardDeck;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCardDeck;
-import it.polimi.ingsw.model.ToolCard.*;
+import it.polimi.ingsw.model.ToolCard.ToolCardsDeck;
+import it.polimi.ingsw.model.ToolCard.ToolRequestClass;
 
 import java.io.IOException;
 import java.util.List;
@@ -85,7 +86,8 @@ public class Gametable {
     public String getPublicGoalDescriptions() {
         return this.publicGoalCardDeck.getDescriptions();
     }
-    public String getPublicGoalNames(){return this.publicGoalCardDeck.getCardsNames();};
+    public String getPublicGoalNames(){return this.publicGoalCardDeck.getCardsNames();}
+
     public String getPublicGoalIDs() {
         return this.publicGoalCardDeck.getIDs();
     }

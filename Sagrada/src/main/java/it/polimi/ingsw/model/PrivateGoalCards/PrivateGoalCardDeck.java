@@ -5,7 +5,6 @@ import it.polimi.ingsw.model.DiceColor;
 import it.polimi.ingsw.model.Exceptions.PrivateGoalCardException;
 import it.polimi.ingsw.model.GoalCard;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 

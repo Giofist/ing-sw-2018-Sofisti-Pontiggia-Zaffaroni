@@ -1,7 +1,5 @@
 package it.polimi.ingsw.NetworkClient;
 
-import it.polimi.ingsw.ClientView.ObserverView;
-
 import java.rmi.RemoteException;
 
 public class SocketStringHandler implements Runnable{

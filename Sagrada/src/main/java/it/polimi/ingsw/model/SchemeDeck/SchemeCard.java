@@ -1,19 +1,22 @@
 package it.polimi.ingsw.model.SchemeDeck;
+
 import it.polimi.ingsw.model.Dice;
 import it.polimi.ingsw.model.DiceColor;
-import it.polimi.ingsw.model.Exceptions.MapConstrainReadingException;
 import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
+import it.polimi.ingsw.model.Exceptions.MapConstrainReadingException;
 import it.polimi.ingsw.model.Exceptions.OutOfMatrixException;
 import it.polimi.ingsw.model.Exceptions.TileConstrainException.*;
-import it.polimi.ingsw.model.PlayerPackage.State;
 
-import java.io.*;
-import java.lang.String;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.NoSuchElementException;
 
-import static it.polimi.ingsw.model.DiceColor.GREEN;
-import static it.polimi.ingsw.model.DiceColor.RED;
-import static it.polimi.ingsw.model.DiceColor.VIOLET;
+import static it.polimi.ingsw.model.DiceColor.*;
 
 //classe completa
 
@@ -124,7 +127,7 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
         }
     }
 
-    public void setTwinCard(SchemeCard schemeCard) throws IOException, MapConstrainReadingException {
+    public void setTwinCard(SchemeCard schemeCard) {
         System.out.println("This has been the Twin Map\n\n");
         this.twinCard = schemeCard;
     }
@@ -133,8 +136,10 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
     //get methods
     public int getDifficulty() {
         return this.difficulty;
-    };
-    public int getID(){ return this.ID; };
+    }
+
+    public int getID(){ return this.ID; }
+
     public String getMapName(){ return this.MapName; }
     public int getMaxRow(){return this.maxRow;}
     public int getMaxColumn(){return this.maxColumn;}

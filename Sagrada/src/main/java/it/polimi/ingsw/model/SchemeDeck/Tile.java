@@ -2,7 +2,7 @@ package it.polimi.ingsw.model.SchemeDeck;
 
 import it.polimi.ingsw.model.Dice;
 import it.polimi.ingsw.model.DiceColor;
-import it.polimi.ingsw.model.Exceptions.*;
+import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
 import it.polimi.ingsw.model.Exceptions.TileConstrainException.NotRespectedNumberConstrainException;
 import it.polimi.ingsw.model.Exceptions.TileConstrainException.NotRispectedColorConstrainException;
 import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
@@ -72,9 +72,7 @@ public class Tile implements Serializable {
                 }
             }
             if (this.haveNumber_constrain() && !IgnoreNumber){
-                if(dice.getIntensity() != this.getNumber_Constrain()){
-                    return false;
-                }
+                return dice.getIntensity() == this.getNumber_Constrain();
             }
             return true;
 
@@ -107,11 +105,9 @@ public class Tile implements Serializable {
 
     //to see if this this is occupied
     public boolean isOccupied(){
-        if (this.dice == null){
-            return false;
-        }return true;
+        return this.dice != null;
 
-        }
+    }
 
 
 

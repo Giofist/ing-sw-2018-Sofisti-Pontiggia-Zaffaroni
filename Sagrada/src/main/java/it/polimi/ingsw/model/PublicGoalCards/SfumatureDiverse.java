@@ -30,7 +30,7 @@ public class SfumatureDiverse implements GoalCard {
                         case 4: numerodi4++; break;
                         case 5: numerodi5++; break;
                         case 6: numerodi6++; break;
-                        default: ;
+                        default:
                     }
                 } catch (Exception e) {
                     //no dice, no point, zorry

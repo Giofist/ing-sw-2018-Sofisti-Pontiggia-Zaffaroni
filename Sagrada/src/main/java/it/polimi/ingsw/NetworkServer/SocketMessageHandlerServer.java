@@ -1,11 +1,7 @@
 package it.polimi.ingsw.NetworkServer;
 
-import it.polimi.ingsw.model.ClientMessagePackage.ClientMessage;
 import it.polimi.ingsw.ServerController.ClientHandler;
-import it.polimi.ingsw.model.ServerMessagePackage.ServerMessage;
-
-import java.io.IOException;
-import java.rmi.RemoteException;
+import it.polimi.ingsw.model.ClientMessagePackage.ClientMessage;
 
 public class SocketMessageHandlerServer implements Runnable {
     ClientMessage messageClass;

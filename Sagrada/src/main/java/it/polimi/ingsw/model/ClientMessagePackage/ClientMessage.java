@@ -1,13 +1,10 @@
 package it.polimi.ingsw.model.ClientMessagePackage;
 
-import it.polimi.ingsw.ClientView.Observer;
 import it.polimi.ingsw.NetworkServer.SocketServerListener;
-import it.polimi.ingsw.ServerController.ClientHandler;
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
 import it.polimi.ingsw.model.ToolCard.ToolRequestClass;
 
 import java.io.Serializable;
-import java.rmi.RemoteException;
 
 public abstract class ClientMessage implements Serializable{
     int messagecodex;

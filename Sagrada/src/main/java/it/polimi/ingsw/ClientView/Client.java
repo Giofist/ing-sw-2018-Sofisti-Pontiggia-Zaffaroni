@@ -2,8 +2,9 @@ package it.polimi.ingsw.ClientView;
 
 
 //import it.polimi.ingsw.NetworkClient.SocketController;
-import it.polimi.ingsw.NetworkClient.SocketController;
+
 import it.polimi.ingsw.NetworkClient.SocketClientListener;
+import it.polimi.ingsw.NetworkClient.SocketController;
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
 
 import java.rmi.registry.LocateRegistry;

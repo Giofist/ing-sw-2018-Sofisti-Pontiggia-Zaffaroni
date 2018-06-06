@@ -1,4 +1,5 @@
 package it.polimi.ingsw.model;
+
 import it.polimi.ingsw.ClientView.Observer;
 import it.polimi.ingsw.model.Exceptions.HomonymyException;
 import it.polimi.ingsw.model.Exceptions.IsAlreadyActiveException;
@@ -6,7 +7,8 @@ import it.polimi.ingsw.model.Exceptions.UserNotExistentException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.*;
+import java.util.LinkedList;
+import java.util.Scanner;
 
 
 //(pon) ho revisionato questa classe in modo da renderla thread safe in tutti i suoi metodi

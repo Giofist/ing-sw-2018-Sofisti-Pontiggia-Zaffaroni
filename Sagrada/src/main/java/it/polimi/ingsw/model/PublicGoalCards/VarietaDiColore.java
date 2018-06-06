@@ -31,7 +31,7 @@ public class VarietaDiColore implements GoalCard {
                         case GREEN: numberofGREEN++; break;
                         case YELLOW: numberofYELLOW++; break;
                         case VIOLET: numberofVIOLET++; break;
-                        default: ;
+                        default:
                     }
 
                 } catch (Exception e) {

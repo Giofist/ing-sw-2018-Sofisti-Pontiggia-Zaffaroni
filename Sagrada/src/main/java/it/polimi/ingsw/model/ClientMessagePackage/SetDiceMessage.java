@@ -38,26 +38,6 @@ public class SetDiceMessage extends ClientMessage {
             } catch (IOException err) {
                 e.printStackTrace();
             }
-        } catch (SchemeCardNotExistantException e) {
-            ServerMessage messageClass = new ServerMessage();
-            messageClass.setMessagecodex(0);
-            messageClass.setErrorMessage(e.getMessage());
-
-            try {
-                listener.sendMessage(messageClass);
-            } catch (IOException err) {
-                e.printStackTrace();
-            }
-        } catch (UserNotExistentException e) {
-            ServerMessage messageClass = new ServerMessage();
-            messageClass.setMessagecodex(0);
-            messageClass.setErrorMessage(e.getMessage());
-
-            try {
-                listener.sendMessage(messageClass);
-            } catch (IOException err) {
-                e.printStackTrace();
-            }
         }
     }
 }

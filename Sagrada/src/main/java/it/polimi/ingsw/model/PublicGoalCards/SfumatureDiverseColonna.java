@@ -1,6 +1,8 @@
 package it.polimi.ingsw.model.PublicGoalCards;
 
-import it.polimi.ingsw.model.Exceptions.*;
+import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
+import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
+import it.polimi.ingsw.model.Exceptions.TwoDiceSameShadeException;
 import it.polimi.ingsw.model.GoalCard;
 import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.SchemeDeck.ColumnIterator;
