@@ -50,6 +50,7 @@ public class PlayerState implements Observable{
                 this.actions.addLast(TurnActions.LEAVEMATCHATTHEEND);
                 break;
             case ERRORSTATE:
+                this.actions.addLast(TurnActions.LEAVEMATCHATTHEEND);
                 break;
             case HASSETADICESTATE:
                 this.actions.addLast(TurnActions.PASSTURN);

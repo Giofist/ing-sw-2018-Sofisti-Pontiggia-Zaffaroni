@@ -4,6 +4,7 @@ import java.util.*;
 import it.polimi.ingsw.model.Exceptions.GameNotExistantException;
 import it.polimi.ingsw.model.Exceptions.HomonymyException;
 import it.polimi.ingsw.model.PlayerPackage.Player;
+import it.polimi.ingsw.model.PlayerPackage.State;
 
 
 //design pattern singleton
@@ -31,7 +32,7 @@ public class MatchesList {
 
 
     //createGame a game and add to the existant list
-    public synchronized Match createGame(Player player, String game_name) throws HomonymyException {
+    public synchronized void createGame(Player player, String game_name) throws HomonymyException {
         for (Match previousMatch : this.matches){
             if (previousMatch.getName().equals(game_name) ) {
                 throw new HomonymyException();
@@ -42,37 +43,46 @@ public class MatchesList {
         this.matches.add(match);
         //ogni match è un thread
         final Thread thread = new Thread(match);
+
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 System.out.println("Match started at:"+new Date());
                 try {
-                    //assuming it takes 20 secs to complete the task
-                    Thread.sleep(10000);
+
+                    Thread.sleep(900000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                if(!match.isStarted())
-                System.out.println("Match ended at:"+new Date());
-                thread.interrupt();
+                if(!match.isStarted()){
+                    if (match.getallPlayers().size() >1){
+                        match.isreadyTostart = true;
+                        match.notifyAll();
+                    }
+                    else{
+                        //l'unico giocatore deve abbandonare la partita
+                        for(Player player: match.getallPlayers()){
+                            try{
+                                player.setPlayerState(State.ERRORSTATE);
+                            }catch(Exception err){
+                                //do nothing, we are so unlucky here
+                            }
+
+                        }
+                        MatchesList.singleton().remove(match);
+                        thread.interrupt();
+                    }
+                }
             }
         },0);
         new Thread(match).start();
-        return match;
+        return ;
     }
 
     public synchronized void  join(Player player, String game_name) throws GameNotExistantException {
-        try{
-            Match match = this.getGame(game_name);
-            player.setMatch(match);
-            match.join(player);
-
-            // risveglio il thread con il lock che controlla se la partita è pronta per inizizare
-
-        }catch (GameNotExistantException e){
-            throw e;
-        }
-
+        Match match = this.getGame(game_name);
+        player.setMatch(match);
+        match.join(player);
     }
 
 

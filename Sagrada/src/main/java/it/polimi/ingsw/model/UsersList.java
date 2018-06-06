@@ -1,4 +1,5 @@
 package it.polimi.ingsw.model;
+import it.polimi.ingsw.ClientView.Observer;
 import it.polimi.ingsw.model.Exceptions.HomonymyException;
 import it.polimi.ingsw.model.Exceptions.IsAlreadyActiveException;
 import it.polimi.ingsw.model.Exceptions.UserNotExistentException;
@@ -63,15 +64,17 @@ public class UsersList {
 
     //metodo che controlla la correttezza del login
     // ho creato LoginException, ma sicome esiste già una classe loginExcpetion in una libreria standard di java, allora devo scrivere tutto il package
-    synchronized public void check( String name, String password)throws it.polimi.ingsw.model.Exceptions.LoginException, IsAlreadyActiveException {
+    synchronized public void check( String name, String password, Observer observer)throws it.polimi.ingsw.model.Exceptions.LoginException, IsAlreadyActiveException {
         for (User user : this.users){
             if (user.getName().equals(name) && user.getPassword().equals(password))
                 if (user.isActive()){
                 throw new IsAlreadyActiveException();
                 }else{
                 user.setActive(true);
-                return ;
+                if (user.getPlayer() != null){
+                    user.getPlayer().getPlayerState().addObserver(observer);
                 }
+            }
         }
         throw new it.polimi.ingsw.model.Exceptions.LoginException();
     }

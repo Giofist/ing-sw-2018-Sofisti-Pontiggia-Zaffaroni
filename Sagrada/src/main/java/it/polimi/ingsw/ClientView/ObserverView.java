@@ -143,8 +143,9 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
             username = in.nextLine();
             System.out.println("Inserisci password:");
             password = in.nextLine();
+            System.out.println("Sei hai una partita in corso verrai subito reindirizzato a quella");
             try {
-                serverController.login(username, password);
+                serverController.login(username, password, this);
             } catch (RemoteException e) {
                 System.out.println(e.getMessage());
                 success = false;

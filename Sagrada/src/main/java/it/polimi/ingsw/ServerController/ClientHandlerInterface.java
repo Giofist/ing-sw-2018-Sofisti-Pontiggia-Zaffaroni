@@ -19,7 +19,7 @@ public interface ClientHandlerInterface extends Remote {
 
 
     void register(String clientname, String password) throws RemoteException;
-    void login(String clientname, String password) throws RemoteException;
+    void login(String clientname, String password, Observer observer) throws RemoteException;
     void logout(String clientname) throws RemoteException;
     void createGame(String clientname, Observer client, String gamename ) throws  RemoteException;
     void joinaGame(String clientname, Observer  client, String gamename) throws RemoteException;
@@ -56,6 +56,7 @@ public interface ClientHandlerInterface extends Remote {
 
     public String getPossibleActions(String clientname) throws RemoteException;
     public void passTurn(String clientname) throws RemoteException;
+    void leavethematch(String clientname) throws RemoteException;
     public void leavethematchatthend(String clientname) throws RemoteException;
     public void setToolCardDice(String clientname, int row, int column)throws RemoteException;
 

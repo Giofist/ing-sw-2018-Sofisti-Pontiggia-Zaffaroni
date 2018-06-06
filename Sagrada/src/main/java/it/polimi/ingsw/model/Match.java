@@ -23,8 +23,6 @@ public class Match implements Runnable{
     public boolean isreadyTostart;
 
 
-
-
     //public constructor
     public Match(Player player, String game_name, Timer timer)  {
         this.game_name = game_name;
@@ -38,7 +36,7 @@ public class Match implements Runnable{
     }
 
     public synchronized void run(){
-        while (!checkIsreadyToStart()){
+        while (!isreadyTostart){
             try {
                 wait();
             }catch(InterruptedException e) {
@@ -57,7 +55,6 @@ public class Match implements Runnable{
                         player.addExtractedSchemeCard(getGametable().getSchemeCard());
                         player.addExtractedSchemeCard(getGametable().getSchemeCard());
                         player.setPlayerState(State.MUSTSETSCHEMECARD);
-
                         success = true;
                     } catch (MapConstrainReadingException e) {
                         System.out.println(e.getMessage());
@@ -65,12 +62,13 @@ public class Match implements Runnable{
                         // do nothing
                     }catch (RemoteException e){
                         player.getAssociatedUser().setActive(false);
-                        leavethematch(player);
+                        this.players.remove(player);
                         success = true;
                     }
                 }
             }
         }catch(IOException e){
+            MatchesList.singleton().remove(this);
             for(Player player: this.players){
                 try{
                     player.setPlayerState(State.ERRORSTATE);//"Impossibile leggere il file delle mappe, la partita non può iniziare!\n");
@@ -78,6 +76,7 @@ public class Match implements Runnable{
                     //do nothing, we are so unlucky here
                 }
             }
+            return;
         }
         doneSignal = new CountDownLatch(this.getNumberOfPlayers());
         try {
@@ -100,7 +99,7 @@ public class Match implements Runnable{
         for (Player player:this.players) {
             player.getPrivateGoalCard().calculatepoint(player);
         }
-        //qualche altro conto da fare? Non ho letto tutto il regolamento
+
 
         //notifico ai vari giocatori la fine della partita dopo aver ordinato la lista in base al punteggio di ciascuno
         Collections.sort(this.players);
@@ -108,6 +107,7 @@ public class Match implements Runnable{
             try{
                 player.setPlayerState(State.ENDMATCHSTATE);
             }catch (RemoteException e){
+                player.getAssociatedUser().setActive(false);
                 leavethematchatthend(player);
             }
         //qui bisognerà chiudere la partita in qualche modo
@@ -115,13 +115,7 @@ public class Match implements Runnable{
     }
 
 
-    private synchronized boolean checkIsreadyToStart() {
-        // qua bisognerà inserire un controllo dovuto al timer
-        // ho messo due per semplicità nel testing
-        if (this.players.size() == 1) {
-            return true;
-        } else return false;
-    }
+
 
 
     //metodi getter e setter
@@ -142,13 +136,12 @@ public class Match implements Runnable{
     }
     public synchronized void join(Player player){
         this.players.addLast(player);
+        if (this.players.size() == 2){
+            isreadyTostart = true;
+        }
         notifyAll();
     }
 
-    //assolutamente da testare
-    //come esegue la remove? Correttamente?
-    //molto utile per il pattern observer, per non mettere dei riferimenti agli altri player
-    //all'interno della classe player
     public List<Player> getallPlayersbutnotme(Player player){
         LinkedList<Player> list = new LinkedList<>();
         list.addAll(this.players);
@@ -167,7 +160,7 @@ public class Match implements Runnable{
     public  void leavethematchatthend(Player player){
         this.players.remove(player);
         if(getNumberOfPlayers()==0){
-            MatchesList.singleton().remove(player.getMatch());
+            MatchesList.singleton().remove(this);
         }
     }
 
@@ -199,4 +192,6 @@ public class Match implements Runnable{
         }
         return string;
     }
+
+
 }

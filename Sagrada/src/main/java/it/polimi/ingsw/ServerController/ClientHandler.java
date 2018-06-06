@@ -41,9 +41,9 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
 
     // Implementing the login method
     @Override
-    public synchronized void login(String username, String password) throws RemoteException{
+    public synchronized void login(String username, String password, Observer observer) throws RemoteException{
         try{
-            UsersList.Singleton().check(username, password);
+            UsersList.Singleton().check(username, password, observer);
         }catch(LoginException e){
             throw new RemoteException(e.getMessage());
         }catch (IsAlreadyActiveException e){
@@ -379,6 +379,20 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
             player.getMatch().leavethematchatthend(player);
             UsersList.Singleton().getUser(clientname).removePlayer();
         }catch(UserNotExistentException e){
+            throw new RemoteException(e.getMessage());
+        }
+    }
+
+    @Override
+    public void leavethematch(String clientname) throws RemoteException{
+        try{
+            Player player = UsersList.Singleton().getUser(clientname).getPlayer();
+            player.getPlayerState().checkAction(TurnActions.LEAVEMATCHBEFORESTARTING);
+            player.getMatch().leavethematch(player);
+            UsersList.Singleton().getUser(clientname).removePlayer();
+        }catch(UserNotExistentException e){
+            throw new RemoteException(e.getMessage());
+        }catch (NotAllowedActionException e){
             throw new RemoteException(e.getMessage());
         }
     }
