@@ -179,14 +179,27 @@ public class Match implements Runnable{
     }
 
     public String getfinalRanking() {
-        String string = "\n";
+        String string = " ";
         for(Player player: this.players){
-            string += player.toString();
+            string += player.toString() + player.getPoints() + "\n";
         }
         return string;
     }
 
     public void countDown() {
         this.doneSignal.countDown();
+    }
+
+    public void forceendmatch() {
+
+    }
+    @Override
+    public  String toString(){
+        String string = "";
+        string += this.game_name + " " + "Players:";
+        for (Player player: this.players){
+            string += player.toString();
+        }
+        return string;
     }
 }

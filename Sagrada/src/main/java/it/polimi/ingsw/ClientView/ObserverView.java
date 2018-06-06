@@ -20,17 +20,17 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
     private final Scanner in;
     private final PrintWriter out;
     private String yourName;
-    private boolean matchisEnded;
     private int numOfDice;
     private Thread thread;
-    boolean leaveSagrada = false;
-    boolean leaveMatch = false;
+    boolean leaveSagrada;
+    boolean leaveMatch;
 
     //constructor1
     public ObserverView() throws RemoteException {
         this.in = new Scanner(System.in);
         this.out = new PrintWriter(System.out);
-        matchisEnded = false;
+        leaveSagrada = false;
+        leaveMatch = false;
     }
 
     //constructor2
@@ -43,6 +43,14 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
 
     public void setServerController(ClientHandlerInterface serverController) {
         this.serverController = serverController;
+    }
+
+    public void setLeaveSagrada(boolean value){
+        this.leaveSagrada = value;
+    }
+
+    public void setLeaveMatch(boolean value){
+        this.leaveMatch = leaveMatch;
     }
 
     public synchronized void run() throws RemoteException {
@@ -165,7 +173,7 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
             }
             else if (input.equals("L") || input.equals("l")) {
                 serverController.logout(this.yourName);
-                System.exit(0);
+                setLeaveMatch(true);
                 success = true;
             }
             else {
@@ -286,7 +294,8 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
                 break;
             }
             case ENDMATCHSTATE: {
-                this.thread = new Thread(new EndMatchStateView(serverController, yourName));
+                this.thread = new Thread(new EndMatchStateView(serverController, yourName, this));
+
                 break;
             }
             case MUSTSETSCHEMECARD: {
@@ -296,4 +305,6 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
         }
         this.notifyAll();
     }
+
+
 }

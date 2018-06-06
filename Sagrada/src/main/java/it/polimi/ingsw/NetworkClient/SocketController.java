@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.ToolCard.ToolRequestClass;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.util.List;
 
 // implemented by pon
 public class SocketController implements ClientHandlerInterface {
@@ -393,6 +394,11 @@ public class SocketController implements ClientHandlerInterface {
         this.stringHandler = null;
     }
 
+    @Override
+    public int getToken(String clientname) throws RemoteException {
+        return 0;
+    }
+
 
     @Override
     public void setToolCardDiceIntensity(String clientname, int intensity) throws RemoteException {
@@ -437,6 +443,11 @@ public class SocketController implements ClientHandlerInterface {
         this.stringHandler = null;
 
         return value;
+    }
+
+    @Override
+    public List getSchemeCardsoftheotherPlayers(String clientname) throws RemoteException {
+        return null;
     }
 
 
@@ -705,7 +716,7 @@ public class SocketController implements ClientHandlerInterface {
 
 
     @Override
-    public String getSchemeCards(String clientname) throws RemoteException {
+    public String getExtractedSchemeCard(String clientname) throws RemoteException {
         ClientMessage getSchemeCardsMessage = new GetSchemeCardsMessage();
         getSchemeCardsMessage.setClientName(clientname);
 

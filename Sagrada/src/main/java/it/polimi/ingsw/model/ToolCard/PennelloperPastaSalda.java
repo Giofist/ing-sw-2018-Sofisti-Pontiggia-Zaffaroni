@@ -29,7 +29,7 @@ public class PennelloperPastaSalda  extends ToolAction {
         try{
             Dice dice= player.getGametable().getRoundDicepool().getDice(toolRequestClass.getSelectedDIceIndex());
             dice.setRandomIntensity();
-            if(player.HassetaDicethisturn()){
+            if(player.getPlayerState().getState().equals(State.HASSETADICESTATE)){
                 throw new ToolIllegalOperationException("non puoi piazzare due dadi nello stesso turno");
             }
             boolean settable = false;

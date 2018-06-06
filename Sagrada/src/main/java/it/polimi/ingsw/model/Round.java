@@ -2,9 +2,7 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.Exceptions.RoundTrackException;
 import it.polimi.ingsw.model.PlayerPackage.Player;
-import it.polimi.ingsw.model.Turn.Turn;
 
-import java.rmi.RemoteException;
 import java.util.*;
 
 //not implemented yet

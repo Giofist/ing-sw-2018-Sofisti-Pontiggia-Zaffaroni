@@ -12,6 +12,8 @@ import it.polimi.ingsw.model.PlayerPackage.TurnActions;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.LinkedList;
+import java.util.List;
 
 // this is the controller
 public class ClientHandler extends UnicastRemoteObject implements ClientHandlerInterface {
@@ -167,23 +169,10 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
 
     @Override
     public String getActiveMatchesList() throws RemoteException{
-        String list = new String();
-        int i;
+        String list = "";
         for (Match match: MatchesList.singleton().getActiveMatches()) {
-            i=4;
-            list+= "-";
-            list += (match.getName());
-            list += "       I giocatori iscritti a questa partita sono: ";
-            for(Player player: match.getallPlayers()){
-                list+= player.getAssociatedUser().getName();
-                list += " ";
-                i--;
-            }
-            list += "e ne mancano ancora ";
-            list += i;
-            list += ".\n";
+           list += match.toString();
         }
-
         return list;
     }
 
@@ -209,7 +198,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     }
 
     @Override
-    public synchronized String getSchemeCards(String clientname) throws RemoteException {
+    public synchronized String getExtractedSchemeCard(String clientname) throws RemoteException {
         try {
             Player player = UsersList.Singleton().getUser(clientname).getPlayer();
             String stringToreturn = "\n";
@@ -266,7 +255,6 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
         try {
             Player player = UsersList.Singleton().getUser(clientusername).getPlayer();
             player.getPlayerState().checkAction(TurnActions.SETSCHEMECARD);
-            System.out.println("Ho chiamato il set");
             player.setScheme(cardid);
         } catch (UserNotExistentException e) {
             throw new RemoteException(e.getMessage());
@@ -285,10 +273,14 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
             Dice dice = player.getGametable().getRoundDicepool().getDice(diceindex);
             player.getGametable().getRoundDicepool().removeDice(diceindex);
             player.getScheme().setDice(dice ,row ,column, false, false, false);
-            player.setHassetaDicethisturn(true);
-            if (player.getPlayerState().getState().equals(State.HASUSEDATOOLCARDACTIONSTATE)){
-                player.setPlayerState(State.MUSTPASSTURNSTATE);
-            }else player.setPlayerState(State.HASSETADICESTATE);
+            try{
+                if (player.getPlayerState().getState().equals(State.HASUSEDATOOLCARDACTIONSTATE)){
+                    player.setPlayerState(State.MUSTPASSTURNSTATE);
+                }else player.setPlayerState(State.HASSETADICESTATE);
+            }catch (RemoteException e){
+                player.getTurn().countDown();
+            }
+
 
         }catch(UserNotExistentException e){
             throw new RemoteException(e.getMessage());
@@ -377,7 +369,6 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
         try{
             Player player = UsersList.Singleton().getUser(clientname).getPlayer();
             player.getPlayerState().checkAction(TurnActions.PASSTURN);
-            player.setHassetaDicethisturn(false);
             player.getTurn().countDown();
         }catch (UserNotExistentException e){
             throw new RemoteException(e.getMessage());
@@ -403,7 +394,6 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
             Player player = UsersList.Singleton().getUser(clientname).getPlayer();
             player.getPlayerState().checkAction(TurnActions.SETTOOLCARDDICE);
             player.getScheme().setDice(player.getdiceforToolCardUse(), row,column, false, false, false);
-            player.setHassetaDicethisturn(true);
             player.removediceforToolCardUse();
             try{
                 player.setPlayerState(State.MUSTPASSTURNSTATE);
@@ -422,6 +412,16 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
         }catch (OutOfMatrixException e){
             throw new RemoteException(e.getMessage());
         }catch (TileConstrainException e){
+            throw new RemoteException(e.getMessage());
+        }
+    }
+
+    @Override
+    public int getToken(String clientname) throws RemoteException {
+        try{
+            Player player = UsersList.Singleton().getUser(clientname).getPlayer();
+            return player.getToken();
+        }catch (UserNotExistentException e){
             throw new RemoteException(e.getMessage());
         }
     }
@@ -459,18 +459,20 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     }
 
     @Override
-    public String getmapofthePlayer(String clientname, String playername) throws RemoteException {
+    public List getSchemeCardsoftheotherPlayers(String clientname) throws RemoteException {
         try{
+            List<SchemeCard> listtoreturn = new LinkedList();
             Player player = UsersList.Singleton().getUser(clientname).getPlayer();
+            player.getPlayerState().checkAction(TurnActions.GETMAPS);
             for (Player other_player : player.getMatch().getallPlayersbutnotme(player)){
-                if (other_player.getAssociatedUser().getName().equals(playername)){
-                    return other_player.getScheme().toString();
-                }
+               listtoreturn.add(other_player.getScheme());
             }
-            throw new RemoteException("Nessun giocatore con questo nome nella tua partita");
+            return listtoreturn;
         }catch(UserNotExistentException e){
             throw new RemoteException(e.getMessage());
         }catch (SchemeCardNotExistantException e){
+            throw new RemoteException(e.getMessage());
+        }catch (NotAllowedActionException e){
             throw new RemoteException(e.getMessage());
         }
     }

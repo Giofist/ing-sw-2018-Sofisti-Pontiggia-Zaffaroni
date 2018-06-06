@@ -15,7 +15,7 @@ public class GetSchemeCardsMessage extends ClientMessage {
     public void performAction(ClientHandlerInterface clientHandler, SocketServerListener listener) {
 
         try {
-            String answer = clientHandler.getSchemeCards(getClientName());
+            String answer = clientHandler.getExtractedSchemeCard(getClientName());
             ServerMessage messageClass = new ServerMessage();
             messageClass.setMessagecodex(33);
             messageClass.setAnswermessage(answer);

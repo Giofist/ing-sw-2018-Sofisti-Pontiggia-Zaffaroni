@@ -25,7 +25,7 @@ public class RigainSughero  extends ToolAction {
     public void execute (Player player, ToolRequestClass toolRequestClass) throws ToolIllegalOperationException {
         //ricordarsi di fare get and remove dei dadi, non dimenticare la remove
         try {
-            if (player.HassetaDicethisturn()) {
+            if (player.getPlayerState().getState().equals(State.HASSETADICESTATE)) {
                 throw new ToolIllegalOperationException("non puoi piazzare due dadi nello stesso turno");
             }
             dice = player.getGametable().getRoundDicepool().getDice(toolRequestClass.getSelectedRoundDicepoolDiceIndex());

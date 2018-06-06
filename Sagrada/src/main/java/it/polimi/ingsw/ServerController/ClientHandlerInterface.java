@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.ToolCard.ToolRequestClass;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.List;
 
 
 public interface ClientHandlerInterface extends Remote {
@@ -17,15 +18,15 @@ public interface ClientHandlerInterface extends Remote {
     public String rmiTest(String stringa) throws RemoteException;
 
 
-    public void register(String clientname, String password) throws RemoteException;
-    public void login(String clientname, String password) throws RemoteException;
-    public void logout(String clientname) throws RemoteException;
-    public  void createGame(String clientname, Observer client, String gamename ) throws  RemoteException;
-    public void joinaGame(String clientname, Observer  client, String gamename) throws RemoteException;
+    void register(String clientname, String password) throws RemoteException;
+    void login(String clientname, String password) throws RemoteException;
+    void logout(String clientname) throws RemoteException;
+    void createGame(String clientname, Observer client, String gamename ) throws  RemoteException;
+    void joinaGame(String clientname, Observer  client, String gamename) throws RemoteException;
 
 
-    public String getPrivateGoalCarddescription(String clientname) throws RemoteException;
-    public String getPrivateGoalCardname(String clientname) throws RemoteException;
+    String getPrivateGoalCarddescription(String clientname) throws RemoteException;
+    String getPrivateGoalCardname(String clientname) throws RemoteException;
     public int getPrivateGoalCardid(String clientname) throws RemoteException;
     public String getPublicGoalCarddescriptions(String clientname) throws RemoteException;
     public String getPublicGoalCardids(String clientname) throws RemoteException;
@@ -36,7 +37,7 @@ public interface ClientHandlerInterface extends Remote {
     //fine partita
     public int getmyPoints(String clientname) throws RemoteException;
     public String getRanking(String clientname) throws RemoteException;
-    public String getSchemeCards(String clientname) throws RemoteException;
+    public String getExtractedSchemeCard(String clientname) throws RemoteException;
 
     String getSchemeCard(String clientname) throws RemoteException;
 
@@ -58,9 +59,10 @@ public interface ClientHandlerInterface extends Remote {
     public void leavethematchatthend(String clientname) throws RemoteException;
     public void setToolCardDice(String clientname, int row, int column)throws RemoteException;
 
+    public int getToken(String clientname) throws RemoteException;
     public void setToolCardDiceIntensity(String clientname, int intensity) throws RemoteException;
     public String getPlayersinmymatch (String clientname) throws RemoteException;
-    public String getmapofthePlayer(String clientname, String player) throws RemoteException;
+    public List getSchemeCardsoftheotherPlayers(String clientname) throws RemoteException;
     public String getToolCardDice(String clientname)throws RemoteException;
 
     }

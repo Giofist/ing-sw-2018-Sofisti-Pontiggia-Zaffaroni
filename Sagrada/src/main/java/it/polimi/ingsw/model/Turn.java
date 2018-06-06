@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.Turn;
+package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PlayerPackage.*;
@@ -27,18 +27,14 @@ public class Turn implements Runnable{
     @Override
     public synchronized void run(){
         currentPlayer.setTurn(this);
-        if (currentPlayer.mustpassTurn()){
-            try {
+        try {
+            if (currentPlayer.mustpassTurn()){
                 currentPlayer.setPlayerState(State.NOTYOURTURNSTATE);
-            } catch (RemoteException e1) {
-                this.doneSignal.countDown();
-            }
-        }else {
-            try {
+            }else {
                 currentPlayer.setPlayerState(State.STARTTURNSTATE);
-            } catch (RemoteException e2) {
-                this.doneSignal.countDown();
             }
+        }catch (RemoteException e1) {
+            this.doneSignal.countDown();
         }
         for (Player player: this.round.getMatch().getallPlayersbutnotme(currentPlayer)) {
             try{
@@ -50,7 +46,7 @@ public class Turn implements Runnable{
 
         // se è rimasto un solo giocatore, la partita finisce immediatamente
         if (this.doneSignal.getCount() == 1){
-            //currentPlayer.getMatch().forceendmatch();
+            currentPlayer.getMatch().forceendmatch();
         }
 
         try{

@@ -1,6 +1,5 @@
 package it.polimi.ingsw.ClientView;
 
-import it.polimi.ingsw.ServerController.ClientHandler;
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
 import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
 import it.polimi.ingsw.model.Exceptions.UserNotExistentException;
@@ -382,7 +381,7 @@ public class Setter {
         boolean correct = false;
         int index;
         try {
-            schemeCards = serverController.getSchemeCards(yourName);
+            schemeCards = serverController.getExtractedSchemeCard(yourName);
         } catch (RemoteException e) {
             System.out.println(e.getMessage());
         }

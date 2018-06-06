@@ -2,18 +2,17 @@ package it.polimi.ingsw.model.PlayerPackage;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.Exceptions.*;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
-import it.polimi.ingsw.model.Turn.Turn;
+import it.polimi.ingsw.model.Turn;
 
 import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Observable;
 
 //implementa comparable per ordinare i giocatori in base al punteggio nellav lista di player
 public class Player  implements Comparable<Player> {
     private transient User user;
     private GoalCard privateGoalCard;
-    private int segnalini_favore;
+    private int token;
     private LinkedList<SchemeCard> extractedschemeCards;
     private SchemeCard scheme;
     private int points;
@@ -29,8 +28,6 @@ public class Player  implements Comparable<Player> {
     //per la gestione delle toolCard, potremo pensare ad un'ottimizzazione
     private Dice diceforToolCard;
     private boolean mustpassTurn;
-    private boolean hassetaDicethisturn;
-
 
     //costruttore
     public Player(){
@@ -41,6 +38,7 @@ public class Player  implements Comparable<Player> {
         this.extractedschemeCards = new LinkedList<>();
         this.scheme = null;
         this.playerState = new PlayerState();
+        this.token = 0;
 
     }
 
@@ -49,26 +47,19 @@ public class Player  implements Comparable<Player> {
 
 
     //metodi setter e getter
-    public boolean HassetaDicethisturn(){
-        return this.hassetaDicethisturn;
-    }
 
-    public void setHassetaDicethisturn(boolean value){
-        this.hassetaDicethisturn = value;
+    public int getToken() {
+        return token;
     }
-
-    public int getSegnalini_favore() {
-        return segnalini_favore;
-    }
-    public void setSegnalini_favore(int segnalinifavore) {
-        this.segnalini_favore = segnalinifavore;
+    public void setToken(int token) {
+        this.token = token;
     }
     public void payforToolAction(int cost)throws NotEnoughSegnaliniException {
-        if(this.getSegnalini_favore() < cost){
+        if(this.getToken() < cost){
             throw new NotEnoughSegnaliniException();
         }
         else {
-            this.setSegnalini_favore(this.getSegnalini_favore()-cost);
+            this.setToken(this.getToken()-cost);
         }
     }
     public  void setPrivateGoalCard ( GoalCard privateGoalCard){
@@ -87,6 +78,7 @@ public class Player  implements Comparable<Player> {
         }else if (cardid == this.extractedschemeCards.getLast().getTwinCard().getID()) {
             this.scheme = this.extractedschemeCards.getLast().getTwinCard();
         }else throw new CardIdNotAllowedException();
+        this.token = this.scheme.getDifficulty();
         this.getMatch().countDown();
     }
     public SchemeCard getScheme() throws SchemeCardNotExistantException{
@@ -168,9 +160,8 @@ public class Player  implements Comparable<Player> {
 
     @Override
     public String toString(){
-        return this.getAssociatedUser().getName() + " " + this.getPoints() + "\n";
+        return this.getAssociatedUser().getName();
     }
 
-    protected void setPoints(int points) { this.points = points; }
 
 }
