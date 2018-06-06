@@ -66,7 +66,6 @@ public class Setter {
                             System.out.println(e.getMessage());
                         }
                     }
-                    success = true;
                     break;
                 }
                 case "USEALLTOOLCARD": {
