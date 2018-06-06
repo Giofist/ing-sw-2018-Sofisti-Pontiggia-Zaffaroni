@@ -367,6 +367,33 @@ public class Setter {
         }
     }
 
+    public void placeSingleDice(ClientHandlerInterface serverController, String yourName){
+        Scanner in = new Scanner(System.in);
+        int diceIndex;
+        int row = 100;
+        int column = 100;
+        boolean success = false;
+        try {
+            Printer.Singleton().printMap(serverController.getSchemeCard(yourName));
+        } catch (RemoteException e) {
+            System.out.println(e.getMessage());
+        }
+        while (!success) {
+            System.out.println("Piazza il dado appena modificato:");
+            Printer.Singleton().printExtractedDice(serverController, yourName);
+            System.out.println("Seleziona la riga in cui posizionare il dado: [0/3]");
+            row = in.nextInt();
+            System.out.println("Seleziona la riga in cui posizionare il dado: [0/4]");
+            column = in.nextInt();
+            try {
+                serverController.setToolCardDice(yourName, row, column);
+                success = true;
+            } catch (RemoteException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
     public void passYourTurn(ClientHandlerInterface serverController, String yourName){
         try {
             serverController.passTurn(yourName);
@@ -399,6 +426,19 @@ public class Setter {
             } catch (RemoteException e){
                 System.out.println(e.getMessage());
             }
+        }
+    }
+
+    public void selectExtractedDiceIntensity(ClientHandlerInterface serverController, String yourName){
+        Scanner in = new Scanner(System.in);
+        int intensity;
+        Printer.Singleton().printExtractedDice(serverController, yourName);
+        System.out.println("Seleziona l'intensità del dado estratto: [1/6]");
+        intensity = in.nextInt();
+        try {
+            serverController.setToolCardDiceIntensity(yourName, intensity);
+        } catch (RemoteException e) {
+            System.out.println(e.getMessage());
         }
     }
 
