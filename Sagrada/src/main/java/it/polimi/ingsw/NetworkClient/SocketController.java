@@ -56,6 +56,10 @@ public class SocketController implements ClientHandlerInterface {
     }
 
     @Override
+    public void login(String clientname, String password, Observer observer) throws RemoteException {
+
+    }
+
     public synchronized void   login(String username, String password) throws RemoteException {
         ClientMessage loginMessage = new LoginMessage();
         loginMessage.setClientName(username);
@@ -350,6 +354,10 @@ public class SocketController implements ClientHandlerInterface {
         this.stringHandler = null;
     }
 
+    @Override
+    public void leavethematch(String clientname) throws RemoteException {
+
+    }
 
 
     @Override

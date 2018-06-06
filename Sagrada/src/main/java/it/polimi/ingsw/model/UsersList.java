@@ -66,15 +66,17 @@ public class UsersList {
     // ho creato LoginException, ma sicome esiste già una classe loginExcpetion in una libreria standard di java, allora devo scrivere tutto il package
     synchronized public void check( String name, String password, Observer observer)throws it.polimi.ingsw.model.Exceptions.LoginException, IsAlreadyActiveException {
         for (User user : this.users){
-            if (user.getName().equals(name) && user.getPassword().equals(password))
+            if (user.getName().equals(name) && user.getPassword().equals(password)){
                 if (user.isActive()){
-                throw new IsAlreadyActiveException();
-                }else{
-                user.setActive(true);
-                if (user.getPlayer() != null){
-                    user.getPlayer().getPlayerState().addObserver(observer);
+                    throw new IsAlreadyActiveException();
+                }else {
+                    user.setActive(true);
+                    if (user.getPlayer() != null) {
+                        user.getPlayer().getPlayerState().addObserver(observer);
+                    }
                 }
             }
+            return;
         }
         throw new it.polimi.ingsw.model.Exceptions.LoginException();
     }

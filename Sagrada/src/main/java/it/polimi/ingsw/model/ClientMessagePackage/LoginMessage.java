@@ -17,8 +17,8 @@ public class LoginMessage extends ClientMessage {
     @Override
     public void performAction(ClientHandlerInterface clientHandler, SocketServerListener listener) {
 
-        try{
-            clientHandler.login(this.getClientName(), this.getPassword());
+        /*try{
+            clientHandler.login(this.getClientName(), this.getPassword(),);
             ServerMessage messageClass = new ServerMessage();
             messageClass.setMessagecodex(1);
 
@@ -37,6 +37,6 @@ public class LoginMessage extends ClientMessage {
             } catch (IOException err) {
                 e.printStackTrace();
             }
-        }
+        }*/
         }
 }
