@@ -282,7 +282,7 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
             }
             case STARTTURNSTATE: {
 
-                this.thread = new Thread(new StartTurnView());
+                this.thread = new Thread(new StartTurnView(serverController, yourName));
                 break;
             }
             case ENDMATCHSTATE: {

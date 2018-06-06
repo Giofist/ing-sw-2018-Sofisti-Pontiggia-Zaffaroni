@@ -13,6 +13,6 @@ public class HasSetDicesStateView implements Runnable {
 
     @Override
     public void run() {
-
+        Setter.Singleton().selectAction(serverController, yourName);
     }
 }

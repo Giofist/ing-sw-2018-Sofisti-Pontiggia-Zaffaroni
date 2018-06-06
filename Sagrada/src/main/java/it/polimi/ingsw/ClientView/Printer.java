@@ -18,7 +18,6 @@ public class Printer {
     private Printer(){
     }
 
-
     //metodo che crea/dà accesso se già creata all'unica istanza
     public synchronized static Printer Singleton(){
         if (printer == null) {
@@ -28,8 +27,8 @@ public class Printer {
     }
 
     public void printMap(String map){
-        System.out.println(map);
         char[] charTile;
+
         String[] element = map.split("%");
         System.out.println(element[0]);
         System.out.println(element[1]);
@@ -81,6 +80,7 @@ public class Printer {
             }
             System.out.print("\n");
         }
+        System.out.print("\n");
 
     }
 

@@ -137,11 +137,6 @@ public class Setter {
                 case "PASSTURN": {
                     passYourTurn(serverController, yourName);
                     success = true;
-                    try {
-                        wait();
-                    } catch (InterruptedException e) {
-                        System.out.println(e.getMessage());
-                    }
                     break;
                 }
                 default:{
@@ -150,7 +145,6 @@ public class Setter {
                 }
             }
         }
-        selectAction(serverController, yourName);
     }
 
     public void useToolcard(ClientHandlerInterface serverController, String yourName) {

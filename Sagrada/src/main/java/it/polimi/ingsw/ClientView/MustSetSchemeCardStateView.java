@@ -13,7 +13,6 @@ public class MustSetSchemeCardStateView implements Runnable {
 
     @Override
     public void run() {
-
         Setter.Singleton().selectSchemeCard(serverController, yourName);
     }
 }
