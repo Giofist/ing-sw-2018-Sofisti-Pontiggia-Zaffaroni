@@ -35,7 +35,7 @@ public class Round {
                     System.out.println("Turn started at:"+new Date());
                     try {
                         //assuming it takes 20 secs to complete the task
-                        Thread.sleep(120000);
+                        Thread.sleep(1200000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

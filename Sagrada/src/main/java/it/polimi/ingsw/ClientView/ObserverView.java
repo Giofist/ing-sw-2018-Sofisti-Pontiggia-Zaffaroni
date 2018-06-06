@@ -141,6 +141,7 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
             System.out.println("Sei hai una partita in corso verrai subito reindirizzato a quella");
             try {
                 serverController.login(username, password, this);
+                System.out.println();
             } catch (RemoteException e) {
                 System.out.println(e.getMessage());
                 success = false;
@@ -248,6 +249,7 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
     public synchronized void update(Observable o, Object arg) {
         if(this.thread !=null){
             this.thread.interrupt();
+            this.thread = null;
         }
         this.thread = null;
         State state =  o.getState();

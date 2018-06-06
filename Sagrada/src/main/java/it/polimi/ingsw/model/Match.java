@@ -147,6 +147,8 @@ public class Match implements Runnable{
         LinkedList<Player> list = new LinkedList<>();
         list.addAll(this.players);
         list.remove(player);
+        for (Player player1 : this.players)
+        System.out.println(player1.toString());
         return list;
     }
 

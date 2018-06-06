@@ -77,8 +77,9 @@ public class UsersList {
                         user.getPlayer().getPlayerState().addObserver(observer);
                     }
                 }
+                return;
             }
-            return;
+
         }
         throw new it.polimi.ingsw.model.Exceptions.LoginException();
     }

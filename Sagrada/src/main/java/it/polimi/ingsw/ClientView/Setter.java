@@ -48,7 +48,7 @@ public class Setter {
                 case "GETMAPS": {
                     List players = null;
                     List schemecards = null;
-
+                    System.out.println("Adesso ti mostreremo le mappe degli altri");
 
                     while (!correct) {
                         try {
@@ -66,6 +66,7 @@ public class Setter {
                             System.out.println(e.getMessage());
                         }
                     }
+                    correct = false;
                     break;
                 }
                 case "USEALLTOOLCARD": {
