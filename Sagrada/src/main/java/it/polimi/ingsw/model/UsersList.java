@@ -5,8 +5,10 @@ import it.polimi.ingsw.model.Exceptions.HomonymyException;
 import it.polimi.ingsw.model.Exceptions.IsAlreadyActiveException;
 import it.polimi.ingsw.model.Exceptions.UserNotExistentException;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -28,7 +30,7 @@ public class UsersList {
 
 
     //metodo che crea/dà accesso se già creata all'unica istanza
-    public static  UsersList Singleton(){
+    public static  UsersList Singleton() {
         if (instance == null) {
             instance = new UsersList();
             instance.loadUsersList();
@@ -42,24 +44,27 @@ public class UsersList {
     // Il formato .csv del file è una serie di lineeeì come segue:
     // username, password\n           (notare la virgola che separa user e pass)
     synchronized private void loadUsersList() {
-        File file = new File("./UsersList.csv");
+        FileReader fr = null;
         Scanner fileScanner = null;
-        try {
-            users = new LinkedList<User>();
-            fileScanner = new Scanner(file);
-            String[] splitedUsernameAndPass = new String[2];
-            while (fileScanner.hasNextLine()) {
-                String line = fileScanner.nextLine();
-                splitedUsernameAndPass = line.split(",");
-                users.add(new User(splitedUsernameAndPass[0], splitedUsernameAndPass[1]));
-            }
 
-        } catch (FileNotFoundException e) {
+        try {
+            fr = new FileReader("src/main/resources/UsersList.txt");
+            fileScanner = new Scanner(fr);
+
             users = new LinkedList<User>();
-        } catch (NullPointerException e) {
+            String[] splittedUsernameAndPass;
+
+            while (fileScanner.hasNextLine()){
+                String line = fileScanner.nextLine();
+                splittedUsernameAndPass = line.split(",");
+                users.add(new User(splittedUsernameAndPass[0], splittedUsernameAndPass[1]));
+            }
+        } catch (IOException e){
             users = new LinkedList<User>();
         } finally {
-
+            try { fr.close(); } catch (NullPointerException e) { e.printStackTrace(); }
+                                catch (IOException e) { e.printStackTrace(); }
+            try { fileScanner.close(); } catch (NullPointerException e) { e.printStackTrace(); }
         }
     }
 
@@ -67,8 +72,10 @@ public class UsersList {
     //metodo che controlla la correttezza del login
     // ho creato LoginException, ma sicome esiste già una classe loginExcpetion in una libreria standard di java, allora devo scrivere tutto il package
     synchronized public void check( String name, String password, Observer observer)throws it.polimi.ingsw.model.Exceptions.LoginException, IsAlreadyActiveException {
+        String hexHash = produceSHA256(password);
+
         for (User user : this.users){
-            if (user.getName().equals(name) && user.getPassword().equals(password)){
+            if (user.getName().equals(name) && user.getPassword().equals(hexHash)){
                 if (user.isActive()){
                     throw new IsAlreadyActiveException();
                 }else {
@@ -94,12 +101,64 @@ public class UsersList {
 
     //classe che permette di registrarsi
     synchronized public void register (String name,String password) {
-        User user = new User(name, password);
-        this.users.add(user);
-        System.out.println(name + " è stato registrato");
-        return ;
+
+        FileWriter fw = null;
+        BufferedWriter bw = null;
+
+        try {
+            String hexHash = produceSHA256(password);
+
+            // Write the new User to the file
+            fw = new FileWriter("src/main/resources/UsersList.txt", true);
+            bw = new BufferedWriter(fw);
+            bw.write(name + "," + hexHash);
+            bw.newLine();
+            bw.flush();
+
+            System.out.println(name+","+hexHash);
+
+            // Add the new user to the list of registered users
+            User user = new User(name, hexHash);
+            this.users.add(user);
+            System.out.println(name + " è stato registrato");
+            System.out.println(users.toString());
+
+        } catch (IOException e){
+            e.printStackTrace();
+        } finally {
+            try { fw.close(); } catch (Exception e) { e.printStackTrace(); }
+            try { bw.close(); } catch (Exception e) { }
+        }
+
+        return;
     }
-    // to check Homonymy
+
+    private String produceSHA256(String password) {
+
+        MessageDigest digest;
+        byte[] hash;
+        StringBuffer hexHash = new StringBuffer();
+
+        try {
+            // Create the SHA-256 of the password
+            digest = MessageDigest.getInstance("SHA-256");
+            hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
+
+            // Convert hash bytes into StringBuffer
+            for (int i = 0; i < hash.length; i++) {
+                String hex = Integer.toHexString(0xff & hash[i]);
+                if (hex.length() == 1) hexHash.append('0');
+                hexHash.append(hex);
+            }
+
+        } catch (NoSuchAlgorithmException e){
+            e.printStackTrace();
+        }
+
+        return hexHash.toString();
+    }
+
+        // to check Homonymy
     synchronized public void checkHomonymy(String name) throws HomonymyException{
         for (User user:this.users) {
             if(user.getName().equals(name)){
