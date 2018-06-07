@@ -15,10 +15,9 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
     private final Scanner in;
     private final PrintWriter out;
     private String yourName;
-    private int numOfDice;
     private Thread thread;
-    boolean leaveSagrada;
-    boolean leaveMatch;
+    private boolean leaveSagrada;
+    private boolean leaveMatch;
 
     //constructor1
     public ObserverView() throws RemoteException {
