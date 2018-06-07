@@ -470,7 +470,6 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     public List getSchemeCardsoftheotherPlayers(String clientname) throws RemoteException {
         try{
             List<SchemeCard> listtoreturn = new LinkedList();
-            System.out.println("Sono stato chiamato");
             Player player = UsersList.Singleton().getUser(clientname).getPlayer();
             player.getPlayerState().checkAction(TurnActions.GETMAPS);
             for (Player other_player : player.getMatch().getallPlayersbutnotme(player)){
