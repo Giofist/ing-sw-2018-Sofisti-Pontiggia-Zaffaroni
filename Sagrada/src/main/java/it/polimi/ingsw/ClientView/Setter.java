@@ -155,9 +155,12 @@ public class Setter {
 
     public void useToolcard(ClientHandlerInterface serverController, String yourName) {
         Scanner in = new Scanner(System.in);
-        ToolRequestClass data = null;
+        ToolRequestClass data = new ToolRequestClass();
         String input = "0";
         String[] toolCardID = new String[0];
+        Boolean correct = false;
+        Boolean success = false;
+        Boolean condition = false;
         int numOfDicesToMove=0;
 
         try {
@@ -171,17 +174,28 @@ public class Setter {
         } catch (RemoteException e) {
             System.out.println(e.getMessage());
         }
-        while (input != toolCardID[0]|| input != toolCardID[1]|| input != toolCardID[2]) {
+        while (!correct) {
             System.out.println("Quale carta utensile vuoi usare?");
             input = in.nextLine();
+            if(input.equals(toolCardID[0]) || input.equals(toolCardID[1]) || input.equals(toolCardID[2])){
+                correct = true;
+            }
         }
         data.setToolCardID(Integer.parseInt(input));
         switch (input) {
             case "1": { //1. Pinze Sgrossatrice
                 Printer.Singleton().printRoundDicePool(serverController, yourName);
+                while(!condition){
                 System.out.println("Seleziona il dado su cui applicare la Pinza Sgrossatrice:");
                 data.setSelectedRoundDicepoolDiceIndex(in.nextInt());
                 Printer.Singleton().printRoundDicePool(serverController, yourName);
+                    try {
+                        serverController.useaToolCard(yourName, data);
+                        condition = true;
+                    } catch (RemoteException e) {
+                        System.out.println(e.getMessage());
+                    }
+                }
                 break;
             }
             case "2": { //2. Pennello per Eglomise
@@ -190,6 +204,7 @@ public class Setter {
                 } catch (RemoteException e) {
                     System.out.println(e.getMessage());
                 }
+                while(!condition){
                 System.out.println("Seleziona il dado da spostare. Indica la riga:");
                 data.setOldRow1(in.nextInt());
                 System.out.println("Indica la colonna:");
@@ -198,6 +213,13 @@ public class Setter {
                 data.setNewRow1(in.nextInt());
                 System.out.println("Seleziona nuova colonna:");
                 data.setNewColumn1(in.nextInt());
+                    try {
+                        serverController.useaToolCard(yourName, data);
+                        condition = true;
+                    } catch (RemoteException e) {
+                        System.out.println(e.getMessage());
+                    }
+                }
                 break;
             }
             case "3": { //3. Alesatore per lamina di rame
@@ -206,6 +228,7 @@ public class Setter {
                 } catch (RemoteException e) {
                     System.out.println(e.getMessage());
                 }
+                while(!condition){
                 System.out.println("Seleziona il dado da spostare. Indica la riga:");
                 data.setOldRow1(in.nextInt());
                 System.out.println("Indica la colonna:");
@@ -214,6 +237,13 @@ public class Setter {
                 data.setNewRow1(in.nextInt());
                 System.out.println("Seleziona nuova colonna:");
                 data.setNewColumn1(in.nextInt());
+                    try {
+                        serverController.useaToolCard(yourName, data);
+                        condition = true;
+                    } catch (RemoteException e) {
+                        System.out.println(e.getMessage());
+                    }
+                }
                 break;
             }
             case "4": { //4. Lathekin
@@ -222,6 +252,7 @@ public class Setter {
                 } catch (RemoteException e) {
                     System.out.println(e.getMessage());
                 }
+                while(!condition){
                 System.out.println("Seleziona il primo dado da spostare. Indica la riga:");
                 data.setOldRow1(in.nextInt());
                 System.out.println("Indica la colonna:");
@@ -238,9 +269,17 @@ public class Setter {
                 data.setNewRow2(in.nextInt());
                 System.out.println("Seleziona nuova colonna:");
                 data.setNewColumn2(in.nextInt());
+                    try {
+                        serverController.useaToolCard(yourName, data);
+                        condition = true;
+                    } catch (RemoteException e) {
+                        System.out.println(e.getMessage());
+                    }
+                }
                 break;
             }
             case "5": { //5. Taglierina circolare
+                while(!condition){
                 Printer.Singleton().printRoundDicePool(serverController, yourName);
                 System.out.println("Seleziona il dado da scambiare con uno del ound Track. Indica l'indice:");
                 data.setSelectedDIceIndex(in.nextInt());
@@ -249,11 +288,27 @@ public class Setter {
                 data.setRoundWhereThediceis(in.nextInt());
                 System.out.println("Indica la posizione: [0/8]");
                 data.setSelectedRoundTrackDiceIndex(in.nextInt());
+                    try {
+                        serverController.useaToolCard(yourName, data);
+                        condition = true;
+                    } catch (RemoteException e) {
+                        System.out.println(e.getMessage());
+                    }
+                }
                 break;
             }
             case "6": { //6. Pennello per Pasta Salda
+                Printer.Singleton().printRoundDicePool(serverController, yourName);
+                while(!condition){
                 System.out.println("Seleziona il dado da tirare nuovamente. Indica l'indice:");
                 data.setSelectedDIceIndex(in.nextInt());
+                    try {
+                        serverController.useaToolCard(yourName, data);
+                        condition = true;
+                    } catch (RemoteException e) {
+                        System.out.println(e.getMessage());
+                    }
+                }
                 break;
             }
             case "7": { //7. Martelletto
@@ -261,12 +316,21 @@ public class Setter {
             }
             case "8": { //8. Tenaglia a Rotelle
                 Printer.Singleton().printRoundDicePool(serverController, yourName);
+                while(!condition){
                 System.out.println("Seleziona il dado da scambiare con uno del ound Track. Indica l'indice:");
                 data.setSelectedDIceIndex(in.nextInt());
+                    try {
+                        serverController.useaToolCard(yourName, data);
+                        condition = true;
+                    } catch (RemoteException e) {
+                        System.out.println(e.getMessage());
+                    }
+                }
                 break;
             }
             case "9": { //9. Riga in Sughero
                 Printer.Singleton().printRoundDicePool(serverController, yourName);
+                while(!condition){
                 System.out.println("Seleziona il dado da posizionare nella mappa. Indica l'indice:");
                 data.setSelectedDIceIndex(in.nextInt());
                 try {
@@ -278,18 +342,41 @@ public class Setter {
                 data.setNewRow1(in.nextInt());
                 System.out.println("Indica la colonna:");
                 data.setNewColumn1(in.nextInt());
+                    try {
+                        serverController.useaToolCard(yourName, data);
+                        condition = true;
+                    } catch (RemoteException e) {
+                        System.out.println(e.getMessage());
+                    }
+                }
                 break;
             }
             case "10": { //10. Tampone Diamantato
                 Printer.Singleton().printRoundDicePool(serverController, yourName);
+                while(!condition){
                 System.out.println("Seleziona il dado da girare sulla faccia opposta. Indica l'indice:");
                 data.setSelectedDIceIndex(in.nextInt());
+                    try {
+                        serverController.useaToolCard(yourName, data);
+                        condition = true;
+                    } catch (RemoteException e) {
+                        System.out.println(e.getMessage());
+                    }
+                }
                 break;
             }
             case "11": { //11. Diluente per Pasta Salda
                 Printer.Singleton().printRoundDicePool(serverController, yourName);
+                while(!condition){
                 System.out.println("Seleziona il dado rimettere nel sacchetto. Indica l'indice:");
                 data.setSelectedDIceIndex(in.nextInt());
+                try {
+                    serverController.useaToolCard(yourName, data);
+                    condition = true;
+                } catch (RemoteException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
                 break;
             }
             case "12": { //12. Taglierina Manuale
@@ -298,38 +385,48 @@ public class Setter {
                 } catch (RemoteException e) {
                     System.out.println(e.getMessage());
                 }
-                while(numOfDicesToMove!=1||numOfDicesToMove!=2) {
+                while(!success) {
                     System.out.println("Seleziona il numero di dadi da spostare: [1/2]");
-                    numOfDicesToMove =in.nextInt();
+                    numOfDicesToMove = in.nextInt();
+                    if(numOfDicesToMove>0 || numOfDicesToMove<3){
+                        success = true;
+                    }
                 }
                 data.setNumberofDicesyouwanttomove(numOfDicesToMove);
-                if (numOfDicesToMove ==1) {
-                    System.out.println("Seleziona il primo dado da spostare. Indica la riga:");
-                    data.setOldRow1(in.nextInt());
-                    System.out.println("Indica la colonna:");
-                    data.setOldColumn1(in.nextInt());
-                    System.out.println("Seleziona nuova riga:");
-                    data.setNewRow1(in.nextInt());
-                    System.out.println("Seleziona nuova colonna:");
-                    data.setNewColumn1(in.nextInt());
-                }
-                else {
-                    System.out.println("Seleziona il primo dado da spostare. Indica la riga:");
-                    data.setOldRow1(in.nextInt());
-                    System.out.println("Indica la colonna:");
-                    data.setOldColumn1(in.nextInt());
-                    System.out.println("Seleziona nuova riga:");
-                    data.setNewRow1(in.nextInt());
-                    System.out.println("Seleziona nuova colonna:");
-                    data.setNewColumn1(in.nextInt());
-                    System.out.println("Seleziona il primo dado da spostare. Indica la riga:");
-                    data.setOldRow1(in.nextInt());
-                    System.out.println("Indica la colonna:");
-                    data.setOldColumn1(in.nextInt());
-                    System.out.println("Seleziona nuova riga:");
-                    data.setNewRow1(in.nextInt());
-                    System.out.println("Seleziona nuova colonna:");
-                    data.setNewColumn1(in.nextInt());
+                while(!condition) {
+                    if (numOfDicesToMove == 1) {
+                        System.out.println("Seleziona il primo dado da spostare. Indica la riga:");
+                        data.setOldRow1(in.nextInt());
+                        System.out.println("Indica la colonna:");
+                        data.setOldColumn1(in.nextInt());
+                        System.out.println("Seleziona nuova riga:");
+                        data.setNewRow1(in.nextInt());
+                        System.out.println("Seleziona nuova colonna:");
+                        data.setNewColumn1(in.nextInt());
+                    } else {
+                        System.out.println("Seleziona il primo dado da spostare. Indica la riga:");
+                        data.setOldRow1(in.nextInt());
+                        System.out.println("Indica la colonna:");
+                        data.setOldColumn1(in.nextInt());
+                        System.out.println("Seleziona nuova riga:");
+                        data.setNewRow1(in.nextInt());
+                        System.out.println("Seleziona nuova colonna:");
+                        data.setNewColumn1(in.nextInt());
+                        System.out.println("Seleziona il primo dado da spostare. Indica la riga:");
+                        data.setOldRow1(in.nextInt());
+                        System.out.println("Indica la colonna:");
+                        data.setOldColumn1(in.nextInt());
+                        System.out.println("Seleziona nuova riga:");
+                        data.setNewRow1(in.nextInt());
+                        System.out.println("Seleziona nuova colonna:");
+                        data.setNewColumn1(in.nextInt());
+                    }
+                    try {
+                        serverController.useaToolCard(yourName, data);
+                        condition = true;
+                    } catch (RemoteException e) {
+                        System.out.println(e.getMessage());
+                    }
                 }
                 break;
             }
@@ -339,11 +436,7 @@ public class Setter {
                 break;
             }
         }
-        try {
-            serverController.useaToolCard(yourName, data);
-        } catch (RemoteException e) {
-            System.out.println(e.getMessage());
-        }
+
     }
 
     //metodo che permette di piazzare un dado
