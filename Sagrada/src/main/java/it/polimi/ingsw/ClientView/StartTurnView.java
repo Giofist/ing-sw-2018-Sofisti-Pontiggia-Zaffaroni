@@ -13,6 +13,8 @@ public class StartTurnView implements Runnable {
 
     @Override
     public void run() {
+        Printer.Singleton().printRoundTrack(serverController, yourName);
+        Printer.Singleton().printRoundDicePool(serverController, yourName);
         Setter.Singleton().selectAction(serverController, yourName);
     }
 }
