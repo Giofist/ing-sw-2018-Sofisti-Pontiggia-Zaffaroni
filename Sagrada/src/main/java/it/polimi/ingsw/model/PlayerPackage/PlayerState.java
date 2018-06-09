@@ -38,7 +38,6 @@ public class PlayerState implements Observable{
             actions += turnActions.toString().toLowerCase();
             actions +="\n";
         }
-        System.out.println("OK "+actions);
         return actions;
     }
 
@@ -55,8 +54,7 @@ public class PlayerState implements Observable{
             case HASSETADICESTATE:
                 this.actions.addLast(TurnActions.PASSTURN);
                 this.actions.addLast(TurnActions.USEALLTOOLCARD);
-                this.actions.addLast(TurnActions.PASSTURN);
-
+                this.actions.addLast(TurnActions.GETMAPS);
                 break;
             case HASUSEDATOOLCARDACTIONSTATE:
                 this.actions.addLast(TurnActions.PASSTURN);
@@ -77,6 +75,7 @@ public class PlayerState implements Observable{
                 break;
             case NOTYOURTURNSTATE:
                 this.actions.addLast(TurnActions.GETMAPS);
+                this.actions.addLast(TurnActions.PASSTURN);
                 break;
             case STARTTURNSTATE:
                 this.actions.addLast(TurnActions.PASSTURN);
@@ -87,8 +86,6 @@ public class PlayerState implements Observable{
             case MUSTSETSCHEMECARD:
                 this.actions.addLast(TurnActions.SETSCHEMECARD);
                 break;
-
-
         }
     }
     public void addObserver(Observer observer){
@@ -99,7 +96,6 @@ public class PlayerState implements Observable{
             observer.update(this, null);
         }
     }
-
     public State getState() {
         return state;
     }
