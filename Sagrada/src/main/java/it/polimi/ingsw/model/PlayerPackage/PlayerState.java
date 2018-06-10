@@ -5,12 +5,13 @@ import it.polimi.ingsw.model.Exceptions.NoActionAllowedException;
 import it.polimi.ingsw.model.Exceptions.NotAllowedActionException;
 import it.polimi.ingsw.model.Observable;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.LinkedList;
 
-public class PlayerState implements Observable{
+public class PlayerState implements Observable, Serializable{
     private LinkedList<TurnActions> actions;
-    private LinkedList<Observer> observers;
+    private transient LinkedList<Observer> observers;
     private State state;
 
 

@@ -35,13 +35,13 @@ public class Client {
                 new ObserverView(controller).run();
                 correct = true;
             } else if (input.equals("S") || input.equals("s")) {
-                ObserverView observerViewView = new ObserverView();
+                ObserverView view = new ObserverView();
                 SocketClientListener listener = new SocketClientListener(ipAddr);
-                SocketController socketController = new SocketController(observerViewView, listener);
-                listener.setController(socketController);
-                observerViewView.setServerController(socketController);
+                SocketController socketController = new SocketController( listener);
+                listener.setController(socketController, view);
+                view.setServerController(socketController);
                 new Thread(listener).start();
-                observerViewView.run();
+                view.run();
 
                 correct = true;
             } else {

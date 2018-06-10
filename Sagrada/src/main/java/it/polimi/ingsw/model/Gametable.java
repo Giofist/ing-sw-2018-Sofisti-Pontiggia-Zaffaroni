@@ -55,7 +55,6 @@ public class Gametable {
             }catch(EmpyDicepoolException e){
                 System.out.println("errore");
             }
-            System.out.println("Ho aggiunto un dado");
         }
     }
 

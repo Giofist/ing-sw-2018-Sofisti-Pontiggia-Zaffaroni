@@ -1,24 +1,26 @@
 package it.polimi.ingsw.model.ClientMessagePackage;
 
+import it.polimi.ingsw.NetworkServer.ServerMessage;
 import it.polimi.ingsw.NetworkServer.SocketServerListener;
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
-import it.polimi.ingsw.NetworkServer.ServerMessage;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.util.List;
 
-public class GetPrivateGoalCardIdMessage extends ClientMessage {
+public class GetExtractedSchemeCardMessage extends ClientMessage {
 
-    public GetPrivateGoalCardIdMessage() { this.messagecodex = 44; }
-
+    public GetExtractedSchemeCardMessage(){
+        this.messagecodex = 44;
+    }
     @Override
     public void performAction(ClientHandlerInterface clientHandler, SocketServerListener listener) throws RemoteException{
-        int answer = clientHandler.getPrivateGoalCardid(getClientName());
-        ServerMessage messageClass = new ServerMessage();
-        messageClass.setMessagecodex(1);
-        messageClass.setMessage(String.valueOf(answer));
+        List list = clientHandler.getExtractedSchemeCard(getClientName());
+        ServerMessage message = new ServerMessage();
+        message.setMessagecodex(1);
+        message.setList(list);
         try {
-            listener.sendMessage(messageClass);
+            listener.sendMessage(message);
         } catch (IOException e) {
             e.printStackTrace();
         }

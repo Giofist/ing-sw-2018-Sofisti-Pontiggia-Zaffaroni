@@ -49,8 +49,6 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
 
     public synchronized void run() throws RemoteException {
         boolean partita = true;
-        String stringa = serverController.rmiTest("RMI");
-        System.out.println("La connessione è in modalità: " + stringa);
         loadingInterface();
         while (!leaveSagrada){
             menuInt();
@@ -245,13 +243,14 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
     }
 
     @Override
-    public synchronized void update(Observable o, Object arg) {
+    public synchronized void update(Observable o, Object arg) throws RemoteException{
+
         if(this.thread !=null){
             this.thread.interrupt();
             this.thread = null;
         }
-        this.thread = null;
         State state =  o.getState();
+        System.out.println(state.toString());
         switch (state){
             case ERRORSTATE: {
                 this.thread = new Thread(new ErrorStateView(serverController, yourName));

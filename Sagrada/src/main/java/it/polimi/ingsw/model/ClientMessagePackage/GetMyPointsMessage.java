@@ -2,7 +2,7 @@ package it.polimi.ingsw.model.ClientMessagePackage;
 
 import it.polimi.ingsw.NetworkServer.SocketServerListener;
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
-import it.polimi.ingsw.model.ServerMessagePackage.ServerMessage;
+import it.polimi.ingsw.NetworkServer.ServerMessage;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
@@ -12,29 +12,15 @@ public class GetMyPointsMessage extends ClientMessage {
     public GetMyPointsMessage() { this.messagecodex = 44; }
 
     @Override
-    public void performAction(ClientHandlerInterface clientHandler, SocketServerListener listener) {
-
+    public void performAction(ClientHandlerInterface clientHandler, SocketServerListener listener) throws RemoteException{
+        int answer = clientHandler.getmyPoints(getClientName());
+        ServerMessage messageClass = new ServerMessage();
+        messageClass.setMessagecodex(1);
+        messageClass.setMessage(String.valueOf(answer));
         try {
-            int answer = clientHandler.getmyPoints(getClientName());
-            ServerMessage messageClass = new ServerMessage();
-            messageClass.setMessagecodex(33);
-            messageClass.setAnswermessage(String.valueOf(answer));
-
-            try {
-                listener.sendMessage(messageClass);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } catch (RemoteException e) {
-            ServerMessage messageClass = new ServerMessage();
-            messageClass.setMessagecodex(0);
-            messageClass.setErrorMessage(e.getMessage());
-
-            try {
-                listener.sendMessage(messageClass);
-            } catch (IOException err) {
-                e.printStackTrace();
-            }
+            listener.sendMessage(messageClass);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

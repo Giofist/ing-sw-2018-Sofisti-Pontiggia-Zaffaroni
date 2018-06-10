@@ -32,7 +32,6 @@ public class Round {
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    System.out.println("Turn started at:"+new Date());
                     try {
                         //assuming it takes 20 secs to complete the task
                         Thread.sleep(1200000);

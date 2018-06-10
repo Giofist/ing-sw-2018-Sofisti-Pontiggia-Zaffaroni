@@ -5,23 +5,18 @@ import java.rmi.RemoteException;
 
 public class SocketStringHandlerServer implements Runnable {
     private SocketClient client;
-    SocketServerListener listener;
     private String message;
     private RemoteException exception;
+    private int messageCodex;
 
-    public SocketStringHandlerServer(SocketClient client,  SocketServerListener listener, String message){
+    public SocketStringHandlerServer(SocketClient client, String message, int messageCodex ){
         this.client = client;
-        this.listener = listener;
+        this.messageCodex = messageCodex;
         this.message = message;
     }
     public  void run(){
-        System.out.println(message);
-        switch(message){
-            case "OK":
-                break;
-            default:
-                this.exception = new RemoteException(message);
-                break;
+        if(this.messageCodex == 0){
+            this.exception = new RemoteException(message);
         }
         synchronized (client){
             client.setStringHandler(this);

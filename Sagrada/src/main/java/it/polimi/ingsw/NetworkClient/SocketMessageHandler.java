@@ -1,23 +1,36 @@
 package it.polimi.ingsw.NetworkClient;
 
+import it.polimi.ingsw.ClientView.Observer;
 import it.polimi.ingsw.ClientView.ObserverView;
-import it.polimi.ingsw.model.ServerMessagePackage.ServerMessage;
+import it.polimi.ingsw.NetworkServer.ServerMessage;
+import it.polimi.ingsw.model.ClientMessagePackage.ResponseMessage;
+
+import java.io.IOException;
+import java.rmi.RemoteException;
 
 public class SocketMessageHandler implements Runnable {
-    private SocketController controller;
-    private ObserverView observerView;
+    private Observer observer;
     private ServerMessage message;
     private SocketClientListener listener;
 
-    public SocketMessageHandler(SocketController controller, ObserverView observerViewView, SocketClientListener listener, ServerMessage message){
-        this.controller = controller;
+    public SocketMessageHandler(SocketController controller, Observer observer, SocketClientListener listener, ServerMessage message){
         this.listener = listener;
-        this.observerView = observerViewView;
+        this.observer = observer;
         this.message = message;
     }
     @Override
     public void run() {
-
-        message.performAction(this.observerView, this.listener);
+        try{
+            message.performAction(this.observer, this.listener);
+        }catch(RemoteException e){
+            ResponseMessage message = new ResponseMessage();
+            message.setMessagecodex(0);
+            message.setErrorMessage(e.getMessage());
+        try {
+            listener.sendMessage(message);
+        } catch (IOException err) {
+            e.printStackTrace();
+        }
+    }
     }
 }

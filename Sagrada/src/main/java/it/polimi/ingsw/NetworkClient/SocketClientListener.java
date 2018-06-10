@@ -1,8 +1,9 @@
 package it.polimi.ingsw.NetworkClient;
 
+import it.polimi.ingsw.ClientView.Observer;
 import it.polimi.ingsw.ClientView.ObserverView;
 import it.polimi.ingsw.model.ClientMessagePackage.ClientMessage;
-import it.polimi.ingsw.model.ServerMessagePackage.ServerMessage;
+import it.polimi.ingsw.NetworkServer.ServerMessage;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -19,7 +20,7 @@ public class SocketClientListener implements Runnable {
     private PrintWriter out;
     private ObjectInputStream is;
     private ObjectOutputStream os;
-    private ObserverView observerView;
+    private Observer observerView;
     private SocketController controller;
 
     public SocketClientListener(String ipAddr) throws IOException{
@@ -33,8 +34,9 @@ public class SocketClientListener implements Runnable {
         System.out.println("Connessione stabilita!\n");
     }
 
-    public void setController(SocketController controller){
+    public void setController(SocketController controller, Observer observer){
         this.controller = controller;
+        this.observerView = observer;
     }
 
 
@@ -42,41 +44,28 @@ public class SocketClientListener implements Runnable {
     public void run() {
         ExecutorService executor = Executors.newCachedThreadPool(); //crea thread quando necessario
         //convenzione usata:
-        // 1: sto ricevendo la risposta  ad una richiesta di un metodo VOID, che è andata a buon fine,
+        // 1: sto ricevendo la risposta  ad una richiesta di un metodo, che è andata a buon fine.
         // 0: sto ricevendo la risposta ad una richiesta, che è fallita, quindi gestisco il relativo errore
-        // 33: sto ricevendo una risposta positiva ad una richiesta di un metodo NON VOID, quindi devo inoltrare la String che ho ricevuto
+        //44: sto ricevendo una richiesta(che dal server può essere solo un'update)
         int i = 0;
-        System.out.println("sono arrivato al run del listener");
         while (i == 0) {
             try {
                 ServerMessage message = (ServerMessage) is.readObject();
-                System.out.println("ho ricevuto un oggetto");
                 int messagecodex = message.getMessagecodex();
-                if (messagecodex == 1) {
-                    System.out.println("ottimo");
-                    executor.submit(new SocketStringHandler(this.controller, this, "OK", true));
-                }
-                if (messagecodex == 0) {
-                    executor.submit(new SocketStringHandler(this.controller, this, message.getErrorMessage(), true));
-                }
-                if (messagecodex == 33) {
-                    executor.submit(new SocketStringHandler(this.controller,  this, message.getAnswermessage(), false));
-
-                }
                 if(messagecodex == 44){
+                    if(message.getObservable()!=null)
+                    System.out.println(message.getObservable().getState().toString());
                     executor.submit(new SocketMessageHandler(this.controller, this.observerView, this, message));
-
+                }else{
+                    executor.submit(new SocketResponseHandler(this.controller, message.getMessage(), messagecodex,message.getList()));
                 }
+                message = null;
             } catch (Exception e) {
 
             }
         }
     }
 
-    public synchronized void sendString(String string) {
-    out.println(string);
-    out.flush();
-    }
     public synchronized void sendMessage (ClientMessage message)throws IOException{
         os.writeObject(message);
         os.flush();

@@ -1,28 +1,24 @@
 package it.polimi.ingsw.NetworkClient;
 
 import java.rmi.RemoteException;
+import java.util.List;
 
-public class SocketStringHandler implements Runnable{
+public class SocketResponseHandler implements Runnable{
     private SocketController controller;
     private String message;
     private RemoteException exception;
-    boolean errorMessage;
+    private int messageCodex;
+    private List list;
 
-    public SocketStringHandler(SocketController controller, SocketClientListener listener, String message, boolean errorMessage){
+    public SocketResponseHandler(SocketController controller, String message, int messageCodex, List list){
         this.controller = controller;
         this.message = message;
-        this.errorMessage = errorMessage;
+        this.messageCodex = messageCodex;
+        this.list = list;
     }
     public  void run(){
-        System.out.println(message);
-        switch(message){
-            case "OK":
-                break;
-            default:
-                if(errorMessage){
-                    this.exception = new RemoteException(message);
-                }
-                break;
+        if(this.messageCodex == 0){
+            this.exception = new RemoteException(message);
         }
         synchronized (controller){
             controller.setStringHandler(this);
@@ -38,6 +34,10 @@ public class SocketStringHandler implements Runnable{
     }
     public String getMessage(){
         return message;
+    }
+
+    public List getList() {
+        return list;
     }
 }
 

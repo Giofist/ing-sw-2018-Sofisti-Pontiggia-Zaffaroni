@@ -3,6 +3,9 @@ package it.polimi.ingsw.NetworkServer;
 import it.polimi.ingsw.ServerController.ClientHandler;
 import it.polimi.ingsw.model.ClientMessagePackage.ClientMessage;
 
+import java.io.IOException;
+import java.rmi.RemoteException;
+
 public class SocketMessageHandlerServer implements Runnable {
     ClientMessage messageClass;
     ClientHandler clientHandler;
@@ -14,6 +17,18 @@ public class SocketMessageHandlerServer implements Runnable {
     }
     @Override
     public void run() {
-        this.messageClass.performAction(this.clientHandler, this.listener);
+        try{
+            this.messageClass.performAction(this.clientHandler, listener);
+        }catch (RemoteException e) {
+            ServerMessage message = new ServerMessage();
+            message.setMessagecodex(0);
+            message.setMessage(e.getMessage());
+
+            try {
+                listener.sendMessage(message);
+            } catch (IOException err) {
+                e.printStackTrace();
+            }
+        }
     }
 }

@@ -21,10 +21,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     //constructor
     public ClientHandler ()throws RemoteException {}
 
-    @Override
-    public String rmiTest(String stringa) {
-        return "Test " + stringa;
-    }
+
     @Override
     public synchronized void register(String username, String password) throws RemoteException{
         // When the User wants to register a new account we first verify that there isn't another User with the same username
@@ -63,8 +60,6 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
             //creo un player, lo associo ad uno user e viceversa;
             Player player = new Player();
             User user = UsersList.Singleton().getUser(clientname);
-            System.out.println("fin qui tutto bene");
-
             user.setPlayer(player);
             player.setUser(user);
 

@@ -48,7 +48,6 @@ public class MatchesList {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                System.out.println("Match started at:"+new Date());
                 try {
 
                     Thread.sleep(900000);

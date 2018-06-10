@@ -1,6 +1,8 @@
 package it.polimi.ingsw.model.PlayerPackage;
 
-public enum State {
+import java.io.Serializable;
+
+public enum State implements Serializable {
     ENDMATCHSTATE,
     ERRORSTATE,
     HASSETADICESTATE,

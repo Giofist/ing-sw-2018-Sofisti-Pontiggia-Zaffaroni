@@ -5,11 +5,11 @@ import it.polimi.ingsw.ServerController.ClientHandlerInterface;
 import it.polimi.ingsw.model.ToolCard.ToolRequestClass;
 
 import java.io.Serializable;
+import java.rmi.RemoteException;
 
 public abstract class ClientMessage implements Serializable{
     int messagecodex;
     String errorMessage;
-    ToolRequestClass requestClass;
     // questa classe dovrà essere popolata a seconda delle richieste
     // Parametri delle richieste
     String clientname;
@@ -51,9 +51,6 @@ public abstract class ClientMessage implements Serializable{
         return messagecodex;
     }
 
-    public void setRequestClass(ToolRequestClass requestClass){
-        this.requestClass = requestClass;
-    }
 
 
     // Metodi setter
@@ -123,7 +120,7 @@ public abstract class ClientMessage implements Serializable{
         return this.intensity;
     }
 
-    public  abstract void performAction(ClientHandlerInterface clientHandler, SocketServerListener listener);
+    public  abstract void performAction(ClientHandlerInterface clientHandler, SocketServerListener listener) throws RemoteException;
 
 
 }

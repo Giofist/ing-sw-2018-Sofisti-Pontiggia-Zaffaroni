@@ -44,11 +44,9 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
 
             //set the map name
             this.MapName = buffer.readLine();
-            System.out.println("Titolo della mappa: " + this.getMapName());
 
             //setDifficulty
             this.difficulty = Integer.parseInt(buffer.readLine());
-            System.out.println("Difficoltà: " + this.getDifficulty());
 
             //setRow
             this.maxRow = Integer.parseInt(buffer.readLine());
@@ -60,7 +58,6 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
 
             this.mapString = buffer.readLine();
             this.map = mapString.toCharArray();
-            System.out.println(map);
 
             //set Tiles
             for(int row=0; row<maxRow; row++) {
@@ -120,7 +117,6 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
                 }
             }
 
-            System.out.println("--------------");
         }
         catch (Exception e){
             throw e;
@@ -128,7 +124,6 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
     }
 
     public void setTwinCard(SchemeCard schemeCard) {
-        System.out.println("This has been the Twin Map\n\n");
         this.twinCard = schemeCard;
     }
 
