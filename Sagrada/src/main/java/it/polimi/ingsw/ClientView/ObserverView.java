@@ -60,9 +60,7 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
                     e.printStackTrace();
                 }
             }
-
         }
-
     }
 
     private void loadingInterface() {
@@ -105,6 +103,7 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
         boolean successo = false;
         boolean remoteException = false;
         while (!successo) {
+            remoteException=false;
             System.out.println("Inserisci un nuovo Username:");
             username = in.nextLine();
             this.yourName = username;
@@ -116,7 +115,7 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
                 System.out.println(e.getMessage());
                 remoteException = true;
             }
-            if (!remoteException){
+            if (remoteException == false){
                 System.out.println("Esegui il LogIn con l'account appena creato!");
                 logInInt();
                 successo = true;
@@ -144,16 +143,13 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
                 success = false;
             }
         } while (!success);
-        }
-
-
+    }
 
 
     private void menuInt() throws RemoteException {
         Scanner in = new Scanner(System.in);
         String input;
         boolean success = false;
-
         do{
             System.out.println("Benvenuto nel menù principale di Sagrada!");
             System.out.println("- Multi Giocatore (M)");
@@ -301,6 +297,4 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
         }
         this.notifyAll();
     }
-
-
 }
