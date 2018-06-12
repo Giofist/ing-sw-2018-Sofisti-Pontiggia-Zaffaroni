@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.SchemeDeck;
 
 import it.polimi.ingsw.model.Exceptions.OutOfMatrixException;
+import it.polimi.ingsw.model.PublicGoalCards.SfumatureDiverseColonna;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -34,7 +35,9 @@ public class RowIterator<T> implements Iterator<Tile> {
             throw new NoSuchElementException("Matrix dead end reached.");
         }
 
+        System.out.println("ROW: " + currentRow + " COL: " + column);
         currentRow++;
+        System.out.println("ROW: " + currentRow + " COL: " + column);
         if (currentRow == schemeCard.getMaxRow()) {
             deadEnd = true;
         }

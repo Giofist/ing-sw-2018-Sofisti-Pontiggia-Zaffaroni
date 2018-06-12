@@ -8,11 +8,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URI;
 
 public class LogInController {
+
+    public Stage primaryStage;
 
     @FXML
     private JFXTextField username;
@@ -35,6 +38,11 @@ public class LogInController {
     @FXML
     void closeClient(MouseEvent event) {
         System.exit(0);
+    }
+
+
+    public void setPrimaryStage(Stage stage) {
+        this.primaryStage = stage;
     }
 
     //go to the official sagrada store

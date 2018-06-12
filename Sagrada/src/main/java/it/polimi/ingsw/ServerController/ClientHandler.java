@@ -260,8 +260,8 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
             Player player = UsersList.Singleton().getUser(clientusername).getPlayer();
             player.getPlayerState().checkAction(TurnActions.SETDICE);
             Dice dice = player.getGametable().getRoundDicepool().getDice(diceindex);
-            player.getGametable().getRoundDicepool().removeDice(diceindex);
             player.getScheme().setDice(dice ,row ,column, false, false, false);
+            player.getGametable().getRoundDicepool().removeDice(diceindex);
             try{
                 if (player.getPlayerState().getState().equals(State.HASUSEDATOOLCARDACTIONSTATE)){
                     player.setPlayerState(State.MUSTPASSTURNSTATE);
@@ -277,6 +277,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
         }catch (SchemeCardNotExistantException e){
             throw new RemoteException(e.getMessage());
         }catch(OutOfMatrixException e){
+
             throw new RemoteException(e.getMessage());
         }catch(TileConstrainException e){
             throw new RemoteException(e.getMessage());

@@ -18,6 +18,7 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
     private Thread thread;
     private boolean leaveSagrada;
     private boolean leaveMatch;
+    private  boolean leave;
 
     //constructor1
     public ObserverView() throws RemoteException {
@@ -25,6 +26,7 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
         this.out = new PrintWriter(System.out);
         leaveSagrada = false;
         leaveMatch = false;
+        leave =false;
     }
 
     //constructor2
@@ -43,19 +45,19 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
         this.leaveSagrada = value;
     }
 
-    public void setLeaveMatch(boolean value){
-        this.leaveMatch = leaveMatch;
-    }
-
     public synchronized void run() throws RemoteException {
-        boolean partita = true;
         loadingInterface();
         while (!leaveSagrada){
+            leaveMatch = false;
             menuInt();
             while (!leaveMatch){
                 try {
                     wait();
                     this.thread.start();
+                    if(leave){
+                        leaveMatch= true;
+                        wait();
+                    }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -142,6 +144,7 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
                 System.out.println(e.getMessage());
                 success = false;
             }
+            this.yourName = username;
         } while (!success);
     }
 
@@ -163,7 +166,6 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
             }
             else if (input.equals("L") || input.equals("l")) {
                 serverController.logout(this.yourName);
-                setLeaveMatch(true);
                 success = true;
             }
             else {
@@ -246,7 +248,7 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
             this.thread = null;
         }
         State state =  o.getState();
-        System.out.println(state.toString());
+        System.out.println("State: " +state.toString());
         switch (state){
             case ERRORSTATE: {
                 this.thread = new Thread(new ErrorStateView(serverController, yourName));
@@ -286,6 +288,8 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
                 break;
             }
             case ENDMATCHSTATE: {
+                leave = true;
+                System.out.println("forza chievo");
                 this.thread = new Thread(new EndMatchStateView(serverController, yourName, this));
 
                 break;

@@ -87,15 +87,15 @@ public class Match implements Runnable{
             //do nothing
         }
         //adesso la partita può avere inizio
-        for (int i = 1; i<=10; i++){
+        for (int i = 1; i<=1; i++){
             new Round(i, this.players, this).run();
             //ad ogni ciclo for devo cambiare l'ordine di inizio round
             this.players.addLast(this.players.removeFirst());
         }
 
-
         //to calculate points for the public goals
         this.getGametable().calculatePointsforAllPlayers(this.players);
+
         // to calculate points for the private goals
         for (Player player:this.players) {
             player.getPrivateGoalCard().calculatepoint(player);
@@ -111,7 +111,6 @@ public class Match implements Runnable{
                 player.getAssociatedUser().setActive(false);
                 leavethematchatthend(player);
             }
-        //qui bisognerà chiudere la partita in qualche modo
         }
     }
 
@@ -147,8 +146,6 @@ public class Match implements Runnable{
         LinkedList<Player> list = new LinkedList<>();
         list.addAll(this.players);
         list.remove(player);
-        for (Player player1 : this.players)
-        System.out.println(player1.toString());
         return list;
     }
 

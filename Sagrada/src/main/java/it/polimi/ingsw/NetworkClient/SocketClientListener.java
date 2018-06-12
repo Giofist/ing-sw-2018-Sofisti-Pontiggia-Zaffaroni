@@ -53,8 +53,6 @@ public class SocketClientListener implements Runnable {
                 ServerMessage message = (ServerMessage) is.readObject();
                 int messagecodex = message.getMessagecodex();
                 if(messagecodex == 44){
-                    if(message.getObservable()!=null)
-                    System.out.println(message.getObservable().getState().toString());
                     executor.submit(new SocketMessageHandler(this.controller, this.observerView, this, message));
                 }else{
                     executor.submit(new SocketResponseHandler(this.controller, message.getMessage(), messagecodex,message.getList()));

@@ -27,9 +27,9 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
     private int ID;
     private String MapName;
     private String mapString;
-    char[] map;
-    int maxRow;
-    int maxColumn;
+    private char[] map;
+    private int maxRow;
+    private int maxColumn;
 
     //constructor
     public SchemeCard(int mapID) throws IOException, MapConstrainReadingException {

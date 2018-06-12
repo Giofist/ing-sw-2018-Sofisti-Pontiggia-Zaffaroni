@@ -21,7 +21,9 @@ public class Turn implements Runnable{
     }
     @Override
     public synchronized void run(){
-        currentPlayer.setTurn(this);
+        for (Player player: this.round.getMatch().getallPlayers()){
+            player.setTurn(this);
+        }
         try {
             if (currentPlayer.mustpassTurn()){
                 currentPlayer.setPlayerState(State.NOTYOURTURNSTATE);
@@ -39,7 +41,7 @@ public class Turn implements Runnable{
                 }
             }
         // se è rimasto un solo giocatore, la partita finisce immediatamente
-        if (this.doneSignal.getCount() == 1){
+        if (this.doneSignal.getCount() == 0){
             currentPlayer.getMatch().forceendmatch();
         }
 
@@ -60,5 +62,11 @@ public class Turn implements Runnable{
     }
     public void countDown(){
         this.doneSignal.countDown();
+    }
+
+    public void countDownAll() {
+        while(this.doneSignal.getCount() != 0){
+            this.doneSignal.countDown();
+        }
     }
 }

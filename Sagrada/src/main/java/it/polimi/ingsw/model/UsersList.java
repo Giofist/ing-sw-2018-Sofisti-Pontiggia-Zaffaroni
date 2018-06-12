@@ -172,10 +172,6 @@ public class UsersList {
         this.users.remove(user);
     }
 
-    //metodo getter della lista
-    synchronized public LinkedList<User> getUsers() {
-        return users;
-    }
 
     synchronized public User getUser(String name) throws UserNotExistentException {
         for (User user: this.users) {

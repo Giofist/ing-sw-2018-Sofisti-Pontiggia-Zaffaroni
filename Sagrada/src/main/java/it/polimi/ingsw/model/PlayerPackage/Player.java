@@ -162,6 +162,7 @@ public class Player  implements Comparable<Player> {
             return this.getPoints() - player.getPoints();
         }
         else if (this.getToken() != player.getToken()){
+            System.out.println("forza roma");
             return this.getToken() - this.getToken();
         }
         else return this.getMatch().getallPlayers().indexOf(this) - player.getMatch().getallPlayers().indexOf(player);
@@ -172,5 +173,11 @@ public class Player  implements Comparable<Player> {
         return this.getAssociatedUser().getName();
     }
 
-
+    @Override
+    public boolean equals(Object o){
+        if (this.toString().equals(o.toString())){
+            return true;
+        }
+        else return false;
+    }
 }

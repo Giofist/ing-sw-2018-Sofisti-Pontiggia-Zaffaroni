@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.GoalCard;
 import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.SchemeDeck.ColumnIterator;
 import it.polimi.ingsw.model.SchemeDeck.RowIterator;
+import it.polimi.ingsw.model.SchemeDeck.Tile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +20,10 @@ public class SfumatureDiverseColonna implements GoalCard {
 
     @Override
     public void  calculatepoint(Player player) {
+
         try{
             ColumnIterator columnIterator =  player.getScheme().columnIterator(0);
+
             while(columnIterator.hasNext()) {
                 try {
                     List<Integer> existingshades = new ArrayList<Integer>();
@@ -37,8 +40,11 @@ public class SfumatureDiverseColonna implements GoalCard {
                     player.addPoints(4);
                     columnIterator.next();
                 } catch (TwoDiceSameShadeException e) {
+                    columnIterator.next();
                     //unfortunately you can't get the points
                 }catch (DiceNotExistantException e){
+                    columnIterator.next();
+
                     //unfortunately you can't get the points
                 }
             }

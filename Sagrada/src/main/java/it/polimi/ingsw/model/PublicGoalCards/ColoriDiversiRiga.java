@@ -21,6 +21,7 @@ public class ColoriDiversiRiga implements GoalCard {
 
     @Override
     public void  calculatepoint(Player player) {
+
         try{
             RowIterator rowIterator =  player.getScheme().rowIterator(0);
             // do nothing
@@ -39,8 +40,12 @@ public class ColoriDiversiRiga implements GoalCard {
                     player.addPoints(5);
                     rowIterator.next();
                 } catch (TwoDiceSameColorException e) {
+                    rowIterator.next();
+
                     //unfortunately you can't get the points: there are two dices of the same color
                 } catch (DiceNotExistantException e) {
+                    rowIterator.next();
+
                     //unfortunately you can't get the point: the column has an empty tile
                 }
             }

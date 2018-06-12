@@ -33,6 +33,7 @@ public class PublicGoalCardDeck {
     }
     public void addCardToDeck(){
         int cardID = this.getValue();
+
         switch (cardID){
             case 1: this.deck.add(new ColoriDiversiRiga()); break;
             case 2 : this.deck.add(new ColoriDiversiColonna()); break;
@@ -46,15 +47,17 @@ public class PublicGoalCardDeck {
             case 10 : this.deck.add(new VarietaDiColore());break;
             default: break; // add an Exception here
         }
+
     }
 
 
     //calculate all points for a specyfic player for all the public goal cards
     public void doCalculatePoints(Player player){
+
         for (GoalCard goalcard:this.deck) {
             goalcard.calculatepoint(player);
         }
-          GoalCard CalculatoreforFreeSpaces =  new FreeSpaces();
+        GoalCard CalculatoreforFreeSpaces =  new FreeSpaces();
         CalculatoreforFreeSpaces.calculatepoint(player);
     }
 

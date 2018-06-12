@@ -15,7 +15,6 @@ public class SfumatureChiare implements GoalCard {
 
     @Override
     public void  calculatepoint(Player player) {
-
         int numerodi1 =0;
         int numerodi2=0;
         try{

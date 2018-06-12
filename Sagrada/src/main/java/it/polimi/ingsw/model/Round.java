@@ -39,7 +39,8 @@ public class Round {
                         e.printStackTrace();
                     }
                     System.out.println("Turn ended at:"+new Date());
-                    thread.interrupt();
+                    if(thread.isAlive()){
+                    }
                 }
             },0);
             try{
@@ -59,19 +60,25 @@ public class Round {
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    System.out.println("Turn started at:"+new Date());
                     try {
                         //quanto vogliamo farlo durare un turno? 5 minuti?
-                        Thread.sleep(20000);
+                        Thread.sleep(1200000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                     System.out.println("Turn ended at:"+new Date());
-                    thread.interrupt();
+                    if(thread.isAlive()){
+                        turn.countDownAll();
+                    }
                 }
             },0);
 
-            thread.start();
+            try{
+                thread.start();
+                wait();
+            }catch (InterruptedException e){
+                //do notihng
+            }
         }
 
         // Ripristino l'ordine della lista di partenza

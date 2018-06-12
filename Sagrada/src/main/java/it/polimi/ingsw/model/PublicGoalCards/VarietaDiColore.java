@@ -20,8 +20,6 @@ public class VarietaDiColore implements GoalCard {
         int numberofGREEN = 0;
         int numberofYELLOW = 0;
         int numberofVIOLET = 0;
-
-
         try{
             for(Tile tile: player.getScheme()) {
                 try {

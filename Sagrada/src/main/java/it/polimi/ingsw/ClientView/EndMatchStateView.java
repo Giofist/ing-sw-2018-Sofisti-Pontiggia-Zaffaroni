@@ -33,7 +33,14 @@ public class EndMatchStateView implements Runnable {
             System.out.println("Vuoi lasciare la partita corrente? [S/N]");
             input = in.nextLine();
             if (input.equals("S") || input.equals("s")) {
-                this.view.setLeaveMatch(true);
+                try{
+                    serverController.leavethematchatthend(yourName);
+                }catch(RemoteException e){
+                    e.printStackTrace();
+                }
+                synchronized (this.view){
+                    this.view.notify();
+                }
                 success = true;
             } else if (input.equals("N") || input.equals("n")) {
                 try{

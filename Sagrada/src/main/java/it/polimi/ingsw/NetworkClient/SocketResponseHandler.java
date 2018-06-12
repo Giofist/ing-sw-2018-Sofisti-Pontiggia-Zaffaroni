@@ -21,7 +21,7 @@ public class SocketResponseHandler implements Runnable{
             this.exception = new RemoteException(message);
         }
         synchronized (controller){
-            controller.setStringHandler(this);
+            controller.setResponseHandler(this);
             controller.notifyAll();
         }
     }
