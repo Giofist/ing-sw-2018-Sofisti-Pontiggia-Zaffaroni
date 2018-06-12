@@ -74,11 +74,12 @@ public class ToolCardsDeck {
     //command design pattern
     //questa classe fa pagare per la toolcard corrispondente e lancia un'eccezione se il giocatore è povero per quell'azione
     public void doAction(int toolActionID, Player player, ToolRequestClass toolRequestClass) throws WrongToolCardIDException,ToolIllegalOperationException, NotEnoughSegnaliniException {
-        player.payforToolAction( this.getCost(toolActionID));
         setCostOfAction(toolActionID);
         for(ToolAction toolAction: this.deck){
             if(toolAction.getID() == toolActionID) {
                 toolAction.execute(player, toolRequestClass);
+                player.payforToolAction( this.getCost(toolActionID));
+                return;
             }
         }
         throw new WrongToolCardIDException();

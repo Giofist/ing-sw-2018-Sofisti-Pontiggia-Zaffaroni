@@ -38,7 +38,6 @@ public class Turn implements Runnable{
                 this.doneSignal.countDown();
                 }
             }
-
         // se è rimasto un solo giocatore, la partita finisce immediatamente
         if (this.doneSignal.getCount() == 1){
             currentPlayer.getMatch().forceendmatch();

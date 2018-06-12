@@ -2,6 +2,8 @@ package it.polimi.ingsw.NetworkServer;
 
 import it.polimi.ingsw.ClientView.Observer;
 import it.polimi.ingsw.model.Observable;
+import it.polimi.ingsw.model.PlayerPackage.PlayerState;
+import it.polimi.ingsw.model.PlayerPackage.State;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
@@ -24,8 +26,11 @@ public class SocketClient implements Observer {
     public synchronized void update(Observable o, Object arg)throws RemoteException {
         ServerMessage message = new ServerMessage();
         message.setMessagecodex(44);
-        message.setObservable(o);
-        System.out.println(o.getState().toString());
+        State state = o.getState();
+        PlayerState playerState = new PlayerState();
+        playerState.updateState(state);
+        message.setObservable(playerState);
+        System.out.println(playerState.getState().toString());
         try{
             listener.sendMessage(message);
         }catch(IOException e){
