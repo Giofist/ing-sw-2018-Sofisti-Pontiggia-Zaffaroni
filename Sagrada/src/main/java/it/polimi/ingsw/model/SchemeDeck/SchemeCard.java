@@ -168,7 +168,6 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
 
         //if this is the first dice you set, there is a specific constrain
         if (EmptyScheme()){
-            System.out.println("La carta schema è vuota");
             if(row ==0 || row == getMaxRow()-1 || column ==0 || column == getMaxColumn()-1){
                 this.getTile(row,column).setDice(dice, IgnoreColor, IgnoreNumber);
             }else throw new FirstDiceNeedsToBeAtBordersException();
