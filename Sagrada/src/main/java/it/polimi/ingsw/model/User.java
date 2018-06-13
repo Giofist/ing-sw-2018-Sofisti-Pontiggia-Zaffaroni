@@ -46,4 +46,17 @@ public class User {
     public void removePlayer(){
         this.player = null;
     }
+
+    @Override
+    public boolean equals(Object o){
+        if (o.toString().equals(this.toString())){
+            return true;
+        }
+        else return false;
+    }
+
+    @Override
+    public String toString(){
+        return this.name;
+    }
 }

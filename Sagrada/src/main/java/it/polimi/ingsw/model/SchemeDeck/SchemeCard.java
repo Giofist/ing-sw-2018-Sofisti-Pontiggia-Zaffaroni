@@ -122,7 +122,6 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
             throw e;
         }
     }
-
     public void setTwinCard(SchemeCard schemeCard) {
         this.twinCard = schemeCard;
     }
@@ -132,15 +131,10 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
     public int getDifficulty() {
         return this.difficulty;
     }
-
     public int getID(){ return this.ID; }
-
     public String getMapName(){ return this.MapName; }
     public int getMaxRow(){return this.maxRow;}
     public int getMaxColumn(){return this.maxColumn;}
-    public String getMapString(){ return (this.maxRow + "-" + this.maxColumn + "-" + this.mapString);}
-
-
 
     //to set a Dice, this method is a bit long just because off the big number of controls I need to do here
     public void setDice(Dice dice, int row, int column, boolean IgnoreColor, boolean IgnoreNumber, boolean IgnoreThereisaDiceNearYou)throws OutOfMatrixException, TileConstrainException {
@@ -229,22 +223,6 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
     }
 
 
-    //può essere utile questa classe?
-    public boolean HaveFullColumn(int column) throws OutOfMatrixException{
-        boolean havefullColumn = true;
-        for(int i=0 ; i<getMaxRow() ; i++){
-            havefullColumn = havefullColumn&&this.getTile(i,column).isOccupied();
-        }
-        return havefullColumn;
-    }
-    public boolean HaveFullRow(int row) throws OutOfMatrixException{
-        boolean havefullRow = true;
-        int i=0;
-        for(i=0 ; i<getMaxColumn() ; i++){
-            havefullRow = havefullRow&&this.getTile(row,i).isOccupied();
-        }
-        return havefullRow;
-    }
     public SchemeCard getTwinCard() {
         return this.twinCard;
     }
@@ -270,16 +248,6 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
         return ThereisaDicenearYou;
     }
 
-    public char[] getMap(){
-        return this.map;
-    }
-
-    public String displayScheme(){
-        String  string = this.getMapName() + "-" + getDifficulty()+ "-" + getMaxRow() + "-" + getMaxColumn() + "-" + this.mapString;
-        return string;
-    }
-
-
     //metodi private
     // lo setto private per non esporre l'implementazione
     public Tile getTile(int row, int column)throws OutOfMatrixException{
@@ -290,19 +258,8 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
     }
      private boolean EmptyScheme(){
         boolean empty = true;
-        try{
-            for (int row=0; row < getMaxRow(); row ++){
-                for(int column = 0; column < getMaxColumn(); column ++){
-                    empty = empty && !IsTileOccupied(row,column);
-                }
-            }
-        }catch (OutOfMatrixException e){
-            //impossibile cadere qui, questo continuo dover gestire una cosa che gestisco già con i cicli for mi fa pensare a fare un iteratore!
-            //alla fine un iteratore è un ciclo for miglirato e poco altro, ma dà parechci vantaggi
-            // la soluzione finale sarebbe iterare con java funzionale, ma questo, beh, non sono ancora in grado di farlo
-            // già che c'ero, l'ho messo qua sotto copiato pari pari da affo
-            //boh, magari un giorno lo useremo
-            // vi consiglio di studiare pagina 671 del manuale di java, a me è piaciuta molto guys
+        for(Tile tile: this){
+            empty = empty && tile.isOccupied();
         }
         return empty;
      }
@@ -334,7 +291,6 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
                 } catch (OutOfMatrixException e) {
                     throw new NoSuchElementException("Matrix dead end reached.");
                 }
-
                 currentColumn++;
                 if (currentColumn == getMaxColumn()) {
                     currentColumn = 0;
@@ -343,7 +299,6 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
                         deadEnd = true;
                     }
                 }
-
                 return nextElement;
             }
         };

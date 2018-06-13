@@ -44,7 +44,6 @@ public class MatchesList {
         this.matches.add(match);
         //ogni match è un thread
         final Thread thread = new Thread(match);
-
         timer.schedule(new TimerTask() {
             @Override
             public void run() {

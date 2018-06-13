@@ -134,11 +134,9 @@ public class UsersList {
     }
 
     private String produceSHA256(String password) {
-
         MessageDigest digest;
         byte[] hash;
         StringBuffer hexHash = new StringBuffer();
-
         try {
             // Create the SHA-256 of the password
             digest = MessageDigest.getInstance("SHA-256");
@@ -154,7 +152,6 @@ public class UsersList {
         } catch (NoSuchAlgorithmException e){
             e.printStackTrace();
         }
-
         return hexHash.toString();
     }
 
@@ -171,8 +168,6 @@ public class UsersList {
     synchronized public void remove (User user){
         this.users.remove(user);
     }
-
-
     synchronized public User getUser(String name) throws UserNotExistentException {
         for (User user: this.users) {
             if (user.getName().equals(name))
