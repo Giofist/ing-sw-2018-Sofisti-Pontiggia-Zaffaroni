@@ -2,7 +2,7 @@ package it.polimi.ingsw.model.PlayerPackage;
 
 import java.io.Serializable;
 
-public enum TurnActions implements Serializable{
+public enum TurnActions{
     SETDICE,
     GETMAPS,
     PASSTURN,

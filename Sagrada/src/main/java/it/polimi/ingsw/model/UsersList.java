@@ -4,11 +4,13 @@ import it.polimi.ingsw.ClientView.Observer;
 import it.polimi.ingsw.model.Exceptions.HomonymyException;
 import it.polimi.ingsw.model.Exceptions.IsAlreadyActiveException;
 import it.polimi.ingsw.model.Exceptions.UserNotExistentException;
+import it.polimi.ingsw.model.PlayerPackage.Player;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.Scanner;
 
