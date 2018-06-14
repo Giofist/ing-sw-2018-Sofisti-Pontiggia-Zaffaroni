@@ -29,6 +29,7 @@
                      </font>
                   </Text>
                   <JFXButton fx:id="SignUpButton" buttonType="RAISED" layoutX="46.0" layoutY="230.0" onMouseClicked="#signUpOperation" prefHeight="25.0" prefWidth="61.0" style="-fx-background-color: white;" text="SignUp" />
+                  <Text fx:id="LogInError" fill="RED" layoutX="89.0" layoutY="287.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="112.5" />
                </children>
                <effect>
                   <DropShadow />

@@ -10,10 +10,12 @@ import javafx.scene.control.Label;
 import com.jfoenix.controls.JFXToggleButton;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URI;
+import java.rmi.RemoteException;
 
 public class LogInController {
 
@@ -42,6 +44,9 @@ public class LogInController {
     private Label Close;
 
     @FXML
+    private Text LogInError;
+
+    @FXML
     void closeClient(MouseEvent event) {
         System.exit(0);
     }
@@ -64,21 +69,40 @@ public class LogInController {
 
     @FXML
     void signInOperation(MouseEvent event) {
+        /*try {
+            serverController.logIn(username.getCharacters(), password.getCharacters());
+        } catch (RemoteException e) {
+            LogInError.setText(e.getMessage());
+            remoteException = true;
+        }
+
         try {
-            FXMLLoader.load(getClass().getResource("Menu.fxml"));
+            FXMLLoader.load(getClass().getResource("/Menu.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
+        */
+
 
     }
     @FXML
-    void setconnection(ActionEvent event) {
-        connection++;                                  //TODO fra se pari deve settare RMI se dispari Socket
+    void setconnection(ActionEvent event) {  //TODO fra se isSelected True Socket altrimenti RMI
+        if(ConnectionSetUp.isSelected()){
+            LogInError.setText("Socket");
+        }
+        else LogInError.setText("RMI");
     }
 
     @FXML
     void signUpOperation(MouseEvent event) {
-
+       /* try {
+            serverController.register(username.getCharacters(), password.getCharacters());
+            LogInError.setText("Hai creato un nuovo account!"
+        } catch (RemoteException e) {
+            LogInError.setText(e.getMessage());
+            remoteException = true;
+        }
+        */
     }
 
 }
