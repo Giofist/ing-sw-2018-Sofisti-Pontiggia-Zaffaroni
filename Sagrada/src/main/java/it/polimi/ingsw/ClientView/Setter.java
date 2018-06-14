@@ -446,19 +446,36 @@ public class Setter {
         int row = 100;
         int column = 100;
         boolean success = false;
+        boolean correct = false;
         try {
             Printer.Singleton().printMap(serverController.getSchemeCard(yourName));
         } catch (RemoteException e) {
             System.out.println(e.getMessage());
         }
         while (!success) {
+            correct = false;
             System.out.println("Seleziona il dado da piazzare usando l'indice numerico sotto riportato:"); //I have to fix with better exception usage
             Printer.Singleton().printRoundDicePool(serverController, yourName);
             diceIndex = in.nextInt();
             System.out.println("Seleziona la riga in cui posizionare il dado: [0/3]");
-            row = in.nextInt();
+            while(!correct) {
+                try {
+                    row = Integer.parseInt(in.nextLine());
+                    correct = true;
+                } catch (Exception e) {
+                    System.out.println("Hai sbagliato a digitare!");
+                }
+            }
+            correct = false;
             System.out.println("Seleziona la riga in cui posizionare il dado: [0/4]");
-            column = in.nextInt();
+            while(!correct) {
+                try {
+                    column = Integer.parseInt(in.nextLine());
+                    correct = true;
+                } catch (Exception e) {
+                    System.out.println("Hai sbagliato a digitare!");
+                }
+            }
             try {
                 serverController.setDice(yourName, diceIndex, row, column);
                 success = true;
@@ -474,18 +491,35 @@ public class Setter {
         int row = 100;
         int column = 100;
         boolean success = false;
+        boolean correct = false;
         try {
             Printer.Singleton().printMap(serverController.getSchemeCard(yourName));
         } catch (RemoteException e) {
             System.out.println(e.getMessage());
         }
         while (!success) {
+            correct = false;
             System.out.println("Piazza il dado appena modificato:");
             Printer.Singleton().printExtractedDice(serverController, yourName);
             System.out.println("Seleziona la riga in cui posizionare il dado: [0/3]");
-            row = in.nextInt();
+            while(!correct) {
+                try {
+                    row = Integer.parseInt(in.nextLine());
+                    correct = true;
+                } catch (Exception e) {
+                    System.out.println("Hai sbagliato a digitare!");
+                }
+            }
+            correct = false;
             System.out.println("Seleziona la riga in cui posizionare il dado: [0/4]");
-            column = in.nextInt();
+            while(!correct) {
+                try {
+                    column = Integer.parseInt(in.nextLine());
+                    correct = true;
+                } catch (Exception e) {
+                    System.out.println("Hai sbagliato a digitare!");
+                }
+            }
             try {
                 serverController.setToolCardDice(yourName, row, column);
                 success = true;
@@ -506,7 +540,9 @@ public class Setter {
     public void selectSchemeCard(ClientHandlerInterface serverController, String yourName){
         Scanner in = new Scanner(System.in);
         String schemeCards = null;
+        int selectedCard = 50;
         boolean correct = false;
+        boolean good = false;
         int index;
         try {
             for (Object o: serverController.getExtractedSchemeCard(yourName)){
@@ -516,8 +552,16 @@ public class Setter {
             System.out.println(e.getMessage());
         }
         while(!correct){
+            good = false;
             System.out.println("Seleziona la carta schema che desideri tra le seguenti indicando il numero relativo.");
-            int selectedCard = in.nextInt();
+            while(!good) {
+                try {
+                    selectedCard = Integer.parseInt(in.nextLine());
+                    good = true;
+                } catch (Exception e) {
+                    System.out.println("Hai sbagliato a digitare!");
+                }
+            }
             try {
                 serverController.setSchemeCard(yourName, selectedCard);
                 correct = true;
@@ -527,16 +571,30 @@ public class Setter {
         }
     }
 
-    public void selectExtractedDiceIntensity(ClientHandlerInterface serverController, String yourName){
+    public void selectExtractedDiceIntensity(ClientHandlerInterface serverController, String yourName) {
         Scanner in = new Scanner(System.in);
-        int intensity;
-        Printer.Singleton().printExtractedDice(serverController, yourName);
-        System.out.println("Seleziona l'intensità del dado estratto: [1/6]");
-        intensity = in.nextInt();
-        try {
-            serverController.setToolCardDiceIntensity(yourName, intensity);
-        } catch (RemoteException e) {
-            System.out.println(e.getMessage());
+        int intensity = 0;
+        boolean good = false;
+        boolean correct = false;
+
+        while (!correct) {
+            good = false;
+            Printer.Singleton().printExtractedDice(serverController, yourName);
+            System.out.println("Seleziona l'intensità del dado estratto: [1/6]");
+            while (!good) {
+                try {
+                    intensity = Integer.parseInt(in.nextLine());
+                    good = true;
+                } catch (Exception e) {
+                    System.out.println("Hai sbagliato a digitare!");
+                }
+            }
+            try {
+                serverController.setToolCardDiceIntensity(yourName, intensity);
+                correct = true;
+            } catch (RemoteException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 
