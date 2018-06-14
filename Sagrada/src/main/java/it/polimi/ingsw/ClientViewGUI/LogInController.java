@@ -3,9 +3,11 @@ package it.polimi.ingsw.ClientViewGUI;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
+import com.jfoenix.controls.JFXToggleButton;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -16,9 +18,13 @@ import java.net.URI;
 public class LogInController {
 
     public Stage primaryStage;
+    private int connection=0;
 
     @FXML
     private JFXTextField username;
+
+    @FXML
+    private JFXToggleButton ConnectionSetUp;
 
     @FXML
     private JFXPasswordField password;
@@ -64,6 +70,10 @@ public class LogInController {
             e.printStackTrace();
         }
 
+    }
+    @FXML
+    void setconnection(ActionEvent event) {
+        connection++;                                  //TODO fra se pari deve settare RMI se dispari Socket
     }
 
     @FXML
