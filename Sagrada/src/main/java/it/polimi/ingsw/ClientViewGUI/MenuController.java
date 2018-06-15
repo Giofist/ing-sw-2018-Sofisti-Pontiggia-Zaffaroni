@@ -61,10 +61,24 @@ public class MenuController {
 
         }
 
+    public void setUpMultiPlayer(javafx.event.ActionEvent actionEvent) {
+        stage = (Stage) multiPlayer.getScene().getWindow();
+        try {
+            myNewScene = FXMLLoader.load(getClass().getResource("/MultiCreateGame.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene scene = new Scene(myNewScene);
+        stage.setScene(scene);
+        stage.setMaximized(true);
+        stage.setTitle("Multi");
+        stage.show();
+    }
+
     public void settingsInterace(javafx.event.ActionEvent actionEvent) {
         stage = (Stage) settings.getScene().getWindow();
         try {
-            myNewScene = FXMLLoader.load(getClass().getResource("/Impostazioni.fxml"));
+            myNewScene = FXMLLoader.load(getClass().getResource("/Settings.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -83,17 +97,5 @@ public class MenuController {
         ErrorMessage.setText("Cooming Soon!");
     }
 
-    public void setUpMultiPlayer(javafx.event.ActionEvent actionEvent) {
-        stage = (Stage) multiPlayer.getScene().getWindow();
-        try {
-            myNewScene = FXMLLoader.load(getClass().getResource("/MultiCreateGame.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Scene scene = new Scene(myNewScene);
-        stage.setScene(scene);
-        stage.setTitle("Multi");
-        stage.setMaximized(true);
-        stage.show();
-    }
+
 }
