@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -67,6 +68,11 @@ public class MenuController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        Scene scene = new Scene(myNewScene);
+        stage.setScene(scene);
+        stage.setTitle("Impostazioni");
+        stage.setMaximized(true);
+        stage.show();
     }
 
     public void ExitGame(javafx.event.ActionEvent actionEvent) {
@@ -80,9 +86,14 @@ public class MenuController {
     public void setUpMultiPlayer(javafx.event.ActionEvent actionEvent) {
         stage = (Stage) multiPlayer.getScene().getWindow();
         try {
-            myNewScene = FXMLLoader.load(getClass().getResource("/Multi create game.fxml"));
+            myNewScene = FXMLLoader.load(getClass().getResource("/MultiCreateGame.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
+        Scene scene = new Scene(myNewScene);
+        stage.setScene(scene);
+        stage.setTitle("Multi");
+        stage.setMaximized(true);
+        stage.show();
     }
 }
