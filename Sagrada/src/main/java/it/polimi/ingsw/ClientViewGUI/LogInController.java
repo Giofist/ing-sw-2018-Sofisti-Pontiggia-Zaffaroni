@@ -7,6 +7,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -72,48 +73,20 @@ public class LogInController {
 
     @FXML
     void signInOperation(MouseEvent event) {
-        /*try {
-            serverController.logIn(username.getCharacters(), password.getCharacters());
-        } catch (RemoteException e) {
-            LogInError.setText(e.getMessage());
-            remoteException = true;
-        }
 
+        Parent menu = null;
         try {
-            FXMLLoader.load(getClass().getResource("/Menu.fxml"));
+            menu = FXMLLoader.load(getClass().getResource("/Menu.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        */
-        primaryStage.close();
-        Stage primaryStage = new Stage();
-        Parent root = null;
-        try {
-            root = FXMLLoader.load(getClass().getResource("/Menu.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        primaryStage.setMaximized(true);
-        primaryStage.setTitle("Menu");
-        primaryStage.show();
-
-        /* primaryStage.close();
-        FXMLLoader loader = new FXMLLoader();
-        Stage menuStage = new Stage();
-        Parent root = null;
-        loader.setLocation(getClass().getResource("/Menu.fxml"));
-        try {
-           root = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        ((MenuController) loader.getController()).setmenuStage(menuStage);
-        primaryStage.setMaximized(true);
-        primaryStage.setTitle("Menu");
-        primaryStage.show();
-*/
-
+        Scene scene = new Scene(menu);
+            Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            appStage.setScene(scene);
+            appStage.setMaximized(true);
+            appStage.show();
     }
+
     @FXML
     void setconnection(ActionEvent event) {  //TODO fra se isSelected True Socket altrimenti RMI
         if(ConnectionSetUp.isSelected()){

@@ -40,52 +40,52 @@
                <children>
                   <ImageView fitWidth="69.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@1.jpg" />
+                        <Image url="@../../../../Sagrada Client/src/View/1.jpg" />
                      </image>
                   </ImageView>
                   <ImageView fitWidth="69.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
                      <image>
-                        <Image url="@1.jpg" />
+                        <Image url="@../../../../Sagrada Client/src/View/1.jpg" />
                      </image>
                   </ImageView>
                   <ImageView fitWidth="69.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
                      <image>
-                        <Image url="@1.jpg" />
+                        <Image url="@../../../../Sagrada Client/src/View/1.jpg" />
                      </image>
                   </ImageView>
                   <ImageView fitWidth="69.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3">
                      <image>
-                        <Image url="@1.jpg" />
+                        <Image url="@../../../../Sagrada Client/src/View/1.jpg" />
                      </image>
                   </ImageView>
                   <ImageView fitWidth="69.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4">
                      <image>
-                        <Image url="@1.jpg" />
+                        <Image url="@../../../../Sagrada Client/src/View/1.jpg" />
                      </image>
                   </ImageView>
                   <ImageView fitWidth="69.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5">
                      <image>
-                        <Image url="@1.jpg" />
+                        <Image url="@../../../../Sagrada Client/src/View/1.jpg" />
                      </image>
                   </ImageView>
                   <ImageView fitWidth="69.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6">
                      <image>
-                        <Image url="@1.jpg" />
+                        <Image url="@../../../../Sagrada Client/src/View/1.jpg" />
                      </image>
                   </ImageView>
                   <ImageView fitWidth="69.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7">
                      <image>
-                        <Image url="@1.jpg" />
+                        <Image url="@../../../../Sagrada Client/src/View/1.jpg" />
                      </image>
                   </ImageView>
                   <ImageView fitWidth="69.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8">
                      <image>
-                        <Image url="@1.jpg" />
+                        <Image url="@../../../../Sagrada Client/src/View/1.jpg" />
                      </image>
                   </ImageView>
                   <ImageView fitWidth="69.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="9">
                      <image>
-                        <Image url="@1.jpg" />
+                        <Image url="@../../../../Sagrada Client/src/View/1.jpg" />
                      </image>
                   </ImageView>
                </children>

@@ -9,11 +9,12 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.io.IOException;
 import java.net.URL;
 
 
 public class Main extends Application {
-
+    static Stage stage;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -21,8 +22,6 @@ public class Main extends Application {
         loader.setLocation(getClass().getResource("/LogIn.fxml"));
         Parent root = loader.load();
         ((LogInController) loader.getController()).setPrimaryStage(primaryStage);
-        // Parent root = FXMLLoader.load(getClass().getResource("LogIn.fxml"));
-
         primaryStage.initStyle(StageStyle.UNDECORATED);
         Scene scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT);
