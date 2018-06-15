@@ -39,6 +39,9 @@ public class LogInController {
     private JFXButton SigInButton;
 
     @FXML
+    private JFXButton ConnectButton;
+
+    @FXML
     private JFXButton SignUpButton;
 
     @FXML
@@ -49,6 +52,11 @@ public class LogInController {
 
     @FXML
     private Text LogInError;
+
+    @FXML
+    private Text connectionMessage;
+    @FXML
+    private Text signUpConfirmation;
 
     @FXML
     void closeClient(MouseEvent event) {
@@ -63,7 +71,6 @@ public class LogInController {
     //go to the official sagrada store
     @FXML
     void goToWebSite(MouseEvent event) {
-        System.out.println("pressed");
         try {
             java.awt.Desktop.getDesktop().browse(URI.create("http://www.craniocreations.it/prodotto/sagrada/"));
         } catch (IOException e) {
@@ -90,13 +97,15 @@ public class LogInController {
     @FXML
     void setconnection(ActionEvent event) {  //TODO fra se isSelected True Socket altrimenti RMI
         if(ConnectionSetUp.isSelected()){
-            LogInError.setText("Socket");
+            connectionMessage.setText("Socket selected!");
         }
-        else LogInError.setText("RMI");
+        else connectionMessage.setText("RMI selected!");
     }
 
     @FXML
     void signUpOperation(MouseEvent event) {
+
+        signUpConfirmation.setText("Utente registrato!");
        /* try {
             serverController.register(username.getCharacters(), password.getCharacters());
             LogInError.setText("Hai creato un nuovo account!"
@@ -107,4 +116,7 @@ public class LogInController {
         */
     }
 
+    public void connect(ActionEvent actionEvent) {
+        connectionMessage.setText("Connection up!");
+    }
 }
