@@ -3,6 +3,10 @@ package it.polimi.ingsw.ClientViewGUI;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import it.polimi.ingsw.ClientView.ObserverView;
+import it.polimi.ingsw.NetworkClient.SocketClientListener;
+import it.polimi.ingsw.NetworkClient.SocketController;
+import it.polimi.ingsw.ServerController.ClientHandlerInterface;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,10 +23,15 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URI;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 
 public class LogInController {
 
+    private ClientHandlerInterface serverController;
+    String ipAddr = "127.0.0.1";
     public Stage primaryStage;
     private int connection=0;
     private Boolean connected = false;
@@ -81,7 +90,13 @@ public class LogInController {
 
     @FXML
     void signInOperation(MouseEvent event) {
-
+        /*
+        try {
+            serverController.login(username.getCharacters().toString(), password.getCharacters().toString(),);
+        } catch (RemoteException e) {
+            LogInError.setText(e.getMessage());
+        }
+*/ //mi manca l'observer e non so come crearlo
         Parent menu = null;
         try {
             menu = FXMLLoader.load(getClass().getResource("/Menu.fxml"));
@@ -96,7 +111,7 @@ public class LogInController {
     }
 
     @FXML
-    void setconnection(ActionEvent event) {  //TODO fra se isSelected True Socket altrimenti RMI
+    void setconnection(ActionEvent event) {
         if(ConnectionSetUp.isSelected()){
             connectionMessage.setText("Socket selected!");
         }
@@ -105,16 +120,13 @@ public class LogInController {
 
     @FXML
     void signUpOperation(MouseEvent event) {
-
-        signUpConfirmation.setText("Utente registrato!");
-       /* try {
-            serverController.register(username.getCharacters(), password.getCharacters());
-            LogInError.setText("Hai creato un nuovo account!"
+       try {
+            serverController.register(username.getCharacters().toString(), password.getCharacters().toString());
+            LogInError.setText("Hai creato un nuovo account!");
         } catch (RemoteException e) {
             LogInError.setText(e.getMessage());
-            remoteException = true;
         }
-        */
+
     }
 
     public void connect(ActionEvent actionEvent) {
@@ -125,6 +137,43 @@ public class LogInController {
             connected = false;
         }
         else{
+            if(ConnectionSetUp.isSelected()){
+                ObserverView view = null;
+                try {
+                    view = new ObserverView();
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                    connectionMessage.setText("Connectin error!");
+                    connected = false;
+                }
+                SocketClientListener listener = null;
+                try {
+                    listener = new SocketClientListener(ipAddr);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                SocketController socketController = new SocketController( listener);
+                listener.setController(socketController, view);
+                view.setServerController(socketController);
+            }
+            else {
+
+                Registry rmiRegistry = null;
+                try {
+                    rmiRegistry = LocateRegistry.getRegistry(ipAddr);
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+                ClientHandlerInterface controller = null;
+                try {
+                    controller = (ClientHandlerInterface) rmiRegistry.lookup("ClientHandler");
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                } catch (NotBoundException e) {
+                    e.printStackTrace();
+                }
+
+            }
             //ConnectButton.setStyle("fx-background-color: red"); //sparisce il bottone
             ConnectButton.setText("Disconnect");
             connectionMessage.setText("Connection up!");
