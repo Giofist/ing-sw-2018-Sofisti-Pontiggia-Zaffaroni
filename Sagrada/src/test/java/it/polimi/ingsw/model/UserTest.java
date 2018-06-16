@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class UserTest {
 
@@ -16,6 +17,7 @@ public class UserTest {
     public void before() {
         user = new User("Xenomit", "ciao!");
         mockPlayer = mock(Player.class);
+        when(mockPlayer.toString()).thenReturn("Xenomit");
     }
 
     // At the moment of creation the user won't be active
@@ -43,22 +45,39 @@ public class UserTest {
     }
 
     @Test
-    public void getPassword() {
+    public void getPasswordTest() {
         assertEquals("ciao!", user.getPassword());
     }
 
     @Test
-    public void setPassword() {
+    public void setPasswordTest() {
         assertEquals("ciao!", user.getPassword());
         user.setPassword("ciao!!");
         assertEquals("ciao!!", user.getPassword());
     }
 
     @Test
-    public void setAndGetPlayer() {
+    public void setAndGetPlayerTest() {
         assertNull(user.getPlayer());
         user.setPlayer(mockPlayer);
-        assertNotNull(user.getPlayer());
+        assertEquals("Xenomit", user.getPlayer().toString());
+        user.removePlayer();
+        assertNull(user.getPlayer());
+    }
+
+    @Test
+    public void equalsTest() {
+        User user2 = new User("Paolo", "pass");
+        assertFalse(user.equals(user2));
+
+        user2 = new User("Xenomit", "ciao!");
+        assertTrue(user.equals(user2));
+
+        user2 = new User("Xenomit", "ajsdosdja");
+        assertTrue(user.equals(user2));
+
+        user2 = new User("Paolo", "ciao!");
+        assertFalse(user.equals(user2));
     }
 
 }

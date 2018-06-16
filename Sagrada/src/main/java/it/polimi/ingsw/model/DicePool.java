@@ -74,7 +74,14 @@ public class DicePool {
         if (dices.isEmpty()){
             throw new EmpyDicepoolException();
         }
-        return dices.get(diceIndex);
+
+        try {
+            return dices.get(diceIndex);
+        } catch (IndexOutOfBoundsException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     //ho aggiunto questo metodo
@@ -111,8 +118,5 @@ public class DicePool {
         }
         return stringDicePool;
     }
-
-
-
 
 }

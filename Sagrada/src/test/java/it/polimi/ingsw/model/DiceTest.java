@@ -79,6 +79,6 @@ public class DiceTest {
     @Test
     public void toStringTest() {
         dice.setIntensity(2);
-        assertEquals("[DICE] color: YELLOW, intensity: 2", dice.toString());
+        assertEquals("2YELLOW", dice.toString());
     }
 }

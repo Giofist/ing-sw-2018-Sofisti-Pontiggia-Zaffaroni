@@ -69,4 +69,9 @@ public class Turn implements Runnable{
             this.doneSignal.countDown();
         }
     }
+
+    // Useful for testing
+    protected long getCountDownValue() {
+        return this.doneSignal.getCount();
+    }
 }

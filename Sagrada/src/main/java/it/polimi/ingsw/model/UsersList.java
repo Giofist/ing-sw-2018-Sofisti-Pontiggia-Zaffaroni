@@ -167,9 +167,6 @@ public class UsersList {
     }
 
     //rimuovere un'utente che vuole cancellarsi ( opzionale)
-    synchronized public void remove (User user){
-        this.users.remove(user);
-    }
     synchronized public User getUser(String name) throws UserNotExistentException {
         for (User user: this.users) {
             if (user.getName().equals(name))
@@ -178,4 +175,7 @@ public class UsersList {
         throw new UserNotExistentException();
     }
 
+
+    // Useful for testing
+    synchronized protected int getUsersListSize() { return this.users.size(); }
 }

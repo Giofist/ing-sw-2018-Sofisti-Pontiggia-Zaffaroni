@@ -53,7 +53,7 @@ public class Gametable {
             try{
                 this.getRoundDicepool().addDice(this.getDicepool().extractDice());
             }catch(EmpyDicepoolException e){
-                System.out.println("errore");
+                System.err.println("Error in Gametable.setupRound");
             }
         }
     }
@@ -67,7 +67,6 @@ public class Gametable {
     //per la gestione delle toolAction
     public void useaToolCard(ToolRequestClass toolRequestClass, Player player) throws Exception {
         this.tooldeck.doAction(toolRequestClass.getToolCardID(),player, toolRequestClass);
-
     }
 
     //to get the private Goal card
@@ -128,6 +127,7 @@ public class Gametable {
     public String getToolCardsCosts() {
         return this.tooldeck.getCardsCosts();
     }
+    public int getNumberOfPlayers() { return this.numberPlayers; }
 }
 
 

@@ -12,8 +12,12 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-
-// A couple of methods must be changed in order to throw a proper exception instead of null value
+/*
+    Untested methods:
+        scrambleDicePool gets tested indirectly shuffleDicePoolTest
+        toString
+        removeDice
+*/
 
 public class DicePoolTest {
 
@@ -61,76 +65,58 @@ public class DicePoolTest {
 
     // This method tests if adding dices to the Dicepool works properly
     @Test
-    public void insertDiceTest() {
+    public void insertDiceTest() throws EmpyDicepoolException {
         assertEquals(0, dicePool.getDicePoolSize());
 
         dicePool.insertDice(DiceColor.YELLOW);
         assertEquals(1, dicePool.getDicePoolSize());
-        try {
-            assertEquals(DiceColor.YELLOW, dicePool.getDice(0).getColor());
-        } catch (EmpyDicepoolException e) {
-            e.printStackTrace();
-        }
+        assertEquals(DiceColor.YELLOW, dicePool.getDice(0).getColor());
     }
 
 
     // This method tests the addDice function which is a method used only for RoundDicePool for which a Dice is directly passed
     @Test
-    public void addDiceTest() {
+    public void addDiceTest() throws EmpyDicepoolException {
         assertEquals(0, dicePool.getDicePoolSize());
         dicePool.addDice(mockDice);
         assertEquals(1, dicePool.getDicePoolSize());
-        Dice dice = null;
-        try {
-            dice = dicePool.getDice(0);
-        } catch (EmpyDicepoolException e) {
-            e.printStackTrace();
-        }
+
+        Dice dice = dicePool.getDice(0);
         assertEquals(2, dice.getIntensity());
         assertEquals(DiceColor.GREEN, dice.getColor());
     }
 
 
-    // This method will test addDice(int selectedDiceIndex,Dice dice )
+    // This method will test addDice(int selectedDiceIndex,Dice dice)
     @Test
-    public void addDiceTest2() {
+    public void addDiceTest2() throws EmpyDicepoolException {
+        assertEquals(0, dicePool.getDicePoolSize());
         dicePool.addDice(0, mockDice);
-        try {
-            assertEquals(2, dicePool.getDice(0).getIntensity());
-        } catch (EmpyDicepoolException e) {
-            e.printStackTrace();
-        }
-        try {
-            assertEquals(DiceColor.GREEN, dicePool.getDice(0).getColor());
-        } catch (EmpyDicepoolException e) {
-            e.printStackTrace();
-        }
+
+        Dice dice = dicePool.getDice(0);
+        assertEquals(2, dice.getIntensity());
+        assertEquals(DiceColor.GREEN, dice.getColor());
     }
 
 
-    // Soon this method will be updated to throw an exception
-    // This method test that getDice only returns a Dice without deleting it from the DicePool
+
     @Test
-    public void getDiceTest() {
+    public void getDiceTest() throws EmpyDicepoolException {
         dicePool = new DicePool(18, 18, 18, 18, 18);
+
+        Dice dice = dicePool.getDice(23);
         assertEquals(90, dicePool.getDicePoolSize());
-        Dice dice = null;
-        try {
-            dice = dicePool.getDice(23);
-        } catch (EmpyDicepoolException e) {
-            e.printStackTrace();
-        }
-        assertEquals(90, dicePool.getDicePoolSize());
-        try {
-            assertEquals(dice.getIntensity(), dicePool.getDice(23).getIntensity());
-        } catch (EmpyDicepoolException e) {
-            e.printStackTrace();
-        }
-        try {
-            assertEquals(dice.getColor(), dicePool.getDice(23).getColor());
-        } catch (EmpyDicepoolException e) {
-            e.printStackTrace();
-        }
+
+        assertEquals(dice.getIntensity(), dicePool.getDice(23).getIntensity());
+        assertEquals(dice.getColor(), dicePool.getDice(23).getColor());
+
+        dice = dicePool.getDice(1000);
+        assertNull(dice);
+    }
+
+    @Test (expected = EmpyDicepoolException.class)
+    public void getDiceEmpyDicepoolExceptionTest() throws EmpyDicepoolException {
+        dicePool.getDice(0);
     }
 
 
@@ -144,16 +130,21 @@ public class DicePoolTest {
 
 
     @Test
-    public void addAllDices() {
+    public void addAllDicesTest() throws EmpyDicepoolException {
         List<Dice> dices = Arrays.asList(mockDice, mockDice);
         assertEquals(0, dicePool.getDicePoolSize());
         dicePool.addallDices(dices);
         assertEquals(2, dicePool.getDicePoolSize());
+
+        assertEquals(DiceColor.GREEN, dicePool.getDice(0).getColor());
+        assertEquals(DiceColor.GREEN, dicePool.getDice(1).getColor());
+        assertEquals(2, dicePool.getDice(0).getIntensity());
+        assertEquals(2, dicePool.getDice(1).getIntensity());
     }
 
 
     @Test
-    public void getAllDicesButNotRemoveTest() {
+    public void getAllDicesButNotRemoveTest() throws EmpyDicepoolException {
         dicePool = new DicePool(18, 18, 18, 18, 18);
         List<Dice> dices= new LinkedList<Dice>();
 
@@ -161,30 +152,25 @@ public class DicePoolTest {
         assertEquals(90, dicePool.getDicePoolSize());
 
         for (int i = 0; i < dicePool.getDicePoolSize(); i++){
-            try {
-                assertEquals(dices.get(i).getIntensity(), dicePool.getDice(i).getIntensity());
-            } catch (EmpyDicepoolException e) {
-                e.printStackTrace();
-            }
-            try {
-                assertEquals(dices.get(i).getColor(), dicePool.getDice(i).getColor());
-            } catch (EmpyDicepoolException e) {
-                e.printStackTrace();
-            }
+            assertEquals(dices.get(i).getIntensity(), dicePool.getDice(i).getIntensity());
+            assertEquals(dices.get(i).getColor(), dicePool.getDice(i).getColor());
         }
     }
 
 
+    @Test
+    public void extractTest() throws EmpyDicepoolException {
+        dicePool = new DicePool(18,18,18,18,18);
+
+        assertEquals(90, dicePool.getDicePoolSize());
+        dicePool.extractDice();
+        assertEquals(89, dicePool.getDicePoolSize());
+    }
 
     // This method in the tested class will soon throw an EmptyException
-    @Test
-    public void extractFromEmptyDicePoolTest() {
-        try {
-            assertNull(dicePool.extractDice());
-        } catch (EmpyDicepoolException e) {
-            e.printStackTrace();
-        }
+    @Test (expected = EmpyDicepoolException.class)
+    public void extractEmpyDicepoolExceptionTest() throws EmpyDicepoolException {
+        dicePool.extractDice();
     }
-
 
 }
