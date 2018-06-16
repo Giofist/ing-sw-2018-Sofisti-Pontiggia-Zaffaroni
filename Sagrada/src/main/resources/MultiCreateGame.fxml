@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox alignment="TOP_CENTER" prefHeight="835.0" prefWidth="1322.0" styleClass="back" stylesheets="@style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.ClientViewGUI.MultiCreateController">
+<VBox alignment="TOP_CENTER" prefHeight="910.0" prefWidth="1372.0" styleClass="back" stylesheets="@style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.ClientViewGUI.MultiCreateController">
    <children>
       <HBox alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" opacity="0.74" prefHeight="50.0" style="-fx-background-color: green;">
          <children>
@@ -61,7 +61,7 @@
             <Insets bottom="10.0" left="50.0" right="50.0" top="10.0" />
          </VBox.margin>
          <children>
-            <VBox alignment="CENTER_LEFT" prefWidth="758.0">
+            <VBox alignment="CENTER_LEFT" prefHeight="464.0" prefWidth="758.0">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Crea la tua partita:">
                      <font>
@@ -73,6 +73,14 @@
                         <Font size="40.0" />
                      </font>
                   </JFXTextField>
+                  <Text fx:id="errorMessage" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="300.0">
+                     <font>
+                        <Font size="40.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </Text>
                </children>
                <HBox.margin>
                   <Insets top="100.0" />
@@ -92,7 +100,7 @@
             </JFXButton>
          </children>
          <VBox.margin>
-            <Insets bottom="20.0" right="20.0" top="300.0" />
+            <Insets bottom="20.0" right="70.0" top="300.0" />
          </VBox.margin>
       </HBox>
    </children>
