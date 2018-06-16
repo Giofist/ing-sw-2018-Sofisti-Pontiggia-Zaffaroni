@@ -70,7 +70,7 @@ public class MenuController {
         }
         Scene scene = new Scene(myNewScene);
         stage.setScene(scene);
-        stage.setMaximized(true);
+        stage.setFullScreen(true);
         stage.setTitle("Multi");
         stage.show();
     }
@@ -85,7 +85,7 @@ public class MenuController {
         Scene scene = new Scene(myNewScene);
         stage.setScene(scene);
         stage.setTitle("Impostazioni");
-        stage.setMaximized(true);
+        stage.setFullScreen(true);
         stage.show();
     }
 

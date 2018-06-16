@@ -25,6 +25,7 @@ public class LogInController {
 
     public Stage primaryStage;
     private int connection=0;
+    private Boolean connected = false;
 
     @FXML
     private JFXTextField username;
@@ -90,7 +91,7 @@ public class LogInController {
         Scene scene = new Scene(menu);
             Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             appStage.setScene(scene);
-            appStage.setMaximized(true);
+            appStage.setFullScreen(true);
             appStage.show();
     }
 
@@ -117,6 +118,17 @@ public class LogInController {
     }
 
     public void connect(ActionEvent actionEvent) {
-        connectionMessage.setText("Connection up!");
+
+        if(connected == true){
+            ConnectButton.setText("Connect");
+            connectionMessage.setText("Disconnected!");
+            connected = false;
+        }
+        else{
+            //ConnectButton.setStyle("fx-background-color: red"); //sparisce il bottone
+            ConnectButton.setText("Disconnect");
+            connectionMessage.setText("Connection up!");
+            connected = true;
+        }
     }
 }

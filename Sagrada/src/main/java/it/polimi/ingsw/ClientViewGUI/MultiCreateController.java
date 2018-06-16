@@ -55,7 +55,7 @@ public class MultiCreateController {
                 }
                 Scene scene = new Scene(myNewScene);
                 stage.setScene(scene);
-                //stage.setMaximized(true);
+                stage.setFullScreen(true);
                 stage.setTitle("Multi");
                 stage.show();
         }
