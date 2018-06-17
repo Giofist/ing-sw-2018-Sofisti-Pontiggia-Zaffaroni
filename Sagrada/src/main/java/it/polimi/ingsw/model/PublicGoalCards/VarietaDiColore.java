@@ -5,6 +5,9 @@ import it.polimi.ingsw.model.GoalCard;
 import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.SchemeDeck.Tile;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 
 //revisionata by pon
 //obiettivo pubblico
@@ -15,20 +18,18 @@ public class VarietaDiColore implements GoalCard {
 
     @Override
     public void  calculatepoint(Player player) {
-        int numberofRED =0;
-        int numberofBLUE=0;
-        int numberofGREEN = 0;
-        int numberofYELLOW = 0;
-        int numberofVIOLET = 0;
+
+        int[] numberof = new int[5];
+
         try{
             for(Tile tile: player.getScheme()) {
                 try {
                     switch(tile.getDice().getColor()){
-                        case RED: numberofRED++; break;
-                        case BLUE: numberofBLUE++; break;
-                        case GREEN: numberofGREEN++; break;
-                        case YELLOW: numberofYELLOW++; break;
-                        case VIOLET: numberofVIOLET++; break;
+                        case RED: numberof[0]++; break;
+                        case BLUE: numberof[1]++; break;
+                        case GREEN: numberof[2]++; break;
+                        case YELLOW: numberof[3]++; break;
+                        case VIOLET: numberof[4]++; break;
                         default:
                     }
 
@@ -39,20 +40,9 @@ public class VarietaDiColore implements GoalCard {
         }catch (SchemeCardNotExistantException e){
             // do nothing
         }
-        int numerodiset=numberofRED; // numerodiset indica il numero dei set presenti, che è anche uguale a min( numerodix) per x = 1,2,3,4,5,6.
-        if(numberofBLUE<numerodiset){
-            numerodiset = numberofBLUE;
-        }
-        if(numberofGREEN<numerodiset){
-            numerodiset = numberofGREEN;
-        }
-        if(numberofYELLOW<numerodiset){
-            numerodiset = numberofYELLOW;
-        }
-        if(numberofVIOLET<numerodiset){
-            numerodiset = numberofVIOLET;
-        }
-        player.addPoints(numerodiset*4);
+
+        Arrays.sort(numberof);
+        player.addPoints(numberof[0]*4);
     }
 
     @Override

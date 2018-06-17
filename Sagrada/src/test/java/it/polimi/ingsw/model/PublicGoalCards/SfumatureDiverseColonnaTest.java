@@ -1,14 +1,17 @@
 package it.polimi.ingsw.model.PublicGoalCards;
 
+import it.polimi.ingsw.model.Dice;
 import it.polimi.ingsw.model.DiceColor;
-import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
-import it.polimi.ingsw.model.Exceptions.OutOfMatrixException;
+import it.polimi.ingsw.model.Exceptions.*;
+import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
+import it.polimi.ingsw.model.Match;
 import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
+import it.polimi.ingsw.model.User;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
+
+import java.io.IOException;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
@@ -17,72 +20,61 @@ import static org.mockito.Mockito.*;
 public class SfumatureDiverseColonnaTest {
 
     private SfumatureDiverseColonna publicObjectiveCard;
-    private Player mockPlayer;
-    private SchemeCard mockSchemeCard;
-    private int points;
+    private User user;
+    private Player player;
+    private SchemeCard schemeCard;
+    private SchemeCard schemeCard2;
+    private Match mockMatch;
 
     @Before
-    public void before() {
+    public void before() throws SchemeCardNotExistantException, CardIdNotAllowedException, IOException, MapConstrainReadingException {
+        // Tested class
         publicObjectiveCard = new SfumatureDiverseColonna();
-        mockPlayer = mock(Player.class);
-        mockSchemeCard = mock(SchemeCard.class);
-        points = 0;
 
-        doAnswer(new Answer<Void>() {
-            @Override
-            public Void answer(InvocationOnMock invocation) throws Throwable {
-                points += 4;
-                return null;
-            }
-        }).when(mockPlayer).addPoints(4);
+        // Classes for setup
+        schemeCard = new SchemeCard(2);
+        schemeCard2 = new SchemeCard(3);
+        schemeCard.setTwinCard(schemeCard2);
+        schemeCard2.setTwinCard(schemeCard);
+        mockMatch = mock(Match.class);
+        doNothing().when(mockMatch).countDown();
 
-        // when(mockSchemeCard.getDiceIntensity(anyInt(), anyInt())).thenThrow(new DiceNotExistantException());
-        //when(mockPlayer.getScheme()).thenReturn(mockSchemeCard);
+        user = new User("User1", "pass");
+
+        player = new Player();
+        player.setMatch(mockMatch);
+        player.setUser(user);
+        player.addExtractedSchemeCard(schemeCard);
+        player.setScheme(2);
+
     }
+
 
     @Test
-    public void calculatePointTest() throws OutOfMatrixException, DiceNotExistantException {
+    public void calculatePointsTest() throws OutOfMatrixException, SchemeCardNotExistantException, TileConstrainException {
+        Dice dice1 = new Dice(DiceColor.GREEN);
+        dice1.setIntensity(1);
+        Dice dice2 = new Dice(DiceColor.GREEN);
+        dice2.setIntensity(2);
+        Dice dice3 = new Dice(DiceColor.GREEN);
+        dice3.setIntensity(3);
+        Dice dice4 = new Dice(DiceColor.GREEN);
+        dice4.setIntensity(4);
 
-        // The first and the second column are going to satisfy the objective
-        when(mockSchemeCard.getDiceIntensity(0,0)).thenReturn(1);
-        when(mockSchemeCard.getDiceIntensity(1,0)).thenReturn(3);
-        when(mockSchemeCard.getDiceIntensity(2,0)).thenReturn(4);
-        when(mockSchemeCard.getDiceIntensity(3,0)).thenReturn(5);
+        player.getScheme().setDice(dice1, 0, 0, true, true, true);
+        player.getScheme().setDice(dice2, 1, 0, true, true, true);
+        player.getScheme().setDice(dice3, 2, 0, true, true, true);
+        player.getScheme().setDice(dice4, 3, 0, true, true, true);
 
-        when(mockSchemeCard.getDiceIntensity(0,3)).thenReturn(2);
-        when(mockSchemeCard.getDiceIntensity(1,3)).thenReturn(6);
-        when(mockSchemeCard.getDiceIntensity(2,3)).thenReturn(1);
-        when(mockSchemeCard.getDiceIntensity(3,3)).thenReturn(5);
 
-        // Invoking the calculate point function
-        publicObjectiveCard.calculatepoint(mockPlayer);
+        publicObjectiveCard.calculatepoint(player);
 
-        // Check if the score was calulated as expected
-        assertEquals(8, points);
+        assertEquals(4, player.getPoints());
     }
 
-    // Implement also the situation in which the objective is not satisfied
-    @Test
-    public void calculatePointNoNewPointsTest() throws OutOfMatrixException, DiceNotExistantException {
-        when(mockSchemeCard.getDiceIntensity(0,0)).thenReturn(1);
-        when(mockSchemeCard.getDiceIntensity(1,0)).thenReturn(1);
-        when(mockSchemeCard.getDiceIntensity(2,0)).thenReturn(3);
-        when(mockSchemeCard.getDiceIntensity(3,0)).thenReturn(2);
 
 
-        when(mockSchemeCard.getDiceIntensity(0,3)).thenReturn(1);
-        when(mockSchemeCard.getDiceIntensity(1,3)).thenReturn(2);
-        when(mockSchemeCard.getDiceIntensity(2,3)).thenReturn(4);
-        when(mockSchemeCard.getDiceIntensity(3,3)).thenReturn(5);
-
-
-        // Invoking the calculate point function
-        publicObjectiveCard.calculatepoint(mockPlayer);
-
-        assertEquals(4, points);
-
-    }
-
+    // Getters tests
 
     @Test
     public void getIdTest() {

@@ -70,7 +70,7 @@ public class DicePool {
 
     //do use for RoundDicepool
     // il metodo get non elimina dalla lista
-    public Dice getDice(int diceIndex)throws EmpyDicepoolException{
+    public Dice getDice(int diceIndex)throws EmpyDicepoolException, IndexOutOfBoundsException{
         if (dices.isEmpty()){
             throw new EmpyDicepoolException();
         }
@@ -78,10 +78,8 @@ public class DicePool {
         try {
             return dices.get(diceIndex);
         } catch (IndexOutOfBoundsException e) {
-            e.printStackTrace();
+            throw new IndexOutOfBoundsException();
         }
-
-        return null;
     }
 
     //ho aggiunto questo metodo

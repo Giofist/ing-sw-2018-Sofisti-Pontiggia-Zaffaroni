@@ -147,10 +147,10 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
             for(int j = column-1; j<= column+1; j++){
                 try{
                     if(i==row  || j == column){
-                        if (this.getDiceColour(i,j) == dice.getColor()){
+                        if (this.getDiceColour(i,j) == dice.getColor() && IgnoreColor == false){
                             throw new DiceSameColorNearYouException();
                         }
-                        if(this.getDiceIntensity(i,j)== dice.getIntensity()){
+                        if(this.getDiceIntensity(i,j)== dice.getIntensity() && IgnoreNumber == false){
                             throw new DiceSameIntensityNearYou();
                         }
                     }
