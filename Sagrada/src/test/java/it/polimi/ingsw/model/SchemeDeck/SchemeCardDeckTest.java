@@ -12,27 +12,27 @@ import static org.mockito.Mockito.mock;
 public class SchemeCardDeckTest {
 
     private SchemeCardDeck schemeCardDeck;
-    private SchemeCard mockSchemeCard;
+    private SchemeCard schemeCard;
 
     @Before
     public void before() throws IOException {
         schemeCardDeck = new SchemeCardDeck();
-        mockSchemeCard = mock(SchemeCard.class);
     }
 
     @Test
     public void getCardTest() throws IOException, MapConstrainReadingException {
-        mockSchemeCard = schemeCardDeck.getCard();
-        //mockSchemeCard.setTwinCard(mockSchemeCard.getID());
+        for (int i = 0; i < (SchemeCardDeck.getNumMaps() / 2); i++) {
+            schemeCard = schemeCardDeck.getCard();
+            assertTrue((schemeCard.getID() % 2) != 0);
+            assertTrue((schemeCard.getTwinCard().getID() % 2) == 0);
+        }
     }
 
-    @Test
-    public void getRandomIdTest() {
-
+    @Test (expected = IndexOutOfBoundsException.class)
+    public void getCardException() throws IOException, MapConstrainReadingException {
+        for (int i = 0; i < (SchemeCardDeck.getNumMaps() / 2)+1; i++) {
+            schemeCard = schemeCardDeck.getCard();
+        }
     }
 
-    @Test
-    public void getNumMapsTest() throws IOException {
-        assertEquals(24, schemeCardDeck.getNumMaps());
-    }
 }
