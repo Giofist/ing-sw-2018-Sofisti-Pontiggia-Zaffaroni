@@ -49,7 +49,7 @@ public class MultiCreateController {
         void goBack(MouseEvent event) {
                 stage = (Stage) backButton.getScene().getWindow();
                 try {
-                        myNewScene = FXMLLoader.load(getClass().getResource("/Menu.fxml"));
+                        myNewScene = FXMLLoader.load(getClass().getResource("/MultiSelectMode.fxml"));
                 } catch (IOException e) {
                         e.printStackTrace();
                 }

@@ -6,11 +6,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+
+import static javafx.fxml.FXMLLoader.load;
 
 
 public class MenuController {
@@ -19,6 +22,9 @@ public class MenuController {
 
         @FXML
         private Text playerName;
+
+        @FXML
+        private AnchorPane menuPane;
 
         @FXML
         private Text PlayerScore;
@@ -64,18 +70,19 @@ public class MenuController {
     public void setUpMultiPlayer(javafx.event.ActionEvent actionEvent) {
         stage = (Stage) multiPlayer.getScene().getWindow();
         try {
-            myNewScene = FXMLLoader.load(getClass().getResource("/MultiCreateGame.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Scene scene = new Scene(myNewScene);
+        myNewScene = load(getClass().getResource("/MultiSelectMode.fxml"));
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+    Scene scene = new Scene(myNewScene);
         stage.setScene(scene);
         stage.setFullScreen(true);
         stage.setTitle("Multi");
         stage.show();
-    }
+}
 
-    public void settingsInterace(javafx.event.ActionEvent actionEvent) {
+    public void settingsInterace(javafx.event.ActionEvent actionEvent) throws IOException {
+       /*menuPane.getChildren().setAll(FXMLLoader.load("Settings.fxml"));*/
         stage = (Stage) settings.getScene().getWindow();
         try {
             myNewScene = FXMLLoader.load(getClass().getResource("/Settings.fxml"));
@@ -87,6 +94,7 @@ public class MenuController {
         stage.setTitle("Impostazioni");
         stage.setFullScreen(true);
         stage.show();
+
     }
 
     public void ExitGame(javafx.event.ActionEvent actionEvent) {
