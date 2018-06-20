@@ -1,98 +1,199 @@
 package it.polimi.ingsw.model.ToolCard;
 
 import it.polimi.ingsw.model.Dice;
-import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
-import it.polimi.ingsw.model.Exceptions.OutOfMatrixException;
-import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
-import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.LathekinException;
+import it.polimi.ingsw.model.DiceColor;
+import it.polimi.ingsw.model.Exceptions.*;
+import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
-import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.Match;
+import it.polimi.ingsw.model.PlayerPackage.Player;
+import it.polimi.ingsw.model.PlayerPackage.State;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import java.io.IOException;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-/*
-    Similmente ad AlesatoreperLaminadiRame anche in Lathekin vanno corrette alcune cose:
-    1) Supponendo che il giocatore scelga di spostare 2 dadi con posizioni valide in delle caselle in cui
-       per il secondo dado vengono dati dei parametri incorretti, si rischia di avere un problema di duplicazione
-       in quanto il primo dado verrebbe piazzato correttamente nella nuova posizione ma verrebbe piazzato anche
-       nella posizione di partenza nel momento in cui si cerca di ripristinare la situazione iniziale nel ramo catch di execute
-    2) Problemi simili possono sorgere quando il giocatore cerca di piazzare 2 dadi diversi nella stessa casella
- */
+// NOT COMPLETE
 
 public class LathekinTest {
 
-    private Lathekin toolCard;
-    private Player mockPlayer;
-    private SchemeCard mockSchemeCard;
-    private Dice mockDice1;
+    private Lathekin lathekin;
+    private Player player;
+    private Dice mockDice;
     private Dice mockDice2;
+    private SchemeCard schemeCard;
+    private ToolRequestClass toolRequestClass;
+    private Match mockMatch;
 
     @Before
-    public void before() throws SchemeCardNotExistantException, OutOfMatrixException, DiceNotExistantException {
-        toolCard = new Lathekin(0, 1, 1, 2, 2, 3, 3, 3);
-        mockPlayer = mock(Player.class);
-        mockSchemeCard = mock(SchemeCard.class);
-        mockDice1 = mock(Dice.class);
+    public void before() throws SchemeCardNotExistantException, IOException, MapConstrainReadingException, CardIdNotAllowedException {
+        lathekin = new Lathekin();
+        player = new Player();
+        mockDice = mock(Dice.class);
         mockDice2 = mock(Dice.class);
+        mockMatch = mock(Match.class);
+        doNothing().when(mockMatch).countDown();
+        schemeCard = new SchemeCard(3);
+        schemeCard.setTwinCard(new SchemeCard(4));
+        toolRequestClass = new ToolRequestClass();
 
-        when(mockPlayer.getScheme()).thenReturn(mockSchemeCard);
-        when(mockSchemeCard.getDice(0, 1)).thenReturn(mockDice1);
-        when(mockSchemeCard.getDice(2, 3)).thenReturn(mockDice2);
-    }
+        player.addExtractedSchemeCard(schemeCard);
+        player.setMatch(mockMatch);
+        player.setPlayerState(State.STARTTURNSTATE);
+        player.setScheme(3);
 
-    // This method tests for OutOfMatrixException if a user choose a Dice from a non existent Tile
-    @Test (expected = LathekinException.class)
-    public void executeOutOfMatrixExceptionSourceTest() throws ToolIllegalOperationException, OutOfMatrixException, DiceNotExistantException {
-        toolCard = new Lathekin(5, 1, 1, 2, 2, 3, 3, 3);
-        when(mockSchemeCard.getDice(5, 1)).thenThrow(OutOfMatrixException.class);
 
-        toolCard.execute(mockPlayer);
-    }
-
-    // This method will test for OutOfMatrixException if a user choose to move a Dice in a non existent Tile
-    @Test (expected = LathekinException.class)
-    public void executeOutOfMatrixExceptionDestinationTest() {
+        when(mockDice.getColor()).thenReturn(DiceColor.VIOLET);
+        when(mockDice.getIntensity()).thenReturn(2);
+        when(mockDice2.getColor()).thenReturn(DiceColor.YELLOW);
+        when(mockDice2.getIntensity()).thenReturn(6);
 
     }
 
-    // This method will test Exception raised by a constrain
-    @Test (expected = LathekinException.class)
-    public void executeConstrainExceptionTest() {
 
-    }
-
-    // This method will test when a Player choose to place 2 different Dice in the same place
+    // This method tests if a Player specifies by mistake a wrong position on the schemeCard from where to pick a Dice
     @Test
-    public void twoDicesSameDestinationTest() {
+    public void getNotExistantDiceExceptionTest() throws ToolIllegalOperationException {
+        toolRequestClass.setOldRow1(1);
+        toolRequestClass.setOldColumn1(6);
+        toolRequestClass.setNewRow1(2);
+        toolRequestClass.setNewColumn1(2);
+        toolRequestClass.setOldRow2(1);
+        toolRequestClass.setOldColumn2(6);
+        toolRequestClass.setNewRow2(2);
+        toolRequestClass.setNewColumn2(2);
 
+        try {
+            this.lathekin.execute(player, toolRequestClass);
+        } catch (ToolIllegalOperationException e) {
+            assertEquals(State.STARTTURNSTATE, player.getPlayerState().getState());
+            return;
+        }
+
+        // Here we arrive if the exception is not correctly thrown, we don't want to end up here
+        assertEquals(0, 1);
     }
 
-    // This method will test when a Player choose to move the same Dice
+
+
+    // This method tests when there is a constrain in placing the Dice
     @Test
-    public void sameDiceToMoveTest() {
+    public void executeTileColorConstrainException() throws OutOfMatrixException, TileConstrainException, ToolIllegalOperationException, DiceNotExistantException {
+        schemeCard.setDice(mockDice, 0, 2, false, false, true);
+        schemeCard.setDice(mockDice2, 0,3, false, false, true);
 
+        toolRequestClass.setOldRow1(0);
+        toolRequestClass.setOldColumn1(2);
+        toolRequestClass.setNewRow1(2);
+        toolRequestClass.setNewColumn1(3);
+        toolRequestClass.setOldRow2(0);
+        toolRequestClass.setOldColumn2(3);
+        toolRequestClass.setNewRow2(0);
+        toolRequestClass.setNewColumn2(0);
+
+        try {
+            this.lathekin.execute(player, toolRequestClass);
+        } catch (ToolIllegalOperationException e) {
+            assertFalse(schemeCard.IsTileOccupied(2, 3));
+            assertFalse(schemeCard.IsTileOccupied(0, 3));
+            assertFalse(schemeCard.IsTileOccupied(0, 0));
+            assertTrue(schemeCard.getDice(0, 2) == mockDice);
+            assertTrue(schemeCard.getDice(0, 3) == mockDice2);
+            assertEquals(State.STARTTURNSTATE, player.getPlayerState().getState());
+            return;
+        }
+
+        // Here we arrive if the exception is not correctly thrown, we don't want to end up here
+        assertEquals(0, 1);
     }
 
+/*
+    // Test the situation in which the User specifies a new wrong position
+    @Test
+    public void executeWithInvalidNewPositionException() throws OutOfMatrixException, TileConstrainException, ToolIllegalOperationException, DiceNotExistantException {
+        schemeCard.setDice(mockDice, 0, 2, false, false, false);
+
+        toolRequestClass.setOldRow1(0);
+        toolRequestClass.setOldColumn1(2);
+        toolRequestClass.setNewRow1(2);
+        toolRequestClass.setNewColumn1(6);
+
+        try {
+            this.alesatorePerLaminaDiRame.execute(player, toolRequestClass);
+        } catch (AlesatorePerLaminadiRameException e) {
+            assertFalse(schemeCard.IsTileOccupied(2, 3));
+            assertTrue(schemeCard.getDice(0, 2) == mockDice);
+            assertEquals(State.STARTTURNSTATE, player.getPlayerState().getState());
+            return;
+        }
+
+        // Here we arrive if the exception is not correctly thrown, we don't want to end up here
+        assertEquals(0, 1);
+    }
+
+
+    @Test
+    public void executeEverythingOk() throws OutOfMatrixException, TileConstrainException, ToolIllegalOperationException, DiceNotExistantException {
+        schemeCard.setDice(mockDice, 0, 2, false, false, false);
+
+        toolRequestClass.setOldRow1(0);
+        toolRequestClass.setOldColumn1(2);
+        toolRequestClass.setNewRow1(0);
+        toolRequestClass.setNewColumn1(0);
+
+
+        this.alesatorePerLaminaDiRame.execute(player, toolRequestClass);
+
+        assertFalse(schemeCard.IsTileOccupied(0, 2));
+        assertTrue(schemeCard.getDice(0, 0) == mockDice);
+        assertEquals(State.HASUSEDATOOLCARDACTIONSTATE, player.getPlayerState().getState());
+    }
+
+
+    @Test
+    public void executeEverythingOkIgnoringValueConstrain() throws OutOfMatrixException, TileConstrainException, ToolIllegalOperationException, DiceNotExistantException {
+        schemeCard.setDice(mockDice, 0, 2, false, false, false);
+
+        toolRequestClass.setOldRow1(0);
+        toolRequestClass.setOldColumn1(2);
+
+        // In this new position there should be an intensity constrain but the toolcard allows me to ignore it
+        toolRequestClass.setNewRow1(0);
+        toolRequestClass.setNewColumn1(1);
+
+
+        this.alesatorePerLaminaDiRame.execute(player, toolRequestClass);
+
+        assertFalse(schemeCard.IsTileOccupied(0, 2));
+        assertTrue(schemeCard.getDice(0, 1) == mockDice);
+        assertEquals(State.HASUSEDATOOLCARDACTIONSTATE, player.getPlayerState().getState());
+    }
+
+*/
 
     // Minor tests
     @Test
-    public void getIDTest() {
-        assertEquals(4, toolCard.getID());
+    public void testGetId() {
+        assertEquals(4, this.lathekin.getID());
     }
 
     @Test
-    public void getCardTitleTest() {
-        assertEquals("Lathekin", toolCard.getCardTitle());
+    public void testGetCardTitle() {
+        assertEquals("Lathekin", lathekin.getCardTitle());
     }
 
     @Test
     public void getDescriptionTest() {
         assertEquals("Muovi esattamente due dadi.\n" +
-                            "Rispetta tutte le restrizioni di piazzamento.", toolCard.getDescription());
+                "Rispetta tutte le restrizioni di piazzamento.",
+                lathekin.getDescription());
     }
 }

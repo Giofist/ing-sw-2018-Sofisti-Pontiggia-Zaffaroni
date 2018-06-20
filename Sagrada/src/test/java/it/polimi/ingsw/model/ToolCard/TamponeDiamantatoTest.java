@@ -3,7 +3,7 @@ package it.polimi.ingsw.model.ToolCard;
 import it.polimi.ingsw.model.Dice;
 import it.polimi.ingsw.model.DicePool;
 import it.polimi.ingsw.model.Gametable;
-import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.PlayerPackage.Player;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -26,7 +26,7 @@ public class TamponeDiamantatoTest {
 
     @Before
     public void before() {
-        toolCard = new TamponeDiamantato(3);
+        toolCard = new TamponeDiamantato();
         mockPlayer = mock(Player.class);
         mockGameTable = mock(Gametable.class);
         mockRoundDicePool = mock(DicePool.class);

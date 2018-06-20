@@ -1,3 +1,4 @@
+/*
 package it.polimi.ingsw.model.ToolCard;
 
 import org.junit.Before;
@@ -5,12 +6,12 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-/*
+
     1) A cosa serve in TenagliaRotelle il controllo che il giocatore è al secondo round se player.setMustpassTurn(true);
     suppongo faccia cambiare il round da subito senza nemmeno dare la possibilità al giocatore di scegliere la carta?
 
     2) getDice(selectedDiceIndex) non restituisce errore nel caso si passi un indice negativo
- */
+
 
 public class TenagliaRotelleTest {
 
@@ -39,3 +40,4 @@ public class TenagliaRotelleTest {
                 "Salta il secondo turno di questo round.", toolCard.getDescription());
     }
 }
+*/

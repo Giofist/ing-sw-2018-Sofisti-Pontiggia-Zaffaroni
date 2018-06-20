@@ -46,6 +46,8 @@ public class DiluenteperPastaSalda  extends ToolAction {
             }
         }catch(EmpyDicepoolException e){
             throw new ToolIllegalOperationException(e.getMessage());
+        } catch(IndexOutOfBoundsException e) {
+            throw new ToolIllegalOperationException(e.getMessage());
         }
     }
 }

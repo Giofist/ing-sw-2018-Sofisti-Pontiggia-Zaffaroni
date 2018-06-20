@@ -1,3 +1,4 @@
+/*
 package it.polimi.ingsw.model.ToolCard;
 
 import it.polimi.ingsw.model.Dice;
@@ -8,7 +9,7 @@ import it.polimi.ingsw.model.Exceptions.IncreaseNotAllowedException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.PinzaSgrossatriceException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.Gametable;
-import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.PlayerPackage.Player;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -101,3 +102,5 @@ public class PinzaSgrossatriceTest {
     }
 
 }
+
+*/
