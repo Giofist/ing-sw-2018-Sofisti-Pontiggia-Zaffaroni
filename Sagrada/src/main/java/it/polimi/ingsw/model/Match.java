@@ -20,17 +20,15 @@ public class Match implements Runnable{
     private Gametable gametable;
     private boolean started;
     private CountDownLatch doneSignal;
-    private Timer timer;
     public boolean isreadyTostart;
 
 
     //public constructor
-    public Match(Player player, String game_name, Timer timer)  {
+    public Match(Player player, String game_name)  {
         this.game_name = game_name;
         this.players = new LinkedList<>();
         this.players.addFirst(player);
         player.setMatch(this);
-        this.timer = timer;
         this.isreadyTostart = false;
 
 

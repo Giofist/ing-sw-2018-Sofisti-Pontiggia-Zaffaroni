@@ -88,7 +88,6 @@ public class UsersList {
                 }
                 return;
             }
-
         }
         throw new it.polimi.ingsw.model.Exceptions.LoginException();
     }
@@ -100,16 +99,12 @@ public class UsersList {
         }
     }
 
-
     //classe che permette di registrarsi
     synchronized public void register (String name,String password) {
-
         FileWriter fw = null;
         BufferedWriter bw = null;
-
         try {
             String hexHash = produceSHA256(password);
-
             // Write the new User to the file
             fw = new FileWriter("src/main/resources/UsersList.txt", true);
             bw = new BufferedWriter(fw);

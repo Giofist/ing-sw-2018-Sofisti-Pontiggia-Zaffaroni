@@ -2,6 +2,7 @@ package it.polimi.ingsw.NetworkClient;
 
 import it.polimi.ingsw.ClientView.Observer;
 import it.polimi.ingsw.ClientView.ObserverView;
+import it.polimi.ingsw.ServerController.ClientHandlerInterface;
 import it.polimi.ingsw.model.ClientMessagePackage.ClientMessage;
 import it.polimi.ingsw.NetworkServer.ServerMessage;
 
@@ -30,8 +31,6 @@ public class SocketClientListener implements Runnable {
         out = new PrintWriter(socket.getOutputStream());
         os = new ObjectOutputStream(socket.getOutputStream());
         is = new ObjectInputStream(socket.getInputStream());
-
-        System.out.println("Connessione stabilita!\n");
     }
 
     public void setController(SocketController controller, Observer observer){
@@ -53,7 +52,7 @@ public class SocketClientListener implements Runnable {
                 ServerMessage message = (ServerMessage) is.readObject();
                 int messagecodex = message.getMessagecodex();
                 if(messagecodex == 44){
-                    executor.submit(new SocketMessageHandler(this.controller, this.observerView, this, message));
+                    executor.submit(new SocketMessageHandler( this.observerView, this, message));
                 }else{
                     executor.submit(new SocketResponseHandler(this.controller, message.getMessage(), messagecodex,message.getList()));
                 }

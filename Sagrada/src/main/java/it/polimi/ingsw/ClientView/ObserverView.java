@@ -13,7 +13,6 @@ import java.util.Scanner;
 public class ObserverView extends UnicastRemoteObject implements Observer {
     private ClientHandlerInterface serverController;
     private final Scanner in;
-    private final PrintWriter out;
     private String yourName;
     private Thread thread;
     private boolean leaveSagrada;
@@ -23,7 +22,6 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
     //constructor1
     public ObserverView() throws RemoteException {
         this.in = new Scanner(System.in);
-        this.out = new PrintWriter(System.out);
         leaveSagrada = false;
         leaveMatch = false;
         leave =false;
@@ -32,9 +30,7 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
     //constructor2
     public ObserverView(ClientHandlerInterface controller) throws RemoteException {
         this.in = new Scanner(System.in);
-        this.out = new PrintWriter(System.out);
         this.serverController = controller;
-
     }
 
     public void setServerController(ClientHandlerInterface serverController) {
@@ -148,7 +144,6 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
         } while (!success);
     }
 
-
     private void menuInt() throws RemoteException {
         Scanner in = new Scanner(System.in);
         String input;
@@ -248,7 +243,6 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
             this.thread = null;
         }
         State state =  o.getState();
-        System.out.println("State: " +state.toString());
         switch (state){
             case ERRORSTATE: {
                 this.thread = new Thread(new ErrorStateView(serverController, yourName));
@@ -289,7 +283,6 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
             }
             case ENDMATCHSTATE: {
                 leave = true;
-                System.out.println("forza chievo");
                 this.thread = new Thread(new EndMatchStateView(serverController, yourName, this));
 
                 break;

@@ -40,7 +40,7 @@ public class MatchesList {
             }
         }
         Timer timer  = new Timer(false);
-        final Match match = new Match(player, game_name, timer);
+        final Match match = new Match(player, game_name);
         this.matches.add(match);
         //ogni match è un thread
         final Thread thread = new Thread(match);

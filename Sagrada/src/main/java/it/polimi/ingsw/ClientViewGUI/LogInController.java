@@ -3,6 +3,10 @@ package it.polimi.ingsw.ClientViewGUI;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import it.polimi.ingsw.ClientView.ObserverView;
+import it.polimi.ingsw.NetworkClient.SocketClientListener;
+import it.polimi.ingsw.NetworkClient.SocketController;
+import it.polimi.ingsw.ServerController.ClientHandlerInterface;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,8 +25,12 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 import java.net.URI;
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 
 public class LogInController {
+    private String ipAddr = "127.0.0.1";
+
 
     public Stage primaryStage;
     private int connection=0;
@@ -97,7 +105,7 @@ public class LogInController {
     }
 
     @FXML
-    void setconnection(ActionEvent event) {  //TODO fra se isSelected True Socket altrimenti RMI
+    void setconnection(ActionEvent event) {
         if(ConnectionSetUp.isSelected()){
             connectionMessage.setText("Socket selected!");
         }
@@ -121,6 +129,20 @@ public class LogInController {
     public void connect(ActionEvent actionEvent) {
 
         if(connected == true){
+            if(ConnectionSetUp.isSelected()){
+                SocketClientListener listener = new SocketClientListener(ipAddr);
+                EntryPoint.Singleton().setSocketController(new SocketController( listener));
+                listener.setController(EntryPoint.Singleton().getSocketController(), EntryPoint.Singleton());
+                new Thread(listener).start();
+            }
+            else {
+                // Locating rmi register on the server
+                // looking for the controller on the registry
+                Registry rmiRegistry = LocateRegistry.getRegistry(ipAddr);
+                ClientHandlerInterface controller = (ClientHandlerInterface) rmiRegistry.lookup("ClientHandler");
+                EntryPoint.Singleton().setServerController(controller);
+
+            }
             ConnectButton.setText("Connect");
             connectionMessage.setText("Disconnected!");
             connected = false;

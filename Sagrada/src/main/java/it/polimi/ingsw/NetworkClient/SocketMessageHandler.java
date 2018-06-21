@@ -13,7 +13,7 @@ public class SocketMessageHandler implements Runnable {
     private ServerMessage message;
     private SocketClientListener listener;
 
-    public SocketMessageHandler(SocketController controller, Observer observer, SocketClientListener listener, ServerMessage message){
+    public SocketMessageHandler( Observer observer, SocketClientListener listener, ServerMessage message){
         this.listener = listener;
         this.observer = observer;
         this.message = message;
