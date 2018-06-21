@@ -1,106 +1,128 @@
-/*
 package it.polimi.ingsw.model.ToolCard;
 
-import it.polimi.ingsw.model.Dice;
-import it.polimi.ingsw.model.DicePool;
-import it.polimi.ingsw.model.Exceptions.DecreaseNotAllowedException;
+import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.Exceptions.EmpyDicepoolException;
-import it.polimi.ingsw.model.Exceptions.IncreaseNotAllowedException;
-import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.PinzaSgrossatriceException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
-import it.polimi.ingsw.model.Gametable;
 import it.polimi.ingsw.model.PlayerPackage.Player;
+import it.polimi.ingsw.model.PlayerPackage.State;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.rmi.RemoteException;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.*;
 
-// Complete
+
+// COMPLETE, maybe some problem in Setter implementation
 
 public class PinzaSgrossatriceTest {
-    // Tested object
-    private PinzaSgrossatrice pinzaSgrossatrice;
 
-    // Mock objects
-    private Player mockPlayer;
-    private Gametable mockGametable;
-    private DicePool mockRoundDicePool;
-    private Dice mockDice;
-    private int mockDiceIntensity = 5;
-
+    private PinzaSgrossatrice toolCard;
+    private ToolRequestClass toolRequestClass;
+    private Player player;
+    private Match mockMatch;
+    private Turn mockTurn;
+    private DicePool roundDicePool;
+    private Gametable mockGameTable;
 
     @Before
-    public void before() {
-        this.pinzaSgrossatrice = new PinzaSgrossatrice(3, 1);
+    public void before() throws RemoteException {
+        toolCard = new PinzaSgrossatrice();
+        toolRequestClass = new ToolRequestClass();
 
-        this.mockPlayer = mock(Player.class);
-        this.mockGametable = mock(Gametable.class);
-        this.mockRoundDicePool = mock(DicePool.class);
-        this.mockDice = mock(Dice.class);
+        roundDicePool = new DicePool();
+        roundDicePool.addDice(new Dice(DiceColor.RED));
+        roundDicePool.addDice(new Dice(DiceColor.YELLOW));
 
-        when(this.mockPlayer.getGametable()).thenReturn(mockGametable);
-        when(this.mockGametable.getRoundDicepool()).thenReturn(mockRoundDicePool);
-        try {
-            when(this.mockRoundDicePool.getDice(3)).thenReturn(mockDice);
-        } catch (EmpyDicepoolException e) {
-            e.printStackTrace();
-        }
+        player = new Player();
+        mockMatch = mock(Match.class);
+        mockGameTable = mock(Gametable.class);
+        mockTurn = mock(Turn.class);
+        player.setMatch(mockMatch);
+        player.setTurn(mockTurn);
+        player.setPlayerState(State.STARTTURNSTATE);
+
+        when(mockMatch.getGametable()).thenReturn(mockGameTable);
+        when(mockGameTable.getRoundDicepool()).thenReturn(roundDicePool);
     }
 
 
 
     // This test will test the situation in which we try to decrement the intensity of a Dice with value 1
-    @Test (expected = ToolIllegalOperationException.class)
-    public void testExecuteOperation0DecreaseException () throws ToolIllegalOperationException, DecreaseNotAllowedException {
-        // Here we prepare the PinzaSgrossatrice object with 2 as Dice index to change and we try to decrease its intensity
+    @Test
+    public void testExecuteOperation0DecreaseException () throws EmpyDicepoolException, ToolIllegalOperationException {
+        // Here we prepare the PinzaSgrossatrice object with 0 as Dice index to change and we try to decrease its intensity
         // in a situation where is equal to 1
-        pinzaSgrossatrice = new PinzaSgrossatrice(2, 0);
+
+        player.getMatch().getGametable().getRoundDicepool().getDice(0).setIntensity(1);
+        toolRequestClass.setSelectedRoundDicepoolDiceIndex(0);
+        toolRequestClass.setOperationforPinzaSgrossatrice(0);
+
         try {
-            when(this.mockRoundDicePool.getDice(2)).thenReturn(mockDice);
-        } catch (EmpyDicepoolException e) {
-            e.printStackTrace();
+            toolCard.execute(player, toolRequestClass);
+        } catch (ToolIllegalOperationException e) {
+            assertEquals(State.STARTTURNSTATE, player.getPlayerState().getState());
+            return;
         }
 
-        // The mockDice will throw a DecreaseNotAllowedException because we are trying to decrease from 1 to 6
-        doThrow(new DecreaseNotAllowedException()).when(mockDice).decreaseIntensity();
+        // We don't want to end here
+        assertFalse(0==0);
 
-        // Testing of the execute method
-        pinzaSgrossatrice.execute(mockPlayer);
     }
 
 
     // This test will test the situation in which we try to increment the intensity of a Dice with value 6
-    @Test (expected = ToolIllegalOperationException.class)
-    public void testExecuteOperation1 () throws ToolIllegalOperationException, IncreaseNotAllowedException {
-        // Here we prepare the PinzaSgrossatrice object with 3 as Dice index to change and we try to increase its intensity
+    @Test
+    public void testExecuteOperation1 () throws EmpyDicepoolException {
+        // Here we prepare the PinzaSgrossatrice object with 0 as Dice index to change and we try to increase its intensity
         // in a situation where is equal to 6
-        pinzaSgrossatrice = new PinzaSgrossatrice(3, 1);
+        player.getMatch().getGametable().getRoundDicepool().getDice(0).setIntensity(6);
+        toolRequestClass.setSelectedRoundDicepoolDiceIndex(0);
+        toolRequestClass.setOperationforPinzaSgrossatrice(1);
 
-        // The mockDice will throw a DecreaseNotAllowedException because we are trying to decrease from 1 to 6
-        doThrow(new IncreaseNotAllowedException()).when(mockDice).increaseIntensity();
+        try {
+            toolCard.execute(player, toolRequestClass);
+        } catch (ToolIllegalOperationException e) {
+            assertEquals(State.STARTTURNSTATE, player.getPlayerState().getState());
+            return;
+        }
 
-        // Testing of the execute method
-        pinzaSgrossatrice.execute(mockPlayer);
+        // We don't want to end here
+        assertFalse(0==0);
+
+    }
+
+
+    @Test
+    public void executeOK () throws EmpyDicepoolException, ToolIllegalOperationException {
+        player.getMatch().getGametable().getRoundDicepool().getDice(0).setIntensity(2);
+        toolRequestClass.setSelectedRoundDicepoolDiceIndex(0);
+        toolRequestClass.setOperationforPinzaSgrossatrice(1);
+
+
+        toolCard.execute(player, toolRequestClass);
+        assertEquals(3, player.getMatch().getGametable().getRoundDicepool().getDice(0).getIntensity());
+        assertEquals(State.HASUSEDATOOLCARDACTIONSTATE, player.getPlayerState().getState());
+
     }
 
 
     @Test
     public void testGetId() {
-        assertEquals(1, pinzaSgrossatrice.getID());
+        assertEquals(1, toolCard.getID());
     }
 
     @Test
     public void testGetCardTitle() {
-        assertEquals("Pinza Sgrossatrice", pinzaSgrossatrice.getCardTitle());
+        assertEquals("Pinza Sgrossatrice", toolCard.getCardTitle());
     }
 
     @Test
     public void getDescriptionTest() {
         assertEquals("Dopo aver scelto un dado, aumenta o diminuisci il valore del dado scelto di 1.\n" +
-                              "Non puoi cambiare un 6 in 1 o un 1 in 6.", pinzaSgrossatrice.getDescription());
+                              "Non puoi cambiare un 6 in 1 o un 1 in 6.", toolCard.getDescription());
     }
 
 }
-
-*/

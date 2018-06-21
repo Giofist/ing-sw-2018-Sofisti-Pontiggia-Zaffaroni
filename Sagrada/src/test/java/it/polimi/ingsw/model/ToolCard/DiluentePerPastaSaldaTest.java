@@ -31,7 +31,7 @@ public class DiluentePerPastaSaldaTest {
     private Gametable mockGametable;
 
     @Before
-    public void before() throws SchemeCardNotExistantException, IOException, MapConstrainReadingException, CardIdNotAllowedException {
+    public void before() throws IOException, MapConstrainReadingException, CardIdNotAllowedException {
         toolCard = new DiluenteperPastaSalda();
         player = new Player();
         mockDice = mock(Dice.class);

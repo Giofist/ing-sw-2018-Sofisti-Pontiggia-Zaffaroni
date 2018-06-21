@@ -1,44 +1,93 @@
 package it.polimi.ingsw.model.ToolCard;
 
-import it.polimi.ingsw.model.Dice;
-import it.polimi.ingsw.model.DicePool;
-import it.polimi.ingsw.model.Gametable;
+import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.Exceptions.EmpyDicepoolException;
+import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.PlayerPackage.Player;
+import it.polimi.ingsw.model.PlayerPackage.State;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.rmi.RemoteException;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-/*
-     In TamponeDiamantato bisogna gestire correttamente il caso in  cui l'utente spefichi un indice non valido per il Dice
-     che vuole invertire, al momento la classe TamponeDiamantato non lancia e non gestisce alcuna eccezione di questo tipo
- */
+// COMPLETATO CON CORREZIONE IMPLEMENTAZIONE
 
 public class TamponeDiamantatoTest {
 
     private TamponeDiamantato toolCard;
-    private Player mockPlayer;
+    private ToolRequestClass toolRequestClass;
+    private Player player;
+    private Match mockMatch;
+    private Turn mockTurn;
+    private DicePool roundDicePool;
     private Gametable mockGameTable;
-    private DicePool mockRoundDicePool;
-    private Dice mockDice;
 
     @Before
-    public void before() {
+    public void before() throws RemoteException {
         toolCard = new TamponeDiamantato();
-        mockPlayer = mock(Player.class);
-        mockGameTable = mock(Gametable.class);
-        mockRoundDicePool = mock(DicePool.class);
-        mockDice = mock(Dice.class);
+        toolRequestClass = new ToolRequestClass();
 
-        when(mockPlayer.getGametable()).thenReturn(mockGameTable);
-        when(mockGameTable.getDicepool()).thenReturn(mockRoundDicePool);
+        roundDicePool = new DicePool();
+        roundDicePool.addDice(new Dice(DiceColor.RED));
+        roundDicePool.addDice(new Dice(DiceColor.YELLOW));
+
+        player = new Player();
+        mockMatch = mock(Match.class);
+        mockGameTable = mock(Gametable.class);
+        mockTurn = mock(Turn.class);
+        player.setMatch(mockMatch);
+        player.setTurn(mockTurn);
+        player.setPlayerState(State.STARTTURNSTATE);
+
+        when(mockMatch.getGametable()).thenReturn(mockGameTable);
+        when(mockGameTable.getRoundDicepool()).thenReturn(roundDicePool);
     }
 
     // This method will test when the specified index is out of range
+    @Test (expected = ToolIllegalOperationException.class)
+    public void executeIndexOutOfRangeException() throws ToolIllegalOperationException {
+        toolRequestClass.setSelectedDIceIndex(-1);
+        toolCard.execute(player, toolRequestClass);
+        assertEquals(State.STARTTURNSTATE, player.getPlayerState().getState());
+    }
+
+
     @Test
-    public void execute() {
+    public void executeOK() throws EmpyDicepoolException, ToolIllegalOperationException {
+        toolRequestClass.setSelectedDIceIndex(0);
+
+        int initialIntensity = player.getMatch().getGametable().getRoundDicepool().getDice(0).getIntensity();
+        toolCard.execute(player, toolRequestClass);
+
+        switch (initialIntensity) {
+            case 1:
+                assertEquals(6, player.getMatch().getGametable().getRoundDicepool().getDice(0).getIntensity());
+                break;
+            case 2:
+                assertEquals(5, player.getMatch().getGametable().getRoundDicepool().getDice(0).getIntensity());
+                break;
+            case 3:
+                assertEquals(4, player.getMatch().getGametable().getRoundDicepool().getDice(0).getIntensity());
+                break;
+            case 4:
+                assertEquals(3, player.getMatch().getGametable().getRoundDicepool().getDice(0).getIntensity());
+                break;
+            case 5:
+                assertEquals(2, player.getMatch().getGametable().getRoundDicepool().getDice(0).getIntensity());
+                break;
+            case 6:
+                assertEquals(1, player.getMatch().getGametable().getRoundDicepool().getDice(0).getIntensity());
+                break;
+            default:
+                assertFalse(0==0);
+                break;
+        }
+
+        assertEquals(State.HASUSEDATOOLCARDACTIONSTATE, player.getPlayerState().getState());
     }
 
 
