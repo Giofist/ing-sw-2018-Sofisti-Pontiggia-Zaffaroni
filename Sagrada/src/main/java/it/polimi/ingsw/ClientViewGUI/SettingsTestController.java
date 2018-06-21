@@ -1,43 +1,32 @@
 package it.polimi.ingsw.ClientViewGUI;
 
+import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 
-public class SettingsController {
+public class SettingsTestController {
     Stage stage = null;
     Parent myNewScene = null;
+    @FXML
+    private AnchorPane settingsPane;
 
     @FXML
-    private Text backButton;
+    private Text ErrorMessage;
 
     @FXML
-    private AnchorPane content;
+    private JFXButton Back;
 
     @FXML
-    private Text yourName;
-
-    @FXML
-    private Text yourScore;
-
-    @FXML
-    private Button Back;
-
-    @FXML
-    private ImageView yourImage;
-
-    @FXML
-    void goBack(MouseEvent event) {
-        stage = (Stage) backButton.getScene().getWindow();
+    void goBack(ActionEvent event) {
+        stage = (Stage) Back.getScene().getWindow();
         try {
             myNewScene = FXMLLoader.load(getClass().getResource("/Menu.fxml"));
         } catch (IOException e) {
@@ -52,5 +41,3 @@ public class SettingsController {
     }
 
 }
-
-

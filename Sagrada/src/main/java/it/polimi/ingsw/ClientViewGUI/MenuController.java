@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.util.Collections;
 
 import static javafx.fxml.FXMLLoader.load;
 
@@ -88,7 +89,7 @@ public class MenuController {
        /*menuPane.getChildren().setAll(FXMLLoader.load("Settings.fxml"));*/
         //stage = (Stage) settings.getScene().getWindow();
         try {
-            content = (AnchorPane) FXMLLoader.load(getClass().getResource("/Settings.fxml"));
+            content.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/SettingsTest.fxml"))));
         } catch (IOException e) {
             e.printStackTrace();
         }
