@@ -2,34 +2,22 @@ package it.polimi.ingsw.ClientViewGUI;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
-import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.util.Collections;
 
 public class MultiCreateController {
-        Stage stage = null;
-        Parent myNewScene = null;
 
         @FXML
-        private Text backButton;
+        private AnchorPane createPane;
 
         @FXML
-        private VBox yourName;
-
-        @FXML
-        private Text yourScore;
-
-        @FXML
-        private ImageView yourImage;
+        private Text ErrorMessage;
 
         @FXML
         private JFXTextField gameName;
@@ -38,30 +26,18 @@ public class MultiCreateController {
         private JFXButton createGame;
 
         @FXML
-        private  Text errorMessage;
+        private JFXButton Back;
 
-        @FXML
-        void createGame(ActionEvent event) {
 
+        public void createGame(ActionEvent actionEvent) {
+                ErrorMessage.setText("Non ancora implementato!");
         }
 
-        @FXML
-        void goBack(MouseEvent event) {
-                stage = (Stage) backButton.getScene().getWindow();
+        public void goBack(ActionEvent actionEvent) {
                 try {
-                        myNewScene = FXMLLoader.load(getClass().getResource("/Menu.fxml"));
+                        createPane.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/MultiSelectMode.fxml"))));
                 } catch (IOException e) {
                         e.printStackTrace();
                 }
-                Scene scene = new Scene(myNewScene);
-                stage.setScene(scene);
-                stage.setFullScreen(true);
-                stage.setTitle("Multi");
-                stage.show();
-        }
-
-        public void createGame(javafx.event.ActionEvent actionEvent) {
-                errorMessage.setText("Non ancora implementata!");
         }
 }
-

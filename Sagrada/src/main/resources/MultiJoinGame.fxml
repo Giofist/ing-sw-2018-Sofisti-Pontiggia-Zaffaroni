@@ -3,65 +3,19 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXListView?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox alignment="TOP_CENTER" prefHeight="835.0" prefWidth="1322.0" styleClass="back" stylesheets="@style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.ClientViewGUI.MultiJoinGameController">
+<AnchorPane fx:id="joinPane" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.ClientViewGUI.MultiJoinController">
    <children>
-      <HBox alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" opacity="0.74" prefHeight="50.0" style="-fx-background-color: green;">
+      <HBox alignment="CENTER" layoutX="5.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="717.0" prefWidth="1110.0">
          <children>
-            <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="51.0" prefWidth="1207.0">
-               <children>
-                  <Text fx:id="backButton" fill="WHITE" onMouseClicked="#goBack" strokeType="OUTSIDE" strokeWidth="0.0" text=" &lt; Back" wrappingWidth="212.1279296875">
-                     <font>
-                        <Font name="System Bold" size="38.0" />
-                     </font>
-                  </Text>
-               </children>
-            </HBox>
-            <VBox alignment="TOP_RIGHT">
-               <HBox.margin>
-                  <Insets right="10.0" />
-               </HBox.margin>
-               <children>
-                  <Text fx:id="yourName" strokeType="OUTSIDE" strokeWidth="0.0" text="Mario Rossi">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets top="3.0" />
-                     </VBox.margin>
-                  </Text>
-                  <Text fx:id="yourScore" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Score" />
-               </children>
-            </VBox>
-            <ImageView fx:id="yourImage" fitHeight="37.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@avatar.jpg" />
-               </image>
-               <effect>
-                  <DropShadow />
-               </effect>
-            </ImageView>
-         </children>
-         <padding>
-            <Insets right="10.0" />
-         </padding>
-         <effect>
-            <DropShadow />
-         </effect>
-      </HBox>
-      <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0">
-         <VBox.margin>
-            <Insets bottom="10.0" left="50.0" right="50.0" top="10.0" />
-         </VBox.margin>
-         <children>
-            <VBox alignment="CENTER_LEFT" prefWidth="758.0">
+            <VBox alignment="CENTER" spacing="30.0">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Partecipa alla partita:">
                      <font>
@@ -69,27 +23,38 @@
                      </font>
                   </Text>
                   <JFXListView fx:id="gameList" onMouseClicked="#SelectGame" />
+                  <JFXButton fx:id="joinaGame" buttonType="RAISED" onAction="#JoinGame" prefHeight="60.0" prefWidth="300.0" style="-fx-background-color: green;" text="Entra in partita!" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </JFXButton>
+                  <Text fx:id="ErrorMessage" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="30.0" />
+                     </font>
+                  </Text>
                </children>
-               <HBox.margin>
-                  <Insets top="100.0" />
-               </HBox.margin>
             </VBox>
          </children>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
       </HBox>
-      <HBox alignment="CENTER_RIGHT">
+      <HBox alignment="CENTER_LEFT" layoutY="717.0" prefHeight="100.0" prefWidth="1118.0">
          <children>
-            <JFXButton fx:id="joinaGame" buttonType="RAISED" onAction="#JoinGame" prefHeight="60.0" prefWidth="300.0" style="-fx-background-color: green;" text="Entra in partita!" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-            </JFXButton>
+            <ButtonBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="100.0" prefWidth="1113.0">
+               <buttons>
+                  <JFXButton fx:id="Back" onAction="#goBack" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: green;" text="Back" textFill="WHITE">
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </JFXButton>
+               </buttons>
+               <padding>
+                  <Insets right="20.0" />
+               </padding>
+            </ButtonBar>
          </children>
-         <VBox.margin>
-            <Insets bottom="20.0" right="20.0" top="300.0" />
-         </VBox.margin>
       </HBox>
    </children>
-</VBox>
+</AnchorPane>

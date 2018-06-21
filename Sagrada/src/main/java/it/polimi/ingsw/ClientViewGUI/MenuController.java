@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.util.Collections;
 
 
 public class MenuController {
@@ -66,23 +67,16 @@ public class MenuController {
         }
 
     public void setUpMultiPlayer(javafx.event.ActionEvent actionEvent) {
-        stage = (Stage) multiPlayer.getScene().getWindow();
         try {
-            myNewScene = FXMLLoader.load(getClass().getResource("/MultiCreateGame.fxml"));
+            content.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/MultiSelectMode.fxml"))));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Scene scene = new Scene(myNewScene);
-        stage.setScene(scene);
-        stage.setFullScreen(true);
-        stage.setTitle("Multi");
-        stage.show();
     }
 
     public void settingsInterace(javafx.event.ActionEvent actionEvent) {
-        stage = (Stage) settings.getScene().getWindow();
         try {
-            content.getChildren().setAll(getClass().getResource("/SettingsTest.fxml"));
+            content.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/Settings.fxml"))));
         } catch (IOException e) {
             e.printStackTrace();
         }
