@@ -42,13 +42,8 @@ public class MultiJoinController implements Initializable{
        gameList.setItems(data);
    }
 
-    public void SelectGame(MouseEvent mouseEvent) {
-        ErrorMessage.setText("clicked");
-    }
-
     public void JoinGame(ActionEvent actionEvent) {
-       /*ObservableList<String> selected = null;
-        ErrorMessage.setText(selected.toString()); not working selection*/
+        ErrorMessage.setText(gameList.getSelectionModel().getSelectedItem()); //how to obtain the selected game
     }
 
     public void goBack(ActionEvent actionEvent) {
