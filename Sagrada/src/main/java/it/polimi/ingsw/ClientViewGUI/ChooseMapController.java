@@ -2,6 +2,7 @@ package it.polimi.ingsw.ClientViewGUI;
 
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -76,5 +77,21 @@ public class ChooseMapController {
     }
 
     public void startGame(javafx.event.ActionEvent actionEvent) {
+    }
+
+    public void selectMap1(MouseEvent mouseEvent) {
+        ErrorMessage.setText("1");
+    }
+
+    public void selectMap2(MouseEvent mouseEvent) {
+        ErrorMessage.setText("2");
+    }
+
+    public void selectMap3(MouseEvent mouseEvent) {
+        ErrorMessage.setText("3");
+    }
+
+    public void selectMap4(MouseEvent mouseEvent) {
+        ErrorMessage.setText("4");
     }
 }

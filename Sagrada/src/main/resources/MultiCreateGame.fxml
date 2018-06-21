@@ -32,15 +32,15 @@
                         <Font name="System Bold" size="30.0" />
                      </font>
                   </JFXButton>
+                  <Text fx:id="ErrorMessage" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="30.0" />
+                     </font>
+                  </Text>
                </children>
             </VBox>
          </children>
       </HBox>
-      <Text fx:id="ErrorMessage" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER">
-         <font>
-            <Font name="System Bold" size="30.0" />
-         </font>
-      </Text>
       <HBox alignment="CENTER_LEFT" layoutY="717.0" prefHeight="100.0" prefWidth="1118.0">
          <children>
             <ButtonBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="100.0" prefWidth="1113.0">

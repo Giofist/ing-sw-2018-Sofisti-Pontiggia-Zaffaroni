@@ -23,9 +23,10 @@ public class SocketClientListener implements Runnable {
     private ObjectOutputStream os;
     private Observer observerView;
     private SocketController controller;
+    private int port = 1337;
 
-    public SocketClientListener(String ipAddr) throws IOException{
-        Socket socket = new Socket(ipAddr, 1337);
+    public SocketClientListener(String ipAddr) throws IOException {
+        Socket socket = new Socket(ipAddr, port);
         this.socket = socket;
         in = new Scanner(socket.getInputStream());
         out = new PrintWriter(socket.getOutputStream());
@@ -33,11 +34,14 @@ public class SocketClientListener implements Runnable {
         is = new ObjectInputStream(socket.getInputStream());
     }
 
-    public void setController(SocketController controller, Observer observer){
+    public void setController(SocketController controller, Observer observer) {
         this.controller = controller;
         this.observerView = observer;
     }
 
+    public void setPort(int port) {
+        this.port = port;
+    }
 
     @Override
     public void run() {
@@ -51,10 +55,10 @@ public class SocketClientListener implements Runnable {
             try {
                 ServerMessage message = (ServerMessage) is.readObject();
                 int messagecodex = message.getMessagecodex();
-                if(messagecodex == 44){
-                    executor.submit(new SocketMessageHandler( this.observerView, this, message));
-                }else{
-                    executor.submit(new SocketResponseHandler(this.controller, message.getMessage(), messagecodex,message.getList()));
+                if (messagecodex == 44) {
+                    executor.submit(new SocketMessageHandler(this.observerView, this, message));
+                } else {
+                    executor.submit(new SocketResponseHandler(this.controller, message.getMessage(), messagecodex, message.getList()));
                 }
                 message = null;
             } catch (Exception e) {
@@ -63,7 +67,7 @@ public class SocketClientListener implements Runnable {
         }
     }
 
-    public synchronized void sendMessage (ClientMessage message)throws IOException{
+    public synchronized void sendMessage(ClientMessage message) throws IOException {
         os.writeObject(message);
         os.flush();
     }

@@ -44,7 +44,7 @@
                   <DropShadow />
                </effect>
             </ImageView>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="40.0" layoutY="175.0" prefHeight="50.0" prefWidth="322.0" text="Benvenuto in Sagrada!" textAlignment="CENTER" textFill="WHITE">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="28.0" layoutY="167.0" prefHeight="50.0" prefWidth="322.0" text="Benvenuto in Sagrada!" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font size="28.0" />
                </font>
@@ -54,16 +54,19 @@
                   <Font size="25.0" />
                </font>
             </Label>
-            <AnchorPane layoutX="30.0" layoutY="243.0" prefHeight="126.0" prefWidth="322.0" style="-fx-background-color: FFFFFF;">
+            <AnchorPane layoutX="30.0" layoutY="233.0" prefHeight="136.0" prefWidth="322.0" style="-fx-background-color: FFFFFF;">
                <children>
-                  <Text layoutX="77.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SetUp connessione">
+                  <Text layoutX="74.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SetUp connessione">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Text>
-                  <JFXToggleButton fx:id="ConnectionSetUp" layoutX="32.0" layoutY="42.0" onAction="#setconnection" text="RMI/Socket" toggleColor="#028f00" toggleLineColor="#78c27d" />
-                  <Text fx:id="connectionMessage" fill="#2d8b24" layoutX="101.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RMI selected!" textAlignment="CENTER" wrappingWidth="119.00000095367432" />
-                  <JFXButton fx:id="ConnectButton" buttonType="RAISED" layoutX="197.0" layoutY="59.0" onAction="#connect" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: green;" text="Connect" textFill="WHITE" />
+                  <JFXToggleButton fx:id="ConnectionSetUp" layoutX="29.0" layoutY="41.0" onAction="#setconnection" text="RMI/Socket" toggleColor="#028f00" toggleLineColor="#78c27d" />
+                  <Text fx:id="connectionMessage" fill="#2d8b24" layoutX="41.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RMI selected!" textAlignment="CENTER" wrappingWidth="119.00000095367432" />
+                  <JFXButton fx:id="ConnectButton" buttonType="RAISED" layoutX="194.0" layoutY="58.0" onAction="#connect" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: green;" text="Connect" textFill="WHITE" />
+                  <JFXTextField fx:id="IPAddress" accessibleRole="TEXT_FIELD" layoutX="22.0" layoutY="101.0" prefHeight="25.0" prefWidth="132.0" promptText="IP Address" />
+                  <JFXTextField fx:id="PortField" accessibleRole="TEXT_FIELD" layoutX="188.0" layoutY="101.0" prefHeight="25.0" prefWidth="113.0" promptText="Port" />
+                  <Text fx:id="connectionError" fill="RED" layoutX="176.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="131.49999618530273" />
                </children>
                <effect>
                   <DropShadow />

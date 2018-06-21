@@ -11,6 +11,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -24,20 +25,27 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URI;
+import java.net.URL;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.ResourceBundle;
 
-public class LogInController {
+public class LogInController implements Initializable{
     private String ipAddr = "127.0.0.1";
-
-
+    private int port = 1337;
     public Stage primaryStage;
-    private int connection=0;
     private Boolean connected = false;
 
     @FXML
     private JFXTextField username;
+
+    @FXML
+    private JFXTextField IPAddress;
+
+    @FXML
+    private JFXTextField PortField;
 
     @FXML
     private JFXToggleButton ConnectionSetUp;
@@ -65,6 +73,10 @@ public class LogInController {
 
     @FXML
     private Text connectionMessage;
+
+    @FXML
+    private Text connectionError;
+
     @FXML
     private Text signUpConfirmation;
 
@@ -90,8 +102,13 @@ public class LogInController {
 
     @FXML
     void signInOperation(MouseEvent event) {
-
         Parent menu = null;
+       /*try {
+            EntryPoint.Singleton().getServerController().login(username.getCharacters().toString(), password.getCharacters().toString());  //TODO da un sacco di errori in RMI
+            LogInError.setText("Hai creato un nuovo account!");
+        } catch (RemoteException e) {
+            LogInError.setText(e.getMessage());
+        }*/
         try {
             menu = FXMLLoader.load(getClass().getResource("/Menu.fxml"));
         } catch (IOException e) {
@@ -114,44 +131,72 @@ public class LogInController {
 
     @FXML
     void signUpOperation(MouseEvent event) {
-
-        signUpConfirmation.setText("Utente registrato!");
-       /* try {
-            serverController.register(username.getCharacters(), password.getCharacters());
-            LogInError.setText("Hai creato un nuovo account!"
+       /*try {
+           EntryPoint.Singleton().getServerController().register(username.getCharacters().toString(), password.getCharacters().toString());  //TODO da un sacco di errori in RMI
+            LogInError.setText("Hai creato un nuovo account!");
         } catch (RemoteException e) {
-            LogInError.setText(e.getMessage());
-            remoteException = true;
-        }
-        */
+            LogInError.setText("Esiste già un utente con lo stesso nome!");
+        }*/
+
     }
 
     public void connect(ActionEvent actionEvent) {
-
+        ipAddr = String.valueOf(IPAddress);
+        //SocketClientListener.setPort(Integer.parseInt(String.valueOf(Port))); //todo come lo sistemo???
+        Boolean correct = true;
         if(connected == true){
             if(ConnectionSetUp.isSelected()){
-                SocketClientListener listener = new SocketClientListener(ipAddr);
+                SocketClientListener listener = null;
+                try {
+                    listener = new SocketClientListener(ipAddr);
+                } catch (IOException e) {
+                    correct=false;
+                    connectionError.setText("IP errato!");
+                }
                 EntryPoint.Singleton().setSocketController(new SocketController( listener));
                 listener.setController(EntryPoint.Singleton().getSocketController(), EntryPoint.Singleton());
                 new Thread(listener).start();
             }
             else {
-                // Locating rmi register on the server
-                // looking for the controller on the registry
-                Registry rmiRegistry = LocateRegistry.getRegistry(ipAddr);
-                ClientHandlerInterface controller = (ClientHandlerInterface) rmiRegistry.lookup("ClientHandler");
+                Registry rmiRegistry = null;
+                try {
+                    rmiRegistry = LocateRegistry.getRegistry(ipAddr);
+                } catch (RemoteException e) {
+                    correct=false;
+                    connectionMessage.setText("IP errato!");
+                }
+                ClientHandlerInterface controller = null;
+                try {
+                    controller = (ClientHandlerInterface) rmiRegistry.lookup("ClientHandler");
+                } catch (RemoteException e) {
+                    correct = false;
+                    connectionError.setText("RMI error!");
+                } catch (NotBoundException e) {
+                    correct = false;
+                    connectionError.setText("RMI error!");
+                }
                 EntryPoint.Singleton().setServerController(controller);
 
             }
-            ConnectButton.setText("Connect");
-            connectionMessage.setText("Disconnected!");
-            connected = false;
+            if(correct) {
+                ConnectButton.setText("Connect");
+                connectionMessage.setText("Disconnected!");
+                connected = false;
+            }
+            else{
+                connectionError.setText("Qualcosa è andato storto!");
+                }
         }
         else{
-            //ConnectButton.setStyle("fx-background-color: red"); //sparisce il bottone
             ConnectButton.setText("Disconnect");
             connectionMessage.setText("Connection up!");
             connected = true;
         }
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        PortField.setText(String.valueOf(port));
+        IPAddress.setText(String.valueOf(ipAddr));
     }
 }

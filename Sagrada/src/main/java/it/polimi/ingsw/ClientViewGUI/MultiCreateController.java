@@ -31,6 +31,11 @@ public class MultiCreateController {
 
         public void createGame(ActionEvent actionEvent) {
                 ErrorMessage.setText("Non ancora implementato!");
+                try {
+                        createPane.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/ChooseMap.fxml"))));
+                } catch (IOException e) {
+                        e.printStackTrace();
+                }
         }
 
         public void goBack(ActionEvent actionEvent) {
