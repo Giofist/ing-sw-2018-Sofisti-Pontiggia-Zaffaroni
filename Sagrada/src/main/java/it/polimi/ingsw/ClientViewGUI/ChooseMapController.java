@@ -2,7 +2,8 @@ package it.polimi.ingsw.ClientViewGUI;
 
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
@@ -11,7 +12,19 @@ import java.awt.event.ActionEvent;
 public class ChooseMapController {
 
     @FXML
-    private Text backButton;
+    private AnchorPane selectPane;
+
+    @FXML
+    private Text ErrorMessage;
+
+    @FXML
+    private JFXButton Back;
+
+    @FXML
+    private JFXButton Play;
+
+    @FXML
+    private BorderPane map1;
 
     @FXML
     private GridPane yourMap;
@@ -23,6 +36,9 @@ public class ChooseMapController {
     private Text yourMapDiff;
 
     @FXML
+    private BorderPane map2;
+
+    @FXML
     private GridPane yourMap2;
 
     @FXML
@@ -30,6 +46,9 @@ public class ChooseMapController {
 
     @FXML
     private Text yourMapDiff2;
+
+    @FXML
+    private BorderPane map3;
 
     @FXML
     private GridPane yourMap1;
@@ -41,6 +60,9 @@ public class ChooseMapController {
     private Text yourMapDiff1;
 
     @FXML
+    private BorderPane map4;
+
+    @FXML
     private GridPane yourMap21;
 
     @FXML
@@ -48,18 +70,9 @@ public class ChooseMapController {
 
     @FXML
     private Text yourMapDiff21;
+    
 
-    @FXML
-    private JFXButton Gioca;
-
-    @FXML
-    void goBack(MouseEvent event) {
-
-    }
-
-    @FXML
-    public void startGame(ActionEvent event) {
-
+    public void goBack(javafx.event.ActionEvent actionEvent) {
     }
 
     public void startGame(javafx.event.ActionEvent actionEvent) {

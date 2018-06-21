@@ -53,4 +53,7 @@ public class MultiJoinController implements Initializable{
             e.printStackTrace();
         }
     }
+
+    public void SelectGame(MouseEvent mouseEvent) {
+    }
 }
