@@ -82,7 +82,7 @@ public class MenuController {
     public void settingsInterace(javafx.event.ActionEvent actionEvent) {
         stage = (Stage) settings.getScene().getWindow();
         try {
-            content = (AnchorPane) FXMLLoader.load(getClass().getResource("/Settings.fxml"));
+            content.getChildren().setAll(getClass().getResource("/SettingsTest.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
