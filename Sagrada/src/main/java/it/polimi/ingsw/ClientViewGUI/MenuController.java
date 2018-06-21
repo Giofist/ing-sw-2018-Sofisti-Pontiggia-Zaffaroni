@@ -36,6 +36,9 @@ public class MenuController {
         private JFXButton multiPlayer;
 
         @FXML
+        private AnchorPane content;
+
+        @FXML
         private Text ErrorMessage;
 
         @FXML
@@ -83,17 +86,17 @@ public class MenuController {
 
     public void settingsInterace(javafx.event.ActionEvent actionEvent) throws IOException {
        /*menuPane.getChildren().setAll(FXMLLoader.load("Settings.fxml"));*/
-        stage = (Stage) settings.getScene().getWindow();
+        //stage = (Stage) settings.getScene().getWindow();
         try {
-            myNewScene = FXMLLoader.load(getClass().getResource("/Settings.fxml"));
+            content = (AnchorPane) FXMLLoader.load(getClass().getResource("/Settings.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Scene scene = new Scene(myNewScene);
+        /*Scene scene = new Scene(myNewScene);
         stage.setScene(scene);
         stage.setTitle("Impostazioni");
         stage.setFullScreen(true);
-        stage.show();
+        stage.show();*/
 
     }
 

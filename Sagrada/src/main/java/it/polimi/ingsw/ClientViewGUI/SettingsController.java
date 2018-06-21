@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -17,6 +18,9 @@ public class SettingsController {
 
     @FXML
     private Text backButton;
+
+    @FXML
+    private AnchorPane content;
 
     @FXML
     private Text yourName;
