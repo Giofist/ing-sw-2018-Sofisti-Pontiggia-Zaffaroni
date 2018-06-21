@@ -38,7 +38,7 @@ public class MultiSelectController {
 
     public void joinGame(ActionEvent actionEvent) {
         try {
-            selectPane.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/MenuPartial.fxml"))));
+            selectPane.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/MultiJoinGame.fxml"))));
         } catch (IOException e) {
             e.printStackTrace();
         }
