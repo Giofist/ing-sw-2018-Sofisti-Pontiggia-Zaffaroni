@@ -1,73 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="content" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.ClientViewGUI.SettingsController">
+
+<AnchorPane prefHeight="1154.0" prefWidth="1690.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.ClientViewGUI.SettingsController">
    <children>
-      <HBox alignment="CENTER" layoutX="5.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="717.0" prefWidth="1110.0">
+      <VBox alignment="TOP_CENTER" layoutX="-3.0" layoutY="-7.0" prefHeight="1225.0" prefWidth="1698.0" styleClass="back" stylesheets="@style.css">
          <children>
-            <VBox alignment="CENTER" spacing="30.0">
+            <HBox alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" opacity="0.74" prefHeight="100.0" style="-fx-background-color: green;">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Impostazioni">
+                  <Text fx:id="backButton" fill="WHITE" onMouseClicked="#goBack" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;Back">
                      <font>
-                        <Font name="System Bold" size="30.0" />
+                        <Font name="System Bold" size="75.0" />
                      </font>
                   </Text>
-                  <JFXButton buttonType="RAISED" prefHeight="60.0" prefWidth="300.0" style="-fx-background-color: green;" text="Settings" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="20.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton buttonType="RAISED" prefHeight="60.0" prefWidth="300.0" style="-fx-background-color: green;" text="Settings" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="20.0" />
-                     </font>
-                  </JFXButton>
-                  <Text fx:id="ErrorMessage" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Text>
-                  <JFXButton buttonType="RAISED" prefHeight="60.0" prefWidth="300.0" style="-fx-background-color: green;" text="Settings" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="20.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton buttonType="RAISED" prefHeight="60.0" prefWidth="300.0" style="-fx-background-color: green;" text="Settings" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="20.0" />
-                     </font>
-                  </JFXButton>
-               </children>
-            </VBox>
-         </children>
-      </HBox>
-      <HBox layoutY="717.0" prefHeight="100.0" prefWidth="1121.0">
-         <children>
-            <ButtonBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0">
-               <buttons>
-                  <JFXButton fx:id="goBack" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: green;" text="Back" textFill="WHITE">
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="1775.0">
+                     <children>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Impostazioni" textAlignment="CENTER" wrappingWidth="1004.62158203125">
+                           <font>
+                              <Font size="75.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </HBox>
+                  <VBox alignment="TOP_RIGHT">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                     <children>
+                        <Text fx:id="yourName" strokeType="OUTSIDE" strokeWidth="0.0" text="Mario Rossi">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text fx:id="yourScore" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Score">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+                  <ImageView fx:id="yourImage" fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@avatar.jpg" />
+                     </image>
                      <effect>
                         <DropShadow />
                      </effect>
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </JFXButton>
-               </buttons>
+                  </ImageView>
+               </children>
                <padding>
-                  <Insets right="20.0" />
+                  <Insets right="10.0" />
                </padding>
-            </ButtonBar>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </HBox>
+            <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="717.0" prefWidth="1110.0">
+               <children>
+                  <VBox alignment="CENTER" spacing="30.0" />
+               </children>
+            </HBox>
          </children>
-      </HBox>
+      </VBox>
    </children>
 </AnchorPane>
