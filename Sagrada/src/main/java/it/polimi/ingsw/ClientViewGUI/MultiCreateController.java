@@ -14,6 +14,9 @@ import java.util.Collections;
 public class MultiCreateController {
 
         @FXML
+        private AnchorPane mainPane;
+
+        @FXML
         private AnchorPane createPane;
 
         @FXML

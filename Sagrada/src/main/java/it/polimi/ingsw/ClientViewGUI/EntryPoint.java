@@ -48,7 +48,7 @@ public class EntryPoint extends Application implements Observer {
     }
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader();
+        /*FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/LogIn.fxml"));
         Parent root = loader.load();
         ((LogInController) loader.getController()).setPrimaryStage(primaryStage);
@@ -57,6 +57,15 @@ public class EntryPoint extends Application implements Observer {
         scene.setFill(Color.TRANSPARENT);
         primaryStage.setScene(scene);
         primaryStage.initStyle(StageStyle.TRANSPARENT);
+        primaryStage.show();
+        */
+        FXMLLoader loader = new FXMLLoader();                //Code to test faster the game interface
+        loader.setLocation(getClass().getResource("/MainGameView.fxml"));
+        Parent root = loader.load();
+        ((MainGameViewController) loader.getController()).setPrimaryStage(primaryStage);
+
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
         primaryStage.show();
         }
 
