@@ -332,7 +332,7 @@ public class Setter {
                 Printer.Singleton().printRoundDicePool(serverController, yourName);
                 while(!condition){
                 System.out.println("Seleziona il dado da posizionare nella mappa. Indica l'indice:");
-                data.setSelectedDIceIndex(in.nextInt());
+                data.setSelectedRoundDicepoolDiceIndex(in.nextInt());
                 try {
                     Printer.Singleton().printMap(serverController.getSchemeCard(yourName));
                 } catch (RemoteException e) {

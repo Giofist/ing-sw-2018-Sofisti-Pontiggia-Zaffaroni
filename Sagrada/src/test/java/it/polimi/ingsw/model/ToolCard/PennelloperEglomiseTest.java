@@ -4,7 +4,6 @@ import it.polimi.ingsw.model.Dice;
 import it.polimi.ingsw.model.DiceColor;
 import it.polimi.ingsw.model.Exceptions.*;
 import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
-import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.AlesatorePerLaminadiRameException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.Match;
 import it.polimi.ingsw.model.PlayerPackage.Player;

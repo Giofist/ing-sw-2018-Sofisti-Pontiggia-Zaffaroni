@@ -21,7 +21,11 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-// NOT COMPLETE
+// COMPLETE
+// FIXED player.getScheme().setDice(removedDice2, toolRequestClass.getNewRow2(), toolRequestClass.getNewColumn2(),false,false, false);
+// DUBBIO PRIMO DADO DA PIAZZARE
+// ERROR in implementation, when we try to place 2 different Dices in the same place
+// same error could happen when the first dice is placed correctly and the second one receives an error
 
 public class LathekinTest {
 
@@ -34,23 +38,31 @@ public class LathekinTest {
     private Match mockMatch;
 
     @Before
-    public void before() throws SchemeCardNotExistantException, IOException, MapConstrainReadingException, CardIdNotAllowedException {
+    public void before() throws IOException, MapConstrainReadingException, CardIdNotAllowedException {
+        // Tested class
         lathekin = new Lathekin();
+
+        // Required classes for game interaction
         player = new Player();
         mockDice = mock(Dice.class);
         mockDice2 = mock(Dice.class);
         mockMatch = mock(Match.class);
-        doNothing().when(mockMatch).countDown();
         schemeCard = new SchemeCard(3);
-        schemeCard.setTwinCard(new SchemeCard(4));
         toolRequestClass = new ToolRequestClass();
 
+        // SchemeCard setup
+        schemeCard.setTwinCard(new SchemeCard(4));
+
+
+        // Player setup
         player.addExtractedSchemeCard(schemeCard);
         player.setMatch(mockMatch);
         player.setPlayerState(State.STARTTURNSTATE);
         player.setScheme(3);
 
 
+        // Mock Behaviours
+        doNothing().when(mockMatch).countDown();
         when(mockDice.getColor()).thenReturn(DiceColor.VIOLET);
         when(mockDice.getIntensity()).thenReturn(2);
         when(mockDice2.getColor()).thenReturn(DiceColor.YELLOW);
@@ -92,8 +104,8 @@ public class LathekinTest {
 
         toolRequestClass.setOldRow1(0);
         toolRequestClass.setOldColumn1(2);
-        toolRequestClass.setNewRow1(2);
-        toolRequestClass.setNewColumn1(3);
+        toolRequestClass.setNewRow1(1);
+        toolRequestClass.setNewColumn1(0);
         toolRequestClass.setOldRow2(0);
         toolRequestClass.setOldColumn2(3);
         toolRequestClass.setNewRow2(0);
@@ -102,8 +114,7 @@ public class LathekinTest {
         try {
             this.lathekin.execute(player, toolRequestClass);
         } catch (ToolIllegalOperationException e) {
-            assertFalse(schemeCard.IsTileOccupied(2, 3));
-            assertFalse(schemeCard.IsTileOccupied(0, 3));
+            assertFalse(schemeCard.IsTileOccupied(1, 0));
             assertFalse(schemeCard.IsTileOccupied(0, 0));
             assertTrue(schemeCard.getDice(0, 2) == mockDice);
             assertTrue(schemeCard.getDice(0, 3) == mockDice2);
@@ -115,21 +126,51 @@ public class LathekinTest {
         assertEquals(0, 1);
     }
 
-/*
-    // Test the situation in which the User specifies a new wrong position
+
     @Test
-    public void executeWithInvalidNewPositionException() throws OutOfMatrixException, TileConstrainException, ToolIllegalOperationException, DiceNotExistantException {
-        schemeCard.setDice(mockDice, 0, 2, false, false, false);
+    public void executeOK() throws OutOfMatrixException, TileConstrainException, ToolIllegalOperationException, DiceNotExistantException {
+        schemeCard.setDice(mockDice, 0, 2, false, false, true);
+        schemeCard.setDice(mockDice2, 0,3, false, false, true);
 
         toolRequestClass.setOldRow1(0);
         toolRequestClass.setOldColumn1(2);
         toolRequestClass.setNewRow1(2);
-        toolRequestClass.setNewColumn1(6);
+        toolRequestClass.setNewColumn1(0);
+        toolRequestClass.setOldRow2(0);
+        toolRequestClass.setOldColumn2(3);
+        toolRequestClass.setNewRow2(3);
+        toolRequestClass.setNewColumn2(1);
+
+        lathekin.execute(player, toolRequestClass);
+
+        assertFalse(schemeCard.IsTileOccupied(0, 2));
+        assertFalse(schemeCard.IsTileOccupied(0, 3));
+        assertTrue(schemeCard.getDice(2, 0) == mockDice);
+        assertTrue(schemeCard.getDice(3, 1) == mockDice2);
+        assertEquals(State.HASUSEDATOOLCARDACTIONSTATE, player.getPlayerState().getState());
+    }
+
+
+    @Test
+    public void executeSameDiceSelectionException() throws OutOfMatrixException, TileConstrainException, DiceNotExistantException {
+        schemeCard.setDice(mockDice, 0, 2, false, false, true);
+        schemeCard.setDice(mockDice2, 0,3, false, false, true);
+
+        toolRequestClass.setOldRow1(0);
+        toolRequestClass.setOldColumn1(2);
+        toolRequestClass.setNewRow1(2);
+        toolRequestClass.setNewColumn1(0);
+        toolRequestClass.setOldRow2(0);
+        toolRequestClass.setOldColumn2(2);
+        toolRequestClass.setNewRow2(3);
+        toolRequestClass.setNewColumn2(1);
 
         try {
-            this.alesatorePerLaminaDiRame.execute(player, toolRequestClass);
-        } catch (AlesatorePerLaminadiRameException e) {
-            assertFalse(schemeCard.IsTileOccupied(2, 3));
+            this.lathekin.execute(player, toolRequestClass);
+        } catch (ToolIllegalOperationException e) {
+            assertFalse(schemeCard.IsTileOccupied(2, 0));
+            assertFalse(schemeCard.IsTileOccupied(3, 1));
+
             assertTrue(schemeCard.getDice(0, 2) == mockDice);
             assertEquals(State.STARTTURNSTATE, player.getPlayerState().getState());
             return;
@@ -140,44 +181,35 @@ public class LathekinTest {
     }
 
 
+
     @Test
-    public void executeEverythingOk() throws OutOfMatrixException, TileConstrainException, ToolIllegalOperationException, DiceNotExistantException {
-        schemeCard.setDice(mockDice, 0, 2, false, false, false);
+    public void executeTwoDiceSameFinalPositionException() throws OutOfMatrixException, TileConstrainException, DiceNotExistantException {
+        schemeCard.setDice(mockDice, 0, 2, false, false, true);
+        schemeCard.setDice(mockDice2, 0,3, false, false, true);
 
         toolRequestClass.setOldRow1(0);
         toolRequestClass.setOldColumn1(2);
         toolRequestClass.setNewRow1(0);
         toolRequestClass.setNewColumn1(0);
+        toolRequestClass.setOldRow2(0);
+        toolRequestClass.setOldColumn2(3);
+        toolRequestClass.setNewRow2(0);
+        toolRequestClass.setNewColumn2(0);
 
+        try {
+            this.lathekin.execute(player, toolRequestClass);
+        } catch (ToolIllegalOperationException e) {
+            assertFalse(schemeCard.IsTileOccupied(0, 0));
 
-        this.alesatorePerLaminaDiRame.execute(player, toolRequestClass);
+            assertTrue(schemeCard.getDice(0, 2) == mockDice);
+            assertTrue(schemeCard.getDice(0, 3) == mockDice2);
+            assertEquals(State.STARTTURNSTATE, player.getPlayerState().getState());
+            return;
+        }
 
-        assertFalse(schemeCard.IsTileOccupied(0, 2));
-        assertTrue(schemeCard.getDice(0, 0) == mockDice);
-        assertEquals(State.HASUSEDATOOLCARDACTIONSTATE, player.getPlayerState().getState());
+        // Here we arrive if the exception is not correctly thrown, we don't want to end up here
+        assertEquals(0, 1);
     }
-
-
-    @Test
-    public void executeEverythingOkIgnoringValueConstrain() throws OutOfMatrixException, TileConstrainException, ToolIllegalOperationException, DiceNotExistantException {
-        schemeCard.setDice(mockDice, 0, 2, false, false, false);
-
-        toolRequestClass.setOldRow1(0);
-        toolRequestClass.setOldColumn1(2);
-
-        // In this new position there should be an intensity constrain but the toolcard allows me to ignore it
-        toolRequestClass.setNewRow1(0);
-        toolRequestClass.setNewColumn1(1);
-
-
-        this.alesatorePerLaminaDiRame.execute(player, toolRequestClass);
-
-        assertFalse(schemeCard.IsTileOccupied(0, 2));
-        assertTrue(schemeCard.getDice(0, 1) == mockDice);
-        assertEquals(State.HASUSEDATOOLCARDACTIONSTATE, player.getPlayerState().getState());
-    }
-
-*/
 
     // Minor tests
     @Test

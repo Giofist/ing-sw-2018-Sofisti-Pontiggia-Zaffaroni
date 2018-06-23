@@ -43,7 +43,7 @@ public class Lathekin  extends ToolAction {
         }catch( Exception e){
             try{
                 player.getScheme().setDice(removedDice1, toolRequestClass.getOldRow1(), toolRequestClass.getOldColumn1(), false, false, false);
-                player.getScheme().setDice(removedDice2, toolRequestClass.getNewRow2(), toolRequestClass.getNewColumn2(),false,false, false);
+                player.getScheme().setDice(removedDice2, toolRequestClass.getOldRow2(), toolRequestClass.getOldColumn2(),false,false, false);
             }catch(Exception err){
                 //do nothing
             }
