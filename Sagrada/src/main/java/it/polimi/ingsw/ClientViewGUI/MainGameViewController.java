@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ClientViewGUI;
 
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
@@ -13,10 +14,41 @@ import javax.tools.Tool;
 import java.awt.event.MouseEvent;
 
 public class MainGameViewController {
+    ImageView origin = null;
     public Stage primaryStage; //only for testing
 
     @FXML
     private ImageView firstDice;
+
+    @FXML
+    private GridPane DicePool;
+
+    @FXML
+    private ImageView RoundDice0;
+
+    @FXML
+    private ImageView RoundDice1;
+
+    @FXML
+    private ImageView RoundDice2;
+
+    @FXML
+    private ImageView RoundDice3;
+
+    @FXML
+    private ImageView RoundDice4;
+
+    @FXML
+    private ImageView RoundDice5;
+
+    @FXML
+    private ImageView RoundDice6;
+
+    @FXML
+    private ImageView RoundDice7;
+
+    @FXML
+    private ImageView RoundDice8;
 
     @FXML
     private GridPane yourMap;
@@ -47,18 +79,20 @@ public class MainGameViewController {
 
     @FXML
     void handleOnDragDropped(DragEvent event) {
-        ImageView00.fitHeightProperty();
-        ImageView00.fitWidthProperty();
-        ImageView00.setImage(event.getDragboard().getImage());
+        ImageView source = (ImageView) event.getTarget();
+        source.fitHeightProperty();
+        source.fitWidthProperty();
+        source.setImage(event.getDragboard().getImage());
+        origin.setImage(null);
     }
 
     public void handleDragDetection(javafx.scene.input.MouseEvent mouseEvent) {
-        Dragboard db = firstDice.startDragAndDrop(TransferMode.ANY);
+        origin = (ImageView) mouseEvent.getTarget();
+        Dragboard db = origin.startDragAndDrop(TransferMode.ANY);
         ClipboardContent cb = new ClipboardContent();
-        cb.putImage(firstDice.getImage());
+        cb.putImage(origin.getImage());
         db.setContent(cb);
         mouseEvent.consume();
-        firstDice.setImage(null);
     }
 
     public void setPrimaryStage(Stage primaryStage) {  //to be removed only for gtesting
@@ -69,4 +103,5 @@ public class MainGameViewController {
         ToolCard.setScaleY(20);
         yourMapName.setText("OK");
     }
+
 }
