@@ -5,9 +5,6 @@ public class CardIdNotAllowedException extends Exception {
     public CardIdNotAllowedException() {
         super(msg);
     }
-    public CardIdNotAllowedException(String msg){
-        super(msg);
-    }
 
     public static String getMsg() {
         return msg;

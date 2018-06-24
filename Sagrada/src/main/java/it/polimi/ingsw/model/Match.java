@@ -60,7 +60,11 @@ public class Match implements Runnable{
                     }catch(PrivateGoalCardException e){
                         // do nothing
                     }catch (RemoteException e){
-                        player.getAssociatedUser().setActive(false);
+                        try{
+                            UsersList.Singleton().getUser(player.getName()).setActive(false);
+                        }catch(Exception err){
+                            //do nothing
+                        }
                         this.players.remove(player);
                         success = true;
                     }
@@ -106,7 +110,11 @@ public class Match implements Runnable{
             try{
                 player.setPlayerState(State.ENDMATCHSTATE);
             }catch (RemoteException e){
-                player.getAssociatedUser().setActive(false);
+                try{
+                    UsersList.Singleton().getUser(player.getName()).setActive(false);
+                }catch(Exception err){
+                    //do nothing
+                }
                 leavethematchatthend(player);
             }
         }

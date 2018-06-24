@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ClientView;
 
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
+import it.polimi.ingsw.model.GoalCard;
 
 import java.rmi.RemoteException;
 
@@ -22,7 +23,7 @@ public class Printer {
         return printer;
     }
 
-    public void printMap(String map) {
+    public void printMap(String map)  {
         char[] charTile;
         String[] element = map.split("%");
         System.out.println(element[0]);
@@ -80,37 +81,29 @@ public class Printer {
     }
 
     public void printGoalCards(ClientHandlerInterface serverController, String yourName) {
-        String[] cardName = new String[0];
-        String[] description = new String[0];
         System.out.println("\n-Ecco gli obiettivi di questa partita-");
-        System.out.println("\nObiettivo privato:");
-        try {
-            System.out.println(serverController.getPrivateGoalCardname(yourName));
-        } catch (RemoteException e) {
-            System.out.println(Client.translator.translateException(e.getMessage()));
-        }
-        try {
-            System.out.println(serverController.getPrivateGoalCarddescription(yourName));
-        } catch (RemoteException e) {
-            System.out.println(Client.translator.translateException(e.getMessage()));
-        }
-        System.out.println("\nObbiettivo pubblico:");
+        try{
+            for(GoalCard goalCard: serverController.getPrivateGoalCard(yourName)){
+                System.out.println("\nObiettivo privato:");
+                System.out.println(Client.translator.translatePrivateGoalCardName(goalCard.getID()));
+                System.out.println(Client.translator.translatePrivateGoalCardDescription(goalCard.getID()));
 
-
-        try {
-            cardName = serverController.getPublicGoalCardnames(yourName).split("!");
-        } catch (RemoteException e) {
+            }
+        }catch(RemoteException e){
             System.out.println(Client.translator.translateException(e.getMessage()));
         }
-        try {
-            description = serverController.getPublicGoalCarddescriptions(yourName).split("!");
-        } catch (RemoteException e) {
+        try{
+            for(GoalCard goalCard: serverController.getPublicGoalCards(yourName)){
+                System.out.println("\nObiettivo pubblico:");
+                System.out.println(Client.translator.translatePublicGoalCardName(goalCard.getID()));
+                System.out.println(Client.translator.translatePublicGoalCardDescription(goalCard.getID()));
+
+            }
+        }catch(RemoteException e){
             System.out.println(Client.translator.translateException(e.getMessage()));
         }
 
-        for (int i = 0; i < cardName.length; i++) {
-            System.out.println(cardName[i] + "\n" + description[i]);
-        }
+
     }
 
     public void printRoundTrack(ClientHandlerInterface serverController, String yourName) {

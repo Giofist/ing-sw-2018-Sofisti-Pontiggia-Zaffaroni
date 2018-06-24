@@ -7,10 +7,6 @@ public class IsAlreadyActiveException extends Exception{
             super(msg);
         }
 
-        public IsAlreadyActiveException(String msg) {
-            super(msg);
-        }
-
         public static String getMsg() {
             return msg;
         }

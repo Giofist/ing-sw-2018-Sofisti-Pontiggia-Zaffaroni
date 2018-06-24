@@ -25,13 +25,4 @@ public class FreeSpaces implements GoalCard {
         return -1;
     }
 
-    @Override
-    public String getName() {
-        return "Free Spaces";
-    }
-
-    @Override
-    public String getDescription() {
-        return "A point less for every blank space in your window.";
-    }
 }

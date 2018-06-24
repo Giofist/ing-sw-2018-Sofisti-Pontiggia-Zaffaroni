@@ -2,7 +2,9 @@ package it.polimi.ingsw.ServerController;
 
 import it.polimi.ingsw.ClientView.Observer;
 import it.polimi.ingsw.NetworkClient.SocketResponseHandler;
+import it.polimi.ingsw.model.GoalCard;
 import it.polimi.ingsw.model.Match;
+import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 import it.polimi.ingsw.model.ToolCard.ToolRequestClass;
 
 import java.rmi.Remote;
@@ -18,21 +20,17 @@ public interface ClientHandlerInterface extends Remote {
     void createGame(String clientname, Observer client, String gamename ) throws  RemoteException;
 
     List getActiveMatchesList() throws RemoteException;
-    List getExtractedSchemeCard(String clientname) throws RemoteException;
+    List<SchemeCard> getExtractedSchemeCard(String clientname) throws RemoteException;
     int getmyPoints(String clientname) throws RemoteException;
     List getPlayersinmymatch(String clientname) throws RemoteException;
     String getPossibleActions(String clientname) throws RemoteException;
-    String getPrivateGoalCarddescription(String clientname) throws RemoteException;
-    String getPrivateGoalCardname(String clientname) throws RemoteException;
-    int getPrivateGoalCardid(String clientname) throws RemoteException;
-    String getPublicGoalCarddescriptions(String clientname) throws RemoteException;
-    String getPublicGoalCardids(String clientname) throws RemoteException;
-    String getPublicGoalCardnames(String clientname) throws RemoteException;
+    List<GoalCard> getPrivateGoalCard(String clientname) throws RemoteException;
+    List<GoalCard> getPublicGoalCards(String clientname) throws RemoteException;
     String getRanking(String clientname) throws RemoteException;
     String getRoundDicepool(String clientname) throws RemoteException;
     String getRoundTrack(String clientname) throws RemoteException;
-    String getSchemeCard(String clientname) throws RemoteException;
-    List getSchemeCardsoftheotherPlayers(String clientname) throws RemoteException;
+    List<SchemeCard> getSchemeCard(String clientname) throws RemoteException;
+    List<SchemeCard> getSchemeCardsoftheotherPlayers(String clientname) throws RemoteException;
     String getToolCardsCosts(String clientname) throws RemoteException;
     int getToken(String clientname) throws RemoteException;
     String getToolCardDice(String clientname)throws RemoteException;

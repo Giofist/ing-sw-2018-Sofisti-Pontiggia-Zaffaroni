@@ -9,6 +9,7 @@ import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PlayerPackage.State;
 import it.polimi.ingsw.model.SchemeDeck.ColumnIterator;
 import it.polimi.ingsw.model.SchemeDeck.RowIterator;
+import it.polimi.ingsw.model.UsersList;
 
 import java.rmi.RemoteException;
 
@@ -50,11 +51,15 @@ public class PennelloperPastaSalda  extends ToolAction {
                 }else player.setPlayerState(State.HASUSEDATOOLCARDACTIONSTATE);
             }
         }catch (DicepoolIndexException e){
-            throw new ToolIllegalOperationException(e.getMessage());
+            throw new PennelloPerPastaSaldaException();
         }catch (SchemeCardNotExistantException e){
-            throw new ToolIllegalOperationException(e.getMessage());
+            throw new PennelloPerPastaSaldaException();
         }catch (RemoteException e){
-            player.getAssociatedUser().setActive(false);
+            try{
+                UsersList.Singleton().getUser(player.getName()).setActive(false);
+            }catch(Exception err){
+                //do nothing
+            }
             player.getTurn().countDown();
         }
 

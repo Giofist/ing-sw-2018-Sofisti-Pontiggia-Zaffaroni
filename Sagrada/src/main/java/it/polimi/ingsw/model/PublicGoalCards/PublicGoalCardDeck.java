@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.PlayerPackage.Player;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 
 public class PublicGoalCardDeck {
     private LinkedList<GoalCard> deck = new LinkedList<>();
@@ -50,7 +51,6 @@ public class PublicGoalCardDeck {
 
     }
 
-
     //calculate all points for a specyfic player for all the public goal cards
     public void doCalculatePoints(Player player){
 
@@ -61,31 +61,15 @@ public class PublicGoalCardDeck {
         CalculatoreforFreeSpaces.calculatepoint(player);
     }
 
-    //to get the IDs, descriptions and Names of public goal cards
-    public String getIDs(){
-        String IDs = "";
-        for (GoalCard goalCard: this.deck) {
-           IDs += goalCard.getID();
-           IDs += "!";
-        }
-         return IDs;
-
-    }
-    public String getDescriptions(){
-        String descriptions = "";
-        for (GoalCard goalCard: this.deck) {
-            descriptions += goalCard.getDescription();
-            descriptions += "!";
-        }
-        return descriptions;
+    public List getCards(){
+        List list = new LinkedList();
+       for (GoalCard goalCard: this.deck){
+           list.add(goalCard);
+       }
+       return list;
     }
 
-    public String getCardsNames() {
-        String names = "";
-        for (GoalCard goalCard : this.deck) {
-            names += goalCard.getName();
-            names += "!";
-        }
-        return names;
-    }
+
+
+
 }

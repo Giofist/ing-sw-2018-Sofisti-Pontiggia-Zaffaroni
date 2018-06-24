@@ -3,6 +3,7 @@ package it.polimi.ingsw.ClientView;
 import it.polimi.ingsw.ServerController.ClientHandler;
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
 import it.polimi.ingsw.model.PlayerPackage.Player;
+import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 import it.polimi.ingsw.model.ToolCard.ToolRequestClass;
 
 import java.rmi.RemoteException;
@@ -49,7 +50,7 @@ public class Setter {
                 }
                 case "GETMAPS": {
                     List<Player> players;
-                    List schemecards;
+                    List<SchemeCard> schemecards;
                     System.out.println("Adesso ti mostreremo le mappe degli altri");
 
                     while (!correct) {
@@ -61,7 +62,7 @@ public class Setter {
                             int i = 0;
                             for (Player player: players) {
                                 System.out.println(Client.translator.translatePlayer(player));
-                                Printer.Singleton().printMap(schemecards.get(i).toString());
+                                Printer.Singleton().printMap(Client.translator.translateSchemeCard(schemecards.get(i)));
                                 i++;
                             }
                         } catch (RemoteException e) {
@@ -202,7 +203,7 @@ public class Setter {
             }
             case "2": { //2. Pennello per Eglomise
                 try {
-                    Printer.Singleton().printMap(serverController.getSchemeCard(yourName));
+                    Printer.Singleton().printMap(Client.translator.translateSchemeCard(serverController.getSchemeCard(yourName).get(0)));
                 } catch (RemoteException e) {
                     System.out.println(Client.translator.translateException(e.getMessage()));
                 }
@@ -226,7 +227,7 @@ public class Setter {
             }
             case "3": { //3. Alesatore per lamina di rame
                 try {
-                    Printer.Singleton().printMap(serverController.getSchemeCard(yourName));
+                    Printer.Singleton().printMap(Client.translator.translateSchemeCard(serverController.getSchemeCard(yourName).get(0)));
                 } catch (RemoteException e) {
                     System.out.println(Client.translator.translateException(e.getMessage()));
                 }
@@ -250,7 +251,7 @@ public class Setter {
             }
             case "4": { //4. Lathekin
                 try {
-                    Printer.Singleton().printMap(serverController.getSchemeCard(yourName));
+                    Printer.Singleton().printMap(Client.translator.translateSchemeCard(serverController.getSchemeCard(yourName).get(0)));
                 } catch (RemoteException e) {
                     System.out.println(Client.translator.translateException(e.getMessage()));
                 }
@@ -336,7 +337,7 @@ public class Setter {
                 System.out.println("Seleziona il dado da posizionare nella mappa. Indica l'indice:");
                 data.setSelectedRoundDicepoolDiceIndex(in.nextInt());
                 try {
-                    Printer.Singleton().printMap(serverController.getSchemeCard(yourName));
+                    Printer.Singleton().printMap(Client.translator.translateSchemeCard(serverController.getSchemeCard(yourName).get(0)));
                 } catch (RemoteException e) {
                     System.out.println(Client.translator.translateException(e.getMessage()));
                 }
@@ -383,7 +384,7 @@ public class Setter {
             }
             case "12": { //12. Taglierina Manuale
                 try {
-                    Printer.Singleton().printMap(serverController.getSchemeCard(yourName));
+                    Printer.Singleton().printMap(Client.translator.translateSchemeCard(serverController.getSchemeCard(yourName).get(0)));
                 } catch (RemoteException e) {
                     System.out.println(Client.translator.translateException(e.getMessage()));
                 }
@@ -450,7 +451,7 @@ public class Setter {
         boolean success = false;
         boolean correct = false;
         try {
-            Printer.Singleton().printMap(serverController.getSchemeCard(yourName));
+            Printer.Singleton().printMap( Client.translator.translateSchemeCard(serverController.getSchemeCard(yourName).get(0)));
         } catch (RemoteException e) {
             System.out.println(Client.translator.translateException(e.getMessage()));
         }
@@ -495,7 +496,7 @@ public class Setter {
         boolean success = false;
         boolean correct = false;
         try {
-            Printer.Singleton().printMap(serverController.getSchemeCard(yourName));
+            Printer.Singleton().printMap(Client.translator.translateSchemeCard(serverController.getSchemeCard(yourName).get(0)));
         } catch (RemoteException e) {
             System.out.println(Client.translator.translateException(e.getMessage()));
         }
@@ -547,8 +548,8 @@ public class Setter {
         boolean good = false;
         int index;
         try {
-            for (Object o: serverController.getExtractedSchemeCard(yourName)){
-                Printer.Singleton().printMap(o.toString());
+            for (SchemeCard schemeCard: serverController.getExtractedSchemeCard(yourName)){
+                Printer.Singleton().printMap(Client.translator.translateSchemeCard(schemeCard));
             }
         } catch (RemoteException e) {
             System.out.println(Client.translator.translateException(e.getMessage()));

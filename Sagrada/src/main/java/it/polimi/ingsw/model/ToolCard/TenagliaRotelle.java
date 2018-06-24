@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.TenagliaR
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PlayerPackage.State;
+import it.polimi.ingsw.model.UsersList;
 
 import java.rmi.RemoteException;
 
@@ -28,7 +29,7 @@ public class TenagliaRotelle  extends ToolAction {
             throw new TenagliaRotelleException("21.1");
         }
         if(!player.getPlayerState().getState().equals(State.HASSETADICESTATE)){
-            throw new ToolIllegalOperationException("21.2");
+            throw new TenagliaRotelleException("21.2");
         }
         try{
             player.getScheme().setDice(  player.getGametable().getRoundDicepool().getDice(toolRequestClass.getSelectedRoundDicepoolDiceIndex()), toolRequestClass.getNewRow1(), toolRequestClass.getNewColumn1(), false,false,false  );
@@ -38,15 +39,19 @@ public class TenagliaRotelle  extends ToolAction {
                 player.setPlayerState(State.MUSTPASSTURNSTATE);
             }else player.setPlayerState(State.HASUSEDATOOLCARDACTIONSTATE);
         }catch(TileConstrainException e){
-            throw new TenagliaRotelleException(TenagliaRotelleException.getMsg()+e.getMessage());
+            throw new TenagliaRotelleException();
         }catch(OutOfMatrixException e){
-            throw new TenagliaRotelleException(TenagliaRotelleException.getMsg()+e.getMessage());
+            throw new TenagliaRotelleException();
         }catch (SchemeCardNotExistantException e){
 
         }catch (DicepoolIndexException e){
 
         }catch (RemoteException e){
-            player.getAssociatedUser().setActive(false);
+            try{
+                UsersList.Singleton().getUser(player.getName()).setActive(false);
+            }catch(Exception err){
+                //do nothing
+            }
             player.getTurn().countDown();
         }
 

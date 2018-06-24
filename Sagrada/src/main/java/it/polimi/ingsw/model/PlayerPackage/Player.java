@@ -13,7 +13,6 @@ import java.util.List;
 
 //implementa comparable per ordinare i giocatori in base al punteggio nellav lista di player
 public class Player  implements Comparable<Player> {
-    private transient User user;
     private transient GoalCard privateGoalCard;
     private transient int token;
     private transient LinkedList<SchemeCard> extractedschemeCards;
@@ -105,11 +104,7 @@ public class Player  implements Comparable<Player> {
     public int getPoints(){
         return this.points;
     }
-    public User getAssociatedUser(){ return this.user; }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     public Match getMatch() {
         return this.match;

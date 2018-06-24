@@ -5,16 +5,15 @@ import it.polimi.ingsw.model.GoalCard;
 import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.SchemeDeck.Tile;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 
 
 //revisionata by pon
 //obiettivo pubblico
-public class VarietaDiColore implements GoalCard {
+public class VarietaDiColore implements GoalCard,Serializable {
     static int ID = 10;
-    static String name = "Varietà di Colore";
-    static String description = "Set di dadi di ogni colore ovunque.";
 
     @Override
     public void  calculatepoint(Player player) {
@@ -50,11 +49,4 @@ public class VarietaDiColore implements GoalCard {
         return ID;
     }
 
-    @Override
-    public String getName(){return name;}
-
-    @Override
-    public String getDescription() {
-        return description;
-    }
 }

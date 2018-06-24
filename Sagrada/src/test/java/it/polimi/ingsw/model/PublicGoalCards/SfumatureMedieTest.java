@@ -38,11 +38,9 @@ public class SfumatureMedieTest {
         mockMatch = mock(Match.class);
         doNothing().when(mockMatch).countDown();
 
-        user = new User("User1", "pass");
 
         player = new Player();
         player.setMatch(mockMatch);
-        player.setUser(user);
         player.addExtractedSchemeCard(schemeCard);
         player.setScheme(2);
 
@@ -81,13 +79,5 @@ public class SfumatureMedieTest {
         assertEquals(6, publicObjectiveCard.getID());
     }
 
-    @Test
-    public void getName() {
-        assertEquals("Sfumature Medie", publicObjectiveCard.getName());
-    }
 
-    @Test
-    public void getDescription() {
-        assertEquals("Set di 3 & 4 ovunque.", publicObjectiveCard.getDescription());
-    }
 }

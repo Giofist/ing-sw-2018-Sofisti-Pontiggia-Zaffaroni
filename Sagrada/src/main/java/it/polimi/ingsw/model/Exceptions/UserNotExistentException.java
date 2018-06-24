@@ -5,7 +5,6 @@ public class UserNotExistentException extends Exception {
     public UserNotExistentException() {
         super(msg);
     }
-    public UserNotExistentException(String msg){ super(msg); }
 
     public static String getMsg() {
         return msg;

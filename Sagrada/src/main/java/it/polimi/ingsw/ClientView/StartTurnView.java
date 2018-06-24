@@ -15,6 +15,7 @@ public class StartTurnView implements Runnable {
     public void run() {
         //try{
             Printer.Singleton().printRoundTrack(serverController, yourName);
+            Printer.Singleton().printGoalCards(serverController, yourName);
             Printer.Singleton().printRoundDicePool(serverController, yourName);
             Setter.Singleton().selectAction(serverController, yourName);
         //}catch(InterruptedException e){

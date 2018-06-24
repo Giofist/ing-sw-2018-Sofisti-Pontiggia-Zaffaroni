@@ -7,10 +7,6 @@ public class LoginException extends Exception {
         super(msg);
     }
 
-    public LoginException(String msg) {
-        super(msg);
-    }
-
     public static String getMsg() {
         return msg;
     }

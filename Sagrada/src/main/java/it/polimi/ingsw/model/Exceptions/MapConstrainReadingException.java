@@ -12,7 +12,4 @@ public class MapConstrainReadingException extends Exception {
     public static String getMsg() {
         return msg;
     }
-
-
-    ////
 }

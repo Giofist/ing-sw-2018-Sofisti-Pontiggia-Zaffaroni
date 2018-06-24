@@ -5,7 +5,6 @@ public class OutOfMatrixException extends Exception {
     public OutOfMatrixException() {
         super(msg);
     }
-    public OutOfMatrixException(String msg){ super(msg); }
 
     public static String getMsg() {
         return msg;

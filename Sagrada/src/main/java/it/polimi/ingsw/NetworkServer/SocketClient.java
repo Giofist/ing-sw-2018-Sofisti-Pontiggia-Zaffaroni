@@ -31,7 +31,7 @@ public class SocketClient implements Observer {
         try{
             listener.sendMessage(message);
         }catch(IOException e){
-            throw new RemoteException("problemi di connessione");
+            throw new RemoteException();
         }
         try{
             wait();

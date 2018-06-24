@@ -29,7 +29,6 @@ public class Gametable {
 
 
 
-
     //constructor
     public Gametable(int numberPlayers) throws IOException {
         prepareGame(numberPlayers);
@@ -81,14 +80,10 @@ public class Gametable {
 
 
     //to get IDs and description and names of the public goals
-    public String getPublicGoalDescriptions() {
-        return this.publicGoalCardDeck.getDescriptions();
+    public List getPublicGoalCards() {
+        return this.publicGoalCardDeck.getCards();
     }
-    public String getPublicGoalNames(){return this.publicGoalCardDeck.getCardsNames();}
 
-    public String getPublicGoalIDs() {
-        return this.publicGoalCardDeck.getIDs();
-    }
 
     // Get functions useful for testing
     public ToolCardsDeck getToolCardsDeck() { return this.tooldeck; }

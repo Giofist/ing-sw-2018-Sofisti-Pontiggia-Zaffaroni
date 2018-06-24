@@ -7,18 +7,18 @@ import java.io.IOException;
 import java.rmi.RemoteException;
 
 public class SocketMessageHandlerServer implements Runnable {
-    ClientMessage messageClass;
+    ClientMessage message;
     ClientHandler clientHandler;
     SocketServerListener listener;
     public SocketMessageHandlerServer(ClientMessage messageClass, ClientHandler clientHandler, SocketServerListener listener){
-        this.messageClass = messageClass;
+        this.message = messageClass;
         this.clientHandler = clientHandler;
         this.listener = listener;
     }
     @Override
     public void run() {
         try{
-            this.messageClass.performAction(this.clientHandler, listener);
+            this.message.performAction(this.clientHandler, listener);
         }catch (RemoteException e) {
             ServerMessage message = new ServerMessage();
             message.setMessagecodex(0);

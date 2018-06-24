@@ -40,11 +40,9 @@ public class ColoriDiversiRigaTest {
         mockMatch = mock(Match.class);
         doNothing().when(mockMatch).countDown();
 
-        user = new User("User1", "pass");
 
         player = new Player();
         player.setMatch(mockMatch);
-        player.setUser(user);
         player.addExtractedSchemeCard(schemeCard);
         player.setScheme(2);
 
@@ -67,20 +65,10 @@ public class ColoriDiversiRigaTest {
 
 
     // Getters tests
-
     @Test
     public void getIdTest() {
         assertEquals(1, publicObjectiveCard.getID());
     }
 
-    @Test
-    public void getName() {
-        assertEquals("Colori Diversi - Riga", publicObjectiveCard.getName());
-    }
-
-    @Test
-    public void getDescription() {
-        assertEquals("Righe senza colori ripetuti.", publicObjectiveCard.getDescription());
-    }
 }
 

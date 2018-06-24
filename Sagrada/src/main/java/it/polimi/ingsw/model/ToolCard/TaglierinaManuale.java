@@ -11,6 +11,7 @@ import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.Taglierin
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PlayerPackage.State;
+import it.polimi.ingsw.model.UsersList;
 
 import java.rmi.RemoteException;
 import java.util.List;
@@ -51,21 +52,25 @@ public class TaglierinaManuale  extends ToolAction {
                 player.setPlayerState(State.MUSTPASSTURNSTATE);
             }else player.setPlayerState(State.HASUSEDATOOLCARDACTIONSTATE);
         }catch (OutOfMatrixException e){
-            throw new TaglierinaManualeException(TaglierinaManualeException.getMsg()+e.getMessage());
+            throw new TaglierinaManualeException();
         }catch (DiceNotExistantException e){
-            throw new TaglierinaManualeException(TaglierinaManualeException.getMsg()+e.getMessage());
+            throw new TaglierinaManualeException();
         }catch (TileConstrainException e){
             try{
                 player.getScheme().setDice(removedDice, toolRequestClass.getOldRow1(), toolRequestClass.getOldColumn1(),false,false,false);
                 player.getScheme().setDice(removedDice2, toolRequestClass.getOldRow2(), toolRequestClass.getOldColumn2(),false,false,false);
             }catch (Exception ecpt){ }
-            throw new TaglierinaManualeException(TaglierinaManualeException.getMsg()+e.getMessage());
+            throw new TaglierinaManualeException();
         }catch (RoundTrackException e){
-            throw new TaglierinaManualeException(TaglierinaManualeException.getMsg()+e.getMessage());
+            throw new TaglierinaManualeException();
         }catch (SchemeCardNotExistantException e){
             //
         } catch (RemoteException e) {
-            player.getAssociatedUser().setActive(false);
+            try{
+                UsersList.Singleton().getUser(player.getName()).setActive(false);
+            }catch(Exception err){
+                //do nothing
+            }
             player.getTurn().countDown();
         }
 

@@ -31,7 +31,6 @@ public class ColumnIterator<T> implements Iterator<Tile> {
     @Override
     public Tile next() {
         Tile nextElement;
-        System.out.println("ROW: " + row + " COL: " + currentColumn);
         try {
             nextElement = schemeCard.getTile(row, currentColumn);
         } catch (OutOfMatrixException e) {

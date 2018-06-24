@@ -5,14 +5,13 @@ import it.polimi.ingsw.model.GoalCard;
 import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.SchemeDeck.Tile;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 //revisionata by pon
 //obiettivo pubblico
-public class SfumatureDiverse implements GoalCard {
+public class SfumatureDiverse implements GoalCard,Serializable {
     static int ID = 8;
-    static String name = "Sfumature Diverse";
-    static String description = "Set di dadi di ogni valore ovunque.";
 
     @Override
     public void  calculatepoint(Player player) {
@@ -50,11 +49,4 @@ public class SfumatureDiverse implements GoalCard {
         return ID;
     }
 
-    @Override
-    public String getName(){return name;}
-
-    @Override
-    public String getDescription() {
-        return description;
-    }
 }

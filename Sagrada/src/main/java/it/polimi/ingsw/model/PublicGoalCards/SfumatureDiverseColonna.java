@@ -9,14 +9,13 @@ import it.polimi.ingsw.model.SchemeDeck.ColumnIterator;
 import it.polimi.ingsw.model.SchemeDeck.RowIterator;
 import it.polimi.ingsw.model.SchemeDeck.Tile;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 //revisionata by pon
 //obiettivo pubblico
-public class SfumatureDiverseColonna implements GoalCard {
+public class SfumatureDiverseColonna implements GoalCard,Serializable {
     static int ID = 4;
-    static String name = "Sfumature Diverse - Colonna";
-    static String description = "Colonne senza sfumature ripetute.";
 
     @Override
     public void  calculatepoint(Player player) {
@@ -59,11 +58,4 @@ public class SfumatureDiverseColonna implements GoalCard {
         return ID;
     }
 
-    @Override
-    public String getName(){return name;}
-
-    @Override
-    public String getDescription() {
-        return description;
-    }
 }

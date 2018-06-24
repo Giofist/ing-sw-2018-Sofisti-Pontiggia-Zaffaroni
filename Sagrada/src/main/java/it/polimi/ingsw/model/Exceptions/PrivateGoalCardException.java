@@ -6,9 +6,6 @@ PrivateGoalCardException extends Exception {
     public PrivateGoalCardException() {
         super(msg);
     }
-    public PrivateGoalCardException(String msg) {
-        super(msg);
-    }
 
     public static String getMsg() {
         return msg;

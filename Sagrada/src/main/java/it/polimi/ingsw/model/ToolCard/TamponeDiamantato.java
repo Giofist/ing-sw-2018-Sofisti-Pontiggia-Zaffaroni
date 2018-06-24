@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.Exceptions.DicepoolIndexException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PlayerPackage.State;
+import it.polimi.ingsw.model.UsersList;
 
 import java.rmi.RemoteException;
 
@@ -27,7 +28,11 @@ public class TamponeDiamantato extends ToolAction {
         }catch(DicepoolIndexException e){
             throw new ToolIllegalOperationException();
         } catch (RemoteException e) {
-            player.getAssociatedUser().setActive(false);
+            try{
+                UsersList.Singleton().getUser(player.getName()).setActive(false);
+            }catch(Exception err){
+                //do nothing
+            }
             player.getTurn().countDown();
         } catch (IndexOutOfBoundsException e){
             throw new ToolIllegalOperationException();

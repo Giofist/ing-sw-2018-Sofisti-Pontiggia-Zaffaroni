@@ -5,9 +5,6 @@ public class DecreaseNotAllowedException extends Exception {
     public DecreaseNotAllowedException() {
         super(msg);
     }
-    public DecreaseNotAllowedException(String msg){
-        super(msg);
-    }
 
     public static String getMsg() {
         return msg;

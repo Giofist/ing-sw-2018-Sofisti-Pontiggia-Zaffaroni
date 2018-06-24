@@ -38,11 +38,9 @@ public class SfumatureChiareTest {
         mockMatch = mock(Match.class);
         doNothing().when(mockMatch).countDown();
 
-        user = new User("User1", "pass");
 
         player = new Player();
         player.setMatch(mockMatch);
-        player.setUser(user);
         player.addExtractedSchemeCard(schemeCard);
         player.setScheme(2);
 
@@ -79,13 +77,5 @@ public class SfumatureChiareTest {
         assertEquals(5, publicObjectiveCard.getID());
     }
 
-    @Test
-    public void getName() {
-        assertEquals("Sfumature Chiare", publicObjectiveCard.getName());
-    }
 
-    @Test
-    public void getDescription() {
-        assertEquals("Set di 1 & 2 ovunque.", publicObjectiveCard.getDescription());
-    }
 }

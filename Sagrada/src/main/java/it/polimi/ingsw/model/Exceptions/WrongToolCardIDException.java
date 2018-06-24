@@ -5,7 +5,6 @@ public class WrongToolCardIDException extends Exception {
     public WrongToolCardIDException() {
         super(msg);
     }
-    public WrongToolCardIDException(String msg){ super(msg); }
 
     public static String getMsg() {
         return msg;

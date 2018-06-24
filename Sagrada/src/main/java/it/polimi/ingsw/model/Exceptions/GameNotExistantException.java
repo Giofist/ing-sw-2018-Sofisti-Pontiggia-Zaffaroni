@@ -5,7 +5,6 @@ public class GameNotExistantException extends Exception {
     public GameNotExistantException() {
         super(msg);
     }
-    public GameNotExistantException(String msg){ super(msg); }
 
     public static String getMsg() {
         return msg;

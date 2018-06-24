@@ -5,7 +5,6 @@ public class DicepoolIndexException extends Exception {
     public DicepoolIndexException() {
         super(msg);
     }
-    public DicepoolIndexException(String msg){ super(msg); }
 
     public static String getMsg() {
         return msg;

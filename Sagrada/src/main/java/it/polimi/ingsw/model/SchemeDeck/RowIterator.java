@@ -33,10 +33,7 @@ public class RowIterator<T> implements Iterator<Tile> {
         } catch (OutOfMatrixException e) {
             throw new NoSuchElementException("Matrix dead end reached.");
         }
-
-        System.out.println("ROW: " + currentRow + " COL: " + column);
         currentRow++;
-        System.out.println("ROW: " + currentRow + " COL: " + column);
         if (currentRow == schemeCard.getMaxRow()) {
             deadEnd = true;
         }

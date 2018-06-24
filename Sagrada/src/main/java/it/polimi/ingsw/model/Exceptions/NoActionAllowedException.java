@@ -5,7 +5,6 @@ public class NoActionAllowedException extends Exception {
     public NoActionAllowedException() {
         super(msg);
     }
-    public NoActionAllowedException(String msg){ super(msg); }
 
     public static String getMsg() {
         return msg;

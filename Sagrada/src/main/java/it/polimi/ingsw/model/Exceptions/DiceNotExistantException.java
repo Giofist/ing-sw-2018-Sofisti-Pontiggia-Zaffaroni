@@ -5,7 +5,6 @@ public class DiceNotExistantException extends Exception {
     public DiceNotExistantException() {
         super(msg);
     }
-    public DiceNotExistantException(String msg){ super(msg); }
 
     public static String getMsg() {
         return msg;

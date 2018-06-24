@@ -20,36 +20,34 @@ import java.net.URL;
 import java.rmi.RemoteException;
 
 
-public class EntryPoint extends Application implements Observer {
+public class EntryPoint extends Application implements Observer{
     static Stage stage;
+    public static ClientHandlerInterface serverController;
     private static EntryPoint instance;
-    private ClientHandlerInterface serverController;
-    private SocketController socketController;
 
-    public SocketController getSocketController(){
-        return this.socketController;
+    public static ClientHandlerInterface getServerController() {
+        return serverController;
     }
-    public void setSocketController(SocketController socketController) {
-        this.socketController = socketController;
+
+    public static void setServerController(ClientHandlerInterface controller) {
+        serverController = controller;
     }
-    public ClientHandlerInterface getServerController(){
-        return this.serverController;
-    }
-    public void setServerController(ClientHandlerInterface serverController){
-        this.serverController=serverController;
-    }
-    public static EntryPoint Singleton() {
+
+    private EntryPoint(){};
+
+    public static  EntryPoint Singleton() {
         if (instance == null) {
             instance = new EntryPoint();
         }
         return instance;
     }
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         /*FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/LogIn.fxml"));
         Parent root = loader.load();
-        ((LogInController) loader.getController()).setPrimaryStage(primaryStage);
+        ((StartGameController) loader.getController()).setPrimaryStage(primaryStage);
         primaryStage.initStyle(StageStyle.UNDECORATED);
         Scene scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT);
@@ -66,17 +64,18 @@ public class EntryPoint extends Application implements Observer {
         primaryStage.setFullScreen(true);
         primaryStage.setScene(scene);
         primaryStage.show();
-        }
+    }
 
 
     public static void main(String[] args) {
+        EntryPoint.Singleton();
         launch(args);
     }
 
     @Override
-    public synchronized void update(Observable o, Object arg) throws RemoteException{
-        State state =  o.getState();
-        switch (state){
+    public synchronized void update(Observable o, Object arg) throws RemoteException {
+        State state = o.getState();
+        switch (state) {
             case ERRORSTATE: {
                 break;
             }
@@ -113,3 +112,4 @@ public class EntryPoint extends Application implements Observer {
         }
     }
 }
+

@@ -1,7 +1,10 @@
 package it.polimi.ingsw.ClientView;
 
+import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
 import it.polimi.ingsw.model.Match;
 import it.polimi.ingsw.model.PlayerPackage.Player;
+import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
+import it.polimi.ingsw.model.SchemeDeck.Tile;
 
 public class ItalianTranslator implements Translator {
 
@@ -22,7 +25,7 @@ public class ItalianTranslator implements Translator {
     };
 
     @Override
-    public String getPublicGoalCardDescription(int cardID){
+    public String translatePublicGoalCardDescription(int cardID){
         switch (cardID) {
             case 1: return "Righe senza colori ripetuti.";
             case 2: return "Colonne senza colori ripetuti.";
@@ -39,7 +42,7 @@ public class ItalianTranslator implements Translator {
     }
 
     @Override
-    public String getPublicGoalCardName(int cardID){
+    public String translatePublicGoalCardName(int cardID){
         switch (cardID) {
             case 1: return "Colori Diversi - Riga";
             case 2: return "Colori Diversi - Colonna";
@@ -56,7 +59,40 @@ public class ItalianTranslator implements Translator {
     }
 
     @Override
-    public String getPrivateGoalCardDescription(int cardID){
+    public String translateSchemeCard(SchemeCard schemeCard) {
+        String schemeCardstring = "";
+        schemeCardstring += schemeCard.getMapName();
+        schemeCardstring += "%Difficoltà della mappa: ";
+        schemeCardstring += schemeCard.getDifficulty();
+        schemeCardstring += "%";
+        for (Tile tile: schemeCard){
+            if (tile.isOccupied()) {
+                try {
+                    schemeCardstring += tile.getDice().getIntensity();
+                    schemeCardstring += tile.getDice().getColor().toString().toLowerCase();
+                } catch (DiceNotExistantException e) {
+                    e.printStackTrace();
+                }
+            }
+            else if (tile.haveColor_constrain()){
+                schemeCardstring += "0";
+                schemeCardstring += tile.getColor_Constrain().toString();
+            }
+            else if (tile.haveNumber_constrain()){
+                schemeCardstring += tile.getNumber_Constrain();
+                schemeCardstring += "*";
+            }
+            else{
+                schemeCardstring += "0_";
+            }
+            schemeCardstring += "-";
+        }
+        schemeCardstring += "!";
+        return schemeCardstring;
+    }
+
+    @Override
+    public String translatePrivateGoalCardDescription(int cardID){
         switch (cardID) {
             case 1: return "Somma dei valori su tutti i dadi ROSSI.";
             case 2: return "Somma dei valori su tutti i dadi GIALLI.";
@@ -68,7 +104,7 @@ public class ItalianTranslator implements Translator {
     }
 
     @Override
-    public String getPrivateGoalCardName(int cardID){
+    public String translatePrivateGoalCardName(int cardID){
         switch (cardID) {
             case 1: return "Sfumature ROSSE.";
             case 2: return "Sfumature GIALLE.";
@@ -90,6 +126,8 @@ public class ItalianTranslator implements Translator {
             case "6": return "Non stai rispettando le restrizioni di colore\n";
             case "7": return "Errore in diluente per pasta salda\n";
             case "7.1": return "Errore in diluente per Pasta Salda: non puoi piazzare due dadi nello stesso turno\n";
+
+
             case "9": return "Non stai rispettando qualche restrizione sulla carta schema\n";
             case "10": return "Non puoi mettere un dado qui, perchè c'è già un dado su questa casella\n";
             case "11": return "Errore in alesatore per lamina di rame\n";
@@ -128,7 +166,8 @@ public class ItalianTranslator implements Translator {
             case "33": return "Non puoi eseguire nessuna azione, mi spiace\n";
             case "34": return "Non puoi eseguire questa azione, mi spiace\n";
             case "35": return "Non hai abbastanza segnalini per questa toolcard\n";
-            case "36": return "Number of players not allowed\n";
+
+
             case "37": return "Sei fuori dalla vetrata!\n";
             case "38": return "Questo giocatore non è nella tua partita\n";
             case "39": return "Errore nel caloclo del punteggio dell'obiettivo privato\n";
