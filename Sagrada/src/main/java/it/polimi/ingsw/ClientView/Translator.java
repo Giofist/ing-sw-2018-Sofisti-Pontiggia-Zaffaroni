@@ -7,6 +7,10 @@ public interface  Translator {
     String translateMatch(Match match);
     String translatePlayer(Player player);
 
+    String getToolCardDescription(int cardID);
+
+    String getToolCardCardName(int cardID);
+
     String getPrivateGoalCardDescription(int cardID);
 
     String getPrivateGoalCardName(int cardID);
