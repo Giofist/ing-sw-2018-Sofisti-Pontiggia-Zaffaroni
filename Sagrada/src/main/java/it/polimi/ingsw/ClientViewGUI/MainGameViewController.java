@@ -1,7 +1,9 @@
 package it.polimi.ingsw.ClientViewGUI;
 
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
@@ -12,10 +14,13 @@ import javafx.stage.Stage;
 
 import javax.tools.Tool;
 import java.awt.event.MouseEvent;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class MainGameViewController {
+public class MainGameViewController implements Initializable{
     ImageView origin = null;
     public Stage primaryStage; //only for testing
+    int SelectedDiceIndex;
 
     @FXML
     private ImageView firstDice;
@@ -53,8 +58,6 @@ public class MainGameViewController {
     @FXML
     private GridPane yourMap;
 
-    @FXML
-    private ImageView ImageView00;
 
     @FXML
     private ImageView ToolCard;
@@ -64,6 +67,69 @@ public class MainGameViewController {
 
     @FXML
     private Text yourMapDiff;
+
+    @FXML
+    private ImageView ImageView00;
+
+    @FXML
+    private ImageView ImageView01;
+
+    @FXML
+    private ImageView ImageView02;
+
+    @FXML
+    private ImageView ImageView03;
+
+    @FXML
+    private ImageView ImageView04;
+
+    @FXML
+    private ImageView ImageView10;
+
+    @FXML
+    private ImageView ImageView12;
+
+    @FXML
+    private ImageView ImageView13;
+
+    @FXML
+    private ImageView ImageView14;
+
+    @FXML
+    private ImageView ImageView20;
+
+    @FXML
+    private ImageView ImageView21;
+
+    @FXML
+    private ImageView ImageView24;
+
+    @FXML
+    private ImageView ImageView30;
+
+    @FXML
+    private ImageView ImageView31;
+
+    @FXML
+    private ImageView ImageView32;
+
+    @FXML
+    private ImageView ImageView34;
+
+    @FXML
+    private ImageView ImageView11;
+
+    @FXML
+    private ImageView ImageView22;
+
+    @FXML
+    private ImageView ImageView23;
+
+    @FXML
+    private ImageView ImageView33;
+
+    @FXML
+    private ProgressBar TimeLine;
 
     @FXML
     void handleDragDetection(MouseEvent event) {
@@ -87,16 +153,15 @@ public class MainGameViewController {
     }
 
     public void handleDragDetection(javafx.scene.input.MouseEvent mouseEvent) {
+        char[] SelectedDiceId = new char[11];
         origin = (ImageView) mouseEvent.getTarget();
         Dragboard db = origin.startDragAndDrop(TransferMode.ANY);
         ClipboardContent cb = new ClipboardContent();
         cb.putImage(origin.getImage());
         db.setContent(cb);
+        SelectedDiceId = origin.getId().toCharArray();
+        SelectedDiceIndex = Integer.parseInt(String.valueOf(SelectedDiceId[9]));  //TODO magari sistemare semplificando Per ora va
         mouseEvent.consume();
-    }
-
-    public void setPrimaryStage(Stage primaryStage) {  //to be removed only for gtesting
-        this.primaryStage = primaryStage;
     }
 
     public void zoomCard(MouseDragEvent mouseDragEvent) {
@@ -104,4 +169,14 @@ public class MainGameViewController {
         yourMapName.setText("OK");
     }
 
+
+    public void setPrimaryStage(Stage primaryStage) {  //to be removed only for gtesting
+        this.primaryStage = primaryStage;
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        String mapName = "Celestial";
+        yourMapName.setText(mapName);
+    }
 }
