@@ -21,6 +21,63 @@ public class ItalianTranslator implements Translator {
         return "Nome del giocatore " + player.getName();
     };
 
+    @Override
+    public String getPublicGoalCardDescription(int cardID){
+        switch (cardID) {
+            case 1: return "Righe senza colori ripetuti.";
+            case 2: return "Colonne senza colori ripetuti.";
+            case 3: return "Righe senza sfumature ripetute.";
+            case 4: return "Colonne senza sfumature ripetute.";
+            case 5: return "Set di 1 & 2 ovunque.";
+            case 6: return "Set di 3 & 4 ovunque.";
+            case 7: return "Set di 5 & 6 ovunque.";
+            case 8: return "Set di dadi di ogni valore ovunque.";
+            case 9: return "Numero di dadi dello stesso colore diagonalmente adiacenti.";
+            case 10: return "Set di dadi di ogni colore ovunque.";
+            default: return null;
+        }
+    }
+
+    @Override
+    public String getPublicGoalCardName(int cardID){
+        switch (cardID) {
+            case 1: return "Colori Diversi - Riga";
+            case 2: return "Colori Diversi - Colonna";
+            case 3: return "Sfumature diverse - Riga";
+            case 4: return "Sfumature Diverse - Colonna";
+            case 5: return "Sfumature Chiare";
+            case 6: return "Sfumature Medie";
+            case 7: return "Sfumature Scure";
+            case 8: return "Sfumature Diverse";
+            case 9: return "Diagonali Colorate";
+            case 10: return "Varietà di Colore";
+            default: return null;
+        }
+    }
+
+    @Override
+    public String getPrivateGoalCardDescription(int cardID){
+        switch (cardID) {
+            case 1: return "Somma dei valori su tutti i dadi ROSSI.";
+            case 2: return "Somma dei valori su tutti i dadi GIALLI.";
+            case 3: return "Somma dei valori su tutti i dadi VERDI.";
+            case 4: return "Somma dei valori su tutti i dadi BLU.";
+            case 5: return "Somma dei valori su tutti i dadi VIOLA.";
+            default: return null;
+        }
+    }
+
+    @Override
+    public String getPrivateGoalCardName(int cardID){
+        switch (cardID) {
+            case 1: return "Sfumature ROSSE.";
+            case 2: return "Sfumature GIALLE.";
+            case 3: return "Sfumature VERDI.";
+            case 4: return "Sfumature BLU.";
+            case 5: return "Sfumature VIOLA.";
+            default: return null;
+        }
+    }
 
     @Override
     public String translateException(String exceptioncode){
