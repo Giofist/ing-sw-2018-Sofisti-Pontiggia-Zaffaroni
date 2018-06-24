@@ -11,12 +11,7 @@ public interface  Translator {
     String translatePrivateGoalCardDescription(int cardID);
     String translatePrivateGoalCardName(int cardID);
     String getToolCardDescription(int cardID);
-
     String getToolCardCardName(int cardID);
-
-    String getPrivateGoalCardDescription(int cardID);
-
-    String getPrivateGoalCardName(int cardID);
 
     String translateException(String exceptioncode);
     String translatePublicGoalCardDescription(int cardID);
