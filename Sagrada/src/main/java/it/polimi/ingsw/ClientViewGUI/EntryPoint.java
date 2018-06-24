@@ -63,6 +63,7 @@ public class EntryPoint extends Application implements Observer {
         ((MainGameViewController) loader.getController()).setPrimaryStage(primaryStage);
 
         Scene scene = new Scene(root);
+        primaryStage.setFullScreen(true);
         primaryStage.setScene(scene);
         primaryStage.show();
         }

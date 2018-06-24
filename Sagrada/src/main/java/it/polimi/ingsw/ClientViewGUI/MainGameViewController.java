@@ -4,7 +4,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.effect.Bloom;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.GaussianBlur;
+import javafx.scene.effect.Shadow;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
@@ -64,9 +68,6 @@ public class MainGameViewController implements Initializable{
 
     @FXML
     private Text yourMapName;
-
-    @FXML
-    private Text yourMapDiff;
 
     @FXML
     private ImageView ImageView00;
@@ -129,6 +130,19 @@ public class MainGameViewController implements Initializable{
     private ImageView ImageView33;
 
     @FXML
+    private ImageView PrivateGoalCard;
+
+    @FXML
+    private ImageView PublicGoalCard1;
+
+    @FXML
+    private ImageView PublicGoalCard2;
+
+    @FXML
+    private ImageView PublicGoalCard3;
+
+
+    @FXML
     private ProgressBar TimeLine;
 
     @FXML
@@ -164,11 +178,6 @@ public class MainGameViewController implements Initializable{
         mouseEvent.consume();
     }
 
-    public void zoomCard(MouseDragEvent mouseDragEvent) {
-        ToolCard.setScaleY(20);
-        yourMapName.setText("OK");
-    }
-
 
     public void setPrimaryStage(Stage primaryStage) {  //to be removed only for gtesting
         this.primaryStage = primaryStage;
@@ -178,5 +187,39 @@ public class MainGameViewController implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
         String mapName = "Celestial";
         yourMapName.setText(mapName);
+    }
+
+    public void Highlight(javafx.scene.input.MouseEvent mouseEvent) {
+        ImageView source = (ImageView) mouseEvent.getTarget();
+        Bloom bloom = new Bloom();
+        bloom.setThreshold(0.1);
+        source.setEffect(bloom);
+    }
+
+    public void RemuveHighlight(javafx.scene.input.MouseEvent mouseEvent) {
+        ImageView source = (ImageView) mouseEvent.getTarget();
+        source.setEffect(null);
+    }
+
+    public void ShowPrivateGoal(javafx.scene.input.MouseEvent mouseEvent) {
+        Image image = new Image("GoalCards/SfumatureVerdi.jpg");  //todo remove to be general non voglio riscaricare tutte le volte riferimento
+        PrivateGoalCard.setImage(image);
+
+    }
+
+    public void HidePrivateGoal(javafx.scene.input.MouseEvent mouseEvent) {
+        Image image = new Image("GoalCards/Back1.jpg");  //todoremoveto be general
+        PrivateGoalCard.setImage(image);
+    }
+
+    public void Select(javafx.scene.input.MouseEvent mouseEvent) {
+        ImageView source = (ImageView) mouseEvent.getTarget();
+        DropShadow dropShadow = new DropShadow();
+        source.setEffect(dropShadow);
+    }
+
+    public void Unselect(javafx.scene.input.MouseEvent mouseEvent) {
+        ImageView source = (ImageView) mouseEvent.getTarget();
+        source.setEffect(null);
     }
 }

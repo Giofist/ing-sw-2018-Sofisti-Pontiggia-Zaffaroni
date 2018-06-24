@@ -141,7 +141,7 @@ public class LogInController implements Initializable{
     }
 
     public void connect(ActionEvent actionEvent) {
-        ipAddr = String.valueOf(IPAddress);
+       /* ipAddr = String.valueOf(IPAddress);
         //SocketClientListener.setPort(Integer.parseInt(String.valueOf(Port))); //todo come lo sistemo???
         Boolean correct = true;
         if(connected == true){
@@ -192,6 +192,7 @@ public class LogInController implements Initializable{
             connectionMessage.setText("Connection up!");
             connected = true;
         }
+        */
     }
 
     @Override
