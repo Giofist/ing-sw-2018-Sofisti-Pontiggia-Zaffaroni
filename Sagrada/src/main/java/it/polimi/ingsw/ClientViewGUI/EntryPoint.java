@@ -29,11 +29,9 @@ public class EntryPoint extends Application implements Observer {
     public SocketController getSocketController(){
         return this.socketController;
     }
-
     public void setSocketController(SocketController socketController) {
         this.socketController = socketController;
     }
-
     public ClientHandlerInterface getServerController(){
         return this.serverController;
     }

@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model.ToolCard;
 
 import it.polimi.ingsw.model.*;
-import it.polimi.ingsw.model.Exceptions.EmpyDicepoolException;
+import it.polimi.ingsw.model.Exceptions.DicepoolIndexException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PlayerPackage.State;
@@ -57,7 +57,7 @@ public class TamponeDiamantatoTest {
 
 
     @Test
-    public void executeOK() throws EmpyDicepoolException, ToolIllegalOperationException {
+    public void executeOK() throws DicepoolIndexException, ToolIllegalOperationException {
         toolRequestClass.setSelectedDIceIndex(0);
 
         int initialIntensity = player.getMatch().getGametable().getRoundDicepool().getDice(0).getIntensity();

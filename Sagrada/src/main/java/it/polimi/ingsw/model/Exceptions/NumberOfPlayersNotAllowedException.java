@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model.Exceptions;
 
 public class NumberOfPlayersNotAllowedException extends Exception {
-    private static final String msg = "Number of players not allowed\n";
+    private static final String msg = "36";
     public NumberOfPlayersNotAllowedException () {
         super(msg);
     }

@@ -1,8 +1,9 @@
 package it.polimi.ingsw.model.ToolCard;
 
 import it.polimi.ingsw.model.Dice;
-import it.polimi.ingsw.model.Exceptions.EmpyDicepoolException;
+import it.polimi.ingsw.model.Exceptions.DicepoolIndexException;
 import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
+import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.PennelloPerPastaSaldaException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PlayerPackage.State;
@@ -25,12 +26,11 @@ public class PennelloperPastaSalda  extends ToolAction {
 
     @Override
     public void execute (Player player, ToolRequestClass toolRequestClass)throws ToolIllegalOperationException {
-        //ricordarsi sempre di fare gt and remove
         try{
             Dice dice= player.getGametable().getRoundDicepool().getDice(toolRequestClass.getSelectedDIceIndex());
             dice.setRandomIntensity();
             if(player.getPlayerState().getState().equals(State.HASSETADICESTATE)){
-                throw new ToolIllegalOperationException("non puoi piazzare due dadi nello stesso turno");
+                throw new PennelloPerPastaSaldaException("16.1");
             }
             boolean settable = false;
             RowIterator rowIterator =  player.getScheme().rowIterator(0);
@@ -49,8 +49,7 @@ public class PennelloperPastaSalda  extends ToolAction {
                     player.setPlayerState(State.MUSTPASSTURNSTATE);
                 }else player.setPlayerState(State.HASUSEDATOOLCARDACTIONSTATE);
             }
-
-        }catch (EmpyDicepoolException e){
+        }catch (DicepoolIndexException e){
             throw new ToolIllegalOperationException(e.getMessage());
         }catch (SchemeCardNotExistantException e){
             throw new ToolIllegalOperationException(e.getMessage());

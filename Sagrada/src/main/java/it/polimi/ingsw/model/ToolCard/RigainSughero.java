@@ -26,13 +26,13 @@ public class RigainSughero  extends ToolAction {
         //ricordarsi di fare get and remove dei dadi, non dimenticare la remove
         try {
             if (player.getPlayerState().getState().equals(State.HASSETADICESTATE)) {
-                throw new ToolIllegalOperationException("non puoi piazzare due dadi nello stesso turno");
+                throw new RigaInSugheroException("18.2");
             }
             dice = player.getGametable().getRoundDicepool().getDice(toolRequestClass.getSelectedRoundDicepoolDiceIndex());
             player.getGametable().getRoundDicepool().removeDice(toolRequestClass.getSelectedRoundDicepoolDiceIndex());
             boolean thereisadicenearyou = player.getScheme().ThereisaDicenearYou(toolRequestClass.getNewRow1(), toolRequestClass.getNewColumn1());
             if (thereisadicenearyou) {
-                throw new RigaInSugheroException("Non puoi mettere un dado se ce n'è uno vicino!\n");
+                throw new RigaInSugheroException("18.1");
             } else
                 player.getScheme().setDice(dice, toolRequestClass.getNewRow1(), toolRequestClass.getNewColumn1(), false, false, true);
             if (player.getPlayerState().getState().equals(State.HASSETADICESTATE)) {
@@ -47,7 +47,7 @@ public class RigainSughero  extends ToolAction {
             }catch(Exception er){
                 //do nothing
             }
-            throw new RigaInSugheroException(RigaInSugheroException.getMsg()+ e.getMessage());
+            throw new RigaInSugheroException();
         }
 
 

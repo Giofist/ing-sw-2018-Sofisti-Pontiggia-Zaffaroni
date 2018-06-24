@@ -46,7 +46,7 @@ public class AlesatoreperLaminadiRame  extends ToolAction {
             } catch (Exception er) {
                 //do nothing
             }
-            throw new AlesatorePerLaminadiRameException(AlesatorePerLaminadiRameException.getMsg() + e.getMessage());
+            throw new AlesatorePerLaminadiRameException();
         }
     }
 

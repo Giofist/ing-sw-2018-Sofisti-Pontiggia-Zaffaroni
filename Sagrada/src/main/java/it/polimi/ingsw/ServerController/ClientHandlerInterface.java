@@ -1,18 +1,23 @@
 package it.polimi.ingsw.ServerController;
 
 import it.polimi.ingsw.ClientView.Observer;
+import it.polimi.ingsw.NetworkClient.SocketResponseHandler;
+import it.polimi.ingsw.model.Match;
 import it.polimi.ingsw.model.ToolCard.ToolRequestClass;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.LinkedList;
 import java.util.List;
 
 
 public interface ClientHandlerInterface extends Remote {
+    public void setResponseHandler(SocketResponseHandler responseHandler)throws RemoteException;
+
 
     void createGame(String clientname, Observer client, String gamename ) throws  RemoteException;
 
-    String getActiveMatchesList() throws RemoteException;
+    List getActiveMatchesList() throws RemoteException;
     List getExtractedSchemeCard(String clientname) throws RemoteException;
     int getmyPoints(String clientname) throws RemoteException;
     List getPlayersinmymatch(String clientname) throws RemoteException;

@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.model.Exceptions.EmpyDicepoolException;
+import it.polimi.ingsw.model.Exceptions.DicepoolIndexException;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -55,39 +55,34 @@ public class DicePool {
     }
 
 
-
     private void scrambleDicePool() { Collections.shuffle(dices); }
 
 
-
     //do not use for RoundDicepool
-    public Dice extractDice() throws EmpyDicepoolException {
+    public Dice extractDice() throws DicepoolIndexException {
         if (dices.isEmpty()){
-            throw new EmpyDicepoolException();
+            throw new DicepoolIndexException();
         }
         return dices.removeFirst();
     }
 
     //do use for RoundDicepool
     // il metodo get non elimina dalla lista
-    public Dice getDice(int diceIndex)throws EmpyDicepoolException, IndexOutOfBoundsException{
-        if (dices.isEmpty()){
-            throw new EmpyDicepoolException();
+    public Dice getDice(int diceIndex)throws DicepoolIndexException{
+        if (dices.isEmpty() || diceIndex <0 || diceIndex > dices.size() ){
+            throw new DicepoolIndexException();
         }
+        return dices.get(diceIndex);
 
-        try {
-            return dices.get(diceIndex);
-        } catch (IndexOutOfBoundsException e) {
-            throw new IndexOutOfBoundsException();
-        }
     }
 
     //ho aggiunto questo metodo
     //propongo di lanciare delle eccezioni per gestire questa cosa e il metodo sopra
-    public void removeDice(int diceIndex){
-        if(diceIndex <= getDicePoolSize()){
-            dices.remove(diceIndex);
+    public void removeDice(int diceIndex)throws DicepoolIndexException{
+        if (dices.isEmpty() || diceIndex <0 || diceIndex > dices.size() ){
+            throw new DicepoolIndexException();
         }
+        dices.remove(diceIndex);
     }
 
     public LinkedList<Dice> getallDicesbutnotremove(){
@@ -95,7 +90,6 @@ public class DicePool {
         list.addAll(this.dices);
         return list;
     }
-
 
     //useful for roundTrack
     public void removeallDices(){

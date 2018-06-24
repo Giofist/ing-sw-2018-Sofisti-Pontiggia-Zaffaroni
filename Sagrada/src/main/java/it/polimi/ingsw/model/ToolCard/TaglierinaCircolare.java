@@ -2,7 +2,7 @@ package it.polimi.ingsw.model.ToolCard;
 
 
 import it.polimi.ingsw.model.Dice;
-import it.polimi.ingsw.model.Exceptions.EmpyDicepoolException;
+import it.polimi.ingsw.model.Exceptions.DicepoolIndexException;
 import it.polimi.ingsw.model.Exceptions.RoundTrackException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.TaglierinaCircolareException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
@@ -34,9 +34,9 @@ public class TaglierinaCircolare  extends ToolAction {
                 player.setPlayerState(State.MUSTPASSTURNSTATE);
             }else player.setPlayerState(State.HASUSEDATOOLCARDACTIONSTATE);
         }catch(RoundTrackException e){
-            throw new TaglierinaCircolareException(TaglierinaCircolareException.getMsg() + e.getMessage());
-        }catch (EmpyDicepoolException e){
-
+            throw new TaglierinaCircolareException();
+        }catch (DicepoolIndexException e){
+            //do something?
         }catch(RemoteException e){
             player.getAssociatedUser().setActive(false);
             player.getTurn().countDown();

@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions;
 
 public class PennelloPerPastaSaldaException extends ToolIllegalOperationException {
-    private static final String msg = "Errore in pennello per pasta salda";
+    private static final String msg = "16";
     public PennelloPerPastaSaldaException() {
         super(msg);
     }

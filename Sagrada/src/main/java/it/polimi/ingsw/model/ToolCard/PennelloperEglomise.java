@@ -42,7 +42,7 @@ public class PennelloperEglomise extends ToolAction {
             }catch(Exception er){
                 //do nothing, sorry!
             }
-            throw new PennelloPerEglomiseException(PennelloPerEglomiseException.getMsg() + e.getMessage());
+            throw new PennelloPerEglomiseException();
         }
     }
 }

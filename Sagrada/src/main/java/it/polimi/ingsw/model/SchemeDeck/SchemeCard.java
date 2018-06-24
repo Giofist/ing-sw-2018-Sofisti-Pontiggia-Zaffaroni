@@ -112,7 +112,7 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
                         case '_':
                             break;
                         default:
-                            throw new MapConstrainReadingException(this.getID());
+                            throw new MapConstrainReadingException();
                     }
                 }
             }
