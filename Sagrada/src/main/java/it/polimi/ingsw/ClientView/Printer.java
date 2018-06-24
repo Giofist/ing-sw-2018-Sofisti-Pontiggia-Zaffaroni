@@ -87,12 +87,12 @@ public class Printer {
         try {
             System.out.println(serverController.getPrivateGoalCardname(yourName));
         } catch (RemoteException e) {
-            System.out.println(e.getMessage());
+            System.out.println(Client.translator.translateException(e.getMessage()));
         }
         try {
             System.out.println(serverController.getPrivateGoalCarddescription(yourName));
         } catch (RemoteException e) {
-            System.out.println(e.getMessage());
+            System.out.println(Client.translator.translateException(e.getMessage()));
         }
         System.out.println("\nObbiettivo pubblico:");
 
@@ -100,12 +100,12 @@ public class Printer {
         try {
             cardName = serverController.getPublicGoalCardnames(yourName).split("!");
         } catch (RemoteException e) {
-            System.out.println(e.getMessage());
+            System.out.println(Client.translator.translateException(e.getMessage()));
         }
         try {
             description = serverController.getPublicGoalCarddescriptions(yourName).split("!");
         } catch (RemoteException e) {
-            System.out.println(e.getMessage());
+            System.out.println(Client.translator.translateException(e.getMessage()));
         }
 
         for (int i = 0; i < cardName.length; i++) {
@@ -123,7 +123,7 @@ public class Printer {
         try {
             dices = serverController.getRoundTrack(yourName).split("!");
         } catch (RemoteException e) {
-            System.out.println(e.getMessage());
+            System.out.println(Client.translator.translateException(e.getMessage()));
         }
         for (String diceList : dices) {
             if (i < 10) {
@@ -166,7 +166,7 @@ public class Printer {
         try {
             dices = serverController.getRoundDicepool(yourName).split("-");
         } catch (RemoteException e) {
-            System.out.println(e.getMessage());
+            System.out.println(Client.translator.translateException(e.getMessage()));
         }
         System.out.println("Ecco i dadi disponibili in questo round:");
         for (String dice : dices) {
@@ -212,7 +212,7 @@ public class Printer {
                 index++;
             }
         } catch (RemoteException e) {
-            System.out.println(e.getMessage());
+            System.out.println(Client.translator.translateException(e.getMessage()));
         }
     }
 
