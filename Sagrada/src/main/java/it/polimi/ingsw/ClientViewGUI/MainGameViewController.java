@@ -163,7 +163,8 @@ public class MainGameViewController implements Initializable{
         source.fitHeightProperty();
         source.fitWidthProperty();
         source.setImage(event.getDragboard().getImage());
-        origin.setImage(null);
+        Image image = new Image("Dices/EmptySpace.jpg");
+        origin.setImage(image);
     }
 
     public void handleDragDetection(javafx.scene.input.MouseEvent mouseEvent) {

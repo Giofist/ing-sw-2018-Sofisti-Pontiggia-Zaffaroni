@@ -59,6 +59,44 @@ public class ItalianTranslator implements Translator {
     }
 
     @Override
+    public String getToolCardDescription(int cardID){
+        switch (cardID) {
+            case 1: return "Dopo aver scelto un dado, aumenta o diminuisci il valore del dado scelto di 1.\nNon puoi cambiare un 6 in 1 o un 1 in 6.";
+            case 2: return "Muovi un qualsiasi dado nella tua vetrata ignorando le restrizioni di colore.\nDevi rispettare tutte le altre restrizioni di piazzamento.";
+            case 3: return "uovi un qualsiasi dado nella tua vetrata ignorando le restrizioni di valore.\nDevi rispettare tutte le altre restrizioni di piazzamento.";
+            case 4: return "Muovi esattamente due dadi.\nRispetta tutte le restrizioni di piazzamento.";
+            case 5: return "Dopo aver scelto un dado, scambia quel dado con un dado sul Tracciato Round.\n";
+            case 6: return "Dopo aver scelto un dado tira nuovamente quel dado.\nSe non puoi piazzarlo, riponilo nella riserva.";
+            case 7: return "Tira nuovamente tutti i dadi della riserva.\nQuesta carta può essere usata solo durante il tuo secondo turno, prima di scegliere il secondo dado.";
+            case 8: return "Dopo il tuo primo turno scegli immediatamente un altro dado.\nSalta il secondo turno di questo round.";
+            case 9: return "Dopo aver scelto un dado, piazzalo in una casella che non sia adiacente a un altro dado.\nDevi rispettare tutte le restrizioni di piazzamento.";
+            case 10: return "Dopo aver scelto un dado, giralo sulla faccia opposta.\n6 diventa 1, 5 diventa 2, 4 diventa 3 ecc.";
+            case 11: return "Dopo aver scelto un dado, riponilo nel Sacchetto, poi pescane uno dal sacchetto.\nScegli il valore del nuovo dado e piazzalo, rispettando tutte le restrizioni di piazzamento.";
+            case 12: return "Muovi fino a due dadi dello stesso colore  di un solo dado sul Tracciato dei Round.\nDevi rispettare tutte le restrizioni di piazzamento.";
+            default: return null;
+        }
+    }
+
+    @Override
+    public String getToolCardCardName(int cardID){
+        switch (cardID) {
+            case 1: return "Pinza Sgrossatrice";
+            case 2: return "Pennello per Eglomise";
+            case 3: return "Alesatore per lamina di rame";
+            case 4: return "Lathekin";
+            case 5: return "Taglierina circolare";
+            case 6: return "Pennello per Pasta Salda";
+            case 7: return "Martelletto";
+            case 8: return "Tenaglia a Rotelle";
+            case 9: return "Riga in Sughero";
+            case 10: return "Tampone Diamantato";
+            case 11: return "Diluente per Pasta Salda";
+            case 12: return "Taglierina Manuale";
+            default: return null;
+        }
+    }
+
+    @Override
     public String translateSchemeCard(SchemeCard schemeCard) {
         String schemeCardstring = "";
         schemeCardstring += schemeCard.getMapName();
