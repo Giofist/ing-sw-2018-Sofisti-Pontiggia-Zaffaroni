@@ -21,37 +21,28 @@ public class ServerMessage implements Serializable {
     public void setObservable(Observable observable){
         this.observable = observable;
     }
-
     public void setList(List list) {
         this.list = list;
     }
-
     public List getList() {
         return list;
     }
-
     public String getMessage() {
         return message;
     }
-
     public void setMessage(String message) {
         this.message = message;
     }
-
     public int getMessagecodex() {
         return messagecodex;
     }
-
-    public Observable getObservable() {
-        return observable;
-    }
-
     public void setMessagecodex(int messagecodex) {
         this.messagecodex = messagecodex;
     }
+
+
     public void performAction(Observer view, SocketClientListener listener) throws RemoteException {
-        System.out.println(observable.getState().toString());
-        view.update(getObservable(), null);
+        view.update(observable, null);
         ClientMessage messageClass = new ResponseMessage();
         messageClass.setMessagecodex(1);
         try {

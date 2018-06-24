@@ -47,7 +47,7 @@ public class Lathekin  extends ToolAction {
             }catch(Exception err){
                 //do nothing
             }
-            throw new LathekinException(LathekinException.getMsg() + e.getMessage());
+            throw new LathekinException();
         }
 
     }

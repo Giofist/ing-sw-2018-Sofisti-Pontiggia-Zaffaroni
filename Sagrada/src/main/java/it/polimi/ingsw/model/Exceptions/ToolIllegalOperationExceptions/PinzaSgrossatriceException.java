@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions;
 
 public class PinzaSgrossatriceException extends ToolIllegalOperationException {
-    private static final String msg = "Errore in Pinza Sgrossatrice\n";
+    private static final String msg = "17";
     public PinzaSgrossatriceException() {
         super(msg);
     }

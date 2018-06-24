@@ -16,32 +16,21 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class SocketClientListener implements Runnable {
-    private Socket socket;
-    private Scanner in;
-    private PrintWriter out;
     private ObjectInputStream is;
     private ObjectOutputStream os;
     private Observer observerView;
-    private SocketController controller;
-    private int port = 1337;
+    private ClientHandlerInterface controller;
 
-    public SocketClientListener(String ipAddr) throws IOException {
-        Socket socket = new Socket(ipAddr, port);
-        this.socket = socket;
-        in = new Scanner(socket.getInputStream());
-        out = new PrintWriter(socket.getOutputStream());
+    public SocketClientListener(Socket socket) throws IOException {
         os = new ObjectOutputStream(socket.getOutputStream());
         is = new ObjectInputStream(socket.getInputStream());
     }
 
-    public void setController(SocketController controller, Observer observer) {
+    public void setController(ClientHandlerInterface controller, Observer observer) {
         this.controller = controller;
         this.observerView = observer;
     }
 
-    public void setPort(int port) {
-        this.port = port;
-    }
 
     @Override
     public void run() {
@@ -52,7 +41,7 @@ public class SocketClientListener implements Runnable {
         //44: sto ricevendo una richiesta(che dal server può essere solo un'update)
         int i = 0;
         while (i == 0) {
-            try {
+            try{
                 ServerMessage message = (ServerMessage) is.readObject();
                 int messagecodex = message.getMessagecodex();
                 if (messagecodex == 44) {
@@ -60,10 +49,10 @@ public class SocketClientListener implements Runnable {
                 } else {
                     executor.submit(new SocketResponseHandler(this.controller, message.getMessage(), messagecodex, message.getList()));
                 }
-                message = null;
-            } catch (Exception e) {
-
+            }catch(Exception e){
+                // do something?
             }
+
         }
     }
 

@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions;
 
 public class TaglierinaCircolareException extends ToolIllegalOperationException {
-    private static final String msg = "Errore in taglierina circolare\n";
+    private static final String msg = "19";
     public TaglierinaCircolareException() {
         super(msg);
     }

@@ -48,11 +48,9 @@ public class UsersList {
     synchronized private void loadUsersList() {
         FileReader fr = null;
         Scanner fileScanner = null;
-
         try {
             fr = new FileReader("src/main/resources/UsersList.txt");
             fileScanner = new Scanner(fr);
-
             users = new LinkedList<User>();
             String[] splittedUsernameAndPass;
 
@@ -64,9 +62,17 @@ public class UsersList {
         } catch (IOException e){
             users = new LinkedList<User>();
         } finally {
-            try { fr.close(); } catch (NullPointerException e) { e.printStackTrace(); }
-                                catch (IOException e) { e.printStackTrace(); }
-            try { fileScanner.close(); } catch (NullPointerException e) { e.printStackTrace(); }
+            try { fr.close();
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            } catch (IOException e){
+                e.printStackTrace();
+            }
+            try {
+                fileScanner.close();
+            } catch (NullPointerException e){
+                e.printStackTrace();
+            }
         }
     }
 
@@ -75,7 +81,6 @@ public class UsersList {
     // ho creato LoginException, ma sicome esiste già una classe loginExcpetion in una libreria standard di java, allora devo scrivere tutto il package
     synchronized public void check( String name, String password, Observer observer)throws it.polimi.ingsw.model.Exceptions.LoginException, IsAlreadyActiveException {
         String hexHash = produceSHA256(password);
-
         for (User user : this.users){
             if (user.getName().equals(name) && user.getPassword().equals(hexHash)){
                 if (user.isActive()){
@@ -117,8 +122,6 @@ public class UsersList {
             // Add the new user to the list of registered users
             User user = new User(name, hexHash);
             this.users.add(user);
-            System.out.println(name + " è stato registrato");
-            System.out.println(users.toString());
 
         } catch (IOException e){
             e.printStackTrace();
@@ -126,7 +129,6 @@ public class UsersList {
             try { fw.close(); } catch (Exception e) { e.printStackTrace(); }
             try { bw.close(); } catch (Exception e) { }
         }
-
         return;
     }
 
@@ -138,14 +140,12 @@ public class UsersList {
             // Create the SHA-256 of the password
             digest = MessageDigest.getInstance("SHA-256");
             hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
-
             // Convert hash bytes into StringBuffer
             for (int i = 0; i < hash.length; i++) {
                 String hex = Integer.toHexString(0xff & hash[i]);
                 if (hex.length() == 1) hexHash.append('0');
                 hexHash.append(hex);
             }
-
         } catch (NoSuchAlgorithmException e){
             e.printStackTrace();
         }

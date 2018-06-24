@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model.ToolCard;
 
 import it.polimi.ingsw.model.*;
-import it.polimi.ingsw.model.Exceptions.EmpyDicepoolException;
+import it.polimi.ingsw.model.Exceptions.DicepoolIndexException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PlayerPackage.State;
@@ -65,7 +65,7 @@ public class MartellettoTest {
 
     // This method should succed when all the requirements are satisfied
     @Test
-    public void executeOK() throws ToolIllegalOperationException, RemoteException, EmpyDicepoolException {
+    public void executeOK() throws ToolIllegalOperationException, RemoteException, DicepoolIndexException {
         when(mockTurn.getTurnID()).thenReturn(2);
         player.setPlayerState(State.STARTTURNSTATE);
 

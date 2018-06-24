@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model.Exceptions;
 
 public class WrongToolCardIDException extends Exception {
-    private static final String msg = "Non c'è nessuna toolcard con questo ID nel deck di questa partita, mi spiace\n";
+    private static final String msg = "45";
     public WrongToolCardIDException() {
         super(msg);
     }

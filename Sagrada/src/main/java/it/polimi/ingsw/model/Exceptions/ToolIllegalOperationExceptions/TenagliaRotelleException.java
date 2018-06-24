@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions;
 
 public class TenagliaRotelleException extends ToolIllegalOperationException {
-    private static final String msg = "Errore in tenaglia a rotelle";
+    private static final String msg = "21";
     public TenagliaRotelleException() {
         super(msg);
     }

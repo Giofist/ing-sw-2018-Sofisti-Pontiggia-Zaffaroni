@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model.Exceptions;
 
 public class LoginException extends Exception {
-    private static final String msg = "Login errato!";
+    private static final String msg = "31";
 
     public LoginException() {
         super(msg);

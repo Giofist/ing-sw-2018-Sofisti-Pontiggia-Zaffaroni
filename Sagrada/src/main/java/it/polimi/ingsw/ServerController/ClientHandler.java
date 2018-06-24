@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ServerController;
 
 import it.polimi.ingsw.ClientView.Observer;
+import it.polimi.ingsw.NetworkClient.SocketResponseHandler;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.Exceptions.*;
 import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
@@ -21,6 +22,11 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     //constructor
     public ClientHandler ()throws RemoteException {}
 
+
+    @Override
+    public void setResponseHandler(SocketResponseHandler responseHandler) throws RemoteException {
+        //do nothing
+    }
 
     @Override
     public synchronized void register(String username, String password) throws RemoteException{
@@ -54,6 +60,8 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     }
 
 
+
+
     @Override
     public void createGame(String clientname, Observer client, String gamename ) throws  RemoteException {
         try {
@@ -62,6 +70,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
             User user = UsersList.Singleton().getUser(clientname);
             user.setPlayer(player);
             player.setUser(user);
+            player.setName(clientname);
 
             //creo effettivamente la partita
             //NB: questa chiamata già aggiunge in player un riferimento alla partita a cui è iscritto
@@ -85,7 +94,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
             User user = UsersList.Singleton().getUser(clientname);
             user.setPlayer(player);
             player.setUser(user);
-
+            player.setName(clientname);
             //observerView pattern, mi registro per seguire gli aggiornamenti relativi a me
             player.getPlayerState().addObserver(observerView);
             MatchesList.singleton().join(player,gamename);
@@ -163,10 +172,10 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
 
 
     @Override
-    public String getActiveMatchesList() {
-        String list = "";
+    public List getActiveMatchesList() {
+        LinkedList list = new LinkedList();
         for (Match match: MatchesList.singleton().getActiveMatches()) {
-           list += match.toString();
+           list.add(match);
         }
         return list;
     }
@@ -281,7 +290,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
             throw new RemoteException(e.getMessage());
         }catch(TileConstrainException e){
             throw new RemoteException(e.getMessage());
-        }catch (EmpyDicepoolException e){
+        }catch (DicepoolIndexException e){
             throw new RemoteException(e.getMessage());
         }catch (NotAllowedActionException e){
             throw new RemoteException(e.getMessage());
@@ -452,9 +461,8 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
         List list = new LinkedList();
         try{
             Player player = UsersList.Singleton().getUser(clientname).getPlayer();
-
             for (Player other_player : player.getMatch().getallPlayersbutnotme(player)){
-                list.add(other_player.toString());
+                list.add(other_player);
             }
         }catch(UserNotExistentException e){
             throw new RemoteException(e.getMessage());
@@ -470,9 +478,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
             player.getPlayerState().checkAction(TurnActions.GETMAPS);
             for (Player other_player : player.getMatch().getallPlayersbutnotme(player)){
                listtoreturn.add(other_player.getScheme());
-               System.out.println(other_player.getScheme().toString());
             }
-
             return listtoreturn;
         }catch(UserNotExistentException e){
             throw new RemoteException(e.getMessage());

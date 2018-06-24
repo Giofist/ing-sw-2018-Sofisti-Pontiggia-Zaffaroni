@@ -181,13 +181,6 @@ public class Match implements Runnable{
     public void forceendmatch() {
 
     }
-    @Override
-    public  String toString(){
-        String string = "";
-        string += this.game_name + " " + "Giocatori in questa partita:";
-        for (Player player: this.players){
-            string += player.toString();
-        }
-        return string;
-    }
+
+
 }

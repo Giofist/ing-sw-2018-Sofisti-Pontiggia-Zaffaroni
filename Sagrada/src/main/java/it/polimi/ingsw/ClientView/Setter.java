@@ -1,6 +1,8 @@
 package it.polimi.ingsw.ClientView;
 
+import it.polimi.ingsw.ServerController.ClientHandler;
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
+import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.ToolCard.ToolRequestClass;
 
 import java.rmi.RemoteException;
@@ -46,8 +48,8 @@ public class Setter {
                     break;
                 }
                 case "GETMAPS": {
-                    List players = null;
-                    List schemecards = null;
+                    List<Player> players;
+                    List schemecards;
                     System.out.println("Adesso ti mostreremo le mappe degli altri");
 
                     while (!correct) {
@@ -57,8 +59,8 @@ public class Setter {
                             correct = true;
                             System.out.println("Ecco le mappe aggiornate degli altri giocatori");
                             int i = 0;
-                            while (i < players.size()) {
-                                System.out.println(players.get(i).toString());
+                            for (Player player: players) {
+                                System.out.println(Client.translator.translatePlayer(player));
                                 Printer.Singleton().printMap(schemecards.get(i).toString());
                                 i++;
                             }

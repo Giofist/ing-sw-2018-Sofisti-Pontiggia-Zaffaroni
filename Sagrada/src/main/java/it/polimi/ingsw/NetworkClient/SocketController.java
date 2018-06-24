@@ -3,6 +3,7 @@ package it.polimi.ingsw.NetworkClient;
 import it.polimi.ingsw.ClientView.Observer;
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
 import it.polimi.ingsw.model.ClientMessagePackage.*;
+import it.polimi.ingsw.model.Match;
 import it.polimi.ingsw.model.ToolCard.ToolRequestClass;
 
 import java.io.IOException;
@@ -19,7 +20,8 @@ public class SocketController implements ClientHandlerInterface {
         this.listener = socketClientListener;
     }
 
-   public void setResponseHandler(SocketResponseHandler responseHandler){
+   @Override
+    public void setResponseHandler(SocketResponseHandler responseHandler)throws RemoteException{
         this.responseHandler = responseHandler;
    }
 
@@ -664,7 +666,7 @@ public class SocketController implements ClientHandlerInterface {
 
 
     @Override
-    public synchronized String getActiveMatchesList() throws RemoteException {
+    public synchronized List getActiveMatchesList() throws RemoteException {
         ClientMessage getActiveMatchesListMessage = new GetActiveMatchesListMessage();
         try {
             listener.sendMessage(getActiveMatchesListMessage);
@@ -677,9 +679,9 @@ public class SocketController implements ClientHandlerInterface {
             e.printStackTrace();
         }
         this.responseHandler.check();
-        String value = this.responseHandler.getMessage();
+        List<Match> list = this.responseHandler.getList();
         this.responseHandler = null;
-        return value;
+        return list;
     }
 
 

@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions;
 
 public class TaglierinaManualeException extends ToolIllegalOperationException {
-    private static final String msg = "Erroe in Taglierina Manuale\n";
+    private static final String msg = "20";
     public TaglierinaManualeException() {
         super(msg);
     }

@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model.Exceptions;
 
 public class TwoDiceSameShadeException extends Exception {
-    private static final String msg = "Ci sono due dadi con la stessa intensità!\n";
+    private static final String msg = "43";
     public TwoDiceSameShadeException() {
         super(msg);
     }

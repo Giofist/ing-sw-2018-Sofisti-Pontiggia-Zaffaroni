@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.model.Exceptions.EmpyDicepoolException;
+import it.polimi.ingsw.model.Exceptions.DicepoolIndexException;
 import it.polimi.ingsw.model.Exceptions.MapConstrainReadingException;
 import it.polimi.ingsw.model.Exceptions.PrivateGoalCardException;
 import it.polimi.ingsw.model.Exceptions.RoundTrackException;
@@ -52,7 +52,7 @@ public class Gametable {
         for (int i = 0; i < numberPlayers * 2 + 1; i++) {
             try{
                 this.getRoundDicepool().addDice(this.getDicepool().extractDice());
-            }catch(EmpyDicepoolException e){
+            }catch(DicepoolIndexException e){
                 System.err.println("Error in Gametable.setupRound");
             }
         }

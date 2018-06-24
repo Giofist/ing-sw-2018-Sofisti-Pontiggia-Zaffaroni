@@ -1,7 +1,8 @@
 package it.polimi.ingsw.model.ToolCard;
 
 import it.polimi.ingsw.model.DiceColor;
-import it.polimi.ingsw.model.Exceptions.EmpyDicepoolException;
+import it.polimi.ingsw.model.Exceptions.DicepoolIndexException;
+import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.DiluentePerPastaSaldaException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PlayerPackage.State;
@@ -30,7 +31,7 @@ public class DiluenteperPastaSalda  extends ToolAction {
         //removes a dice e puts it into the dicepool, but before we need to remember its color
         try{
             if(player.getPlayerState().getState().equals(State.HASSETADICESTATE)){
-                throw new ToolIllegalOperationException("non puoi piazzare due dadi nello stesso turno");
+                throw new DiluentePerPastaSaldaException("7.1");
             }
             DiceColor color = player.getGametable().getRoundDicepool().getDice(toolRequestClass.getSelectedDIceIndex()).getColor();
             player.getGametable().getDicepool().insertDice(color);
@@ -44,10 +45,10 @@ public class DiluenteperPastaSalda  extends ToolAction {
                 player.getAssociatedUser().setActive(false);
                 player.getTurn().countDown();
             }
-        }catch(EmpyDicepoolException e){
-            throw new ToolIllegalOperationException(e.getMessage());
+        }catch(DicepoolIndexException e){
+            throw new DiluentePerPastaSaldaException();
         } catch(IndexOutOfBoundsException e) {
-            throw new ToolIllegalOperationException(e.getMessage());
+            throw new DiluentePerPastaSaldaException();
         }
     }
 }

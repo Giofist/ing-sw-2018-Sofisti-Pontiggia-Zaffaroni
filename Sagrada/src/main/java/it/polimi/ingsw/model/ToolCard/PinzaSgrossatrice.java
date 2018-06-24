@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model.ToolCard;
 
 import it.polimi.ingsw.model.Exceptions.DecreaseNotAllowedException;
-import it.polimi.ingsw.model.Exceptions.EmpyDicepoolException;
+import it.polimi.ingsw.model.Exceptions.DicepoolIndexException;
 import it.polimi.ingsw.model.Exceptions.IncreaseNotAllowedException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.PinzaSgrossatriceException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
@@ -34,10 +34,10 @@ public class PinzaSgrossatrice  extends ToolAction {
                 player.setPlayerState(State.MUSTPASSTURNSTATE);
             }else player.setPlayerState(State.HASUSEDATOOLCARDACTIONSTATE);
         }catch(DecreaseNotAllowedException e){
-            throw new PinzaSgrossatriceException(PinzaSgrossatriceException.getMsg()+ e.getMessage());
+            throw new PinzaSgrossatriceException("17.24");
         }catch (IncreaseNotAllowedException e){
-            throw new PinzaSgrossatriceException(PinzaSgrossatriceException.getMsg()+ e.getMessage());
-        }catch (EmpyDicepoolException e){
+            throw new PinzaSgrossatriceException("17.29");
+        }catch (DicepoolIndexException e){
 
         }catch (RemoteException e){
             player.getAssociatedUser().setActive(false);

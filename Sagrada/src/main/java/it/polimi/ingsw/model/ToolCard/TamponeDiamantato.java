@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model.ToolCard;
 
-import it.polimi.ingsw.model.Exceptions.EmpyDicepoolException;
+import it.polimi.ingsw.model.Exceptions.DicepoolIndexException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PlayerPackage.State;
@@ -24,7 +24,7 @@ public class TamponeDiamantato extends ToolAction {
             if (player.getPlayerState().getState().equals(State.HASSETADICESTATE)){
                 player.setPlayerState(State.MUSTPASSTURNSTATE);
             }else player.setPlayerState(State.HASUSEDATOOLCARDACTIONSTATE);
-        }catch(EmpyDicepoolException e){
+        }catch(DicepoolIndexException e){
             throw new ToolIllegalOperationException();
         } catch (RemoteException e) {
             player.getAssociatedUser().setActive(false);

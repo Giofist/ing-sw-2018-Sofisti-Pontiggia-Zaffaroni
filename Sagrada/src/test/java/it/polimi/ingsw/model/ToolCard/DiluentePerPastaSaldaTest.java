@@ -2,10 +2,8 @@ package it.polimi.ingsw.model.ToolCard;
 
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.Exceptions.CardIdNotAllowedException;
-import it.polimi.ingsw.model.Exceptions.EmpyDicepoolException;
+import it.polimi.ingsw.model.Exceptions.DicepoolIndexException;
 import it.polimi.ingsw.model.Exceptions.MapConstrainReadingException;
-import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
-import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.DiluentePerPastaSalda2Exception;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PlayerPackage.State;
@@ -76,7 +74,7 @@ public class DiluentePerPastaSaldaTest {
 
 
     @Test
-    public void executeWrongIndexException() throws ToolIllegalOperationException, EmpyDicepoolException {
+    public void executeWrongIndexException() throws ToolIllegalOperationException, DicepoolIndexException {
         mockGametable = mock(Gametable.class);
         when(mockMatch.getGametable()).thenReturn(mockGametable);
         DicePool roundDicePool = new DicePool();

@@ -40,11 +40,11 @@ public class TaglierinaManuale  extends ToolAction {
                         player.getScheme().removeDice(toolRequestClass.getOldRow2(), toolRequestClass.getOldColumn2());
                         player.getScheme().setDice(removedDice2, toolRequestClass.getNewRow2(), toolRequestClass.getNewColumn2(),false,false,false);
                     }else{
-                        throw new TaglierinaManualeException("Il colore non corrisponde a quello del primo dado\n");
+                        throw new TaglierinaManualeException("20.1");
                     }
                 }
             }else{
-                throw new TaglierinaManualeException("Non c'è nessun dado con lo stesso colore nel Tracciato Round\n");
+                throw new TaglierinaManualeException("20.2");
             }
 
             if (player.getPlayerState().getState().equals(State.HASSETADICESTATE)){

@@ -146,10 +146,10 @@ public class LogInController implements Initializable{
         Boolean correct = true;
         if(connected == true){
             if(ConnectionSetUp.isSelected()){
-                SocketClientListener listener = null;
+                SocketClientListener listener;
                 try {
                     listener = new SocketClientListener(ipAddr);
-                } catch (IOException e) {
+                }catch (IOException e){
                     correct=false;
                     connectionError.setText("IP errato!");
                 }

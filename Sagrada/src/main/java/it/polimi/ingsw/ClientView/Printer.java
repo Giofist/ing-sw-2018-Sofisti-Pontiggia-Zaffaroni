@@ -222,7 +222,7 @@ public class Printer {
         try {
             charDice = serverController.getToolCardDice(yourName).toCharArray();
         } catch (RemoteException e) {
-            System.out.println(e.getMessage());
+            System.out.println(Client.translator.translateException(e.getMessage()));
         }
         switch (charDice[1]) {
             case 'Y':
