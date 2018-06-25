@@ -44,10 +44,7 @@
                            <children>
                               <Pane onDragDropped="#handleOnDragDropped" onDragOver="#handleImageDragOver" style="-fx-background-color: white;">
                                  <children>
-                                    <ImageView fx:id="ImageView00" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image></ImageView>
+                                    <ImageView fx:id="ImageView00" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                                  <GridPane.margin>
                                     <Insets />
@@ -55,173 +52,97 @@
                               </Pane>
                               <Pane onDragDropped="#handleOnDragDropped" onDragOver="#handleImageDragOver" style="-fx-background-color: white;" GridPane.columnIndex="1">
                                  <children>
-                                    <ImageView fx:id="ImageView01" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="ImageView01" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane onDragDropped="#handleOnDragDropped" onDragOver="#handleImageDragOver" style="-fx-background-color: white;" GridPane.columnIndex="2">
                                  <children>
-                                    <ImageView fx:id="ImageView02" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="ImageView02" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane onDragDropped="#handleOnDragDropped" onDragOver="#handleImageDragOver" style="-fx-background-color: white;" GridPane.columnIndex="3">
                                  <children>
-                                    <ImageView fx:id="ImageView03" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="ImageView03" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane onDragDropped="#handleOnDragDropped" onDragOver="#handleImageDragOver" style="-fx-background-color: white;" GridPane.columnIndex="4">
                                  <children>
-                                    <ImageView fx:id="ImageView04" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="ImageView04" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane onDragDropped="#handleOnDragDropped" onDragOver="#handleImageDragOver" style="-fx-background-color: white;" GridPane.rowIndex="1">
                                  <children>
-                                    <ImageView fx:id="ImageView10" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="ImageView10" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane onDragDropped="#handleOnDragDropped" onDragOver="#handleImageDragOver" style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                  <children>
-                                    <ImageView fx:id="ImageView12" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="ImageView12" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane onDragDropped="#handleOnDragDropped" onDragOver="#handleImageDragOver" style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="1">
                                  <children>
-                                    <ImageView fx:id="ImageView13" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="ImageView13" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane onDragDropped="#handleOnDragDropped" onDragOver="#handleImageDragOver" style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="1">
                                  <children>
-                                    <ImageView fx:id="ImageView14" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="ImageView14" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane onDragDropped="#handleOnDragDropped" onDragOver="#handleImageDragOver" style="-fx-background-color: white;" GridPane.rowIndex="2">
                                  <children>
-                                    <ImageView fx:id="ImageView20" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="ImageView20" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane onDragDropped="#handleOnDragDropped" onDragOver="#handleImageDragOver" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                  <children>
-                                    <ImageView fx:id="ImageView21" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="ImageView21" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane onDragDropped="#handleOnDragDropped" onDragOver="#handleImageDragOver" style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="2">
                                  <children>
-                                    <ImageView fx:id="ImageView24" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="ImageView24" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane onDragDropped="#handleOnDragDropped" onDragOver="#handleImageDragOver" style="-fx-background-color: white;" GridPane.rowIndex="3">
                                  <children>
-                                    <ImageView fx:id="ImageView30" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="ImageView30" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane onDragDropped="#handleOnDragDropped" onDragOver="#handleImageDragOver" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                  <children>
-                                    <ImageView fx:id="ImageView31" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="ImageView31" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane onDragDropped="#handleOnDragDropped" onDragOver="#handleImageDragOver" style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="3">
                                  <children>
-                                    <ImageView fx:id="ImageView32" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="ImageView32" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane onDragDropped="#handleOnDragDropped" onDragOver="#handleImageDragOver" style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="3">
                                  <children>
-                                    <ImageView fx:id="ImageView34" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="ImageView34" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane onDragDropped="#handleOnDragDropped" onDragOver="#handleImageDragOver" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <children>
-                                    <ImageView fx:id="ImageView11" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="ImageView11" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane onDragDropped="#handleOnDragDropped" onDragOver="#handleImageDragOver" style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="2">
                                  <children>
-                                    <ImageView fx:id="ImageView22" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="ImageView22" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane onDragDropped="#handleOnDragDropped" onDragOver="#handleImageDragOver" style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="2">
                                  <children>
-                                    <ImageView fx:id="ImageView23" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="ImageView23" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane onDragDropped="#handleOnDragDropped" onDragOver="#handleImageDragOver" style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="3">
                                  <children>
-                                    <ImageView fx:id="ImageView33" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="ImageView33" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                            </children>
@@ -291,24 +212,24 @@
                            </VBox.margin>
                            <children>
                               <ImageView fx:id="RoundDice0" fitHeight="60.0" fitWidth="60.0" onDragDetected="#handleDragDetection" onMouseEntered="#Highlight" onMouseExited="#RemuveHighlight" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@Dices/R1.jpg" />
-                                 </image>
                                  <GridPane.margin>
                                     <Insets bottom="5.0" left="9.0" right="5.0" top="5.0" />
                                  </GridPane.margin>
+                                 <image>
+                                    <Image url="@Dices/EmptySpace.jpg" />
+                                 </image>
                               </ImageView>
                               <ImageView fx:id="RoundDice1" fitHeight="60.0" fitWidth="60.0" onDragDetected="#handleDragDetection" onMouseEntered="#Highlight" onMouseExited="#RemuveHighlight" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
-                                 <image>
-                                    <Image url="@Dices/R1.jpg" />
-                                 </image>
                                  <GridPane.margin>
                                     <Insets bottom="5.0" left="9.0" right="5.0" top="5.0" />
                                  </GridPane.margin>
+                                 <image>
+                                    <Image url="@Dices/EmptySpace.jpg" />
+                                 </image>
                               </ImageView>
                               <ImageView fx:id="RoundDice2" fitHeight="60.0" fitWidth="60.0" onDragDetected="#handleDragDetection" onMouseEntered="#Highlight" onMouseExited="#RemuveHighlight" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
                                  <image>
-                                    <Image url="@Dices/R1.jpg" />
+                                    <Image url="@Dices/EmptySpace.jpg" />
                                  </image>
                                  <GridPane.margin>
                                     <Insets bottom="5.0" left="9.0" right="5.0" top="5.0" />
@@ -316,7 +237,7 @@
                               </ImageView>
                               <ImageView fx:id="RoundDice3" fitHeight="60.0" fitWidth="60.0" onDragDetected="#handleDragDetection" onMouseEntered="#Highlight" onMouseExited="#RemuveHighlight" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3">
                                  <image>
-                                    <Image url="@Dices/R1.jpg" />
+                                    <Image url="@Dices/EmptySpace.jpg" />
                                  </image>
                                  <GridPane.margin>
                                     <Insets bottom="5.0" left="9.0" right="5.0" top="5.0" />
@@ -324,7 +245,7 @@
                               </ImageView>
                               <ImageView fx:id="RoundDice4" fitHeight="60.0" fitWidth="60.0" onDragDetected="#handleDragDetection" onMouseEntered="#Highlight" onMouseExited="#RemuveHighlight" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4">
                                  <image>
-                                    <Image url="@Dices/R1.jpg" />
+                                    <Image url="@Dices/EmptySpace.jpg" />
                                  </image>
                                  <GridPane.margin>
                                     <Insets bottom="5.0" left="9.0" right="5.0" top="5.0" />
@@ -332,7 +253,7 @@
                               </ImageView>
                               <ImageView fx:id="RoundDice5" fitHeight="60.0" fitWidth="60.0" onDragDetected="#handleDragDetection" onMouseEntered="#Highlight" onMouseExited="#RemuveHighlight" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5">
                                  <image>
-                                    <Image url="@Dices/R1.jpg" />
+                                    <Image url="@Dices/EmptySpace.jpg" />
                                  </image>
                                  <GridPane.margin>
                                     <Insets bottom="5.0" left="9.0" right="5.0" top="5.0" />
@@ -340,7 +261,7 @@
                               </ImageView>
                               <ImageView fx:id="RoundDice6" fitHeight="60.0" fitWidth="60.0" onDragDetected="#handleDragDetection" onMouseEntered="#Highlight" onMouseExited="#RemuveHighlight" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6">
                                  <image>
-                                    <Image url="@Dices/R1.jpg" />
+                                    <Image url="@Dices/EmptySpace.jpg" />
                                  </image>
                                  <GridPane.margin>
                                     <Insets bottom="5.0" left="9.0" right="5.0" top="5.0" />
@@ -348,7 +269,7 @@
                               </ImageView>
                               <ImageView fx:id="RoundDice7" fitHeight="60.0" fitWidth="60.0" onDragDetected="#handleDragDetection" onMouseEntered="#Highlight" onMouseExited="#RemuveHighlight" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7">
                                  <image>
-                                    <Image url="@Dices/R1.jpg" />
+                                    <Image url="@Dices/EmptySpace.jpg" />
                                  </image>
                                  <GridPane.margin>
                                     <Insets bottom="5.0" left="9.0" right="5.0" top="5.0" />
@@ -356,7 +277,7 @@
                               </ImageView>
                               <ImageView fx:id="RoundDice8" fitHeight="60.0" fitWidth="60.0" onDragDetected="#handleDragDetection" onMouseEntered="#Highlight" onMouseExited="#RemuveHighlight" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8">
                                  <image>
-                                    <Image url="@Dices/R1.jpg" />
+                                    <Image url="@Dices/EmptySpace.jpg" />
                                  </image>
                                  <GridPane.margin>
                                     <Insets bottom="5.0" left="9.0" right="5.0" top="5.0" />

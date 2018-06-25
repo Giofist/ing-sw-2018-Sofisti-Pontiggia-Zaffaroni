@@ -14,14 +14,18 @@ import javafx.stage.Stage;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.Collections;
 import java.util.ResourceBundle;
 
 
-public class MenuController implements Initializable {
+public class MenuController extends AbstractController implements Initializable {
     Stage stage = null;
     Parent myNewScene = null;
 
+    MenuController(){
+        ObserverGUI.Singleton().setController(this);
+    }
         @FXML
         private static AnchorPane mainPane;
 
@@ -89,6 +93,11 @@ public class MenuController implements Initializable {
     }
 
     public void ExitGame(javafx.event.ActionEvent actionEvent) {
+        try {
+            ObserverGUI.Singleton().getServerController().logout(ObserverGUI.Singleton().getUsername());
+        } catch (RemoteException e) {
+            e.printStackTrace(); //lascio così
+        }
         System.exit(0);
     }
 
@@ -99,8 +108,8 @@ public class MenuController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        PlayerName.setText(EntryPoint.Singleton().getUsername());
-        PlayerScore.setText("0000000");
+        PlayerName.setText(ObserverGUI.Singleton().getUsername());
+        PlayerScore.setText("");
     }
 
     public static AnchorPane getMainPane() {

@@ -3,6 +3,7 @@ package it.polimi.ingsw.ClientViewGUI;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -14,10 +15,16 @@ import javafx.scene.text.Text;
 
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Collections;
+import java.util.ResourceBundle;
 
-public class ChooseMapController {
+public class ChooseMapController extends AbstractController implements Initializable {
     BorderPane selected = null;
+
+    ChooseMapController(){
+        ObserverGUI.Singleton().setController(this);
+    }
 
     @FXML
     private AnchorPane selectPane;
@@ -87,7 +94,11 @@ public class ChooseMapController {
     }
 
     public void goBack(javafx.event.ActionEvent actionEvent) {
-        ErrorMessage.setText("Voi Abbandonare la Partita?");
+        try {
+            selectPane.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/MenuPartial.fxml"))));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void startGame(javafx.event.ActionEvent actionEvent) {
@@ -124,4 +135,48 @@ public class ChooseMapController {
     }
 
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+    }
+
+    /*public void setUpMap(String map){
+        char[] charTile;
+        String[] element = map.split("%");
+        System.out.println(element[0]);
+        System.out.println(element[1]);
+        String[] tiles = element[2].split("!");
+
+        for (String rowTile : tiles) {
+            String[] column = rowTile.split("-");
+            for (String el : column) {
+                charTile = el.toCharArray();
+                switch (charTile[1]) {
+                    case 'Y':
+
+                        break;
+                    case 'B':
+
+                        break;
+                    case 'R':
+
+                        break;
+                    case 'V':
+                        break;
+                    case 'G':
+                        System.out.print(ansi().eraseScreen().bg(GREEN).a("   ").reset());
+                        break;
+                    case '*':
+                        System.out.print(ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" " + charTile[0] + " ").reset()); //constrain intensity
+                        break;
+                    case '_':
+                        System.out.print(ansi().eraseScreen().bg(WHITE).fg(BLACK).a("   ").reset());  //empty
+                        break;
+
+            }
+            System.out.print("\n");
+        }
+        System.out.print("\n");
+
+    }*/
 }
