@@ -191,6 +191,7 @@ public class LathekinTest {
         toolRequestClass.setOldColumn1(2);
         toolRequestClass.setNewRow1(0);
         toolRequestClass.setNewColumn1(0);
+
         toolRequestClass.setOldRow2(0);
         toolRequestClass.setOldColumn2(3);
         toolRequestClass.setNewRow2(0);

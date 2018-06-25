@@ -80,13 +80,4 @@ public class SchemeCardTest {
         schemeCard.setDice(mockDice, 0, 0, true, true, true);
     }
 
-
-
-
-    @Test
-    public void toStringTest() throws OutOfMatrixException, TileConstrainException {
-        assertEquals("3. Fractal Drops%Difficoltà della mappa: 3%0_-4*-0_-0YELLOW-6*-!0RED-0_-2*-0_-0_-!0_-0_-0RED-0VIOLET-1*-!0BLUE-0YELLOW-0_-0_-0_-!", schemeCard.toString());
-        schemeCard.setDice(mockDice, 0, 0, true, true, true);
-        assertEquals("3. Fractal Drops%Difficoltà della mappa: 3%2yellow-4*-0_-0YELLOW-6*-!0RED-0_-2*-0_-0_-!0_-0_-0RED-0VIOLET-1*-!0BLUE-0YELLOW-0_-0_-0_-!", schemeCard.toString());
-    }
 }

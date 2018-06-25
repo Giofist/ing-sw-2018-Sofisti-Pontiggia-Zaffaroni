@@ -66,7 +66,7 @@ public class ItalianTranslator implements Translator {
         switch (cardID) {
             case 1: return "Dopo aver scelto un dado, aumenta o diminuisci il valore del dado scelto di 1.\nNon puoi cambiare un 6 in 1 o un 1 in 6.";
             case 2: return "Muovi un qualsiasi dado nella tua vetrata ignorando le restrizioni di colore.\nDevi rispettare tutte le altre restrizioni di piazzamento.";
-            case 3: return "uovi un qualsiasi dado nella tua vetrata ignorando le restrizioni di valore.\nDevi rispettare tutte le altre restrizioni di piazzamento.";
+            case 3: return "Muovi un qualsiasi dado nella tua vetrata ignorando le restrizioni di valore.\nDevi rispettare tutte le altre restrizioni di piazzamento.";
             case 4: return "Muovi esattamente due dadi.\nRispetta tutte le restrizioni di piazzamento.";
             case 5: return "Dopo aver scelto un dado, scambia quel dado con un dado sul Tracciato Round.\n";
             case 6: return "Dopo aver scelto un dado tira nuovamente quel dado.\nSe non puoi piazzarlo, riponilo nella riserva.";

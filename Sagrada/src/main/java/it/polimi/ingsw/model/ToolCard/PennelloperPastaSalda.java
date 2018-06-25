@@ -37,7 +37,9 @@ public class PennelloperPastaSalda  extends ToolAction implements Serializable {
                 ColumnIterator columnIterator = player.getScheme().columnIterator(rowIterator.getCurrentRow());
                 while(columnIterator.hasNext()){
                     settable = settable || player.getScheme().SettableHere(dice, rowIterator.getCurrentRow(),columnIterator.getCurrentColumn(),false, false);
+                    columnIterator.next();
                 }
+                rowIterator.next();
             }
             if(settable){
                 player.setDiceforToolCardUse(dice);

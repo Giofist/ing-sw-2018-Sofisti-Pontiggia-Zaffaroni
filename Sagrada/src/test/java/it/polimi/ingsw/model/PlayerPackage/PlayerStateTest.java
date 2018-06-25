@@ -8,10 +8,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.rmi.RemoteException;
+import java.util.LinkedList;
+import java.util.List;
 
 import static it.polimi.ingsw.model.PlayerPackage.State.HASSETADICESTATE;
 import static it.polimi.ingsw.model.PlayerPackage.State.MUSTPASSTURNSTATE;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
@@ -35,16 +38,18 @@ public class PlayerStateTest {
         playerState.checkAction(TurnActions.SETDICE);
     }
 
-    @Test (expected = NoActionAllowedException.class)
-    public void getActionsExcpetion() throws NoActionAllowedException {
-        playerState.getActions();
-    }
-
     @Test
     public void getActions() throws NoActionAllowedException {
+        // No actions available
+        List<TurnActions> actions = new LinkedList<>();
+        actions = playerState.getActions();
+        assertEquals(0, actions.size());
+
+        // 1 action available
         playerState.updateState(MUSTPASSTURNSTATE);
         assertEquals(State.MUSTPASSTURNSTATE, playerState.getState());
-        assertEquals("- passturn\n", playerState.getActions());
+        actions = playerState.getActions();
+        assertEquals(TurnActions.PASSTURN, actions.get(0));
     }
 
 

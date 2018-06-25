@@ -18,6 +18,10 @@ public class ColumnIterator<T> implements Iterator<Tile> {
 
     @Override
     public boolean hasNext() {
+        // Situation in case we have an invalid Column Iterator initialization
+        if (this.row < 0) {
+            throw new NoSuchElementException("Problem in constructing ColumnIterator.");
+        }
         return !deadEnd;
     }
 

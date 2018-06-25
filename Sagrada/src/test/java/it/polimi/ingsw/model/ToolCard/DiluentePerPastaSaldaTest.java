@@ -1,9 +1,10 @@
 package it.polimi.ingsw.model.ToolCard;
 
+import it.polimi.ingsw.ClientView.Setter;
+import it.polimi.ingsw.ServerController.ClientHandler;
 import it.polimi.ingsw.model.*;
-import it.polimi.ingsw.model.Exceptions.CardIdNotAllowedException;
-import it.polimi.ingsw.model.Exceptions.DicepoolIndexException;
-import it.polimi.ingsw.model.Exceptions.MapConstrainReadingException;
+import it.polimi.ingsw.model.Exceptions.*;
+import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PlayerPackage.State;
@@ -18,6 +19,9 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+
+// MANCA PARTE 2
+
 public class DiluentePerPastaSaldaTest {
 
     private DiluenteperPastaSalda toolCard;
@@ -27,31 +31,47 @@ public class DiluentePerPastaSaldaTest {
     private ToolRequestClass toolRequestClass;
     private Match mockMatch;
     private Gametable mockGametable;
+    private DicePool roundDicePool;
+    private Turn mockTurn;
 
     @Before
-    public void before() throws IOException, MapConstrainReadingException, CardIdNotAllowedException {
+    public void before() throws IOException, MapConstrainReadingException, CardIdNotAllowedException, SchemeCardNotExistantException, OutOfMatrixException, TileConstrainException {
+        // Tested class
         toolCard = new DiluenteperPastaSalda();
+
+        // Required classes for game interaction
         player = new Player();
         mockDice = mock(Dice.class);
         mockMatch = mock(Match.class);
-        doNothing().when(mockMatch).countDown();
+        mockGametable = mock(Gametable.class);
         schemeCard = new SchemeCard(3);
-        schemeCard.setTwinCard(new SchemeCard(4));
         toolRequestClass = new ToolRequestClass();
+        roundDicePool = new DicePool();
+        mockTurn = mock(Turn.class);
 
+        // Scheme Card setup
+        schemeCard.setTwinCard(new SchemeCard(4));
+
+        // Mock behaviours
+        doNothing().when(mockMatch).countDown();
+        when(mockMatch.getGametable()).thenReturn(mockGametable);
+        when(mockGametable.getRoundDicepool()).thenReturn(roundDicePool);
+        when(mockDice.getColor()).thenReturn(DiceColor.VIOLET);
+        when(mockDice.getIntensity()).thenReturn(2);
+
+
+        // Player setup
         player.addExtractedSchemeCard(schemeCard);
         player.setMatch(mockMatch);
         player.setPlayerState(State.STARTTURNSTATE);
         player.setScheme(3);
-
-
-        when(mockDice.getColor()).thenReturn(DiceColor.VIOLET);
-        when(mockDice.getIntensity()).thenReturn(2);
-
+        player.setTurn(mockTurn);
     }
 
     @Test
     public void executeEverythingOk() throws ToolIllegalOperationException {
+
+        // Part 1
         DicePool roundDicePool = new DicePool();
         DicePool dicePool = new DicePool();
         mockGametable = mock(Gametable.class);
@@ -70,11 +90,15 @@ public class DiluentePerPastaSaldaTest {
 
         assertEquals(0, roundDicePool.getDicePoolSize());
         assertEquals(State.MUSTSSETDILUENTEPERPASTASALDASTATE, player.getPlayerState().getState());
+
+        // Part2
+
+
     }
 
 
     @Test
-    public void executeWrongIndexException() throws ToolIllegalOperationException, DicepoolIndexException {
+    public void executeWrongIndexException() throws DicepoolIndexException {
         mockGametable = mock(Gametable.class);
         when(mockMatch.getGametable()).thenReturn(mockGametable);
         DicePool roundDicePool = new DicePool();
@@ -99,6 +123,12 @@ public class DiluentePerPastaSaldaTest {
 
         // We don't want to end here
         assertEquals(0,1);
+    }
+
+    // Getter test
+    @Test
+    public void getIdTest() {
+        assertEquals(11, toolCard.getID());
     }
 
 }

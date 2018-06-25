@@ -183,7 +183,6 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
             }
             List colorsnearyou = new LinkedList<DiceColor>();
             List intensitiesnearyou = new LinkedList<DiceColor>();
-            boolean ThereisaDicenearYou = false;
 
             // to control if there is a dice near the tile where a want to set my dice
 
@@ -193,7 +192,7 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
                     return this.getTile(row, column).settableDiceHere(dice, IgnoreColor, IgnoreNumber);
                 } else return false;
             } else {
-                if (ThereisaDicenearYou) {
+                if (ThereisaDicenearYou(row, column)) {
                     if (colorsnearyou.contains(dice.getColor())) {
                         return false;
                     }

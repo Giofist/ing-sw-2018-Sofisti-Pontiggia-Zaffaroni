@@ -111,7 +111,7 @@ public class DicePoolTest {
         assertEquals(dice.getColor(), dicePool.getDice(23).getColor());
     }
 
-    @Test (expected = IndexOutOfBoundsException.class)
+    @Test (expected = DicepoolIndexException.class)
     public void getDiceExceptionTest() throws DicepoolIndexException {
         dicePool = new DicePool(18, 18, 18, 18, 18);
         dicePool.getDice(1000);

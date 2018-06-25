@@ -17,6 +17,11 @@ public class RowIterator<T> implements Iterator<Tile> {
     }
     @Override
     public boolean hasNext() {
+        // Situation in case we have an invalid Column Iterator initialization
+        if (this.column < 0) {
+            throw new NoSuchElementException("Problem in constructing ColumnIterator.");
+        }
+
         return !deadEnd;
     }
 

@@ -59,6 +59,7 @@ public class Tile implements Serializable {
                 throw new NotRespectedNumberConstrainException();
             }
         }
+
         this.dice = dice;
 
     }

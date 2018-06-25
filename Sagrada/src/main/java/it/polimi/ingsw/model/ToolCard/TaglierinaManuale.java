@@ -34,7 +34,7 @@ public class TaglierinaManuale  extends ToolAction implements Serializable{
                 player.getScheme().removeDice(toolRequestClass.getOldRow1(), toolRequestClass.getOldColumn1());
                 player.getScheme().setDice(removedDice, toolRequestClass.getNewRow1(), toolRequestClass.getNewColumn1(),false,false,false);
                 if(toolRequestClass.getNumberofDicesyouwanttomove() ==2){
-                    removedDice2 = player.getScheme().getDice(toolRequestClass.getOldRow1(), toolRequestClass.getOldColumn1());
+                    removedDice2 = player.getScheme().getDice(toolRequestClass.getOldRow2(), toolRequestClass.getOldColumn2());
                     if (removedDice2.getColor() == removedDice.getColor()){
                         player.getScheme().removeDice(toolRequestClass.getOldRow2(), toolRequestClass.getOldColumn2());
                         player.getScheme().setDice(removedDice2, toolRequestClass.getNewRow2(), toolRequestClass.getNewColumn2(),false,false,false);

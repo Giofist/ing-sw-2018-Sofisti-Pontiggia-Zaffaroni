@@ -41,13 +41,6 @@ public class TileTest {
     }
 
 
-    @Test (expected = TileyetOccupiedException.class)
-    public void placeDiceAlreadyOccupiedTile() throws TileConstrainException {
-        assertFalse(tile.isOccupied());
-        tile.setDice(mockDice, true, true);
-        tile.setDice(mockDice, true, true);
-    }
-
 
     @Test (expected = DiceNotExistantException.class)
     public void getDiceNotExistantFromTile() throws DiceNotExistantException {
