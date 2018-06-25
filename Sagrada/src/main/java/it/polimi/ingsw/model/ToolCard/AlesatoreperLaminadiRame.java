@@ -7,19 +7,18 @@ import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PlayerPackage.State;
 import it.polimi.ingsw.model.UsersList;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 
 //revisionata by pon
-public class AlesatoreperLaminadiRame  extends ToolAction {
+public class AlesatoreperLaminadiRame  extends ToolAction implements Serializable {
 
 
 
     public AlesatoreperLaminadiRame(){
         this.cost =1;
         this.ID = 3;
-        this.cardTitle = "Alesatore per lamina di rame";
-        this.description = "Muovi un qualsiasi dado nella tua vetrata ignorando le restrizioni di valore.\n" +
-                "Devi rispettare tutte le altre restrizioni di piazzamento.";
+
     }
     private Dice removedDice;
 

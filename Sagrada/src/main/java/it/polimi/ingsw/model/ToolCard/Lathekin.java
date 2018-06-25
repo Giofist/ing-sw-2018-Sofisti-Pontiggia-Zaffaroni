@@ -7,18 +7,16 @@ import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PlayerPackage.State;
 import it.polimi.ingsw.model.UsersList;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 
 //revisionata by pon
-public class Lathekin  extends ToolAction {
+public class Lathekin  extends ToolAction implements Serializable{
 
 
     public Lathekin(){
         this.cost =1;
         this.ID =4;
-        this.cardTitle = "Lathekin";
-        this.description = "Muovi esattamente due dadi.\n" +
-                "Rispetta tutte le restrizioni di piazzamento.";
     }
     Dice removedDice1, removedDice2;
 

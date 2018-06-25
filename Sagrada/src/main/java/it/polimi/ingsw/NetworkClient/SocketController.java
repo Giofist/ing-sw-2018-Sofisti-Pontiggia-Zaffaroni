@@ -180,29 +180,6 @@ public class SocketController implements ClientHandlerInterface {
 
 
     @Override
-    public synchronized String getToolCardsCosts(String clientname) throws RemoteException {
-        ClientMessage getToolCardsCostMessage = new GetToolCardCostMessage();
-        getToolCardsCostMessage.setClientName(clientname);
-
-        try {
-            listener.sendMessage(getToolCardsCostMessage);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try{
-            wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        this.responseHandler.check();
-        String value = this.responseHandler.getMessage();
-        this.responseHandler = null;
-        return value;
-    }
-
-
-    @Override
     public synchronized void useaToolCard(String clientname, ToolRequestClass requestClass) throws RemoteException {
         UseToolCardMessage useToolCardMessage = new UseToolCardMessage();
         useToolCardMessage.setClientName(clientname);
@@ -225,12 +202,12 @@ public class SocketController implements ClientHandlerInterface {
 
 
     @Override
-    public synchronized String getToolCardsIDs(String clientname) throws RemoteException {
-        ClientMessage getToolCardsIDsMessage = new GetToolCardsIDsMessage();
-        getToolCardsIDsMessage.setClientName(clientname);
+    public synchronized List getToolCards(String clientname) throws RemoteException {
+        ClientMessage getToolCards = new GetToolCardsMessage();
+        getToolCards.setClientName(clientname);
 
         try {
-            listener.sendMessage(getToolCardsIDsMessage);
+            listener.sendMessage(getToolCards);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -241,63 +218,17 @@ public class SocketController implements ClientHandlerInterface {
             e.printStackTrace();
         }
         this.responseHandler.check();
-        String value = this.responseHandler.getMessage();
+        List list = this.responseHandler.getList();
         this.responseHandler = null;
 
-        return value;
+        return list;
     }
 
 
-    @Override
-    public synchronized String getToolCardsNames(String clientname) throws RemoteException {
-        ClientMessage getToolCardsNamesMessage = new GetToolCardsNamesMessage();
-        getToolCardsNamesMessage.setClientName(clientname);
-
-        try {
-            listener.sendMessage(getToolCardsNamesMessage);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try{
-            wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        this.responseHandler.check();
-        String value = this.responseHandler.getMessage();
-        this.responseHandler = null;
-
-        return value;
-    }
 
 
     @Override
-    public synchronized String getToolCardsDescriptions(String clientname) throws RemoteException {
-        ClientMessage getToolCardsDescriptionsMessage = new GetToolCardsDescriptionsMessage();
-        getToolCardsDescriptionsMessage.setClientName(clientname);
-
-        try {
-            listener.sendMessage(getToolCardsDescriptionsMessage);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try{
-            wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        this.responseHandler.check();
-        String value = this.responseHandler.getMessage();
-        this.responseHandler = null;
-
-        return value;
-    }
-
-
-    @Override
-    public synchronized String getPossibleActions(String clientname) throws RemoteException {
+    public synchronized List getPossibleActions(String clientname) throws RemoteException {
         ClientMessage getPossibleActionsMessage = new GetPossibleActionsMessage();
         getPossibleActionsMessage.setClientName(clientname);
 
@@ -314,10 +245,10 @@ public class SocketController implements ClientHandlerInterface {
             e.printStackTrace();
         }
         this.responseHandler.check();
-        String value = this.responseHandler.getMessage();
+        List list  = this.responseHandler.getList();
         this.responseHandler = null;
 
-        return value;
+        return list;
     }
 
     @Override

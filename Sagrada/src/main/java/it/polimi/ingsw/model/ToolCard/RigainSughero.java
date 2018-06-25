@@ -8,17 +8,16 @@ import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PlayerPackage.State;
 import it.polimi.ingsw.model.UsersList;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 
 //revisionata by pon
-public class RigainSughero  extends ToolAction {
+public class RigainSughero  extends ToolAction implements Serializable {
     private Dice dice;
     public RigainSughero(){
         this.cost = 1;
         this.ID=9;
-        this.cardTitle = "Riga in Sughero";
-        this.description = "Dopo aver scelto un dado, piazzalo in una casella che non sia adiacente a un altro dado.\n" +
-                "Devi rispettare tutte le restrizioni di piazzamento.";
+
     }
 
 

@@ -8,17 +8,16 @@ import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PlayerPackage.State;
 import it.polimi.ingsw.model.UsersList;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 
-public class PennelloperEglomise extends ToolAction {
+public class PennelloperEglomise extends ToolAction implements Serializable {
 
     private Dice removedDice;
     public PennelloperEglomise(){
         this.cost =1;
         this.ID=2;
-        this.cardTitle = "Pennello per Eglomise";
-        this.description = "Muovi un qualsiasi dado nella tua vetrata ignorando le restrizioni di colore.\n" +
-                "Devi rispettare tutte le altre restrizioni di piazzamento.";
+
     }
 
     @Override

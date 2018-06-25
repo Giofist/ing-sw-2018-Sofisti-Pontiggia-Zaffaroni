@@ -81,14 +81,5 @@ public class MartellettoTest {
         assertEquals(7, toolCard.getID());
     }
 
-    @Test
-    public void getCardTitleTest() {
-        assertEquals("Martelletto", toolCard.getCardTitle());
-    }
 
-    @Test
-    public void getCardDescriptionTest() {
-        assertEquals("Tira nuovamente tutti i dadi della riserva.\n" +
-                "Questa carta può essere usata solo durante il tuo secondo turno, prima di scegliere il secondo dado.", toolCard.getDescription());
-    }
 }

@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PlayerPackage.State;
 import it.polimi.ingsw.model.UsersList;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 
 //l'ho lasciata stare perchè ho fatto altro
@@ -16,15 +17,12 @@ import java.rmi.RemoteException;
 //boh in realtà mi sembrava un problema ai tempi, adesso non tantissimo
 //beh se qualcuno vuole sistemare prego
 //(pon)
-public class DiluenteperPastaSalda  extends ToolAction {
+public class DiluenteperPastaSalda  extends ToolAction implements Serializable {
 
 
     public DiluenteperPastaSalda(){
         this.cost =1;
         this.ID = 11;
-        this.cardTitle = "Diluente per Pasta Salda";
-        this.description = "Dopo aver scelto un dado, riponilo nel Sacchetto, poi pescane uno dal sacchetto.\n" +
-                "Scegli il valore del nuovo dado e piazzalo, rispettando tutte le restrizioni di piazzamento.";
     }
     @Override
     public void execute (Player player, ToolRequestClass toolRequestClass) throws ToolIllegalOperationException{

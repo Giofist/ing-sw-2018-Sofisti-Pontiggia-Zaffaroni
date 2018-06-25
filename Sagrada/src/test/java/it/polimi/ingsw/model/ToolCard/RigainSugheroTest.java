@@ -184,14 +184,5 @@ public class RigainSugheroTest {
         assertEquals(9, toolCard.getID());
     }
 
-    @Test
-    public void getCardTitle() {
-        assertEquals("Riga in Sughero", toolCard.getCardTitle());
-    }
 
-    @Test
-    public void getCardDescription() {
-        assertEquals("Dopo aver scelto un dado, piazzalo in una casella che non sia adiacente a un altro dado.\n" +
-                "Devi rispettare tutte le restrizioni di piazzamento.", toolCard.getDescription());
-    }
 }

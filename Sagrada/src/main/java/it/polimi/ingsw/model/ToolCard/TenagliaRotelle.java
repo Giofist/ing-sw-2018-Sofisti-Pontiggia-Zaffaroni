@@ -10,17 +10,15 @@ import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PlayerPackage.State;
 import it.polimi.ingsw.model.UsersList;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 
 //scusate questa non l'ho capita
-public class TenagliaRotelle  extends ToolAction {
+public class TenagliaRotelle  extends ToolAction implements Serializable {
 
     public TenagliaRotelle(){
         this.cost = 1;
         this.ID =8;
-        this.cardTitle = "Tenaglia a Rotelle";
-        this.description =  "Dopo il tuo primo turno scegli immediatamente un altro dado.\n" +
-                "Salta il secondo turno di questo round.";
     }
     @Override
 
