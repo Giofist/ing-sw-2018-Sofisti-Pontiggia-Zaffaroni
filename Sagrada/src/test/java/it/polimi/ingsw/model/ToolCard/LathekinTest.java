@@ -24,7 +24,7 @@ import static org.mockito.Mockito.when;
 // COMPLETE
 // FIXED player.getScheme().setDice(removedDice2, toolRequestClass.getNewRow2(), toolRequestClass.getNewColumn2(),false,false, false);
 // DUBBIO PRIMO DADO DA PIAZZARE
-// ERROR in implementation, when we try to place 2 different Dices in the same place
+// ERROR in implementation, when we try to place 2 different Dices in the same place (CORRECT)
 // same error could happen when the first dice is placed correctly and the second one receives an error
 
 public class LathekinTest {
