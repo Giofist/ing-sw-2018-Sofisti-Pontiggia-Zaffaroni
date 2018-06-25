@@ -10,17 +10,16 @@ import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PlayerPackage.State;
 import it.polimi.ingsw.model.UsersList;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 
 
 //per implementare questa classe bisogna prima pensare al traccaito round
-public class TaglierinaCircolare  extends ToolAction {
+public class TaglierinaCircolare  extends ToolAction implements Serializable {
 
     public TaglierinaCircolare(){
         this.cost=1;
         this.ID =5;
-        this.cardTitle = "Taglierina circolare";
-        this.description = "Dopo aver scelto un dado, scambia quel dado con un dado sul Tracciato Round.\n";
     }
     @Override
     public void execute (Player player, ToolRequestClass toolRequestClass) throws ToolIllegalOperationException {

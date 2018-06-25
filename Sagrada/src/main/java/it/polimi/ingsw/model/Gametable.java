@@ -108,21 +108,9 @@ public class Gametable {
         return roundTrack;
     }
 
-    public String getToolCardsIDs() {
-        return this.tooldeck.getIDs();
+    public List getToolCards() {
+        return this.tooldeck.getcards();
     }
-
-    public String getToolCardsDescriptions() {
-        return this.tooldeck.getDescriptions();
-    }
-
-    public String getToolCardsTitles() {
-        return this.tooldeck.getCardsTitles();
-    }
-    public String getToolCardsCosts() {
-        return this.tooldeck.getCardsCosts();
-    }
-    public int getNumberOfPlayers() { return this.numberPlayers; }
 }
 
 

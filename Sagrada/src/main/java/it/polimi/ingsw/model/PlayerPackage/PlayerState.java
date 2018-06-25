@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.Observable;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.LinkedList;
+import java.util.List;
 
 public class PlayerState implements Observable, Serializable{
     private LinkedList<TurnActions> actions;
@@ -29,16 +30,7 @@ public class PlayerState implements Observable, Serializable{
     }
 
 
-    public String getActions() throws NoActionAllowedException {
-        if(this.actions.size() ==0){
-            throw new NoActionAllowedException();
-        }
-        String actions = "";
-        for(TurnActions turnActions: this.actions){
-            actions += "- ";
-            actions += turnActions.toString().toLowerCase();
-            actions +="\n";
-        }
+    public List getActions() throws NoActionAllowedException {
         return actions;
     }
 

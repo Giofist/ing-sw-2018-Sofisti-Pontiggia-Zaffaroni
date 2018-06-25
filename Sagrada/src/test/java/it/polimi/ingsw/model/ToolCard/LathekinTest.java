@@ -217,15 +217,5 @@ public class LathekinTest {
         assertEquals(4, this.lathekin.getID());
     }
 
-    @Test
-    public void testGetCardTitle() {
-        assertEquals("Lathekin", lathekin.getCardTitle());
-    }
 
-    @Test
-    public void getDescriptionTest() {
-        assertEquals("Muovi esattamente due dadi.\n" +
-                "Rispetta tutte le restrizioni di piazzamento.",
-                lathekin.getDescription());
-    }
 }

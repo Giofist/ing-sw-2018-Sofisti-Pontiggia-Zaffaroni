@@ -258,45 +258,17 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
 
     }
 
+
     @Override
-    public synchronized String getToolCardsIDs(String clientname) throws RemoteException{
+    public synchronized List getToolCards(String clientname) throws RemoteException{
         try{
             Player player = UsersList.Singleton().getUser(clientname).getPlayer();
-            return player.getGametable().getToolCardsIDs();
+            return player.getGametable().getToolCards();
         }catch(UserNotExistentException e){
             throw new RemoteException(e.getMessage());
         }
     }
 
-    @Override
-    public synchronized String getToolCardsDescriptions(String clientname) throws RemoteException{
-        try{
-            Player player = UsersList.Singleton().getUser(clientname).getPlayer();
-            return player.getGametable().getToolCardsDescriptions();
-        }catch(UserNotExistentException e){
-            throw new RemoteException(e.getMessage());
-        }
-    }
-
-    @Override
-    public synchronized String getToolCardsNames(String clientname) throws RemoteException{
-        try{
-            Player player = UsersList.Singleton().getUser(clientname).getPlayer();
-            return player.getGametable().getToolCardsTitles();
-        }catch(UserNotExistentException e){
-            throw new RemoteException(e.getMessage());
-        }
-    }
-
-    @Override
-    public synchronized String getToolCardsCosts(String clientname) throws RemoteException{
-        try{
-            Player player = UsersList.Singleton().getUser(clientname).getPlayer();
-            return player.getGametable().getToolCardsCosts();
-        }catch(UserNotExistentException e){
-            throw new RemoteException(e.getMessage());
-        }
-    }
 
     @Override
     public synchronized void useaToolCard(String clientname, ToolRequestClass toolRequestClass) throws RemoteException {
@@ -312,7 +284,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     }
 
     @Override
-    public synchronized String getPossibleActions(String clientname) throws RemoteException{
+    public synchronized List getPossibleActions(String clientname) throws RemoteException{
         try{
             Player player = UsersList.Singleton().getUser(clientname).getPlayer();
             return player.getPlayerState().getActions();

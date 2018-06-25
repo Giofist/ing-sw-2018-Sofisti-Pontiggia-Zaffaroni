@@ -3,6 +3,7 @@ package it.polimi.ingsw.ClientView;
 import it.polimi.ingsw.ServerController.ClientHandler;
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
 import it.polimi.ingsw.model.PlayerPackage.Player;
+import it.polimi.ingsw.model.PlayerPackage.TurnActions;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 import it.polimi.ingsw.model.ToolCard.ToolRequestClass;
 
@@ -29,19 +30,21 @@ public class Setter {
     //metodo che serve per selozioanre possibili azioni
     public void selectAction(ClientHandlerInterface serverController, String yourName) {
         Scanner in = new Scanner(System.in);
-        String input;
+
         boolean success = false;
         boolean correct = false;
 
         while (!success) {
             System.out.println("Scegli una delle seguenti azioni: ");
             try {
-                System.out.println(serverController.getPossibleActions(yourName));
+                for(TurnActions turnActions: serverController.getPossibleActions(yourName)){
+                    System.out.println(Client.translator.translateTurnAction(turnActions));
+                };
             } catch (RemoteException e) {
                 System.out.println(Client.translator.translateException(e.getMessage()));
             }
-            input = in.nextLine().toUpperCase();
-
+            String input1 = in.nextLine();
+            String input = Client.translator.detranslateTurnAction(input1);
             switch (input) {
                 case "SETDICE": {
                     placeDice(serverController, yourName);
@@ -172,18 +175,8 @@ public class Setter {
             System.out.println(Client.translator.translateException(e.getMessage()));
         }
         Printer.Singleton().printToolcard(serverController, yourName);
-        try {
-            toolCardID = serverController.getToolCardsIDs(yourName).split("!");
-        } catch (RemoteException e) {
-            System.out.println(Client.translator.translateException(e.getMessage()));
-        }
-        while (!correct) {
-            System.out.println("Quale carta utensile vuoi usare?");
-            input = in.nextLine();
-            if(input.equals(toolCardID[0]) || input.equals(toolCardID[1]) || input.equals(toolCardID[2])){
-                correct = true;
-            }
-        }
+        System.out.println("Quale carta utensile vuoi usare?");
+        input = in.nextLine();
         data.setToolCardID(Integer.parseInt(input));
         switch (input) {
             case "1": { //1. Pinze Sgrossatrice

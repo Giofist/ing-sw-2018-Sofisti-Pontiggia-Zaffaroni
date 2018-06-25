@@ -9,18 +9,16 @@ import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PlayerPackage.State;
 import it.polimi.ingsw.model.UsersList;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 
-public class PinzaSgrossatrice  extends ToolAction {
+public class PinzaSgrossatrice  extends ToolAction implements Serializable{
 
 
 
     public PinzaSgrossatrice(){
         this.cost =1;
         this.ID=1;
-        this.cardTitle = "Pinza Sgrossatrice";
-        this.description = "Dopo aver scelto un dado, aumenta o diminuisci il valore del dado scelto di 1.\n" +
-                "Non puoi cambiare un 6 in 1 o un 1 in 6.";
     }
 
 

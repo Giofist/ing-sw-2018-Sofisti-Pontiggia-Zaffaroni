@@ -7,16 +7,13 @@ import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PlayerPackage.State;
 import it.polimi.ingsw.model.UsersList;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 
-public class Martelletto  extends ToolAction {
+public class Martelletto  extends ToolAction implements Serializable{
     public Martelletto(){
         this.cost =1;
         this.ID =7;
-        this.cardTitle = "Martelletto";
-        this.description = "Tira nuovamente tutti i dadi della riserva.\n" +
-                "Questa carta può essere usata solo durante il tuo secondo turno, prima di scegliere il secondo dado.";
-
     }
 
     @Override

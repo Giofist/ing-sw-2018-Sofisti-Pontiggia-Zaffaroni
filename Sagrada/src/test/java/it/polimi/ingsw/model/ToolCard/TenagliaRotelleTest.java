@@ -174,14 +174,4 @@ public class TenagliaRotelleTest {
         assertEquals(8, toolCard.getID());
     }
 
-    @Test
-    public void getCardTitleTest() {
-        assertEquals("Tenaglia a Rotelle", toolCard.getCardTitle());
-    }
-
-    @Test
-    public void getCardDescriptionTest() {
-        assertEquals("Dopo il tuo primo turno scegli immediatamente un altro dado.\n" +
-                "Salta il secondo turno di questo round.", toolCard.getDescription());
-    }
 }

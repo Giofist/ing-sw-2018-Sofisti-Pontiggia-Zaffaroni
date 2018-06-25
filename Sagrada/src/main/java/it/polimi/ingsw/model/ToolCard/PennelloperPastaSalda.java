@@ -11,17 +11,15 @@ import it.polimi.ingsw.model.SchemeDeck.ColumnIterator;
 import it.polimi.ingsw.model.SchemeDeck.RowIterator;
 import it.polimi.ingsw.model.UsersList;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 
-public class PennelloperPastaSalda  extends ToolAction {
+public class PennelloperPastaSalda  extends ToolAction implements Serializable {
 
 
     public PennelloperPastaSalda(){
         this.cost =1;
         this.ID =6;
-        this.cardTitle = "Pennello per Pasta Salda";
-        this.description = "Dopo aver scelto un dado tira nuovamente quel dado.\n" +
-                "Se non puoi piazzarlo, riponilo nella riserva.";
     }
 
 

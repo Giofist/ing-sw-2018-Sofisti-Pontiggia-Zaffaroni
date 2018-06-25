@@ -39,7 +39,7 @@ public class Client {
                     new ObserverView(controller).run();
                     correct = true;
                 }catch(Exception e){
-                    System.out.println("Errore nello stabilire la connessione, il gioco non può iniziare");
+                    System.out.println("Errore nello stabilire la connessione, oppure bug nel gioco,  il gioco non può iniziare");
                 }
 
             } else if (input.equals("S") || input.equals("s")) {

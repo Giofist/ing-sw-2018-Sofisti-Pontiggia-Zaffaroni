@@ -18,7 +18,7 @@ public class ToolRequestClass implements Serializable {
     private int selectedRoundDicepoolDiceIndex;
     private int roundWhereThediceis;
     private int selectedRoundTrackDiceIndex;
-    private int diceIntesityToset;
+
 
 
 
@@ -124,14 +124,6 @@ public class ToolRequestClass implements Serializable {
 
     public void setOldRow1(int oldRow1) {
         this.oldRow1 = oldRow1;
-    }
-
-    public int getDiceIntesityToset() {
-        return diceIntesityToset;
-    }
-
-    public void setDiceIntesityToset(int diceIntesityToset) {
-        this.diceIntesityToset = diceIntesityToset;
     }
 
     public int getToolCardID() {

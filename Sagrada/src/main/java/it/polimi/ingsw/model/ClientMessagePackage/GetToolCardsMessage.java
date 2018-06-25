@@ -6,19 +6,18 @@ import it.polimi.ingsw.NetworkServer.ServerMessage;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.util.List;
 
-public class GetToolCardCostMessage extends ClientMessage {
+public class GetToolCardsMessage extends ClientMessage {
 
-    public GetToolCardCostMessage(){
-        this.messagecodex = 44;
-    }
+    public GetToolCardsMessage() { this.messagecodex = 44; }
 
     @Override
     public void performAction(ClientHandlerInterface clientHandler, SocketServerListener listener)throws RemoteException {
-        String answer = clientHandler.getToolCardsCosts(getClientName());
+        List list = clientHandler.getToolCards(getClientName());
         ServerMessage messageClass = new ServerMessage();
         messageClass.setMessagecodex(1);
-        messageClass.setMessage(answer);
+        messageClass.setList(list);
         try {
             listener.sendMessage(messageClass);
         } catch (IOException e) {

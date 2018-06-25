@@ -13,17 +13,15 @@ import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PlayerPackage.State;
 import it.polimi.ingsw.model.UsersList;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.List;
 
 // DA TERMINARE
-public class TaglierinaManuale  extends ToolAction {
+public class TaglierinaManuale  extends ToolAction implements Serializable{
     public TaglierinaManuale(){
         this.cost = 1;
         this.ID =12;
-        this.cardTitle = "Taglierina Manuale";
-        this.description = "Muovi fino a due dadi dello stesso colore  di un solo dado sul Tracciato dei Round.\n" +
-                "Devi rispettare tutte le restrizioni di piazzamento.";
     }
     Dice removedDice;
     Dice removedDice2;

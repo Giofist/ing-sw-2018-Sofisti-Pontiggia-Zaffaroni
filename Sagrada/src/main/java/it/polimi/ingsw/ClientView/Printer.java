@@ -2,8 +2,10 @@ package it.polimi.ingsw.ClientView;
 
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
 import it.polimi.ingsw.model.GoalCard;
+import it.polimi.ingsw.model.ToolCard.ToolAction;
 
 import java.rmi.RemoteException;
+import java.util.List;
 
 import static org.fusesource.jansi.Ansi.Color.*;
 import static org.fusesource.jansi.Ansi.ansi;
@@ -195,12 +197,10 @@ public class Printer {
         int index = 0;
         System.out.println("Queste sono le carte utensile disponibili:");
         try {
-            String[] toolCardID = serverController.getToolCardsIDs(yourName).split("!");
-            String[] toolCardName = serverController.getToolCardsNames(yourName).split("!");
-            String[] toolCardCost = serverController.getToolCardsCosts(yourName).split("!");
-            String[] toolCardDescription = serverController.getToolCardsDescriptions(yourName).split("!");
-            for (String element : toolCardID) {
-                System.out.println(toolCardID[index] + ". " + toolCardName[index] + "\nIl costo della carta utensile è: " + toolCardCost[index] + "\nDescrizione:\n" + toolCardDescription[index]);
+            List<ToolAction> list = serverController.getToolCards(yourName);
+            for (ToolAction toolAction : list) {
+                System.out.println(Client.translator.translateToolCardCardName(toolAction.getID()) + "\nIl costo della carta utensile è: " + toolAction.getCost()
+                        + "\nDescrizione:\n" + Client.translator.translateToolCardDescription(toolAction.getID()));
                 index++;
             }
         } catch (RemoteException e) {

@@ -4,7 +4,9 @@ import it.polimi.ingsw.ClientView.Observer;
 import it.polimi.ingsw.NetworkClient.SocketResponseHandler;
 import it.polimi.ingsw.model.GoalCard;
 import it.polimi.ingsw.model.Match;
+import it.polimi.ingsw.model.PlayerPackage.TurnActions;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
+import it.polimi.ingsw.model.ToolCard.ToolAction;
 import it.polimi.ingsw.model.ToolCard.ToolRequestClass;
 
 import java.rmi.Remote;
@@ -23,7 +25,7 @@ public interface ClientHandlerInterface extends Remote {
     List<SchemeCard> getExtractedSchemeCard(String clientname) throws RemoteException;
     int getmyPoints(String clientname) throws RemoteException;
     List getPlayersinmymatch(String clientname) throws RemoteException;
-    String getPossibleActions(String clientname) throws RemoteException;
+    List<TurnActions> getPossibleActions(String clientname) throws RemoteException;
     List<GoalCard> getPrivateGoalCard(String clientname) throws RemoteException;
     List<GoalCard> getPublicGoalCards(String clientname) throws RemoteException;
     String getRanking(String clientname) throws RemoteException;
@@ -31,12 +33,9 @@ public interface ClientHandlerInterface extends Remote {
     String getRoundTrack(String clientname) throws RemoteException;
     List<SchemeCard> getSchemeCard(String clientname) throws RemoteException;
     List<SchemeCard> getSchemeCardsoftheotherPlayers(String clientname) throws RemoteException;
-    String getToolCardsCosts(String clientname) throws RemoteException;
     int getToken(String clientname) throws RemoteException;
     String getToolCardDice(String clientname)throws RemoteException;
-    String getToolCardsDescriptions(String clientname) throws RemoteException;
-    String getToolCardsIDs(String clientname) throws RemoteException;
-    String getToolCardsNames(String clientname) throws RemoteException;
+    List<ToolAction> getToolCards(String clientname) throws RemoteException;
     void joinaGame(String clientname, Observer  client, String gamename) throws RemoteException;
     void leavethematchatthend(String clientname) throws RemoteException;
     void leavethematch(String clientname) throws RemoteException;

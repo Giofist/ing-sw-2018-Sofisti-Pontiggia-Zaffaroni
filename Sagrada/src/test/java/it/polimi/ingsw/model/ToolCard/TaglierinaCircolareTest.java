@@ -85,14 +85,6 @@ public class TaglierinaCircolareTest {
         assertEquals(5, toolCard.getID());
     }
 
-    @Test
-    public void getCardTitle() {
-        assertEquals("Taglierina circolare", toolCard.getCardTitle());
-    }
 
-    @Test
-    public void getCardDescription() {
-        assertEquals("Dopo aver scelto un dado, scambia quel dado con un dado sul Tracciato Round.\n", toolCard.getDescription());
-    }
 
 }

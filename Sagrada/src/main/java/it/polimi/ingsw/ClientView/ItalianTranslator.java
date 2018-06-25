@@ -3,8 +3,11 @@ package it.polimi.ingsw.ClientView;
 import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
 import it.polimi.ingsw.model.Match;
 import it.polimi.ingsw.model.PlayerPackage.Player;
+import it.polimi.ingsw.model.PlayerPackage.TurnActions;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 import it.polimi.ingsw.model.SchemeDeck.Tile;
+
+import static it.polimi.ingsw.model.PlayerPackage.TurnActions.*;
 
 public class ItalianTranslator implements Translator {
 
@@ -59,7 +62,7 @@ public class ItalianTranslator implements Translator {
     }
 
     @Override
-    public String getToolCardDescription(int cardID){
+    public String translateToolCardDescription(int cardID){
         switch (cardID) {
             case 1: return "Dopo aver scelto un dado, aumenta o diminuisci il valore del dado scelto di 1.\nNon puoi cambiare un 6 in 1 o un 1 in 6.";
             case 2: return "Muovi un qualsiasi dado nella tua vetrata ignorando le restrizioni di colore.\nDevi rispettare tutte le altre restrizioni di piazzamento.";
@@ -78,7 +81,7 @@ public class ItalianTranslator implements Translator {
     }
 
     @Override
-    public String getToolCardCardName(int cardID){
+    public String translateToolCardCardName(int cardID){
         switch (cardID) {
             case 1: return "Pinza Sgrossatrice";
             case 2: return "Pennello per Eglomise";
@@ -137,9 +140,42 @@ public class ItalianTranslator implements Translator {
             case 3: return "Somma dei valori su tutti i dadi VERDI.";
             case 4: return "Somma dei valori su tutti i dadi BLU.";
             case 5: return "Somma dei valori su tutti i dadi VIOLA.";
-            default: return null;
+            default: return "Non sono stato in grado di leggere l'obiettivo privato";
         }
     }
+
+    public String translateTurnAction(TurnActions turnActions){
+        switch (turnActions){
+            case SETDICE: return "Piazzare un dado";
+            case GETMAPS: return "Visualizzare le mappe aggiornate degli altri giocatori";
+            case PASSTURN: return "Passare il tuo turno";
+            case LEAVEMATCHATTHEEND: return "Lasciare la partita corrente, che è terminata";
+            case USEALLTOOLCARD: return "Usare una carta utensile";
+            case SETTOOLCARDDICE: return "Posizionare il dado estratto nell'utilizzo della carta utensile";
+            case SETTOOLCARDDICEINTENSITY: return "Scegliere il valore del dado estratto nell'utilizzo della carta utensile";
+            case SETSCHEMECARD: return "Scegliere quale carta schema usare nella partita corrente";
+            case LEAVEMATCHBEFORESTARTING: return "Lasciare la partita corrente prima che inizi";
+            default: return "Error";
+        }
+    }
+
+    @Override
+    public String detranslateTurnAction(String turnaction){
+        switch(turnaction){
+            case "Piazzare un dado": return "SETDICE";
+            case "Visualizzare le mappe aggiornate degli altri giocatori": return "GETMAPS";
+            case "Passare il tuo turno": return "PASSTURN";
+            case "Lasciare la partita corrente, che è terminata": return "LEAVEMATCHATTHEEND";
+            case "Usare una carta utensile": return "USEALLTOOLCARD";
+            case "Posizionare il dado estratto nell'utilizzo della carta utensile": return "SETTOOLCARDDICE";
+            case "Scegliere il valore del dado estratto nell'utilizzo della carta utensile": return "SETTOOLCARDDICEINTENSITY" ;
+            case "Scegliere quale carta schema usare nella partita corrente": return "SETSCHEMECARD";
+            case "Lasciare la partita corrente prima che inizi": return "LEAVEMATCHBEFORESTARTING";
+            default: return "Error";
+        }
+    };
+
+
 
     @Override
     public String translatePrivateGoalCardName(int cardID){
@@ -155,7 +191,8 @@ public class ItalianTranslator implements Translator {
 
     @Override
     public String translateException(String exceptioncode){
-        switch(exceptioncode){
+        String[] strings =exceptioncode.split(" ");
+        switch(strings[strings.length-1]){
             case "1": return "Non puoi mettere il dado qui perchè ce n'è uno dello stesso colore vicino\n";
             case "2": return "Non puoi mettere il dado qui perchè ce n'è uno della stessa intensità vicino\n";
             case "3": return "Non puoi mettere un dado qui, perchè il primo dado deve stare sui bordi\n";
