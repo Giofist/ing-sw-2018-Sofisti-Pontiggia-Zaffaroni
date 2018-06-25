@@ -57,7 +57,7 @@ public class PinzaSgrossatriceTest {
         // in a situation where is equal to 1
 
         player.getMatch().getGametable().getRoundDicepool().getDice(0).setIntensity(1);
-        toolRequestClass.setSelectedRoundDicepoolDiceIndex(0);
+        toolRequestClass.setSelectedDiceIndex(0);
         toolRequestClass.setOperationforPinzaSgrossatrice(0);
 
         try {
@@ -79,7 +79,7 @@ public class PinzaSgrossatriceTest {
         // Here we prepare the PinzaSgrossatrice object with 0 as Dice index to change and we try to increase its intensity
         // in a situation where is equal to 6
         player.getMatch().getGametable().getRoundDicepool().getDice(0).setIntensity(6);
-        toolRequestClass.setSelectedRoundDicepoolDiceIndex(0);
+        toolRequestClass.setSelectedDiceIndex(0);
         toolRequestClass.setOperationforPinzaSgrossatrice(1);
 
         try {
@@ -98,7 +98,7 @@ public class PinzaSgrossatriceTest {
     @Test
     public void executeOK () throws DicepoolIndexException, ToolIllegalOperationException {
         player.getMatch().getGametable().getRoundDicepool().getDice(0).setIntensity(2);
-        toolRequestClass.setSelectedRoundDicepoolDiceIndex(0);
+        toolRequestClass.setSelectedDiceIndex(0);
         toolRequestClass.setOperationforPinzaSgrossatrice(1);
 
 

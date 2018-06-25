@@ -24,33 +24,39 @@ public class Lathekin  extends ToolAction implements Serializable{
     public void execute (Player player, ToolRequestClass toolRequestClass) throws ToolIllegalOperationException {
         try{
             removedDice1 = player.getScheme().getDice(toolRequestClass.getOldRow1(), toolRequestClass.getOldColumn1());
-            removedDice2 = player.getScheme().getDice(toolRequestClass.getOldRow2(), toolRequestClass.getOldColumn2());
             player.getScheme().removeDice(toolRequestClass.getOldRow1(), toolRequestClass.getOldColumn1());
-            player.getScheme().removeDice(toolRequestClass.getOldRow2(), toolRequestClass.getOldColumn2());
             player.getScheme().setDice(removedDice1, toolRequestClass.getNewRow1(), toolRequestClass.getNewColumn1(), false, false, false);
-            player.getScheme().setDice(removedDice2, toolRequestClass.getNewRow2(), toolRequestClass.getNewColumn2(),false,false, false);
-            try{
-                if (player.getPlayerState().getState().equals(State.HASSETADICESTATE)){
-                    player.setPlayerState(State.MUSTPASSTURNSTATE);
-                }else player.setPlayerState(State.HASUSEDATOOLCARDACTIONSTATE);
-            }catch (RemoteException e){
-                try{
-                    UsersList.Singleton().getUser(player.getName()).setActive(false);
-                }catch(Exception err){
-                    //do nothing
-                }
-                player.getTurn().countDown();
-            }
-
-
         }catch( Exception e){
             try{
-                player.getScheme().setDice(removedDice1, toolRequestClass.getOldRow1(), toolRequestClass.getOldColumn1(), false, false, false);
+                player.getScheme().setDice(removedDice1, toolRequestClass.getOldRow1(), toolRequestClass.getOldColumn1(), false, false, false );
+            }catch(Exception err){
+                //do nothing
+            }
+            throw new LathekinException();
+        }
+        try{
+            removedDice2 = player.getScheme().getDice(toolRequestClass.getOldRow2(), toolRequestClass.getOldColumn2());
+            player.getScheme().removeDice(toolRequestClass.getOldRow2(), toolRequestClass.getOldColumn2());
+            player.getScheme().setDice(removedDice2, toolRequestClass.getNewRow2(), toolRequestClass.getNewColumn2(),false,false, false);
+        }catch( Exception e){
+            try{
                 player.getScheme().setDice(removedDice2, toolRequestClass.getOldRow2(), toolRequestClass.getOldColumn2(),false,false, false);
             }catch(Exception err){
                 //do nothing
             }
             throw new LathekinException();
+        }
+        try{
+            if (player.getPlayerState().getState().equals(State.HASSETADICESTATE)){
+                player.setPlayerState(State.MUSTPASSTURNSTATE);
+            }else player.setPlayerState(State.HASUSEDATOOLCARDACTIONSTATE);
+        }catch (RemoteException e){
+            try{
+                UsersList.Singleton().getUser(player.getName()).setActive(false);
+            }catch(Exception err){
+                //do nothing
+            }
+            player.getTurn().countDown();
         }
 
     }

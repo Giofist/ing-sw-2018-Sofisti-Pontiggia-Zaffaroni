@@ -19,7 +19,7 @@ public class TamponeDiamantato extends ToolAction implements Serializable {
     @Override
     public void execute (Player player, ToolRequestClass toolRequestClass) throws ToolIllegalOperationException {
         try{
-            player.getGametable().getRoundDicepool().getDice(toolRequestClass.getSelectedDIceIndex()).setOppositeIntensity();
+            player.getGametable().getRoundDicepool().getDice(toolRequestClass.getSelectedDiceIndex()).setOppositeIntensity();
             if (player.getPlayerState().getState().equals(State.HASSETADICESTATE)){
                 player.setPlayerState(State.MUSTPASSTURNSTATE);
             }else player.setPlayerState(State.HASUSEDATOOLCARDACTIONSTATE);

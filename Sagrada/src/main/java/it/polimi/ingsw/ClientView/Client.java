@@ -39,6 +39,8 @@ public class Client {
                     new ObserverView(controller).run();
                     correct = true;
                 }catch(Exception e){
+                    System.out.println(e.getMessage());
+                    e.printStackTrace();
                     System.out.println("Errore nello stabilire la connessione, oppure bug nel gioco,  il gioco non può iniziare");
                 }
 
@@ -57,7 +59,6 @@ public class Client {
                 }catch(IOException e){
                     System.out.println("Errore nello stabilire la connessione, il gioco non può iniziare");
                 }finally {
-
                 }
             } else {
                 System.out.println("Hai sbagliato a digitare. Riprova");

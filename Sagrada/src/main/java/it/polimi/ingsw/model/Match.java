@@ -2,10 +2,12 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.Exceptions.MapConstrainReadingException;
 import it.polimi.ingsw.model.Exceptions.PrivateGoalCardException;
+import it.polimi.ingsw.model.Exceptions.UserNotExistentException;
 import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PlayerPackage.State;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -14,12 +16,12 @@ import java.util.Timer;
 import java.util.concurrent.CountDownLatch;
 
 //manca solo il timer
-public class Match implements Runnable{
+public class Match implements Runnable,Serializable{
     private String game_name;
     private LinkedList<Player> players;
-    private Gametable gametable;
+    private transient Gametable gametable;
     private boolean started;
-    private CountDownLatch doneSignal;
+    private transient CountDownLatch doneSignal;
     public boolean isreadyTostart;
 
 
@@ -65,21 +67,19 @@ public class Match implements Runnable{
                         }catch(Exception err){
                             //do nothing
                         }
+                        //se uno non setta la carta schema non può giocare
                         this.players.remove(player);
+                        try{
+                            UsersList.Singleton().getUser(player.getName()).removePlayer();
+                        }catch(UserNotExistentException err){
+                            //do nothing
+                        }
                         success = true;
                     }
                 }
             }
         }catch(IOException e){
-            MatchesList.singleton().remove(this);
-            for(Player player: this.players){
-                try{
-                    player.setPlayerState(State.ERRORSTATE);//"Impossibile leggere il file delle mappe, la partita non può iniziare!\n");
-                }catch(Exception err){
-                    //do nothing, we are so unlucky here
-                }
-            }
-            return;
+            //do something?
         }
         doneSignal = new CountDownLatch(this.getNumberOfPlayers());
         try {
@@ -172,22 +172,29 @@ public class Match implements Runnable{
 
     public void leavethematch(Player player){
         this.players.remove(player);
+        if(getNumberOfPlayers()==0){
+            MatchesList.singleton().remove(this);
+        }
     }
 
-    public String getfinalRanking() {
-        String string = " ";
-        for(Player player: this.players){
-            string += player.toString() + player.getPoints() + "\n";
-        }
-        return string;
-    }
 
     public void countDown() {
         this.doneSignal.countDown();
     }
 
     public void forceendmatch() {
-
+        for(Player player: this.players){
+            try{
+                player.setPlayerState(State.FORCEENDMATCH);
+            }catch(RemoteException e){
+                try{
+                    UsersList.Singleton().getUser(player.getName()).setActive(false);
+                }catch(Exception err){
+                    //do nothing
+                }
+            }
+        }
+        MatchesList.singleton().remove(this);
     }
 
 

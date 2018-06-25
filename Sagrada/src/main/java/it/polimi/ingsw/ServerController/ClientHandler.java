@@ -146,10 +146,10 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     }
 
     @Override
-    public String getRanking(String clientname) throws RemoteException{
+    public List getRanking(String clientname) throws RemoteException{
         try{
             Player player = UsersList.Singleton().getUser(clientname).getPlayer();
-            return player.getMatch().getfinalRanking();
+            return player.getMatch().getallPlayers();
         }catch(UserNotExistentException e){
             throw new RemoteException(e.getMessage());
         }
@@ -291,8 +291,6 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
 
         }catch(UserNotExistentException e){
             throw  new RemoteException(e.getMessage());
-        }catch (NoActionAllowedException e){
-            throw new RemoteException(e.getMessage());
         }
     }
 

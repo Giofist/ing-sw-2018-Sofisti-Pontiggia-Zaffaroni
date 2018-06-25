@@ -31,6 +31,11 @@ public class Turn implements Runnable{
                 currentPlayer.setPlayerState(State.STARTTURNSTATE);
             }
         }catch (RemoteException e1) {
+            try{
+                UsersList.Singleton().getUser(currentPlayer.getName()).setActive(false);
+            }catch(Exception err){
+                //do nothing
+            }
             this.doneSignal.countDown();
         }
         for (Player player: this.round.getMatch().getallPlayersbutnotme(currentPlayer)) {
@@ -41,7 +46,7 @@ public class Turn implements Runnable{
                 }
             }
         // se è rimasto un solo giocatore, la partita finisce immediatamente
-        if (this.doneSignal.getCount() == 0){
+        if (this.doneSignal.getCount() == 1){
             currentPlayer.getMatch().forceendmatch();
         }
 

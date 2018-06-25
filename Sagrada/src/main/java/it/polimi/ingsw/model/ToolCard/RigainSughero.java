@@ -28,8 +28,8 @@ public class RigainSughero  extends ToolAction implements Serializable {
             if (player.getPlayerState().getState().equals(State.HASSETADICESTATE)) {
                 throw new RigaInSugheroException("18.2");
             }
-            dice = player.getGametable().getRoundDicepool().getDice(toolRequestClass.getSelectedRoundDicepoolDiceIndex());
-            player.getGametable().getRoundDicepool().removeDice(toolRequestClass.getSelectedRoundDicepoolDiceIndex());
+            dice = player.getGametable().getRoundDicepool().getDice(toolRequestClass.getSelectedDiceIndex());
+            player.getGametable().getRoundDicepool().removeDice(toolRequestClass.getSelectedDiceIndex());
             boolean thereisadicenearyou = player.getScheme().ThereisaDicenearYou(toolRequestClass.getNewRow1(), toolRequestClass.getNewColumn1());
             if (thereisadicenearyou) {
                 throw new RigaInSugheroException("18.1");
@@ -47,7 +47,7 @@ public class RigainSughero  extends ToolAction implements Serializable {
             player.getTurn().countDown();
         }catch (Exception e){
             try{
-                player.getGametable().getRoundDicepool().addDice(toolRequestClass.getSelectedRoundDicepoolDiceIndex(),dice);
+                player.getGametable().getRoundDicepool().addDice(toolRequestClass.getSelectedDiceIndex(),dice);
             }catch(Exception er){
                 //do nothing
             }

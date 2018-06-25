@@ -15,7 +15,7 @@ public class ErrorStateView implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("Impossibile caricare le mappe!\nLa partita non può iniziare. :(");
+        System.out.println("Il timer è scaduto e nessuno si è unito alla tua partita: non può iniziare");
         try {
             serverController.leavethematch(yourName);
         } catch (RemoteException e) {

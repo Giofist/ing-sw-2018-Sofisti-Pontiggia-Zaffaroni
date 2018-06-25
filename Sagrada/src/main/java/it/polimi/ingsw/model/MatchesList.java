@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.Exceptions.HomonymyException;
 import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PlayerPackage.State;
 
+import java.rmi.RemoteException;
 import java.util.*;
 
 
@@ -64,9 +65,12 @@ public class MatchesList {
                             try{
                                 player.setPlayerState(State.ERRORSTATE);
                             }catch(Exception err){
-                                //do nothing, we are so unlucky here
+                                try{
+                                    UsersList.Singleton().getUser(player.getName()).setActive(false);
+                                }catch(Exception er){
+                                    //do nothing
+                                }
                             }
-
                         }
                         MatchesList.singleton().remove(match);
                         thread.interrupt();
@@ -75,6 +79,15 @@ public class MatchesList {
             }
         },0);
         new Thread(match).start();
+        try{
+            player.setPlayerState(State.MATCHNOTSTARTEDYETSTATE);
+        }catch(RemoteException e){
+            try{
+                UsersList.Singleton().getUser(player.getName()).setActive(false);
+            }catch(Exception err){
+                //do nothing
+            }
+        }
         return ;
     }
 
@@ -82,6 +95,15 @@ public class MatchesList {
         Match match = this.getGame(game_name);
         player.setMatch(match);
         match.join(player);
+        try{
+            player.setPlayerState(State.MATCHNOTSTARTEDYETSTATE);
+        }catch(RemoteException e){
+            try{
+                UsersList.Singleton().getUser(player.getName()).removePlayer();
+            }catch(Exception err){
+                //do nothing
+            }
+        }
     }
 
 

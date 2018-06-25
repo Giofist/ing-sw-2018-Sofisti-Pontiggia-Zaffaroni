@@ -65,7 +65,7 @@ public class PennelloperPastaSaldaTest {
     @Test
     public void executeInvalidDiceIndexException() throws ToolIllegalOperationException {
         // Prepare ToolRequestClass
-        toolRequestClass.setSelectedDIceIndex(2);
+        toolRequestClass.setSelectedDiceIndex(2);
 
         try {
             // Tested method
@@ -85,7 +85,7 @@ public class PennelloperPastaSaldaTest {
         roundDicePool.addDice(new Dice(DiceColor.RED));
 
         // Prepare ToolRequestClass
-        toolRequestClass.setSelectedDIceIndex(0);
+        toolRequestClass.setSelectedDiceIndex(0);
 
         // Tested method
         toolCard.execute(player, toolRequestClass);
@@ -103,7 +103,7 @@ public class PennelloperPastaSaldaTest {
         roundDicePool.addDice(new Dice(DiceColor.RED));
 
         // Prepare ToolRequestClass
-        toolRequestClass.setSelectedDIceIndex(0);
+        toolRequestClass.setSelectedDiceIndex(0);
 
         try {
             // Tested method

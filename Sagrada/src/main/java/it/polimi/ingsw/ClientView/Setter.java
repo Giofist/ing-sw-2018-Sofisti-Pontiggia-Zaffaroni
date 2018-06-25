@@ -1,6 +1,5 @@
 package it.polimi.ingsw.ClientView;
 
-import it.polimi.ingsw.ServerController.ClientHandler;
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
 import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PlayerPackage.TurnActions;
@@ -108,7 +107,7 @@ public class Setter {
                 case "SETTOOLCARDDICEINTENSITY": {
                     char[] charDice = new char[0];
                     while(!correct) {
-                        System.out.println("Seleziona l'intensità del dado pescao:");
+                        System.out.println("Seleziona l'intensità del dado pescato:");
                         try {
                             serverController.setToolCardDiceIntensity(yourName, in.nextInt());
                             correct = true;
@@ -183,7 +182,7 @@ public class Setter {
                 Printer.Singleton().printRoundDicePool(serverController, yourName);
                 while(!condition){
                 System.out.println("Seleziona il dado su cui applicare la Pinza Sgrossatrice:");
-                data.setSelectedRoundDicepoolDiceIndex(in.nextInt());
+                data.setSelectedDiceIndex(in.nextInt());
                 Printer.Singleton().printRoundDicePool(serverController, yourName);
                     try {
                         serverController.useaToolCard(yourName, data);
@@ -278,7 +277,7 @@ public class Setter {
                 while(!condition){
                 Printer.Singleton().printRoundDicePool(serverController, yourName);
                 System.out.println("Seleziona il dado da scambiare con uno del ound Track. Indica l'indice:");
-                data.setSelectedDIceIndex(in.nextInt());
+                data.setSelectedDiceIndex(in.nextInt());
                 Printer.Singleton().printRoundTrack(serverController, yourName);
                 System.out.println("Seleziona il dado da scambiare sulla RoundTrack. Indica il round:");
                 data.setRoundWhereThediceis(in.nextInt());
@@ -297,7 +296,7 @@ public class Setter {
                 Printer.Singleton().printRoundDicePool(serverController, yourName);
                 while(!condition){
                 System.out.println("Seleziona il dado da tirare nuovamente. Indica l'indice:");
-                data.setSelectedDIceIndex(in.nextInt());
+                data.setSelectedDiceIndex(in.nextInt());
                     try {
                         serverController.useaToolCard(yourName, data);
                         condition = true;
@@ -313,8 +312,8 @@ public class Setter {
             case "8": { //8. Tenaglia a Rotelle
                 Printer.Singleton().printRoundDicePool(serverController, yourName);
                 while(!condition){
-                System.out.println("Seleziona il dado da scambiare con uno del ound Track. Indica l'indice:");
-                data.setSelectedDIceIndex(in.nextInt());
+                System.out.println("Seleziona il dado da scambiare con uno del Round Track. Indica l'indice:");
+                data.setSelectedDiceIndex(in.nextInt());
                     try {
                         serverController.useaToolCard(yourName, data);
                         condition = true;
@@ -328,7 +327,7 @@ public class Setter {
                 Printer.Singleton().printRoundDicePool(serverController, yourName);
                 while(!condition){
                 System.out.println("Seleziona il dado da posizionare nella mappa. Indica l'indice:");
-                data.setSelectedRoundDicepoolDiceIndex(in.nextInt());
+                data.setSelectedDiceIndex(in.nextInt());
                 try {
                     Printer.Singleton().printMap(Client.translator.translateSchemeCard(serverController.getSchemeCard(yourName).get(0)));
                 } catch (RemoteException e) {
@@ -351,7 +350,7 @@ public class Setter {
                 Printer.Singleton().printRoundDicePool(serverController, yourName);
                 while(!condition){
                 System.out.println("Seleziona il dado da girare sulla faccia opposta. Indica l'indice:");
-                data.setSelectedDIceIndex(in.nextInt());
+                data.setSelectedDiceIndex(in.nextInt());
                     try {
                         serverController.useaToolCard(yourName, data);
                         condition = true;
@@ -365,7 +364,7 @@ public class Setter {
                 Printer.Singleton().printRoundDicePool(serverController, yourName);
                 while(!condition){
                 System.out.println("Seleziona il dado rimettere nel sacchetto. Indica l'indice:");
-                data.setSelectedDIceIndex(in.nextInt());
+                data.setSelectedDiceIndex(in.nextInt());
                 try {
                     serverController.useaToolCard(yourName, data);
                     condition = true;

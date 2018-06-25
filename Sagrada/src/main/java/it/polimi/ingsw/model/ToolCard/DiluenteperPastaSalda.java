@@ -32,9 +32,9 @@ public class DiluenteperPastaSalda  extends ToolAction implements Serializable {
             if(player.getPlayerState().getState().equals(State.HASSETADICESTATE)){
                 throw new DiluentePerPastaSaldaException("7.1");
             }
-            DiceColor color = player.getGametable().getRoundDicepool().getDice(toolRequestClass.getSelectedDIceIndex()).getColor();
+            DiceColor color = player.getGametable().getRoundDicepool().getDice(toolRequestClass.getSelectedDiceIndex()).getColor();
             player.getGametable().getDicepool().insertDice(color);
-            player.getGametable().getRoundDicepool().removeDice(toolRequestClass.getSelectedDIceIndex());
+            player.getGametable().getRoundDicepool().removeDice(toolRequestClass.getSelectedDiceIndex());
 
             //poi pescane uno
             player.setDiceforToolCardUse(player.getGametable().getDicepool().extractDice());

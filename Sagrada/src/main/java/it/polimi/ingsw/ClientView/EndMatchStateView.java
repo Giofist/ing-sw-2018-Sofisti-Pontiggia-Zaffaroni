@@ -1,8 +1,10 @@
 package it.polimi.ingsw.ClientView;
 
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
+import it.polimi.ingsw.model.PlayerPackage.Player;
 
 import java.rmi.RemoteException;
+import java.util.List;
 import java.util.Scanner;
 
 public class EndMatchStateView implements Runnable {
@@ -21,7 +23,11 @@ public class EndMatchStateView implements Runnable {
     public void run() {
         try {
             System.out.println("La partita è finita: hai totalizzato" + serverController.getmyPoints(yourName) + "punti");
-            System.out.println("Ecco la classifica finale: " + serverController.getRanking(yourName));
+            System.out.println("Ecco la classifica finale: ");
+            List<Player> list = serverController.getRanking(yourName);
+            for (Player player: list){
+                System.out.println(Client.translator.translatePlayer(player)+ " || "+ player.getPoints() + " punti");
+            }
         } catch (RemoteException e) {
             System.out.println(Client.translator.translateException(e.getMessage()));
         }

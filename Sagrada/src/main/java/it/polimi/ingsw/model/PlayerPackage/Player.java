@@ -17,7 +17,7 @@ public class Player  implements Comparable<Player> {
     private transient int token;
     private transient LinkedList<SchemeCard> extractedschemeCards;
     private transient SchemeCard scheme;
-    private transient int points;
+    private int points;
     private transient Match match;
     private transient PlayerState playerState;
     private transient Turn turn;
@@ -55,7 +55,6 @@ public class Player  implements Comparable<Player> {
     public void setName(String name) {
         this.name = name;
     }
-
     public int getToken() {
         return token;
     }
@@ -163,7 +162,6 @@ public class Player  implements Comparable<Player> {
             return this.getPoints() - player.getPoints();
         }
         else if (this.getToken() != player.getToken()){
-            System.out.println("forza roma");
             return this.getToken() - this.getToken();
         }
         else return this.getMatch().getallPlayers().indexOf(this) - player.getMatch().getallPlayers().indexOf(player);

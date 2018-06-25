@@ -6,10 +6,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-// NB: questa classe si usa sia per il sacchetto dei 90 dadi che per i dadi del round, che però sono due cose concettualmente
-//leggermente diverse: proprio per questo sono stati creati metodi diversi per fare cose diverse: fate attenzione a quale
-//vi serve davvero quando li invocate
-//per esempio fate caso al metodo extract
+
 public class DicePool {
     private LinkedList<Dice> dices;
 

@@ -6,6 +6,7 @@ import it.polimi.ingsw.NetworkServer.ServerMessage;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.util.List;
 
 public class GetRankingMessage extends ClientMessage {
 
@@ -13,10 +14,10 @@ public class GetRankingMessage extends ClientMessage {
 
     @Override
     public void performAction(ClientHandlerInterface clientHandler, SocketServerListener listener) throws RemoteException{
-        String answer = clientHandler.getRanking(getClientName());
+        List list = clientHandler.getRanking(getClientName());
         ServerMessage messageClass = new ServerMessage();
         messageClass.setMessagecodex(1);
-        messageClass.setMessage(answer);
+        messageClass.setList(list);
         try {
             listener.sendMessage(messageClass);
         } catch (IOException e) {

@@ -211,7 +211,7 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
             remoteException = false;
         }
         boolean chosen = false;
-        while (!chosen && remoteException) {
+        while (!chosen && !remoteException) {
             System.out.println("Digita il il nome della partita cui vuoi partecipare:");
             gamename = in.nextLine();
             try {
@@ -292,11 +292,15 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
             case ENDMATCHSTATE: {
                 leave = true;
                 this.thread = new Thread(new EndMatchStateView(serverController, yourName, this));
-
                 break;
             }
             case MUSTSETSCHEMECARD: {
                 this.thread = new Thread(new MustSetSchemeCardStateView(serverController, yourName));
+                break;
+            }
+            case FORCEENDMATCH:{
+                leave = true;
+                this.thread = new Thread(new ForceEndMatchState(this, yourName));
                 break;
             }
         }

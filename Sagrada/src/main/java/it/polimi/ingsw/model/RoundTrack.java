@@ -70,7 +70,6 @@ public class RoundTrack {
                 try{
                     list.add(getroundTrackDices(i).getDice(j).getColor());
                 }catch(DicepoolIndexException e){
-                    System.out.println("errore");
                 }
             }
         }

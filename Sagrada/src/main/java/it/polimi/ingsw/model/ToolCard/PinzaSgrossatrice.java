@@ -26,9 +26,9 @@ public class PinzaSgrossatrice  extends ToolAction implements Serializable{
     public void execute (Player player, ToolRequestClass toolRequestClass) throws ToolIllegalOperationException {
         try{
             if (toolRequestClass.getOperationforPinzaSgrossatrice() ==0) {  // Decrease selected dice value
-                player.getGametable().getRoundDicepool().getDice(toolRequestClass.getSelectedDIceIndex()).decreaseIntensity();
+                player.getGametable().getRoundDicepool().getDice(toolRequestClass.getSelectedDiceIndex()).decreaseIntensity();
             } else {    // Increase selected dice value
-                player.getGametable().getRoundDicepool().getDice(toolRequestClass.getSelectedDIceIndex()).increaseIntensity(); }
+                player.getGametable().getRoundDicepool().getDice(toolRequestClass.getSelectedDiceIndex()).increaseIntensity(); }
             if (player.getPlayerState().getState().equals(State.HASSETADICESTATE)){
                 player.setPlayerState(State.MUSTPASSTURNSTATE);
             }else player.setPlayerState(State.HASUSEDATOOLCARDACTIONSTATE);

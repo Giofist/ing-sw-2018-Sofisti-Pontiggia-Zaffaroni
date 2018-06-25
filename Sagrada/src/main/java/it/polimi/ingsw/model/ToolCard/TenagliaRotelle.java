@@ -30,8 +30,8 @@ public class TenagliaRotelle  extends ToolAction implements Serializable {
             throw new TenagliaRotelleException("21.2");
         }
         try{
-            player.getScheme().setDice(  player.getGametable().getRoundDicepool().getDice(toolRequestClass.getSelectedRoundDicepoolDiceIndex()), toolRequestClass.getNewRow1(), toolRequestClass.getNewColumn1(), false,false,false  );
-            player.getGametable().getRoundDicepool().removeDice(toolRequestClass.getSelectedRoundDicepoolDiceIndex());
+            player.getScheme().setDice(  player.getGametable().getRoundDicepool().getDice(toolRequestClass.getSelectedDiceIndex()), toolRequestClass.getNewRow1(), toolRequestClass.getNewColumn1(), false,false,false);
+            player.getGametable().getRoundDicepool().removeDice(toolRequestClass.getSelectedDiceIndex());
             player.setMustpassTurn(true);
             if (player.getPlayerState().getState().equals(State.HASSETADICESTATE)){
                 player.setPlayerState(State.MUSTPASSTURNSTATE);

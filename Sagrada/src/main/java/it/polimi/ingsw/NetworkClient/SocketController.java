@@ -548,7 +548,7 @@ public class SocketController implements ClientHandlerInterface {
 
 
     @Override
-    public synchronized String getRanking(String username) throws RemoteException {
+    public synchronized List getRanking(String username) throws RemoteException {
         ClientMessage getRankingMessage = new GetRankingMessage();
         getRankingMessage.setClientName(username);
 
@@ -565,10 +565,10 @@ public class SocketController implements ClientHandlerInterface {
             e.printStackTrace();
         }
         this.responseHandler.check();
-        String value = this.responseHandler.getMessage();
+        List list = this.responseHandler.getList();
         this.responseHandler = null;
 
-        return value;
+        return list;
 
     }
 

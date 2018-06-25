@@ -75,7 +75,7 @@ public class TenagliaRotelleTest {
         player.getMatch().getGametable().getRoundDicepool().addDice(mockDice);
         when(mockTurn.getTurnID()).thenReturn(2);
 
-        toolRequestClass.setSelectedRoundDicepoolDiceIndex(0);
+        toolRequestClass.setSelectedDiceIndex(0);
         toolRequestClass.setNewRow1(0);
         toolRequestClass.setNewColumn1(0);
 
@@ -95,7 +95,7 @@ public class TenagliaRotelleTest {
         player.getMatch().getGametable().getRoundDicepool().addDice(mockDice);
         when(mockTurn.getTurnID()).thenReturn(1);
 
-        toolRequestClass.setSelectedRoundDicepoolDiceIndex(0);
+        toolRequestClass.setSelectedDiceIndex(0);
         toolRequestClass.setNewRow1(0);
         toolRequestClass.setNewColumn1(0);
 
@@ -115,7 +115,7 @@ public class TenagliaRotelleTest {
         player.getMatch().getGametable().getRoundDicepool().addDice(mockDice);
         when(mockTurn.getTurnID()).thenReturn(1);
 
-        toolRequestClass.setSelectedRoundDicepoolDiceIndex(0);
+        toolRequestClass.setSelectedDiceIndex(0);
         toolRequestClass.setNewRow1(-1);
         toolRequestClass.setNewColumn1(0);
 
@@ -135,7 +135,7 @@ public class TenagliaRotelleTest {
         player.getMatch().getGametable().getRoundDicepool().addDice(mockDice);
         when(mockTurn.getTurnID()).thenReturn(1);
 
-        toolRequestClass.setSelectedRoundDicepoolDiceIndex(0);
+        toolRequestClass.setSelectedDiceIndex(0);
         toolRequestClass.setNewRow1(1);
         toolRequestClass.setNewColumn1(0);
 
@@ -159,7 +159,7 @@ public class TenagliaRotelleTest {
         player.setPlayerState(State.HASSETADICESTATE);
         when(mockTurn.getTurnID()).thenReturn(1);
 
-        toolRequestClass.setSelectedRoundDicepoolDiceIndex(0);
+        toolRequestClass.setSelectedDiceIndex(0);
         toolRequestClass.setNewRow1(0);
         toolRequestClass.setNewColumn1(0);
 
