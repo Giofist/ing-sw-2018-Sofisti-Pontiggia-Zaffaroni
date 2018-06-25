@@ -199,7 +199,7 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
         String gamename;
         Scanner in = new Scanner(System.in);
         System.out.println("Ecco la lista delle partite attualmente attive:");
-        boolean remoteException = true;
+        boolean remoteException = false;
         try{
             List<Match> list= serverController.getActiveMatchesList();
             for( Match match: list){
@@ -208,20 +208,22 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
             System.out.println();
         }catch (RemoteException e){
             System.out.println(Client.translator.translateException(e.getMessage()));
-            remoteException = false;
+            remoteException = true;
         }
-        boolean chosen = false;
-        while (!chosen && !remoteException) {
-            System.out.println("Digita il il nome della partita cui vuoi partecipare:");
-            gamename = in.nextLine();
-            try {
-                serverController.joinaGame(yourName, this, gamename);
-                chosen= true;
-            } catch (RemoteException e) {
-                System.out.println(Client.translator.translateException(e.getMessage()));
+        if(!remoteException){
+            boolean chosen = false;
+            while (!chosen) {
+                System.out.println("Digita il il nome della partita cui vuoi partecipare:");
+                gamename = in.nextLine();
+                try {
+                    serverController.joinaGame(yourName, this, gamename);
+                    chosen= true;
+                    System.out.println("Sei entrato nella partita!");
+                } catch (RemoteException e) {
+                    System.out.println(Client.translator.translateException(e.getMessage()));
+                }
             }
         }
-        System.out.println("Sei entrato nella partita!");
     }
 
     private void createInt() {
