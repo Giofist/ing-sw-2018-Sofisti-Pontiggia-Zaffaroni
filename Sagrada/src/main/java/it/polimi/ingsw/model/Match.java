@@ -32,8 +32,6 @@ public class Match implements Runnable,Serializable{
         this.players.addFirst(player);
         player.setMatch(this);
         this.isreadyTostart = false;
-
-
     }
 
     public synchronized void run(){

@@ -54,8 +54,8 @@ public class ObserverGUI extends UnicastRemoteObject implements Observer {
     @Override
     public synchronized void update(Observable o, Object arg) throws RemoteException {
         this.controller.update(o.getState());
-        }
     }
+
 }
 
 

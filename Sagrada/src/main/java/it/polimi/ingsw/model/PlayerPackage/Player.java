@@ -7,12 +7,13 @@ import it.polimi.ingsw.model.Exceptions.NotEnoughSegnaliniException;
 import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.List;
 
 //implementa comparable per ordinare i giocatori in base al punteggio nellav lista di player
-public class Player  implements Comparable<Player> {
+public class Player  implements Comparable<Player>, Serializable {
     private transient GoalCard privateGoalCard;
     private transient int token;
     private transient LinkedList<SchemeCard> extractedschemeCards;
