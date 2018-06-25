@@ -135,7 +135,6 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
         return list;
     }
 
-
     @Override
     public int getmyPoints(String clientname)throws RemoteException{
         try{
