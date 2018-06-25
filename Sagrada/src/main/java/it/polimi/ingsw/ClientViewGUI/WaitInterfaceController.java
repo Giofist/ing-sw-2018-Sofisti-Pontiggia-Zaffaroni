@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ClientViewGUI;
 
 import com.jfoenix.controls.JFXButton;
+import it.polimi.ingsw.model.PlayerPackage.State;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
@@ -11,7 +12,7 @@ import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.Collections;
 
-public class WaitInterfaceController {
+public class WaitInterfaceController extends AbstractController{
 
     @FXML
     private AnchorPane createPane;
@@ -35,5 +36,16 @@ public class WaitInterfaceController {
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public void update(State state){
+        if(state!= State.MATCHNOTSTARTEDYETSTATE){
+            try {
+                createPane.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/ChooseMap.fxml"))));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
