@@ -3,6 +3,7 @@ package it.polimi.ingsw.ClientViewGUI;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
@@ -12,15 +13,20 @@ import javafx.stage.Stage;
 
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Collections;
+import java.util.ResourceBundle;
 
 
-public class MenuController {
+public class MenuController implements Initializable {
     Stage stage = null;
     Parent myNewScene = null;
 
         @FXML
-        private Text playerName;
+        private static AnchorPane mainPane;
+
+        @FXML
+        private Text PlayerName;
 
         @FXML
         private Text PlayerScore;
@@ -91,4 +97,17 @@ public class MenuController {
     }
 
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        PlayerName.setText(EntryPoint.Singleton().getUsername());
+        PlayerScore.setText("0000000");
+    }
+
+    public static AnchorPane getMainPane() {
+        return mainPane;
+    }
+
+    public void setMainPane(AnchorPane mainPane) {
+        this.mainPane = mainPane;
+    }
 }

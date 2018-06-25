@@ -37,7 +37,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ResourceBundle;
 
-public class StartGameController implements Initializable{
+public class LogInController implements Initializable{
     private String ipAddr = "127.0.0.1";
     private int port = 1337;
 
@@ -110,18 +110,19 @@ public class StartGameController implements Initializable{
     @FXML
     void signInOperation(MouseEvent event) {
         Parent menu = null;
-       /*try {
-            EntryPoint.Singleton().getServerController().login(username.getCharacters().toString(), password.getCharacters().toString());  //TODO da un sacco di errori in RMI
+        /*try {
+            EntryPoint.Singleton().getServerController().login(username.getCharacters().toString(), password.getCharacters().toString(), EntryPoint.Singleton()); //TODO vedere fra per fixare  //TODO da un sacco di errori in RMI
             LogInError.setText("Hai creato un nuovo account!");
         } catch (RemoteException e) {
             LogInError.setText(e.getMessage());
         }*/
+        //EntryPoint.Singleton().setUsername(String.valueOf(username));
         try {
             menu = FXMLLoader.load(getClass().getResource("/Menu.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Scene scene = new Scene(menu);
+            Scene scene = new Scene(menu);
             Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             appStage.setScene(scene);
             appStage.setFullScreen(true);

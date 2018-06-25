@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ClientViewGUI;
 
+import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -12,9 +13,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import javax.tools.Tool;
 import java.awt.event.MouseEvent;
@@ -25,6 +29,7 @@ public class MainGameViewController implements Initializable{
     ImageView origin = null;
     public Stage primaryStage; //only for testing
     int SelectedDiceIndex;
+    boolean selected = false;
 
     @FXML
     private ImageView firstDice;
@@ -70,6 +75,18 @@ public class MainGameViewController implements Initializable{
     private Text yourMapName;
 
     @FXML
+    private BorderPane P3Map;
+
+    @FXML
+    private BorderPane P2Map;
+
+    @FXML
+    private BorderPane P1Map;
+
+    @FXML
+    private Text ErrorMessage;
+
+    @FXML
     private ImageView ImageView00;
 
     @FXML
@@ -109,6 +126,258 @@ public class MainGameViewController implements Initializable{
     private ImageView ImageView30;
 
     @FXML
+    private ImageView ImageView001;
+
+    @FXML
+    private ImageView ImageView011;
+
+    @FXML
+    private ImageView ImageView021;
+
+    @FXML
+    private ImageView ImageView031;
+
+    @FXML
+    private ImageView ImageView041;
+
+    @FXML
+    private ImageView ImageView101;
+
+    @FXML
+    private ImageView ImageView121;
+
+    @FXML
+    private ImageView ImageView131;
+
+    @FXML
+    private ImageView ImageView141;
+
+    @FXML
+    private ImageView ImageView201;
+
+    @FXML
+    private ImageView ImageView211;
+
+    @FXML
+    private ImageView ImageView241;
+
+    @FXML
+    private ImageView ImageView301;
+
+    @FXML
+    private ImageView ImageView311;
+
+    @FXML
+    private ImageView ImageView321;
+
+    @FXML
+    private ImageView ImageView341;
+
+    @FXML
+    private ImageView ImageView111;
+
+    @FXML
+    private ImageView ImageView221;
+
+    @FXML
+    private ImageView ImageView231;
+
+    @FXML
+    private ImageView ImageView331;
+
+    @FXML
+    private Text P1MapName;
+
+    @FXML
+    private Text Player1;
+
+    @FXML
+    private Text yourMapDiff1;
+
+    @FXML
+    private Circle P1Diff6;
+
+    @FXML
+    private Circle P1Diff5;
+
+    @FXML
+    private Circle P1Diff4;
+
+    @FXML
+    private Circle P1Diff3;
+
+    @FXML
+    private Circle P1Diff2;
+
+    @FXML
+    private Circle P1Diff1;
+
+    @FXML
+    private Text Player2;
+
+    @FXML
+    private GridPane yourMap11;
+
+    @FXML
+    private ImageView ImageView0011;
+
+    @FXML
+    private ImageView ImageView0111;
+
+    @FXML
+    private ImageView ImageView0211;
+
+    @FXML
+    private ImageView ImageView0311;
+
+    @FXML
+    private ImageView ImageView0411;
+
+    @FXML
+    private ImageView ImageView1011;
+
+    @FXML
+    private ImageView ImageView1211;
+
+    @FXML
+    private ImageView ImageView1311;
+
+    @FXML
+    private ImageView ImageView1411;
+
+    @FXML
+    private ImageView ImageView2011;
+
+    @FXML
+    private ImageView ImageView2111;
+
+    @FXML
+    private ImageView ImageView2411;
+
+    @FXML
+    private ImageView ImageView3011;
+
+    @FXML
+    private ImageView ImageView3111;
+
+    @FXML
+    private ImageView ImageView3211;
+
+    @FXML
+    private ImageView ImageView3411;
+
+    @FXML
+    private ImageView ImageView1111;
+
+    @FXML
+    private ImageView ImageView2211;
+
+    @FXML
+    private ImageView ImageView2311;
+
+    @FXML
+    private ImageView ImageView3311;
+
+    @FXML
+    private Text P2MapName;
+
+    @FXML
+    private Text yourMapDiff11;
+
+    @FXML
+    private Circle P2Diff6;
+
+    @FXML
+    private Circle P2Diff5;
+
+    @FXML
+    private Circle P2Diff4;
+
+    @FXML
+    private Circle P2Diff3;
+
+    @FXML
+    private Circle P2Diff2;
+
+    @FXML
+    private Circle P2Diff1;
+
+    @FXML
+    private Text Player3;
+
+    @FXML
+    private GridPane yourMap12;
+
+    @FXML
+    private ImageView ImageView0012;
+
+    @FXML
+    private ImageView ImageView0112;
+
+    @FXML
+    private ImageView ImageView0212;
+
+    @FXML
+    private ImageView ImageView0312;
+
+    @FXML
+    private ImageView ImageView0412;
+
+    @FXML
+    private ImageView ImageView1012;
+
+    @FXML
+    private ImageView ImageView1212;
+
+    @FXML
+    private ImageView ImageView1312;
+
+    @FXML
+    private ImageView ImageView1412;
+
+    @FXML
+    private ImageView ImageView2012;
+
+    @FXML
+    private ImageView ImageView2112;
+
+    @FXML
+    private ImageView ImageView2412;
+
+    @FXML
+    private ImageView ImageView3012;
+
+    @FXML
+    private ImageView ImageView3112;
+
+    @FXML
+    private ImageView ImageView3212;
+
+    @FXML
+    private ImageView ImageView3412;
+
+    @FXML
+    private ImageView ImageView1112;
+
+    @FXML
+    private ImageView ImageView2212;
+
+    @FXML
+    private ImageView ImageView2312;
+
+    @FXML
+    private ImageView ImageView3312;
+
+    @FXML
+    private Text P3MapName;
+
+    @FXML
+    private Text yourMapDiff12;
+
+    @FXML
+    private Circle P3Diff1;
+
+    @FXML
     private ImageView ImageView31;
 
     @FXML
@@ -141,9 +410,30 @@ public class MainGameViewController implements Initializable{
     @FXML
     private ImageView PublicGoalCard3;
 
+    @FXML
+    private Circle Diff6;
+
+    @FXML
+    private Circle Diff5;
+
+    @FXML
+    private Circle Diff3;
+
+    @FXML
+    private Circle Diff4;
+
+    @FXML
+    private Circle Diff1;
+
+    @FXML
+    private Circle Diff2;
 
     @FXML
     private ProgressBar TimeLine;
+
+    private int SelectedCardIndex;
+
+    private char[] SelectedCardId = new char[11];
 
     @FXML
     void handleDragDetection(MouseEvent event) {
@@ -160,15 +450,20 @@ public class MainGameViewController implements Initializable{
     @FXML
     void handleOnDragDropped(DragEvent event) {
         ImageView source = (ImageView) event.getTarget();
-        source.fitHeightProperty();
-        source.fitWidthProperty();
-        source.setImage(event.getDragboard().getImage());
-        Image image = new Image("Dices/EmptySpace.jpg");
-        origin.setImage(image);
+        if (source == null) {
+            source.setImage(event.getDragboard().getImage());
+            Image image = new Image("Dices/EmptySpace.jpg");
+            origin.setImage(image);
+        }
+        else{
+            ErrorMessage.setText("Non puoi piazzare qui il dado!");
+            }
     }
 
     public void handleDragDetection(javafx.scene.input.MouseEvent mouseEvent) {
         char[] SelectedDiceId = new char[11];
+
+        ErrorMessage.setText(null);
         origin = (ImageView) mouseEvent.getTarget();
         Dragboard db = origin.startDragAndDrop(TransferMode.ANY);
         ClipboardContent cb = new ClipboardContent();
@@ -179,7 +474,6 @@ public class MainGameViewController implements Initializable{
         mouseEvent.consume();
     }
 
-
     public void setPrimaryStage(Stage primaryStage) {  //to be removed only for gtesting
         this.primaryStage = primaryStage;
     }
@@ -188,6 +482,8 @@ public class MainGameViewController implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
         String mapName = "Celestial";
         yourMapName.setText(mapName);
+        setDifficulty(4);
+        setOtherPlayerMap(3);
     }
 
     public void Highlight(javafx.scene.input.MouseEvent mouseEvent) {
@@ -220,7 +516,55 @@ public class MainGameViewController implements Initializable{
     }
 
     public void Unselect(javafx.scene.input.MouseEvent mouseEvent) {
-        ImageView source = (ImageView) mouseEvent.getTarget();
-        source.setEffect(null);
+        if (selected == false) {
+            ImageView source = (ImageView) mouseEvent.getTarget();
+            source.setEffect(null);
+        }
+}
+
+    public void setDifficulty(int difficulty){
+        switch (difficulty){
+            case 6 : break;
+            case 5 : Diff6.setRadius(0); break;
+            case 4 : Diff6.setRadius(0); Diff5.setRadius(0); break;
+            case 3 : Diff6.setRadius(0); Diff5.setRadius(0); Diff5.setRadius(0); break;
+            case 2 : Diff6.setRadius(0); Diff5.setRadius(0); Diff5.setRadius(0); Diff4.setRadius(0); break;
+            case 1 : Diff6.setRadius(0); Diff5.setRadius(0); Diff5.setRadius(0); Diff4.setRadius(0); Diff2.setRadius(0); break;
+        default: break;
+        }
+    }
+
+    public void setOtherPlayerMap(int numOfPlayers){   //funzione che nasconde le mappe dei giocatori he non ci sono e inizializza le mappe stesse
+        switch (numOfPlayers){
+            case 4 : break;
+            case 3 : P3Map.setVisible(false); Player3.setVisible(false); break;
+            case 2 : P3Map.setVisible(false); Player3.setVisible(false); P1Map.setVisible(false); Player1.setVisible(false);break;
+            default: break;
+        }
+    }
+
+    private FadeTransition createFader(Node node) {
+        FadeTransition fade = new FadeTransition(Duration.seconds(5), node);
+        fade.setFromValue(1);
+        fade.setToValue(0);
+        return fade;
+    }
+
+
+    public void UseToolcard(javafx.scene.input.MouseEvent mouseEvent) {
+        ImageView card = (ImageView) mouseEvent.getTarget();
+        if(selected ==false){
+            SelectedCardId = card.getId().toCharArray();
+            SelectedCardIndex = Integer.parseInt(String.valueOf(SelectedCardId[8]));
+            ErrorMessage.setText("Hai selezionato la Toolcard: " + SelectedCardIndex);
+            selected = true;
+            DropShadow dropShadow = new DropShadow();
+            card.setEffect(dropShadow);
+        }
+        else {
+            selected = false;
+            ErrorMessage.setText(null);
+            card.setEffect(null);
+        }
     }
 }
