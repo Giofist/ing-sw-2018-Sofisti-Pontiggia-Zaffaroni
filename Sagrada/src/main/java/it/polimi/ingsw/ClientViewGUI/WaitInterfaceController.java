@@ -40,7 +40,7 @@ public class WaitInterfaceController extends AbstractController{
 
     @Override
     public void update(State state){
-        if(state!= State.MATCHNOTSTARTEDYETSTATE){
+        if(state!= State.MATCHNOTSTARTEDYETSTATE){ //TODO controllare sia corretto
             try {
                 createPane.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/ChooseMap.fxml"))));
             } catch (IOException e) {
