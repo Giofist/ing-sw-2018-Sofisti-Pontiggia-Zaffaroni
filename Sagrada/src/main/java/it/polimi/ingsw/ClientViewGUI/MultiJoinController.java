@@ -3,6 +3,7 @@ package it.polimi.ingsw.ClientViewGUI;
 import com.google.inject.internal.util.Strings;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
+import it.polimi.ingsw.model.Match;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,10 +17,17 @@ import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.Collections;
 import java.util.ResourceBundle;
 
-public class MultiJoinController implements Initializable{
+public class MultiJoinController extends AbstractController implements Initializable{
+
+    ObservableList<String> data = FXCollections.observableArrayList();
+
+    public MultiJoinController(){
+        ObserverGUI.Singleton().setController(this);
+    }
 
     @FXML
     private AnchorPane joinPane;
@@ -39,13 +47,28 @@ public class MultiJoinController implements Initializable{
     private JFXButton Back;
 
    @Override
-   public void initialize(URL url, ResourceBundle rb){
-       ObservableList<String> data = FXCollections.observableArrayList("gio", "gioco", "ehy","gio", "gioco", "ehy","gio", "gioco", "ehy","gio", "gioco", "ehy", "gio", "gioco", "ehy","gio", "gioco", "ehy");
-       gameList.setItems(data);
+
+   public void initialize(URL url, ResourceBundle rb) {
+       try {
+           for (Match match : ObserverGUI.Singleton().getServerController().getActiveMatchesList()) {
+               data.add(match.getName());
+           }
+       } catch (RemoteException e) {
+           ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
+       }
    }
 
     public void JoinGame(ActionEvent actionEvent) {
-        ErrorMessage.setText(gameList.getSelectionModel().getSelectedItem()); //how to obtain the selected game
+        try {
+            ObserverGUI.Singleton().getServerController().joinaGame(ObserverGUI.Singleton().getUsername(), ObserverGUI.Singleton(), gameList.getSelectionModel().getSelectedItem());
+            } catch (RemoteException e) {
+            ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
+        }
+        try {
+            joinPane.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/ChooseMap.fxml"))));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void goBack(ActionEvent actionEvent) {
@@ -56,11 +79,13 @@ public class MultiJoinController implements Initializable{
         }
     }
 
-    public void SelectGame(MouseEvent mouseEvent) {
-    }
-
     public void UpdateGameList(ActionEvent actionEvent) {
-        ObservableList<String> data = FXCollections.observableArrayList("gio", "gioco");
-        gameList.setItems(data);
+        try {
+            for (Match match : ObserverGUI.Singleton().getServerController().getActiveMatchesList()) {
+                data.add(match.getName());
+            }
+        } catch (RemoteException e) {
+            ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
+        }
     }
 }

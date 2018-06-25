@@ -10,23 +10,14 @@ import javafx.scene.text.Text;
 import java.io.IOException;
 import java.util.Collections;
 
-public class MultiSelectController {
+public class MultiSelectController extends AbstractController{
+
+    public MultiSelectController(){
+        ObserverGUI.Singleton().setController(this);
+    }
 
     @FXML
     private AnchorPane selectPane;
-
-    @FXML
-    private Text ErrorMessage;
-
-    @FXML
-    private JFXButton createGame;
-
-    @FXML
-    private JFXButton joinGame;
-
-    @FXML
-    private JFXButton Back;
-
 
     public void createGame(ActionEvent actionEvent) {
         try {

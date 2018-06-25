@@ -12,33 +12,16 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
 
-public class EntryPoint extends Application implements Observer{
+public class EntryPoint extends Application {
     static Stage stage;
-    public static ClientHandlerInterface serverController;
-    private static EntryPoint instance;
-    private String username = "Bob :)";
-
-    public static ClientHandlerInterface getServerController() {
-        return serverController;
-    }
-
-    public static void setServerController(ClientHandlerInterface controller) {
-        serverController = controller;
-    }
-
-    public static  EntryPoint Singleton() {
-        if (instance == null) {
-            instance = new EntryPoint();
-        }
-        return instance;
-    }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-/*
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/LogIn.fxml"));
         Parent root = loader.load();
@@ -49,8 +32,8 @@ public class EntryPoint extends Application implements Observer{
         primaryStage.setScene(scene);
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.show();
-*/
 
+/*
         FXMLLoader loader = new FXMLLoader();                //Code to test faster the game interface
         loader.setLocation(getClass().getResource("/MainGameView.fxml"));
         Parent root = loader.load();
@@ -61,60 +44,12 @@ public class EntryPoint extends Application implements Observer{
         primaryStage.setScene(scene);
         primaryStage.show();
 
+    }*/
     }
 
-
     public static void main(String[] args) {
-        EntryPoint.Singleton();
         launch(args);
     }
 
-    @Override
-    public synchronized void update(Observable o, Object arg) throws RemoteException {
-        State state = o.getState();
-        switch (state) {
-            case ERRORSTATE: {
-                break;
-            }
-            case HASSETADICESTATE: {
-                break;
-            }
-            case HASUSEDATOOLCARDACTIONSTATE: {
-                break;
-            }
-            case MATCHNOTSTARTEDYETSTATE: {
-                break;
-            }
-            case MUSTPASSTURNSTATE: {
-                break;
-            }
-            case MUSTSSETDILUENTEPERPASTASALDASTATE: {
-                break;
-            }
-            case MUSTSETPENNELLOPERPASTASALDASTATE: {
-                break;
-            }
-            case NOTYOURTURNSTATE: {
-                break;
-            }
-            case STARTTURNSTATE: {
-                break;
-            }
-            case ENDMATCHSTATE: {
-                break;
-            }
-            case MUSTSETSCHEMECARD: {
-                break;
-            }
-        }
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
 }
 

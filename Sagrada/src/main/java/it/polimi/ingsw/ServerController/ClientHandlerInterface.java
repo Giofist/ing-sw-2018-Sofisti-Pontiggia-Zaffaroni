@@ -21,7 +21,7 @@ public interface ClientHandlerInterface extends Remote {
 
     void createGame(String clientname, Observer client, String gamename ) throws  RemoteException;
 
-    List getActiveMatchesList() throws RemoteException;
+    List<Match> getActiveMatchesList() throws RemoteException;
     List<SchemeCard> getExtractedSchemeCard(String clientname) throws RemoteException;
     int getmyPoints(String clientname) throws RemoteException;
     List getPlayersinmymatch(String clientname) throws RemoteException;

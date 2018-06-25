@@ -10,7 +10,11 @@ import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.Collections;
 
-public class SettingsController {
+public class SettingsController extends AbstractController {
+
+    public SettingsController(){
+        ObserverGUI.Singleton().setController(this);
+    }
 
     @FXML
     private AnchorPane settingsPane;

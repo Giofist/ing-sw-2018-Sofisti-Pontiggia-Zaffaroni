@@ -25,15 +25,20 @@ import javax.tools.Tool;
 import java.awt.event.MouseEvent;
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.SplittableRandom;
 
-public class MainGameViewController implements Initializable {
+public class MainGameViewController extends AbstractController implements Initializable {
     ImageView origin = null;
     public Stage primaryStage; //only for testing
     int SelectedDiceIndex;
     boolean selected = false;
 
+    public MainGameViewController(){
+        ObserverGUI.Singleton().setController(this);
+    }
     @FXML
     private ImageView firstDice;
 
@@ -453,14 +458,11 @@ public class MainGameViewController implements Initializable {
 
     @FXML
     void handleOnDragDropped(DragEvent event) {
-        ImageView source = (ImageView) event.getTarget();
-        if (source == null) {
-            source.setImage(event.getDragboard().getImage());
-            Image image = new Image("Dices/EmptySpace.jpg");
-            origin.setImage(image);
-        } else {
-            ErrorMessage.setText("Non puoi piazzare qui il dado!");
-        }
+        ImageView destination = (ImageView) event.getTarget();
+            destination.setImage(event.getDragboard().getImage());
+            origin.setImage(null);
+           // ErrorMessage.setText("Non puoi piazzare qui il dado!");
+
     }
 
     public void handleDragDetection(javafx.scene.input.MouseEvent mouseEvent) {
@@ -477,9 +479,9 @@ public class MainGameViewController implements Initializable {
         mouseEvent.consume();
     }
 
-    public void setPrimaryStage(Stage primaryStage) {  //to be removed only for gtesting
+    /*public void setPrimaryStage(Stage primaryStage) {  //to be removed only for gtesting
         this.primaryStage = primaryStage;
-    }
+    }*/
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -487,7 +489,7 @@ public class MainGameViewController implements Initializable {
         yourMapName.setText(mapName);
         setDifficulty(4);
         setOtherPlayerMap(3);
-        //updateDicePool();
+        updateDicePool();
     }
 
     public void Highlight(javafx.scene.input.MouseEvent mouseEvent) {
@@ -610,7 +612,7 @@ public class MainGameViewController implements Initializable {
         String name;
         ImageView image = null;
         String imagePath;
-        String recivedFormServer = "4YELLOW-3RED-6BLUE-5VIOLET-1RED";
+        String recivedFormServer = "4YELLOW-3RED-6BLUE-5VIOLET-1RED-4RED";
         
         dices = recivedFormServer.split("-");
 /*
@@ -619,14 +621,69 @@ public class MainGameViewController implements Initializable {
         } catch (RemoteException e) {
             ErrorMessage.setText(Client.translator.translateException(e.getMessage()));
         }*/
-        for (String dice : dices) {
-            name = "RoundDice" + i;
-            charDice = dice.toCharArray();
-            imagePath = "Dices/" + charDice[1] + charDice[0];
-            Image pic = new Image(imagePath);
-            image.setImage(pic);
-            RoundDice0.setImage(pic);
+        //Image emptyPic = new Image("Dices/EmptySpace.jpg");
+        RoundDice0.setImage(null);
+        RoundDice1.setImage(null);
+        RoundDice2.setImage(null);
+        RoundDice3.setImage(null);
+        RoundDice4.setImage(null);
+        RoundDice5.setImage(null);
+        RoundDice6.setImage(null);
+        RoundDice7.setImage(null);
+        RoundDice8.setImage(null);
 
+        for (String dice : dices) {
+            charDice = dice.toCharArray();
+            imagePath = "Dices/" + charDice[1] + charDice[0] + ".jpg";
+
+            switch (i){
+                case 0: {
+                    Image pic = new Image(imagePath);
+                    RoundDice0.setImage(pic);
+                    break;
+                }
+                case 1: {
+                    Image pic = new Image(imagePath);
+                    RoundDice1.setImage(pic);
+                    break;
+                }
+                case 2: {
+                    Image pic = new Image(imagePath);
+                    RoundDice2.setImage(pic);
+                    break;
+                }
+                case 3: {
+                    Image pic = new Image(imagePath);
+                    RoundDice3.setImage(pic);
+                    break;
+                }
+                case 4: {
+                    Image pic = new Image(imagePath);
+                    RoundDice4.setImage(pic);
+                    break;
+                }
+                case 5: {
+                    Image pic = new Image(imagePath);
+                    RoundDice5.setImage(pic);
+                    break;
+                }
+                case 6: {
+                    Image pic = new Image(imagePath);
+                    RoundDice6.setImage(pic);
+                    break;
+                }
+                case 7: {
+                    Image pic = new Image(imagePath);
+                    RoundDice7.setImage(pic);
+                    break;
+                }
+                case 8: {
+                    Image pic = new Image(imagePath);
+                    RoundDice8.setImage(pic);
+                    break;
+                }
+            }
+            i++;
         }
     }
 }

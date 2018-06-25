@@ -37,13 +37,14 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ResourceBundle;
 
-public class LogInController implements Initializable{
+public class LogInController extends AbstractController implements Initializable{
     private String ipAddr = "127.0.0.1";
     private int port = 1337;
-
     public Stage primaryStage;
-    private Boolean connected = false;
 
+   public LogInController(){
+       ObserverGUI.Singleton().setController(this);
+    }
 
     @FXML
     private JFXTextField username;
@@ -61,19 +62,7 @@ public class LogInController implements Initializable{
     private JFXPasswordField password;
 
     @FXML
-    private JFXButton SigInButton;
-
-    @FXML
     private JFXButton ConnectButton;
-
-    @FXML
-    private JFXButton SignUpButton;
-
-    @FXML
-    private ImageView SagradaIcon;
-
-    @FXML
-    private Label Close;
 
     @FXML
     private Text LogInError;
@@ -110,23 +99,22 @@ public class LogInController implements Initializable{
     @FXML
     void signInOperation(MouseEvent event) {
         Parent menu = null;
-        /*try {
-            EntryPoint.Singleton().getServerController().login(username.getCharacters().toString(), password.getCharacters().toString(), EntryPoint.Singleton()); //TODO vedere fra per fixare  //TODO da un sacco di errori in RMI
-            LogInError.setText("Hai creato un nuovo account!");
-        } catch (RemoteException e) {
-            LogInError.setText(e.getMessage());
-        }*/
-        //EntryPoint.Singleton().setUsername(String.valueOf(username));
         try {
-            menu = FXMLLoader.load(getClass().getResource("/Menu.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+           ObserverGUI.Singleton().getServerController().login(username.getCharacters().toString(), password.getCharacters().toString(), ObserverGUI.Singleton());
+            ObserverGUI.Singleton().setUsername(username.getCharacters().toString());
+            try {
+                menu = FXMLLoader.load(getClass().getResource("/Menu.fxml"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             Scene scene = new Scene(menu);
             Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             appStage.setScene(scene);
             appStage.setFullScreen(true);
             appStage.show();
+        } catch (RemoteException e) {
+            LogInError.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
+        }
     }
 
     @FXML
@@ -139,30 +127,31 @@ public class LogInController implements Initializable{
 
     @FXML
     void signUpOperation(MouseEvent event) {
-       /*try {
-           EntryPoint.Singleton().getServerController().register(username.getCharacters().toString(), password.getCharacters().toString());  //TODO da un sacco di errori in RMI
-            LogInError.setText("Hai creato un nuovo account!");
+       try {
+           ObserverGUI.Singleton().getServerController().register(username.getCharacters().toString(), password.getCharacters().toString());
+            signUpConfirmation.setText("Hai creato un nuovo account!");
         } catch (RemoteException e) {
-            LogInError.setText("Esiste già un utente con lo stesso nome!");
-        }*/
+            LogInError.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
+        }
 
     }
 
     public void connect(ActionEvent actionEvent) {
-        ipAddr = String.valueOf(IPAddress);
-        port = Integer.parseInt(String.valueOf(PortField));
+        ipAddr = IPAddress.getCharacters().toString();
+        port = Integer.parseInt(PortField.getCharacters().toString());
+
         boolean correct = true;
-        if(connected){
             if(ConnectionSetUp.isSelected()){
                 try {
                     Socket socket = new Socket(ipAddr, port);
                     SocketClientListener  listener = new SocketClientListener(socket);
-                    EntryPoint.setServerController(new SocketController( listener));
-                    listener.setController(EntryPoint.getServerController(), EntryPoint.Singleton() );
+                    ObserverGUI.Singleton().setServerController(new SocketController( listener));
+                    listener.setController(ObserverGUI.Singleton().getServerController(), ObserverGUI.Singleton() );
                     new Thread(listener).start();
+                    connectionMessage.setText("Connection up!");
                 }catch (IOException e){
                     correct=false;
-                    connectionError.setText(e.getMessage());
+                    connectionError.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
                 }
             }
             else {
@@ -170,31 +159,16 @@ public class LogInController implements Initializable{
                 try {
                     rmiRegistry = LocateRegistry.getRegistry(ipAddr);
                     ClientHandlerInterface controller= (ClientHandlerInterface) rmiRegistry.lookup("ClientHandler");
-                    EntryPoint.setServerController(controller);
+                    ObserverGUI.Singleton().setServerController(controller);
+                    connectionMessage.setText("Connection up!");
                 } catch (Exception e) {
                     correct=false;
-                    connectionMessage.setText(e.getMessage());
+                    connectionMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
                 }
-
-
-
             }
-            if(correct) {
-                ConnectButton.setText("Connect");
-                connectionMessage.setText("Disconnected!");
-                connected = false;
-            }
-            else{
-                connectionError.setText("Qualcosa è andato storto!");
-                }
-        }
-        else{
-            ConnectButton.setText("Disconnect");
-            connectionMessage.setText("Connection up!");
-            connected = true;
+        ConnectButton.setVisible(false);
         }
 
-    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
