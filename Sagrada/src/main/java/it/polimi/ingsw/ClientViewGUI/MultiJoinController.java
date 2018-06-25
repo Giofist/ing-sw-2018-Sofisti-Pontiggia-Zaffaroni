@@ -87,9 +87,12 @@ public class MultiJoinController extends AbstractController implements Initializ
     }
     @Override
     public void update(State state){
+
         if(state == State.MATCHNOTSTARTEDYETSTATE){
             try {
-                joinPane.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/WaitInterface.fxml"))));
+                synchronized (this) {
+                    joinPane.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/WaitInterface.fxml"))));
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
