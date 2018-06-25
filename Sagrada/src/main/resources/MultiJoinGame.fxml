@@ -22,7 +22,7 @@
                         <Font name="System Bold" size="40.0" />
                      </font>
                   </Text>
-                  <JFXListView fx:id="gameList" onMouseClicked="#SelectGame" />
+                  <JFXListView fx:id="gameList" />
                   <Text fx:id="ErrorMessage" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER">
                      <font>
                         <Font name="System Bold" size="30.0" />

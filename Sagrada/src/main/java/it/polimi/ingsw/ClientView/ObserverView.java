@@ -55,7 +55,7 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
                     wait();
                     this.thread.start();
                     if(leave){
-                        leaveMatch= true;
+                        leaveMatch = true;
                         wait();
                     }
                 } catch (InterruptedException e) {
