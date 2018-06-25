@@ -11,80 +11,152 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.Collections;
 import java.util.ResourceBundle;
 
 public class ChooseMapController extends AbstractController implements Initializable {
-    BorderPane selected = null;
+    GridPane selected = null;
 
     public ChooseMapController(){
         ObserverGUI.Singleton().setController(this);
     }
 
-    @FXML
-    private AnchorPane selectPane;
+        @FXML
+        private AnchorPane selectPane;
 
-    @FXML
-    private Text ErrorMessage;
+        @FXML
+        private GridPane map1;
 
-    @FXML
-    private JFXButton Back;
+        @FXML
+        private Text mapName1;
 
-    @FXML
-    private JFXButton Play;
+        @FXML
+        private Text yourMapDiff;
 
-    @FXML
-    private BorderPane map1;
+        @FXML
+        private Circle Diff16;
 
-    @FXML
-    private GridPane yourMap;
+        @FXML
+        private Circle Diff15;
 
-    @FXML
-    private Text yourMapName;
+        @FXML
+        private Circle Diff13;
 
-    @FXML
-    private Text yourMapDiff;
+        @FXML
+        private Circle Diff14;
 
-    @FXML
-    private BorderPane map2;
+        @FXML
+        private Circle Diff11;
 
-    @FXML
-    private GridPane yourMap2;
+        @FXML
+        private Circle Diff12;
 
-    @FXML
-    private Text yourMapName2;
+        @FXML
+        private Text mapName2;
 
-    @FXML
-    private Text yourMapDiff2;
+        @FXML
+        private Text yourMapDiff2;
 
-    @FXML
-    private BorderPane map3;
+        @FXML
+        private Circle Diff26;
 
-    @FXML
-    private GridPane yourMap1;
+        @FXML
+        private Circle Diff25;
 
-    @FXML
-    private Text yourMapName1;
+        @FXML
+        private Circle Diff23;
 
-    @FXML
-    private Text yourMapDiff1;
+        @FXML
+        private Circle Diff24;
 
-    @FXML
-    private BorderPane map4;
+        @FXML
+        private Circle Diff21;
 
-    @FXML
-    private GridPane yourMap21;
+        @FXML
+        private Circle Diff22;
 
-    @FXML
-    private Text yourMapName21;
+        @FXML
+        private GridPane map2;
 
-    @FXML
-    private Text yourMapDiff21;
+        @FXML
+        private Text mapName3;
+
+        @FXML
+        private Text yourMapDiff1;
+
+        @FXML
+        private Circle Diff36;
+
+        @FXML
+        private Circle Diff35;
+
+        @FXML
+        private Circle Diff33;
+
+        @FXML
+        private Circle Diff34;
+
+        @FXML
+        private Circle Diff31;
+
+        @FXML
+        private Circle Diff32;
+
+        @FXML
+        private GridPane map3;
+
+        @FXML
+        private Text mapName4;
+
+        @FXML
+        private Text yourMapDiff3;
+
+        @FXML
+        private Circle Diff46;
+
+        @FXML
+        private Circle Diff45;
+
+        @FXML
+        private Circle Diff43;
+
+        @FXML
+        private Circle Diff44;
+
+        @FXML
+        private Circle Diff41;
+
+        @FXML
+        private Circle Diff42;
+
+        @FXML
+        private GridPane map4;
+
+        @FXML
+        private JFXButton Back;
+
+        @FXML
+        private Text ErrorMessage;
+
+        @FXML
+        private JFXButton Play;
+
+        @FXML
+        void goBack(ActionEvent event) {
+
+        }
+
+        @FXML
+        void startGame(ActionEvent event) {
+
+        }
 
     public void Select(javafx.scene.input.MouseEvent mouseEvent) {
         Pane map = (Pane) mouseEvent.getTarget();
@@ -137,6 +209,12 @@ public class ChooseMapController extends AbstractController implements Initializ
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        try {
+            ObserverGUI.Singleton().getServerController().getExtractedSchemeCard(ObserverGUI.Singleton().getUsername());
+        } catch (RemoteException e) {
+            ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
+        }
+
 
     }
 

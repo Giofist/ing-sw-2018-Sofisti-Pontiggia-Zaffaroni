@@ -39,13 +39,6 @@ public class MultiJoinController extends AbstractController implements Initializ
     @FXML
     private JFXListView<String> gameList;
 
-    @FXML
-    private JFXButton joinaGame;
-
-    @FXML
-    private JFXButton updateList;
-    @FXML
-    private JFXButton Back;
 
    @Override
 
@@ -53,6 +46,7 @@ public class MultiJoinController extends AbstractController implements Initializ
        try {
            for (Match match : ObserverGUI.Singleton().getServerController().getActiveMatchesList()) {
                data.add(match.getName());
+               gameList.setItems(data);
            }
        } catch (RemoteException e) {
            ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
@@ -81,9 +75,11 @@ public class MultiJoinController extends AbstractController implements Initializ
     }
 
     public void UpdateGameList(ActionEvent actionEvent) {
+        gameList.setItems(null);
         try {
             for (Match match : ObserverGUI.Singleton().getServerController().getActiveMatchesList()) {
                 data.add(match.getName());
+                gameList.setItems(data);
             }
         } catch (RemoteException e) {
             ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));

@@ -31,7 +31,7 @@
                      <children>
                         <VBox prefHeight="733.0" prefWidth="400.0">
                            <children>
-                              <BorderPane fx:id="map1" maxHeight="340.0" maxWidth="380.0" onMouseClicked="#selectMap1" prefHeight="340.0" prefWidth="380.0">
+                              <BorderPane maxHeight="340.0" maxWidth="380.0" onMouseClicked="#selectMap1" prefHeight="340.0" prefWidth="380.0">
                                  <center>
                                     <GridPane fx:id="yourMap" gridLinesVisible="true">
                                        <columnConstraints>
@@ -176,7 +176,7 @@
                                     <Insets bottom="10.0" />
                                  </VBox.margin>
                               </BorderPane>
-                              <BorderPane fx:id="map2" maxHeight="340.0" maxWidth="380.0" onMouseClicked="#selectMap2" prefHeight="340.0" prefWidth="380.0">
+                              <BorderPane maxHeight="340.0" maxWidth="380.0" onMouseClicked="#selectMap2" prefHeight="340.0" prefWidth="380.0">
                                  <center>
                                     <GridPane fx:id="yourMap2" gridLinesVisible="true">
                                        <columnConstraints>
@@ -325,7 +325,7 @@
                         </VBox>
                         <VBox prefHeight="771.0" prefWidth="400.0">
                            <children>
-                              <BorderPane fx:id="map3" maxHeight="340.0" maxWidth="380.0" onMouseClicked="#selectMap3" prefHeight="340.0" prefWidth="380.0">
+                              <BorderPane maxHeight="340.0" maxWidth="380.0" onMouseClicked="#selectMap3" prefHeight="340.0" prefWidth="380.0">
                                  <center>
                                     <GridPane fx:id="yourMap1" gridLinesVisible="true">
                                        <columnConstraints>
@@ -470,7 +470,7 @@
                                     <Insets bottom="10.0" />
                                  </VBox.margin>
                               </BorderPane>
-                              <BorderPane fx:id="map3" maxHeight="340.0" maxWidth="380.0" onMouseClicked="#selectMap3" prefHeight="340.0" prefWidth="380.0">
+                              <BorderPane maxHeight="340.0" maxWidth="380.0" onMouseClicked="#selectMap3" prefHeight="340.0" prefWidth="380.0">
                                  <center>
                                     <GridPane fx:id="yourMap3" gridLinesVisible="true">
                                        <columnConstraints>
