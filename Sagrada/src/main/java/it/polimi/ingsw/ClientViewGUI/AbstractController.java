@@ -1,5 +1,7 @@
 package it.polimi.ingsw.ClientViewGUI;
 
-public abstract class AbstractController {
+import it.polimi.ingsw.model.PlayerPackage.State;
 
+public abstract class AbstractController {
+    public void update(State state){};
 }

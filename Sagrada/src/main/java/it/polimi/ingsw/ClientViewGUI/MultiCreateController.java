@@ -2,7 +2,8 @@ package it.polimi.ingsw.ClientViewGUI;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import it.polimi.ingsw.ClientView.Client;
+import it.polimi.ingsw.model.PlayerPackage.State;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +15,7 @@ import java.rmi.RemoteException;
 import java.util.Collections;
 
 public class MultiCreateController extends AbstractController {
+    private Thread thread;
 
     public MultiCreateController(){
         ObserverGUI.Singleton().setController(this);
@@ -39,21 +41,13 @@ public class MultiCreateController extends AbstractController {
 
 
         public void createGame(ActionEvent actionEvent) {
-                try {
-                        ObserverGUI.Singleton().getServerController().createGame(ObserverGUI.Singleton().getUsername(), ObserverGUI.Singleton(),gameName.getCharacters().toString());
-                } catch (RemoteException e) {
-                        ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
-                }
             try {
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                ObserverGUI.Singleton().getServerController().createGame(ObserverGUI.Singleton().getUsername(), ObserverGUI.Singleton(),gameName.getCharacters().toString());
             }
-            try {
-                createPane.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/ChooseMap.fxml"))));
-            } catch (IOException e) {
-                e.printStackTrace();
+            catch (RemoteException e) {
+                ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
             }
+            loadNext();
         }
 
         public void goBack(ActionEvent actionEvent) {
@@ -61,6 +55,21 @@ public class MultiCreateController extends AbstractController {
                 createPane.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/MultiSelectMode.fxml"))));
             } catch (IOException e) {
                     e.printStackTrace();
+            }
+        }
+
+        public synchronized void loadNext(){
+
+        }
+
+        @Override
+        public void update(State state){
+            if(state == State.MATCHNOTSTARTEDYETSTATE){
+                try {
+                    createPane.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/WaitInterface.fxml"))));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
 }

@@ -53,43 +53,8 @@ public class ObserverGUI extends UnicastRemoteObject implements Observer {
 
     @Override
     public synchronized void update(Observable o, Object arg) throws RemoteException {
-        State state = o.getState();
-        switch (state) {
-            case ERRORSTATE: {
-                break;
-            }
-            case HASSETADICESTATE: {
-                break;
-            }
-            case HASUSEDATOOLCARDACTIONSTATE: {
-                break;
-            }
-            case MATCHNOTSTARTEDYETSTATE: {
-
-                break;
-            }
-            case MUSTPASSTURNSTATE: {
-                break;
-            }
-            case MUSTSSETDILUENTEPERPASTASALDASTATE: {
-                break;
-            }
-            case MUSTSETPENNELLOPERPASTASALDASTATE: {
-                break;
-            }
-            case NOTYOURTURNSTATE: {
-                break;
-            }
-            case STARTTURNSTATE: {
-                break;
-            }
-            case ENDMATCHSTATE: {
-                break;
-            }
-            case MUSTSETSCHEMECARD: {
-                break;
-            }
+        this.controller.update(o.getState());
         }
     }
 
-}
+

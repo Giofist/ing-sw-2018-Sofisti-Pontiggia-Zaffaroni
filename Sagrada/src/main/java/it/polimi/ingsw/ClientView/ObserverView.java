@@ -55,7 +55,7 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
                     wait();
                     this.thread.start();
                     if(leave){
-                        leaveMatch= true;
+                        leaveMatch = true;
                         wait();
                     }
                 } catch (InterruptedException e) {
@@ -292,7 +292,6 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
             case ENDMATCHSTATE: {
                 leave = true;
                 this.thread = new Thread(new EndMatchStateView(serverController, yourName, this));
-
                 break;
             }
             case MUSTSETSCHEMECARD: {
