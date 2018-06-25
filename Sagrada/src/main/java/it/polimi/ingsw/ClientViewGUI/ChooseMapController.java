@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
 public class ChooseMapController extends AbstractController implements Initializable {
     BorderPane selected = null;
 
-    ChooseMapController(){
+    public ChooseMapController(){
         ObserverGUI.Singleton().setController(this);
     }
 

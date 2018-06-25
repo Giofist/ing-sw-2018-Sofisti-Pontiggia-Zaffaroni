@@ -12,7 +12,7 @@ import java.util.Collections;
 
 public class SettingsController extends AbstractController {
 
-    SettingsController(){
+    public SettingsController(){
         ObserverGUI.Singleton().setController(this);
     }
 

@@ -36,6 +36,9 @@ public class MainGameViewController extends AbstractController implements Initia
     int SelectedDiceIndex;
     boolean selected = false;
 
+    public MainGameViewController(){
+        ObserverGUI.Singleton().setController(this);
+    }
     @FXML
     private ImageView firstDice;
 

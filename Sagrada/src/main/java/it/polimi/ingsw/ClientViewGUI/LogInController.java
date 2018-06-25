@@ -42,8 +42,8 @@ public class LogInController extends AbstractController implements Initializable
     private int port = 1337;
     public Stage primaryStage;
 
-    LogInController(){
-        ObserverGUI.Singleton().setController(this);
+   public LogInController(){
+       ObserverGUI.Singleton().setController(this);
     }
 
     @FXML

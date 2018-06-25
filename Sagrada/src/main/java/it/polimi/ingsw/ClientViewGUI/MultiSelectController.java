@@ -12,7 +12,7 @@ import java.util.Collections;
 
 public class MultiSelectController extends AbstractController{
 
-    MultiSelectController(){
+    public MultiSelectController(){
         ObserverGUI.Singleton().setController(this);
     }
 

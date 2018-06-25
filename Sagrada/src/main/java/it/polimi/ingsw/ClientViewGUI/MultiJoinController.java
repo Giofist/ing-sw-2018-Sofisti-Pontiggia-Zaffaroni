@@ -25,7 +25,7 @@ public class MultiJoinController extends AbstractController implements Initializ
 
     ObservableList<String> data = FXCollections.observableArrayList();
 
-    MultiJoinController(){
+    public MultiJoinController(){
         ObserverGUI.Singleton().setController(this);
     }
 

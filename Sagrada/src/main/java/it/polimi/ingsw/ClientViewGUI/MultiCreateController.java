@@ -15,7 +15,7 @@ import java.util.Collections;
 
 public class MultiCreateController extends AbstractController {
 
-    MultiCreateController(){
+    public MultiCreateController(){
         ObserverGUI.Singleton().setController(this);
     }
 

@@ -23,7 +23,7 @@ public class MenuController extends AbstractController implements Initializable 
     Stage stage = null;
     Parent myNewScene = null;
 
-    MenuController(){
+    public MenuController(){
         ObserverGUI.Singleton().setController(this);
     }
         @FXML
