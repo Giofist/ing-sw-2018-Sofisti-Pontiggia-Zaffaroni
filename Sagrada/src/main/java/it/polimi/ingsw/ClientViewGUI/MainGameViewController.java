@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ClientViewGUI;
 
+import it.polimi.ingsw.ClientView.Client;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -23,9 +24,11 @@ import javafx.util.Duration;
 import javax.tools.Tool;
 import java.awt.event.MouseEvent;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ResourceBundle;
+import java.util.SplittableRandom;
 
-public class MainGameViewController implements Initializable{
+public class MainGameViewController implements Initializable {
     ImageView origin = null;
     public Stage primaryStage; //only for testing
     int SelectedDiceIndex;
@@ -439,9 +442,10 @@ public class MainGameViewController implements Initializable{
     void handleDragDetection(MouseEvent event) {
 
     }
+
     @FXML
     void handleImageDragOver(DragEvent event) {
-        if(event.getDragboard().hasImage()){
+        if (event.getDragboard().hasImage()) {
             event.acceptTransferModes(TransferMode.ANY);
         }
     }
@@ -454,10 +458,9 @@ public class MainGameViewController implements Initializable{
             source.setImage(event.getDragboard().getImage());
             Image image = new Image("Dices/EmptySpace.jpg");
             origin.setImage(image);
-        }
-        else{
+        } else {
             ErrorMessage.setText("Non puoi piazzare qui il dado!");
-            }
+        }
     }
 
     public void handleDragDetection(javafx.scene.input.MouseEvent mouseEvent) {
@@ -484,6 +487,7 @@ public class MainGameViewController implements Initializable{
         yourMapName.setText(mapName);
         setDifficulty(4);
         setOtherPlayerMap(3);
+        //updateDicePool();
     }
 
     public void Highlight(javafx.scene.input.MouseEvent mouseEvent) {
@@ -520,26 +524,58 @@ public class MainGameViewController implements Initializable{
             ImageView source = (ImageView) mouseEvent.getTarget();
             source.setEffect(null);
         }
-}
+    }
 
-    public void setDifficulty(int difficulty){
-        switch (difficulty){
-            case 6 : break;
-            case 5 : Diff6.setRadius(0); break;
-            case 4 : Diff6.setRadius(0); Diff5.setRadius(0); break;
-            case 3 : Diff6.setRadius(0); Diff5.setRadius(0); Diff5.setRadius(0); break;
-            case 2 : Diff6.setRadius(0); Diff5.setRadius(0); Diff5.setRadius(0); Diff4.setRadius(0); break;
-            case 1 : Diff6.setRadius(0); Diff5.setRadius(0); Diff5.setRadius(0); Diff4.setRadius(0); Diff2.setRadius(0); break;
-        default: break;
+    public void setDifficulty(int difficulty) {
+        switch (difficulty) {
+            case 6:
+                break;
+            case 5:
+                Diff6.setRadius(0);
+                break;
+            case 4:
+                Diff6.setRadius(0);
+                Diff5.setRadius(0);
+                break;
+            case 3:
+                Diff6.setRadius(0);
+                Diff5.setRadius(0);
+                Diff5.setRadius(0);
+                break;
+            case 2:
+                Diff6.setRadius(0);
+                Diff5.setRadius(0);
+                Diff5.setRadius(0);
+                Diff4.setRadius(0);
+                break;
+            case 1:
+                Diff6.setRadius(0);
+                Diff5.setRadius(0);
+                Diff5.setRadius(0);
+                Diff4.setRadius(0);
+                Diff2.setRadius(0);
+                break;
+            default:
+                break;
         }
     }
 
-    public void setOtherPlayerMap(int numOfPlayers){   //funzione che nasconde le mappe dei giocatori he non ci sono e inizializza le mappe stesse
-        switch (numOfPlayers){
-            case 4 : break;
-            case 3 : P3Map.setVisible(false); Player3.setVisible(false); break;
-            case 2 : P3Map.setVisible(false); Player3.setVisible(false); P1Map.setVisible(false); Player1.setVisible(false);break;
-            default: break;
+    public void setOtherPlayerMap(int numOfPlayers) {   //funzione che nasconde le mappe dei giocatori he non ci sono e inizializza le mappe stesse
+        switch (numOfPlayers) {
+            case 4:
+                break;
+            case 3:
+                P3Map.setVisible(false);
+                Player3.setVisible(false);
+                break;
+            case 2:
+                P3Map.setVisible(false);
+                Player3.setVisible(false);
+                P1Map.setVisible(false);
+                Player1.setVisible(false);
+                break;
+            default:
+                break;
         }
     }
 
@@ -553,18 +589,44 @@ public class MainGameViewController implements Initializable{
 
     public void UseToolcard(javafx.scene.input.MouseEvent mouseEvent) {
         ImageView card = (ImageView) mouseEvent.getTarget();
-        if(selected ==false){
+        if (selected == false) {
             SelectedCardId = card.getId().toCharArray();
             SelectedCardIndex = Integer.parseInt(String.valueOf(SelectedCardId[8]));
             ErrorMessage.setText("Hai selezionato la Toolcard: " + SelectedCardIndex);
             selected = true;
             DropShadow dropShadow = new DropShadow();
             card.setEffect(dropShadow);
-        }
-        else {
+        } else {
             selected = false;
             ErrorMessage.setText(null);
             card.setEffect(null);
+        }
+    }
+
+    public void updateDicePool() {
+        int i = 0;
+        char[] charDice;
+        String[] dices = new String[0];
+        String name;
+        ImageView image = null;
+        String imagePath;
+        String recivedFormServer = "4YELLOW-3RED-6BLUE-5VIOLET-1RED";
+        
+        dices = recivedFormServer.split("-");
+/*
+        try {
+            dices = EntryPoint.Singleton().getRoundDicepool(yourName).split("-");
+        } catch (RemoteException e) {
+            ErrorMessage.setText(Client.translator.translateException(e.getMessage()));
+        }*/
+        for (String dice : dices) {
+            name = "RoundDice" + i;
+            charDice = dice.toCharArray();
+            imagePath = "Dices/" + charDice[1] + charDice[0];
+            Image pic = new Image(imagePath);
+            image.setImage(pic);
+            RoundDice0.setImage(pic);
+
         }
     }
 }

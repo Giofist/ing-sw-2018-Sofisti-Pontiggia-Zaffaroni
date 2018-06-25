@@ -146,7 +146,6 @@ public class Printer {
             System.out.println();
             i++;
         }
-        //this.numOfDice = i;
         System.out.println();
     }
 
