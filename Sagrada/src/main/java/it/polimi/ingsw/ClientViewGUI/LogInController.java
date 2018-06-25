@@ -3,10 +3,13 @@ package it.polimi.ingsw.ClientViewGUI;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import it.polimi.ingsw.ClientView.Observer;
 import it.polimi.ingsw.ClientView.ObserverView;
 import it.polimi.ingsw.NetworkClient.SocketClientListener;
 import it.polimi.ingsw.NetworkClient.SocketController;
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
+import it.polimi.ingsw.model.Observable;
+import it.polimi.ingsw.model.PlayerPackage.State;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,7 +26,9 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import javax.sound.sampled.Port;
 import java.io.IOException;
+import java.net.Socket;
 import java.net.URI;
 import java.net.URL;
 import java.rmi.NotBoundException;
@@ -35,8 +40,10 @@ import java.util.ResourceBundle;
 public class LogInController implements Initializable{
     private String ipAddr = "127.0.0.1";
     private int port = 1337;
+
     public Stage primaryStage;
     private Boolean connected = false;
+
 
     @FXML
     private JFXTextField username;
@@ -103,18 +110,19 @@ public class LogInController implements Initializable{
     @FXML
     void signInOperation(MouseEvent event) {
         Parent menu = null;
-       /*try {
-            EntryPoint.Singleton().getServerController().login(username.getCharacters().toString(), password.getCharacters().toString());  //TODO da un sacco di errori in RMI
+        /*try {
+            EntryPoint.Singleton().getServerController().login(username.getCharacters().toString(), password.getCharacters().toString(), EntryPoint.Singleton()); //TODO vedere fra per fixare  //TODO da un sacco di errori in RMI
             LogInError.setText("Hai creato un nuovo account!");
         } catch (RemoteException e) {
             LogInError.setText(e.getMessage());
         }*/
+        //EntryPoint.Singleton().setUsername(String.valueOf(username));
         try {
             menu = FXMLLoader.load(getClass().getResource("/Menu.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Scene scene = new Scene(menu);
+            Scene scene = new Scene(menu);
             Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             appStage.setScene(scene);
             appStage.setFullScreen(true);
@@ -142,40 +150,33 @@ public class LogInController implements Initializable{
 
     public void connect(ActionEvent actionEvent) {
         ipAddr = String.valueOf(IPAddress);
-        //SocketClientListener.setPort(Integer.parseInt(String.valueOf(Port))); //todo come lo sistemo???
-        Boolean correct = true;
-        if(connected == true){
+        port = Integer.parseInt(String.valueOf(PortField));
+        boolean correct = true;
+        if(connected){
             if(ConnectionSetUp.isSelected()){
-                SocketClientListener listener = null;
                 try {
-                    listener = new SocketClientListener(ipAddr);
-                } catch (IOException e) {
+                    Socket socket = new Socket(ipAddr, port);
+                    SocketClientListener  listener = new SocketClientListener(socket);
+                    EntryPoint.setServerController(new SocketController( listener));
+                    listener.setController(EntryPoint.getServerController(), EntryPoint.Singleton() );
+                    new Thread(listener).start();
+                }catch (IOException e){
                     correct=false;
-                    connectionError.setText("IP errato!");
+                    connectionError.setText(e.getMessage());
                 }
-                EntryPoint.Singleton().setSocketController(new SocketController( listener));
-                listener.setController(EntryPoint.Singleton().getSocketController(), EntryPoint.Singleton());
-                new Thread(listener).start();
             }
             else {
                 Registry rmiRegistry = null;
                 try {
                     rmiRegistry = LocateRegistry.getRegistry(ipAddr);
-                } catch (RemoteException e) {
+                    ClientHandlerInterface controller= (ClientHandlerInterface) rmiRegistry.lookup("ClientHandler");
+                    EntryPoint.setServerController(controller);
+                } catch (Exception e) {
                     correct=false;
-                    connectionMessage.setText("IP errato!");
+                    connectionMessage.setText(e.getMessage());
                 }
-                ClientHandlerInterface controller = null;
-                try {
-                    controller = (ClientHandlerInterface) rmiRegistry.lookup("ClientHandler");
-                } catch (RemoteException e) {
-                    correct = false;
-                    connectionError.setText("RMI error!");
-                } catch (NotBoundException e) {
-                    correct = false;
-                    connectionError.setText("RMI error!");
-                }
-                EntryPoint.Singleton().setServerController(controller);
+
+
 
             }
             if(correct) {
@@ -192,6 +193,7 @@ public class LogInController implements Initializable{
             connectionMessage.setText("Connection up!");
             connected = true;
         }
+
     }
 
     @Override
@@ -199,4 +201,7 @@ public class LogInController implements Initializable{
         PortField.setText(String.valueOf(port));
         IPAddress.setText(String.valueOf(ipAddr));
     }
-}
+
+
+    }
+

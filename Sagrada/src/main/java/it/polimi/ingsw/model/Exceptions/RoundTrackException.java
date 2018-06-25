@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model.Exceptions;
 
 public class RoundTrackException extends Exception {
-    private static final String msg = "Qualche problema sul Tracciato Round\n";
+    private static final String msg = "40";
     public RoundTrackException() {
         super(msg);
     }

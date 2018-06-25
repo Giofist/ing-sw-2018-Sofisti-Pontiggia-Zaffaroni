@@ -6,18 +6,18 @@ import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.PennelloP
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PlayerPackage.State;
+import it.polimi.ingsw.model.UsersList;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 
-public class PennelloperEglomise extends ToolAction {
+public class PennelloperEglomise extends ToolAction implements Serializable {
 
     private Dice removedDice;
     public PennelloperEglomise(){
         this.cost =1;
         this.ID=2;
-        this.cardTitle = "Pennello per Eglomise";
-        this.description = "Muovi un qualsiasi dado nella tua vetrata ignorando le restrizioni di colore.\n" +
-                "Devi rispettare tutte le altre restrizioni di piazzamento.";
+
     }
 
     @Override
@@ -32,7 +32,11 @@ public class PennelloperEglomise extends ToolAction {
                     player.setPlayerState(State.MUSTPASSTURNSTATE);
                 }else player.setPlayerState(State.HASUSEDATOOLCARDACTIONSTATE);
             }catch (RemoteException e){
-                player.getAssociatedUser().setActive(false);
+                try{
+                    UsersList.Singleton().getUser(player.getName()).setActive(false);
+                }catch(Exception err){
+                    //do nothing
+                }
                 player.getTurn().countDown();
             }
 
@@ -42,7 +46,7 @@ public class PennelloperEglomise extends ToolAction {
             }catch(Exception er){
                 //do nothing, sorry!
             }
-            throw new PennelloPerEglomiseException(PennelloPerEglomiseException.getMsg() + e.getMessage());
+            throw new PennelloPerEglomiseException();
         }
     }
 }

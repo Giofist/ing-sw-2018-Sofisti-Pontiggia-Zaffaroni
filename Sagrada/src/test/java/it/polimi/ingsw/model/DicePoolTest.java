@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.model.Exceptions.EmpyDicepoolException;
+import it.polimi.ingsw.model.Exceptions.DicepoolIndexException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -65,7 +65,7 @@ public class DicePoolTest {
 
     // This method tests if adding dices to the Dicepool works properly
     @Test
-    public void insertDiceTest() throws EmpyDicepoolException {
+    public void insertDiceTest() throws DicepoolIndexException {
         assertEquals(0, dicePool.getDicePoolSize());
 
         dicePool.insertDice(DiceColor.YELLOW);
@@ -76,7 +76,7 @@ public class DicePoolTest {
 
     // This method tests the addDice function which is a method used only for RoundDicePool for which a Dice is directly passed
     @Test
-    public void addDiceTest() throws EmpyDicepoolException {
+    public void addDiceTest() throws DicepoolIndexException {
         assertEquals(0, dicePool.getDicePoolSize());
         dicePool.addDice(mockDice);
         assertEquals(1, dicePool.getDicePoolSize());
@@ -89,7 +89,7 @@ public class DicePoolTest {
 
     // This method will test addDice(int selectedDiceIndex,Dice dice)
     @Test
-    public void addDiceTest2() throws EmpyDicepoolException {
+    public void addDiceTest2() throws DicepoolIndexException {
         assertEquals(0, dicePool.getDicePoolSize());
         dicePool.addDice(0, mockDice);
 
@@ -101,7 +101,7 @@ public class DicePoolTest {
 
 
     @Test
-    public void getDiceTest() throws EmpyDicepoolException {
+    public void getDiceTest() throws DicepoolIndexException {
         dicePool = new DicePool(18, 18, 18, 18, 18);
 
         Dice dice = dicePool.getDice(23);
@@ -112,13 +112,13 @@ public class DicePoolTest {
     }
 
     @Test (expected = IndexOutOfBoundsException.class)
-    public void getDiceExceptionTest() throws EmpyDicepoolException {
+    public void getDiceExceptionTest() throws DicepoolIndexException {
         dicePool = new DicePool(18, 18, 18, 18, 18);
         dicePool.getDice(1000);
     }
 
-    @Test (expected = EmpyDicepoolException.class)
-    public void getDiceEmpyDicepoolExceptionTest() throws EmpyDicepoolException {
+    @Test (expected = DicepoolIndexException.class)
+    public void getDiceEmpyDicepoolExceptionTest() throws DicepoolIndexException {
         dicePool.getDice(0);
     }
 
@@ -133,7 +133,7 @@ public class DicePoolTest {
 
 
     @Test
-    public void addAllDicesTest() throws EmpyDicepoolException {
+    public void addAllDicesTest() throws DicepoolIndexException {
         List<Dice> dices = Arrays.asList(mockDice, mockDice);
         assertEquals(0, dicePool.getDicePoolSize());
         dicePool.addallDices(dices);
@@ -147,7 +147,7 @@ public class DicePoolTest {
 
 
     @Test
-    public void getAllDicesButNotRemoveTest() throws EmpyDicepoolException {
+    public void getAllDicesButNotRemoveTest() throws DicepoolIndexException {
         dicePool = new DicePool(18, 18, 18, 18, 18);
         List<Dice> dices= new LinkedList<Dice>();
 
@@ -162,7 +162,7 @@ public class DicePoolTest {
 
 
     @Test
-    public void extractTest() throws EmpyDicepoolException {
+    public void extractTest() throws DicepoolIndexException {
         dicePool = new DicePool(18,18,18,18,18);
 
         assertEquals(90, dicePool.getDicePoolSize());
@@ -171,8 +171,8 @@ public class DicePoolTest {
     }
 
     // This method in the tested class will soon throw an EmptyException
-    @Test (expected = EmpyDicepoolException.class)
-    public void extractEmpyDicepoolExceptionTest() throws EmpyDicepoolException {
+    @Test (expected = DicepoolIndexException.class)
+    public void extractEmpyDicepoolExceptionTest() throws DicepoolIndexException {
         dicePool.extractDice();
     }
 

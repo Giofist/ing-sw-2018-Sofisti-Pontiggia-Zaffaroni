@@ -44,7 +44,6 @@ public class SfumatureTest {
 
         player = new Player();
         player.setMatch(mockMatch);
-        player.setUser(user);
         player.addExtractedSchemeCard(schemeCard);
         player.setScheme(2);
     }
@@ -73,28 +72,18 @@ public class SfumatureTest {
         switch (privateGoalCard.getID()){
             case 1:
                 assertEquals(3, player.getPoints());
-                assertEquals("Sfumature RED.", privateGoalCard.getName());
-                assertEquals("Somma dei valori su tutti i dadi RED.", privateGoalCard.getDescription());
                 break;
             case 2:
                 assertEquals(6, player.getPoints());
-                assertEquals("Sfumature YELLOW.", privateGoalCard.getName());
-                assertEquals("Somma dei valori su tutti i dadi YELLOW.", privateGoalCard.getDescription());
                 break;
             case 3:
                 assertEquals(3, player.getPoints());
-                assertEquals("Sfumature GREEN.", privateGoalCard.getName());
-                assertEquals("Somma dei valori su tutti i dadi GREEN.", privateGoalCard.getDescription());
                 break;
             case 4:
                 assertEquals(2, player.getPoints());
-                assertEquals("Sfumature BLUE.", privateGoalCard.getName());
-                assertEquals("Somma dei valori su tutti i dadi BLUE.", privateGoalCard.getDescription());
                 break;
             case 5:
                 assertEquals(0, player.getPoints());
-                assertEquals("Sfumature VIOLET.", privateGoalCard.getName());
-                assertEquals("Somma dei valori su tutti i dadi VIOLET.", privateGoalCard.getDescription());
                 break;
             default:
                 throw new IndexOutOfBoundsException();

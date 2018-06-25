@@ -5,20 +5,20 @@ import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.Alesatore
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PlayerPackage.State;
+import it.polimi.ingsw.model.UsersList;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 
 //revisionata by pon
-public class AlesatoreperLaminadiRame  extends ToolAction {
+public class AlesatoreperLaminadiRame  extends ToolAction implements Serializable {
 
 
 
     public AlesatoreperLaminadiRame(){
         this.cost =1;
         this.ID = 3;
-        this.cardTitle = "Alesatore per lamina di rame";
-        this.description = "Muovi un qualsiasi dado nella tua vetrata ignorando le restrizioni di valore.\n" +
-                "Devi rispettare tutte le altre restrizioni di piazzamento.";
+
     }
     private Dice removedDice;
 
@@ -35,7 +35,11 @@ public class AlesatoreperLaminadiRame  extends ToolAction {
                     player.setPlayerState(State.MUSTPASSTURNSTATE);
                 }else player.setPlayerState(State.HASUSEDATOOLCARDACTIONSTATE);
             }catch (RemoteException e){
-                player.getAssociatedUser().setActive(false);
+                try{
+                    UsersList.Singleton().getUser(player.getName()).setActive(false);
+                }catch(Exception err){
+                    //do nothing
+                }
                 player.getTurn().countDown();
 
             }
@@ -46,7 +50,7 @@ public class AlesatoreperLaminadiRame  extends ToolAction {
             } catch (Exception er) {
                 //do nothing
             }
-            throw new AlesatorePerLaminadiRameException(AlesatorePerLaminadiRameException.getMsg() + e.getMessage());
+            throw new AlesatorePerLaminadiRameException();
         }
     }
 

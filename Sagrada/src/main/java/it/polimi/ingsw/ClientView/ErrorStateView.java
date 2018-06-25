@@ -19,7 +19,7 @@ public class ErrorStateView implements Runnable {
         try {
             serverController.leavethematch(yourName);
         } catch (RemoteException e) {
-            System.out.println(e.getMessage());
+            System.out.println(Client.translator.translateException(e.getMessage()));
         }
     }
 }

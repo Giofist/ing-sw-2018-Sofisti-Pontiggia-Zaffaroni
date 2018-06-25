@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model.ToolCard;
 
 import it.polimi.ingsw.model.*;
-import it.polimi.ingsw.model.Exceptions.EmpyDicepoolException;
+import it.polimi.ingsw.model.Exceptions.DicepoolIndexException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PlayerPackage.State;
@@ -52,7 +52,7 @@ public class PinzaSgrossatriceTest {
 
     // This test will test the situation in which we try to decrement the intensity of a Dice with value 1
     @Test
-    public void testExecuteOperation0DecreaseException () throws EmpyDicepoolException, ToolIllegalOperationException {
+    public void testExecuteOperation0DecreaseException () throws DicepoolIndexException, ToolIllegalOperationException {
         // Here we prepare the PinzaSgrossatrice object with 0 as Dice index to change and we try to decrease its intensity
         // in a situation where is equal to 1
 
@@ -75,7 +75,7 @@ public class PinzaSgrossatriceTest {
 
     // This test will test the situation in which we try to increment the intensity of a Dice with value 6
     @Test
-    public void testExecuteOperation1 () throws EmpyDicepoolException {
+    public void testExecuteOperation1 () throws DicepoolIndexException {
         // Here we prepare the PinzaSgrossatrice object with 0 as Dice index to change and we try to increase its intensity
         // in a situation where is equal to 6
         player.getMatch().getGametable().getRoundDicepool().getDice(0).setIntensity(6);
@@ -96,7 +96,7 @@ public class PinzaSgrossatriceTest {
 
 
     @Test
-    public void executeOK () throws EmpyDicepoolException, ToolIllegalOperationException {
+    public void executeOK () throws DicepoolIndexException, ToolIllegalOperationException {
         player.getMatch().getGametable().getRoundDicepool().getDice(0).setIntensity(2);
         toolRequestClass.setSelectedRoundDicepoolDiceIndex(0);
         toolRequestClass.setOperationforPinzaSgrossatrice(1);
@@ -114,15 +114,6 @@ public class PinzaSgrossatriceTest {
         assertEquals(1, toolCard.getID());
     }
 
-    @Test
-    public void testGetCardTitle() {
-        assertEquals("Pinza Sgrossatrice", toolCard.getCardTitle());
-    }
 
-    @Test
-    public void getDescriptionTest() {
-        assertEquals("Dopo aver scelto un dado, aumenta o diminuisci il valore del dado scelto di 1.\n" +
-                              "Non puoi cambiare un 6 in 1 o un 1 in 6.", toolCard.getDescription());
-    }
 
 }

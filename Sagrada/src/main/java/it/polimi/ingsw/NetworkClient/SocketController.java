@@ -3,6 +3,7 @@ package it.polimi.ingsw.NetworkClient;
 import it.polimi.ingsw.ClientView.Observer;
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
 import it.polimi.ingsw.model.ClientMessagePackage.*;
+import it.polimi.ingsw.model.Match;
 import it.polimi.ingsw.model.ToolCard.ToolRequestClass;
 
 import java.io.IOException;
@@ -19,7 +20,8 @@ public class SocketController implements ClientHandlerInterface {
         this.listener = socketClientListener;
     }
 
-   public void setResponseHandler(SocketResponseHandler responseHandler){
+   @Override
+    public void setResponseHandler(SocketResponseHandler responseHandler)throws RemoteException{
         this.responseHandler = responseHandler;
    }
 
@@ -178,29 +180,6 @@ public class SocketController implements ClientHandlerInterface {
 
 
     @Override
-    public synchronized String getToolCardsCosts(String clientname) throws RemoteException {
-        ClientMessage getToolCardsCostMessage = new GetToolCardCostMessage();
-        getToolCardsCostMessage.setClientName(clientname);
-
-        try {
-            listener.sendMessage(getToolCardsCostMessage);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try{
-            wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        this.responseHandler.check();
-        String value = this.responseHandler.getMessage();
-        this.responseHandler = null;
-        return value;
-    }
-
-
-    @Override
     public synchronized void useaToolCard(String clientname, ToolRequestClass requestClass) throws RemoteException {
         UseToolCardMessage useToolCardMessage = new UseToolCardMessage();
         useToolCardMessage.setClientName(clientname);
@@ -223,12 +202,12 @@ public class SocketController implements ClientHandlerInterface {
 
 
     @Override
-    public synchronized String getToolCardsIDs(String clientname) throws RemoteException {
-        ClientMessage getToolCardsIDsMessage = new GetToolCardsIDsMessage();
-        getToolCardsIDsMessage.setClientName(clientname);
+    public synchronized List getToolCards(String clientname) throws RemoteException {
+        ClientMessage getToolCards = new GetToolCardsMessage();
+        getToolCards.setClientName(clientname);
 
         try {
-            listener.sendMessage(getToolCardsIDsMessage);
+            listener.sendMessage(getToolCards);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -239,63 +218,17 @@ public class SocketController implements ClientHandlerInterface {
             e.printStackTrace();
         }
         this.responseHandler.check();
-        String value = this.responseHandler.getMessage();
+        List list = this.responseHandler.getList();
         this.responseHandler = null;
 
-        return value;
+        return list;
     }
 
 
-    @Override
-    public synchronized String getToolCardsNames(String clientname) throws RemoteException {
-        ClientMessage getToolCardsNamesMessage = new GetToolCardsNamesMessage();
-        getToolCardsNamesMessage.setClientName(clientname);
-
-        try {
-            listener.sendMessage(getToolCardsNamesMessage);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try{
-            wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        this.responseHandler.check();
-        String value = this.responseHandler.getMessage();
-        this.responseHandler = null;
-
-        return value;
-    }
 
 
     @Override
-    public synchronized String getToolCardsDescriptions(String clientname) throws RemoteException {
-        ClientMessage getToolCardsDescriptionsMessage = new GetToolCardsDescriptionsMessage();
-        getToolCardsDescriptionsMessage.setClientName(clientname);
-
-        try {
-            listener.sendMessage(getToolCardsDescriptionsMessage);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try{
-            wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        this.responseHandler.check();
-        String value = this.responseHandler.getMessage();
-        this.responseHandler = null;
-
-        return value;
-    }
-
-
-    @Override
-    public synchronized String getPossibleActions(String clientname) throws RemoteException {
+    public synchronized List getPossibleActions(String clientname) throws RemoteException {
         ClientMessage getPossibleActionsMessage = new GetPossibleActionsMessage();
         getPossibleActionsMessage.setClientName(clientname);
 
@@ -312,10 +245,10 @@ public class SocketController implements ClientHandlerInterface {
             e.printStackTrace();
         }
         this.responseHandler.check();
-        String value = this.responseHandler.getMessage();
+        List list  = this.responseHandler.getList();
         this.responseHandler = null;
 
-        return value;
+        return list;
     }
 
     @Override
@@ -521,12 +454,12 @@ public class SocketController implements ClientHandlerInterface {
 
 
     @Override
-    public synchronized String getPrivateGoalCarddescription(String clientname) throws RemoteException {
-        ClientMessage getPrivateGoalCardDescriptionMessage = new GetPrivateGoalCardDescriptionMessage();
-        getPrivateGoalCardDescriptionMessage.setClientName(clientname);
+    public synchronized List getPrivateGoalCard(String clientname) throws RemoteException {
+        ClientMessage getPrivateGoalCard = new GetPrivateGoalCardMessage();
+        getPrivateGoalCard.setClientName(clientname);
 
         try {
-            listener.sendMessage(getPrivateGoalCardDescriptionMessage);
+            listener.sendMessage(getPrivateGoalCard);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -536,44 +469,23 @@ public class SocketController implements ClientHandlerInterface {
             e.printStackTrace();
         }
         this.responseHandler.check();
-        String value = this.responseHandler.getMessage();
+        List list = this.responseHandler.getList();
         this.responseHandler = null;
 
-        return value;
+        return list;
     }
 
 
-    @Override
-    public synchronized String getPrivateGoalCardname(String clientname) throws RemoteException {
-        ClientMessage getPrivateGoalCardNameMessage = new GetPrivateGoalCardNameMessage();
-        getPrivateGoalCardNameMessage.setClientName(clientname);
 
-        try {
-            listener.sendMessage(getPrivateGoalCardNameMessage);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        this.responseHandler.check();
-        String value = this.responseHandler.getMessage();
-        this.responseHandler = null;
-
-        return value;
-    }
 
 
     @Override
-    public synchronized int getPrivateGoalCardid(String clientname) throws RemoteException {
-        ClientMessage getPrivateGoalCardIdMessage = new GetPrivateGoalCardIdMessage();
-        getPrivateGoalCardIdMessage.setClientName(clientname);
+    public synchronized List getPublicGoalCards(String clientname) throws RemoteException {
+        ClientMessage getPublicGoalCards = new GetPublicGoalCardsMessage();
+        getPublicGoalCards.setClientName(clientname);
 
         try {
-            listener.sendMessage(getPrivateGoalCardIdMessage);
+            listener.sendMessage(getPublicGoalCards);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -584,87 +496,15 @@ public class SocketController implements ClientHandlerInterface {
             e.printStackTrace();
         }
         this.responseHandler.check();
-        String value = this.responseHandler.getMessage();
+        List list = this.responseHandler.getList();
         this.responseHandler = null;
 
-        return Integer.parseInt(value);
+        return list;
     }
 
 
     @Override
-    public synchronized String getPublicGoalCarddescriptions(String clientname) throws RemoteException {
-        ClientMessage getPublicGoalCardDescriptionMessage = new GetPublicGoalCardDescriptionMessage();
-        getPublicGoalCardDescriptionMessage.setClientName(clientname);
-
-        try {
-            listener.sendMessage(getPublicGoalCardDescriptionMessage);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        this.responseHandler.check();
-        String value = this.responseHandler.getMessage();
-        this.responseHandler = null;
-
-        return value;
-    }
-
-
-    @Override
-    public synchronized String getPublicGoalCardids(String clientname) throws RemoteException {
-        ClientMessage getPublicGoalCardIdsMessage = new GetPublicGoalCardIdsMessage();
-        getPublicGoalCardIdsMessage.setClientName(clientname);
-
-        try {
-            listener.sendMessage(getPublicGoalCardIdsMessage);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        this.responseHandler.check();
-        String value = this.responseHandler.getMessage();
-        this.responseHandler = null;
-
-        return value;
-    }
-
-
-    @Override
-    public synchronized String getPublicGoalCardnames(String clientname) throws RemoteException {
-        ClientMessage getPublicGoalCardNamesMessage = new GetPublicGoalCardNamesMessage();
-        getPublicGoalCardNamesMessage.setClientName(clientname);
-
-        try {
-            listener.sendMessage(getPublicGoalCardNamesMessage);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        this.responseHandler.check();
-        String value = this.responseHandler.getMessage();
-        this.responseHandler = null;
-
-        return value;
-    }
-
-
-    @Override
-    public synchronized String getActiveMatchesList() throws RemoteException {
+    public synchronized List getActiveMatchesList() throws RemoteException {
         ClientMessage getActiveMatchesListMessage = new GetActiveMatchesListMessage();
         try {
             listener.sendMessage(getActiveMatchesListMessage);
@@ -677,9 +517,9 @@ public class SocketController implements ClientHandlerInterface {
             e.printStackTrace();
         }
         this.responseHandler.check();
-        String value = this.responseHandler.getMessage();
+        List<Match> list = this.responseHandler.getList();
         this.responseHandler = null;
-        return value;
+        return list;
     }
 
 
@@ -757,7 +597,7 @@ public class SocketController implements ClientHandlerInterface {
 
 
     @Override
-    public synchronized String getSchemeCard(String clientname) throws RemoteException {
+    public synchronized List getSchemeCard(String clientname) throws RemoteException {
         ClientMessage getSchemeCardMessage = new GetSchemeCardMessage();
         getSchemeCardMessage.setClientName(clientname);
 
@@ -773,10 +613,10 @@ public class SocketController implements ClientHandlerInterface {
             e.printStackTrace();
         }
         this.responseHandler.check();
-        String value = this.responseHandler.getMessage();
+        List list = this.responseHandler.getList();
         this.responseHandler = null;
 
-        return value;
+        return list;
     }
 
 

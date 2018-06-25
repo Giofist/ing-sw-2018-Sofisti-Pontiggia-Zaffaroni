@@ -39,11 +39,9 @@ public class DiagonaliColorateTest {
         mockMatch = mock(Match.class);
         doNothing().when(mockMatch).countDown();
 
-        user = new User("User1", "pass");
 
         player = new Player();
         player.setMatch(mockMatch);
-        player.setUser(user);
         player.addExtractedSchemeCard(schemeCard);
         player.setScheme(2);
 
@@ -69,14 +67,6 @@ public class DiagonaliColorateTest {
         assertEquals(9, publicObjectiveCard.getID());
     }
 
-    @Test
-    public void getName() {
-        assertEquals("Diagonali Colorate", publicObjectiveCard.getName());
-    }
 
-    @Test
-    public void getDescription() {
-        assertEquals("Numero di dadi dello stesso colore diagonalmente adiacenti.", publicObjectiveCard.getDescription());
-    }
 
 }

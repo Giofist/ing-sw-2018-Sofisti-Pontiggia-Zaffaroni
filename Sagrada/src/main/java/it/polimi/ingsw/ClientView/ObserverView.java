@@ -1,12 +1,16 @@
 package it.polimi.ingsw.ClientView;
 
+import it.polimi.ingsw.ServerController.ClientHandler;
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
+import it.polimi.ingsw.model.Match;
 import it.polimi.ingsw.model.Observable;
 import it.polimi.ingsw.model.PlayerPackage.State;
 
 import java.io.PrintWriter;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
 //implemented by pon
@@ -110,7 +114,7 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
             try {
                 serverController.register(username, password);
             } catch (RemoteException e) {
-                System.out.println(e.getMessage());
+                System.out.println(Client.translator.translateException(e.getMessage()));
                 remoteException = true;
             }
             if (remoteException == false){
@@ -137,7 +141,7 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
                 serverController.login(username, password, this);
                 System.out.println();
             } catch (RemoteException e) {
-                System.out.println(e.getMessage());
+                System.out.println(Client.translator.translateException(e.getMessage()));
                 success = false;
             }
             this.yourName = username;
@@ -197,9 +201,13 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
         System.out.println("Ecco la lista delle partite attualmente attive:");
         boolean remoteException = true;
         try{
-            System.out.println(serverController.getActiveMatchesList());
+            List<Match> list= serverController.getActiveMatchesList();
+            for( Match match: list){
+                System.out.println(Client.translator.translateMatch(match));
+            }
+            System.out.println();
         }catch (RemoteException e){
-            System.out.println(e.getMessage());
+            System.out.println(Client.translator.translateException(e.getMessage()));
             remoteException = false;
         }
         boolean chosen = false;
@@ -210,7 +218,7 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
                 serverController.joinaGame(yourName, this, gamename);
                 chosen= true;
             } catch (RemoteException e) {
-                System.out.println(e.getMessage());
+                System.out.println(Client.translator.translateException(e.getMessage()));
             }
         }
         System.out.println("Sei entrato nella partita!");

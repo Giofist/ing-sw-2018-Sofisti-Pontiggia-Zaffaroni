@@ -1,36 +1,35 @@
 package it.polimi.ingsw.model.ToolCard;
 
 import it.polimi.ingsw.model.Dice;
-import it.polimi.ingsw.model.Exceptions.EmpyDicepoolException;
+import it.polimi.ingsw.model.Exceptions.DicepoolIndexException;
 import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
+import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.PennelloPerPastaSaldaException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PlayerPackage.State;
 import it.polimi.ingsw.model.SchemeDeck.ColumnIterator;
 import it.polimi.ingsw.model.SchemeDeck.RowIterator;
+import it.polimi.ingsw.model.UsersList;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 
-public class PennelloperPastaSalda  extends ToolAction {
+public class PennelloperPastaSalda  extends ToolAction implements Serializable {
 
 
     public PennelloperPastaSalda(){
         this.cost =1;
         this.ID =6;
-        this.cardTitle = "Pennello per Pasta Salda";
-        this.description = "Dopo aver scelto un dado tira nuovamente quel dado.\n" +
-                "Se non puoi piazzarlo, riponilo nella riserva.";
     }
 
 
     @Override
     public void execute (Player player, ToolRequestClass toolRequestClass)throws ToolIllegalOperationException {
-        //ricordarsi sempre di fare gt and remove
         try{
             Dice dice= player.getGametable().getRoundDicepool().getDice(toolRequestClass.getSelectedDIceIndex());
             dice.setRandomIntensity();
             if(player.getPlayerState().getState().equals(State.HASSETADICESTATE)){
-                throw new ToolIllegalOperationException("non puoi piazzare due dadi nello stesso turno");
+                throw new PennelloPerPastaSaldaException("16.1");
             }
             boolean settable = false;
             RowIterator rowIterator =  player.getScheme().rowIterator(0);
@@ -49,13 +48,16 @@ public class PennelloperPastaSalda  extends ToolAction {
                     player.setPlayerState(State.MUSTPASSTURNSTATE);
                 }else player.setPlayerState(State.HASUSEDATOOLCARDACTIONSTATE);
             }
-
-        }catch (EmpyDicepoolException e){
-            throw new ToolIllegalOperationException(e.getMessage());
+        }catch (DicepoolIndexException e){
+            throw new PennelloPerPastaSaldaException();
         }catch (SchemeCardNotExistantException e){
-            throw new ToolIllegalOperationException(e.getMessage());
+            throw new PennelloPerPastaSaldaException();
         }catch (RemoteException e){
-            player.getAssociatedUser().setActive(false);
+            try{
+                UsersList.Singleton().getUser(player.getName()).setActive(false);
+            }catch(Exception err){
+                //do nothing
+            }
             player.getTurn().countDown();
         }
 

@@ -5,12 +5,12 @@ import it.polimi.ingsw.model.GoalCard;
 import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.SchemeDeck.Tile;
 
+import java.io.Serializable;
+
 //revisionata by pon
 //obiettivo pubblico
-public class SfumatureMedie implements GoalCard {
+public class SfumatureMedie implements GoalCard,Serializable {
     static int ID = 6;
-    static String name = "Sfumature Medie";
-    static String description = "Set di 3 & 4 ovunque.";
 
     @Override
     public void  calculatepoint(Player player) {
@@ -46,11 +46,4 @@ public class SfumatureMedie implements GoalCard {
         return ID;
     }
 
-    @Override
-    public String getName(){return name;}
-
-    @Override
-    public String getDescription() {
-        return description;
-    }
 }

@@ -1,8 +1,11 @@
 package it.polimi.ingsw.ClientView;
 
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
+import it.polimi.ingsw.model.GoalCard;
+import it.polimi.ingsw.model.ToolCard.ToolAction;
 
 import java.rmi.RemoteException;
+import java.util.List;
 
 import static org.fusesource.jansi.Ansi.Color.*;
 import static org.fusesource.jansi.Ansi.ansi;
@@ -22,7 +25,7 @@ public class Printer {
         return printer;
     }
 
-    public void printMap(String map) {
+    public void printMap(String map)  {
         char[] charTile;
         String[] element = map.split("%");
         System.out.println(element[0]);
@@ -80,37 +83,29 @@ public class Printer {
     }
 
     public void printGoalCards(ClientHandlerInterface serverController, String yourName) {
-        String[] cardName = new String[0];
-        String[] description = new String[0];
         System.out.println("\n-Ecco gli obiettivi di questa partita-");
-        System.out.println("\nObiettivo privato:");
-        try {
-            System.out.println(serverController.getPrivateGoalCardname(yourName));
-        } catch (RemoteException e) {
-            System.out.println(e.getMessage());
+        try{
+            for(GoalCard goalCard: serverController.getPrivateGoalCard(yourName)){
+                System.out.println("\nObiettivo privato:");
+                System.out.println(Client.translator.translatePrivateGoalCardName(goalCard.getID()));
+                System.out.println(Client.translator.translatePrivateGoalCardDescription(goalCard.getID()));
+
+            }
+        }catch(RemoteException e){
+            System.out.println(Client.translator.translateException(e.getMessage()));
         }
-        try {
-            System.out.println(serverController.getPrivateGoalCarddescription(yourName));
-        } catch (RemoteException e) {
-            System.out.println(e.getMessage());
+        try{
+            for(GoalCard goalCard: serverController.getPublicGoalCards(yourName)){
+                System.out.println("\nObiettivo pubblico:");
+                System.out.println(Client.translator.translatePublicGoalCardName(goalCard.getID()));
+                System.out.println(Client.translator.translatePublicGoalCardDescription(goalCard.getID()));
+
+            }
+        }catch(RemoteException e){
+            System.out.println(Client.translator.translateException(e.getMessage()));
         }
-        System.out.println("\nObbiettivo pubblico:");
 
 
-        try {
-            cardName = serverController.getPublicGoalCardnames(yourName).split("!");
-        } catch (RemoteException e) {
-            System.out.println(e.getMessage());
-        }
-        try {
-            description = serverController.getPublicGoalCarddescriptions(yourName).split("!");
-        } catch (RemoteException e) {
-            System.out.println(e.getMessage());
-        }
-
-        for (int i = 0; i < cardName.length; i++) {
-            System.out.println(cardName[i] + "\n" + description[i]);
-        }
     }
 
     public void printRoundTrack(ClientHandlerInterface serverController, String yourName) {
@@ -123,7 +118,7 @@ public class Printer {
         try {
             dices = serverController.getRoundTrack(yourName).split("!");
         } catch (RemoteException e) {
-            System.out.println(e.getMessage());
+            System.out.println(Client.translator.translateException(e.getMessage()));
         }
         for (String diceList : dices) {
             if (i < 10) {
@@ -153,7 +148,6 @@ public class Printer {
             System.out.println();
             i++;
         }
-        //this.numOfDice = i;
         System.out.println();
     }
 
@@ -166,7 +160,7 @@ public class Printer {
         try {
             dices = serverController.getRoundDicepool(yourName).split("-");
         } catch (RemoteException e) {
-            System.out.println(e.getMessage());
+            System.out.println(Client.translator.translateException(e.getMessage()));
         }
         System.out.println("Ecco i dadi disponibili in questo round:");
         for (String dice : dices) {
@@ -203,16 +197,14 @@ public class Printer {
         int index = 0;
         System.out.println("Queste sono le carte utensile disponibili:");
         try {
-            String[] toolCardID = serverController.getToolCardsIDs(yourName).split("!");
-            String[] toolCardName = serverController.getToolCardsNames(yourName).split("!");
-            String[] toolCardCost = serverController.getToolCardsCosts(yourName).split("!");
-            String[] toolCardDescription = serverController.getToolCardsDescriptions(yourName).split("!");
-            for (String element : toolCardID) {
-                System.out.println(toolCardID[index] + ". " + toolCardName[index] + "\nIl costo della carta utensile è: " + toolCardCost[index] + "\nDescrizione:\n" + toolCardDescription[index]);
+            List<ToolAction> list = serverController.getToolCards(yourName);
+            for (ToolAction toolAction : list) {
+                System.out.println(Client.translator.translateToolCardCardName(toolAction.getID()) + "\nIl costo della carta utensile è: " + toolAction.getCost()
+                        + "\nDescrizione:\n" + Client.translator.translateToolCardDescription(toolAction.getID()));
                 index++;
             }
         } catch (RemoteException e) {
-            System.out.println(e.getMessage());
+            System.out.println(Client.translator.translateException(e.getMessage()));
         }
     }
 
@@ -222,7 +214,7 @@ public class Printer {
         try {
             charDice = serverController.getToolCardDice(yourName).toCharArray();
         } catch (RemoteException e) {
-            System.out.println(e.getMessage());
+            System.out.println(Client.translator.translateException(e.getMessage()));
         }
         switch (charDice[1]) {
             case 'Y':

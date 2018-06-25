@@ -40,11 +40,9 @@ public class ColoriDiversiColonnaTest {
         mockMatch = mock(Match.class);
         doNothing().when(mockMatch).countDown();
 
-        user = new User("User1", "pass");
 
         player = new Player();
         player.setMatch(mockMatch);
-        player.setUser(user);
         player.addExtractedSchemeCard(schemeCard);
         player.setScheme(2);
 
@@ -72,14 +70,6 @@ public class ColoriDiversiColonnaTest {
         assertEquals(2, publicObjectiveCard.getID());
     }
 
-    @Test
-    public void getName() {
-        assertEquals("Colori Diversi - Colonna", publicObjectiveCard.getName());
-    }
 
-    @Test
-    public void getDescription() {
-        assertEquals("Colonne senza colori ripetuti.", publicObjectiveCard.getDescription());
-    }
 }
 

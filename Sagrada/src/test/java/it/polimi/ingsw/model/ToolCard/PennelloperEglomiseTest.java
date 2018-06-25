@@ -169,14 +169,5 @@ public class PennelloperEglomiseTest {
         assertEquals(2, pennelloperEglomise.getID());
     }
 
-    @Test
-    public void getCardTitleTest() {
-        assertEquals("Pennello per Eglomise", pennelloperEglomise.getCardTitle());
-    }
 
-    @Test
-    public void getCardDescriptionTest() {
-        assertEquals("Muovi un qualsiasi dado nella tua vetrata ignorando le restrizioni di colore.\n" +
-                "Devi rispettare tutte le altre restrizioni di piazzamento.", pennelloperEglomise.getDescription());
-    }
 }

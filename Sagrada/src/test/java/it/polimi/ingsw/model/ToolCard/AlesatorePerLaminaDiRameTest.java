@@ -171,15 +171,5 @@ public class AlesatorePerLaminaDiRameTest {
         assertEquals(3, this.alesatorePerLaminaDiRame.getID());
     }
 
-    @Test
-    public void testGetCardTitle() {
-        assertEquals("Alesatore per lamina di rame", alesatorePerLaminaDiRame.getCardTitle());
-    }
 
-    @Test
-    public void getDescriptionTest() {
-        assertEquals("Muovi un qualsiasi dado nella tua vetrata ignorando le restrizioni di valore.\n" +
-                        "Devi rispettare tutte le altre restrizioni di piazzamento.",
-                      alesatorePerLaminaDiRame.getDescription());
-    }
 }

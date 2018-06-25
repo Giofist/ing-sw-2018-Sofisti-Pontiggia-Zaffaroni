@@ -6,18 +6,18 @@ import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.RigaInSug
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PlayerPackage.State;
+import it.polimi.ingsw.model.UsersList;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 
 //revisionata by pon
-public class RigainSughero  extends ToolAction {
+public class RigainSughero  extends ToolAction implements Serializable {
     private Dice dice;
     public RigainSughero(){
         this.cost = 1;
         this.ID=9;
-        this.cardTitle = "Riga in Sughero";
-        this.description = "Dopo aver scelto un dado, piazzalo in una casella che non sia adiacente a un altro dado.\n" +
-                "Devi rispettare tutte le restrizioni di piazzamento.";
+
     }
 
 
@@ -26,20 +26,24 @@ public class RigainSughero  extends ToolAction {
         //ricordarsi di fare get and remove dei dadi, non dimenticare la remove
         try {
             if (player.getPlayerState().getState().equals(State.HASSETADICESTATE)) {
-                throw new ToolIllegalOperationException("non puoi piazzare due dadi nello stesso turno");
+                throw new RigaInSugheroException("18.2");
             }
             dice = player.getGametable().getRoundDicepool().getDice(toolRequestClass.getSelectedRoundDicepoolDiceIndex());
             player.getGametable().getRoundDicepool().removeDice(toolRequestClass.getSelectedRoundDicepoolDiceIndex());
             boolean thereisadicenearyou = player.getScheme().ThereisaDicenearYou(toolRequestClass.getNewRow1(), toolRequestClass.getNewColumn1());
             if (thereisadicenearyou) {
-                throw new RigaInSugheroException("Non puoi mettere un dado se ce n'è uno vicino!\n");
+                throw new RigaInSugheroException("18.1");
             } else
                 player.getScheme().setDice(dice, toolRequestClass.getNewRow1(), toolRequestClass.getNewColumn1(), false, false, true);
             if (player.getPlayerState().getState().equals(State.HASSETADICESTATE)) {
                 player.setPlayerState(State.MUSTPASSTURNSTATE);
             } else player.setPlayerState(State.HASUSEDATOOLCARDACTIONSTATE);
         }catch(RemoteException e){
-            player.getAssociatedUser().setActive(false);
+            try{
+                UsersList.Singleton().getUser(player.getName()).setActive(false);
+            }catch(Exception err){
+                //do nothing
+            }
             player.getTurn().countDown();
         }catch (Exception e){
             try{
@@ -47,7 +51,7 @@ public class RigainSughero  extends ToolAction {
             }catch(Exception er){
                 //do nothing
             }
-            throw new RigaInSugheroException(RigaInSugheroException.getMsg()+ e.getMessage());
+            throw new RigaInSugheroException();
         }
 
 

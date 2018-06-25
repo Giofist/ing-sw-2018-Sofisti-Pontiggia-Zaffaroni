@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model.ToolCard;
 
 import it.polimi.ingsw.model.*;
-import it.polimi.ingsw.model.Exceptions.EmpyDicepoolException;
+import it.polimi.ingsw.model.Exceptions.DicepoolIndexException;
 import it.polimi.ingsw.model.Exceptions.RoundTrackException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.PlayerPackage.Player;
@@ -31,7 +31,7 @@ public class TaglierinaCircolareTest {
     private RoundTrack roundTrack;
 
     @Before
-    public void before() throws RemoteException, RoundTrackException, EmpyDicepoolException {
+    public void before() throws RemoteException, RoundTrackException, DicepoolIndexException {
         toolCard = new TaglierinaCircolare();
         toolRequestClass = new ToolRequestClass();
 
@@ -61,7 +61,7 @@ public class TaglierinaCircolareTest {
 
 
     @Test
-    public void executeOK() throws EmpyDicepoolException, ToolIllegalOperationException, RoundTrackException {
+    public void executeOK() throws DicepoolIndexException, ToolIllegalOperationException, RoundTrackException {
 
         player.getMatch().getGametable().getRoundDicepool().getDice(0).setIntensity(3);
         player.getMatch().getGametable().getRoundDicepool().getDice(0).setIntensity(4);
@@ -85,14 +85,6 @@ public class TaglierinaCircolareTest {
         assertEquals(5, toolCard.getID());
     }
 
-    @Test
-    public void getCardTitle() {
-        assertEquals("Taglierina circolare", toolCard.getCardTitle());
-    }
 
-    @Test
-    public void getCardDescription() {
-        assertEquals("Dopo aver scelto un dado, scambia quel dado con un dado sul Tracciato Round.\n", toolCard.getDescription());
-    }
 
 }

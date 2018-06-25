@@ -13,15 +13,15 @@ import java.util.List;
 
 //implementa comparable per ordinare i giocatori in base al punteggio nellav lista di player
 public class Player  implements Comparable<Player> {
-    private transient User user;
-    private GoalCard privateGoalCard;
-    private int token;
-    private LinkedList<SchemeCard> extractedschemeCards;
-    private SchemeCard scheme;
-    private int points;
-    private Match match;
-    private PlayerState playerState;
-    private Turn turn;
+    private transient GoalCard privateGoalCard;
+    private transient int token;
+    private transient LinkedList<SchemeCard> extractedschemeCards;
+    private transient SchemeCard scheme;
+    private transient int points;
+    private transient Match match;
+    private transient PlayerState playerState;
+    private transient Turn turn;
+    private String name;
 
 
 
@@ -42,7 +42,6 @@ public class Player  implements Comparable<Player> {
         this.scheme = null;
         this.playerState = new PlayerState();
         this.token = 0;
-
     }
 
 
@@ -50,6 +49,12 @@ public class Player  implements Comparable<Player> {
 
 
     //metodi setter e getter
+    public String getName(){
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public int getToken() {
         return token;
@@ -99,11 +104,7 @@ public class Player  implements Comparable<Player> {
     public int getPoints(){
         return this.points;
     }
-    public User getAssociatedUser(){ return this.user; }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     public Match getMatch() {
         return this.match;
@@ -168,16 +169,5 @@ public class Player  implements Comparable<Player> {
         else return this.getMatch().getallPlayers().indexOf(this) - player.getMatch().getallPlayers().indexOf(player);
     }
 
-    @Override
-    public String toString(){
-        return this.getAssociatedUser().getName();
-    }
 
-    @Override
-    public boolean equals(Object o){
-        if (this.toString().equals(o.toString())){
-            return true;
-        }
-        else return false;
-    }
 }

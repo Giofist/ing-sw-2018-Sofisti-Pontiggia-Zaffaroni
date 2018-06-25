@@ -1,11 +1,8 @@
 package it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions;
 
 public class LathekinException extends ToolIllegalOperationException {
-    private static final String msg = "Errore in Lathekin\n";
+    private static final String msg = "13";
     public LathekinException(){
-        super(msg);
-    }
-    public LathekinException(String msg){
         super(msg);
     }
 

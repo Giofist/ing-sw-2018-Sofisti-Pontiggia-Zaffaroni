@@ -5,12 +5,12 @@ import it.polimi.ingsw.model.GoalCard;
 import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.SchemeDeck.Tile;
 
+import java.io.Serializable;
+
 //revisionata by pon
 //obiettivo pubblico
-public class SfumatureChiare implements GoalCard {
+public class SfumatureChiare implements GoalCard,Serializable {
     static int ID = 5;
-    static String name = "Sfumature Chiare";
-    static String description = "Set di 1 & 2 ovunque.";
 
 
     @Override
@@ -45,11 +45,4 @@ public class SfumatureChiare implements GoalCard {
         return ID;
     }
 
-    @Override
-    public String getName(){return name;}
-
-    @Override
-    public String getDescription() {
-        return description;
-    }
 }

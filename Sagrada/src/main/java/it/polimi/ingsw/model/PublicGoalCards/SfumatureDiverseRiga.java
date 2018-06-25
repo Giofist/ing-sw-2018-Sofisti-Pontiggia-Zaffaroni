@@ -8,14 +8,13 @@ import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.SchemeDeck.ColumnIterator;
 import it.polimi.ingsw.model.SchemeDeck.RowIterator;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 // revisionata by pon: lo stile era troppo procedurale
 //obiettivo pubblico
-public class SfumatureDiverseRiga implements GoalCard {
+public class SfumatureDiverseRiga implements GoalCard,Serializable {
     static int ID = 3;
-    static String name = "Sfumature diverse - Riga";
-    static String description = "Righe senza sfumature ripetute.";
 
     @Override
     public void  calculatepoint(Player player) {
@@ -55,11 +54,4 @@ public class SfumatureDiverseRiga implements GoalCard {
         return ID;
     }
 
-    @Override
-    public String getName(){return name;}
-
-    @Override
-    public String getDescription() {
-        return description;
-    }
 }

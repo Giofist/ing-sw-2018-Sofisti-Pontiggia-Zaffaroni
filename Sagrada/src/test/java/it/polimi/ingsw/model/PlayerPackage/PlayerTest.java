@@ -85,7 +85,6 @@ public class PlayerTest {
 
     @Test (expected = SchemeCardNotExistantException.class)
     public void setAndGetSchemeException() throws SchemeCardNotExistantException {
-        player.setUser(mockUser);
         player.getScheme();
     }
 
@@ -116,12 +115,7 @@ public class PlayerTest {
     }
 
 
-    @Test
-    public void setAndGetUser() {
-        assertNull(player.getAssociatedUser());
-        player.setUser(mockUser);
-        assertEquals("Xenomit", player.getAssociatedUser().getName());
-    }
+
 
 
     @Test
@@ -187,10 +181,4 @@ public class PlayerTest {
         assertEquals(2, player2.compareTo(player));
     }
 
-    @Test
-    public void toStringTest() {
-        when(mockUser.getName()).thenReturn("Xenomit");
-        player.setUser(mockUser);
-        assertEquals("Xenomit", player.toString());
-    }
 }

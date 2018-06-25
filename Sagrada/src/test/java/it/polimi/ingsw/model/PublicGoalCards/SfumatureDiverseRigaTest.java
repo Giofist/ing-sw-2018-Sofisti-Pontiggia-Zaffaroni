@@ -39,11 +39,9 @@ public class SfumatureDiverseRigaTest {
         mockMatch = mock(Match.class);
         doNothing().when(mockMatch).countDown();
 
-        user = new User("User1", "pass");
 
         player = new Player();
         player.setMatch(mockMatch);
-        player.setUser(user);
         player.addExtractedSchemeCard(schemeCard);
         player.setScheme(2);
 
@@ -83,14 +81,6 @@ public class SfumatureDiverseRigaTest {
         assertEquals(3, publicObjectiveCard.getID());
     }
 
-    @Test
-    public void getName() {
-        assertEquals("Sfumature diverse - Riga", publicObjectiveCard.getName());
-    }
 
-    @Test
-    public void getDescription() {
-        assertEquals("Righe senza sfumature ripetute.", publicObjectiveCard.getDescription());
-    }
 
 }

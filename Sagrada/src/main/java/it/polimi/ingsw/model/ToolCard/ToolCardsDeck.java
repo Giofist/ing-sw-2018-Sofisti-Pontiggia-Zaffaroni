@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.PlayerPackage.Player;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 
 
 public class ToolCardsDeck {
@@ -91,39 +92,13 @@ public class ToolCardsDeck {
     }
 
     //to get the IDs, descriptions and Names of public goal cards
-    public String getIDs(){
-        String IDs = "";
+    public List getcards(){
+        List list = new LinkedList();
         for (ToolAction toolAction: this.deck) {
-            IDs += toolAction.getID();
-            IDs += "!";
+            list.add(toolAction);
         }
-        return IDs;
+        return list;
 
     }
-    public String getDescriptions(){
-        String descriptions = "";
-        for (ToolAction  toolAction: this.deck) {
-            descriptions += toolAction.getDescription();
-            descriptions += "!";
-        }
-        return descriptions;
-    }
 
-    public String getCardsTitles() {
-        String names = "";
-        for (ToolAction toolAction : this.deck) {
-            names += toolAction.getCardTitle();
-            names += "!";
-        }
-        return names;
-    }
-
-    public String getCardsCosts() {
-        String names = " ";
-        for (ToolAction toolAction : this.deck) {
-            names += toolAction.getCost();
-            names += "!";
-        }
-        return names;
-    }
 }

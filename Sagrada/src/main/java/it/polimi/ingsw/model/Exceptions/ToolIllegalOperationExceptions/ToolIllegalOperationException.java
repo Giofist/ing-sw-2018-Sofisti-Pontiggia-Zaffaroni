@@ -5,7 +5,7 @@ package it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions;
 //to show more specific messages.
 //what if there are toolcards with more than one invalid operation?
 public class ToolIllegalOperationException extends Exception {
-    private static final String msg = "you can't do that!";
+    private static final String msg = "22";
     public ToolIllegalOperationException() {
         super(msg);
     }

@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.model.Exceptions.EmpyDicepoolException;
+import it.polimi.ingsw.model.Exceptions.DicepoolIndexException;
 import it.polimi.ingsw.model.Exceptions.MapConstrainReadingException;
 import it.polimi.ingsw.model.Exceptions.PrivateGoalCardException;
 import it.polimi.ingsw.model.Exceptions.RoundTrackException;
@@ -29,7 +29,6 @@ public class Gametable {
 
 
 
-
     //constructor
     public Gametable(int numberPlayers) throws IOException {
         prepareGame(numberPlayers);
@@ -52,7 +51,7 @@ public class Gametable {
         for (int i = 0; i < numberPlayers * 2 + 1; i++) {
             try{
                 this.getRoundDicepool().addDice(this.getDicepool().extractDice());
-            }catch(EmpyDicepoolException e){
+            }catch(DicepoolIndexException e){
                 System.err.println("Error in Gametable.setupRound");
             }
         }
@@ -81,14 +80,10 @@ public class Gametable {
 
 
     //to get IDs and description and names of the public goals
-    public String getPublicGoalDescriptions() {
-        return this.publicGoalCardDeck.getDescriptions();
+    public List getPublicGoalCards() {
+        return this.publicGoalCardDeck.getCards();
     }
-    public String getPublicGoalNames(){return this.publicGoalCardDeck.getCardsNames();}
 
-    public String getPublicGoalIDs() {
-        return this.publicGoalCardDeck.getIDs();
-    }
 
     // Get functions useful for testing
     public ToolCardsDeck getToolCardsDeck() { return this.tooldeck; }
@@ -113,21 +108,9 @@ public class Gametable {
         return roundTrack;
     }
 
-    public String getToolCardsIDs() {
-        return this.tooldeck.getIDs();
+    public List getToolCards() {
+        return this.tooldeck.getcards();
     }
-
-    public String getToolCardsDescriptions() {
-        return this.tooldeck.getDescriptions();
-    }
-
-    public String getToolCardsTitles() {
-        return this.tooldeck.getCardsTitles();
-    }
-    public String getToolCardsCosts() {
-        return this.tooldeck.getCardsCosts();
-    }
-    public int getNumberOfPlayers() { return this.numberPlayers; }
 }
 
 

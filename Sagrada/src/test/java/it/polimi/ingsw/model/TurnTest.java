@@ -38,10 +38,10 @@ public class TurnTest {
         player2 = new Player();
 
         player1.setMatch(mockMatch);
-        player1.setUser(user1);
+
 
         player2.setMatch(mockMatch);
-        player2.setUser(user2);
+        
 
         List<Player> playerList = new LinkedList<>();
         playerList.add(player1);

@@ -40,7 +40,7 @@ public class GametableTest {
         assertNotNull(gametable.getPublicGoalCardDeck());
         assertNotNull(gametable.getSchemeCard());
         assertNotNull(gametable.getRoundTrack());
-        assertEquals(3, gametable.getNumberOfPlayers());
+
     }
 
 

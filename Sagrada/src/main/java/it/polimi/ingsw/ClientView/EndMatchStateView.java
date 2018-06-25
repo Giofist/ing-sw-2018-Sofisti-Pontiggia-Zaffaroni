@@ -23,7 +23,7 @@ public class EndMatchStateView implements Runnable {
             System.out.println("La partita è finita: hai totalizzato" + serverController.getmyPoints(yourName) + "punti");
             System.out.println("Ecco la classifica finale: " + serverController.getRanking(yourName));
         } catch (RemoteException e) {
-            System.out.println(e.getMessage());
+            System.out.println(Client.translator.translateException(e.getMessage()));
         }
         String input;
         boolean success = false;

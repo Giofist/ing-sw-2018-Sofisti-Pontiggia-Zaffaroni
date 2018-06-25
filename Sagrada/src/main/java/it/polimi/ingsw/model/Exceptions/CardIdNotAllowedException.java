@@ -1,11 +1,8 @@
 package it.polimi.ingsw.model.Exceptions;
 
 public class CardIdNotAllowedException extends Exception {
-    private static final String msg = "Non puoi selezionare una carta che non hai estratto, mi spiace\n";
+    private static final String msg = "23";
     public CardIdNotAllowedException() {
-        super(msg);
-    }
-    public CardIdNotAllowedException(String msg){
         super(msg);
     }
 

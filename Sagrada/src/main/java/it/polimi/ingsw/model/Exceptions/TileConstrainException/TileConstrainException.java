@@ -4,7 +4,7 @@ package it.polimi.ingsw.model.Exceptions.TileConstrainException;
 //e al piazzamneto dei dadi
 
 public class TileConstrainException extends Exception {
-    private static final String msg = "you didn't respect some constrains about the SchemeCard";
+    private static final String msg = "9";
     public TileConstrainException() {
         super(msg);
     }

@@ -39,11 +39,9 @@ public class VarietaDiColoreTest {
         mockMatch = mock(Match.class);
         doNothing().when(mockMatch).countDown();
 
-        user = new User("User1", "pass");
 
         player = new Player();
         player.setMatch(mockMatch);
-        player.setUser(user);
         player.addExtractedSchemeCard(schemeCard);
         player.setScheme(2);
 
@@ -73,14 +71,6 @@ public class VarietaDiColoreTest {
         assertEquals(10, publicObjectiveCard.getID());
     }
 
-    @Test
-    public void getName() {
-        assertEquals("Varietà di Colore", publicObjectiveCard.getName());
-    }
 
-    @Test
-    public void getDescription() {
-        assertEquals("Set di dadi di ogni colore ovunque.", publicObjectiveCard.getDescription());
-    }
 
 }

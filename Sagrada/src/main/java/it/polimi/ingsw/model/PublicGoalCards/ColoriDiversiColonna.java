@@ -9,15 +9,14 @@ import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.SchemeDeck.ColumnIterator;
 import it.polimi.ingsw.model.SchemeDeck.RowIterator;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
 //obiettivo pubblico
 //revisionata by pon
-public class ColoriDiversiColonna implements GoalCard {
+public class ColoriDiversiColonna implements GoalCard,Serializable {
     static int ID = 2;
-    static String name = "Colori Diversi - Colonna";
-    static String description = "Colonne senza colori ripetuti.";
 
 
     @Override
@@ -58,11 +57,5 @@ public class ColoriDiversiColonna implements GoalCard {
         return ID;
     }
 
-    @Override
-    public String getName(){return name;}
 
-    @Override
-    public String getDescription() {
-        return description;
-    }
 }

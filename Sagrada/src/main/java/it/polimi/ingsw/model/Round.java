@@ -38,7 +38,6 @@ public class Round {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    System.out.println("Turn ended at:"+new Date());
                     if(thread.isAlive()){
                     }
                 }

@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.model.Exceptions.EmpyDicepoolException;
+import it.polimi.ingsw.model.Exceptions.DicepoolIndexException;
 import it.polimi.ingsw.model.Exceptions.RoundTrackException;
 
 import java.util.LinkedList;
@@ -43,7 +43,7 @@ public class RoundTrack {
             case 8: return  this.round8Dices;
             case 9: return  this.round9Dices;
             case 10: return this.round10Dices;
-            default: throw new RoundTrackException("id round sbagliato\n");
+            default: throw new RoundTrackException();
         }
     }
 
@@ -59,7 +59,7 @@ public class RoundTrack {
             case 8: this.round8Dices.addallDices(dices);break;
             case 9: this.round9Dices.addallDices(dices);break;
             case 10: this.round10Dices.addallDices(dices);break;
-            default: throw new RoundTrackException("Id round sbagliato\n");
+            default: throw new RoundTrackException();
         }
     }
 
@@ -69,7 +69,7 @@ public class RoundTrack {
             for(int j=0; j<getroundTrackDices(i).getDicePoolSize();j++){
                 try{
                     list.add(getroundTrackDices(i).getDice(j).getColor());
-                }catch(EmpyDicepoolException e){
+                }catch(DicepoolIndexException e){
                     System.out.println("errore");
                 }
             }

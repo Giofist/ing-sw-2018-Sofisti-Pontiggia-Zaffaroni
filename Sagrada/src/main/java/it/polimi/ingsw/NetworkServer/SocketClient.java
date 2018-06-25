@@ -9,15 +9,12 @@ import java.io.IOException;
 import java.rmi.RemoteException;
 
 public class SocketClient implements Observer {
-
     private SocketStringHandlerServer stringHandler;
     private SocketServerListener listener;
 
     public SocketClient( SocketServerListener socketServerListener) {
         this.listener = socketServerListener;
-
     }
-
     public void setStringHandler(SocketStringHandlerServer stringHandler) {
         this.stringHandler = stringHandler;
     }
@@ -34,7 +31,7 @@ public class SocketClient implements Observer {
         try{
             listener.sendMessage(message);
         }catch(IOException e){
-            throw new RemoteException("problemi di connessione");
+            throw new RemoteException();
         }
         try{
             wait();

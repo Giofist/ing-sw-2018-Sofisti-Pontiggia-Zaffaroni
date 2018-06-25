@@ -11,18 +11,17 @@ import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.Taglierin
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PlayerPackage.State;
+import it.polimi.ingsw.model.UsersList;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.List;
 
 // DA TERMINARE
-public class TaglierinaManuale  extends ToolAction {
+public class TaglierinaManuale  extends ToolAction implements Serializable{
     public TaglierinaManuale(){
         this.cost = 1;
         this.ID =12;
-        this.cardTitle = "Taglierina Manuale";
-        this.description = "Muovi fino a due dadi dello stesso colore  di un solo dado sul Tracciato dei Round.\n" +
-                "Devi rispettare tutte le restrizioni di piazzamento.";
     }
     Dice removedDice;
     Dice removedDice2;
@@ -40,32 +39,36 @@ public class TaglierinaManuale  extends ToolAction {
                         player.getScheme().removeDice(toolRequestClass.getOldRow2(), toolRequestClass.getOldColumn2());
                         player.getScheme().setDice(removedDice2, toolRequestClass.getNewRow2(), toolRequestClass.getNewColumn2(),false,false,false);
                     }else{
-                        throw new TaglierinaManualeException("Il colore non corrisponde a quello del primo dado\n");
+                        throw new TaglierinaManualeException("20.1");
                     }
                 }
             }else{
-                throw new TaglierinaManualeException("Non c'è nessun dado con lo stesso colore nel Tracciato Round\n");
+                throw new TaglierinaManualeException("20.2");
             }
 
             if (player.getPlayerState().getState().equals(State.HASSETADICESTATE)){
                 player.setPlayerState(State.MUSTPASSTURNSTATE);
             }else player.setPlayerState(State.HASUSEDATOOLCARDACTIONSTATE);
         }catch (OutOfMatrixException e){
-            throw new TaglierinaManualeException(TaglierinaManualeException.getMsg()+e.getMessage());
+            throw new TaglierinaManualeException();
         }catch (DiceNotExistantException e){
-            throw new TaglierinaManualeException(TaglierinaManualeException.getMsg()+e.getMessage());
+            throw new TaglierinaManualeException();
         }catch (TileConstrainException e){
             try{
                 player.getScheme().setDice(removedDice, toolRequestClass.getOldRow1(), toolRequestClass.getOldColumn1(),false,false,false);
                 player.getScheme().setDice(removedDice2, toolRequestClass.getOldRow2(), toolRequestClass.getOldColumn2(),false,false,false);
             }catch (Exception ecpt){ }
-            throw new TaglierinaManualeException(TaglierinaManualeException.getMsg()+e.getMessage());
+            throw new TaglierinaManualeException();
         }catch (RoundTrackException e){
-            throw new TaglierinaManualeException(TaglierinaManualeException.getMsg()+e.getMessage());
+            throw new TaglierinaManualeException();
         }catch (SchemeCardNotExistantException e){
             //
         } catch (RemoteException e) {
-            player.getAssociatedUser().setActive(false);
+            try{
+                UsersList.Singleton().getUser(player.getName()).setActive(false);
+            }catch(Exception err){
+                //do nothing
+            }
             player.getTurn().countDown();
         }
 

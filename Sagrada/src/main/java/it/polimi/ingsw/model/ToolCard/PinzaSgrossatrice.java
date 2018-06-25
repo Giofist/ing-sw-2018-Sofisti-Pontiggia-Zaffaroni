@@ -1,25 +1,24 @@
 package it.polimi.ingsw.model.ToolCard;
 
 import it.polimi.ingsw.model.Exceptions.DecreaseNotAllowedException;
-import it.polimi.ingsw.model.Exceptions.EmpyDicepoolException;
+import it.polimi.ingsw.model.Exceptions.DicepoolIndexException;
 import it.polimi.ingsw.model.Exceptions.IncreaseNotAllowedException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.PinzaSgrossatriceException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PlayerPackage.State;
+import it.polimi.ingsw.model.UsersList;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 
-public class PinzaSgrossatrice  extends ToolAction {
+public class PinzaSgrossatrice  extends ToolAction implements Serializable{
 
 
 
     public PinzaSgrossatrice(){
         this.cost =1;
         this.ID=1;
-        this.cardTitle = "Pinza Sgrossatrice";
-        this.description = "Dopo aver scelto un dado, aumenta o diminuisci il valore del dado scelto di 1.\n" +
-                "Non puoi cambiare un 6 in 1 o un 1 in 6.";
     }
 
 
@@ -34,13 +33,17 @@ public class PinzaSgrossatrice  extends ToolAction {
                 player.setPlayerState(State.MUSTPASSTURNSTATE);
             }else player.setPlayerState(State.HASUSEDATOOLCARDACTIONSTATE);
         }catch(DecreaseNotAllowedException e){
-            throw new PinzaSgrossatriceException(PinzaSgrossatriceException.getMsg()+ e.getMessage());
+            throw new PinzaSgrossatriceException("17.24");
         }catch (IncreaseNotAllowedException e){
-            throw new PinzaSgrossatriceException(PinzaSgrossatriceException.getMsg()+ e.getMessage());
-        }catch (EmpyDicepoolException e){
+            throw new PinzaSgrossatriceException("17.29");
+        }catch (DicepoolIndexException e){
 
         }catch (RemoteException e){
-            player.getAssociatedUser().setActive(false);
+            try{
+                UsersList.Singleton().getUser(player.getName()).setActive(false);
+            }catch(Exception err){
+                //do nothing
+            }
             player.getTurn().countDown();
         }
     }

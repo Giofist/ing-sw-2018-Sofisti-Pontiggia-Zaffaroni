@@ -26,8 +26,6 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
     private SchemeCard twinCard;
     private int ID;
     private String MapName;
-    private String mapString;
-    private char[] map;
     private int maxRow;
     private int maxColumn;
 
@@ -56,8 +54,7 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
 
             matrix = new Tile[maxRow][maxColumn];
 
-            this.mapString = buffer.readLine();
-            this.map = mapString.toCharArray();
+            char[] map = buffer.readLine().toCharArray();
 
             //set Tiles
             for(int row=0; row<maxRow; row++) {
@@ -112,7 +109,7 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
                         case '_':
                             break;
                         default:
-                            throw new MapConstrainReadingException(this.getID());
+                            throw new MapConstrainReadingException();
                     }
                 }
             }
@@ -310,39 +307,5 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
         return new RowIterator<Tile>(this,column);
     }
 
-    @Override
-    public String toString(){
-        String schemeCardstring = "";
-        schemeCardstring += getMapName();
-        schemeCardstring += "%Difficoltà della mappa: ";
-        schemeCardstring += getDifficulty();
-        schemeCardstring += "%";
-        for (int row = 0; row < maxRow; row++) {
-            for (int column = 0 ; column < maxColumn; column++) {
-                if (this.matrix[row][column].isOccupied()){
-                    try {
-                        schemeCardstring += this.matrix[row][column].getDice().getIntensity();
-                        schemeCardstring += this.matrix[row][column].getDice().getColor().toString().toLowerCase();
-                    } catch (DiceNotExistantException e) {
-                        e.printStackTrace();
-                    }
-                }
-                else if (this.matrix[row][column].haveColor_constrain()){
-                    schemeCardstring += "0";
-                    schemeCardstring += this.matrix[row][column].getColor_Constrain().toString();
-                }
-                else if (this.matrix[row][column].haveNumber_constrain()){
-                    schemeCardstring += this.matrix[row][column].getNumber_Constrain();
-                    schemeCardstring += "*";
-                }
-                else{
-                    schemeCardstring += "0_";
-                }
-                schemeCardstring += "-";
-                }
-            schemeCardstring += "!";
-            }
-        return schemeCardstring;
-    }
 }
 

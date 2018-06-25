@@ -39,11 +39,9 @@ public class SfumatureDiverseTest {
         mockMatch = mock(Match.class);
         doNothing().when(mockMatch).countDown();
 
-        user = new User("User1", "pass");
 
         player = new Player();
         player.setMatch(mockMatch);
-        player.setUser(user);
         player.addExtractedSchemeCard(schemeCard);
         player.setScheme(2);
 
@@ -89,13 +87,5 @@ public class SfumatureDiverseTest {
         assertEquals(8, publicObjectiveCard.getID());
     }
 
-    @Test
-    public void getName() {
-        assertEquals("Sfumature Diverse", publicObjectiveCard.getName());
-    }
 
-    @Test
-    public void getDescription() {
-        assertEquals("Set di dadi di ogni valore ovunque.", publicObjectiveCard.getDescription());
-    }
 }

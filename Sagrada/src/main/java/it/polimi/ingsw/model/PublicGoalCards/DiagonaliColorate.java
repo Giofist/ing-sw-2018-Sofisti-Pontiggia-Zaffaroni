@@ -9,16 +9,16 @@ import it.polimi.ingsw.model.GoalCard;
 import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.SchemeDeck.Tile;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
 
 //revisionata by pon
 //assolutamente da testare
 //obiettivo pubblico
-public class DiagonaliColorate implements GoalCard {
+public class DiagonaliColorate implements GoalCard,Serializable {
     static int ID = 9;
-    static String name = "Diagonali Colorate";
-    static String description = "Numero di dadi dello stesso colore diagonalmente adiacenti.";
+
     @Override
     public void calculatepoint(Player player) {
         try{
@@ -39,16 +39,6 @@ public class DiagonaliColorate implements GoalCard {
         return ID;
     }
 
-    @Override
-    public String getName(){return name;}
-    @Override
-    public String getDescription() {
-        return description;
-    }
-    //It could be kind to rewrite this expression in functional Java, coudn't it?
-    //But at the time, if it work, it's the top!
-    //my only doubt is about swallow or deep copy of the list: if it'not swallow, it does not work
-    //so please if you've some news, inform me
     private void findsamecolordices(int row, int column,Player player,LinkedList<Dice> list){
         try {
             DiceColor thecolorofthistile = player.getScheme().getDiceColour(row, column);

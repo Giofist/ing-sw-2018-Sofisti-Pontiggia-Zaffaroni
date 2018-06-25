@@ -34,6 +34,8 @@ public class MultiJoinController implements Initializable{
     private JFXButton joinaGame;
 
     @FXML
+    private JFXButton updateList;
+    @FXML
     private JFXButton Back;
 
    @Override
@@ -55,5 +57,10 @@ public class MultiJoinController implements Initializable{
     }
 
     public void SelectGame(MouseEvent mouseEvent) {
+    }
+
+    public void UpdateGameList(ActionEvent actionEvent) {
+        ObservableList<String> data = FXCollections.observableArrayList("gio", "gioco");
+        gameList.setItems(data);
     }
 }

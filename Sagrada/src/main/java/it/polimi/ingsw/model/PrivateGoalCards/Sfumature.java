@@ -8,18 +8,17 @@ import it.polimi.ingsw.model.GoalCard;
 import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.SchemeDeck.Tile;
 
+import java.io.Serializable;
+
 //obiettivo privato
-public class Sfumature implements GoalCard {
+public class Sfumature implements GoalCard, Serializable {
     private int ID;
-    private DiceColor color;
-    private String name;
-    private String description;
+    private transient DiceColor color;
 
     public Sfumature(int id, DiceColor diceColor){
         this.color = diceColor;
         this.ID = id;
-        this.name =  "Sfumature " + diceColor.toString() + ".";
-        this.description = "Somma dei valori su tutti i dadi "+ diceColor.toString() + ".";
+
     }
 
     @Override
@@ -45,13 +44,6 @@ public class Sfumature implements GoalCard {
         return ID;
     }
 
-    @Override
-    public String getName(){return name;}
-
-    @Override
-    public  String getDescription() {
-        return description;
-    }
 
 }
 
