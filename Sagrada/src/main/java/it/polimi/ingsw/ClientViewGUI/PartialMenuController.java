@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
@@ -19,11 +18,11 @@ import java.util.Collections;
 import java.util.ResourceBundle;
 
 
-public class MenuController extends AbstractController implements Initializable{
+public class PartialMenuController extends AbstractController{
     Stage stage = null;
     Parent myNewScene = null;
 
-    public MenuController(){
+    public PartialMenuController(){
         ObserverGUI.Singleton().setController(this);
     }
         @FXML
@@ -103,13 +102,6 @@ public class MenuController extends AbstractController implements Initializable{
 
     public void setUpSinglePlayer(javafx.event.ActionEvent actionEvent) {
         ErrorMessage.setText("Cooming Soon!");
-    }
-
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        PlayerName.setText(ObserverGUI.Singleton().getUsername());
-        PlayerScore.setText("");
     }
 
     public static AnchorPane getMainPane() {

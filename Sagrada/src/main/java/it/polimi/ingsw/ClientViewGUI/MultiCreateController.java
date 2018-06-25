@@ -57,10 +57,10 @@ public class MultiCreateController extends AbstractController {
         }
 
         public void goBack(ActionEvent actionEvent) {
-                try {
-                        createPane.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/MultiSelectMode.fxml"))));
-                } catch (IOException e) {
-                        e.printStackTrace();
-                }
+            try {
+                createPane.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/MultiSelectMode.fxml"))));
+            } catch (IOException e) {
+                    e.printStackTrace();
+            }
         }
 }

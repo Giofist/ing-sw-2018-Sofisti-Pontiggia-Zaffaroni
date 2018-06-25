@@ -101,21 +101,20 @@ public class LogInController extends AbstractController implements Initializable
         Parent menu = null;
         try {
            ObserverGUI.Singleton().getServerController().login(username.getCharacters().toString(), password.getCharacters().toString(), ObserverGUI.Singleton());
-            LogInError.setText("Hai creato un nuovo account!");
-        } catch (RemoteException e) {
-            LogInError.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
-        }
-        ObserverGUI.Singleton().setUsername(username.getCharacters().toString());
-        try {
-            menu = FXMLLoader.load(getClass().getResource("/Menu.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            ObserverGUI.Singleton().setUsername(username.getCharacters().toString());
+            try {
+                menu = FXMLLoader.load(getClass().getResource("/Menu.fxml"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             Scene scene = new Scene(menu);
             Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             appStage.setScene(scene);
             appStage.setFullScreen(true);
             appStage.show();
+        } catch (RemoteException e) {
+            LogInError.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
+        }
     }
 
     @FXML
