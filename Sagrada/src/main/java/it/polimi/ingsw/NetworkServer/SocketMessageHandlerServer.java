@@ -20,7 +20,7 @@ public class SocketMessageHandlerServer implements Runnable {
         try{
             this.message.performAction(this.clientHandler, listener);
         }catch (RemoteException e) {
-            ServerMessage message = new ServerMessage();
+            ServerMessage message = new ServerResponseMessage();
             message.setMessagecodex(0);
             message.setMessage(e.getMessage());
 

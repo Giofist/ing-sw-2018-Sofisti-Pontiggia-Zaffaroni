@@ -3,17 +3,18 @@ package it.polimi.ingsw.NetworkServer;
 
 import java.rmi.RemoteException;
 
-public class SocketStringHandlerServer implements Runnable {
+public class SocketResponseHandlerServer implements Runnable {
     private SocketClient client;
     private String message;
     private RemoteException exception;
     private int messageCodex;
 
-    public SocketStringHandlerServer(SocketClient client, String message, int messageCodex ){
+    public SocketResponseHandlerServer(SocketClient client, String message, int messageCodex ){
         this.client = client;
         this.messageCodex = messageCodex;
         this.message = message;
     }
+    @Override
     public  void run(){
         if(this.messageCodex == 0){
             this.exception = new RemoteException(message);
@@ -23,6 +24,7 @@ public class SocketStringHandlerServer implements Runnable {
             client.notifyAll();
         }
     }
+
     public void check() throws RemoteException{
         if(this.exception == null){
             return;

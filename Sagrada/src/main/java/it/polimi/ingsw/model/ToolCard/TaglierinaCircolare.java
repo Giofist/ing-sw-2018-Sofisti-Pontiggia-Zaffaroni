@@ -37,15 +37,7 @@ public class TaglierinaCircolare  extends ToolAction implements Serializable {
             throw new TaglierinaCircolareException();
         }catch (DicepoolIndexException e){
             //do something?
-        }catch(RemoteException e){
-            try{
-                UsersList.Singleton().getUser(player.getName()).setActive(false);
-            }catch(Exception err){
-                //do nothing
-            }
-            player.getTurn().countDown();
         }
-
     }
 
 

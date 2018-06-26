@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.ClientMessagePackage;
 
 import it.polimi.ingsw.NetworkServer.ServerMessage;
+import it.polimi.ingsw.NetworkServer.ServerResponseMessage;
 import it.polimi.ingsw.NetworkServer.SocketServerListener;
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
 
@@ -15,7 +16,7 @@ public class GetTokenMessage extends ClientMessage {
     @Override
     public void performAction(ClientHandlerInterface clientHandler, SocketServerListener listener) throws RemoteException {
         int answer = clientHandler.getToken(getClientName());
-        ServerMessage messageClass = new ServerMessage();
+        ServerMessage messageClass = new ServerResponseMessage();
         messageClass.setMessagecodex(1);
         messageClass.setMessage(String.valueOf(answer));
         try {

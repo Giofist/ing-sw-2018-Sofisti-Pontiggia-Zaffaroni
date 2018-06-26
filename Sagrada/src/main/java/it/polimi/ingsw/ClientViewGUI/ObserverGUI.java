@@ -56,6 +56,11 @@ public class ObserverGUI extends UnicastRemoteObject implements Observer {
         this.controller.update(o.getState());
     }
 
+    @Override
+    public void ping() throws RemoteException {
+        return;
+    }
+
 }
 
 

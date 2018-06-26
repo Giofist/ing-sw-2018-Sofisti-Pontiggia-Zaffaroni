@@ -38,13 +38,6 @@ public class RigainSughero  extends ToolAction implements Serializable {
             if (player.getPlayerState().getState().equals(State.HASSETADICESTATE)) {
                 player.setPlayerState(State.MUSTPASSTURNSTATE);
             } else player.setPlayerState(State.HASUSEDATOOLCARDACTIONSTATE);
-        }catch(RemoteException e){
-            try{
-                UsersList.Singleton().getUser(player.getName()).setActive(false);
-            }catch(Exception err){
-                //do nothing
-            }
-            player.getTurn().countDown();
         }catch (Exception e){
             try{
                 player.getGametable().getRoundDicepool().addDice(toolRequestClass.getSelectedDiceIndex(),dice);

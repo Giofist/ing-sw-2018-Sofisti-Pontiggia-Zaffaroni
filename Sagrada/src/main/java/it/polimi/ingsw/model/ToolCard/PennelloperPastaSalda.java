@@ -54,15 +54,7 @@ public class PennelloperPastaSalda  extends ToolAction implements Serializable {
             throw new PennelloPerPastaSaldaException();
         }catch (SchemeCardNotExistantException e){
             throw new PennelloPerPastaSaldaException();
-        }catch (RemoteException e){
-            try{
-                UsersList.Singleton().getUser(player.getName()).setActive(false);
-            }catch(Exception err){
-                //do nothing
-            }
-            player.getTurn().countDown();
         }
-
     }
 
 

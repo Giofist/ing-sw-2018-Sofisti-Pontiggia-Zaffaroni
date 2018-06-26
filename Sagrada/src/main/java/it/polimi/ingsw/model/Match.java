@@ -34,14 +34,19 @@ public class Match implements Runnable,Serializable{
         this.isreadyTostart = false;
     }
 
+    @Override
     public synchronized void run(){
         while (!isreadyTostart){
             try {
+                for (Player player: this.players){
+                    player.setPlayerState(State.MATCHNOTSTARTEDYETSTATE);
+                }
                 wait();
             }catch(InterruptedException e) {
                 //do nothing
             }
         }
+
         //the match can start
         this.setStarted(true);
         try {
@@ -59,30 +64,16 @@ public class Match implements Runnable,Serializable{
                         System.out.println(e.getMessage());
                     }catch(PrivateGoalCardException e){
                         // do nothing
-                    }catch (RemoteException e){
-                        try{
-                            UsersList.Singleton().getUser(player.getName()).setActive(false);
-                        }catch(Exception err){
-                            //do nothing
-                        }
-                        //se uno non setta la carta schema non può giocare
-                        this.players.remove(player);
-                        try{
-                            UsersList.Singleton().getUser(player.getName()).removePlayer();
-                        }catch(UserNotExistentException err){
-                            //do nothing
-                        }
-                        success = true;
                     }
                 }
             }
         }catch(IOException e){
             //do something?
         }
+
         doneSignal = new CountDownLatch(this.getNumberOfPlayers());
         try {
             doneSignal.await();
-
         }catch(InterruptedException e) {
             //do nothing
         }
@@ -105,16 +96,7 @@ public class Match implements Runnable,Serializable{
         //notifico ai vari giocatori la fine della partita dopo aver ordinato la lista in base al punteggio di ciascuno
         Collections.sort(this.players);
         for (Player player:this.players) {
-            try{
-                player.setPlayerState(State.ENDMATCHSTATE);
-            }catch (RemoteException e){
-                try{
-                    UsersList.Singleton().getUser(player.getName()).setActive(false);
-                }catch(Exception err){
-                    //do nothing
-                }
-                leavethematchatthend(player);
-            }
+            player.setPlayerState(State.ENDMATCHSTATE);
         }
     }
 
@@ -140,10 +122,12 @@ public class Match implements Runnable,Serializable{
     }
     public synchronized void join(Player player){
         this.players.addLast(player);
+        System.out.println("é stato chiamato join " + player.getName());
         if (this.players.size() == 2){
             isreadyTostart = true;
+            notifyAll();
         }
-        notifyAll();
+
     }
 
     public List<Player> getallPlayersbutnotme(Player player){
@@ -160,39 +144,21 @@ public class Match implements Runnable,Serializable{
     }
 
 
-    //da chiamare alla fine, quando un client vuole loasciare una partita e per esempio aggiungersi ad un'altra
-    public  void leavethematchatthend(Player player){
-        this.players.remove(player);
-        if(getNumberOfPlayers()==0){
-            MatchesList.singleton().remove(this);
-        }
-    }
 
     public void leavethematch(Player player){
         this.players.remove(player);
         if(getNumberOfPlayers()==0){
-            MatchesList.singleton().remove(this);
+            MatchesList.singleton().getmatches().remove(this);
         }
     }
-
 
     public void countDown() {
         this.doneSignal.countDown();
     }
-
     public void forceendmatch() {
         for(Player player: this.players){
-            try{
-                player.setPlayerState(State.FORCEENDMATCH);
-            }catch(RemoteException e){
-                try{
-                    UsersList.Singleton().getUser(player.getName()).setActive(false);
-                }catch(Exception err){
-                    //do nothing
-                }
-            }
+            player.setPlayerState(State.FORCEENDMATCH);
         }
-        MatchesList.singleton().remove(this);
     }
 
 

@@ -140,14 +140,25 @@ public class Player  implements Comparable<Player>, Serializable {
         this.mustpassTurn = mustpassTurn;
     }
     public void addExtractedSchemeCard(SchemeCard schemeCard){
-        this.extractedschemeCards.add(schemeCard);
+        if(this.extractedschemeCards.size() <2){
+            this.extractedschemeCards.add(schemeCard);
+        }
+        else return;
     }
     public PlayerState getPlayerState(){
         return this.playerState;
     }
-    public void setPlayerState(State state)throws RemoteException{
+    public void setPlayerState(State state){
         this.playerState.updateState(state);
-        this.playerState.notifyObservers();
+        try{
+            this.playerState.notifyObservers();
+        }catch(RemoteException e){
+            try{
+                UsersList.Singleton().getUser(this.getName()).setActive(false);
+            }catch(Exception er){
+                //do nothing
+            }
+        }
     }
     public Turn getTurn() {
         return turn;

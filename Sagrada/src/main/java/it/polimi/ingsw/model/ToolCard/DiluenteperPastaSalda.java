@@ -38,16 +38,8 @@ public class DiluenteperPastaSalda  extends ToolAction implements Serializable {
 
             //poi pescane uno
             player.setDiceforToolCardUse(player.getGametable().getDicepool().extractDice());
-            try{
-                player.setPlayerState(State.MUSTSSETDILUENTEPERPASTASALDASTATE);
-            }catch (RemoteException e){
-                try{
-                    UsersList.Singleton().getUser(player.getName()).setActive(false);
-                }catch(Exception err){
-                    //do nothing
-                }
-                player.getTurn().countDown();
-            }
+            player.setPlayerState(State.MUSTSSETDILUENTEPERPASTASALDASTATE);
+
         }catch(DicepoolIndexException e){
             throw new DiluentePerPastaSaldaException();
         } catch(IndexOutOfBoundsException e) {

@@ -1,7 +1,5 @@
 package it.polimi.ingsw.ClientViewGUI;
 
-import com.google.inject.internal.util.Strings;
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import it.polimi.ingsw.model.Match;
 import it.polimi.ingsw.model.PlayerPackage.State;
@@ -12,8 +10,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
@@ -56,7 +52,7 @@ public class MultiJoinController extends AbstractController implements Initializ
 
     public void JoinGame(ActionEvent actionEvent) {
         try {
-            ObserverGUI.Singleton().getServerController().joinaGame(ObserverGUI.Singleton().getUsername(), ObserverGUI.Singleton(), gameList.getSelectionModel().getSelectedItem());
+            ObserverGUI.Singleton().getServerController().joinaMatch(ObserverGUI.Singleton().getUsername(), ObserverGUI.Singleton(), gameList.getSelectionModel().getSelectedItem());
             } catch (RemoteException e) {
             ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
         }

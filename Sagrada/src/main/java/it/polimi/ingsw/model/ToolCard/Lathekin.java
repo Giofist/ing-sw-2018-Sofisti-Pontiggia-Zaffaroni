@@ -46,18 +46,10 @@ public class Lathekin  extends ToolAction implements Serializable{
             }
             throw new LathekinException();
         }
-        try{
-            if (player.getPlayerState().getState().equals(State.HASSETADICESTATE)){
-                player.setPlayerState(State.MUSTPASSTURNSTATE);
-            }else player.setPlayerState(State.HASUSEDATOOLCARDACTIONSTATE);
-        }catch (RemoteException e){
-            try{
-                UsersList.Singleton().getUser(player.getName()).setActive(false);
-            }catch(Exception err){
-                //do nothing
-            }
-            player.getTurn().countDown();
-        }
+        if (player.getPlayerState().getState().equals(State.HASSETADICESTATE)){
+            player.setPlayerState(State.MUSTPASSTURNSTATE);
+        }else player.setPlayerState(State.HASUSEDATOOLCARDACTIONSTATE);
+
 
     }
 

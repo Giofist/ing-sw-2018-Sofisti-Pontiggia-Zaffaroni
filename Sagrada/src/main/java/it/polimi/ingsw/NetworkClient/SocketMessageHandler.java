@@ -1,7 +1,6 @@
 package it.polimi.ingsw.NetworkClient;
 
 import it.polimi.ingsw.ClientView.Observer;
-import it.polimi.ingsw.ClientView.ObserverView;
 import it.polimi.ingsw.NetworkServer.ServerMessage;
 import it.polimi.ingsw.model.ClientMessagePackage.ResponseMessage;
 

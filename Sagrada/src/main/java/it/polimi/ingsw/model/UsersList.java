@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.PlayerPackage.Player;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.rmi.RemoteException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Hashtable;
@@ -15,14 +16,10 @@ import java.util.LinkedList;
 import java.util.Scanner;
 
 
-//(pon) ho revisionato questa classe in modo da renderla thread safe in tutti i suoi metodi
 public class UsersList {
     private static UsersList instance = null;
     private LinkedList<User> users;
 
-    //in questa classe abbiamo applicato un pattern singleton:
-    //la classe deve avere un'unica istanza perchè la lista deve essere unica
-    //per il tutto il gioco, altrimenti si rischia di perdere consistenza
 
 
     //costruttore privato
@@ -88,6 +85,7 @@ public class UsersList {
                     user.setActive(true);
                     if (user.getPlayer() != null) {
                         user.getPlayer().getPlayerState().addObserver(observer);
+                        user.getPlayer().setPlayerState(user.getPlayer().getPlayerState().getState());
                     }
                 }
                 return;

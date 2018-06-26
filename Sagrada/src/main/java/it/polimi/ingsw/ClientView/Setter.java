@@ -81,7 +81,7 @@ public class Setter {
                 }
                 case "LEAVEMATCHATTHEEND": {
                     try {
-                        serverController.leavethematchatthend(yourName);
+                        serverController.leavethematch(yourName);
                     } catch (RemoteException e) {
                         System.out.println(Client.translator.translateException(e.getMessage()));
                     }

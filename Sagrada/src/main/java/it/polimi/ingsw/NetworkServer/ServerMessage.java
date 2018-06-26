@@ -12,11 +12,13 @@ import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.List;
 
-public class ServerMessage implements Serializable {
-    private int messagecodex;
-    private String message;
-    private Observable observable;
-    private List list;
+public abstract class ServerMessage implements Serializable {
+    int messagecodex;
+    String message;
+    Observable observable;
+    List list;
+
+
 
     public void setObservable(Observable observable){
         this.observable = observable;
@@ -41,15 +43,6 @@ public class ServerMessage implements Serializable {
     }
 
 
-    public void performAction(Observer view, SocketClientListener listener) throws RemoteException {
-        view.update(observable, null);
-        ClientMessage messageClass = new ResponseMessage();
-        messageClass.setMessagecodex(1);
-        try {
-            listener.sendMessage(messageClass);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    public  abstract void performAction(Observer view, SocketClientListener listener) throws RemoteException;
 
 }

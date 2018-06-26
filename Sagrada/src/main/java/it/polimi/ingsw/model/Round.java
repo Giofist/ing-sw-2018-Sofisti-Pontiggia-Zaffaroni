@@ -39,6 +39,7 @@ public class Round {
                         e.printStackTrace();
                     }
                     if(thread.isAlive()){
+                        turn.countDownAll();
                     }
                 }
             },0);

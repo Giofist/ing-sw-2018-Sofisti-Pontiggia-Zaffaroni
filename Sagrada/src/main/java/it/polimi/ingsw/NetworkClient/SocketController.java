@@ -113,7 +113,7 @@ public class SocketController implements ClientHandlerInterface {
 
 
     @Override
-    public synchronized void joinaGame(String username, Observer client, String gamename) throws RemoteException {
+    public synchronized void joinaMatch(String username, Observer client, String gamename) throws RemoteException {
         ClientMessage joinaGameMessage = new JoinaGameMessage();
         joinaGameMessage.setClientName(username);
         joinaGameMessage.setGameName(gamename);
@@ -292,26 +292,6 @@ public class SocketController implements ClientHandlerInterface {
     }
 
 
-    @Override
-    public synchronized void leavethematchatthend(String clientname) throws RemoteException {
-        ClientMessage leaveTheMatchMessage = new LeaveTheMatchAtTheendMessage();
-        leaveTheMatchMessage.setClientName(clientname);
-
-        try {
-            listener.sendMessage(leaveTheMatchMessage);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try{
-            wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        this.responseHandler.check();
-        this.responseHandler = null;
-    }
-
 
     @Override
     public synchronized void setToolCardDice(String clientname, int row, int column) throws RemoteException {
@@ -319,7 +299,6 @@ public class SocketController implements ClientHandlerInterface {
         setToolCardDiceMessage.setClientName(clientname);
         setToolCardDiceMessage.setRow(row);
         setToolCardDiceMessage.setColumn(column);
-
         try {
             listener.sendMessage(setToolCardDiceMessage);
         } catch (IOException e) {

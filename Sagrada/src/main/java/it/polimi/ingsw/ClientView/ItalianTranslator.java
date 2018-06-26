@@ -4,6 +4,8 @@ import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
 import it.polimi.ingsw.model.Match;
 import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PlayerPackage.TurnActions;
+import it.polimi.ingsw.model.SchemeDeck.ColumnIterator;
+import it.polimi.ingsw.model.SchemeDeck.RowIterator;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 import it.polimi.ingsw.model.SchemeDeck.Tile;
 
@@ -106,29 +108,35 @@ public class ItalianTranslator implements Translator {
         schemeCardstring += "%Difficoltà della mappa: ";
         schemeCardstring += schemeCard.getDifficulty();
         schemeCardstring += "%";
-        for (Tile tile: schemeCard){
-            if (tile.isOccupied()) {
-                try {
-                    schemeCardstring += tile.getDice().getIntensity();
-                    schemeCardstring += tile.getDice().getColor().toString().toLowerCase();
-                } catch (DiceNotExistantException e) {
-                    e.printStackTrace();
+        RowIterator rowIterator =  schemeCard.rowIterator(0);
+        while(rowIterator.hasNext()){
+            ColumnIterator columnIterator = schemeCard.columnIterator(rowIterator.getCurrentRow());
+            while(columnIterator.hasNext()){
+                Tile tile = columnIterator.next();
+                if (tile.isOccupied()) {
+                    try {
+                        schemeCardstring += tile.getDice().getIntensity();
+                        schemeCardstring += tile.getDice().getColor().toString().toLowerCase();
+                    } catch (DiceNotExistantException e) {
+                        e.printStackTrace();
+                    }
                 }
+                else if (tile.haveColor_constrain()){
+                    schemeCardstring += "0";
+                    schemeCardstring += tile.getColor_Constrain().toString();
+                }
+                else if (tile.haveNumber_constrain()){
+                    schemeCardstring += tile.getNumber_Constrain();
+                    schemeCardstring += "*";
+                }
+                else{
+                    schemeCardstring += "0_";
+                }
+                schemeCardstring += "-";
             }
-            else if (tile.haveColor_constrain()){
-                schemeCardstring += "0";
-                schemeCardstring += tile.getColor_Constrain().toString();
-            }
-            else if (tile.haveNumber_constrain()){
-                schemeCardstring += tile.getNumber_Constrain();
-                schemeCardstring += "*";
-            }
-            else{
-                schemeCardstring += "0_";
-            }
-            schemeCardstring += "-";
+            rowIterator.next();
+            schemeCardstring += "!";
         }
-        schemeCardstring += "!";
         return schemeCardstring;
     }
 

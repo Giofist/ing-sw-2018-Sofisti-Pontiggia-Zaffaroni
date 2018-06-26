@@ -37,14 +37,7 @@ public class PinzaSgrossatrice  extends ToolAction implements Serializable{
         }catch (IncreaseNotAllowedException e){
             throw new PinzaSgrossatriceException("17.29");
         }catch (DicepoolIndexException e){
-
-        }catch (RemoteException e){
-            try{
-                UsersList.Singleton().getUser(player.getName()).setActive(false);
-            }catch(Exception err){
-                //do nothing
-            }
-            player.getTurn().countDown();
+            //do nothing
         }
     }
 

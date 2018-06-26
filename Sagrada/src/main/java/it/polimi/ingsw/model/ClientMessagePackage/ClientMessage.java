@@ -10,8 +10,6 @@ import java.rmi.RemoteException;
 public abstract class ClientMessage implements Serializable{
     int messagecodex;
     String errorMessage;
-    // questa classe dovrà essere popolata a seconda delle richieste
-    // Parametri delle richieste
     String clientname;
     String password;
     String gameName;
@@ -22,10 +20,7 @@ public abstract class ClientMessage implements Serializable{
     int intensity;
     String playername;
 
-    //constructor
-    public ClientMessage() {
-        // Do nothing
-    }
+
 
     public String getPlayername(){
         return this.playername;

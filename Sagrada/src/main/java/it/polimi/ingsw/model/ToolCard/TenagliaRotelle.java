@@ -41,18 +41,10 @@ public class TenagliaRotelle  extends ToolAction implements Serializable {
         }catch(OutOfMatrixException e){
             throw new TenagliaRotelleException();
         }catch (SchemeCardNotExistantException e){
-
+            // do something?
         }catch (DicepoolIndexException e){
-
-        }catch (RemoteException e){
-            try{
-                UsersList.Singleton().getUser(player.getName()).setActive(false);
-            }catch(Exception err){
-                //do nothing
-            }
-            player.getTurn().countDown();
+            //do something?
         }
-
     }
 
 

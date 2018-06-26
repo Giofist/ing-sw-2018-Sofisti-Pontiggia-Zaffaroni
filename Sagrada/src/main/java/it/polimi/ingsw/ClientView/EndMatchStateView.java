@@ -40,7 +40,7 @@ public class EndMatchStateView implements Runnable {
             input = in.nextLine();
             if (input.equals("S") || input.equals("s")) {
                 try{
-                    serverController.leavethematchatthend(yourName);
+                    serverController.leavethematch(yourName);
                 }catch(RemoteException e){
                     e.printStackTrace();
                 }

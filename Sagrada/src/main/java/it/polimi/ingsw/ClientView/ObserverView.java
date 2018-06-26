@@ -1,6 +1,5 @@
 package it.polimi.ingsw.ClientView;
 
-import it.polimi.ingsw.ServerController.ClientHandler;
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
 import it.polimi.ingsw.model.Match;
 import it.polimi.ingsw.model.Observable;
@@ -9,7 +8,6 @@ import it.polimi.ingsw.model.PlayerPackage.State;
 import java.io.PrintWriter;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -216,7 +214,7 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
                 System.out.println("Digita il il nome della partita cui vuoi partecipare:");
                 gamename = in.nextLine();
                 try {
-                    serverController.joinaGame(yourName, this, gamename);
+                    serverController.joinaMatch(yourName, this, gamename);
                     chosen= true;
                     System.out.println("Sei entrato nella partita!");
                 } catch (RemoteException e) {
@@ -307,5 +305,10 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
             }
         }
         this.notifyAll();
+    }
+
+    @Override
+    public void ping() throws RemoteException{
+        return;
     }
 }
