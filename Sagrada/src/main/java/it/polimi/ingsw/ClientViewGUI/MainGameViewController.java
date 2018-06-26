@@ -2,6 +2,10 @@ package it.polimi.ingsw.ClientViewGUI;
 
 import it.polimi.ingsw.ClientView.Client;
 import it.polimi.ingsw.ClientView.Observer;
+import it.polimi.ingsw.model.SchemeDeck.ColumnIterator;
+import it.polimi.ingsw.model.SchemeDeck.RowIterator;
+import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
+import it.polimi.ingsw.model.SchemeDeck.Tile;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -36,6 +40,9 @@ public class MainGameViewController extends AbstractController implements Initia
     int SelectedDiceIndex;
     boolean selected = false;
     private String privateGoalcardPath = null;
+    private int ToolCard1 = 0;
+    private int ToolCard2 = 0 ;
+    private int ToolCard3 = 0;
 
     public MainGameViewController(){
         ObserverGUI.Singleton().setController(this);
@@ -387,6 +394,21 @@ public class MainGameViewController extends AbstractController implements Initia
     private Circle P3Diff1;
 
     @FXML
+    private Circle P3Diff2;
+
+    @FXML
+    private Circle P3Diff3;
+
+    @FXML
+    private Circle P3Diff4;
+
+    @FXML
+    private Circle P3Diff5;
+
+    @FXML
+    private Circle P3Diff6;
+
+    @FXML
     private ImageView ImageView31;
 
     @FXML
@@ -418,6 +440,24 @@ public class MainGameViewController extends AbstractController implements Initia
 
     @FXML
     private ImageView PublicGoalCard3;
+
+    @FXML
+    private ImageView ToolCardImage1;
+
+    @FXML
+    private ImageView ToolCardImage2;
+
+    @FXML
+    private ImageView ToolCardImage3;
+
+    @FXML
+    private GridPane mapPlayer1;
+
+    @FXML
+    private GridPane mapPlayer2;
+
+    @FXML
+    private GridPane mapPlayer3;
 
     @FXML
     private Circle Diff6;
@@ -509,8 +549,37 @@ public class MainGameViewController extends AbstractController implements Initia
         }
         PublicGoalCard3.setImage(image);
 
-        //setUpMap();
-        setOtherPlayerMap(3);
+        try {
+            ToolCard1 = ObserverGUI.Singleton().getServerController().getToolCards(ObserverGUI.Singleton().getUsername()).get(0).getID();
+            System.out.println(ToolCard1);
+//            image = new Image("ToolCards/" + ToolCard1 + ".jpg");
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        //ToolCardImage1.setImage(image);  //todo da sistemare Settaggio carte
+/*
+        try {
+            ToolCard2 = ObserverGUI.Singleton().getServerController().getToolCards(ObserverGUI.Singleton().getUsername()).get(1).getID();
+            image = new Image("ToolCards/" + ToolCard2 + ".jpg");
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        ToolCardImage2.setImage(image);
+
+        try {
+            ToolCard3 = ObserverGUI.Singleton().getServerController().getToolCards(ObserverGUI.Singleton().getUsername()).get(2).getID();
+            image = new Image("ToolCards/" + ToolCard3 + ".jpg");
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        ToolCardImage3.setImage(image);
+*/
+        try {
+            setUpMap(ObserverGUI.Singleton().getServerController().getSchemeCard(ObserverGUI.Singleton().getUsername()).get(0),yourMap, yourMapName, Diff1, Diff2, Diff3, Diff4, Diff5, Diff6);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+     setOtherPlayerMap();
         updateDicePool();
     }
 
@@ -529,7 +598,6 @@ public class MainGameViewController extends AbstractController implements Initia
     public void ShowPrivateGoal(javafx.scene.input.MouseEvent mouseEvent) {
         Image image = new Image(privateGoalcardPath);
         PrivateGoalCard.setImage(image);
-
     }
 
     public void HidePrivateGoal(javafx.scene.input.MouseEvent mouseEvent) {
@@ -550,15 +618,48 @@ public class MainGameViewController extends AbstractController implements Initia
         }
     }
 
-    public void setOtherPlayerMap(int numOfPlayers) {   //funzione che nasconde le mappe dei giocatori he non ci sono e inizializza le mappe stesse
-        switch (numOfPlayers) {
-            case 4:
-                break;
+    public void setOtherPlayerMap() {
+        int numOfPlayer = 0 ;
+
+        try {
+            numOfPlayer = ObserverGUI.Singleton().getServerController().getPlayersinmymatch(ObserverGUI.Singleton().getUsername()).size();
+            System.out.println(numOfPlayer);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+
+        switch (numOfPlayer) {
             case 3:
+                try {
+                    setUpMap(ObserverGUI.Singleton().getServerController().getSchemeCardsoftheotherPlayers(ObserverGUI.Singleton().getUsername()).get(0), mapPlayer1, P1MapName, P1Diff1, P1Diff2, P1Diff3, P1Diff4, P1Diff5, P1Diff6);
+                    setUpMap(ObserverGUI.Singleton().getServerController().getSchemeCardsoftheotherPlayers(ObserverGUI.Singleton().getUsername()).get(1), mapPlayer2, P2MapName, P2Diff1, P2Diff2, P2Diff3, P2Diff4, P2Diff5, P2Diff6);
+                    setUpMap(ObserverGUI.Singleton().getServerController().getSchemeCardsoftheotherPlayers(ObserverGUI.Singleton().getUsername()).get(2), mapPlayer3, P3MapName, P3Diff1, P3Diff2, P3Diff3, P3Diff4, P3Diff5, P3Diff6);
+                    Player1.setText(String.valueOf(ObserverGUI.Singleton().getServerController().getPlayersinmymatch(ObserverGUI.Singleton().getUsername()).get(0)));
+                    Player2.setText(String.valueOf(ObserverGUI.Singleton().getServerController().getPlayersinmymatch(ObserverGUI.Singleton().getUsername()).get(1)));
+                    Player3.setText(String.valueOf(ObserverGUI.Singleton().getServerController().getPlayersinmymatch(ObserverGUI.Singleton().getUsername()).get(2)));
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case 2:
+                try {
+                    setUpMap(ObserverGUI.Singleton().getServerController().getSchemeCardsoftheotherPlayers(ObserverGUI.Singleton().getUsername()).get(0), mapPlayer1, P1MapName, P1Diff1, P1Diff2, P1Diff3, P1Diff4, P1Diff5, P1Diff6);
+                    setUpMap(ObserverGUI.Singleton().getServerController().getSchemeCardsoftheotherPlayers(ObserverGUI.Singleton().getUsername()).get(1), mapPlayer2, P2MapName, P2Diff1, P2Diff2, P2Diff3, P2Diff4, P2Diff5, P2Diff6);
+                    Player1.setText(String.valueOf(ObserverGUI.Singleton().getServerController().getPlayersinmymatch(ObserverGUI.Singleton().getUsername()).get(0)));
+                    Player2.setText(String.valueOf(ObserverGUI.Singleton().getServerController().getPlayersinmymatch(ObserverGUI.Singleton().getUsername()).get(1)));
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
                 P3Map.setVisible(false);
                 Player3.setVisible(false);
                 break;
-            case 2:
+            case 1:
+                try {
+                    setUpMap(ObserverGUI.Singleton().getServerController().getSchemeCardsoftheotherPlayers(ObserverGUI.Singleton().getUsername()).get(0), mapPlayer2, P2MapName, P2Diff1, P2Diff2, P2Diff3, P2Diff4, P2Diff5, P2Diff6);
+                    Player2.setText(String.valueOf(ObserverGUI.Singleton().getServerController().getPlayersinmymatch(ObserverGUI.Singleton().getUsername()).get(0)));
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
                 P3Map.setVisible(false);
                 Player3.setVisible(false);
                 P1Map.setVisible(false);
@@ -566,30 +667,6 @@ public class MainGameViewController extends AbstractController implements Initia
                 break;
             default:
                 break;
-        }
-    }
-
-    private FadeTransition createFader(Node node) {
-        FadeTransition fade = new FadeTransition(Duration.seconds(5), node);
-        fade.setFromValue(1);
-        fade.setToValue(0);
-        return fade;
-    }
-
-
-    public void UseToolcard(javafx.scene.input.MouseEvent mouseEvent) {
-        ImageView card = (ImageView) mouseEvent.getTarget();
-        if (selected == false) {
-            SelectedCardId = card.getId().toCharArray();
-            SelectedCardIndex = Integer.parseInt(String.valueOf(SelectedCardId[8]));
-            ErrorMessage.setText("Hai selezionato la Toolcard: " + SelectedCardIndex);
-            selected = true;
-            DropShadow dropShadow = new DropShadow();
-            card.setEffect(dropShadow);
-        } else {
-            selected = false;
-            ErrorMessage.setText(null);
-            card.setEffect(null);
         }
     }
 
@@ -675,35 +752,34 @@ public class MainGameViewController extends AbstractController implements Initia
         }
     }
 
-    public void setUpMap(String map, GridPane gridMap, Text mapName, Circle diff1, Circle diff2, Circle diff3, Circle diff4, Circle diff5, Circle diff6) {
+    public void setUpMap(SchemeCard schemeCard, GridPane gridMap, Text mapName, Circle diff1, Circle diff2, Circle diff3, Circle diff4, Circle diff5, Circle diff6) {
         char[] charTile;
         char[] mapID;
         int row = 0;
         int column = 0;
-        String[] element = map.split("%");
-        mapName.setText(element[0]);
-        switch (element[1].toCharArray()[24]) {
-            case '6':
+        mapName.setText(schemeCard.getMapName());
+        switch (schemeCard.getDifficulty()) {
+            case 6:
                 break;
-            case '5':
+            case 5:
                 diff6.setVisible(false);
                 break;
-            case '4':
+            case 4:
                 diff6.setVisible(false);
                 diff5.setVisible(false);
                 break;
-            case '3':
+            case 3:
                 diff6.setVisible(false);
                 diff5.setVisible(false);
                 diff4.setVisible(false);
                 break;
-            case '2':
+            case 2:
                 diff6.setVisible(false);
                 diff5.setVisible(false);
                 diff4.setVisible(false);
                 diff3.setVisible(false);
                 break;
-            case '1':
+            case 1:
                 diff6.setVisible(false);
                 diff5.setVisible(false);
                 diff4.setVisible(false);
@@ -713,39 +789,42 @@ public class MainGameViewController extends AbstractController implements Initia
             default:
                 break;
         }
-        String[] tiles = element[2].split("!");
 
-        for (String rowTile : tiles) {
-            String[] columnTiles = rowTile.split("-");
-            for (String el : columnTiles) {
-                charTile = el.toCharArray();
-                switch (charTile[1]) {
-                    case 'Y':
-                        gridMap.getChildren().get(row*5+column).setStyle("-fx-background-color:YELLOW");
-                        break;
-                    case 'B':
-                        gridMap.getChildren().get(row*5+column).setStyle("-fx-background-color:BLUE");
-                        break;
-                    case 'R':
-                        gridMap.getChildren().get(row*5+column).setStyle("-fx-background-color:RED");
-                        break;
-                    case 'V':
-                        gridMap.getChildren().get(row*5+column).setStyle("-fx-background-color:VIOLET");
-                        break;
-                    case 'G':
-                        gridMap.getChildren().get(row*5+column).setStyle("-fx-background-color:GREEN");
-                        break;
-                    case '*':
-                        gridMap.getChildren().get(row * 5 + column).setStyle("-fx-background-image: url('Dices/"+ charTile[0] +".jpg'); -fx-background-position: center center;-fx-background-size: cover");
-                        break;
-                    case '_':
-                        gridMap.getChildren().get(row*5+column).setStyle("-fx-background-color:WHITE");
-                        break;
+        RowIterator rowIterator =  schemeCard.rowIterator(0);
+        while(rowIterator.hasNext()){
+            ColumnIterator columnIterator = schemeCard.columnIterator(rowIterator.getCurrentRow());
+            while(columnIterator.hasNext()){
+                Tile tile = columnIterator.next();
+                if (tile.haveColor_constrain()){
+                    switch (tile.getColor_Constrain()){
+                        case YELLOW:
+                            gridMap.getChildren().get(rowIterator.getCurrentRow()*schemeCard.getMaxRow() + columnIterator.getCurrentColumn()).setStyle("-fx-background-color:YELLOW");
+                            break;
+                        case BLUE:
+                            gridMap.getChildren().get(rowIterator.getCurrentRow()*schemeCard.getMaxRow() + columnIterator.getCurrentColumn()).setStyle("-fx-background-color:BLUE");
+                            break;
+                        case RED:
+                            gridMap.getChildren().get(rowIterator.getCurrentRow()*schemeCard.getMaxRow() + columnIterator.getCurrentColumn()).setStyle("-fx-background-color:RED");
+                            break;
+                        case VIOLET:
+                            gridMap.getChildren().get(rowIterator.getCurrentRow()*schemeCard.getMaxRow() + columnIterator.getCurrentColumn()).setStyle("-fx-background-color:VIOLET");
+                            break;
+                        case GREEN:
+                            gridMap.getChildren().get(rowIterator.getCurrentRow()*schemeCard.getMaxRow() + columnIterator.getCurrentColumn()).setStyle("-fx-background-color:GREEN");
+                            break;
+                    }
+                }
+                else if (tile.haveNumber_constrain()){
+                    gridMap.getChildren().get(rowIterator.getCurrentRow()*schemeCard.getMaxRow() + columnIterator.getCurrentColumn()).setStyle("-fx-background-image: url('Dices/"+ tile.getNumber_Constrain() +".jpg'); -fx-background-position: center center;-fx-background-size: cover");
 
                 }
-                column++;
+                else{
+                    gridMap.getChildren().get(rowIterator.getCurrentRow()*schemeCard.getMaxRow() + columnIterator.getCurrentColumn()).setStyle("-fx-background-color:WHITE");
+
+                }
+
             }
-            row++;
+            rowIterator.next();
         }
     }
 
@@ -757,4 +836,42 @@ public class MainGameViewController extends AbstractController implements Initia
         }
     }
 
+    public void UseToolcard1(javafx.scene.input.MouseEvent mouseEvent) {
+        ImageView card = (ImageView) mouseEvent.getTarget();
+        if (selected == false) {
+            DropShadow dropShadow = new DropShadow();
+            card.setEffect(dropShadow);
+            //ObserverGUI.Singleton().getServerController().useaToolCard();
+        } else {
+            selected = false;
+            ErrorMessage.setText(null);
+            card.setEffect(null);
+        }
+    }
+
+    public void UseToolcard2(javafx.scene.input.MouseEvent mouseEvent) {
+        ImageView card = (ImageView) mouseEvent.getTarget();
+        if (selected == false) {
+            DropShadow dropShadow = new DropShadow();
+            card.setEffect(dropShadow);
+            //ObserverGUI.Singleton().getServerController().useaToolCard();
+        } else {
+            selected = false;
+            ErrorMessage.setText(null);
+            card.setEffect(null);
+        }
+    }
+
+    public void UseToolcard3(javafx.scene.input.MouseEvent mouseEvent) {
+        ImageView card = (ImageView) mouseEvent.getTarget();
+        if (selected == false) {
+            DropShadow dropShadow = new DropShadow();
+            card.setEffect(dropShadow);
+            //ObserverGUI.Singleton().getServerController().useaToolCard();
+        } else {
+            selected = false;
+            ErrorMessage.setText(null);
+            card.setEffect(null);
+        }
+    }
 }
