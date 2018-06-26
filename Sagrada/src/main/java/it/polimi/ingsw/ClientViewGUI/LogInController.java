@@ -149,6 +149,7 @@ public class LogInController extends AbstractController implements Initializable
                     listener.setController(ObserverGUI.Singleton().getServerController(), ObserverGUI.Singleton() );
                     new Thread(listener).start();
                     connectionMessage.setText("Connection up!");
+                    ConnectButton.setVisible(false);
                 }catch (IOException e){
                     correct=false;
                     connectionError.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
@@ -161,12 +162,12 @@ public class LogInController extends AbstractController implements Initializable
                     ClientHandlerInterface controller= (ClientHandlerInterface) rmiRegistry.lookup("ClientHandler");
                     ObserverGUI.Singleton().setServerController(controller);
                     connectionMessage.setText("Connection up!");
+                    ConnectButton.setVisible(false);
                 } catch (Exception e) {
                     correct=false;
                     connectionMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
                 }
             }
-        ConnectButton.setVisible(false);
         }
 
 

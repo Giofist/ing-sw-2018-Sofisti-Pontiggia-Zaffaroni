@@ -22,7 +22,7 @@ public class EntryPoint extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        /*FXMLLoader loader = new FXMLLoader();
+        FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/LogIn.fxml"));
         Parent root = loader.load();
         ((LogInController) loader.getController()).setPrimaryStage(primaryStage);
@@ -32,8 +32,8 @@ public class EntryPoint extends Application {
         primaryStage.setScene(scene);
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.show();
-*/
 
+/*
         FXMLLoader loader = new FXMLLoader();                //Code to test faster the game interface
         loader.setLocation(getClass().getResource("/ChooseMap.fxml"));
         Parent root = loader.load();
@@ -43,7 +43,7 @@ public class EntryPoint extends Application {
         primaryStage.setFullScreen(true);
         primaryStage.setScene(scene);
         primaryStage.show();
-
+*/
     }
 
     public static void main(String[] args) {
