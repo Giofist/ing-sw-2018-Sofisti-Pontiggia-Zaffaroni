@@ -73,6 +73,7 @@ public class MatchesList {
     }
 
     public synchronized void  join(Player player, String game_name) throws GameNotExistantException {
+        System.out.println(game_name);
         Match match = this.getMatch(game_name);
         player.setMatch(match);
         match.join(player);

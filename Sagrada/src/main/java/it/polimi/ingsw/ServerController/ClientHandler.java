@@ -91,6 +91,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
             User user = UsersList.Singleton().getUser(clientname);
             user.setPlayer(player);
             player.setName(clientname);
+
             player.getPlayerState().addObserver(observerView);
 
             MatchesList.singleton().join(player,gamename);

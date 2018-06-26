@@ -40,6 +40,7 @@ public class Match implements Runnable,Serializable{
             try {
                 for (Player player: this.players){
                     player.setPlayerState(State.MATCHNOTSTARTEDYETSTATE);
+                    System.out.println(player.getName()+ " il match non èancora inziato");
                 }
                 wait();
             }catch(InterruptedException e) {
@@ -55,9 +56,11 @@ public class Match implements Runnable,Serializable{
                 boolean success = false;
                 while (!success) {
                     try {
+
                         player.setPrivateGoalCard(getGametable().getPrivateGoalCard());
                         player.addExtractedSchemeCard(getGametable().getSchemeCard());
                         player.addExtractedSchemeCard(getGametable().getSchemeCard());
+                        System.out.println(player.getName()+ " deve settare la carta schema");
                         player.setPlayerState(State.MUSTSETSCHEMECARD);
                         success = true;
                     } catch (MapConstrainReadingException e) {
@@ -122,7 +125,6 @@ public class Match implements Runnable,Serializable{
     }
     public synchronized void join(Player player){
         this.players.addLast(player);
-        System.out.println("é stato chiamato join " + player.getName());
         if (this.players.size() == 2){
             isreadyTostart = true;
             notifyAll();

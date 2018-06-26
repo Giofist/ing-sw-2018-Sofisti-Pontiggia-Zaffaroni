@@ -15,6 +15,9 @@ import java.util.Collections;
 
 public class WaitInterfaceController extends AbstractController{
 
+    public WaitInterfaceController(){
+        ObserverGUI.Singleton().setController(this);
+    }
     @FXML
     private AnchorPane createPane;
 
