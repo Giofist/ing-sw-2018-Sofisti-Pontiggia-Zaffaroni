@@ -44,11 +44,9 @@ public class MultiCreateController extends AbstractController {
         public void createGame(ActionEvent actionEvent) {
             try {
                 ObserverGUI.Singleton().getServerController().createGame(ObserverGUI.Singleton().getUsername(), ObserverGUI.Singleton(),gameName.getCharacters().toString());
-                ErrorMessage.setStyle("-fx-text-fill:GREEN");
-                ErrorMessage.setText("La partita è sta<ta creata!");
+                ErrorMessage.setText("La partita è stata creata!");
             }
             catch (RemoteException e) {
-                ErrorMessage.setStyle("-fx-text-fill:RED");
                 ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
             }
         }

@@ -1,33 +1,30 @@
 package it.polimi.ingsw.ClientViewGUI;
 
 import com.jfoenix.controls.JFXButton;
+import it.polimi.ingsw.ClientView.Observer;
+import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.awt.event.ActionEvent;
-import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
-import java.util.Collections;
 import java.util.ResourceBundle;
 
 import static org.fusesource.jansi.Ansi.ansi;
 
 public class ChooseMapController extends AbstractController implements Initializable {
     GridPane selected = null;
-    String map;
-    private Stage primaryStage;
+    int mapSelected = 0;
+    private int[] mapIDs = new int[4];
+    private int index = 0;
 
     public ChooseMapController() {
         ObserverGUI.Singleton().setController(this);
@@ -153,175 +150,136 @@ public class ChooseMapController extends AbstractController implements Initializ
     @FXML
     private JFXButton Play;
 
-    @FXML
-    void goBack(ActionEvent event) {
-
-    }
-
-    @FXML
-    void startGame(ActionEvent event) {
-
-    }
-
     public void Select(javafx.scene.input.MouseEvent mouseEvent) {
-        Pane map = (Pane) mouseEvent.getTarget();
+        BorderPane map = (BorderPane) mouseEvent.getTarget();
         DropShadow dropShadow = new DropShadow();
         selected.setEffect(null);
         map.setEffect(dropShadow);
-    }
-
-    public void goBack(javafx.event.ActionEvent actionEvent) {
-        try {
-            selectPane.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/MenuPartial.fxml"))));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void startGame(javafx.event.ActionEvent actionEvent) {
-        ErrorMessage.setText("Iniziamo!");
-        try {
-            MenuController.getMainPane().getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/MainGameView.fxml"))));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        ErrorMessage.setStyle("-fx-text-fill:GREEN");
+        ErrorMessage.setText("Hai selezionato la mappa:"+ mapSelected +". Tra poco si inizia!");
     }
 
     public void selectMap1(MouseEvent mouseEvent) {
         Select(mouseEvent);
         selected = gridMap1;
-        ErrorMessage.setText("1");
+        mapSelected = mapIDs[0];
     }
 
     public void selectMap2(MouseEvent mouseEvent) {
         Select(mouseEvent);
         selected = gridMap2;
-        ErrorMessage.setText("2");
+        mapSelected = mapIDs[1];
     }
 
     public void selectMap3(MouseEvent mouseEvent) {
         Select(mouseEvent);
         selected = gridMap3;
-        ErrorMessage.setText("3");
+        mapSelected = mapIDs[2];
     }
 
     public void selectMap4(MouseEvent mouseEvent) {
         Select(mouseEvent);
         selected = gridMap4;
-        ErrorMessage.setText("4");
+        mapSelected = mapIDs[3];
     }
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        /*try {
-            ObserverGUI.Singleton().getServerController().getExtractedSchemeCard(ObserverGUI.Singleton().getUsername());
+        mapIDs[0] = 13;
+        try {
+            for (SchemeCard schemeCard: ObserverGUI.Singleton().getServerController().getExtractedSchemeCard(ObserverGUI.Singleton().getUsername())){
+            mapIDs[index] = schemeCard.getID();
+            if(index+1==1) {setUpMap(ObserverGUI.Singleton().getTranslator().translateSchemeCard(schemeCard), gridMap1, mapName1, Diff11, Diff12, Diff13, Diff14, Diff15, Diff16);}
+            else if (index+1==2){setUpMap(ObserverGUI.Singleton().getTranslator().translateSchemeCard(schemeCard), gridMap2, mapName2, Diff21, Diff22, Diff23, Diff24, Diff25, Diff26);}
+            else if (index+1==3){setUpMap(ObserverGUI.Singleton().getTranslator().translateSchemeCard(schemeCard), gridMap3, mapName3, Diff31, Diff32, Diff33, Diff34, Diff35, Diff36);}
+            else if (index+1==4){setUpMap(ObserverGUI.Singleton().getTranslator().translateSchemeCard(schemeCard), gridMap4, mapName4, Diff41, Diff42, Diff43, Diff44, Diff45, Diff46);}
+                index++;
+            }
         } catch (RemoteException e) {
             ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
-        }*/
-        setUpMap(map, gridMap1);
-        setUpMap(map, gridMap2);
-        setUpMap(map, gridMap3);
-        setUpMap(map, gridMap4);
-    }
+     }
+   }
 
-    public void setUpMap(String map, GridPane gridMap) {
+    public void setUpMap(String map, GridPane gridMap, Text mapName, Circle diff1, Circle diff2, Circle diff3, Circle diff4, Circle diff5, Circle diff6) {
         char[] charTile;
+        char[] mapID;
         int row = 0;
         int column = 0;
-       /* String[] element = map.split("%");
-        System.out.println(element[0]);
-        System.out.println(element[1]);
+        String[] element = map.split("%");
+        mapName.setText(element[0]);
+        switch (element[1].toCharArray()[24]) {
+            case '6':
+                break;
+            case '5':
+                diff6.setVisible(false);
+                break;
+            case '4':
+                diff6.setVisible(false);
+                diff5.setVisible(false);
+                break;
+            case '3':
+                diff6.setVisible(false);
+                diff5.setVisible(false);
+                diff4.setVisible(false);
+                break;
+            case '2':
+                diff6.setVisible(false);
+                diff5.setVisible(false);
+                diff4.setVisible(false);
+                diff3.setVisible(false);
+                break;
+            case '1':
+                diff6.setVisible(false);
+                diff5.setVisible(false);
+                diff4.setVisible(false);
+                diff3.setVisible(false);
+                diff2.setVisible(false);
+                break;
+            default:
+                break;
+        }
         String[] tiles = element[2].split("!");
-*/
-        for (int j = 0; j < 4; j++) {
-            {
-                // for (String rowTile : tiles) {
-                //String[] columnTiles = rowTile.split("-");
-                //for (String el : columnTiles) {
-                for (int i = 0; i < 5; i++) {
-                    System.out.println(j * 5 + i);
-                    if(((j * 5 + i)%2) == 0) {
-                        gridMap.getChildren().get(j * 5 + i).setStyle("-fx-background-color:RED");
-                    }
-                    else gridMap.getChildren().get(j * 5 + i).setStyle("-fx-background-image: url('Dices/4.jpg'); -fx-background-position: center center;-fx-background-size: cover");
-                   // column++;
-                }
-               // row++;
-                /*charTile = el.toCharArray();
+
+        for (String rowTile : tiles) {
+            String[] columnTiles = rowTile.split("-");
+            for (String el : columnTiles) {
+                charTile = el.toCharArray();
                 switch (charTile[1]) {
                     case 'Y':
-                        gridMap.getChildren().get().setStyle();
-
+                        gridMap.getChildren().get(row*5+column).setStyle("-fx-background-color:YELLOW");
                         break;
                     case 'B':
-
+                        gridMap.getChildren().get(row*5+column).setStyle("-fx-background-color:BLUE");
                         break;
                     case 'R':
-
+                        gridMap.getChildren().get(row*5+column).setStyle("-fx-background-color:RED");
                         break;
                     case 'V':
+                        gridMap.getChildren().get(row*5+column).setStyle("-fx-background-color:VIOLET");
                         break;
                     case 'G':
-                        System.out.print(ansi().eraseScreen().bg(GREEN).a("   ").reset());
+                        gridMap.getChildren().get(row*5+column).setStyle("-fx-background-color:GREEN");
                         break;
                     case '*':
-                        System.out.print(ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" " + charTile[0] + " ").reset()); //constrain intensity
+                        gridMap.getChildren().get(row * 5 + column).setStyle("-fx-background-image: url('Dices/"+ charTile[0] +".jpg'); -fx-background-position: center center;-fx-background-size: cover");
                         break;
                     case '_':
-                        System.out.print(ansi().eraseScreen().bg(WHITE).fg(BLACK).a("   ").reset());  //empty
+                        gridMap.getChildren().get(row*5+column).setStyle("-fx-background-color:WHITE");
                         break;
 
+                    }
+                column++;
             }
-            System.out.print("\n");
-        }
-        System.out.print("\n");*/
-
-            }
-
-     /*   public void setDifficulty(int difficulty) {
-            switch (difficulty) {
-                case 6:
-                    break;
-                case 5:
-                    Diff6.setRadius(0);
-                    break;
-                case 4:
-                    Diff6.setRadius(0);
-                    Diff5.setRadius(0);
-                    break;
-                case 3:
-                    Diff6.setRadius(0);
-                    Diff5.setRadius(0);
-                    Diff5.setRadius(0);
-                    break;
-                case 2:
-                    Diff6.setRadius(0);
-                    Diff5.setRadius(0);
-                    Diff5.setRadius(0);
-                    Diff4.setRadius(0);
-                    break;
-                case 1:
-                    Diff6.setRadius(0);
-                    Diff5.setRadius(0);
-                    Diff5.setRadius(0);
-                    Diff4.setRadius(0);
-                    Diff2.setRadius(0);
-                    break;
-                default:
-                    break;
-            }
-        }*/
+            row++;
         }
     }
-
-        public void mapSelect (MouseEvent mouseEvent){
-        }
-
         public void leaveTheMatch (javafx.event.ActionEvent actionEvent){
+            try {
+                ObserverGUI.Singleton().getServerController().leavethematch(ObserverGUI.Singleton().getUsername());
+            } catch (RemoteException e) {
+                ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
+            }
         }
 
-    public void setPrimaryStage(Stage primaryStage) { 
-        this.primaryStage = primaryStage;
-    }
 }

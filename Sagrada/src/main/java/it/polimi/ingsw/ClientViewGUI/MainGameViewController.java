@@ -542,19 +542,19 @@ public class MainGameViewController extends AbstractController implements Initia
             case 3:
                 Diff6.setRadius(0);
                 Diff5.setRadius(0);
-                Diff5.setRadius(0);
+                Diff4.setRadius(0);
                 break;
             case 2:
                 Diff6.setRadius(0);
                 Diff5.setRadius(0);
-                Diff5.setRadius(0);
                 Diff4.setRadius(0);
+                Diff3.setRadius(0);
                 break;
             case 1:
                 Diff6.setRadius(0);
                 Diff5.setRadius(0);
-                Diff5.setRadius(0);
                 Diff4.setRadius(0);
+                Diff3.setRadius(0);
                 Diff2.setRadius(0);
                 break;
             default:
