@@ -3,11 +3,14 @@ package it.polimi.ingsw.ClientViewGUI;
 import com.jfoenix.controls.JFXButton;
 import it.polimi.ingsw.ClientView.Observer;
 import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
+import it.polimi.ingsw.model.PlayerPackage.State;
 import it.polimi.ingsw.model.SchemeDeck.ColumnIterator;
 import it.polimi.ingsw.model.SchemeDeck.RowIterator;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 import it.polimi.ingsw.model.SchemeDeck.Tile;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
@@ -18,8 +21,11 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.util.Collections;
 import java.util.ResourceBundle;
 
 import static org.fusesource.jansi.Ansi.Color.*;
@@ -156,31 +162,34 @@ public class ChooseMapController extends AbstractController implements Initializ
     @FXML
     private JFXButton Play;
 
-    public void Select(javafx.scene.input.MouseEvent mouseEvent) {
-        ErrorMessage.setStyle("-fx-text-fill:GREEN");
-        ErrorMessage.setText("Hai selezionato la mappa:"+ mapSelected +". Tra poco si inizia!");
+    public void Select(javafx.event.ActionEvent actionEvent) {
+        ErrorMessage.setText(String.valueOf(mapSelected));
+        try {
+            ObserverGUI.Singleton().getServerController().setSchemeCard(ObserverGUI.Singleton().getUsername(), mapSelected);
+            ErrorMessage.setText("La partita inizia!");
+            Play.setVisible(false);
+        } catch (RemoteException e) {
+            ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
+        }
+
     }
 
     public void selectMap1(MouseEvent mouseEvent) {
-        Select(mouseEvent);
         mapSelected = mapIDs[0];
-        ErrorMessage.setText("Hai selezionato la mappa:"+ mapSelected +". Tra poco si inizia!");
+        ErrorMessage.setText("Hai selezionato la mappa:"+ mapSelected +" Tra poco si inizia!");
     }
 
     public void selectMap2(MouseEvent mouseEvent) {
-        Select(mouseEvent);
         mapSelected = mapIDs[1];
         ErrorMessage.setText("Hai selezionato la mappa:"+ mapSelected +". Tra poco si inizia!");
     }
 
     public void selectMap3(MouseEvent mouseEvent) {
-        Select(mouseEvent);
         mapSelected = mapIDs[2];
         ErrorMessage.setText("Hai selezionato la mappa:"+ mapSelected +". Tra poco si inizia!");
     }
 
     public void selectMap4(MouseEvent mouseEvent) {
-        Select(mouseEvent);
         mapSelected = mapIDs[3];
         ErrorMessage.setText("Hai selezionato la mappa:"+ mapSelected +". Tra poco si inizia!");
     }
@@ -286,6 +295,23 @@ public class ChooseMapController extends AbstractController implements Initializ
         } catch (RemoteException e) {
             ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
         }
+    }
+
+    @Override
+    public void update(State state) {
+        if (state == State.NOTYOURTURNSTATE || state == State.STARTTURNSTATE) {
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        selectPane.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/MainGameView.fxml"))));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
+
     }
 
 }

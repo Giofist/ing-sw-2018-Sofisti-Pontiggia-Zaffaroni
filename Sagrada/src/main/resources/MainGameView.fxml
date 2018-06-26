@@ -1055,17 +1055,17 @@
             </ImageView>
             <ImageView fx:id="PublicGoalCard1" fitHeight="231.0" fitWidth="215.0" onMouseEntered="#Select" onMouseExited="#Unselect" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
                <image>
-                  <Image url="@GoalCards/VarietàDiColore.jpg" />
+                  <Image url="@PublicGoalCards/VarietàDiColore.jpg" />
                </image>
             </ImageView>
             <ImageView fx:id="PublicGoalCard2" fitHeight="231.0" fitWidth="215.0" onMouseEntered="#Select" onMouseExited="#Unselect" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
                <image>
-                  <Image url="@GoalCards/SfumatureDiverse.jpg" />
+                  <Image url="@PublicGoalCards/SfumatureDiverse.jpg" />
                </image>
             </ImageView>
             <ImageView fx:id="PublicGoalCard3" fitHeight="231.0" fitWidth="215.0" onMouseEntered="#Select" onMouseExited="#Unselect" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
                <image>
-                  <Image url="@GoalCards/SfumatureMedie.jpg" />
+                  <Image url="@PublicGoalCards/SfumatureMedie.jpg" />
                </image>
             </ImageView>
          </children>
