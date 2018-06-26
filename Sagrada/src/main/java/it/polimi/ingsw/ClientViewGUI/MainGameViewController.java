@@ -490,20 +490,20 @@ public class MainGameViewController extends AbstractController implements Initia
         }
 
         try {
-            image = new Image("GoalCards/" + ObserverGUI.Singleton().getServerController().getPublicGoalCards(ObserverGUI.Singleton().getUsername()).get(0).getID()+ ".jpg");
+            image = new Image("PublicGoalCards/" + ObserverGUI.Singleton().getServerController().getPublicGoalCards(ObserverGUI.Singleton().getUsername()).get(0).getID()+ ".jpg");
         } catch (RemoteException e) {
             e.printStackTrace();
         }
         PublicGoalCard1.setImage(image);
 
         try {
-            image = new Image("GoalCards/" + ObserverGUI.Singleton().getServerController().getPublicGoalCards(ObserverGUI.Singleton().getUsername()).get(1).getID()+ ".jpg");
+            image = new Image("PublicGoalCards/" + ObserverGUI.Singleton().getServerController().getPublicGoalCards(ObserverGUI.Singleton().getUsername()).get(1).getID()+ ".jpg");
         } catch (RemoteException e) {
             e.printStackTrace();
         }
         PublicGoalCard2.setImage(image);
         try {
-            image = new Image("GoalCards/" + ObserverGUI.Singleton().getServerController().getPublicGoalCards(ObserverGUI.Singleton().getUsername()).get(2).getID()+ ".jpg");
+            image = new Image("PublicGoalCards/" + ObserverGUI.Singleton().getServerController().getPublicGoalCards(ObserverGUI.Singleton().getUsername()).get(2).getID()+ ".jpg");
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -533,7 +533,7 @@ public class MainGameViewController extends AbstractController implements Initia
     }
 
     public void HidePrivateGoal(javafx.scene.input.MouseEvent mouseEvent) {
-        Image image = new Image("GoalCards/Back1.jpg");  //todoremoveto be general
+        Image image = new Image("PrivateGoalCards/Back1.jpg");  //todoremoveto be general
         PrivateGoalCard.setImage(image);
     }
 

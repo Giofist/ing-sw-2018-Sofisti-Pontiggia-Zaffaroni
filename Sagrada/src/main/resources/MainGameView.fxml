@@ -1050,7 +1050,7 @@
          <children>
             <ImageView fx:id="PrivateGoalCard" fitHeight="231.0" fitWidth="215.0" onMouseEntered="#ShowPrivateGoal" onMouseExited="#HidePrivateGoal" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
                <image>
-                  <Image url="@GoalCards/Back1.jpg" />
+                  <Image url="@PrivateGoalCards/Back1.jpg" />
                </image>
             </ImageView>
             <ImageView fx:id="PublicGoalCard1" fitHeight="231.0" fitWidth="215.0" onMouseEntered="#Select" onMouseExited="#Unselect" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
