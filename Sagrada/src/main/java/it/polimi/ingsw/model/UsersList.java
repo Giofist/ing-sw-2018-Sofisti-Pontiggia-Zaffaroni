@@ -150,7 +150,7 @@ public class UsersList {
     }
 
         // to check Homonymy
-    synchronized public void checkHomonymy(String name) throws HomonymyException{
+    public void checkHomonymy(String name) throws HomonymyException{
         for (User user:this.users) {
             if(user.getName().equals(name)){
                 throw new HomonymyException();
