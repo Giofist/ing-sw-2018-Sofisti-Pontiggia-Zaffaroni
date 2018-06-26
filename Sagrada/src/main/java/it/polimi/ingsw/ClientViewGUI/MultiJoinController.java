@@ -52,14 +52,10 @@ public class MultiJoinController extends AbstractController implements Initializ
 
     public void JoinGame(ActionEvent actionEvent) {
         try {
+            ErrorMessage.setText(gameList.getSelectionModel().getSelectedItem());
             ObserverGUI.Singleton().getServerController().joinaMatch(ObserverGUI.Singleton().getUsername(), ObserverGUI.Singleton(), gameList.getSelectionModel().getSelectedItem());
             } catch (RemoteException e) {
             ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
-        }
-        try {
-            joinPane.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/ChooseMap.fxml"))));
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -72,7 +68,7 @@ public class MultiJoinController extends AbstractController implements Initializ
     }
 
     public void UpdateGameList(ActionEvent actionEvent) {
-        gameList.setItems(null);
+        gameList.getItems().removeAll();
         try {
             for (Match match : ObserverGUI.Singleton().getServerController().getActiveMatchesList()) {
                 data.add(match.getName());
@@ -84,13 +80,24 @@ public class MultiJoinController extends AbstractController implements Initializ
     }
     @Override
     public void update(State state){
-
         if(state == State.MATCHNOTSTARTEDYETSTATE){
             Platform.runLater(new Runnable(){
                 @Override
                 public void run(){
                     try {
                         joinPane.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/WaitInterface.fxml"))));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
+        else if(state== State.MUSTSETSCHEMECARD){
+            Platform.runLater(new Runnable(){
+                @Override
+                public void run(){
+                    try {
+                        joinPane.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/ChooseMap.fxml"))));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

@@ -24,7 +24,7 @@ public class ChooseMapController extends AbstractController implements Initializ
     GridPane selected = null;
     int mapSelected = 0;
     private int[] mapIDs = new int[4];
-    private int index = 0;
+    private int index = 1;
 
     public ChooseMapController() {
         ObserverGUI.Singleton().setController(this);
@@ -189,11 +189,12 @@ public class ChooseMapController extends AbstractController implements Initializ
         mapIDs[0] = 13;
         try {
             for (SchemeCard schemeCard: ObserverGUI.Singleton().getServerController().getExtractedSchemeCard(ObserverGUI.Singleton().getUsername())){
-            mapIDs[index] = schemeCard.getID();
-            if(index+1==1) {setUpMap(ObserverGUI.Singleton().getTranslator().translateSchemeCard(schemeCard), gridMap1, mapName1, Diff11, Diff12, Diff13, Diff14, Diff15, Diff16);}
-            else if (index+1==2){setUpMap(ObserverGUI.Singleton().getTranslator().translateSchemeCard(schemeCard), gridMap2, mapName2, Diff21, Diff22, Diff23, Diff24, Diff25, Diff26);}
-            else if (index+1==3){setUpMap(ObserverGUI.Singleton().getTranslator().translateSchemeCard(schemeCard), gridMap3, mapName3, Diff31, Diff32, Diff33, Diff34, Diff35, Diff36);}
-            else if (index+1==4){setUpMap(ObserverGUI.Singleton().getTranslator().translateSchemeCard(schemeCard), gridMap4, mapName4, Diff41, Diff42, Diff43, Diff44, Diff45, Diff46);}
+            mapIDs[index-1] = schemeCard.getID();
+            System.out.println(ObserverGUI.Singleton().getTranslator().translateSchemeCard(schemeCard));
+            if(index==1) {setUpMap(ObserverGUI.Singleton().getTranslator().translateSchemeCard(schemeCard), gridMap1, mapName1, Diff11, Diff12, Diff13, Diff14, Diff15, Diff16);}
+            else if (index==2){setUpMap(ObserverGUI.Singleton().getTranslator().translateSchemeCard(schemeCard), gridMap2, mapName2, Diff21, Diff22, Diff23, Diff24, Diff25, Diff26);}
+            else if (index==3){setUpMap(ObserverGUI.Singleton().getTranslator().translateSchemeCard(schemeCard), gridMap3, mapName3, Diff31, Diff32, Diff33, Diff34, Diff35, Diff36);}
+            else if (index==4){setUpMap(ObserverGUI.Singleton().getTranslator().translateSchemeCard(schemeCard), gridMap4, mapName4, Diff41, Diff42, Diff43, Diff44, Diff45, Diff46);}
                 index++;
             }
         } catch (RemoteException e) {
@@ -241,7 +242,7 @@ public class ChooseMapController extends AbstractController implements Initializ
         }
         String[] tiles = element[2].split("!");
 
-        for (String rowTile : tiles) {
+       for (String rowTile : tiles) {
             String[] columnTiles = rowTile.split("-");
             for (String el : columnTiles) {
                 charTile = el.toCharArray();
@@ -276,10 +277,10 @@ public class ChooseMapController extends AbstractController implements Initializ
     }
 
     public void leaveTheMatch (javafx.event.ActionEvent actionEvent){
-            try {
-                ObserverGUI.Singleton().getServerController().leavethematch(ObserverGUI.Singleton().getUsername());
-            } catch (RemoteException e) {
-                ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
+        try {
+            ObserverGUI.Singleton().getServerController().leavethematch(ObserverGUI.Singleton().getUsername());
+        } catch (RemoteException e) {
+            ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
             }
         }
 
