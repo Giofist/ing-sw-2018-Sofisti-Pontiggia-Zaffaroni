@@ -32,7 +32,6 @@ import java.util.SplittableRandom;
 
 public class MainGameViewController extends AbstractController implements Initializable {
     ImageView origin = null;
-    public Stage primaryStage; //only for testing
     int SelectedDiceIndex;
     boolean selected = false;
 
@@ -479,10 +478,6 @@ public class MainGameViewController extends AbstractController implements Initia
         mouseEvent.consume();
     }
 
-    /*public void setPrimaryStage(Stage primaryStage) {  //to be removed only for gtesting
-        this.primaryStage = primaryStage;
-    }*/
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         String mapName = "Celestial";
@@ -653,9 +648,6 @@ public class MainGameViewController extends AbstractController implements Initia
         }
     }
 
-    public void setPrimaryStage(Stage primaryStage) {
-        this.primaryStage = primaryStage;
-    }
     public void setUpMap(String map, GridPane gridMap, Text mapName, Circle diff1, Circle diff2, Circle diff3, Circle diff4, Circle diff5, Circle diff6) {
         char[] charTile;
         char[] mapID;

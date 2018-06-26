@@ -61,6 +61,7 @@ public class MultiJoinController extends AbstractController implements Initializ
                 ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
             }
         }
+        else ErrorMessage.setText("Nessuna partita selezionata!");
     }
 
     public void goBack(ActionEvent actionEvent) {
