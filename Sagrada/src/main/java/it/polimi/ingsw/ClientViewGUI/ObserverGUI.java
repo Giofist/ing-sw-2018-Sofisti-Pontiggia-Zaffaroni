@@ -23,7 +23,7 @@ public class ObserverGUI extends UnicastRemoteObject implements Observer {
         serverController = controller;
     }
 
-    public ObserverGUI() throws RemoteException{};
+    private  ObserverGUI() throws RemoteException{};
     public Translator getTranslator() {
         return translator;
     }
@@ -53,43 +53,14 @@ public class ObserverGUI extends UnicastRemoteObject implements Observer {
 
     @Override
     public synchronized void update(Observable o, Object arg) throws RemoteException {
-        State state = o.getState();
-        switch (state) {
-            case ERRORSTATE: {
-                break;
-            }
-            case HASSETADICESTATE: {
-                break;
-            }
-            case HASUSEDATOOLCARDACTIONSTATE: {
-                break;
-            }
-            case MATCHNOTSTARTEDYETSTATE: {
+        this.controller.update(o.getState());
+    }
 
-                break;
-            }
-            case MUSTPASSTURNSTATE: {
-                break;
-            }
-            case MUSTSSETDILUENTEPERPASTASALDASTATE: {
-                break;
-            }
-            case MUSTSETPENNELLOPERPASTASALDASTATE: {
-                break;
-            }
-            case NOTYOURTURNSTATE: {
-                break;
-            }
-            case STARTTURNSTATE: {
-                break;
-            }
-            case ENDMATCHSTATE: {
-                break;
-            }
-            case MUSTSETSCHEMECARD: {
-                break;
-            }
-        }
+    @Override
+    public void ping() throws RemoteException {
+        return;
     }
 
 }
+
+

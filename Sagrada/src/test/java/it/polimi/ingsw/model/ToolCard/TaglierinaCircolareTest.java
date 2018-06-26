@@ -66,9 +66,9 @@ public class TaglierinaCircolareTest {
         player.getMatch().getGametable().getRoundDicepool().getDice(0).setIntensity(3);
         player.getMatch().getGametable().getRoundDicepool().getDice(0).setIntensity(4);
 
-        toolRequestClass.setSelectedDIceIndex(0);
+        toolRequestClass.setSelectedDiceIndex(0);
         toolRequestClass.setRoundWhereThediceis(1);
-        toolRequestClass.setSelectedRoundDicepoolDiceIndex(0);
+        toolRequestClass.setSelectedDiceIndex(0);
 
 
         toolCard.execute(player, toolRequestClass);

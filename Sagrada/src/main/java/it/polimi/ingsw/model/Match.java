@@ -2,10 +2,12 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.Exceptions.MapConstrainReadingException;
 import it.polimi.ingsw.model.Exceptions.PrivateGoalCardException;
+import it.polimi.ingsw.model.Exceptions.UserNotExistentException;
 import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PlayerPackage.State;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -14,12 +16,12 @@ import java.util.Timer;
 import java.util.concurrent.CountDownLatch;
 
 //manca solo il timer
-public class Match implements Runnable{
+public class Match implements Runnable,Serializable{
     private String game_name;
     private LinkedList<Player> players;
-    private Gametable gametable;
+    private transient Gametable gametable;
     private boolean started;
-    private CountDownLatch doneSignal;
+    private transient CountDownLatch doneSignal;
     public boolean isreadyTostart;
 
 
@@ -30,18 +32,22 @@ public class Match implements Runnable{
         this.players.addFirst(player);
         player.setMatch(this);
         this.isreadyTostart = false;
-
-
     }
 
+    @Override
     public synchronized void run(){
         while (!isreadyTostart){
             try {
+                for (Player player: this.players){
+                    player.setPlayerState(State.MATCHNOTSTARTEDYETSTATE);
+                    System.out.println(player.getName()+ " il match non èancora inziato");
+                }
                 wait();
             }catch(InterruptedException e) {
                 //do nothing
             }
         }
+
         //the match can start
         this.setStarted(true);
         try {
@@ -50,41 +56,27 @@ public class Match implements Runnable{
                 boolean success = false;
                 while (!success) {
                     try {
+
                         player.setPrivateGoalCard(getGametable().getPrivateGoalCard());
                         player.addExtractedSchemeCard(getGametable().getSchemeCard());
                         player.addExtractedSchemeCard(getGametable().getSchemeCard());
+                        System.out.println(player.getName()+ " deve settare la carta schema");
                         player.setPlayerState(State.MUSTSETSCHEMECARD);
                         success = true;
                     } catch (MapConstrainReadingException e) {
                         System.out.println(e.getMessage());
                     }catch(PrivateGoalCardException e){
                         // do nothing
-                    }catch (RemoteException e){
-                        try{
-                            UsersList.Singleton().getUser(player.getName()).setActive(false);
-                        }catch(Exception err){
-                            //do nothing
-                        }
-                        this.players.remove(player);
-                        success = true;
                     }
                 }
             }
         }catch(IOException e){
-            MatchesList.singleton().remove(this);
-            for(Player player: this.players){
-                try{
-                    player.setPlayerState(State.ERRORSTATE);//"Impossibile leggere il file delle mappe, la partita non può iniziare!\n");
-                }catch(Exception err){
-                    //do nothing, we are so unlucky here
-                }
-            }
-            return;
+            //do something?
         }
+
         doneSignal = new CountDownLatch(this.getNumberOfPlayers());
         try {
             doneSignal.await();
-
         }catch(InterruptedException e) {
             //do nothing
         }
@@ -107,16 +99,7 @@ public class Match implements Runnable{
         //notifico ai vari giocatori la fine della partita dopo aver ordinato la lista in base al punteggio di ciascuno
         Collections.sort(this.players);
         for (Player player:this.players) {
-            try{
-                player.setPlayerState(State.ENDMATCHSTATE);
-            }catch (RemoteException e){
-                try{
-                    UsersList.Singleton().getUser(player.getName()).setActive(false);
-                }catch(Exception err){
-                    //do nothing
-                }
-                leavethematchatthend(player);
-            }
+            player.setPlayerState(State.ENDMATCHSTATE);
         }
     }
 
@@ -144,8 +127,9 @@ public class Match implements Runnable{
         this.players.addLast(player);
         if (this.players.size() == 2){
             isreadyTostart = true;
+            notifyAll();
         }
-        notifyAll();
+
     }
 
     public List<Player> getallPlayersbutnotme(Player player){
@@ -162,32 +146,21 @@ public class Match implements Runnable{
     }
 
 
-    //da chiamare alla fine, quando un client vuole loasciare una partita e per esempio aggiungersi ad un'altra
-    public  void leavethematchatthend(Player player){
-        this.players.remove(player);
-        if(getNumberOfPlayers()==0){
-            MatchesList.singleton().remove(this);
-        }
-    }
 
     public void leavethematch(Player player){
         this.players.remove(player);
-    }
-
-    public String getfinalRanking() {
-        String string = " ";
-        for(Player player: this.players){
-            string += player.toString() + player.getPoints() + "\n";
+        if(getNumberOfPlayers()==0){
+            MatchesList.singleton().getmatches().remove(this);
         }
-        return string;
     }
 
     public void countDown() {
         this.doneSignal.countDown();
     }
-
     public void forceendmatch() {
-
+        for(Player player: this.players){
+            player.setPlayerState(State.FORCEENDMATCH);
+        }
     }
 
 

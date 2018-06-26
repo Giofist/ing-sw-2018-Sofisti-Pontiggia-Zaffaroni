@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.ClientMessagePackage;
 
 import it.polimi.ingsw.NetworkServer.ServerMessage;
+import it.polimi.ingsw.NetworkServer.ServerResponseMessage;
 import it.polimi.ingsw.NetworkServer.SocketServerListener;
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
 
@@ -16,7 +17,7 @@ public class GetExtractedSchemeCardMessage extends ClientMessage {
     @Override
     public void performAction(ClientHandlerInterface clientHandler, SocketServerListener listener) throws RemoteException{
         List list = clientHandler.getExtractedSchemeCard(getClientName());
-        ServerMessage message = new ServerMessage();
+        ServerMessage message = new ServerResponseMessage();
         message.setMessagecodex(1);
         message.setList(list);
         try {

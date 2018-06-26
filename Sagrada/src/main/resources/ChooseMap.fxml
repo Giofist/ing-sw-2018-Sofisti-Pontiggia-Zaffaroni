@@ -4,7 +4,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -13,321 +12,31 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="selectPane" prefHeight="889.0" prefWidth="1318.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.ClientViewGUI.ChooseMapController">
+<AnchorPane fx:id="selectPane" prefHeight="845.0" prefWidth="1337.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.ClientViewGUI.ChooseMapController">
    <children>
-      <HBox alignment="CENTER" layoutX="2.0" layoutY="-21.0" prefHeight="910.0" prefWidth="1335.0">
+      <HBox alignment="CENTER" layoutX="2.0" layoutY="-21.0" prefHeight="865.0" prefWidth="1335.0">
          <children>
-            <VBox alignment="CENTER" prefHeight="880.0" prefWidth="1217.0" spacing="30.0">
+            <VBox alignment="CENTER" prefHeight="825.0" prefWidth="1197.0" spacing="20.0">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Scegli una mappa:">
                      <font>
                         <Font name="System Bold" size="50.0" />
                      </font>
                   </Text>
-                  <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="1193.0">
+                  <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="668.0" prefWidth="1193.0" spacing="20.0">
                      <children>
-                        <VBox prefHeight="733.0" prefWidth="400.0">
-                           <children>
-                              <BorderPane fx:id="map1" maxHeight="340.0" maxWidth="380.0" onMouseClicked="#selectMap1" prefHeight="340.0" prefWidth="380.0">
-                                 <center>
-                                    <GridPane fx:id="yourMap" gridLinesVisible="true">
-                                       <columnConstraints>
-                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                       </columnConstraints>
-                                       <rowConstraints>
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                       </rowConstraints>
-                                       <children>
-                                          <Pane style="-fx-background-color: white;">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="1">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="2">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="3">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="4">
-                                             <children>
-                                                <ImageView fitHeight="79.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.rowIndex="1">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="1">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="1">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.rowIndex="2">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                             <children>
-                                                <ImageView fitHeight="84.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="2">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.rowIndex="3">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="3">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="3">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="2">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="3">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                       </children>
-                                    </GridPane>
-                                 </center>
-                                 <top>
-                                    <Pane prefHeight="4.0" prefWidth="200.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER" />
-                                 </top>
-                                 <left>
-                                    <Pane prefHeight="40.0" prefWidth="4.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER" />
-                                 </left>
-                                 <right>
-                                    <Pane prefHeight="40.0" prefWidth="5.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER" />
-                                 </right>
-                                 <bottom>
-                                    <Pane prefHeight="25.0" prefWidth="600.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
-                                       <children>
-                                          <HBox alignment="CENTER" layoutX="150.0" layoutY="-40.0" />
-                                          <Text fx:id="yourMapName" fill="WHITE" layoutX="8.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome mappa" textAlignment="CENTER" />
-                                          <Text fx:id="yourMapDiff" fill="WHITE" layoutX="286.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Difficoltà: ooooo" textAlignment="RIGHT" />
-                                       </children>
-                                    </Pane>
-                                 </bottom>
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
-                                 <VBox.margin>
-                                    <Insets bottom="10.0" />
-                                 </VBox.margin>
-                              </BorderPane>
-                              <BorderPane fx:id="map2" maxHeight="340.0" maxWidth="380.0" onMouseClicked="#selectMap2" prefHeight="340.0" prefWidth="380.0">
-                                 <center>
-                                    <GridPane fx:id="yourMap2" gridLinesVisible="true">
-                                       <columnConstraints>
-                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                       </columnConstraints>
-                                       <rowConstraints>
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                       </rowConstraints>
-                                       <children>
-                                          <Pane style="-fx-background-color: white;">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="1">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="2">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="3">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="4">
-                                             <children>
-                                                <ImageView fitHeight="79.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.rowIndex="1">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="1">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="1">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.rowIndex="2">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                             <children>
-                                                <ImageView fitHeight="84.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="2">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.rowIndex="3">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="3">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="3">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="2">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="3">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                       </children>
-                                    </GridPane>
-                                 </center>
-                                 <top>
-                                    <Pane prefHeight="4.0" prefWidth="200.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER" />
-                                 </top>
-                                 <left>
-                                    <Pane prefHeight="40.0" prefWidth="4.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER" />
-                                 </left>
-                                 <right>
-                                    <Pane prefHeight="40.0" prefWidth="5.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER" />
-                                 </right>
-                                 <bottom>
-                                    <Pane prefHeight="25.0" prefWidth="600.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
-                                       <children>
-                                          <HBox alignment="CENTER" layoutX="150.0" layoutY="-40.0" />
-                                          <Text fx:id="yourMapName2" fill="WHITE" layoutX="8.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome mappa" textAlignment="CENTER" />
-                                          <Text fx:id="yourMapDiff2" fill="WHITE" layoutX="286.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Difficoltà: ooooo" textAlignment="RIGHT" />
-                                       </children>
-                                    </Pane>
-                                 </bottom>
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
-                              </BorderPane>
-                           </children>
+                        <VBox prefHeight="733.0" prefWidth="400.0" spacing="20.0">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
-                        </VBox>
-                        <VBox prefHeight="771.0" prefWidth="400.0">
                            <children>
-                              <BorderPane fx:id="map3" maxHeight="340.0" maxWidth="380.0" onMouseClicked="#selectMap3" prefHeight="340.0" prefWidth="380.0">
+                              <BorderPane maxHeight="350.0" maxWidth="400.0" onMouseClicked="#selectMap1" prefHeight="350.0" prefWidth="400.0">
                                  <center>
-                                    <GridPane fx:id="yourMap1" gridLinesVisible="true">
+                                    <GridPane fx:id="gridMap1" gridLinesVisible="true">
                                        <columnConstraints>
                                           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -342,106 +51,26 @@
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                        </rowConstraints>
                                        <children>
-                                          <Pane style="-fx-background-color: white;">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="1">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="2">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="3">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="4">
-                                             <children>
-                                                <ImageView fitHeight="79.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.rowIndex="1">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="1">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="1">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.rowIndex="2">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                             <children>
-                                                <ImageView fitHeight="84.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="2">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.rowIndex="3">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="3">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="3">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="2">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="3">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
+                                          <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" />
+                                          <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" GridPane.columnIndex="1" />
+                                          <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" GridPane.columnIndex="2" />
+                                          <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" GridPane.columnIndex="3" />
+                                          <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" GridPane.columnIndex="4" />
+                                          <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" GridPane.rowIndex="1" />
+                                          <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                          <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                          <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                                          <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" GridPane.rowIndex="2" />
+                                          <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                          <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                          <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                                          <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                                          <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" GridPane.rowIndex="3" />
+                                          <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                          <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                                          <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                                          <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="3" />
                                        </children>
                                     </GridPane>
                                  </center>
@@ -458,21 +87,21 @@
                                     <Pane prefHeight="25.0" prefWidth="600.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
                                        <children>
                                           <HBox alignment="CENTER" layoutX="150.0" layoutY="-40.0" />
-                                          <Text fx:id="yourMapName1" fill="WHITE" layoutX="8.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome mappa" textAlignment="CENTER" />
-                                          <Text fx:id="yourMapDiff1" fill="WHITE" layoutX="286.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Difficoltà: ooooo" textAlignment="RIGHT" />
+                                          <Text fx:id="mapName1" fill="WHITE" layoutX="8.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome mappa" textAlignment="CENTER" />
+                                          <Text fx:id="yourMapDiff" fill="WHITE" layoutX="267.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Difficoltà:" textAlignment="RIGHT" />
+                                          <Circle fx:id="Diff16" fill="WHITE" layoutX="387.0" layoutY="13.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+                                          <Circle fx:id="Diff15" fill="WHITE" layoutX="375.0" layoutY="13.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+                                          <Circle fx:id="Diff13" fill="WHITE" layoutX="351.0" layoutY="13.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+                                          <Circle fx:id="Diff14" fill="WHITE" layoutX="363.0" layoutY="13.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+                                          <Circle fx:id="Diff11" fill="WHITE" layoutX="327.0" layoutY="13.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+                                          <Circle fx:id="Diff12" fill="WHITE" layoutX="339.0" layoutY="13.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
                                        </children>
                                     </Pane>
                                  </bottom>
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
-                                 <VBox.margin>
-                                    <Insets bottom="10.0" />
-                                 </VBox.margin>
                               </BorderPane>
-                              <BorderPane fx:id="map3" maxHeight="340.0" maxWidth="380.0" onMouseClicked="#selectMap3" prefHeight="340.0" prefWidth="380.0">
+                              <BorderPane maxHeight="350.0" maxWidth="400.0" onMouseClicked="#selectMap2" prefHeight="350.0" prefWidth="400.0">
                                  <center>
-                                    <GridPane fx:id="yourMap3" gridLinesVisible="true">
+                                    <GridPane fx:id="gridMap2" gridLinesVisible="true">
                                        <columnConstraints>
                                           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -488,105 +117,29 @@
                                        </rowConstraints>
                                        <children>
                                           <Pane style="-fx-background-color: white;">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
+                                             <GridPane.margin>
+                                                <Insets />
+                                             </GridPane.margin>
                                           </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="1">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="2">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="3">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="4">
-                                             <children>
-                                                <ImageView fitHeight="79.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.rowIndex="1">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="1">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="1">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.rowIndex="2">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                             <children>
-                                                <ImageView fitHeight="84.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="2">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.rowIndex="3">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="3">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="3">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="2">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="3">
-                                             <children>
-                                                <ImageView pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
+                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="1" />
+                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="2" />
+                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="3" />
+                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="4" />
+                                          <Pane style="-fx-background-color: white;" GridPane.rowIndex="1" />
+                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                                          <Pane style="-fx-background-color: white;" GridPane.rowIndex="2" />
+                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                                          <Pane style="-fx-background-color: white;" GridPane.rowIndex="3" />
+                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="3" />
                                        </children>
                                     </GridPane>
                                  </center>
@@ -603,24 +156,169 @@
                                     <Pane prefHeight="25.0" prefWidth="600.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
                                        <children>
                                           <HBox alignment="CENTER" layoutX="150.0" layoutY="-40.0" />
-                                          <Text fx:id="yourMapName3" fill="WHITE" layoutX="8.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome mappa" textAlignment="CENTER" />
-                                          <Text fx:id="yourMapDiff3" fill="WHITE" layoutX="286.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Difficoltà: ooooo" textAlignment="RIGHT" />
+                                          <Text fx:id="mapName2" fill="WHITE" layoutX="8.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome mappa" textAlignment="CENTER" />
+                                          <Text fx:id="yourMapDiff1" fill="WHITE" layoutX="267.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Difficoltà:" textAlignment="RIGHT" />
+                                          <Circle fx:id="Diff26" fill="WHITE" layoutX="387.0" layoutY="13.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+                                          <Circle fx:id="Diff25" fill="WHITE" layoutX="375.0" layoutY="13.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+                                          <Circle fx:id="Diff23" fill="WHITE" layoutX="351.0" layoutY="13.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+                                          <Circle fx:id="Diff24" fill="WHITE" layoutX="363.0" layoutY="13.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+                                          <Circle fx:id="Diff21" fill="WHITE" layoutX="327.0" layoutY="13.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+                                          <Circle fx:id="Diff22" fill="WHITE" layoutX="339.0" layoutY="13.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
                                        </children>
                                     </Pane>
                                  </bottom>
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
+                              </BorderPane>
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="673.0" prefWidth="408.0" spacing="20.0">
+                           <children>
+                              <BorderPane maxHeight="350.0" maxWidth="400.0" onMouseClicked="#selectMap3" prefHeight="350.0" prefWidth="400.0">
+                                 <center>
+                                    <GridPane fx:id="gridMap3" gridLinesVisible="true">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Pane style="-fx-background-color: white;">
+                                             <GridPane.margin>
+                                                <Insets />
+                                             </GridPane.margin>
+                                          </Pane>
+                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="1" />
+                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="2" />
+                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="3" />
+                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="4" />
+                                          <Pane style="-fx-background-color: white;" GridPane.rowIndex="1" />
+                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                                          <Pane style="-fx-background-color: white;" GridPane.rowIndex="2" />
+                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                                          <Pane style="-fx-background-color: white;" GridPane.rowIndex="3" />
+                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+                                       </children>
+                                    </GridPane>
+                                 </center>
+                                 <top>
+                                    <Pane prefHeight="4.0" prefWidth="200.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER" />
+                                 </top>
+                                 <left>
+                                    <Pane prefHeight="40.0" prefWidth="4.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER" />
+                                 </left>
+                                 <right>
+                                    <Pane prefHeight="40.0" prefWidth="5.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER" />
+                                 </right>
+                                 <bottom>
+                                    <Pane prefHeight="25.0" prefWidth="600.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+                                       <children>
+                                          <HBox alignment="CENTER" layoutX="150.0" layoutY="-40.0" />
+                                          <Text fx:id="mapName3" fill="WHITE" layoutX="8.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome mappa" textAlignment="CENTER" />
+                                          <Text fx:id="yourMapDiff2" fill="WHITE" layoutX="267.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Difficoltà:" textAlignment="RIGHT" />
+                                          <Circle fx:id="Diff36" fill="WHITE" layoutX="387.0" layoutY="13.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+                                          <Circle fx:id="Diff35" fill="WHITE" layoutX="375.0" layoutY="13.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+                                          <Circle fx:id="Diff33" fill="WHITE" layoutX="351.0" layoutY="13.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+                                          <Circle fx:id="Diff34" fill="WHITE" layoutX="363.0" layoutY="13.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+                                          <Circle fx:id="Diff31" fill="WHITE" layoutX="327.0" layoutY="13.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+                                          <Circle fx:id="Diff32" fill="WHITE" layoutX="339.0" layoutY="13.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+                                       </children>
+                                    </Pane>
+                                 </bottom>
+                              </BorderPane>
+                              <BorderPane maxHeight="350.0" maxWidth="400.0" onMouseClicked="#selectMap4" prefHeight="350.0" prefWidth="400.0">
+                                 <center>
+                                    <GridPane fx:id="gridMap4" gridLinesVisible="true">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Pane style="-fx-background-color: white;">
+                                             <GridPane.margin>
+                                                <Insets />
+                                             </GridPane.margin>
+                                          </Pane>
+                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="1" />
+                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="2" />
+                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="3" />
+                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="4" />
+                                          <Pane style="-fx-background-color: white;" GridPane.rowIndex="1" />
+                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                                          <Pane style="-fx-background-color: white;" GridPane.rowIndex="2" />
+                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                                          <Pane style="-fx-background-color: white;" GridPane.rowIndex="3" />
+                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                                          <Pane style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+                                       </children>
+                                    </GridPane>
+                                 </center>
+                                 <top>
+                                    <Pane prefHeight="4.0" prefWidth="200.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER" />
+                                 </top>
+                                 <left>
+                                    <Pane prefHeight="40.0" prefWidth="4.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER" />
+                                 </left>
+                                 <right>
+                                    <Pane prefHeight="40.0" prefWidth="5.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER" />
+                                 </right>
+                                 <bottom>
+                                    <Pane prefHeight="25.0" prefWidth="600.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+                                       <children>
+                                          <HBox alignment="CENTER" layoutX="150.0" layoutY="-40.0" />
+                                          <Text fx:id="mapName4" fill="WHITE" layoutX="8.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome mappa" textAlignment="CENTER" />
+                                          <Text fx:id="yourMapDiff11" fill="WHITE" layoutX="267.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Difficoltà:" textAlignment="RIGHT" />
+                                          <Circle fx:id="Diff46" fill="WHITE" layoutX="387.0" layoutY="13.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+                                          <Circle fx:id="Diff45" fill="WHITE" layoutX="375.0" layoutY="13.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+                                          <Circle fx:id="Diff43" fill="WHITE" layoutX="351.0" layoutY="13.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+                                          <Circle fx:id="Diff44" fill="WHITE" layoutX="363.0" layoutY="13.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+                                          <Circle fx:id="Diff41" fill="WHITE" layoutX="327.0" layoutY="13.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+                                          <Circle fx:id="Diff42" fill="WHITE" layoutX="339.0" layoutY="13.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+                                       </children>
+                                    </Pane>
+                                 </bottom>
                               </BorderPane>
                            </children>
                         </VBox>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefHeight="84.0" prefWidth="1217.0">
+                  <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefHeight="33.0" prefWidth="1197.0">
                      <children>
-                        <ButtonBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="80.0" prefWidth="243.0">
+                        <ButtonBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="44.0" prefWidth="283.0">
                            <buttons>
-                              <JFXButton fx:id="Back" onAction="#goBack" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: green;" text="Back" textFill="WHITE">
+                              <JFXButton fx:id="leaveTheMAtch" onAction="#leaveTheMatch" prefHeight="44.0" prefWidth="328.0" style="-fx-background-color: green;" text="Abbandona la partita" textFill="WHITE">
                                  <effect>
                                     <DropShadow />
                                  </effect>
@@ -633,12 +331,12 @@
                               <Insets right="20.0" />
                            </padding>
                         </ButtonBar>
-                        <Text fx:id="ErrorMessage" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="907.1603899002075">
+                        <Text fx:id="ErrorMessage" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="674.1603899002075">
                            <font>
                               <Font name="System Bold" size="30.0" />
                            </font>
                         </Text>
-                        <JFXButton fx:id="Play" buttonType="RAISED" onAction="#startGame" prefHeight="88.0" prefWidth="237.0" style="-fx-background-color: green;" text="Play!" textFill="WHITE">
+                        <JFXButton fx:id="Play" buttonType="RAISED" onAction="#Select" prefHeight="88.0" prefWidth="237.0" style="-fx-background-color: green;" text="Gioca!" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="20.0" />
                            </font>

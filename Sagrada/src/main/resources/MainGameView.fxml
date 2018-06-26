@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXProgressBar?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -75,6 +77,11 @@
                                     <ImageView fx:id="ImageView10" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
+                              <Pane onDragDropped="#handleOnDragDropped" onDragOver="#handleImageDragOver" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <children>
+                                    <ImageView fx:id="ImageView11" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </Pane>
                               <Pane onDragDropped="#handleOnDragDropped" onDragOver="#handleImageDragOver" style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                  <children>
                                     <ImageView fx:id="ImageView12" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
@@ -100,6 +107,16 @@
                                     <ImageView fx:id="ImageView21" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
+                              <Pane onDragDropped="#handleOnDragDropped" onDragOver="#handleImageDragOver" style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                 <children>
+                                    <ImageView fx:id="ImageView22" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </Pane>
+                              <Pane onDragDropped="#handleOnDragDropped" onDragOver="#handleImageDragOver" style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                                 <children>
+                                    <ImageView fx:id="ImageView23" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </Pane>
                               <Pane onDragDropped="#handleOnDragDropped" onDragOver="#handleImageDragOver" style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="2">
                                  <children>
                                     <ImageView fx:id="ImageView24" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
@@ -120,29 +137,14 @@
                                     <ImageView fx:id="ImageView32" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
-                              <Pane onDragDropped="#handleOnDragDropped" onDragOver="#handleImageDragOver" style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="3">
-                                 <children>
-                                    <ImageView fx:id="ImageView34" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
-                                 </children>
-                              </Pane>
-                              <Pane onDragDropped="#handleOnDragDropped" onDragOver="#handleImageDragOver" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                 <children>
-                                    <ImageView fx:id="ImageView11" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
-                                 </children>
-                              </Pane>
-                              <Pane onDragDropped="#handleOnDragDropped" onDragOver="#handleImageDragOver" style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                                 <children>
-                                    <ImageView fx:id="ImageView22" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
-                                 </children>
-                              </Pane>
-                              <Pane onDragDropped="#handleOnDragDropped" onDragOver="#handleImageDragOver" style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="2">
-                                 <children>
-                                    <ImageView fx:id="ImageView23" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
-                                 </children>
-                              </Pane>
                               <Pane onDragDropped="#handleOnDragDropped" onDragOver="#handleImageDragOver" style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="3">
                                  <children>
                                     <ImageView fx:id="ImageView33" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </Pane>
+                              <Pane onDragDropped="#handleOnDragDropped" onDragOver="#handleImageDragOver" style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="3">
+                                 <children>
+                                    <ImageView fx:id="ImageView34" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                            </children>
@@ -299,19 +301,19 @@
          <right>
             <VBox alignment="CENTER" prefHeight="906.0" prefWidth="296.0" spacing="10.0" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fx:id="ToolCard1" fitHeight="283.0" fitWidth="200.0" onMouseClicked="#UseToolcard" onMouseEntered="#Select" onMouseExited="#Unselect" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
+                  <ImageView fx:id="ToolCardImage1" fitHeight="283.0" fitWidth="200.0" onMouseClicked="#UseToolcard1" onMouseEntered="#Select" onMouseExited="#Unselect" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
                      <image>
-                        <Image url="@ToolCards/3.AlesatorePerLaminaDiRame.jpg" />
+                        <Image url="@ToolCards/3.jpg" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="ToolCard2" fitHeight="283.0" fitWidth="200.0" onMouseClicked="#UseToolcard" onMouseEntered="#Select" onMouseExited="#Unselect" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
+                  <ImageView fx:id="ToolCardImage2" fitHeight="283.0" fitWidth="200.0" onMouseClicked="#UseToolcard2" onMouseEntered="#Select" onMouseExited="#Unselect" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
                      <image>
-                        <Image url="@ToolCards/6.PennelloPerPastaSalda.jpg" />
+                        <Image url="@ToolCards/6.jpg" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="ToolCard3" fitHeight="283.0" fitWidth="200.0" onMouseClicked="#UseToolcard" onMouseEntered="#Select" onMouseExited="#Unselect" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
+                  <ImageView fx:id="ToolCardImage3" fitHeight="283.0" fitWidth="200.0" onMouseClicked="#UseToolcard3" onMouseEntered="#Select" onMouseExited="#Unselect" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
                      <image>
-                        <Image url="@ToolCards/4.Lathekin.jpg" />
+                        <Image url="@ToolCards/4.jpg" />
                      </image>
                   </ImageView>
                </children>
@@ -326,7 +328,7 @@
                   <Text fx:id="Player1" strokeType="OUTSIDE" strokeWidth="0.0" text="Player 1" />
                   <BorderPane fx:id="P1Map" maxHeight="190.0" maxWidth="200.0" prefHeight="190.0" prefWidth="200.0">
                      <center>
-                        <GridPane fx:id="yourMap1" gridLinesVisible="true">
+                        <GridPane fx:id="mapPlayer1" gridLinesVisible="true">
                            <columnConstraints>
                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -343,11 +345,7 @@
                            <children>
                               <Pane style="-fx-background-color: white;">
                                  <children>
-                                    <ImageView fx:id="ImageView001" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="ImageView001" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                                  <GridPane.margin>
                                     <Insets />
@@ -355,173 +353,97 @@
                               </Pane>
                               <Pane style="-fx-background-color: white;" GridPane.columnIndex="1">
                                  <children>
-                                    <ImageView fx:id="ImageView011" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="ImageView011" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane style="-fx-background-color: white;" GridPane.columnIndex="2">
                                  <children>
-                                    <ImageView fx:id="ImageView021" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="ImageView021" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane style="-fx-background-color: white;" GridPane.columnIndex="3">
                                  <children>
-                                    <ImageView fx:id="ImageView031" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="ImageView031" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane style="-fx-background-color: white;" GridPane.columnIndex="4">
                                  <children>
-                                    <ImageView fx:id="ImageView041" fitHeight="32.0" fitWidth="32.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="ImageView041" fitHeight="32.0" fitWidth="32.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane style="-fx-background-color: white;" GridPane.rowIndex="1">
                                  <children>
-                                    <ImageView fx:id="ImageView101" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                              </Pane>
-                              <Pane style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                                 <children>
-                                    <ImageView fx:id="ImageView121" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                              </Pane>
-                              <Pane style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="1">
-                                 <children>
-                                    <ImageView fx:id="ImageView131" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                              </Pane>
-                              <Pane style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="1">
-                                 <children>
-                                    <ImageView fx:id="ImageView141" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                              </Pane>
-                              <Pane style="-fx-background-color: white;" GridPane.rowIndex="2">
-                                 <children>
-                                    <ImageView fx:id="ImageView201" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                              </Pane>
-                              <Pane style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                 <children>
-                                    <ImageView fx:id="ImageView211" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                              </Pane>
-                              <Pane style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="2">
-                                 <children>
-                                    <ImageView fx:id="ImageView241" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                              </Pane>
-                              <Pane style="-fx-background-color: white;" GridPane.rowIndex="3">
-                                 <children>
-                                    <ImageView fx:id="ImageView301" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                              </Pane>
-                              <Pane style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                                 <children>
-                                    <ImageView fx:id="ImageView311" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                              </Pane>
-                              <Pane style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="3">
-                                 <children>
-                                    <ImageView fx:id="ImageView321" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                              </Pane>
-                              <Pane style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="3">
-                                 <children>
-                                    <ImageView fx:id="ImageView341" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="ImageView101" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <children>
-                                    <ImageView fx:id="ImageView111" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="ImageView111" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </Pane>
+                              <Pane style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                 <children>
+                                    <ImageView fx:id="ImageView121" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </Pane>
+                              <Pane style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                                 <children>
+                                    <ImageView fx:id="ImageView131" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </Pane>
+                              <Pane style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                                 <children>
+                                    <ImageView fx:id="ImageView141" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </Pane>
+                              <Pane style="-fx-background-color: white;" GridPane.rowIndex="2">
+                                 <children>
+                                    <ImageView fx:id="ImageView201" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </Pane>
+                              <Pane style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <children>
+                                    <ImageView fx:id="ImageView211" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="2">
                                  <children>
-                                    <ImageView fx:id="ImageView221" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="ImageView221" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="2">
                                  <children>
-                                    <ImageView fx:id="ImageView231" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="ImageView231" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </Pane>
+                              <Pane style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="2">
+                                 <children>
+                                    <ImageView fx:id="ImageView241" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </Pane>
+                              <Pane style="-fx-background-color: white;" GridPane.rowIndex="3">
+                                 <children>
+                                    <ImageView fx:id="ImageView301" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </Pane>
+                              <Pane style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                 <children>
+                                    <ImageView fx:id="ImageView311" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </Pane>
+                              <Pane style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                                 <children>
+                                    <ImageView fx:id="ImageView321" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="3">
                                  <children>
-                                    <ImageView fx:id="ImageView331" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="ImageView331" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </Pane>
+                              <Pane style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="3">
+                                 <children>
+                                    <ImageView fx:id="ImageView341" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                            </children>
@@ -545,7 +467,7 @@
                                     <Font size="10.0" />
                                  </font>
                               </Text>
-                              <Text fx:id="yourMapDiff1" fill="WHITE" layoutX="98.0" layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Difficoltà:" textAlignment="RIGHT">
+                              <Text fx:id="yourMapDiff1" fill="WHITE" layoutX="123.0" layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Diff:" textAlignment="RIGHT">
                                  <font>
                                     <Font size="10.0" />
                                  </font>
@@ -563,7 +485,7 @@
                   <Text fx:id="Player2" strokeType="OUTSIDE" strokeWidth="0.0" text="Player 2" />
                   <BorderPane fx:id="P2Map" maxHeight="190.0" maxWidth="200.0" prefHeight="190.0" prefWidth="200.0">
                      <center>
-                        <GridPane fx:id="yourMap11" gridLinesVisible="true">
+                        <GridPane fx:id="mapPlayer2" gridLinesVisible="true">
                            <columnConstraints>
                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -580,11 +502,7 @@
                            <children>
                               <Pane style="-fx-background-color: white;">
                                  <children>
-                                    <ImageView fx:id="ImageView0011" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="ImageView0011" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                                  <GridPane.margin>
                                     <Insets />
@@ -592,173 +510,97 @@
                               </Pane>
                               <Pane style="-fx-background-color: white;" GridPane.columnIndex="1">
                                  <children>
-                                    <ImageView fx:id="ImageView0111" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="ImageView0111" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane style="-fx-background-color: white;" GridPane.columnIndex="2">
                                  <children>
-                                    <ImageView fx:id="ImageView0211" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="ImageView0211" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane style="-fx-background-color: white;" GridPane.columnIndex="3">
                                  <children>
-                                    <ImageView fx:id="ImageView0311" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="ImageView0311" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane style="-fx-background-color: white;" GridPane.columnIndex="4">
                                  <children>
-                                    <ImageView fx:id="ImageView0411" fitHeight="32.0" fitWidth="32.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="ImageView0411" fitHeight="32.0" fitWidth="32.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane style="-fx-background-color: white;" GridPane.rowIndex="1">
                                  <children>
-                                    <ImageView fx:id="ImageView1011" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                              </Pane>
-                              <Pane style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                                 <children>
-                                    <ImageView fx:id="ImageView1211" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                              </Pane>
-                              <Pane style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="1">
-                                 <children>
-                                    <ImageView fx:id="ImageView1311" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                              </Pane>
-                              <Pane style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="1">
-                                 <children>
-                                    <ImageView fx:id="ImageView1411" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                              </Pane>
-                              <Pane style="-fx-background-color: white;" GridPane.rowIndex="2">
-                                 <children>
-                                    <ImageView fx:id="ImageView2011" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                              </Pane>
-                              <Pane style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                 <children>
-                                    <ImageView fx:id="ImageView2111" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                              </Pane>
-                              <Pane style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="2">
-                                 <children>
-                                    <ImageView fx:id="ImageView2411" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                              </Pane>
-                              <Pane style="-fx-background-color: white;" GridPane.rowIndex="3">
-                                 <children>
-                                    <ImageView fx:id="ImageView3011" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                              </Pane>
-                              <Pane style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                                 <children>
-                                    <ImageView fx:id="ImageView3111" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                              </Pane>
-                              <Pane style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="3">
-                                 <children>
-                                    <ImageView fx:id="ImageView3211" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                              </Pane>
-                              <Pane style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="3">
-                                 <children>
-                                    <ImageView fx:id="ImageView3411" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="ImageView1011" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <children>
-                                    <ImageView fx:id="ImageView1111" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="ImageView1111" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </Pane>
+                              <Pane style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                 <children>
+                                    <ImageView fx:id="ImageView1211" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </Pane>
+                              <Pane style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                                 <children>
+                                    <ImageView fx:id="ImageView1311" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </Pane>
+                              <Pane style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                                 <children>
+                                    <ImageView fx:id="ImageView1411" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </Pane>
+                              <Pane style="-fx-background-color: white;" GridPane.rowIndex="2">
+                                 <children>
+                                    <ImageView fx:id="ImageView2011" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </Pane>
+                              <Pane style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <children>
+                                    <ImageView fx:id="ImageView2111" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="2">
                                  <children>
-                                    <ImageView fx:id="ImageView2211" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="ImageView2211" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="2">
                                  <children>
-                                    <ImageView fx:id="ImageView2311" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="ImageView2311" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </Pane>
+                              <Pane style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="2">
+                                 <children>
+                                    <ImageView fx:id="ImageView2411" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </Pane>
+                              <Pane style="-fx-background-color: white;" GridPane.rowIndex="3">
+                                 <children>
+                                    <ImageView fx:id="ImageView3011" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </Pane>
+                              <Pane style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                 <children>
+                                    <ImageView fx:id="ImageView3111" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </Pane>
+                              <Pane style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                                 <children>
+                                    <ImageView fx:id="ImageView3211" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="3">
                                  <children>
-                                    <ImageView fx:id="ImageView3311" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="ImageView3311" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </Pane>
+                              <Pane style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="3">
+                                 <children>
+                                    <ImageView fx:id="ImageView3411" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                            </children>
@@ -782,7 +624,7 @@
                                     <Font size="10.0" />
                                  </font>
                               </Text>
-                              <Text fx:id="yourMapDiff11" fill="WHITE" layoutX="98.0" layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Difficoltà:" textAlignment="RIGHT">
+                              <Text fx:id="yourMapDiff11" fill="WHITE" layoutX="123.0" layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Diff:" textAlignment="RIGHT">
                                  <font>
                                     <Font size="10.0" />
                                  </font>
@@ -800,7 +642,7 @@
                   <Text fx:id="Player3" strokeType="OUTSIDE" strokeWidth="0.0" text="Player 3" />
                   <BorderPane fx:id="P3Map" maxHeight="190.0" maxWidth="200.0" prefHeight="190.0" prefWidth="200.0">
                      <center>
-                        <GridPane fx:id="yourMap12" gridLinesVisible="true">
+                        <GridPane fx:id="mapPlayer3" gridLinesVisible="true">
                            <columnConstraints>
                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -817,11 +659,7 @@
                            <children>
                               <Pane style="-fx-background-color: white;">
                                  <children>
-                                    <ImageView fx:id="ImageView0012" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="ImageView0012" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                                  <GridPane.margin>
                                     <Insets />
@@ -829,173 +667,97 @@
                               </Pane>
                               <Pane style="-fx-background-color: white;" GridPane.columnIndex="1">
                                  <children>
-                                    <ImageView fx:id="ImageView0112" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="ImageView0112" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane style="-fx-background-color: white;" GridPane.columnIndex="2">
                                  <children>
-                                    <ImageView fx:id="ImageView0212" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="ImageView0212" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane style="-fx-background-color: white;" GridPane.columnIndex="3">
                                  <children>
-                                    <ImageView fx:id="ImageView0312" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="ImageView0312" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane style="-fx-background-color: white;" GridPane.columnIndex="4">
                                  <children>
-                                    <ImageView fx:id="ImageView0412" fitHeight="32.0" fitWidth="32.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="ImageView0412" fitHeight="32.0" fitWidth="32.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane style="-fx-background-color: white;" GridPane.rowIndex="1">
                                  <children>
-                                    <ImageView fx:id="ImageView1012" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                              </Pane>
-                              <Pane style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                                 <children>
-                                    <ImageView fx:id="ImageView1212" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                              </Pane>
-                              <Pane style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="1">
-                                 <children>
-                                    <ImageView fx:id="ImageView1312" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                              </Pane>
-                              <Pane style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="1">
-                                 <children>
-                                    <ImageView fx:id="ImageView1412" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                              </Pane>
-                              <Pane style="-fx-background-color: white;" GridPane.rowIndex="2">
-                                 <children>
-                                    <ImageView fx:id="ImageView2012" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                              </Pane>
-                              <Pane style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                 <children>
-                                    <ImageView fx:id="ImageView2112" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                              </Pane>
-                              <Pane style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="2">
-                                 <children>
-                                    <ImageView fx:id="ImageView2412" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                              </Pane>
-                              <Pane style="-fx-background-color: white;" GridPane.rowIndex="3">
-                                 <children>
-                                    <ImageView fx:id="ImageView3012" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                              </Pane>
-                              <Pane style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                                 <children>
-                                    <ImageView fx:id="ImageView3112" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                              </Pane>
-                              <Pane style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="3">
-                                 <children>
-                                    <ImageView fx:id="ImageView3212" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                              </Pane>
-                              <Pane style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="3">
-                                 <children>
-                                    <ImageView fx:id="ImageView3412" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="ImageView1012" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <children>
-                                    <ImageView fx:id="ImageView1112" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="ImageView1112" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </Pane>
+                              <Pane style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                 <children>
+                                    <ImageView fx:id="ImageView1212" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </Pane>
+                              <Pane style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                                 <children>
+                                    <ImageView fx:id="ImageView1312" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </Pane>
+                              <Pane style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                                 <children>
+                                    <ImageView fx:id="ImageView1412" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </Pane>
+                              <Pane style="-fx-background-color: white;" GridPane.rowIndex="2">
+                                 <children>
+                                    <ImageView fx:id="ImageView2012" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </Pane>
+                              <Pane style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <children>
+                                    <ImageView fx:id="ImageView2112" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="2">
                                  <children>
-                                    <ImageView fx:id="ImageView2212" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="ImageView2212" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="2">
                                  <children>
-                                    <ImageView fx:id="ImageView2312" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="ImageView2312" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </Pane>
+                              <Pane style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="2">
+                                 <children>
+                                    <ImageView fx:id="ImageView2412" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </Pane>
+                              <Pane style="-fx-background-color: white;" GridPane.rowIndex="3">
+                                 <children>
+                                    <ImageView fx:id="ImageView3012" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </Pane>
+                              <Pane style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                 <children>
+                                    <ImageView fx:id="ImageView3112" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </Pane>
+                              <Pane style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                                 <children>
+                                    <ImageView fx:id="ImageView3212" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="3">
                                  <children>
-                                    <ImageView fx:id="ImageView3312" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Dices/G2.jpg" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="ImageView3312" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </Pane>
+                              <Pane style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="3">
+                                 <children>
+                                    <ImageView fx:id="ImageView3412" fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                            </children>
@@ -1019,7 +781,7 @@
                                     <Font size="10.0" />
                                  </font>
                               </Text>
-                              <Text fx:id="yourMapDiff12" fill="WHITE" layoutX="98.0" layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Difficoltà:" textAlignment="RIGHT">
+                              <Text fx:id="yourMapDiff12" fill="WHITE" layoutX="125.0" layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Diff:" textAlignment="RIGHT">
                                  <font>
                                     <Font size="10.0" />
                                  </font>
@@ -1048,22 +810,22 @@
          <children>
             <ImageView fx:id="PrivateGoalCard" fitHeight="231.0" fitWidth="215.0" onMouseEntered="#ShowPrivateGoal" onMouseExited="#HidePrivateGoal" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
                <image>
-                  <Image url="@GoalCards/Back1.jpg" />
+                  <Image url="@PrivateGoalCards/Back1.jpg" />
                </image>
             </ImageView>
             <ImageView fx:id="PublicGoalCard1" fitHeight="231.0" fitWidth="215.0" onMouseEntered="#Select" onMouseExited="#Unselect" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
                <image>
-                  <Image url="@GoalCards/VarietàDiColore.jpg" />
+                  <Image url="@PublicGoalCards/1.jpg" />
                </image>
             </ImageView>
             <ImageView fx:id="PublicGoalCard2" fitHeight="231.0" fitWidth="215.0" onMouseEntered="#Select" onMouseExited="#Unselect" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
                <image>
-                  <Image url="@GoalCards/SfumatureDiverse.jpg" />
+                  <Image url="@PublicGoalCards/2.jpg" />
                </image>
             </ImageView>
             <ImageView fx:id="PublicGoalCard3" fitHeight="231.0" fitWidth="215.0" onMouseEntered="#Select" onMouseExited="#Unselect" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
                <image>
-                  <Image url="@GoalCards/SfumatureMedie.jpg" />
+                  <Image url="@PublicGoalCards/4.jpg" />
                </image>
             </ImageView>
          </children>
@@ -1088,7 +850,7 @@
          <children>
             <ImageView fx:id="RoundTrack01" fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <image>
-                  <Image url="@Dices/G2.jpg" />
+                  <Image url="@Dices/EmptySpace.jpg" />
                </image>
                <GridPane.margin>
                   <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
@@ -1100,7 +862,7 @@
             <ImageView fitWidth="69.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="9" GridPane.rowIndex="1" />
             <ImageView fx:id="RoundTrack00" fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
                <image>
-                  <Image url="@Dices/G2.jpg" />
+                  <Image url="@Dices/EmptySpace.jpg" />
                </image>
                <GridPane.margin>
                   <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
@@ -1108,7 +870,7 @@
             </ImageView>
             <ImageView fx:id="RoundTrack02" fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <image>
-                  <Image url="@Dices/G2.jpg" />
+                  <Image url="@Dices/EmptySpace.jpg" />
                </image>
                <GridPane.margin>
                   <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
@@ -1116,7 +878,7 @@
             </ImageView>
             <ImageView fx:id="RoundTrack03" fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <image>
-                  <Image url="@Dices/G2.jpg" />
+                  <Image url="@Dices/EmptySpace.jpg" />
                </image>
                <GridPane.margin>
                   <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
@@ -1124,7 +886,7 @@
             </ImageView>
             <ImageView fx:id="RoundTrack04" fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="1">
                <image>
-                  <Image url="@Dices/G2.jpg" />
+                  <Image url="@Dices/EmptySpace.jpg" />
                </image>
                <GridPane.margin>
                   <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
@@ -1132,7 +894,7 @@
             </ImageView>
             <ImageView fx:id="RoundTrack05" fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="1">
                <image>
-                  <Image url="@Dices/G2.jpg" />
+                  <Image url="@Dices/EmptySpace.jpg" />
                </image>
                <GridPane.margin>
                   <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
@@ -1140,7 +902,7 @@
             </ImageView>
             <ImageView fx:id="RoundTrack06" fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.rowIndex="1">
                <image>
-                  <Image url="@Dices/G2.jpg" />
+                  <Image url="@Dices/EmptySpace.jpg" />
                </image>
                <GridPane.margin>
                   <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
@@ -1148,7 +910,7 @@
             </ImageView>
             <ImageView fx:id="RoundTrack08" fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8" GridPane.rowIndex="1">
                <image>
-                  <Image url="@Dices/G2.jpg" />
+                  <Image url="@Dices/EmptySpace.jpg" />
                </image>
                <GridPane.margin>
                   <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
@@ -1156,7 +918,7 @@
             </ImageView>
             <ImageView fx:id="RoundTrack07" fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.rowIndex="1">
                <image>
-                  <Image url="@Dices/G2.jpg" />
+                  <Image url="@Dices/EmptySpace.jpg" />
                </image>
                <GridPane.margin>
                   <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
@@ -1164,7 +926,7 @@
             </ImageView>
             <ImageView fx:id="RoundTrack09" fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="9" GridPane.rowIndex="1">
                <image>
-                  <Image url="@Dices/G2.jpg" />
+                  <Image url="@Dices/EmptySpace.jpg" />
                </image>
                <GridPane.margin>
                   <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
@@ -1176,5 +938,13 @@
          </opaqueInsets>
       </GridPane>
       <JFXProgressBar layoutY="888.0" prefHeight="26.0" prefWidth="1400.0" progress="0.41" />
+      <JFXButton fx:id="leaveTheMAtch" layoutX="10.0" layoutY="21.0" onAction="#leaveTheMatch" prefHeight="44.0" prefWidth="220.0" style="-fx-background-color: green;" text="Abbandona la partita" textFill="WHITE">
+         <effect>
+            <DropShadow />
+         </effect>
+         <font>
+            <Font size="20.0" />
+         </font>
+      </JFXButton>
    </children>
 </AnchorPane>

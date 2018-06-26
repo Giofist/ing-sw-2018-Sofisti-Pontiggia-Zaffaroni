@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.Exceptions.UserNotExistentException;
 import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PlayerPackage.State;
 
@@ -24,24 +25,31 @@ public class Turn implements Runnable{
         for (Player player: this.round.getMatch().getallPlayers()){
             player.setTurn(this);
         }
-        try {
-            if (currentPlayer.mustpassTurn()){
-                currentPlayer.setPlayerState(State.NOTYOURTURNSTATE);
-            }else {
-                currentPlayer.setPlayerState(State.STARTTURNSTATE);
-            }
-        }catch (RemoteException e1) {
-            this.doneSignal.countDown();
+        if (currentPlayer.mustpassTurn()){
+            currentPlayer.setPlayerState(State.NOTYOURTURNSTATE);
+        }else{
+            currentPlayer.setPlayerState(State.STARTTURNSTATE);
         }
-        for (Player player: this.round.getMatch().getallPlayersbutnotme(currentPlayer)) {
-            try{
-                player.setPlayerState(State.NOTYOURTURNSTATE);
-            } catch (RemoteException e){
-                this.doneSignal.countDown();
-                }
+        try{
+            if (!UsersList.Singleton().getUser(currentPlayer.getName()).isActive()) {
+                this.countDown();
             }
+        }catch(UserNotExistentException e){
+                //do nothing
+        }
+
+        for (Player player: this.round.getMatch().getallPlayersbutnotme(currentPlayer)) {
+            player.setPlayerState(State.NOTYOURTURNSTATE);
+            try{
+                if (!UsersList.Singleton().getUser(player.getName()).isActive()) {
+                    this.countDown();
+                }
+            }catch(UserNotExistentException e){
+                //do nothing
+            }
+        }
         // se è rimasto un solo giocatore, la partita finisce immediatamente
-        if (this.doneSignal.getCount() == 0){
+        if (this.doneSignal.getCount() == 1){
             currentPlayer.getMatch().forceendmatch();
         }
 

@@ -85,7 +85,7 @@ public class DiluentePerPastaSaldaTest {
 
         assertEquals(1, roundDicePool.getDicePoolSize());
 
-        toolRequestClass.setSelectedDIceIndex(0);
+        toolRequestClass.setSelectedDiceIndex(0);
         toolCard.execute(player, toolRequestClass);
 
         assertEquals(0, roundDicePool.getDicePoolSize());
@@ -110,7 +110,7 @@ public class DiluentePerPastaSaldaTest {
 
 
         assertEquals(1, roundDicePool.getDicePoolSize());
-        toolRequestClass.setSelectedDIceIndex(5);
+        toolRequestClass.setSelectedDiceIndex(5);
 
         try {
             toolCard.execute(player, toolRequestClass);

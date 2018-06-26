@@ -30,19 +30,9 @@ public class AlesatoreperLaminadiRame  extends ToolAction implements Serializabl
             player.getScheme().setDice(removedDice, toolRequestClass.getNewRow1(), toolRequestClass.getNewColumn1(), false, true, false);
 
             // parte relativa alla stato
-            try{
-                if (player.getPlayerState().getState().equals(State.HASSETADICESTATE)){
-                    player.setPlayerState(State.MUSTPASSTURNSTATE);
-                }else player.setPlayerState(State.HASUSEDATOOLCARDACTIONSTATE);
-            }catch (RemoteException e){
-                try{
-                    UsersList.Singleton().getUser(player.getName()).setActive(false);
-                }catch(Exception err){
-                    //do nothing
-                }
-                player.getTurn().countDown();
-
-            }
+            if (player.getPlayerState().getState().equals(State.HASSETADICESTATE)){
+                player.setPlayerState(State.MUSTPASSTURNSTATE);
+            }else player.setPlayerState(State.HASUSEDATOOLCARDACTIONSTATE);
 
         }catch (Exception e) {
             try {

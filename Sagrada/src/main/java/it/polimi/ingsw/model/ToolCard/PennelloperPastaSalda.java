@@ -26,7 +26,7 @@ public class PennelloperPastaSalda  extends ToolAction implements Serializable {
     @Override
     public void execute (Player player, ToolRequestClass toolRequestClass)throws ToolIllegalOperationException {
         try{
-            Dice dice= player.getGametable().getRoundDicepool().getDice(toolRequestClass.getSelectedDIceIndex());
+            Dice dice= player.getGametable().getRoundDicepool().getDice(toolRequestClass.getSelectedDiceIndex());
             dice.setRandomIntensity();
             if(player.getPlayerState().getState().equals(State.HASSETADICESTATE)){
                 throw new PennelloPerPastaSaldaException("16.1");
@@ -43,7 +43,7 @@ public class PennelloperPastaSalda  extends ToolAction implements Serializable {
             }
             if(settable){
                 player.setDiceforToolCardUse(dice);
-                player.getGametable().getRoundDicepool().removeDice(toolRequestClass.getSelectedDIceIndex());
+                player.getGametable().getRoundDicepool().removeDice(toolRequestClass.getSelectedDiceIndex());
                 player.setPlayerState(State.MUSTSETPENNELLOPERPASTASALDASTATE);
             }else{
                 if (player.getPlayerState().getState().equals(State.HASSETADICESTATE)){
@@ -54,15 +54,7 @@ public class PennelloperPastaSalda  extends ToolAction implements Serializable {
             throw new PennelloPerPastaSaldaException();
         }catch (SchemeCardNotExistantException e){
             throw new PennelloPerPastaSaldaException();
-        }catch (RemoteException e){
-            try{
-                UsersList.Singleton().getUser(player.getName()).setActive(false);
-            }catch(Exception err){
-                //do nothing
-            }
-            player.getTurn().countDown();
         }
-
     }
 
 

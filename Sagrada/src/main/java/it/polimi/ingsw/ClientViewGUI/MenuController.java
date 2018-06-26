@@ -108,6 +108,7 @@ public class MenuController extends AbstractController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        setBase(mainPane);
         PlayerName.setText(ObserverGUI.Singleton().getUsername());
         PlayerScore.setText("");
     }

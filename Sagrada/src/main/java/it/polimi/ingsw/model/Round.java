@@ -39,6 +39,7 @@ public class Round {
                         e.printStackTrace();
                     }
                     if(thread.isAlive()){
+                        turn.countDownAll();
                     }
                 }
             },0);
@@ -65,13 +66,11 @@ public class Round {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    System.out.println("Turn ended at:"+new Date());
                     if(thread.isAlive()){
                         turn.countDownAll();
                     }
                 }
             },0);
-
             try{
                 thread.start();
                 wait();

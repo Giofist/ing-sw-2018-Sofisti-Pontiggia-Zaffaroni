@@ -50,7 +50,7 @@ public class TamponeDiamantatoTest {
     // This method will test when the specified index is out of range
     @Test (expected = ToolIllegalOperationException.class)
     public void executeIndexOutOfRangeException() throws ToolIllegalOperationException {
-        toolRequestClass.setSelectedDIceIndex(-1);
+        toolRequestClass.setSelectedDiceIndex(-1);
         toolCard.execute(player, toolRequestClass);
         assertEquals(State.STARTTURNSTATE, player.getPlayerState().getState());
     }
@@ -58,7 +58,7 @@ public class TamponeDiamantatoTest {
 
     @Test
     public void executeOK() throws DicepoolIndexException, ToolIllegalOperationException {
-        toolRequestClass.setSelectedDIceIndex(0);
+        toolRequestClass.setSelectedDiceIndex(0);
 
         int initialIntensity = player.getMatch().getGametable().getRoundDicepool().getDice(0).getIntensity();
         toolCard.execute(player, toolRequestClass);

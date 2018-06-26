@@ -42,7 +42,7 @@ public class SocketServerListener implements Runnable{
                 if (messagecodex == 44) {
                     executor.submit(new SocketMessageHandlerServer(message, this.controller, this));
                 } else {
-                    executor.submit(new SocketStringHandlerServer(this.client, message.getErrorMessage(), messagecodex));
+                    executor.submit(new SocketResponseHandlerServer(this.client, message.getErrorMessage(), messagecodex));
 
                 }
             }catch (Exception e){

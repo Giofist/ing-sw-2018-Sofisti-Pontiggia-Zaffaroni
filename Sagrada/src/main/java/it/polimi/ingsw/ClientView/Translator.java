@@ -16,7 +16,6 @@ public interface  Translator {
     String translateException(String exceptioncode);
     String translatePublicGoalCardDescription(int cardID);
     String translatePublicGoalCardName(int cardID);
-    String translateSchemeCard(SchemeCard SchemeCard);
     String translateTurnAction(TurnActions turnActions);
     String detranslateTurnAction(String turnaction);
 }

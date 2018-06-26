@@ -7,17 +7,18 @@ import it.polimi.ingsw.model.Exceptions.NotEnoughSegnaliniException;
 import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.List;
 
 //implementa comparable per ordinare i giocatori in base al punteggio nellav lista di player
-public class Player  implements Comparable<Player> {
+public class Player  implements Comparable<Player>, Serializable {
     private transient GoalCard privateGoalCard;
     private transient int token;
     private transient LinkedList<SchemeCard> extractedschemeCards;
     private transient SchemeCard scheme;
-    private transient int points;
+    private int points;
     private transient Match match;
     private transient PlayerState playerState;
     private transient Turn turn;
@@ -55,7 +56,6 @@ public class Player  implements Comparable<Player> {
     public void setName(String name) {
         this.name = name;
     }
-
     public int getToken() {
         return token;
     }
@@ -140,14 +140,25 @@ public class Player  implements Comparable<Player> {
         this.mustpassTurn = mustpassTurn;
     }
     public void addExtractedSchemeCard(SchemeCard schemeCard){
-        this.extractedschemeCards.add(schemeCard);
+        if(this.extractedschemeCards.size() <2){
+            this.extractedschemeCards.add(schemeCard);
+        }
+        else return;
     }
     public PlayerState getPlayerState(){
         return this.playerState;
     }
-    public void setPlayerState(State state)throws RemoteException{
+    public void setPlayerState(State state){
         this.playerState.updateState(state);
-        this.playerState.notifyObservers();
+        try{
+            this.playerState.notifyObservers();
+        }catch(RemoteException e){
+            try{
+                UsersList.Singleton().getUser(this.getName()).setActive(false);
+            }catch(Exception er){
+                //do nothing
+            }
+        }
     }
     public Turn getTurn() {
         return turn;
@@ -163,7 +174,6 @@ public class Player  implements Comparable<Player> {
             return this.getPoints() - player.getPoints();
         }
         else if (this.getToken() != player.getToken()){
-            System.out.println("forza roma");
             return this.getToken() - this.getToken();
         }
         else return this.getMatch().getallPlayers().indexOf(this) - player.getMatch().getallPlayers().indexOf(player);

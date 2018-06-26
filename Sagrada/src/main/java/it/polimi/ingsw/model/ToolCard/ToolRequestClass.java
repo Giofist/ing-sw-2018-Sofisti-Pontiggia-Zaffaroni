@@ -13,9 +13,8 @@ public class ToolRequestClass implements Serializable {
     private int oldColumn2;
     private int newRow2;
     private int newColumn2;
-    private int selectedDIceIndex;
+    private int selectedDiceIndex;
     private int operationforPinzaSgrossatrice;
-    private int selectedRoundDicepoolDiceIndex;
     private int roundWhereThediceis;
     private int selectedRoundTrackDiceIndex;
 
@@ -38,13 +37,7 @@ public class ToolRequestClass implements Serializable {
         this.roundWhereThediceis = roundWhereThediceis;
     }
 
-    public int getSelectedRoundDicepoolDiceIndex() {
-        return selectedRoundDicepoolDiceIndex;
-    }
 
-    public void setSelectedRoundDicepoolDiceIndex(int selectedRoundDicepoolDiceIndex) {
-        this.selectedRoundDicepoolDiceIndex = selectedRoundDicepoolDiceIndex;
-    }
 
     public int getOperationforPinzaSgrossatrice() {
         return operationforPinzaSgrossatrice;
@@ -54,12 +47,12 @@ public class ToolRequestClass implements Serializable {
         this.operationforPinzaSgrossatrice = operationforPinzaSgrossatrice;
     }
 
-    public int getSelectedDIceIndex() {
-        return selectedDIceIndex;
+    public int getSelectedDiceIndex() {
+        return selectedDiceIndex;
     }
 
-    public void setSelectedDIceIndex(int selectedDIceIndex) {
-        this.selectedDIceIndex = selectedDIceIndex;
+    public void setSelectedDiceIndex(int selectedDIceIndex) {
+        this.selectedDiceIndex = selectedDIceIndex;
     }
 
     public int getNewColumn2() {

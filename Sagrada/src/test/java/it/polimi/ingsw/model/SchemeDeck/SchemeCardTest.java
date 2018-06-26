@@ -58,7 +58,7 @@ public class SchemeCardTest {
         // Putting the Dice in a Tile with color constrains NOT respected
         assertFalse(schemeCard.SettableHere(mockDice, 1, 0, false, false));
 
-        // Putting the second Dice in a non-border Tile but without another Dice near
+        // Putting the second Dice in a non-border Tile but without another Dice
         assertFalse(schemeCard.SettableHere(mockDice, 1, 1, false, false));
 
         // This last 2 gives error

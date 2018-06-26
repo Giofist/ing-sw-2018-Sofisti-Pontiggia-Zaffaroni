@@ -16,7 +16,7 @@ import java.util.List;
 
 
 public interface ClientHandlerInterface extends Remote {
-    public void setResponseHandler(SocketResponseHandler responseHandler)throws RemoteException;
+    void setResponseHandler(SocketResponseHandler responseHandler)throws RemoteException;
 
 
     void createGame(String clientname, Observer client, String gamename ) throws  RemoteException;
@@ -28,7 +28,7 @@ public interface ClientHandlerInterface extends Remote {
     List<TurnActions> getPossibleActions(String clientname) throws RemoteException;
     List<GoalCard> getPrivateGoalCard(String clientname) throws RemoteException;
     List<GoalCard> getPublicGoalCards(String clientname) throws RemoteException;
-    String getRanking(String clientname) throws RemoteException;
+    List getRanking(String clientname) throws RemoteException;
     String getRoundDicepool(String clientname) throws RemoteException;
     String getRoundTrack(String clientname) throws RemoteException;
     List<SchemeCard> getSchemeCard(String clientname) throws RemoteException;
@@ -36,18 +36,15 @@ public interface ClientHandlerInterface extends Remote {
     int getToken(String clientname) throws RemoteException;
     String getToolCardDice(String clientname)throws RemoteException;
     List<ToolAction> getToolCards(String clientname) throws RemoteException;
-    void joinaGame(String clientname, Observer  client, String gamename) throws RemoteException;
-    void leavethematchatthend(String clientname) throws RemoteException;
+    void joinaMatch(String clientname, Observer  client, String gamename) throws RemoteException;
     void leavethematch(String clientname) throws RemoteException;
     void login(String clientname, String password, Observer observer) throws RemoteException;
     void logout(String clientname) throws RemoteException;
     void passTurn(String clientname) throws RemoteException;
     void register(String clientname, String password) throws RemoteException;
     void setDice(String clientname, int diceindex, int row, int column) throws RemoteException;
-
     void setSchemeCard(String clientname, int cardid) throws RemoteException;
     void setToolCardDice(String clientname, int row, int column)throws RemoteException;
     void setToolCardDiceIntensity(String clientname, int intensity) throws RemoteException;
-
     void useaToolCard(String clientname, ToolRequestClass toolRequestClass) throws RemoteException;
     }

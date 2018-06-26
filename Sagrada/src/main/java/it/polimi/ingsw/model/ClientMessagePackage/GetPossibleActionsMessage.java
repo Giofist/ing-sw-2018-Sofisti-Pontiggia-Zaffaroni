@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.ClientMessagePackage;
 
+import it.polimi.ingsw.NetworkServer.ServerResponseMessage;
 import it.polimi.ingsw.NetworkServer.SocketServerListener;
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
 import it.polimi.ingsw.NetworkServer.ServerMessage;
@@ -15,7 +16,7 @@ public class GetPossibleActionsMessage extends ClientMessage {
     @Override
     public void performAction(ClientHandlerInterface clientHandler, SocketServerListener listener)throws RemoteException {
         List list= clientHandler.getPossibleActions(getClientName());
-        ServerMessage messageClass = new ServerMessage();
+        ServerMessage messageClass = new ServerResponseMessage();
         messageClass.setMessagecodex(1);
         messageClass.setList(list);
         try {

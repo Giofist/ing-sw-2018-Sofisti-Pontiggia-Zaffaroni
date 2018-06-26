@@ -1,6 +1,5 @@
 package it.polimi.ingsw.ClientView;
 
-import it.polimi.ingsw.ServerController.ClientHandler;
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
 import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PlayerPackage.TurnActions;
@@ -65,7 +64,7 @@ public class Setter {
                             int i = 0;
                             for (Player player: players) {
                                 System.out.println(Client.translator.translatePlayer(player));
-                                Printer.Singleton().printMap(Client.translator.translateSchemeCard(schemecards.get(i)));
+                                Printer.Singleton().printMap(schemecards.get(i));
                                 i++;
                             }
                         } catch (RemoteException e) {
@@ -82,7 +81,7 @@ public class Setter {
                 }
                 case "LEAVEMATCHATTHEEND": {
                     try {
-                        serverController.leavethematchatthend(yourName);
+                        serverController.leavethematch(yourName);
                     } catch (RemoteException e) {
                         System.out.println(Client.translator.translateException(e.getMessage()));
                     }
@@ -108,7 +107,7 @@ public class Setter {
                 case "SETTOOLCARDDICEINTENSITY": {
                     char[] charDice = new char[0];
                     while(!correct) {
-                        System.out.println("Seleziona l'intensità del dado pescao:");
+                        System.out.println("Seleziona l'intensità del dado pescato:");
                         try {
                             serverController.setToolCardDiceIntensity(yourName, in.nextInt());
                             correct = true;
@@ -183,7 +182,7 @@ public class Setter {
                 Printer.Singleton().printRoundDicePool(serverController, yourName);
                 while(!condition){
                 System.out.println("Seleziona il dado su cui applicare la Pinza Sgrossatrice:");
-                data.setSelectedRoundDicepoolDiceIndex(in.nextInt());
+                data.setSelectedDiceIndex(in.nextInt());
                 Printer.Singleton().printRoundDicePool(serverController, yourName);
                     try {
                         serverController.useaToolCard(yourName, data);
@@ -196,7 +195,7 @@ public class Setter {
             }
             case "2": { //2. Pennello per Eglomise
                 try {
-                    Printer.Singleton().printMap(Client.translator.translateSchemeCard(serverController.getSchemeCard(yourName).get(0)));
+                    Printer.Singleton().printMap(serverController.getSchemeCard(yourName).get(0));
                 } catch (RemoteException e) {
                     System.out.println(Client.translator.translateException(e.getMessage()));
                 }
@@ -220,7 +219,7 @@ public class Setter {
             }
             case "3": { //3. Alesatore per lamina di rame
                 try {
-                    Printer.Singleton().printMap(Client.translator.translateSchemeCard(serverController.getSchemeCard(yourName).get(0)));
+                    Printer.Singleton().printMap(serverController.getSchemeCard(yourName).get(0));
                 } catch (RemoteException e) {
                     System.out.println(Client.translator.translateException(e.getMessage()));
                 }
@@ -244,7 +243,7 @@ public class Setter {
             }
             case "4": { //4. Lathekin
                 try {
-                    Printer.Singleton().printMap(Client.translator.translateSchemeCard(serverController.getSchemeCard(yourName).get(0)));
+                    Printer.Singleton().printMap(serverController.getSchemeCard(yourName).get(0));
                 } catch (RemoteException e) {
                     System.out.println(Client.translator.translateException(e.getMessage()));
                 }
@@ -278,7 +277,7 @@ public class Setter {
                 while(!condition){
                 Printer.Singleton().printRoundDicePool(serverController, yourName);
                 System.out.println("Seleziona il dado da scambiare con uno del ound Track. Indica l'indice:");
-                data.setSelectedDIceIndex(in.nextInt());
+                data.setSelectedDiceIndex(in.nextInt());
                 Printer.Singleton().printRoundTrack(serverController, yourName);
                 System.out.println("Seleziona il dado da scambiare sulla RoundTrack. Indica il round:");
                 data.setRoundWhereThediceis(in.nextInt());
@@ -297,7 +296,7 @@ public class Setter {
                 Printer.Singleton().printRoundDicePool(serverController, yourName);
                 while(!condition){
                 System.out.println("Seleziona il dado da tirare nuovamente. Indica l'indice:");
-                data.setSelectedDIceIndex(in.nextInt());
+                data.setSelectedDiceIndex(in.nextInt());
                     try {
                         serverController.useaToolCard(yourName, data);
                         condition = true;
@@ -313,8 +312,8 @@ public class Setter {
             case "8": { //8. Tenaglia a Rotelle
                 Printer.Singleton().printRoundDicePool(serverController, yourName);
                 while(!condition){
-                System.out.println("Seleziona il dado da scambiare con uno del ound Track. Indica l'indice:");
-                data.setSelectedDIceIndex(in.nextInt());
+                System.out.println("Seleziona il dado da scambiare con uno del Round Track. Indica l'indice:");
+                data.setSelectedDiceIndex(in.nextInt());
                     try {
                         serverController.useaToolCard(yourName, data);
                         condition = true;
@@ -328,9 +327,9 @@ public class Setter {
                 Printer.Singleton().printRoundDicePool(serverController, yourName);
                 while(!condition){
                 System.out.println("Seleziona il dado da posizionare nella mappa. Indica l'indice:");
-                data.setSelectedRoundDicepoolDiceIndex(in.nextInt());
+                data.setSelectedDiceIndex(in.nextInt());
                 try {
-                    Printer.Singleton().printMap(Client.translator.translateSchemeCard(serverController.getSchemeCard(yourName).get(0)));
+                    Printer.Singleton().printMap(serverController.getSchemeCard(yourName).get(0));
                 } catch (RemoteException e) {
                     System.out.println(Client.translator.translateException(e.getMessage()));
                 }
@@ -351,7 +350,7 @@ public class Setter {
                 Printer.Singleton().printRoundDicePool(serverController, yourName);
                 while(!condition){
                 System.out.println("Seleziona il dado da girare sulla faccia opposta. Indica l'indice:");
-                data.setSelectedDIceIndex(in.nextInt());
+                data.setSelectedDiceIndex(in.nextInt());
                     try {
                         serverController.useaToolCard(yourName, data);
                         condition = true;
@@ -365,7 +364,7 @@ public class Setter {
                 Printer.Singleton().printRoundDicePool(serverController, yourName);
                 while(!condition){
                 System.out.println("Seleziona il dado rimettere nel sacchetto. Indica l'indice:");
-                data.setSelectedDIceIndex(in.nextInt());
+                data.setSelectedDiceIndex(in.nextInt());
                 try {
                     serverController.useaToolCard(yourName, data);
                     condition = true;
@@ -377,7 +376,7 @@ public class Setter {
             }
             case "12": { //12. Taglierina Manuale
                 try {
-                    Printer.Singleton().printMap(Client.translator.translateSchemeCard(serverController.getSchemeCard(yourName).get(0)));
+                    Printer.Singleton().printMap(serverController.getSchemeCard(yourName).get(0));
                 } catch (RemoteException e) {
                     System.out.println(Client.translator.translateException(e.getMessage()));
                 }
@@ -444,7 +443,7 @@ public class Setter {
         boolean success = false;
         boolean correct = false;
         try {
-            Printer.Singleton().printMap( Client.translator.translateSchemeCard(serverController.getSchemeCard(yourName).get(0)));
+            Printer.Singleton().printMap(serverController.getSchemeCard(yourName).get(0));
         } catch (RemoteException e) {
             System.out.println(Client.translator.translateException(e.getMessage()));
         }
@@ -489,7 +488,7 @@ public class Setter {
         boolean success = false;
         boolean correct = false;
         try {
-            Printer.Singleton().printMap(Client.translator.translateSchemeCard(serverController.getSchemeCard(yourName).get(0)));
+            Printer.Singleton().printMap(serverController.getSchemeCard(yourName).get(0));
         } catch (RemoteException e) {
             System.out.println(Client.translator.translateException(e.getMessage()));
         }
@@ -542,7 +541,7 @@ public class Setter {
         int index;
         try {
             for (SchemeCard schemeCard: serverController.getExtractedSchemeCard(yourName)){
-                Printer.Singleton().printMap(Client.translator.translateSchemeCard(schemeCard));
+                Printer.Singleton().printMap(schemeCard);
             }
         } catch (RemoteException e) {
             System.out.println(Client.translator.translateException(e.getMessage()));

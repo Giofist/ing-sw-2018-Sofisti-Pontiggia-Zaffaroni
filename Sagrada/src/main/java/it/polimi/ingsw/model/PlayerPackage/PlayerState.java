@@ -30,7 +30,7 @@ public class PlayerState implements Observable, Serializable{
     }
 
 
-    public List getActions() throws NoActionAllowedException {
+    public List getActions() {
         return actions;
     }
 

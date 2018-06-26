@@ -29,16 +29,7 @@ public class Martelletto  extends ToolAction implements Serializable{
             }
             for(int i=0; i<player.getGametable().getRoundDicepool().getDicePoolSize();i++)
                 player.getGametable().getRoundDicepool().getDice(i).setRandomIntensity();
-            try{
-                player.setPlayerState(State.HASUSEDATOOLCARDACTIONSTATE);
-            }catch (RemoteException e){
-                try{
-                    UsersList.Singleton().getUser(player.getName()).setActive(false);
-                }catch(Exception err){
-                    //do nothing
-                }
-                player.getTurn().countDown();
-            }
+            player.setPlayerState(State.HASUSEDATOOLCARDACTIONSTATE);
         }catch (DicepoolIndexException e){
             throw new MartellettoException();
         }

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.ClientMessagePackage;
 
 import it.polimi.ingsw.NetworkServer.ServerMessage;
+import it.polimi.ingsw.NetworkServer.ServerResponseMessage;
 import it.polimi.ingsw.NetworkServer.SocketServerListener;
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
 import it.polimi.ingsw.model.ToolCard.ToolRequestClass;
@@ -24,7 +25,7 @@ public class UseToolCardMessage extends ClientMessage {
     @Override
     public void performAction(ClientHandlerInterface clientHandler, SocketServerListener listener) throws RemoteException{
         clientHandler.useaToolCard(getClientName(), getRequestClass());
-        ServerMessage messageClass = new ServerMessage();
+        ServerMessage messageClass = new ServerResponseMessage();
         messageClass.setMessagecodex(1);
         try {
             listener.sendMessage(messageClass);

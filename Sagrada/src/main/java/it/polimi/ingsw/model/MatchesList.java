@@ -32,8 +32,8 @@ public class MatchesList {
 
 
 
-    //createGame a game and add to the existant list
-    public synchronized void createGame(Player player, String game_name) throws HomonymyException {
+    //createMatch a game and add to the existant list
+    public synchronized void createMatch(Player player, String game_name) throws HomonymyException {
         for (Match previousMatch : this.matches){
             if (previousMatch.getName().equals(game_name) ) {
                 throw new HomonymyException();
@@ -61,14 +61,8 @@ public class MatchesList {
                     else{
                         //l'unico giocatore deve abbandonare la partita
                         for(Player player: match.getallPlayers()){
-                            try{
-                                player.setPlayerState(State.ERRORSTATE);
-                            }catch(Exception err){
-                                //do nothing, we are so unlucky here
-                            }
-
+                            player.setPlayerState(State.ERRORSTATE);
                         }
-                        MatchesList.singleton().remove(match);
                         thread.interrupt();
                     }
                 }
@@ -79,19 +73,13 @@ public class MatchesList {
     }
 
     public synchronized void  join(Player player, String game_name) throws GameNotExistantException {
-        Match match = this.getGame(game_name);
+        System.out.println(game_name);
+        Match match = this.getMatch(game_name);
         player.setMatch(match);
         match.join(player);
     }
 
 
-    //delete a match (because it's finished)
-    public  synchronized void remove(Match match){
-        for (Match otherGames : this.matches) {
-            if (match.getName() == otherGames.getName())
-                this.matches.remove(otherGames);
-        }
-    }
 
     //get the list of the existant matches
     public List<Match> getmatches(){
@@ -108,8 +96,7 @@ public class MatchesList {
     }
 
 
-    public Match getGame(String game_name) throws GameNotExistantException
-    {
+    public Match getMatch(String game_name) throws GameNotExistantException {
         for (Match match : this.matches){
             if(match.getName().equals(game_name)){
                 return match;

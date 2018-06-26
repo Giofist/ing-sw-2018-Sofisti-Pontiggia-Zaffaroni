@@ -27,7 +27,6 @@ public class Server {
         //socket part
         new Thread(new StartServer(controller, 1337)).start();
         System.out.println("Waiting for invocations from clients...");
-
     }
 
 }
