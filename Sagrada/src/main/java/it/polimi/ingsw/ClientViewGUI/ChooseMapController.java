@@ -274,7 +274,8 @@ public class ChooseMapController extends AbstractController implements Initializ
             row++;
         }
     }
-        public void leaveTheMatch (javafx.event.ActionEvent actionEvent){
+
+    public void leaveTheMatch (javafx.event.ActionEvent actionEvent){
             try {
                 ObserverGUI.Singleton().getServerController().leavethematch(ObserverGUI.Singleton().getUsername());
             } catch (RemoteException e) {
