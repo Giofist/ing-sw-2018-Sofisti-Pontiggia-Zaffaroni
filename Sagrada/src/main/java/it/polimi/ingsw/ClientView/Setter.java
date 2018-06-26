@@ -64,7 +64,7 @@ public class Setter {
                             int i = 0;
                             for (Player player: players) {
                                 System.out.println(Client.translator.translatePlayer(player));
-                                Printer.Singleton().printMap(Client.translator.translateSchemeCard(schemecards.get(i)));
+                                Printer.Singleton().printMap(schemecards.get(i));
                                 i++;
                             }
                         } catch (RemoteException e) {
@@ -195,7 +195,7 @@ public class Setter {
             }
             case "2": { //2. Pennello per Eglomise
                 try {
-                    Printer.Singleton().printMap(Client.translator.translateSchemeCard(serverController.getSchemeCard(yourName).get(0)));
+                    Printer.Singleton().printMap(serverController.getSchemeCard(yourName).get(0));
                 } catch (RemoteException e) {
                     System.out.println(Client.translator.translateException(e.getMessage()));
                 }
@@ -219,7 +219,7 @@ public class Setter {
             }
             case "3": { //3. Alesatore per lamina di rame
                 try {
-                    Printer.Singleton().printMap(Client.translator.translateSchemeCard(serverController.getSchemeCard(yourName).get(0)));
+                    Printer.Singleton().printMap(serverController.getSchemeCard(yourName).get(0));
                 } catch (RemoteException e) {
                     System.out.println(Client.translator.translateException(e.getMessage()));
                 }
@@ -243,7 +243,7 @@ public class Setter {
             }
             case "4": { //4. Lathekin
                 try {
-                    Printer.Singleton().printMap(Client.translator.translateSchemeCard(serverController.getSchemeCard(yourName).get(0)));
+                    Printer.Singleton().printMap(serverController.getSchemeCard(yourName).get(0));
                 } catch (RemoteException e) {
                     System.out.println(Client.translator.translateException(e.getMessage()));
                 }
@@ -329,7 +329,7 @@ public class Setter {
                 System.out.println("Seleziona il dado da posizionare nella mappa. Indica l'indice:");
                 data.setSelectedDiceIndex(in.nextInt());
                 try {
-                    Printer.Singleton().printMap(Client.translator.translateSchemeCard(serverController.getSchemeCard(yourName).get(0)));
+                    Printer.Singleton().printMap(serverController.getSchemeCard(yourName).get(0));
                 } catch (RemoteException e) {
                     System.out.println(Client.translator.translateException(e.getMessage()));
                 }
@@ -376,7 +376,7 @@ public class Setter {
             }
             case "12": { //12. Taglierina Manuale
                 try {
-                    Printer.Singleton().printMap(Client.translator.translateSchemeCard(serverController.getSchemeCard(yourName).get(0)));
+                    Printer.Singleton().printMap(serverController.getSchemeCard(yourName).get(0));
                 } catch (RemoteException e) {
                     System.out.println(Client.translator.translateException(e.getMessage()));
                 }
@@ -443,7 +443,7 @@ public class Setter {
         boolean success = false;
         boolean correct = false;
         try {
-            Printer.Singleton().printMap( Client.translator.translateSchemeCard(serverController.getSchemeCard(yourName).get(0)));
+            Printer.Singleton().printMap(serverController.getSchemeCard(yourName).get(0));
         } catch (RemoteException e) {
             System.out.println(Client.translator.translateException(e.getMessage()));
         }
@@ -488,7 +488,7 @@ public class Setter {
         boolean success = false;
         boolean correct = false;
         try {
-            Printer.Singleton().printMap(Client.translator.translateSchemeCard(serverController.getSchemeCard(yourName).get(0)));
+            Printer.Singleton().printMap(serverController.getSchemeCard(yourName).get(0));
         } catch (RemoteException e) {
             System.out.println(Client.translator.translateException(e.getMessage()));
         }
@@ -541,7 +541,7 @@ public class Setter {
         int index;
         try {
             for (SchemeCard schemeCard: serverController.getExtractedSchemeCard(yourName)){
-                Printer.Singleton().printMap(Client.translator.translateSchemeCard(schemeCard));
+                Printer.Singleton().printMap(schemeCard);
             }
         } catch (RemoteException e) {
             System.out.println(Client.translator.translateException(e.getMessage()));

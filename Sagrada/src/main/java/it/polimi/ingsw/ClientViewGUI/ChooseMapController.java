@@ -2,7 +2,11 @@ package it.polimi.ingsw.ClientViewGUI;
 
 import com.jfoenix.controls.JFXButton;
 import it.polimi.ingsw.ClientView.Observer;
+import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
+import it.polimi.ingsw.model.SchemeDeck.ColumnIterator;
+import it.polimi.ingsw.model.SchemeDeck.RowIterator;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
+import it.polimi.ingsw.model.SchemeDeck.Tile;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.effect.DropShadow;
@@ -18,6 +22,9 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 
+import static org.fusesource.jansi.Ansi.Color.*;
+import static org.fusesource.jansi.Ansi.Color.BLACK;
+import static org.fusesource.jansi.Ansi.Color.WHITE;
 import static org.fusesource.jansi.Ansi.ansi;
 
 public class ChooseMapController extends AbstractController implements Initializable {
@@ -184,12 +191,11 @@ public class ChooseMapController extends AbstractController implements Initializ
         mapIDs[0] = 13;
         try {
             for (SchemeCard schemeCard: ObserverGUI.Singleton().getServerController().getExtractedSchemeCard(ObserverGUI.Singleton().getUsername())){
-            mapIDs[index-1] = schemeCard.getID();
-            System.out.println(ObserverGUI.Singleton().getTranslator().translateSchemeCard(schemeCard));
-            if(index==1) {setUpMap(ObserverGUI.Singleton().getTranslator().translateSchemeCard(schemeCard), gridMap1, mapName1, Diff11, Diff12, Diff13, Diff14, Diff15, Diff16);}
-            else if (index==2){setUpMap(ObserverGUI.Singleton().getTranslator().translateSchemeCard(schemeCard), gridMap2, mapName2, Diff21, Diff22, Diff23, Diff24, Diff25, Diff26);}
-            else if (index==3){setUpMap(ObserverGUI.Singleton().getTranslator().translateSchemeCard(schemeCard), gridMap3, mapName3, Diff31, Diff32, Diff33, Diff34, Diff35, Diff36);}
-            else if (index==4){setUpMap(ObserverGUI.Singleton().getTranslator().translateSchemeCard(schemeCard), gridMap4, mapName4, Diff41, Diff42, Diff43, Diff44, Diff45, Diff46);}
+                mapIDs[index-1] = schemeCard.getID();
+            if(index==1) {setUpMap(schemeCard, gridMap1, mapName1, Diff11, Diff12, Diff13, Diff14, Diff15, Diff16);}
+            else if (index==2){setUpMap(schemeCard, gridMap2, mapName2, Diff21, Diff22, Diff23, Diff24, Diff25, Diff26);}
+            else if (index==3){setUpMap(schemeCard, gridMap3, mapName3, Diff31, Diff32, Diff33, Diff34, Diff35, Diff36);}
+            else if (index==4){setUpMap(schemeCard, gridMap4, mapName4, Diff41, Diff42, Diff43, Diff44, Diff45, Diff46);}
                 index++;
             }
         } catch (RemoteException e) {
@@ -197,35 +203,34 @@ public class ChooseMapController extends AbstractController implements Initializ
      }
    }
 
-    public void setUpMap(String map, GridPane gridMap, Text mapName, Circle diff1, Circle diff2, Circle diff3, Circle diff4, Circle diff5, Circle diff6) {
+    public void setUpMap(SchemeCard schemeCard, GridPane gridMap, Text mapName, Circle diff1, Circle diff2, Circle diff3, Circle diff4, Circle diff5, Circle diff6) {
         char[] charTile;
         char[] mapID;
         int row = 0;
         int column = 0;
-        String[] element = map.split("%");
-        mapName.setText(element[0]);
-        switch (element[1].toCharArray()[24]) {
-            case '6':
+        mapName.setText(schemeCard.getMapName());
+        switch (schemeCard.getDifficulty()) {
+            case 6:
                 break;
-            case '5':
+            case 5:
                 diff6.setVisible(false);
                 break;
-            case '4':
+            case 4:
                 diff6.setVisible(false);
                 diff5.setVisible(false);
                 break;
-            case '3':
+            case 3:
                 diff6.setVisible(false);
                 diff5.setVisible(false);
                 diff4.setVisible(false);
                 break;
-            case '2':
+            case 2:
                 diff6.setVisible(false);
                 diff5.setVisible(false);
                 diff4.setVisible(false);
                 diff3.setVisible(false);
                 break;
-            case '1':
+            case 1:
                 diff6.setVisible(false);
                 diff5.setVisible(false);
                 diff4.setVisible(false);
@@ -235,42 +240,45 @@ public class ChooseMapController extends AbstractController implements Initializ
             default:
                 break;
         }
-        String[] tiles = element[2].split("!");
-/*
-       for (String rowTile : tiles) {
-            String[] columnTiles = rowTile.split("-");
-            for (String el : columnTiles) {
-                charTile = el.toCharArray();
-                switch (charTile[1]) {
-                    case 'Y':
-                        gridMap.getChildren().get(row*5+column).setStyle("-fx-background-color:YELLOW");
-                        break;
-                    case 'B':
-                        gridMap.getChildren().get(row*5+column).setStyle("-fx-background-color:BLUE");
-                        break;
-                    case 'R':
-                        gridMap.getChildren().get(row*5+column).setStyle("-fx-background-color:RED");
-                        break;
-                    case 'V':
-                        gridMap.getChildren().get(row*5+column).setStyle("-fx-background-color:VIOLET");
-                        break;
-                    case 'G':
-                        gridMap.getChildren().get(row*5+column).setStyle("-fx-background-color:GREEN");
-                        break;
-                    case '*':
-                        gridMap.getChildren().get(row * 5 + column).setStyle("-fx-background-image: url('Dices/"+ charTile[0] +".jpg'); -fx-background-position: center center;-fx-background-size: cover");
-                        break;
-                    case '_':
-                        gridMap.getChildren().get(row*5+column).setStyle("-fx-background-color:WHITE");
-                        break;
 
+        RowIterator rowIterator =  schemeCard.rowIterator(0);
+        while(rowIterator.hasNext()){
+            ColumnIterator columnIterator = schemeCard.columnIterator(rowIterator.getCurrentRow());
+            while(columnIterator.hasNext()){
+                Tile tile = columnIterator.next();
+                if (tile.haveColor_constrain()){
+                    switch (tile.getColor_Constrain()){
+                        case YELLOW:
+                            gridMap.getChildren().get(rowIterator.getCurrentRow()*schemeCard.getMaxRow() + columnIterator.getCurrentColumn()).setStyle("-fx-background-color:YELLOW");
+                            break;
+                        case BLUE:
+                            gridMap.getChildren().get(rowIterator.getCurrentRow()*schemeCard.getMaxRow() + columnIterator.getCurrentColumn()).setStyle("-fx-background-color:BLUE");
+                            break;
+                        case RED:
+                            gridMap.getChildren().get(rowIterator.getCurrentRow()*schemeCard.getMaxRow() + columnIterator.getCurrentColumn()).setStyle("-fx-background-color:RED");
+                            break;
+                        case VIOLET:
+                            gridMap.getChildren().get(rowIterator.getCurrentRow()*schemeCard.getMaxRow() + columnIterator.getCurrentColumn()).setStyle("-fx-background-color:VIOLET");
+                            break;
+                        case GREEN:
+                            gridMap.getChildren().get(rowIterator.getCurrentRow()*schemeCard.getMaxRow() + columnIterator.getCurrentColumn()).setStyle("-fx-background-color:GREEN");
+                            break;
                     }
-                column++;
+                }
+                else if (tile.haveNumber_constrain()){
+                    gridMap.getChildren().get(rowIterator.getCurrentRow()*schemeCard.getMaxRow() + columnIterator.getCurrentColumn()).setStyle("-fx-background-image: url('Dices/"+ tile.getNumber_Constrain() +".jpg'); -fx-background-position: center center;-fx-background-size: cover");
+
+                }
+                else{
+                    gridMap.getChildren().get(rowIterator.getCurrentRow()*schemeCard.getMaxRow() + columnIterator.getCurrentColumn()).setStyle("-fx-background-color:WHITE");
+
+                }
+
             }
-            row++;
+            rowIterator.next();
         }
-        */
     }
+
 
     public void leaveTheMatch (javafx.event.ActionEvent actionEvent){
         try {

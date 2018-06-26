@@ -1,7 +1,13 @@
 package it.polimi.ingsw.ClientView;
 
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
+import it.polimi.ingsw.model.DiceColor;
+import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
 import it.polimi.ingsw.model.GoalCard;
+import it.polimi.ingsw.model.SchemeDeck.ColumnIterator;
+import it.polimi.ingsw.model.SchemeDeck.RowIterator;
+import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
+import it.polimi.ingsw.model.SchemeDeck.Tile;
 import it.polimi.ingsw.model.ToolCard.ToolAction;
 
 import java.rmi.RemoteException;
@@ -25,62 +31,74 @@ public class Printer {
         return printer;
     }
 
-    public void printMap(String map)  {
-        char[] charTile;
-        String[] element = map.split("%");
-        System.out.println(element[0]);
-        System.out.println(element[1]);
-        String[] tiles = element[2].split("!");
+    public void printMap( SchemeCard schemeCard)  {
+        System.out.println(schemeCard.getMapName());
+        System.out.println("Difficoltà della mappa: "+ schemeCard.getDifficulty());
+        RowIterator rowIterator =  schemeCard.rowIterator(0);
+        while(rowIterator.hasNext()){
+            ColumnIterator columnIterator = schemeCard.columnIterator(rowIterator.getCurrentRow());
+            while(columnIterator.hasNext()){
+                Tile tile = columnIterator.next();
+                if (tile.isOccupied()) {
+                    try{
+                        switch(tile.getDice().getColor()){
+                            case YELLOW:
+                                System.out.print(ansi().eraseScreen().bg(YELLOW).fg(WHITE).a(" " + tile.getDice().getIntensity() + " ").reset());
+                                break;
+                            case BLUE:
+                                System.out.print(ansi().eraseScreen().bg(BLUE).fg(WHITE).a(" " + tile.getDice().getIntensity() + " ").reset());
+                                break;
+                            case RED:
+                                System.out.print(ansi().eraseScreen().bg(RED).fg(RED).a(" " + tile.getDice().getIntensity() + " ").reset());
+                                break;
+                            case VIOLET:
+                                System.out.print(ansi().eraseScreen().bg(MAGENTA).fg(WHITE).a(" " + tile.getDice().getIntensity() + " ").reset());
+                                break;
+                            case GREEN:
+                                System.out.print(ansi().eraseScreen().bg(GREEN).fg(WHITE).a(" " + tile.getDice().getIntensity() + " ").reset());
+                                break;
+                        }
+                    }catch (DiceNotExistantException e){
+                        //do nothing
+                    }
+                }
+                else if (tile.haveColor_constrain()){
+                    switch (tile.getColor_Constrain()){
+                        case YELLOW:
+                            System.out.print(ansi().eraseScreen().bg(YELLOW).fg(WHITE).a("   ").reset());
+                            break;
+                        case BLUE:
+                            System.out.print(ansi().eraseScreen().bg(BLUE).fg(WHITE).a("   ").reset());
+                            break;
+                        case RED:
+                            System.out.print(ansi().eraseScreen().bg(RED).fg(RED).a("   ").reset());
+                            break;
+                        case VIOLET:
+                            System.out.print(ansi().eraseScreen().bg(MAGENTA).fg(WHITE).a("   ").reset());
+                            break;
+                        case GREEN:
+                            System.out.print(ansi().eraseScreen().bg(GREEN).fg(WHITE).a("   ").reset());
+                            break;
+                    }
+                }
+                else if (tile.haveNumber_constrain()){
+                    System.out.print(ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" " + tile.getNumber_Constrain() + " ").reset());
 
-        for (String rowTile : tiles) {
-            String[] column = rowTile.split("-");
-            for (String el : column) {
-                charTile = el.toCharArray();
-                switch (charTile[1]) {
-                    case 'Y':
-                        System.out.print(ansi().eraseScreen().bg(YELLOW).a("   ").reset());
-                        break;
-                    case 'B':
-                        System.out.print(ansi().eraseScreen().bg(BLUE).a("   ").reset());
-                        break;
-                    case 'R':
-                        System.out.print(ansi().eraseScreen().bg(RED).a("   ").reset());
-                        break;
-                    case 'V':
-                        System.out.print(ansi().eraseScreen().bg(MAGENTA).a("   ").reset());
-                        break;
-                    case 'G':
-                        System.out.print(ansi().eraseScreen().bg(GREEN).a("   ").reset());
-                        break;
-                    case '*':
-                        System.out.print(ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" " + charTile[0] + " ").reset());
-                        break;
-                    case '_':
-                        System.out.print(ansi().eraseScreen().bg(WHITE).fg(BLACK).a("   ").reset());
-                        break;
-                    case 'y':
-                        System.out.print(ansi().eraseScreen().bg(YELLOW).fg(WHITE).a(" " + charTile[0] + " ").reset());
-                        break;
-                    case 'b':
-                        System.out.print(ansi().eraseScreen().bg(BLUE).fg(WHITE).a(" " + charTile[0] + " ").reset());
-                        break;
-                    case 'r':
-                        System.out.print(ansi().eraseScreen().bg(RED).fg(RED).a(" " + charTile[0] + " ").reset());
-                        break;
-                    case 'v':
-                        System.out.print(ansi().eraseScreen().bg(MAGENTA).fg(WHITE).a(" " + charTile[0] + " ").reset());
-                        break;
-                    case 'g':
-                        System.out.print(ansi().eraseScreen().bg(GREEN).fg(WHITE).a(" " + charTile[0] + " ").reset());
-                        break;
+                }
+                else{
+                    System.out.print(ansi().eraseScreen().bg(WHITE).fg(BLACK).a("   ").reset());
+
                 }
 
             }
-            System.out.print("\n");
+            System.out.println("\n");
+            rowIterator.next();
         }
-        System.out.print("\n");
+        System.out.println("\n");
 
     }
+
+
 
     public void printGoalCards(ClientHandlerInterface serverController, String yourName) {
         System.out.println("\n-Ecco gli obiettivi di questa partita-");
