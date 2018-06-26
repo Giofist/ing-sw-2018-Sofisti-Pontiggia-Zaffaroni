@@ -21,7 +21,6 @@ import java.util.ResourceBundle;
 import static org.fusesource.jansi.Ansi.ansi;
 
 public class ChooseMapController extends AbstractController implements Initializable {
-    GridPane selected = null;
     int mapSelected = 0;
     private int[] mapIDs = new int[4];
     private int index = 1;
@@ -151,36 +150,32 @@ public class ChooseMapController extends AbstractController implements Initializ
     private JFXButton Play;
 
     public void Select(javafx.scene.input.MouseEvent mouseEvent) {
-        BorderPane map = (BorderPane) mouseEvent.getTarget();
-        DropShadow dropShadow = new DropShadow();
-        selected.setEffect(null);
-        map.setEffect(dropShadow);
         ErrorMessage.setStyle("-fx-text-fill:GREEN");
         ErrorMessage.setText("Hai selezionato la mappa:"+ mapSelected +". Tra poco si inizia!");
     }
 
     public void selectMap1(MouseEvent mouseEvent) {
         Select(mouseEvent);
-        selected = gridMap1;
         mapSelected = mapIDs[0];
+        ErrorMessage.setText("Hai selezionato la mappa:"+ mapSelected +". Tra poco si inizia!");
     }
 
     public void selectMap2(MouseEvent mouseEvent) {
         Select(mouseEvent);
-        selected = gridMap2;
         mapSelected = mapIDs[1];
+        ErrorMessage.setText("Hai selezionato la mappa:"+ mapSelected +". Tra poco si inizia!");
     }
 
     public void selectMap3(MouseEvent mouseEvent) {
         Select(mouseEvent);
-        selected = gridMap3;
         mapSelected = mapIDs[2];
+        ErrorMessage.setText("Hai selezionato la mappa:"+ mapSelected +". Tra poco si inizia!");
     }
 
     public void selectMap4(MouseEvent mouseEvent) {
         Select(mouseEvent);
-        selected = gridMap4;
         mapSelected = mapIDs[3];
+        ErrorMessage.setText("Hai selezionato la mappa:"+ mapSelected +". Tra poco si inizia!");
     }
 
 
@@ -241,8 +236,8 @@ public class ChooseMapController extends AbstractController implements Initializ
                 break;
         }
         String[] tiles = element[2].split("!");
-
-       /*for (String rowTile : tiles) {
+/*
+       for (String rowTile : tiles) {
             String[] columnTiles = rowTile.split("-");
             for (String el : columnTiles) {
                 charTile = el.toCharArray();
@@ -274,7 +269,7 @@ public class ChooseMapController extends AbstractController implements Initializ
             }
             row++;
         }
-*/
+        */
     }
 
     public void leaveTheMatch (javafx.event.ActionEvent actionEvent){

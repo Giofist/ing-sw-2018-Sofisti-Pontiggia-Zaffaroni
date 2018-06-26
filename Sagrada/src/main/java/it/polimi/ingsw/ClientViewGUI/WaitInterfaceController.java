@@ -28,19 +28,6 @@ public class WaitInterfaceController extends AbstractController{
     private JFXButton LeaveTheGame;
 
 
-    public void leaveTheGame(javafx.event.ActionEvent actionEvent) {
-        try {
-            ObserverGUI.Singleton().getServerController().leavethematch(ObserverGUI.Singleton().getUsername());
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-        try {
-            createPane.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/MenuPartial.fxml"))));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     @Override
     public void update(State state){
         if(state== State.MUSTSETSCHEMECARD){
