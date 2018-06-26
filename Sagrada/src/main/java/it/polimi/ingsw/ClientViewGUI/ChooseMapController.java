@@ -22,8 +22,6 @@ import static org.fusesource.jansi.Ansi.ansi;
 
 public class ChooseMapController extends AbstractController implements Initializable {
     GridPane selected = null;
-    String map;
-    private Stage primaryStage;
     int mapSelected = 0;
     private int[] mapIDs = new int[4];
     private int index = 0;
@@ -188,19 +186,20 @@ public class ChooseMapController extends AbstractController implements Initializ
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        mapIDs[0] = 13;
         try {
             for (SchemeCard schemeCard: ObserverGUI.Singleton().getServerController().getExtractedSchemeCard(ObserverGUI.Singleton().getUsername())){
             mapIDs[index] = schemeCard.getID();
-            if(index+1==1) {setUpMap(map, gridMap1, mapName1, Diff11, Diff12, Diff13, Diff14, Diff15, Diff16);}
-            else if (index+1==2){setUpMap(map, gridMap2, mapName2, Diff21, Diff22, Diff23, Diff24, Diff25, Diff26);}
-            else if (index+1==3){setUpMap(map, gridMap3, mapName3, Diff31, Diff32, Diff33, Diff34, Diff35, Diff36);}
-            else if (index+1==4){setUpMap(map, gridMap4, mapName4, Diff41, Diff42, Diff43, Diff44, Diff45, Diff46);}
+            if(index+1==1) {setUpMap(ObserverGUI.Singleton().getTranslator().translateSchemeCard(schemeCard), gridMap1, mapName1, Diff11, Diff12, Diff13, Diff14, Diff15, Diff16);}
+            else if (index+1==2){setUpMap(ObserverGUI.Singleton().getTranslator().translateSchemeCard(schemeCard), gridMap2, mapName2, Diff21, Diff22, Diff23, Diff24, Diff25, Diff26);}
+            else if (index+1==3){setUpMap(ObserverGUI.Singleton().getTranslator().translateSchemeCard(schemeCard), gridMap3, mapName3, Diff31, Diff32, Diff33, Diff34, Diff35, Diff36);}
+            else if (index+1==4){setUpMap(ObserverGUI.Singleton().getTranslator().translateSchemeCard(schemeCard), gridMap4, mapName4, Diff41, Diff42, Diff43, Diff44, Diff45, Diff46);}
                 index++;
             }
         } catch (RemoteException e) {
             ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
-        }
-    }
+     }
+   }
 
     public void setUpMap(String map, GridPane gridMap, Text mapName, Circle diff1, Circle diff2, Circle diff3, Circle diff4, Circle diff5, Circle diff6) {
         char[] charTile;
@@ -209,33 +208,33 @@ public class ChooseMapController extends AbstractController implements Initializ
         int column = 0;
         String[] element = map.split("%");
         mapName.setText(element[0]);
-        switch (element[1]) {
-            case "6":
+        switch (element[1].toCharArray()[24]) {
+            case '6':
                 break;
-            case "5":
-                diff6.setRadius(0);
+            case '5':
+                diff6.setVisible(false);
                 break;
-            case "4":
-                diff6.setRadius(0);
-                diff5.setRadius(0);
+            case '4':
+                diff6.setVisible(false);
+                diff5.setVisible(false);
                 break;
-            case "3":
-                diff6.setRadius(0);
-                diff5.setRadius(0);
-                diff4.setRadius(0);
+            case '3':
+                diff6.setVisible(false);
+                diff5.setVisible(false);
+                diff4.setVisible(false);
                 break;
-            case "2":
-                diff6.setRadius(0);
-                diff5.setRadius(0);
-                diff4.setRadius(0);
-                diff3.setRadius(0);
+            case '2':
+                diff6.setVisible(false);
+                diff5.setVisible(false);
+                diff4.setVisible(false);
+                diff3.setVisible(false);
                 break;
-            case "1":
-                diff6.setRadius(0);
-                diff5.setRadius(0);
-                diff4.setRadius(0);
-                diff3.setRadius(0);
-                diff2.setRadius(0);
+            case '1':
+                diff6.setVisible(false);
+                diff5.setVisible(false);
+                diff4.setVisible(false);
+                diff3.setVisible(false);
+                diff2.setVisible(false);
                 break;
             default:
                 break;
@@ -283,7 +282,4 @@ public class ChooseMapController extends AbstractController implements Initializ
             }
         }
 
-    public void setPrimaryStage(Stage primaryStage) { 
-        this.primaryStage = primaryStage;
-    }
 }

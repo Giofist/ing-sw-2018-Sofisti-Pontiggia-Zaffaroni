@@ -87,7 +87,7 @@
                                     <Pane prefHeight="25.0" prefWidth="600.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
                                        <children>
                                           <HBox alignment="CENTER" layoutX="150.0" layoutY="-40.0" />
-                                          <Text fill="WHITE" layoutX="8.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome mappa" textAlignment="CENTER" />
+                                          <Text fx:id="mapName1" fill="WHITE" layoutX="8.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome mappa" textAlignment="CENTER" />
                                           <Text fx:id="yourMapDiff" fill="WHITE" layoutX="267.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Difficoltà:" textAlignment="RIGHT" />
                                           <Circle fx:id="Diff16" fill="WHITE" layoutX="387.0" layoutY="13.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
                                           <Circle fx:id="Diff15" fill="WHITE" layoutX="375.0" layoutY="13.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
@@ -156,7 +156,7 @@
                                     <Pane prefHeight="25.0" prefWidth="600.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
                                        <children>
                                           <HBox alignment="CENTER" layoutX="150.0" layoutY="-40.0" />
-                                          <Text fx:id="map11" fill="WHITE" layoutX="8.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome mappa" textAlignment="CENTER" />
+                                          <Text fx:id="mapName2" fill="WHITE" layoutX="8.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome mappa" textAlignment="CENTER" />
                                           <Text fx:id="yourMapDiff1" fill="WHITE" layoutX="267.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Difficoltà:" textAlignment="RIGHT" />
                                           <Circle fx:id="Diff26" fill="WHITE" layoutX="387.0" layoutY="13.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
                                           <Circle fx:id="Diff25" fill="WHITE" layoutX="375.0" layoutY="13.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
@@ -229,7 +229,7 @@
                                     <Pane prefHeight="25.0" prefWidth="600.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
                                        <children>
                                           <HBox alignment="CENTER" layoutX="150.0" layoutY="-40.0" />
-                                          <Text fx:id="map12" fill="WHITE" layoutX="8.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome mappa" textAlignment="CENTER" />
+                                          <Text fx:id="mapName3" fill="WHITE" layoutX="8.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome mappa" textAlignment="CENTER" />
                                           <Text fx:id="yourMapDiff2" fill="WHITE" layoutX="267.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Difficoltà:" textAlignment="RIGHT" />
                                           <Circle fx:id="Diff36" fill="WHITE" layoutX="387.0" layoutY="13.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
                                           <Circle fx:id="Diff35" fill="WHITE" layoutX="375.0" layoutY="13.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
@@ -298,7 +298,7 @@
                                     <Pane prefHeight="25.0" prefWidth="600.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
                                        <children>
                                           <HBox alignment="CENTER" layoutX="150.0" layoutY="-40.0" />
-                                          <Text fx:id="map111" fill="WHITE" layoutX="8.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome mappa" textAlignment="CENTER" />
+                                          <Text fx:id="mapName4" fill="WHITE" layoutX="8.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome mappa" textAlignment="CENTER" />
                                           <Text fx:id="yourMapDiff11" fill="WHITE" layoutX="267.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Difficoltà:" textAlignment="RIGHT" />
                                           <Circle fx:id="Diff46" fill="WHITE" layoutX="387.0" layoutY="13.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
                                           <Circle fx:id="Diff45" fill="WHITE" layoutX="375.0" layoutY="13.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
