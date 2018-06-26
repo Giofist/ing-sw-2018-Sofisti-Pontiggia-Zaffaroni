@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ClientViewGUI;
 
 import it.polimi.ingsw.ClientView.Client;
+import it.polimi.ingsw.ClientView.Observer;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -32,9 +33,9 @@ import java.util.SplittableRandom;
 
 public class MainGameViewController extends AbstractController implements Initializable {
     ImageView origin = null;
-    public Stage primaryStage; //only for testing
     int SelectedDiceIndex;
     boolean selected = false;
+    private String privateGoalcardPath = null;
 
     public MainGameViewController(){
         ObserverGUI.Singleton().setController(this);
@@ -479,14 +480,35 @@ public class MainGameViewController extends AbstractController implements Initia
         mouseEvent.consume();
     }
 
-    /*public void setPrimaryStage(Stage primaryStage) {  //to be removed only for gtesting
-        this.primaryStage = primaryStage;
-    }*/
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        String mapName = "Celestial";
-        yourMapName.setText(mapName);
+        Image image = null;
+        try {
+            privateGoalcardPath = "PrivateGoalCards/" + ObserverGUI.Singleton().getServerController().getPrivateGoalCard(ObserverGUI.Singleton().getUsername()).get(0).getID() + ".jpg";
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            image = new Image("PublicGoalCards/" + ObserverGUI.Singleton().getServerController().getPublicGoalCards(ObserverGUI.Singleton().getUsername()).get(0).getID()+ ".jpg");
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        PublicGoalCard1.setImage(image);
+
+        try {
+            image = new Image("PublicGoalCards/" + ObserverGUI.Singleton().getServerController().getPublicGoalCards(ObserverGUI.Singleton().getUsername()).get(1).getID()+ ".jpg");
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        PublicGoalCard2.setImage(image);
+        try {
+            image = new Image("PublicGoalCards/" + ObserverGUI.Singleton().getServerController().getPublicGoalCards(ObserverGUI.Singleton().getUsername()).get(2).getID()+ ".jpg");
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        PublicGoalCard3.setImage(image);
+
         //setUpMap();
         setOtherPlayerMap(3);
         updateDicePool();
@@ -505,13 +527,13 @@ public class MainGameViewController extends AbstractController implements Initia
     }
 
     public void ShowPrivateGoal(javafx.scene.input.MouseEvent mouseEvent) {
-        Image image = new Image("GoalCards/SfumatureVerdi.jpg");  //todo remove to be general non voglio riscaricare tutte le volte riferimento
+        Image image = new Image(privateGoalcardPath);
         PrivateGoalCard.setImage(image);
 
     }
 
     public void HidePrivateGoal(javafx.scene.input.MouseEvent mouseEvent) {
-        Image image = new Image("GoalCards/Back1.jpg");  //todoremoveto be general
+        Image image = new Image("PrivateGoalCards/Back1.jpg");  //todoremoveto be general
         PrivateGoalCard.setImage(image);
     }
 
@@ -581,12 +603,12 @@ public class MainGameViewController extends AbstractController implements Initia
         String recivedFormServer = "4YELLOW-3RED-6BLUE-5VIOLET-1RED-4RED";
         
         dices = recivedFormServer.split("-");
-/*
+
         try {
-            dices = EntryPoint.Singleton().getRoundDicepool(yourName).split("-");
+            dices = ObserverGUI.Singleton().getServerController().getRoundDicepool(ObserverGUI.Singleton().getUsername()).split("-");
         } catch (RemoteException e) {
             ErrorMessage.setText(Client.translator.translateException(e.getMessage()));
-        }*/
+        }
         //Image emptyPic = new Image("Dices/EmptySpace.jpg");
         RoundDice0.setImage(null);
         RoundDice1.setImage(null);
@@ -653,9 +675,6 @@ public class MainGameViewController extends AbstractController implements Initia
         }
     }
 
-    public void setPrimaryStage(Stage primaryStage) {
-        this.primaryStage = primaryStage;
-    }
     public void setUpMap(String map, GridPane gridMap, Text mapName, Circle diff1, Circle diff2, Circle diff3, Circle diff4, Circle diff5, Circle diff6) {
         char[] charTile;
         char[] mapID;

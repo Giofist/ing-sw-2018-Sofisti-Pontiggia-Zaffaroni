@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXProgressBar?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -1048,7 +1050,7 @@
          <children>
             <ImageView fx:id="PrivateGoalCard" fitHeight="231.0" fitWidth="215.0" onMouseEntered="#ShowPrivateGoal" onMouseExited="#HidePrivateGoal" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
                <image>
-                  <Image url="@GoalCards/Back1.jpg" />
+                  <Image url="@PrivateGoalCards/Back1.jpg" />
                </image>
             </ImageView>
             <ImageView fx:id="PublicGoalCard1" fitHeight="231.0" fitWidth="215.0" onMouseEntered="#Select" onMouseExited="#Unselect" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
@@ -1176,5 +1178,13 @@
          </opaqueInsets>
       </GridPane>
       <JFXProgressBar layoutY="888.0" prefHeight="26.0" prefWidth="1400.0" progress="0.41" />
+      <JFXButton fx:id="leaveTheMAtch" layoutX="10.0" layoutY="21.0" onAction="#leaveTheMatch" prefHeight="44.0" prefWidth="220.0" style="-fx-background-color: green;" text="Abbandona la partita" textFill="WHITE">
+         <effect>
+            <DropShadow />
+         </effect>
+         <font>
+            <Font size="20.0" />
+         </font>
+      </JFXButton>
    </children>
 </AnchorPane>
