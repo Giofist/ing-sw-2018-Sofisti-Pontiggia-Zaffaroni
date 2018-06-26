@@ -3,6 +3,7 @@ package it.polimi.ingsw.ClientViewGUI;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import it.polimi.ingsw.model.PlayerPackage.State;
+import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -43,11 +44,13 @@ public class MultiCreateController extends AbstractController {
         public void createGame(ActionEvent actionEvent) {
             try {
                 ObserverGUI.Singleton().getServerController().createGame(ObserverGUI.Singleton().getUsername(), ObserverGUI.Singleton(),gameName.getCharacters().toString());
+                ErrorMessage.setStyle("-fx-text-fill:GREEN");
+                ErrorMessage.setText("La partita è sta<ta creata!");
             }
             catch (RemoteException e) {
+                ErrorMessage.setStyle("-fx-text-fill:RED");
                 ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
             }
-            loadNext();
         }
 
         public void goBack(ActionEvent actionEvent) {
@@ -58,18 +61,19 @@ public class MultiCreateController extends AbstractController {
             }
         }
 
-        public synchronized void loadNext(){
-
-        }
-
         @Override
         public void update(State state){
             if(state == State.MATCHNOTSTARTEDYETSTATE){
-                try {
-                    createPane.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/WaitInterface.fxml"))));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                Platform.runLater(new Runnable(){
+                    @Override
+                    public void run(){
+                        try {
+                            createPane.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/WaitInterface.fxml"))));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
             }
         }
 }

@@ -686,4 +686,8 @@ public class MainGameViewController extends AbstractController implements Initia
             i++;
         }
     }
+
+    public void setPrimaryStage(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+    }
 }

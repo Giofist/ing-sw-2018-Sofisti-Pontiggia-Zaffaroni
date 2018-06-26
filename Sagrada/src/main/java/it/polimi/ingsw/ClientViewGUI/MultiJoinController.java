@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import it.polimi.ingsw.model.Match;
 import it.polimi.ingsw.model.PlayerPackage.State;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -89,13 +90,18 @@ public class MultiJoinController extends AbstractController implements Initializ
     public void update(State state){
 
         if(state == State.MATCHNOTSTARTEDYETSTATE){
-            try {
-                synchronized (this) {
-                    joinPane.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/WaitInterface.fxml"))));
+            Platform.runLater(new Runnable(){
+                @Override
+                public void run(){
+                    try {
+                        joinPane.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/WaitInterface.fxml"))));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            });
         }
     }
+
+
 }
