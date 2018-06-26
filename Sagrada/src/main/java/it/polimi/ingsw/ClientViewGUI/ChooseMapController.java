@@ -242,7 +242,7 @@ public class ChooseMapController extends AbstractController implements Initializ
         }
         String[] tiles = element[2].split("!");
 
-       for (String rowTile : tiles) {
+       /*for (String rowTile : tiles) {
             String[] columnTiles = rowTile.split("-");
             for (String el : columnTiles) {
                 charTile = el.toCharArray();
@@ -274,6 +274,7 @@ public class ChooseMapController extends AbstractController implements Initializ
             }
             row++;
         }
+*/
     }
 
     public void leaveTheMatch (javafx.event.ActionEvent actionEvent){

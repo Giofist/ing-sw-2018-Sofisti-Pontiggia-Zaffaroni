@@ -51,11 +51,15 @@ public class MultiJoinController extends AbstractController implements Initializ
    }
 
     public void JoinGame(ActionEvent actionEvent) {
-        try {
-            ErrorMessage.setText(gameList.getSelectionModel().getSelectedItem());
-            ObserverGUI.Singleton().getServerController().joinaMatch(ObserverGUI.Singleton().getUsername(), ObserverGUI.Singleton(), gameList.getSelectionModel().getSelectedItem());
+        String matchName = null;
+        matchName = gameList.getSelectionModel().getSelectedItem();
+        if (matchName != null) {
+            try {
+                ErrorMessage.setText(gameList.getSelectionModel().getSelectedItem());
+                ObserverGUI.Singleton().getServerController().joinaMatch(ObserverGUI.Singleton().getUsername(), ObserverGUI.Singleton(), matchName);
             } catch (RemoteException e) {
-            ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
+                ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
+            }
         }
     }
 
