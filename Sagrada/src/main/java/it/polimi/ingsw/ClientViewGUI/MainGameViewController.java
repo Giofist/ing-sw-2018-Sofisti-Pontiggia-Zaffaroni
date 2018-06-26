@@ -487,7 +487,7 @@ public class MainGameViewController extends AbstractController implements Initia
     public void initialize(URL location, ResourceBundle resources) {
         String mapName = "Celestial";
         yourMapName.setText(mapName);
-        setDifficulty(4);
+        //setUpMap();
         setOtherPlayerMap(3);
         updateDicePool();
     }
@@ -525,40 +525,6 @@ public class MainGameViewController extends AbstractController implements Initia
         if (selected == false) {
             ImageView source = (ImageView) mouseEvent.getTarget();
             source.setEffect(null);
-        }
-    }
-
-    public void setDifficulty(int difficulty) {
-        switch (difficulty) {
-            case 6:
-                break;
-            case 5:
-                Diff6.setRadius(0);
-                break;
-            case 4:
-                Diff6.setRadius(0);
-                Diff5.setRadius(0);
-                break;
-            case 3:
-                Diff6.setRadius(0);
-                Diff5.setRadius(0);
-                Diff4.setRadius(0);
-                break;
-            case 2:
-                Diff6.setRadius(0);
-                Diff5.setRadius(0);
-                Diff4.setRadius(0);
-                Diff3.setRadius(0);
-                break;
-            case 1:
-                Diff6.setRadius(0);
-                Diff5.setRadius(0);
-                Diff4.setRadius(0);
-                Diff3.setRadius(0);
-                Diff2.setRadius(0);
-                break;
-            default:
-                break;
         }
     }
 
@@ -690,4 +656,86 @@ public class MainGameViewController extends AbstractController implements Initia
     public void setPrimaryStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
     }
+    public void setUpMap(String map, GridPane gridMap, Text mapName, Circle diff1, Circle diff2, Circle diff3, Circle diff4, Circle diff5, Circle diff6) {
+        char[] charTile;
+        char[] mapID;
+        int row = 0;
+        int column = 0;
+        String[] element = map.split("%");
+        mapName.setText(element[0]);
+        switch (element[1].toCharArray()[24]) {
+            case '6':
+                break;
+            case '5':
+                diff6.setVisible(false);
+                break;
+            case '4':
+                diff6.setVisible(false);
+                diff5.setVisible(false);
+                break;
+            case '3':
+                diff6.setVisible(false);
+                diff5.setVisible(false);
+                diff4.setVisible(false);
+                break;
+            case '2':
+                diff6.setVisible(false);
+                diff5.setVisible(false);
+                diff4.setVisible(false);
+                diff3.setVisible(false);
+                break;
+            case '1':
+                diff6.setVisible(false);
+                diff5.setVisible(false);
+                diff4.setVisible(false);
+                diff3.setVisible(false);
+                diff2.setVisible(false);
+                break;
+            default:
+                break;
+        }
+        String[] tiles = element[2].split("!");
+
+        for (String rowTile : tiles) {
+            String[] columnTiles = rowTile.split("-");
+            for (String el : columnTiles) {
+                charTile = el.toCharArray();
+                switch (charTile[1]) {
+                    case 'Y':
+                        gridMap.getChildren().get(row*5+column).setStyle("-fx-background-color:YELLOW");
+                        break;
+                    case 'B':
+                        gridMap.getChildren().get(row*5+column).setStyle("-fx-background-color:BLUE");
+                        break;
+                    case 'R':
+                        gridMap.getChildren().get(row*5+column).setStyle("-fx-background-color:RED");
+                        break;
+                    case 'V':
+                        gridMap.getChildren().get(row*5+column).setStyle("-fx-background-color:VIOLET");
+                        break;
+                    case 'G':
+                        gridMap.getChildren().get(row*5+column).setStyle("-fx-background-color:GREEN");
+                        break;
+                    case '*':
+                        gridMap.getChildren().get(row * 5 + column).setStyle("-fx-background-image: url('Dices/"+ charTile[0] +".jpg'); -fx-background-position: center center;-fx-background-size: cover");
+                        break;
+                    case '_':
+                        gridMap.getChildren().get(row*5+column).setStyle("-fx-background-color:WHITE");
+                        break;
+
+                }
+                column++;
+            }
+            row++;
+        }
+    }
+
+    public void leaveTheMatch (javafx.event.ActionEvent actionEvent){
+        try {
+            ObserverGUI.Singleton().getServerController().leavethematch(ObserverGUI.Singleton().getUsername());
+        } catch (RemoteException e) {
+            ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
+        }
+    }
+
 }
