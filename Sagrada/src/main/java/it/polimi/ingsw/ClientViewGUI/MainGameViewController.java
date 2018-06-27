@@ -571,6 +571,7 @@ public class MainGameViewController extends AbstractController implements Initia
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Image image = null;
+
         try {
             privateGoalcardPath = "PrivateGoalCards/" + ObserverGUI.Singleton().getServerController().getPrivateGoalCard(ObserverGUI.Singleton().getUsername()).get(0).getID() + ".jpg";
         } catch (RemoteException e) {
@@ -597,15 +598,14 @@ public class MainGameViewController extends AbstractController implements Initia
         }
         PublicGoalCard3.setImage(image);
 
-
        /* try {
-            this.ToolCard1 = ObserverGUI.Singleton().getServerController().getToolCards(ObserverGUI.Singleton().getUsername()).get(1).getID();
-            System.out.println(ToolCard1);
+            this.ToolCard1 = ObserverGUI.Singleton().getServerController().getToolCards(ObserverGUI.Singleton().getUsername()).get(0).getID();  //TODO guradare sta cosa perchè non è giusta !!!!
             image = new Image("ToolCards/" + ToolCard1 + ".jpg");
         } catch (RemoteException e) {
             e.printStackTrace();
         }
         ToolCardImage1.setImage(image);
+
         try {
             this.ToolCard2 = ObserverGUI.Singleton().getServerController().getToolCards(ObserverGUI.Singleton().getUsername()).get(1).getID();
             image = new Image("ToolCards/" + ToolCard2 + ".jpg");
@@ -615,13 +615,13 @@ public class MainGameViewController extends AbstractController implements Initia
         ToolCardImage2.setImage(image);
 
         try {
-            this.ToolCard3 = ObserverGUI.Singleton().getServerController().getToolCards(ObserverGUI.Singleton().getUsername()).get(2).getID();
+            this.ToolCard3 = ObserverGUI.Singleton().getServerController().getToolCards(ObserverGUI.Singleton().getUsername()).get(1).getID();
             image = new Image("ToolCards/" + ToolCard3 + ".jpg");
         } catch (RemoteException e) {
             e.printStackTrace();
         }
         ToolCardImage3.setImage(image);
-        */
+*/
         try {
             setUpMap(ObserverGUI.Singleton().getServerController().getSchemeCard(ObserverGUI.Singleton().getUsername()).get(0),yourMap, yourMapName, Diff1, Diff2, Diff3, Diff4, Diff5, Diff6);
         } catch (RemoteException e) {
@@ -741,7 +741,7 @@ public class MainGameViewController extends AbstractController implements Initia
         } catch (RemoteException e) {
             ErrorMessage.setText(Client.translator.translateException(e.getMessage()));
         }
-        //Image emptyPic = new Image("Dices/EmptySpace.jpg");
+        //Image emptyPic = new Image("Dices/EmptySpace.jpg");  //TODO migliorabile!!!
         RoundDice0.setImage(null);
         RoundDice1.setImage(null);
         RoundDice2.setImage(null);
@@ -832,7 +832,7 @@ public class MainGameViewController extends AbstractController implements Initia
             }
             round++;
         }
-    }
+    }  //TODO testare potrebbe avere qualche problema
 
     public void setUpMap(SchemeCard schemeCard, GridPane gridMap, Text mapName, Circle diff1, Circle diff2, Circle diff3, Circle diff4, Circle diff5, Circle diff6) {
         char[] charTile;
