@@ -68,13 +68,13 @@ public class TaglierinaCircolareTest {
 
         toolRequestClass.setSelectedDiceIndex(0);
         toolRequestClass.setRoundWhereThediceis(1);
-        toolRequestClass.setSelectedDiceIndex(0);
+        toolRequestClass.setSelectedRoundTrackDiceIndex(0);
 
 
         toolCard.execute(player, toolRequestClass);
 
-        assertEquals(1, player.getMatch().getGametable().getRoundDicepool().getDice(0).getIntensity());
-        assertEquals(3, player.getMatch().getGametable().getRoundTrack().getroundTrackDices(1).getDice(0).getIntensity());
+        assertEquals(1, player.getMatch().getGametable().getRoundDicepool().getDice(1).getIntensity());
+        assertEquals(4, player.getMatch().getGametable().getRoundTrack().getroundTrackDices(1).getDice(1).getIntensity());
     }
 
 

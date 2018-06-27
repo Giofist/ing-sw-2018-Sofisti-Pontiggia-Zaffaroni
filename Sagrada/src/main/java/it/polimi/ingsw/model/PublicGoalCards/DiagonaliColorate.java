@@ -51,7 +51,7 @@ public class DiagonaliColorate implements GoalCard,Serializable {
                 if (player.getScheme().getDiceColour(row + 1, column + 1).equals(thecolorofthistile)) {
                     findsamecolordices(row + 1, column + 1, player, list);
                 }
-            } catch (DiceNotExistantException e) {
+            } catch (Exception e) {
                 //here you can get a DiceNotExistantException or an OutOfMatrixException
                 //there is no dice, or you're out of the matrix
                 //nothing to do, just go ahead in calculating the points

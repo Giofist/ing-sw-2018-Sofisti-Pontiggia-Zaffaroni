@@ -164,4 +164,12 @@ public class Match implements Runnable,Serializable{
     }
 
 
+    // For testing
+    protected boolean getIsReadyToStart(){
+        return isreadyTostart;
+    }
+
+    protected int getDoneSignal() {
+        return (int) this.doneSignal.getCount();
+    }
 }

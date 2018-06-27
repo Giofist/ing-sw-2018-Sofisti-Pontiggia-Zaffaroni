@@ -105,6 +105,8 @@ public class MatchesList {
         throw new GameNotExistantException();
     }
 
-
+    protected void clearMatchesList() {
+        this.matches.removeAll(this.matches);
+    }
 
 }
