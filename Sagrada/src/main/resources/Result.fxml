@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="winnerList" prefHeight="717.0" prefWidth="1065.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.ClientViewGUI.ResultController">
+<AnchorPane fx:id="winnerList" prefHeight="720.0" prefWidth="1080.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.ClientViewGUI.ResultController">
    <children>
       <HBox alignment="CENTER" layoutX="5.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="717.0" prefWidth="1110.0">
          <children>
@@ -19,12 +19,12 @@
                         <Font size="20.0" />
                      </font>
                   </Text>
-                  <Text fx:id="WinnerMessage" strokeType="OUTSIDE" strokeWidth="0.0" text="Hai vinto !" textAlignment="CENTER" wrappingWidth="1090.13671875">
+                  <Text fx:id="WinnerMessage" strokeType="OUTSIDE" strokeWidth="0.0" text="Ecco chi ha vinto!" textAlignment="CENTER" wrappingWidth="1090.13671875">
                      <font>
                         <Font name="System Bold" size="60.0" />
                      </font>
                   </Text>
-                  <Text fx:id="listWinner" strokeType="OUTSIDE" strokeWidth="0.0" text="1. Gio" wrappingWidth="421.94921875">
+                  <Text fx:id="listWinner" strokeType="OUTSIDE" strokeWidth="0.0" text="1. Gio" wrappingWidth="561.94921875">
                      <font>
                         <Font size="40.0" />
                      </font>

@@ -36,12 +36,6 @@ public class ResultController extends AbstractController implements Initializabl
     @FXML
     private Text listWinner;
 
-    @FXML
-    private JFXButton Playagain;
-
-    @FXML
-    private JFXButton BackToMenu;
-
 
     public void PlayAgain(ActionEvent actionEvent) {
         try {
@@ -65,6 +59,8 @@ public class ResultController extends AbstractController implements Initializabl
                 for(Object pl : ObserverGUI.Singleton().getServerController().getRanking(ObserverGUI.Singleton().getUsername())){
                     playerList += i + ". ";
                     playerList += ObserverGUI.Singleton().getTranslator().translatePlayer((Player) pl);
+                    playerList += "         ";
+                    playerList += ((Player) pl).getPoints();
                     playerList += "\n";
                     i++;
                 }
