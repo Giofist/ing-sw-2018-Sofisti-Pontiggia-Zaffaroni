@@ -1,13 +1,11 @@
 package it.polimi.ingsw.model.ToolCard;
 
-import it.polimi.ingsw.ClientView.Setter;
-import it.polimi.ingsw.ServerController.ClientHandler;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.Exceptions.*;
 import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
-import it.polimi.ingsw.model.PlayerPackage.Player;
-import it.polimi.ingsw.model.PlayerPackage.State;
+import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.State;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 import org.junit.*;
 

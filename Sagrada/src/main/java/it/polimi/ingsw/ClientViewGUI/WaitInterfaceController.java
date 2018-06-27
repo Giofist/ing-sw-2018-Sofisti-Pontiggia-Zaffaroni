@@ -1,16 +1,14 @@
 package it.polimi.ingsw.ClientViewGUI;
 
 import com.jfoenix.controls.JFXButton;
-import it.polimi.ingsw.model.PlayerPackage.State;
+import it.polimi.ingsw.model.State;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
-import java.awt.event.ActionEvent;
 import java.io.IOException;
-import java.rmi.RemoteException;
 import java.util.Collections;
 
 public class WaitInterfaceController extends AbstractController{

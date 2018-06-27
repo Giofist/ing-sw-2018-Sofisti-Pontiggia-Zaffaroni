@@ -1,12 +1,9 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.model.PlayerPackage.Player;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.swing.*;
 import java.util.LinkedList;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.doNothing;

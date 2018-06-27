@@ -4,7 +4,6 @@ import it.polimi.ingsw.model.Exceptions.DicepoolIndexException;
 import it.polimi.ingsw.model.Exceptions.MapConstrainReadingException;
 import it.polimi.ingsw.model.Exceptions.PrivateGoalCardException;
 import it.polimi.ingsw.model.Exceptions.RoundTrackException;
-import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.PrivateGoalCards.PrivateGoalCardDeck;
 import it.polimi.ingsw.model.PublicGoalCards.PublicGoalCardDeck;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;

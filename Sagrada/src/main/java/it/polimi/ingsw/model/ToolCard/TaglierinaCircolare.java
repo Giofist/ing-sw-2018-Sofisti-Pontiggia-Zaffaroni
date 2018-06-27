@@ -6,12 +6,10 @@ import it.polimi.ingsw.model.Exceptions.DicepoolIndexException;
 import it.polimi.ingsw.model.Exceptions.RoundTrackException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.TaglierinaCircolareException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
-import it.polimi.ingsw.model.PlayerPackage.Player;
-import it.polimi.ingsw.model.PlayerPackage.State;
-import it.polimi.ingsw.model.UsersList;
+import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.State;
 
 import java.io.Serializable;
-import java.rmi.RemoteException;
 
 
 //per implementare questa classe bisogna prima pensare al traccaito round

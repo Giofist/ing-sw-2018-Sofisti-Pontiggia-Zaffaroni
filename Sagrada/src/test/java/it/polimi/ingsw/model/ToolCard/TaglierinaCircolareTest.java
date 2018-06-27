@@ -4,8 +4,8 @@ import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.Exceptions.DicepoolIndexException;
 import it.polimi.ingsw.model.Exceptions.RoundTrackException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
-import it.polimi.ingsw.model.PlayerPackage.Player;
-import it.polimi.ingsw.model.PlayerPackage.State;
+import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.State;
 import org.junit.Before;
 import org.junit.Test;
 

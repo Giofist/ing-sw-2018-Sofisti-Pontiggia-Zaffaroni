@@ -14,7 +14,7 @@ public class LeavethematchMessage extends  ClientMessage{
     }
     @Override
     public void performAction(ClientHandlerInterface clientHandler, SocketServerListener listener) throws RemoteException {
-        clientHandler.leavethematch(getClientName());
+        clientHandler.leavethematch(getClientName(), listener.getClient());
         ServerMessage messageClass = new ServerResponseMessage();
         messageClass.setMessagecodex(1);
         try {

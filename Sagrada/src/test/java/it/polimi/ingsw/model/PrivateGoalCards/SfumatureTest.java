@@ -3,7 +3,7 @@ package it.polimi.ingsw.model.PrivateGoalCards;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.Exceptions.*;
 import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
-import it.polimi.ingsw.model.PlayerPackage.Player;
+import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 import org.junit.Before;
 import org.junit.Test;

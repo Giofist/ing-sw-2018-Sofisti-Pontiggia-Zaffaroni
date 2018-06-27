@@ -2,12 +2,10 @@ package it.polimi.ingsw.model.ToolCard;
 
 import it.polimi.ingsw.model.Exceptions.DicepoolIndexException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
-import it.polimi.ingsw.model.PlayerPackage.Player;
-import it.polimi.ingsw.model.PlayerPackage.State;
-import it.polimi.ingsw.model.UsersList;
+import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.State;
 
 import java.io.Serializable;
-import java.rmi.RemoteException;
 
 public class TamponeDiamantato extends ToolAction implements Serializable {
 

@@ -4,15 +4,13 @@ import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.Exceptions.*;
 import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
-import it.polimi.ingsw.model.PlayerPackage.Player;
-import it.polimi.ingsw.model.PlayerPackage.State;
+import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.State;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.rmi.RemoteException;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 

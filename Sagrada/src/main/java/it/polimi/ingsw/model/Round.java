@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.Exceptions.RoundTrackException;
-import it.polimi.ingsw.model.PlayerPackage.Player;
 
 import java.util.*;
 

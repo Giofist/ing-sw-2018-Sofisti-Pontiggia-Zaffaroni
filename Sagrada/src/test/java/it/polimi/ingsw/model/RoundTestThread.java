@@ -1,7 +1,5 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.model.PlayerPackage.Player;
-
 import java.util.LinkedList;
 
 import static org.mockito.Mockito.doNothing;

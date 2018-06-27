@@ -2,7 +2,7 @@ package it.polimi.ingsw.ClientViewGUI;
 
 import com.jfoenix.controls.JFXListView;
 import it.polimi.ingsw.model.Match;
-import it.polimi.ingsw.model.PlayerPackage.State;
+import it.polimi.ingsw.model.State;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

@@ -33,73 +33,62 @@ public class UsersListTest {
     }
 
     @Test
-    public void registerTest() throws UserNotExistentException {
+    public void registerTest() throws UserNotExistentException, HomonymyException {
         assertEquals(0, usersList.getUsersListSize());
         usersList.register("Utente", "pass");
 
         assertEquals(1, usersList.getUsersListSize());
-        assertEquals("Utente", usersList.getUser("Utente").getName());
+        assertEquals("Utente", usersList.findUser("Utente").getName());
         assertEquals("d74ff0ee8da3b9806b18c877dbf29bbde50b5bd8e4dad7a3a725000feb82e8f1",
-                                    usersList.getUser("Utente").getPassword());
+                                    usersList.findUser("Utente").getPassword());
     }
+
 
 
     @Test
-    public void checkHomonymyTest() throws HomonymyException {
+    public void getUserTest() throws UserNotExistentException, HomonymyException {
         usersList.register("Utente", "pass");
-        usersList.checkHomonymy("Utente2");
-    }
-
-    @Test (expected = HomonymyException.class)
-    public void checkHomonymyExceptionTest() throws HomonymyException {
-        usersList.register("Utente", "pass");
-        usersList.checkHomonymy("Utente");
-    }
-
-    @Test
-    public void getUserTest() throws UserNotExistentException {
-        usersList.register("Utente", "pass");
-        User user = usersList.getUser("Utente");
+        User user = usersList.findUser("Utente");
         assertEquals("d74ff0ee8da3b9806b18c877dbf29bbde50b5bd8e4dad7a3a725000feb82e8f1", user.getPassword());
 
     }
 
     @Test (expected = UserNotExistentException.class)
-    public void getUserExceptionTest() throws UserNotExistentException {
+    public void getUserExceptionTest() throws UserNotExistentException, HomonymyException {
         usersList.register("Utente", "pass");
-        User user = usersList.getUser("Utente2");
+        User user = usersList.findUser("Utente2");
     }
 
     @Test
-    public void logoutTest() throws UserNotExistentException {
+    public void logoutTest() throws UserNotExistentException, HomonymyException {
         usersList.register("Utente", "pass");
-        usersList.logOut("Utente");
+        //usersList.logOut("Utente");
 
-        assertFalse(usersList.getUser("Utente").isActive());
+        assertFalse(usersList.findUser("Utente").isActive());
     }
 
     @Test
-    public void checkTest() throws LoginException, IsAlreadyActiveException {
+    public void checkTest() throws LoginException, IsAlreadyActiveException, HomonymyException {
         usersList.register("Utente", "pass");
         usersList.check("Utente", "pass", mockObserver);
     }
 
     @Test (expected = LoginException.class)
-    public void checkLoginWrongUsernameExceptionTest() throws LoginException, IsAlreadyActiveException {
+    public void checkLoginWrongUsernameExceptionTest() throws LoginException, IsAlreadyActiveException, HomonymyException {
         usersList.register("Utente", "pass");
         usersList.check("Utentedsad", "pass", mockObserver);
     }
 
     @Test (expected = LoginException.class)
-    public void checkLoginWrongPasswordExceptionTest() throws LoginException, IsAlreadyActiveException {
+    public void checkLoginWrongPasswordExceptionTest() throws LoginException, IsAlreadyActiveException, HomonymyException {
         usersList.register("Utente", "pass");
         usersList.check("Utente", "pass1", mockObserver);
     }
 
     @Test (expected = IsAlreadyActiveException.class)
-    public void checkIsAlreadyActiveExceptionTest() throws LoginException, IsAlreadyActiveException, UserNotExistentException {
+    public void checkIsAlreadyActiveExceptionTest() throws LoginException, IsAlreadyActiveException, UserNotExistentException, HomonymyException {
         usersList.register("Utente", "pass");
-        usersList.getUser("Utente").setActive(true);
+        usersList.findUser("Utente").setActive(true);
         usersList.check("Utente", "pass", mockObserver);
     }
 

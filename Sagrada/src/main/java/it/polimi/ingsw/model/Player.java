@@ -1,10 +1,6 @@
-package it.polimi.ingsw.model.PlayerPackage;
+package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.model.*;
-import it.polimi.ingsw.model.Exceptions.CardIdNotAllowedException;
-import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
-import it.polimi.ingsw.model.Exceptions.NotEnoughSegnaliniException;
-import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
+import it.polimi.ingsw.model.Exceptions.*;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 
 import java.io.Serializable;
@@ -20,9 +16,9 @@ public class Player  implements Comparable<Player>, Serializable {
     private transient SchemeCard scheme;
     private int points;
     private transient Match match;
-    private transient PlayerState playerState;
     private transient Turn turn;
     private String name;
+    private Observable playerState;
 
 
 
@@ -41,8 +37,8 @@ public class Player  implements Comparable<Player>, Serializable {
         this.points = 0;
         this.extractedschemeCards = new LinkedList<>();
         this.scheme = null;
-        this.playerState = new PlayerState();
         this.token = 0;
+        this.playerState = new PlayerState();
     }
 
 
@@ -145,24 +141,24 @@ public class Player  implements Comparable<Player>, Serializable {
         }
         else return;
     }
-    public PlayerState getPlayerState(){
-        return this.playerState;
+
+    public Observable getPlayerState() {
+        return playerState;
     }
-    public void setPlayerState(State state){
-        this.playerState.updateState(state);
+    public void setPlayerState(State playerState){
+        this.playerState.setState(playerState);
         try{
             this.playerState.notifyObservers();
         }catch(RemoteException e){
-            try{
-                UsersList.Singleton().getUser(this.getName()).setActive(false);
-            }catch(Exception er){
-                //do nothing
-            }
+            UsersList.Singleton().getUser(this.getName()).setActive(false);
         }
     }
+
+
     public Turn getTurn() {
         return turn;
     }
+
     public void setTurn(Turn turn){
         this.turn = turn;
     }
@@ -174,10 +170,9 @@ public class Player  implements Comparable<Player>, Serializable {
             return this.getPoints() - player.getPoints();
         }
         else if (this.getToken() != player.getToken()){
-            return this.getToken() - this.getToken();
+            return this.getToken() - player.getToken();
         }
         else return this.getMatch().getallPlayers().indexOf(this) - player.getMatch().getallPlayers().indexOf(player);
     }
-
 
 }

@@ -69,7 +69,7 @@ public class SocketController implements ClientHandlerInterface {
     }
 
     @Override
-    public synchronized void logout(String username) throws RemoteException {
+    public synchronized void logout(String username, Observer observer) throws RemoteException {
         ClientMessage logoutMessage = new LogoutMessage();
         logoutMessage.setClientName(username);
 
@@ -272,7 +272,7 @@ public class SocketController implements ClientHandlerInterface {
     }
 
     @Override
-    public synchronized void leavethematch(String clientname) throws RemoteException{
+    public synchronized void leavethematch(String clientname, Observer observer) throws RemoteException{
         ClientMessage message = new LeavethematchMessage();
         message.setClientName(clientname);
 

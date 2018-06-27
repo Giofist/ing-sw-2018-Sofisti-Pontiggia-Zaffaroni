@@ -1,6 +1,5 @@
-package it.polimi.ingsw.model.PlayerPackage;
+package it.polimi.ingsw.model;
 
-import java.io.Serializable;
 
 public enum TurnActions{
     SETDICE,

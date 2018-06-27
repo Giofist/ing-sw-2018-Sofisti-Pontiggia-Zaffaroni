@@ -4,12 +4,10 @@ import it.polimi.ingsw.model.DiceColor;
 import it.polimi.ingsw.model.Exceptions.DicepoolIndexException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.DiluentePerPastaSaldaException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
-import it.polimi.ingsw.model.PlayerPackage.Player;
-import it.polimi.ingsw.model.PlayerPackage.State;
-import it.polimi.ingsw.model.UsersList;
+import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.State;
 
 import java.io.Serializable;
-import java.rmi.RemoteException;
 
 //l'ho lasciata stare perchè ho fatto altro
 //ma l'idea che ho avuto è dividere l'esecuioni in due DiluentiPerPastaCalda, perchè

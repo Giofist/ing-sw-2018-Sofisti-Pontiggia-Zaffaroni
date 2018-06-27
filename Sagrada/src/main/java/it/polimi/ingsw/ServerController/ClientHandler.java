@@ -5,9 +5,9 @@ import it.polimi.ingsw.NetworkClient.SocketResponseHandler;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.Exceptions.*;
 import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
-import it.polimi.ingsw.model.PlayerPackage.Player;
-import it.polimi.ingsw.model.PlayerPackage.State;
-import it.polimi.ingsw.model.PlayerPackage.TurnActions;
+import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.State;
+import it.polimi.ingsw.model.TurnActions;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 import it.polimi.ingsw.model.ToolCard.ToolRequestClass;
 
@@ -29,22 +29,21 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     }
 
     @Override
-    public synchronized void register(String username, String password) throws RemoteException{
+    public void register(String username, String password) throws RemoteException{
         // When the User wants to register a new account we first verify that there isn't another User with the same username
         try {
-            UsersList.Singleton().checkHomonymy(username);
+            UsersList.Singleton().register(username, password);
         } catch (HomonymyException e) {
             throw new RemoteException(e.getMessage());
         }
 
         // Then we proceed to register and notify the new User
-        UsersList.Singleton().register(username, password);
     }
 
 
     // Implementing the login method
     @Override
-    public synchronized void login(String username, String password, Observer observer) throws RemoteException{
+    public void login(String username, String password, Observer observer) throws RemoteException{
         try{
             UsersList.Singleton().check(username, password, observer);
         }catch(LoginException e){
@@ -55,8 +54,8 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     }
 
     @Override
-    public synchronized void logout(String username) {
-            UsersList.Singleton().logOut(username);
+    public void logout(String username, Observer observer) {
+        UsersList.Singleton().logOut(username, observer );
     }
 
 
@@ -67,7 +66,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
         try {
             //creo un player, lo associo ad uno user e viceversa;
             Player player = new Player();
-            User user = UsersList.Singleton().getUser(clientname);
+            User user = UsersList.Singleton().findUser(clientname);
             user.setPlayer(player);
             player.setName(clientname);
             player.getPlayerState().addObserver(client);
@@ -88,12 +87,10 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     public void joinaMatch(String clientname, Observer observerView, String gamename) throws RemoteException{
         try{
             Player player = new Player();
-            User user = UsersList.Singleton().getUser(clientname);
+            User user = UsersList.Singleton().findUser(clientname);
             user.setPlayer(player);
             player.setName(clientname);
-
             player.getPlayerState().addObserver(observerView);
-
             MatchesList.singleton().join(player,gamename);
         }catch (UserNotExistentException e){
             throw new RemoteException(e.getMessage());
@@ -105,7 +102,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     @Override
     public List getPrivateGoalCard(String clientname) throws RemoteException{
         try{
-            Player player = UsersList.Singleton().getUser(clientname).getPlayer();
+            Player player = UsersList.Singleton().findUser(clientname).getPlayer();
             List list = new LinkedList();
             list.add(player.getPrivateGoalCard());
             return list;
@@ -118,7 +115,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     @Override
     public List getPublicGoalCards(String clientname) throws RemoteException{
         try{
-            Player player = UsersList.Singleton().getUser(clientname).getPlayer();
+            Player player = UsersList.Singleton().findUser(clientname).getPlayer();
             return player.getMatch().getGametable().getPublicGoalCards();
         }catch(UserNotExistentException e){
             throw new RemoteException(e.getMessage());
@@ -137,7 +134,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     @Override
     public int getmyPoints(String clientname)throws RemoteException{
         try{
-            Player player = UsersList.Singleton().getUser(clientname).getPlayer();
+            Player player = UsersList.Singleton().findUser(clientname).getPlayer();
             return player.getPoints();
         }catch(UserNotExistentException e){
             throw new RemoteException(e.getMessage());
@@ -147,7 +144,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     @Override
     public List getRanking(String clientname) throws RemoteException{
         try{
-            Player player = UsersList.Singleton().getUser(clientname).getPlayer();
+            Player player = UsersList.Singleton().findUser(clientname).getPlayer();
             return player.getMatch().getallPlayers();
         }catch(UserNotExistentException e){
             throw new RemoteException(e.getMessage());
@@ -155,9 +152,9 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     }
 
     @Override
-    public synchronized List getExtractedSchemeCard(String clientname) throws RemoteException {
+    public  List getExtractedSchemeCard(String clientname) throws RemoteException {
         try {
-            Player player = UsersList.Singleton().getUser(clientname).getPlayer();
+            Player player = UsersList.Singleton().findUser(clientname).getPlayer();
             List toreturn = new LinkedList<>();
             for (SchemeCard schemeCard: player.getExtractedSchemeCards()) {
                 toreturn.add(schemeCard);
@@ -170,9 +167,9 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     }
 
     @Override
-    public synchronized  List getSchemeCard(String clientname)throws RemoteException{
+    public   List getSchemeCard(String clientname)throws RemoteException{
         try{
-            Player player = UsersList.Singleton().getUser(clientname).getPlayer();
+            Player player = UsersList.Singleton().findUser(clientname).getPlayer();
             List list = new LinkedList();
             list.add(player.getScheme());
             return list;
@@ -184,9 +181,9 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     }
 
         @Override
-    public synchronized String getRoundDicepool(String clientname) throws RemoteException {
+    public  String getRoundDicepool(String clientname) throws RemoteException {
         try{
-            Player player = UsersList.Singleton().getUser(clientname).getPlayer();
+            Player player = UsersList.Singleton().findUser(clientname).getPlayer();
             return player.getGametable().getRoundDicepool().toString();
         }catch(UserNotExistentException e){
             throw new RemoteException(e.getMessage());
@@ -196,7 +193,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     @Override
     public String getRoundTrack(String clientname) throws RemoteException {
         try {
-            Player player = UsersList.Singleton().getUser(clientname).getPlayer();
+            Player player = UsersList.Singleton().findUser(clientname).getPlayer();
             return player.getGametable().getRoundTrack().toString();
         } catch (UserNotExistentException e) {
             throw new RemoteException(e.getMessage());
@@ -204,9 +201,9 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     }
 
     @Override
-    public synchronized void setSchemeCard(String clientusername, int cardid) throws RemoteException {
+    public  void setSchemeCard(String clientusername, int cardid) throws RemoteException {
         try {
-            Player player = UsersList.Singleton().getUser(clientusername).getPlayer();
+            Player player = UsersList.Singleton().findUser(clientusername).getPlayer();
             player.getPlayerState().checkAction(TurnActions.SETSCHEMECARD);
             player.setScheme(cardid);
         } catch (UserNotExistentException e) {
@@ -219,9 +216,9 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     }
 
     @Override
-    public synchronized void setDice(String clientusername, int diceindex, int row, int column) throws RemoteException{
+    public void setDice(String clientusername, int diceindex, int row, int column) throws RemoteException{
         try{
-            Player player = UsersList.Singleton().getUser(clientusername).getPlayer();
+            Player player = UsersList.Singleton().findUser(clientusername).getPlayer();
             player.getPlayerState().checkAction(TurnActions.SETDICE);
             Dice dice = player.getGametable().getRoundDicepool().getDice(diceindex);
             player.getScheme().setDice(dice ,row ,column, false, false, false);
@@ -249,9 +246,9 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
 
 
     @Override
-    public synchronized List getToolCards(String clientname) throws RemoteException{
+    public  List getToolCards(String clientname) throws RemoteException{
         try{
-            Player player = UsersList.Singleton().getUser(clientname).getPlayer();
+            Player player = UsersList.Singleton().findUser(clientname).getPlayer();
             return player.getGametable().getToolCards();
         }catch(UserNotExistentException e){
             throw new RemoteException(e.getMessage());
@@ -260,9 +257,9 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
 
 
     @Override
-    public synchronized void useaToolCard(String clientname, ToolRequestClass toolRequestClass) throws RemoteException {
+    public  void useaToolCard(String clientname, ToolRequestClass toolRequestClass) throws RemoteException {
         try{
-            Player player = UsersList.Singleton().getUser(clientname).getPlayer();
+            Player player = UsersList.Singleton().findUser(clientname).getPlayer();
             player.getPlayerState().checkAction(TurnActions.USEALLTOOLCARD);
             player.getGametable().useaToolCard(toolRequestClass,player);
             player.setPlayerState(State.HASUSEDATOOLCARDACTIONSTATE);
@@ -274,9 +271,9 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     }
 
     @Override
-    public synchronized List getPossibleActions(String clientname) throws RemoteException{
+    public List getPossibleActions(String clientname) throws RemoteException{
         try{
-            Player player = UsersList.Singleton().getUser(clientname).getPlayer();
+            Player player = UsersList.Singleton().findUser(clientname).getPlayer();
             return player.getPlayerState().getActions();
 
         }catch(UserNotExistentException e){
@@ -285,9 +282,9 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     }
 
     @Override
-    public synchronized void passTurn(String clientname) throws RemoteException {
+    public  void passTurn(String clientname) throws RemoteException {
         try{
-            Player player = UsersList.Singleton().getUser(clientname).getPlayer();
+            Player player = UsersList.Singleton().findUser(clientname).getPlayer();
             player.getPlayerState().checkAction(TurnActions.PASSTURN);
             player.getTurn().countDown();
         }catch (UserNotExistentException e){
@@ -299,12 +296,12 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
 
 
     @Override
-    public void leavethematch(String clientname) throws RemoteException{
+    public void leavethematch(String clientname, Observer observer) throws RemoteException{
         try{
-            Player player = UsersList.Singleton().getUser(clientname).getPlayer();
+            Player player = UsersList.Singleton().findUser(clientname).getPlayer();
             player.getPlayerState().checkAction(TurnActions.LEAVEMATCHBEFORESTARTING);
             player.getMatch().leavethematch(player);
-            UsersList.Singleton().getUser(clientname).removePlayer();
+            UsersList.Singleton().findUser(clientname).removePlayer(observer);
         }catch(UserNotExistentException e){
             throw new RemoteException(e.getMessage());
         }catch (NotAllowedActionException e){
@@ -315,7 +312,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     @Override
     public void setToolCardDice(String clientname, int row, int column) throws RemoteException {
         try{
-            Player player = UsersList.Singleton().getUser(clientname).getPlayer();
+            Player player = UsersList.Singleton().findUser(clientname).getPlayer();
             player.getPlayerState().checkAction(TurnActions.SETTOOLCARDDICE);
             player.getScheme().setDice(player.getdiceforToolCardUse(), row,column, false, false, false);
             player.removediceforToolCardUse();
@@ -339,7 +336,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     @Override
     public int getToken(String clientname) throws RemoteException {
         try{
-            Player player = UsersList.Singleton().getUser(clientname).getPlayer();
+            Player player = UsersList.Singleton().findUser(clientname).getPlayer();
             return player.getToken();
         }catch (UserNotExistentException e){
             throw new RemoteException(e.getMessage());
@@ -349,7 +346,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     @Override
     public void setToolCardDiceIntensity(String clientname, int intensity) throws RemoteException {
         try{
-            Player player = UsersList.Singleton().getUser(clientname).getPlayer();
+            Player player = UsersList.Singleton().findUser(clientname).getPlayer();
             player.getPlayerState().checkAction(TurnActions.SETTOOLCARDDICEINTENSITY);
             player.getdiceforToolCardUse().setIntensity(intensity);
         }catch(UserNotExistentException e){
@@ -365,7 +362,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     public List getPlayersinmymatch(String clientname) throws RemoteException {
         List list = new LinkedList();
         try{
-            Player player = UsersList.Singleton().getUser(clientname).getPlayer();
+            Player player = UsersList.Singleton().findUser(clientname).getPlayer();
             for (Player other_player : player.getMatch().getallPlayersbutnotme(player)){
                 list.add(other_player);
             }
@@ -379,7 +376,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     public List getSchemeCardsoftheotherPlayers(String clientname) throws RemoteException {
         try{
             List<SchemeCard> listtoreturn = new LinkedList();
-            Player player = UsersList.Singleton().getUser(clientname).getPlayer();
+            Player player = UsersList.Singleton().findUser(clientname).getPlayer();
             player.getPlayerState().checkAction(TurnActions.GETMAPS);
             for (Player other_player : player.getMatch().getallPlayersbutnotme(player)){
                listtoreturn.add(other_player.getScheme());
@@ -397,7 +394,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     @Override
     public String getToolCardDice(String clientname)throws RemoteException {
         try {
-            Player player = UsersList.Singleton().getUser(clientname).getPlayer();
+            Player player = UsersList.Singleton().findUser(clientname).getPlayer();
             return player.getdiceforToolCardUse().toString();
         } catch (UserNotExistentException e) {
             throw new RemoteException(e.getMessage());

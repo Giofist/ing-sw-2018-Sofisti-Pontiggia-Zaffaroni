@@ -1,8 +1,9 @@
-package it.polimi.ingsw.model.PlayerPackage;
+package it.polimi.ingsw.model;
 
 import java.io.Serializable;
 
 public enum State {
+    // stati per il player
     ENDMATCHSTATE,
     ERRORSTATE,
     HASSETADICESTATE,
@@ -14,5 +15,8 @@ public enum State {
     NOTYOURTURNSTATE,
     STARTTURNSTATE,
     MUSTSETSCHEMECARD,
-    FORCEENDMATCH;
+    FORCEENDMATCH,
+    // stati per lo user
+    ACTIVE,
+    INACTIVE;
 }

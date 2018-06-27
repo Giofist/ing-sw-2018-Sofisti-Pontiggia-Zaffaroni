@@ -7,8 +7,8 @@ import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainExce
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.AlesatorePerLaminadiRameException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.Match;
-import it.polimi.ingsw.model.PlayerPackage.Player;
-import it.polimi.ingsw.model.PlayerPackage.State;
+import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.State;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 import org.junit.Before;
 import org.junit.Test;
@@ -161,7 +161,7 @@ public class AlesatorePerLaminaDiRameTest {
         assertFalse(schemeCard.IsTileOccupied(0, 2));
         assertTrue(schemeCard.getDice(0, 1) == mockDice);
         assertEquals(State.HASUSEDATOOLCARDACTIONSTATE, player.getPlayerState().getState());
-    }
+}
 
 
 

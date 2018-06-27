@@ -1,10 +1,7 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.Exceptions.UserNotExistentException;
-import it.polimi.ingsw.model.PlayerPackage.Player;
-import it.polimi.ingsw.model.PlayerPackage.State;
 
-import java.rmi.RemoteException;
 import java.util.concurrent.CountDownLatch;
 
 public class Turn implements Runnable{
@@ -20,6 +17,8 @@ public class Turn implements Runnable{
         this.turnID = turnID;
         doneSignal = new CountDownLatch(player.getMatch().getNumberOfPlayers());
     }
+
+
     @Override
     public synchronized void run(){
         for (Player player: this.round.getMatch().getallPlayers()){
@@ -31,7 +30,7 @@ public class Turn implements Runnable{
             currentPlayer.setPlayerState(State.STARTTURNSTATE);
         }
         try{
-            if (!UsersList.Singleton().getUser(currentPlayer.getName()).isActive()) {
+            if (!UsersList.Singleton().findUser(currentPlayer.getName()).isActive()) {
                 this.countDown();
             }
         }catch(UserNotExistentException e){
@@ -41,7 +40,7 @@ public class Turn implements Runnable{
         for (Player player: this.round.getMatch().getallPlayersbutnotme(currentPlayer)) {
             player.setPlayerState(State.NOTYOURTURNSTATE);
             try{
-                if (!UsersList.Singleton().getUser(player.getName()).isActive()) {
+                if (!UsersList.Singleton().findUser(player.getName()).isActive()) {
                     this.countDown();
                 }
             }catch(UserNotExistentException e){

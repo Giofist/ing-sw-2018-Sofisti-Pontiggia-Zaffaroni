@@ -1,9 +1,7 @@
-package it.polimi.ingsw.model.PlayerPackage;
+package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.ClientView.Observer;
-import it.polimi.ingsw.model.Exceptions.NoActionAllowedException;
 import it.polimi.ingsw.model.Exceptions.NotAllowedActionException;
-import it.polimi.ingsw.model.Observable;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
@@ -21,6 +19,7 @@ public class PlayerState implements Observable, Serializable{
         this.observers = new LinkedList<>();
     }
 
+
     public void checkAction(TurnActions action) throws NotAllowedActionException {
         for (TurnActions allowedactions: this.actions){
             if (allowedactions.equals(action))
@@ -34,7 +33,8 @@ public class PlayerState implements Observable, Serializable{
         return actions;
     }
 
-    public void updateState(State state) {
+    @Override
+    public void setState(State state) {
         this.state = state;
         this.actions = new LinkedList<>();
         switch (state){
@@ -84,6 +84,12 @@ public class PlayerState implements Observable, Serializable{
     public void addObserver(Observer observer){
         this.observers.addLast(observer);
     }
+
+    @Override
+    public void removeObserver(Observer observer) {
+        this.observers.remove(observer);
+    }
+
     public void notifyObservers()throws RemoteException {
         for (Observer observer: this.observers){
             observer.update(this, null);
