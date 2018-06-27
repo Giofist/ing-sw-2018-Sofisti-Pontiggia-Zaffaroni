@@ -134,19 +134,19 @@ public class LathekinTest {
 
         toolRequestClass.setOldRow1(0);
         toolRequestClass.setOldColumn1(2);
-        toolRequestClass.setNewRow1(2);
-        toolRequestClass.setNewColumn1(0);
+        toolRequestClass.setNewRow1(1);
+        toolRequestClass.setNewColumn1(3);
         toolRequestClass.setOldRow2(0);
         toolRequestClass.setOldColumn2(3);
-        toolRequestClass.setNewRow2(3);
-        toolRequestClass.setNewColumn2(1);
+        toolRequestClass.setNewRow2(1);
+        toolRequestClass.setNewColumn2(4);
 
         lathekin.execute(player, toolRequestClass);
 
         assertFalse(schemeCard.IsTileOccupied(0, 2));
         assertFalse(schemeCard.IsTileOccupied(0, 3));
-        assertTrue(schemeCard.getDice(2, 0) == mockDice);
-        assertTrue(schemeCard.getDice(3, 1) == mockDice2);
+        assertTrue(schemeCard.getDice(1, 3) == mockDice);
+        assertTrue(schemeCard.getDice(1, 4) == mockDice2);
         assertEquals(State.HASUSEDATOOLCARDACTIONSTATE, player.getPlayerState().getState());
     }
 

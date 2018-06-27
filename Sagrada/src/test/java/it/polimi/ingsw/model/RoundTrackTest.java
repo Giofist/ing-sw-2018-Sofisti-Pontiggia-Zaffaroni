@@ -39,17 +39,17 @@ public class RoundTrackTest {
 
     @Test
     public void setAndGetRoundTrackDicesTest() throws RoundTrackException {
-        roundTrack.setRoundTrackDices(3, dices);
+        roundTrack.setRoundTrackDices(10, dices);
         assertEquals(0, roundTrack.getroundTrackDices(1).getDicePoolSize());
         assertEquals(0, roundTrack.getroundTrackDices(2).getDicePoolSize());
-        assertEquals(3, roundTrack.getroundTrackDices(3).getDicePoolSize());
+        assertEquals(0, roundTrack.getroundTrackDices(3).getDicePoolSize());
         assertEquals(0, roundTrack.getroundTrackDices(4).getDicePoolSize());
         assertEquals(0, roundTrack.getroundTrackDices(5).getDicePoolSize());
         assertEquals(0, roundTrack.getroundTrackDices(6).getDicePoolSize());
         assertEquals(0, roundTrack.getroundTrackDices(7).getDicePoolSize());
         assertEquals(0, roundTrack.getroundTrackDices(8).getDicePoolSize());
         assertEquals(0, roundTrack.getroundTrackDices(9).getDicePoolSize());
-        assertEquals(0, roundTrack.getroundTrackDices(10).getDicePoolSize());
+        assertEquals(3, roundTrack.getroundTrackDices(10).getDicePoolSize());
     }
 
     @Test (expected = RoundTrackException.class)

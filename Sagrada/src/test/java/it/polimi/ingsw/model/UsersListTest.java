@@ -20,7 +20,8 @@ public class UsersListTest {
 
     @Before
     public void before() throws FileNotFoundException {
-        new PrintWriter("src/main/resources/UsersList.txt").close();
+        PrintWriter writer = new PrintWriter("src/main/resources/UsersList.txt");
+        writer.close();
 
         usersList = UsersList.Singleton();
         mockObserver = mock(Observer.class);
