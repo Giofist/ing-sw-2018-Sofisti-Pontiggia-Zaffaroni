@@ -299,7 +299,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     public void leavethematch(String clientname, Observer observer) throws RemoteException{
         try{
             Player player = UsersList.Singleton().findUser(clientname).getPlayer();
-            player.getPlayerState().checkAction(TurnActions.LEAVEMATCHBEFORESTARTING);
+            player.getPlayerState().checkAction(TurnActions.LEAVEMATCH);
             player.getMatch().leavethematch(player);
             UsersList.Singleton().findUser(clientname).removePlayer(observer);
         }catch(UserNotExistentException e){

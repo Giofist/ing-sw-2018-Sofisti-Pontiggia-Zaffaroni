@@ -79,7 +79,7 @@ public class Setter {
                     success = true;
                     break;
                 }
-                case "LEAVEMATCHATTHEEND": {
+                case "LEAVEMATCH": {
                     try {
                         serverController.leavethematch(yourName,view );
                     } catch (RemoteException e) {

@@ -113,12 +113,11 @@ public class ItalianTranslator implements Translator {
             case SETDICE: return "Piazzare un dado";
             case GETMAPS: return "Visualizzare le mappe aggiornate degli altri giocatori";
             case PASSTURN: return "Passare il tuo turno";
-            case LEAVEMATCHATTHEEND: return "Lasciare la partita corrente, che è terminata";
+            case LEAVEMATCH: return "Lasciare la partita corrente";
             case USEALLTOOLCARD: return "Usare una carta utensile";
             case SETTOOLCARDDICE: return "Posizionare il dado estratto nell'utilizzo della carta utensile";
             case SETTOOLCARDDICEINTENSITY: return "Scegliere il valore del dado estratto nell'utilizzo della carta utensile";
             case SETSCHEMECARD: return "Scegliere quale carta schema usare nella partita corrente";
-            case LEAVEMATCHBEFORESTARTING: return "Lasciare la partita corrente prima che inizi";
             default: return "Error";
         }
     }
@@ -129,12 +128,12 @@ public class ItalianTranslator implements Translator {
             case "Piazzare un dado": return "SETDICE";
             case "Visualizzare le mappe aggiornate degli altri giocatori": return "GETMAPS";
             case "Passare il tuo turno": return "PASSTURN";
-            case "Lasciare la partita corrente, che è terminata": return "LEAVEMATCHATTHEEND";
+            case "Lasciare la partita corrente, che è terminata": return "LEAVEMATCH";
             case "Usare una carta utensile": return "USEALLTOOLCARD";
             case "Posizionare il dado estratto nell'utilizzo della carta utensile": return "SETTOOLCARDDICE";
             case "Scegliere il valore del dado estratto nell'utilizzo della carta utensile": return "SETTOOLCARDDICEINTENSITY" ;
             case "Scegliere quale carta schema usare nella partita corrente": return "SETSCHEMECARD";
-            case "Lasciare la partita corrente prima che inizi": return "LEAVEMATCHBEFORESTARTING";
+            case "Lasciare la partita corrente prima che inizi": return "LEAVEMATCH";
             default: return "Error";
         }
     };

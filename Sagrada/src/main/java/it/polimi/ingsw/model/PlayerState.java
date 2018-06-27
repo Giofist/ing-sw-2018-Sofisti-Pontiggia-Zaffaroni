@@ -39,10 +39,10 @@ public class PlayerState implements Observable, Serializable{
         this.actions = new LinkedList<>();
         switch (state){
             case ENDMATCHSTATE:
-                this.actions.addLast(TurnActions.LEAVEMATCHATTHEEND);
+                this.actions.addLast(TurnActions.LEAVEMATCH);
                 break;
             case ERRORSTATE:
-                this.actions.addLast(TurnActions.LEAVEMATCHATTHEEND);
+                this.actions.addLast(TurnActions.LEAVEMATCH);
                 break;
             case HASSETADICESTATE:
                 this.actions.addLast(TurnActions.PASSTURN);
@@ -54,7 +54,7 @@ public class PlayerState implements Observable, Serializable{
                 this.actions.addLast(TurnActions.SETDICE);
                 break;
             case MATCHNOTSTARTEDYETSTATE:
-                this.actions.addLast(TurnActions.LEAVEMATCHBEFORESTARTING);
+                this.actions.addLast(TurnActions.LEAVEMATCH);
                 break;
             case MUSTPASSTURNSTATE:
                 this.actions.addLast(TurnActions.PASSTURN);
