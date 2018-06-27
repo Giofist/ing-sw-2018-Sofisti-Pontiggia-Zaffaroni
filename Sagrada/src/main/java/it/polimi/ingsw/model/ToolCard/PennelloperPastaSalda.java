@@ -5,14 +5,12 @@ import it.polimi.ingsw.model.Exceptions.DicepoolIndexException;
 import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.PennelloPerPastaSaldaException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
-import it.polimi.ingsw.model.PlayerPackage.Player;
-import it.polimi.ingsw.model.PlayerPackage.State;
+import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.State;
 import it.polimi.ingsw.model.SchemeDeck.ColumnIterator;
 import it.polimi.ingsw.model.SchemeDeck.RowIterator;
-import it.polimi.ingsw.model.UsersList;
 
 import java.io.Serializable;
-import java.rmi.RemoteException;
 
 public class PennelloperPastaSalda  extends ToolAction implements Serializable {
 

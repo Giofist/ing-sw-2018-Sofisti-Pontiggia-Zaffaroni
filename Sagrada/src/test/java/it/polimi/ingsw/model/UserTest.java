@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.model.PlayerPackage.Player;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -61,7 +60,7 @@ public class UserTest {
         assertNull(user.getPlayer());
         user.setPlayer(mockPlayer);
         assertEquals("Xenomit", user.getPlayer().toString());
-        user.removePlayer();
+        //user.removePlayer();
         assertNull(user.getPlayer());
     }
 

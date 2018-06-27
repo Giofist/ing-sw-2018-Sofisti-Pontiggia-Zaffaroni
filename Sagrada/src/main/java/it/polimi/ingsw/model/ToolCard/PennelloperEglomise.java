@@ -4,12 +4,10 @@ package it.polimi.ingsw.model.ToolCard;
 import it.polimi.ingsw.model.Dice;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.PennelloPerEglomiseException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
-import it.polimi.ingsw.model.PlayerPackage.Player;
-import it.polimi.ingsw.model.PlayerPackage.State;
-import it.polimi.ingsw.model.UsersList;
+import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.State;
 
 import java.io.Serializable;
-import java.rmi.RemoteException;
 
 public class PennelloperEglomise extends ToolAction implements Serializable {
 

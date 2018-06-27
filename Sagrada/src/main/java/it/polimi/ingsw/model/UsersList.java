@@ -3,28 +3,26 @@ package it.polimi.ingsw.model;
 import it.polimi.ingsw.ClientView.Observer;
 import it.polimi.ingsw.model.Exceptions.HomonymyException;
 import it.polimi.ingsw.model.Exceptions.IsAlreadyActiveException;
+import it.polimi.ingsw.model.Exceptions.LoginException;
 import it.polimi.ingsw.model.Exceptions.UserNotExistentException;
-import it.polimi.ingsw.model.PlayerPackage.Player;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.rmi.RemoteException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Hashtable;
-import java.util.LinkedList;
-import java.util.Scanner;
+import java.util.*;
 
 
 public class UsersList {
     private static UsersList instance = null;
-    private LinkedList<User> users;
+    private Hashtable<String, User> users;
 
 
 
     //costruttore privato
     private UsersList(){
-        this.users = new LinkedList<User>();
+        this.users = new Hashtable<String, User>();
     }
 
 
@@ -48,16 +46,16 @@ public class UsersList {
         try {
             fr = new FileReader("src/main/resources/UsersList.txt");
             fileScanner = new Scanner(fr);
-            users = new LinkedList<User>();
+            users = new Hashtable<>();
             String[] splittedUsernameAndPass;
 
             while (fileScanner.hasNextLine()){
                 String line = fileScanner.nextLine();
                 splittedUsernameAndPass = line.split(",");
-                users.add(new User(splittedUsernameAndPass[0], splittedUsernameAndPass[1]));
+                users.put(splittedUsernameAndPass[0], new User(splittedUsernameAndPass[0], splittedUsernameAndPass[1]));
             }
         } catch (IOException e){
-            users = new LinkedList<User>();
+            users = new Hashtable<>();
         } finally {
             try { fr.close();
             } catch (NullPointerException e) {
@@ -77,35 +75,63 @@ public class UsersList {
     // ho creato LoginException, ma sicome esiste già una classe loginExcpetion in una libreria standard di java, allora devo scrivere tutto il package
     synchronized public void check( String name, String password, Observer observer)throws it.polimi.ingsw.model.Exceptions.LoginException, IsAlreadyActiveException {
         String hexHash = produceSHA256(password);
-        for (User user : this.users){
-            if (user.getName().equals(name) && user.getPassword().equals(hexHash)){
-                if (user.isActive()){
+        if(this.users.containsKey(name)){
+            User user = this.users.get(name);
+            if(user.getPassword().equals(hexHash)){
+                if(user.isActive()){
                     throw new IsAlreadyActiveException();
-                }else {
+                }
+                else{
                     user.setActive(true);
-                    if (user.getPlayer() != null) {
-                        user.getPlayer().getPlayerState().addObserver(observer);
-                        user.getPlayer().setPlayerState(user.getPlayer().getPlayerState().getState());
-                    }
+                    user.getUserState().addObserver(observer);
+                    Timer timer = new Timer(false);
+                    timer.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            try {
+                                while(user.isActive()){
+                                    Thread.sleep(900000);
+                                    try{
+                                        user.getUserState().notifyObservers();
+                                    }catch(RemoteException e){
+                                        user.setActive(false);
+                                    }
+                                }
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                                return;
+                            }
+                            return;
+                        }
+                    },0);
+                }
+                if(user.getPlayer() != null){
+                    user.getPlayer().setPlayerState(user.getPlayer().getPlayerState().getState());
                 }
                 return;
             }
         }
-        throw new it.polimi.ingsw.model.Exceptions.LoginException();
+        throw new LoginException();
+
     }
 
-    synchronized public void logOut( String name){
-        for (User user : this.users){
-            if (user.getName().equals(name))
+    synchronized public void logOut( String name, Observer observer){
+        if(this.users.containsKey(name)){
+            User user = this.users.get(name);
             user.setActive(false);
+            user.getUserState().removeObserver(observer);
         }
     }
 
+
     //classe che permette di registrarsi
-    synchronized public void register (String name,String password) {
+    synchronized public void register (String name,String password)throws HomonymyException {
         FileWriter fw = null;
         BufferedWriter bw = null;
         try {
+            if(this.users.containsKey(name)){
+                throw new HomonymyException();
+            }
             String hexHash = produceSHA256(password);
             // Write the new User to the file
             fw = new FileWriter("src/main/resources/UsersList.txt", true);
@@ -118,7 +144,7 @@ public class UsersList {
 
             // Add the new user to the list of registered users
             User user = new User(name, hexHash);
-            this.users.add(user);
+            this.users.put(name,user);
 
         } catch (IOException e){
             e.printStackTrace();
@@ -149,22 +175,16 @@ public class UsersList {
         return hexHash.toString();
     }
 
-        // to check Homonymy
-    public void checkHomonymy(String name) throws HomonymyException{
-        for (User user:this.users) {
-            if(user.getName().equals(name)){
-                throw new HomonymyException();
-            }
-        }
-    }
-
-    //rimuovere un'utente che vuole cancellarsi ( opzionale)
-    synchronized public User getUser(String name) throws UserNotExistentException {
-        for (User user: this.users) {
-            if (user.getName().equals(name))
-                return user;
+    synchronized public User findUser(String name) throws UserNotExistentException {
+        User user = this.users.get(name);
+        if(user != null){
+            return this.users.get(name);
         }
         throw new UserNotExistentException();
+    }
+
+    synchronized public User getUser(String name){
+        return this.users.get(name);
     }
 
 

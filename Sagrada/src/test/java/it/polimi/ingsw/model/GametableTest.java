@@ -4,8 +4,6 @@ package it.polimi.ingsw.model;
 import it.polimi.ingsw.model.Exceptions.CardIdNotAllowedException;
 import it.polimi.ingsw.model.Exceptions.MapConstrainReadingException;
 import it.polimi.ingsw.model.Exceptions.PrivateGoalCardException;
-import it.polimi.ingsw.model.PlayerPackage.Player;
-import it.polimi.ingsw.model.PlayerPackage.State;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 import org.junit.Before;
 import org.junit.Test;

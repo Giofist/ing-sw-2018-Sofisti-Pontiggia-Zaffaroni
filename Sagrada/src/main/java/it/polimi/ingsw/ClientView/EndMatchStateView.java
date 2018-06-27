@@ -1,7 +1,7 @@
 package it.polimi.ingsw.ClientView;
 
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
-import it.polimi.ingsw.model.PlayerPackage.Player;
+import it.polimi.ingsw.model.Player;
 
 import java.rmi.RemoteException;
 import java.util.List;
@@ -40,7 +40,7 @@ public class EndMatchStateView implements Runnable {
             input = in.nextLine();
             if (input.equals("S") || input.equals("s")) {
                 try{
-                    serverController.leavethematch(yourName);
+                    serverController.leavethematch(yourName,view);
                 }catch(RemoteException e){
                     e.printStackTrace();
                 }

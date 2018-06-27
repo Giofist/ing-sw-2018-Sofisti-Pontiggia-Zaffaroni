@@ -1,8 +1,8 @@
 package it.polimi.ingsw.ClientView;
 
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
-import it.polimi.ingsw.model.PlayerPackage.Player;
-import it.polimi.ingsw.model.PlayerPackage.TurnActions;
+import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.TurnActions;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 import it.polimi.ingsw.model.ToolCard.ToolRequestClass;
 
@@ -27,7 +27,7 @@ public class Setter {
     }
 
     //metodo che serve per selozioanre possibili azioni
-    public void selectAction(ClientHandlerInterface serverController, String yourName) {
+    public void selectAction(ClientHandlerInterface serverController, String yourName, ObserverView view) {
         Scanner in = new Scanner(System.in);
 
         boolean success = false;
@@ -81,7 +81,7 @@ public class Setter {
                 }
                 case "LEAVEMATCHATTHEEND": {
                     try {
-                        serverController.leavethematch(yourName);
+                        serverController.leavethematch(yourName,view );
                     } catch (RemoteException e) {
                         System.out.println(Client.translator.translateException(e.getMessage()));
                     }

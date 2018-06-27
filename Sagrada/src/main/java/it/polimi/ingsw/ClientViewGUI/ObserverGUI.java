@@ -5,7 +5,6 @@ import it.polimi.ingsw.ClientView.Observer;
 import it.polimi.ingsw.ClientView.Translator;
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
 import it.polimi.ingsw.model.Observable;
-import it.polimi.ingsw.model.PlayerPackage.State;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;

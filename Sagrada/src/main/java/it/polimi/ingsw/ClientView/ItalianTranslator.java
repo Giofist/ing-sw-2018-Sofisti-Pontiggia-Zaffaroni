@@ -1,15 +1,8 @@
 package it.polimi.ingsw.ClientView;
 
-import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
 import it.polimi.ingsw.model.Match;
-import it.polimi.ingsw.model.PlayerPackage.Player;
-import it.polimi.ingsw.model.PlayerPackage.TurnActions;
-import it.polimi.ingsw.model.SchemeDeck.ColumnIterator;
-import it.polimi.ingsw.model.SchemeDeck.RowIterator;
-import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
-import it.polimi.ingsw.model.SchemeDeck.Tile;
-
-import static it.polimi.ingsw.model.PlayerPackage.TurnActions.*;
+import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.TurnActions;
 
 public class ItalianTranslator implements Translator {
 

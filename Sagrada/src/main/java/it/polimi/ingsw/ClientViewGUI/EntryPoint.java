@@ -1,9 +1,5 @@
 package it.polimi.ingsw.ClientViewGUI;
 
-import it.polimi.ingsw.ClientView.*;
-import it.polimi.ingsw.ServerController.ClientHandlerInterface;
-import it.polimi.ingsw.model.Observable;
-import it.polimi.ingsw.model.PlayerPackage.State;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,10 +7,6 @@ import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
-import java.io.IOException;
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 
 
 public class EntryPoint extends Application {

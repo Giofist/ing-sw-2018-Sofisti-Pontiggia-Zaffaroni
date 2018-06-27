@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.DiceColor;
 import it.polimi.ingsw.model.Exceptions.*;
 import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
 import it.polimi.ingsw.model.Match;
-import it.polimi.ingsw.model.PlayerPackage.Player;
+import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 import it.polimi.ingsw.model.User;
 import org.junit.Before;

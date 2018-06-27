@@ -2,9 +2,8 @@ package it.polimi.ingsw.ClientViewGUI;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import it.polimi.ingsw.model.PlayerPackage.State;
+import it.polimi.ingsw.model.State;
 import javafx.application.Platform;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

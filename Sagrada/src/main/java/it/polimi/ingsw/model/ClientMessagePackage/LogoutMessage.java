@@ -16,7 +16,7 @@ public class LogoutMessage extends ClientMessage {
 
     @Override
     public void performAction(ClientHandlerInterface clientHandler, SocketServerListener listener)throws RemoteException {
-        clientHandler.logout(getClientName());
+        clientHandler.logout(getClientName(), listener.getClient());
         ServerMessage messageClass = new ServerResponseMessage();
         messageClass.setMessagecodex(1);
         try {

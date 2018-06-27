@@ -6,12 +6,10 @@ import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
 import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.TenagliaRotelleException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
-import it.polimi.ingsw.model.PlayerPackage.Player;
-import it.polimi.ingsw.model.PlayerPackage.State;
-import it.polimi.ingsw.model.UsersList;
+import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.State;
 
 import java.io.Serializable;
-import java.rmi.RemoteException;
 
 //scusate questa non l'ho capita
 public class TenagliaRotelle  extends ToolAction implements Serializable {

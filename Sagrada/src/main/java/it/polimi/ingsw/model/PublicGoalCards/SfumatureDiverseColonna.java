@@ -4,10 +4,9 @@ import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
 import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
 import it.polimi.ingsw.model.Exceptions.TwoDiceSameShadeException;
 import it.polimi.ingsw.model.GoalCard;
-import it.polimi.ingsw.model.PlayerPackage.Player;
+import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.SchemeDeck.ColumnIterator;
 import it.polimi.ingsw.model.SchemeDeck.RowIterator;
-import it.polimi.ingsw.model.SchemeDeck.Tile;
 
 import java.io.Serializable;
 import java.util.ArrayList;

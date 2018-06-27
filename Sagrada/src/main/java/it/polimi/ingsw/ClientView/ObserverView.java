@@ -3,7 +3,7 @@ package it.polimi.ingsw.ClientView;
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
 import it.polimi.ingsw.model.Match;
 import it.polimi.ingsw.model.Observable;
-import it.polimi.ingsw.model.PlayerPackage.State;
+import it.polimi.ingsw.model.State;
 
 import java.io.PrintWriter;
 import java.rmi.RemoteException;
@@ -162,7 +162,7 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
                 success = true;
             }
             else if (input.equals("L") || input.equals("l")) {
-                serverController.logout(this.yourName);
+                serverController.logout(this.yourName, this);
                 success = true;
             }
             else {
@@ -257,11 +257,11 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
                 break;
             }
             case HASSETADICESTATE: {
-                this.thread = new Thread(new HasSetDicesStateView(serverController, yourName));
+                this.thread = new Thread(new HasSetDicesStateView(serverController, yourName, this));
                 break;
             }
             case HASUSEDATOOLCARDACTIONSTATE: {
-                this.thread = new Thread(new HasUsedAToolcardActionStateView(serverController, yourName));
+                this.thread = new Thread(new HasUsedAToolcardActionStateView(serverController, yourName, this));
                 break;
             }
             case MATCHNOTSTARTEDYETSTATE: {
@@ -281,12 +281,12 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
                 break;
             }
             case NOTYOURTURNSTATE: {
-                this.thread = new Thread(new NotYourTurnStateView(serverController, yourName));
+                this.thread = new Thread(new NotYourTurnStateView(serverController, yourName, this));
                 break;
             }
             case STARTTURNSTATE: {
 
-                this.thread = new Thread(new StartTurnView(serverController, yourName));
+                this.thread = new Thread(new StartTurnView(serverController, yourName, this));
                 break;
             }
             case ENDMATCHSTATE: {

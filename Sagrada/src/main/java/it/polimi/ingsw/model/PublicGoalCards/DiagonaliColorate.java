@@ -3,10 +3,9 @@ package it.polimi.ingsw.model.PublicGoalCards;
 
 import it.polimi.ingsw.model.Dice;
 import it.polimi.ingsw.model.DiceColor;
-import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
 import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
 import it.polimi.ingsw.model.GoalCard;
-import it.polimi.ingsw.model.PlayerPackage.Player;
+import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.SchemeDeck.Tile;
 
 import java.io.Serializable;
@@ -38,7 +37,6 @@ public class DiagonaliColorate implements GoalCard,Serializable {
     public int getID() {
         return ID;
     }
-
     private void findsamecolordices(int row, int column,Player player,LinkedList<Dice> list){
         try {
             DiceColor thecolorofthistile = player.getScheme().getDiceColour(row, column);
@@ -55,7 +53,6 @@ public class DiagonaliColorate implements GoalCard,Serializable {
                 //here you can get a DiceNotExistantException or an OutOfMatrixException
                 //there is no dice, or you're out of the matrix
                 //nothing to do, just go ahead in calculating the points
-
                 //in the recursive call there will never be exceptions in thecolorofthistile
                 //because I've controlled the existance of the tile and the dice here
             }

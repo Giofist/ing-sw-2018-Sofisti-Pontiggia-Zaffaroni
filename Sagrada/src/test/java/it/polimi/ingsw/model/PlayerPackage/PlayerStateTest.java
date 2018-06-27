@@ -4,6 +4,9 @@ import it.polimi.ingsw.ClientView.Observer;
 import it.polimi.ingsw.ClientView.ObserverView;
 import it.polimi.ingsw.model.Exceptions.NoActionAllowedException;
 import it.polimi.ingsw.model.Exceptions.NotAllowedActionException;
+import it.polimi.ingsw.model.PlayerState;
+import it.polimi.ingsw.model.State;
+import it.polimi.ingsw.model.TurnActions;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,11 +14,10 @@ import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.List;
 
-import static it.polimi.ingsw.model.PlayerPackage.State.HASSETADICESTATE;
-import static it.polimi.ingsw.model.PlayerPackage.State.MUSTPASSTURNSTATE;
+import static it.polimi.ingsw.model.State.HASSETADICESTATE;
+import static it.polimi.ingsw.model.State.MUSTPASSTURNSTATE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 
@@ -34,7 +36,7 @@ public class PlayerStateTest {
 
     @Test (expected = NotAllowedActionException.class)
     public void checkActionNotAllowed() throws NotAllowedActionException {
-        playerState.updateState(HASSETADICESTATE);
+        playerState.setState(HASSETADICESTATE);
         playerState.checkAction(TurnActions.SETDICE);
     }
 
@@ -46,7 +48,7 @@ public class PlayerStateTest {
         assertEquals(0, actions.size());
 
         // 1 action available
-        playerState.updateState(MUSTPASSTURNSTATE);
+        playerState.setState(MUSTPASSTURNSTATE);
         assertEquals(State.MUSTPASSTURNSTATE, playerState.getState());
         actions = playerState.getActions();
         assertEquals(TurnActions.PASSTURN, actions.get(0));

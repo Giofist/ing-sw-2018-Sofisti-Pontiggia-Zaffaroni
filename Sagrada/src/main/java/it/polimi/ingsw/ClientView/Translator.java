@@ -1,9 +1,8 @@
 package it.polimi.ingsw.ClientView;
 
 import it.polimi.ingsw.model.Match;
-import it.polimi.ingsw.model.PlayerPackage.Player;
-import it.polimi.ingsw.model.PlayerPackage.TurnActions;
-import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
+import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.TurnActions;
 
 public interface  Translator {
     String translateMatch(Match match);
