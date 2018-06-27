@@ -8,10 +8,16 @@ import it.polimi.ingsw.model.SchemeDeck.ColumnIterator;
 import it.polimi.ingsw.model.SchemeDeck.RowIterator;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 import it.polimi.ingsw.model.SchemeDeck.Tile;
+import it.polimi.ingsw.model.State;
+import it.polimi.ingsw.model.TurnActions;
 import javafx.animation.FadeTransition;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.effect.Bloom;
 import javafx.scene.effect.DropShadow;
@@ -29,13 +35,12 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import javax.tools.Tool;
+import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.SplittableRandom;
+import java.util.*;
 
 public class MainGameViewController extends AbstractController implements Initializable {
     ImageView origin = null;
@@ -45,13 +50,26 @@ public class MainGameViewController extends AbstractController implements Initia
     private int ToolCard1 = 4;
     private int ToolCard2 = 4 ;
     private int ToolCard3 = 4;
+    private String promptAction = "";
 
     public MainGameViewController(){
         ObserverGUI.Singleton().setController(this);
     }
 
     @FXML
+    private AnchorPane backgroundPane;
+
+    @FXML
     private ImageView firstDice;
+
+    @FXML
+    private Text Actions;
+    
+    @FXML
+    private Text turnIndicator;
+
+    @FXML
+    private Button passTurnBn;
 
     @FXML
     private GridPane DicePool;
@@ -555,6 +573,7 @@ public class MainGameViewController extends AbstractController implements Initia
         }
         PublicGoalCard3.setImage(image);
 
+
        /* try {
             this.ToolCard1 = ObserverGUI.Singleton().getServerController().getToolCards(ObserverGUI.Singleton().getUsername()).get(1).getID();
             System.out.println(ToolCard1);
@@ -584,8 +603,9 @@ public class MainGameViewController extends AbstractController implements Initia
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-     setOtherPlayerMap();
+        setOtherPlayerMap();
         updateDicePool();
+        updatePossiibleActions();
     }
 
     public void Highlight(javafx.scene.input.MouseEvent mouseEvent) {
@@ -872,6 +892,20 @@ public class MainGameViewController extends AbstractController implements Initia
         }
     }
 
+    public void updatePossiibleActions(){
+        promptAction = "";
+        try {
+            for(TurnActions action : ObserverGUI.Singleton().getServerController().getPossibleActions(ObserverGUI.Singleton().getUsername())){
+                promptAction += " -";
+                promptAction += ObserverGUI.Singleton().getTranslator().translateTurnAction(action);
+                promptAction += "\n";
+            }
+        } catch (RemoteException e) {
+            ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
+        }
+        Actions.setText(promptAction);
+    }
+
     public void UseToolcard1(javafx.scene.input.MouseEvent mouseEvent) {
         ImageView card = (ImageView) mouseEvent.getTarget();
         if (selected == false) {
@@ -910,4 +944,74 @@ public class MainGameViewController extends AbstractController implements Initia
             card.setEffect(null);
         }
     }
+
+    public void passTurn(ActionEvent actionEvent) {
+        try {
+            ObserverGUI.Singleton().getServerController().passTurn(ObserverGUI.Singleton().getUsername());
+        } catch (RemoteException e) {
+            ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
+        }
+    }
+
+    @Override
+    public void update(State state) {
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    updatePossiibleActions();
+                }
+            });
+
+        if (state == State.STARTTURNSTATE) {
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                        turnIndicator.setText("E' il tuo turno!");
+
+                }
+            });
+        }
+        else if (state == State.NOTYOURTURNSTATE ) {
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    turnIndicator.setText("Non è il tuo turno.");
+                }
+            });
+        }
+        else if (state == State.ENDMATCHSTATE ) {
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        backgroundPane.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/Result.fxml"))));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
+        else if (state == State.FORCEENDMATCH ) {
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    turnIndicator.setText("Non è il tuo turno.");
+                }
+            });
+        }
+        else if (state == State.MUSTPASSTURNSTATE ) {
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        ObserverGUI.Singleton().getServerController().passTurn(ObserverGUI.Singleton().getUsername());
+                    } catch (RemoteException e) {
+                        ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
+                    }
+                }
+            });
+        }
+        }
+
+
 }

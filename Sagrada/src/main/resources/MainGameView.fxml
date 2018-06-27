@@ -985,5 +985,24 @@
             <Font size="20.0" />
          </font>
       </JFXButton>
+      <Text fill="WHITE" layoutX="239.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Azioni possibili:" wrappingWidth="181.9999881386757">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Text>
+      <Text fx:id="Actions" fill="WHITE" layoutX="243.0" layoutY="226.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="219.9999881386757" />
+      <Text fx:id="turnIndicator" fill="WHITE" layoutX="443.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="452.41015625">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Text>
+      <JFXButton fx:id="passTurnBn" layoutX="890.0" layoutY="482.0" onAction="#passTurn" prefHeight="44.0" prefWidth="220.0" style="-fx-background-color: green;" text="Passa il Turno" textFill="WHITE">
+         <effect>
+            <DropShadow />
+         </effect>
+         <font>
+            <Font size="20.0" />
+         </font>
+      </JFXButton>
    </children>
 </AnchorPane>
