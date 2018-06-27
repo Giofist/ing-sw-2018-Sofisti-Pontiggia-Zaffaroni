@@ -2,6 +2,7 @@ package it.polimi.ingsw.ClientViewGUI;
 
 import it.polimi.ingsw.ClientView.Client;
 import it.polimi.ingsw.ClientView.Observer;
+import it.polimi.ingsw.model.PlayerPackage.Player;
 import it.polimi.ingsw.model.SchemeDeck.ColumnIterator;
 import it.polimi.ingsw.model.SchemeDeck.RowIterator;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
@@ -549,14 +550,15 @@ public class MainGameViewController extends AbstractController implements Initia
         }
         PublicGoalCard3.setImage(image);
 
-        try {
-            ToolCard1 = ObserverGUI.Singleton().getServerController().getToolCards(ObserverGUI.Singleton().getUsername()).get(0).getID();
+        //try {
+            //ToolCard1 = ObserverGUI.Singleton().getServerController().getToolCards(ObserverGUI.Singleton().getUsername()).get(0).getID();
+            ToolCard1 = 5;
             System.out.println(ToolCard1);
-//            image = new Image("ToolCards/" + ToolCard1 + ".jpg");
-        } catch (RemoteException e) {
+            image = new Image("ToolCards/" + ToolCard1 + ".jpg");
+        /*} catch (RemoteException e) {
             e.printStackTrace();
-        }
-        //ToolCardImage1.setImage(image);  //todo da sistemare Settaggio carte
+        }*/
+        ToolCardImage1.setImage(image);
 /*
         try {
             ToolCard2 = ObserverGUI.Singleton().getServerController().getToolCards(ObserverGUI.Singleton().getUsername()).get(1).getID();
@@ -620,10 +622,10 @@ public class MainGameViewController extends AbstractController implements Initia
 
     public void setOtherPlayerMap() {
         int numOfPlayer = 0 ;
+        Player pl;
 
         try {
             numOfPlayer = ObserverGUI.Singleton().getServerController().getPlayersinmymatch(ObserverGUI.Singleton().getUsername()).size();
-            System.out.println(numOfPlayer);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -634,9 +636,12 @@ public class MainGameViewController extends AbstractController implements Initia
                     setUpMap(ObserverGUI.Singleton().getServerController().getSchemeCardsoftheotherPlayers(ObserverGUI.Singleton().getUsername()).get(0), mapPlayer1, P1MapName, P1Diff1, P1Diff2, P1Diff3, P1Diff4, P1Diff5, P1Diff6);
                     setUpMap(ObserverGUI.Singleton().getServerController().getSchemeCardsoftheotherPlayers(ObserverGUI.Singleton().getUsername()).get(1), mapPlayer2, P2MapName, P2Diff1, P2Diff2, P2Diff3, P2Diff4, P2Diff5, P2Diff6);
                     setUpMap(ObserverGUI.Singleton().getServerController().getSchemeCardsoftheotherPlayers(ObserverGUI.Singleton().getUsername()).get(2), mapPlayer3, P3MapName, P3Diff1, P3Diff2, P3Diff3, P3Diff4, P3Diff5, P3Diff6);
-                    Player1.setText(String.valueOf(ObserverGUI.Singleton().getServerController().getPlayersinmymatch(ObserverGUI.Singleton().getUsername()).get(0)));
-                    Player2.setText(String.valueOf(ObserverGUI.Singleton().getServerController().getPlayersinmymatch(ObserverGUI.Singleton().getUsername()).get(1)));
-                    Player3.setText(String.valueOf(ObserverGUI.Singleton().getServerController().getPlayersinmymatch(ObserverGUI.Singleton().getUsername()).get(2)));
+                    pl = (Player) ObserverGUI.Singleton().getServerController().getPlayersinmymatch(ObserverGUI.Singleton().getUsername()).get(0);
+                    Player1.setText(pl.getName());
+                    pl = (Player) ObserverGUI.Singleton().getServerController().getPlayersinmymatch(ObserverGUI.Singleton().getUsername()).get(1);
+                    Player2.setText(pl.getName());
+                    pl = (Player) ObserverGUI.Singleton().getServerController().getPlayersinmymatch(ObserverGUI.Singleton().getUsername()).get(2);
+                    Player3.setText(pl.getName());
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
@@ -645,8 +650,10 @@ public class MainGameViewController extends AbstractController implements Initia
                 try {
                     setUpMap(ObserverGUI.Singleton().getServerController().getSchemeCardsoftheotherPlayers(ObserverGUI.Singleton().getUsername()).get(0), mapPlayer1, P1MapName, P1Diff1, P1Diff2, P1Diff3, P1Diff4, P1Diff5, P1Diff6);
                     setUpMap(ObserverGUI.Singleton().getServerController().getSchemeCardsoftheotherPlayers(ObserverGUI.Singleton().getUsername()).get(1), mapPlayer2, P2MapName, P2Diff1, P2Diff2, P2Diff3, P2Diff4, P2Diff5, P2Diff6);
-                    Player1.setText(String.valueOf(ObserverGUI.Singleton().getServerController().getPlayersinmymatch(ObserverGUI.Singleton().getUsername()).get(0)));
-                    Player2.setText(String.valueOf(ObserverGUI.Singleton().getServerController().getPlayersinmymatch(ObserverGUI.Singleton().getUsername()).get(1)));
+                    pl = (Player) ObserverGUI.Singleton().getServerController().getPlayersinmymatch(ObserverGUI.Singleton().getUsername()).get(0);
+                    Player1.setText(pl.getName());
+                    pl = (Player) ObserverGUI.Singleton().getServerController().getPlayersinmymatch(ObserverGUI.Singleton().getUsername()).get(1);
+                    Player2.setText(pl.getName());
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
@@ -656,7 +663,8 @@ public class MainGameViewController extends AbstractController implements Initia
             case 1:
                 try {
                     setUpMap(ObserverGUI.Singleton().getServerController().getSchemeCardsoftheotherPlayers(ObserverGUI.Singleton().getUsername()).get(0), mapPlayer2, P2MapName, P2Diff1, P2Diff2, P2Diff3, P2Diff4, P2Diff5, P2Diff6);
-                    Player2.setText(String.valueOf(ObserverGUI.Singleton().getServerController().getPlayersinmymatch(ObserverGUI.Singleton().getUsername()).get(0)));
+                    pl = (Player) ObserverGUI.Singleton().getServerController().getPlayersinmymatch(ObserverGUI.Singleton().getUsername()).get(0);
+                    Player2.setText(pl.getName());
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
