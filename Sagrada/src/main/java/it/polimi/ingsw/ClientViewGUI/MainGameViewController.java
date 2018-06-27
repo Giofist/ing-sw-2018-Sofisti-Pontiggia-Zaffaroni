@@ -29,6 +29,7 @@ import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -523,13 +524,36 @@ public class MainGameViewController extends AbstractController implements Initia
 
     @FXML
     void handleOnDragDropped(DragEvent event) {
-        ImageView destination = (ImageView) event.getTarget();
+        int row;
+        int column;
+        int index;
+
+            ImageView destination = (ImageView)event.getTarget();
+            if(yourMap.getRowIndex(destination.getParent())==null){
+                row=0;
+            }else row = yourMap.getRowIndex(destination.getParent());
+
+            if(yourMap.getColumnIndex(destination.getParent())==null){
+                column=0;
+            }else column = yourMap.getColumnIndex(destination.getParent());
+
+            if(DicePool.getColumnIndex(origin)==null){
+                index=0;
+            }else index = DicePool.getColumnIndex(origin);
+
+        try {
+            ObserverGUI.Singleton().getServerController().setDice(ObserverGUI.Singleton().getUsername(),index,row, column);
             destination.setImage(event.getDragboard().getImage());
             origin.setImage(null);
-           // ErrorMessage.setText("Non puoi piazzare qui il dado!");
-
+            ErrorMessage.setText("Hai piazzato il dado correttamente!");
+        } catch (RemoteException e) {
+            ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
+        }
     }
 
+    public void placeDice(){
+
+    }
     public void handleDragDetection(javafx.scene.input.MouseEvent mouseEvent) {
         char[] SelectedDiceId = new char[11];
 
@@ -948,6 +972,7 @@ public class MainGameViewController extends AbstractController implements Initia
     public void passTurn(ActionEvent actionEvent) {
         try {
             ObserverGUI.Singleton().getServerController().passTurn(ObserverGUI.Singleton().getUsername());
+            ErrorMessage.setText("Hai passato il turno!");
         } catch (RemoteException e) {
             ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
         }
@@ -958,6 +983,8 @@ public class MainGameViewController extends AbstractController implements Initia
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
+                    updateRoundTrack();
+                    updateDicePool();
                     updatePossiibleActions();
                 }
             });

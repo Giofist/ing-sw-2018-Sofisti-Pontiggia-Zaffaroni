@@ -58,7 +58,7 @@ public class ResultController extends AbstractController implements Initializabl
             try {
                 for(Object pl : ObserverGUI.Singleton().getServerController().getRanking(ObserverGUI.Singleton().getUsername())){
                     playerList += i + ". ";
-                    playerList += ObserverGUI.Singleton().getTranslator().translatePlayer((Player) pl);
+                    playerList += ((Player) pl).getName();
                     playerList += "         ";
                     playerList += ((Player) pl).getPoints();
                     playerList += "\n";
