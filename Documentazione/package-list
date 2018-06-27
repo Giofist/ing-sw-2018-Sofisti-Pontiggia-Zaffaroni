@@ -1,0 +1,15 @@
+it.polimi.ingsw.ClientView
+it.polimi.ingsw.ClientViewGUI
+it.polimi.ingsw.NetworkClient
+it.polimi.ingsw.NetworkServer
+it.polimi.ingsw.ServerController
+it.polimi.ingsw.model
+it.polimi.ingsw.model.ClientMessagePackage
+it.polimi.ingsw.model.Exceptions
+it.polimi.ingsw.model.Exceptions.TileConstrainException
+it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions
+it.polimi.ingsw.model.PlayerPackage
+it.polimi.ingsw.model.PrivateGoalCards
+it.polimi.ingsw.model.PublicGoalCards
+it.polimi.ingsw.model.SchemeDeck
+it.polimi.ingsw.model.ToolCard
