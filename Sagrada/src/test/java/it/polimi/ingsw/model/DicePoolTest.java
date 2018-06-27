@@ -14,9 +14,7 @@ import static org.mockito.Mockito.when;
 
 /*
     Untested methods:
-        scrambleDicePool gets tested indirectly shuffleDicePoolTest
-        toString
-        removeDice
+        scrambleDicePool because it gets tested indirectly when calling shuffleDicePoolTest and it's private
 */
 
 public class DicePoolTest {
@@ -44,6 +42,7 @@ public class DicePoolTest {
         dicePool = new DicePool(18, 18, 18, 18, 18);
         assertEquals(90, dicePool.getDicePoolSize());
     }
+
 
     // This method tests that an empty dicePool is instantiated if a wrong parameter is passed
     @Test

@@ -30,24 +30,24 @@ public class TurnTest {
 
     @Before
     public void before() {
+        // Useful classes
         mockMatch = mock(Match.class);
-
         user1 = new User("user1", "pass1");
         user2 = new User("user2", "pass2");
         player1 = new Player();
         player2 = new Player();
 
+        // Player setup
         player1.setMatch(mockMatch);
-
-
         player2.setMatch(mockMatch);
         
 
+        // Player list setup
         List<Player> playerList = new LinkedList<>();
         playerList.add(player1);
         playerList.add(player2);
 
-
+        // Mock behaviours
         when(mockMatch.getNumberOfPlayers()).thenReturn(2);
         when(mockMatch.getallPlayers()).thenReturn(playerList);
         when(mockMatch.getallPlayersbutnotme(player1)).thenReturn(new LinkedList<Player>(){{ add(player2); }});
@@ -55,27 +55,33 @@ public class TurnTest {
 
         round = new Round(1, (LinkedList<Player>) playerList, mockMatch);
 
-        turn = new Turn(player1, round, 3);
+        // Tested class
+        turn = new Turn(player1, round, 1);
     }
 
 
-    /*
+
     @Test
-    public void runTest() {
-        turn.run();
-        assertEquals(1, player1.getTurn());
-        assertEquals(1, player2.getTurn());
+    public void runTest() throws InterruptedException {
+        Thread testThread = new Thread(new Turn(player1, round, 1));
+        testThread.start();
 
-        assertEquals(State.STARTTURNSTATE, player1.getPlayerState());
-        assertEquals(State.NOTYOURTURNSTATE, player2.getPlayerState());
+        Thread.sleep(2000);
 
-        // Fix wait
+        testThread.interrupt();
+
+        assertEquals(1, player1.getTurn().getTurnID());
+        assertEquals(1, player2.getTurn().getTurnID());
+
+        assertEquals(State.STARTTURNSTATE, player1.getPlayerState().getState());
+        assertEquals(State.NOTYOURTURNSTATE, player2.getPlayerState().getState());
+
     }
-    */
+
 
     @Test
     public void getTurnIdTest() {
-        assertEquals(3, turn.getTurnID());
+        assertEquals(1, turn.getTurnID());
     }
 
     @Test
