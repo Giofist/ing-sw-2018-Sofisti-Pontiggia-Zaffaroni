@@ -46,6 +46,9 @@ public class ChooseMapController extends AbstractController implements Initializ
     private AnchorPane selectPane;
 
     @FXML
+    private  GridPane roundTrack;
+
+    @FXML
     private GridPane gridMap1;
 
     @FXML

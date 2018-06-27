@@ -3,6 +3,7 @@ package it.polimi.ingsw.ClientViewGUI;
 import it.polimi.ingsw.ClientView.Client;
 import it.polimi.ingsw.ClientView.Observer;
 import it.polimi.ingsw.model.PlayerPackage.Player;
+import it.polimi.ingsw.model.RoundTrack;
 import it.polimi.ingsw.model.SchemeDeck.ColumnIterator;
 import it.polimi.ingsw.model.SchemeDeck.RowIterator;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
@@ -325,6 +326,9 @@ public class MainGameViewController extends AbstractController implements Initia
 
     @FXML
     private GridPane yourMap12;
+
+    @FXML
+    private GridPane  roundTrack;
 
     @FXML
     private ImageView ImageView0012;
@@ -756,6 +760,33 @@ public class MainGameViewController extends AbstractController implements Initia
                 }
             }
             i++;
+        }
+    }
+
+    public void updateRoundTrack(){  //todo To be tested
+        String track;
+        int round = 0;
+        int row = 0;
+        String[] dicesColumn = new String[10];
+        String[] dice = new String[5];
+        String imagePath;
+        try {
+            dicesColumn = ObserverGUI.Singleton().getServerController().getRoundTrack(ObserverGUI.Singleton().getUsername()).split("!");
+        } catch (RemoteException e) {
+            ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
+        }
+        for(String dices : dicesColumn){
+            row = 0;
+            dice = dices.split("-");
+            for(String elem : dice){
+                ImageView Imm = new ImageView();
+                Imm = (ImageView)  roundTrack.getChildren().get(row*10 + round);
+                imagePath = "Dices/" + elem.toCharArray()[1] + elem.toCharArray()[0] + ".jpg";
+                Image pic = new Image(imagePath);
+                Imm.setImage(pic);
+                row++;
+            }
+            round++;
         }
     }
 

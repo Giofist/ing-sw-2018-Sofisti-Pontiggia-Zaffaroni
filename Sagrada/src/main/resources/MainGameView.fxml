@@ -22,7 +22,7 @@
    <children>
       <BorderPane fx:id="progressionBar" layoutX="-7.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="796.0" prefWidth="1407.0" style="-fx-background-color: brown;">
          <center>
-            <VBox alignment="TOP_CENTER" prefHeight="517.0" prefWidth="701.0" BorderPane.alignment="CENTER">
+            <VBox alignment="TOP_CENTER" prefHeight="487.0" prefWidth="725.0" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets bottom="100.0" left="100.0" right="100.0" top="150.0" />
                </BorderPane.margin>
@@ -175,7 +175,7 @@
                         </Pane>
                      </bottom>
                   </BorderPane>
-                  <VBox prefHeight="115.0" prefWidth="701.0">
+                  <VBox prefHeight="104.0" prefWidth="725.0">
                      <children>
                         <HBox alignment="CENTER_LEFT">
                            <VBox.margin>
@@ -806,7 +806,7 @@
             <HBox alignment="CENTER" prefHeight="30.0" prefWidth="1279.0" BorderPane.alignment="CENTER" />
          </top>
       </BorderPane>
-      <HBox alignment="CENTER" layoutX="276.0" layoutY="623.0" maxWidth="1.7976931348623157E308" prefHeight="291.0" prefWidth="759.0" spacing="20.0">
+      <HBox alignment="CENTER" layoutX="292.0" layoutY="623.0" maxWidth="1.7976931348623157E308" prefHeight="291.0" prefWidth="759.0" spacing="20.0">
          <children>
             <ImageView fx:id="PrivateGoalCard" fitHeight="231.0" fitWidth="215.0" onMouseEntered="#ShowPrivateGoal" onMouseExited="#HidePrivateGoal" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
                <image>
@@ -830,7 +830,7 @@
             </ImageView>
          </children>
       </HBox>
-      <GridPane alignment="CENTER" layoutX="257.0" layoutY="8.0" prefHeight="79.0" prefWidth="836.0">
+      <GridPane fx:id="roundTrack" alignment="CENTER" layoutX="256.0" layoutY="1.0" prefHeight="213.0" prefWidth="837.0">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -844,11 +844,14 @@
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints />
-            <RowConstraints maxHeight="72.83333015441895" minHeight="10.0" prefHeight="72.83333015441895" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="65.0" minHeight="65.0" prefHeight="63.16666793823242" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="42.33333206176758" />
+            <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="36.16667175292969" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="44.33332824707031" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="28.5" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ImageView fx:id="RoundTrack01" fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <ImageView fx:id="RoundTrack00" fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Dices/EmptySpace.jpg" />
                </image>
@@ -856,11 +859,7 @@
                   <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
                </GridPane.margin>
             </ImageView>
-            <ImageView fitWidth="69.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.rowIndex="1" />
-            <ImageView fitWidth="69.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.rowIndex="1" />
-            <ImageView fitWidth="69.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8" GridPane.rowIndex="1" />
-            <ImageView fitWidth="69.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="9" GridPane.rowIndex="1" />
-            <ImageView fx:id="RoundTrack00" fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+            <ImageView fx:id="RoundTrack01" fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
                <image>
                   <Image url="@Dices/EmptySpace.jpg" />
                </image>
@@ -868,7 +867,7 @@
                   <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
                </GridPane.margin>
             </ImageView>
-            <ImageView fx:id="RoundTrack02" fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <ImageView fx:id="RoundTrack02" fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
                <image>
                   <Image url="@Dices/EmptySpace.jpg" />
                </image>
@@ -876,7 +875,7 @@
                   <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
                </GridPane.margin>
             </ImageView>
-            <ImageView fx:id="RoundTrack03" fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="1">
+            <ImageView fx:id="RoundTrack03" fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3">
                <image>
                   <Image url="@Dices/EmptySpace.jpg" />
                </image>
@@ -884,7 +883,7 @@
                   <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
                </GridPane.margin>
             </ImageView>
-            <ImageView fx:id="RoundTrack04" fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="1">
+            <ImageView fx:id="RoundTrack04" fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4">
                <image>
                   <Image url="@Dices/EmptySpace.jpg" />
                </image>
@@ -892,7 +891,7 @@
                   <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
                </GridPane.margin>
             </ImageView>
-            <ImageView fx:id="RoundTrack05" fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="1">
+            <ImageView fx:id="RoundTrack05" fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5">
                <image>
                   <Image url="@Dices/EmptySpace.jpg" />
                </image>
@@ -900,7 +899,7 @@
                   <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
                </GridPane.margin>
             </ImageView>
-            <ImageView fx:id="RoundTrack06" fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.rowIndex="1">
+            <ImageView fx:id="RoundTrack06" fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6">
                <image>
                   <Image url="@Dices/EmptySpace.jpg" />
                </image>
@@ -908,7 +907,7 @@
                   <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
                </GridPane.margin>
             </ImageView>
-            <ImageView fx:id="RoundTrack08" fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8" GridPane.rowIndex="1">
+            <ImageView fx:id="RoundTrack07" fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7">
                <image>
                   <Image url="@Dices/EmptySpace.jpg" />
                </image>
@@ -916,7 +915,7 @@
                   <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
                </GridPane.margin>
             </ImageView>
-            <ImageView fx:id="RoundTrack07" fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.rowIndex="1">
+            <ImageView fx:id="RoundTrack08" fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8">
                <image>
                   <Image url="@Dices/EmptySpace.jpg" />
                </image>
@@ -924,7 +923,7 @@
                   <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
                </GridPane.margin>
             </ImageView>
-            <ImageView fx:id="RoundTrack09" fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="9" GridPane.rowIndex="1">
+            <ImageView fx:id="RoundTrack09" fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="9">
                <image>
                   <Image url="@Dices/EmptySpace.jpg" />
                </image>
@@ -932,6 +931,46 @@
                   <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
                </GridPane.margin>
             </ImageView>
+            <ImageView fx:id="RoundTrack0013" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" translateX="20.0" GridPane.rowIndex="1" />
+            <ImageView fx:id="RoundTrack00131" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" translateX="20.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ImageView fx:id="RoundTrack00135" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" translateX="20.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <ImageView fx:id="RoundTrack00138" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" translateX="20.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <ImageView fx:id="RoundTrack001313" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" translateX="20.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+            <ImageView fx:id="RoundTrack001317" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" translateX="20.0" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+            <ImageView fx:id="RoundTrack001321" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" translateX="20.0" GridPane.columnIndex="6" GridPane.rowIndex="1" />
+            <ImageView fx:id="RoundTrack001325" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" translateX="20.0" GridPane.columnIndex="7" GridPane.rowIndex="1" />
+            <ImageView fx:id="RoundTrack001329" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" translateX="20.0" GridPane.columnIndex="8" GridPane.rowIndex="1" />
+            <ImageView fx:id="RoundTrack001333" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" translateX="20.0" GridPane.columnIndex="9" GridPane.rowIndex="1" />
+            <ImageView fx:id="RoundTrack001" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" translateX="20.0" GridPane.rowIndex="2" />
+            <ImageView fx:id="RoundTrack00132" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" translateX="20.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ImageView fx:id="RoundTrack00136" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" translateX="20.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <ImageView fx:id="RoundTrack00139" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" translateX="20.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <ImageView fx:id="RoundTrack001314" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" translateX="20.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+            <ImageView fx:id="RoundTrack001318" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" translateX="20.0" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+            <ImageView fx:id="RoundTrack001322" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" translateX="20.0" GridPane.columnIndex="6" GridPane.rowIndex="2" />
+            <ImageView fx:id="RoundTrack001326" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" translateX="20.0" GridPane.columnIndex="7" GridPane.rowIndex="2" />
+            <ImageView fx:id="RoundTrack001330" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" translateX="20.0" GridPane.columnIndex="8" GridPane.rowIndex="2" />
+            <ImageView fx:id="RoundTrack001334" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" translateX="20.0" GridPane.columnIndex="9" GridPane.rowIndex="2" />
+            <ImageView fx:id="RoundTrack0011" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" translateX="20.0" GridPane.rowIndex="3" />
+            <ImageView fx:id="RoundTrack00133" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" translateX="20.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <ImageView fx:id="RoundTrack00137" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" translateX="20.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <ImageView fx:id="RoundTrack001310" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" translateX="20.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+            <ImageView fx:id="RoundTrack001315" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" translateX="20.0" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+            <ImageView fx:id="RoundTrack001319" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" translateX="20.0" GridPane.columnIndex="5" GridPane.rowIndex="3" />
+            <ImageView fx:id="RoundTrack001323" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" translateX="20.0" GridPane.columnIndex="6" GridPane.rowIndex="3" />
+            <ImageView fx:id="RoundTrack001327" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" translateX="20.0" GridPane.columnIndex="7" GridPane.rowIndex="3" />
+            <ImageView fx:id="RoundTrack001331" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" translateX="20.0" GridPane.columnIndex="8" GridPane.rowIndex="3" />
+            <ImageView fx:id="RoundTrack001335" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" translateX="20.0" GridPane.columnIndex="9" GridPane.rowIndex="3" />
+            <ImageView fx:id="RoundTrack0012" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" translateX="20.0" GridPane.rowIndex="4" />
+            <ImageView fx:id="RoundTrack00134" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" translateX="20.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <ImageView fx:id="RoundTrack001312" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" translateX="20.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <ImageView fx:id="RoundTrack001311" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" translateX="20.0" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+            <ImageView fx:id="RoundTrack001316" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" translateX="20.0" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+            <ImageView fx:id="RoundTrack001320" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" translateX="20.0" GridPane.columnIndex="5" GridPane.rowIndex="4" />
+            <ImageView fx:id="RoundTrack001324" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" translateX="20.0" GridPane.columnIndex="6" GridPane.rowIndex="4" />
+            <ImageView fx:id="RoundTrack001328" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" translateX="20.0" GridPane.columnIndex="7" GridPane.rowIndex="4" />
+            <ImageView fx:id="RoundTrack001332" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" translateX="20.0" GridPane.columnIndex="8" GridPane.rowIndex="4" />
+            <ImageView fx:id="RoundTrack001336" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" translateX="20.0" GridPane.columnIndex="9" GridPane.rowIndex="4" />
          </children>
          <opaqueInsets>
             <Insets />
