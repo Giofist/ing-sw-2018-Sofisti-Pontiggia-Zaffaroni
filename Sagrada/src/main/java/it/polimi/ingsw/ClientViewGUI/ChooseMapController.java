@@ -46,6 +46,9 @@ public class ChooseMapController extends AbstractController implements Initializ
     private AnchorPane selectPane;
 
     @FXML
+    private  GridPane roundTrack;
+
+    @FXML
     private GridPane gridMap1;
 
     @FXML
@@ -258,31 +261,29 @@ public class ChooseMapController extends AbstractController implements Initializ
                 if (tile.haveColor_constrain()){
                     switch (tile.getColor_Constrain()){
                         case YELLOW:
-                            gridMap.getChildren().get(rowIterator.getCurrentRow()*schemeCard.getMaxRow() + columnIterator.getCurrentColumn()).setStyle("-fx-background-color:YELLOW");
+                            gridMap.getChildren().get(rowIterator.getCurrentRow()*schemeCard.getMaxColumn() + columnIterator.getCurrentColumn()-1).setStyle("-fx-background-color:YELLOW");
                             break;
                         case BLUE:
-                            gridMap.getChildren().get(rowIterator.getCurrentRow()*schemeCard.getMaxRow() + columnIterator.getCurrentColumn()).setStyle("-fx-background-color:BLUE");
+                            gridMap.getChildren().get(rowIterator.getCurrentRow()*schemeCard.getMaxColumn() + columnIterator.getCurrentColumn()-1).setStyle("-fx-background-color:BLUE");
                             break;
                         case RED:
-                            gridMap.getChildren().get(rowIterator.getCurrentRow()*schemeCard.getMaxRow() + columnIterator.getCurrentColumn()).setStyle("-fx-background-color:RED");
+                            gridMap.getChildren().get(rowIterator.getCurrentRow()*schemeCard.getMaxColumn() + columnIterator.getCurrentColumn()-1).setStyle("-fx-background-color:RED");
                             break;
                         case VIOLET:
-                            gridMap.getChildren().get(rowIterator.getCurrentRow()*schemeCard.getMaxRow() + columnIterator.getCurrentColumn()).setStyle("-fx-background-color:VIOLET");
+                            gridMap.getChildren().get(rowIterator.getCurrentRow()*schemeCard.getMaxColumn() + columnIterator.getCurrentColumn()-1).setStyle("-fx-background-color:VIOLET");
                             break;
                         case GREEN:
-                            gridMap.getChildren().get(rowIterator.getCurrentRow()*schemeCard.getMaxRow() + columnIterator.getCurrentColumn()).setStyle("-fx-background-color:GREEN");
+                            gridMap.getChildren().get(rowIterator.getCurrentRow()*schemeCard.getMaxColumn() + columnIterator.getCurrentColumn()-1).setStyle("-fx-background-color:GREEN");
                             break;
                     }
                 }
                 else if (tile.haveNumber_constrain()){
-                    gridMap.getChildren().get(rowIterator.getCurrentRow()*schemeCard.getMaxRow() + columnIterator.getCurrentColumn()).setStyle("-fx-background-image: url('Dices/"+ tile.getNumber_Constrain() +".jpg'); -fx-background-position: center center;-fx-background-size: cover");
-
+                    gridMap.getChildren().get(rowIterator.getCurrentRow()*schemeCard.getMaxColumn() + columnIterator.getCurrentColumn()-1).setStyle("-fx-background-image: url('Dices/"+ tile.getNumber_Constrain() +".jpg'); -fx-background-position: center center;-fx-background-size: cover");
                 }
                 else{
-                    gridMap.getChildren().get(rowIterator.getCurrentRow()*schemeCard.getMaxRow() + columnIterator.getCurrentColumn()).setStyle("-fx-background-color:WHITE");
+                    gridMap.getChildren().get(rowIterator.getCurrentRow()*schemeCard.getMaxColumn() + columnIterator.getCurrentColumn()-1).setStyle("-fx-background-color:WHITE");
 
                 }
-
             }
             rowIterator.next();
         }

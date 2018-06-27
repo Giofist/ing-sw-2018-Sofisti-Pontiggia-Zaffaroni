@@ -3,6 +3,7 @@ package it.polimi.ingsw.ClientViewGUI;
 import it.polimi.ingsw.ClientView.Client;
 import it.polimi.ingsw.ClientView.Observer;
 import it.polimi.ingsw.model.PlayerPackage.Player;
+import it.polimi.ingsw.model.RoundTrack;
 import it.polimi.ingsw.model.SchemeDeck.ColumnIterator;
 import it.polimi.ingsw.model.SchemeDeck.RowIterator;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
@@ -41,13 +42,14 @@ public class MainGameViewController extends AbstractController implements Initia
     int SelectedDiceIndex;
     boolean selected = false;
     private String privateGoalcardPath = null;
-    private int ToolCard1 = 0;
-    private int ToolCard2 = 0 ;
-    private int ToolCard3 = 0;
+    private int ToolCard1 = 4;
+    private int ToolCard2 = 4 ;
+    private int ToolCard3 = 4;
 
     public MainGameViewController(){
         ObserverGUI.Singleton().setController(this);
     }
+
     @FXML
     private ImageView firstDice;
 
@@ -326,6 +328,9 @@ public class MainGameViewController extends AbstractController implements Initia
     private GridPane yourMap12;
 
     @FXML
+    private GridPane  roundTrack;
+
+    @FXML
     private ImageView ImageView0012;
 
     @FXML
@@ -550,18 +555,16 @@ public class MainGameViewController extends AbstractController implements Initia
         }
         PublicGoalCard3.setImage(image);
 
-        //try {
-            //ToolCard1 = ObserverGUI.Singleton().getServerController().getToolCards(ObserverGUI.Singleton().getUsername()).get(0).getID();
-            ToolCard1 = 5;
+       /* try {
+            this.ToolCard1 = ObserverGUI.Singleton().getServerController().getToolCards(ObserverGUI.Singleton().getUsername()).get(1).getID();
             System.out.println(ToolCard1);
             image = new Image("ToolCards/" + ToolCard1 + ".jpg");
-        /*} catch (RemoteException e) {
+        } catch (RemoteException e) {
             e.printStackTrace();
-        }*/
+        }
         ToolCardImage1.setImage(image);
-/*
         try {
-            ToolCard2 = ObserverGUI.Singleton().getServerController().getToolCards(ObserverGUI.Singleton().getUsername()).get(1).getID();
+            this.ToolCard2 = ObserverGUI.Singleton().getServerController().getToolCards(ObserverGUI.Singleton().getUsername()).get(1).getID();
             image = new Image("ToolCards/" + ToolCard2 + ".jpg");
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -569,13 +572,13 @@ public class MainGameViewController extends AbstractController implements Initia
         ToolCardImage2.setImage(image);
 
         try {
-            ToolCard3 = ObserverGUI.Singleton().getServerController().getToolCards(ObserverGUI.Singleton().getUsername()).get(2).getID();
+            this.ToolCard3 = ObserverGUI.Singleton().getServerController().getToolCards(ObserverGUI.Singleton().getUsername()).get(2).getID();
             image = new Image("ToolCards/" + ToolCard3 + ".jpg");
         } catch (RemoteException e) {
             e.printStackTrace();
         }
         ToolCardImage3.setImage(image);
-*/
+        */
         try {
             setUpMap(ObserverGUI.Singleton().getServerController().getSchemeCard(ObserverGUI.Singleton().getUsername()).get(0),yourMap, yourMapName, Diff1, Diff2, Diff3, Diff4, Diff5, Diff6);
         } catch (RemoteException e) {
@@ -760,6 +763,33 @@ public class MainGameViewController extends AbstractController implements Initia
         }
     }
 
+    public void updateRoundTrack(){  //todo To be tested
+        String track;
+        int round = 0;
+        int row = 0;
+        String[] dicesColumn = new String[10];
+        String[] dice = new String[5];
+        String imagePath;
+        try {
+            dicesColumn = ObserverGUI.Singleton().getServerController().getRoundTrack(ObserverGUI.Singleton().getUsername()).split("!");
+        } catch (RemoteException e) {
+            ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
+        }
+        for(String dices : dicesColumn){
+            row = 0;
+            dice = dices.split("-");
+            for(String elem : dice){
+                ImageView Imm = new ImageView();
+                Imm = (ImageView)  roundTrack.getChildren().get(row*10 + round);
+                imagePath = "Dices/" + elem.toCharArray()[1] + elem.toCharArray()[0] + ".jpg";
+                Image pic = new Image(imagePath);
+                Imm.setImage(pic);
+                row++;
+            }
+            round++;
+        }
+    }
+
     public void setUpMap(SchemeCard schemeCard, GridPane gridMap, Text mapName, Circle diff1, Circle diff2, Circle diff3, Circle diff4, Circle diff5, Circle diff6) {
         char[] charTile;
         char[] mapID;
@@ -806,31 +836,29 @@ public class MainGameViewController extends AbstractController implements Initia
                 if (tile.haveColor_constrain()){
                     switch (tile.getColor_Constrain()){
                         case YELLOW:
-                            gridMap.getChildren().get(rowIterator.getCurrentRow()*schemeCard.getMaxRow() + columnIterator.getCurrentColumn()).setStyle("-fx-background-color:YELLOW");
+                            gridMap.getChildren().get(rowIterator.getCurrentRow()*schemeCard.getMaxColumn() + columnIterator.getCurrentColumn()-1).setStyle("-fx-background-color:YELLOW");
                             break;
                         case BLUE:
-                            gridMap.getChildren().get(rowIterator.getCurrentRow()*schemeCard.getMaxRow() + columnIterator.getCurrentColumn()).setStyle("-fx-background-color:BLUE");
+                            gridMap.getChildren().get(rowIterator.getCurrentRow()*schemeCard.getMaxColumn() + columnIterator.getCurrentColumn()-1).setStyle("-fx-background-color:BLUE");
                             break;
                         case RED:
-                            gridMap.getChildren().get(rowIterator.getCurrentRow()*schemeCard.getMaxRow() + columnIterator.getCurrentColumn()).setStyle("-fx-background-color:RED");
+                            gridMap.getChildren().get(rowIterator.getCurrentRow()*schemeCard.getMaxColumn() + columnIterator.getCurrentColumn()-1).setStyle("-fx-background-color:RED");
                             break;
                         case VIOLET:
-                            gridMap.getChildren().get(rowIterator.getCurrentRow()*schemeCard.getMaxRow() + columnIterator.getCurrentColumn()).setStyle("-fx-background-color:VIOLET");
+                            gridMap.getChildren().get(rowIterator.getCurrentRow()*schemeCard.getMaxColumn() + columnIterator.getCurrentColumn()-1).setStyle("-fx-background-color:VIOLET");
                             break;
                         case GREEN:
-                            gridMap.getChildren().get(rowIterator.getCurrentRow()*schemeCard.getMaxRow() + columnIterator.getCurrentColumn()).setStyle("-fx-background-color:GREEN");
+                            gridMap.getChildren().get(rowIterator.getCurrentRow()*schemeCard.getMaxColumn() + columnIterator.getCurrentColumn()-1).setStyle("-fx-background-color:GREEN");
                             break;
                     }
                 }
                 else if (tile.haveNumber_constrain()){
-                    gridMap.getChildren().get(rowIterator.getCurrentRow()*schemeCard.getMaxRow() + columnIterator.getCurrentColumn()).setStyle("-fx-background-image: url('Dices/"+ tile.getNumber_Constrain() +".jpg'); -fx-background-position: center center;-fx-background-size: cover");
-
+                    gridMap.getChildren().get(rowIterator.getCurrentRow()*schemeCard.getMaxColumn() + columnIterator.getCurrentColumn()-1).setStyle("-fx-background-image: url('Dices/"+ tile.getNumber_Constrain() +".jpg'); -fx-background-position: center center;-fx-background-size: cover");
                 }
                 else{
-                    gridMap.getChildren().get(rowIterator.getCurrentRow()*schemeCard.getMaxRow() + columnIterator.getCurrentColumn()).setStyle("-fx-background-color:WHITE");
+                    gridMap.getChildren().get(rowIterator.getCurrentRow()*schemeCard.getMaxColumn() + columnIterator.getCurrentColumn()-1).setStyle("-fx-background-color:WHITE");
 
                 }
-
             }
             rowIterator.next();
         }
