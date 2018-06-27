@@ -90,7 +90,7 @@ public class UsersList {
                         public void run() {
                             try {
                                 while(user.isActive()){
-                                    Thread.sleep(900000);
+                                    Thread.sleep(60000);
                                     try{
                                         user.getUserState().notifyObservers();
                                     }catch(RemoteException e){

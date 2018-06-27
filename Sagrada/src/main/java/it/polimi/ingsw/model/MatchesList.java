@@ -7,11 +7,6 @@ import java.util.*;
 
 
 //design pattern singleton
-
-//(pon 6/5/18) : ho modificato questa classe per garantire un acesso thread safe
-//ho banalmente dichiarato tutti i metodi come synchronized
-// non so se questo va bene: forse bisognerebbe inserire un lock o usare una collection.synchronized
-//bisognerebbe testare e verificare
 public class MatchesList {
     private static MatchesList instance;
     private List<Match> matches;
@@ -22,7 +17,7 @@ public class MatchesList {
     }
 
     //singleton design pattern
-    public static synchronized MatchesList singleton() {
+    public static  MatchesList singleton() {
         if (instance == null)
             instance = new MatchesList();
         return instance;
@@ -31,23 +26,25 @@ public class MatchesList {
 
 
     //createMatch a game and add to the existant list
-    public synchronized void createMatch(Player player, String game_name) throws HomonymyException {
-        for (Match previousMatch : this.matches){
-            if (previousMatch.getName().equals(game_name) ) {
-                throw new HomonymyException();
-            }
-        }
+    public void createMatch(Player player, String game_name) throws HomonymyException {
         Timer timer  = new Timer(false);
         final Match match = new Match(player, game_name);
-        this.matches.add(match);
+        synchronized (this){
+            for (Match previousMatch : this.matches){
+                if (previousMatch.getName().equals(game_name) ) {
+                    throw new HomonymyException();
+                }
+            }
+
+            this.matches.add(match);
+        }
         //ogni match è un thread
-        final Thread thread = new Thread(match);
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 try {
 
-                    Thread.sleep(900000);
+                    Thread.sleep(120000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -61,7 +58,6 @@ public class MatchesList {
                         for(Player player: match.getallPlayers()){
                             player.setPlayerState(State.ERRORSTATE);
                         }
-                        thread.interrupt();
                     }
                 }
             }
@@ -71,7 +67,6 @@ public class MatchesList {
     }
 
     public synchronized void  join(Player player, String game_name) throws GameNotExistantException {
-        System.out.println(game_name);
         Match match = this.getMatch(game_name);
         player.setMatch(match);
         match.join(player);

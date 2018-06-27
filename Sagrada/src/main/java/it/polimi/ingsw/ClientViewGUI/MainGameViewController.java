@@ -2,7 +2,7 @@ package it.polimi.ingsw.ClientViewGUI;
 
 import it.polimi.ingsw.ClientView.Client;
 import it.polimi.ingsw.ClientView.Observer;
-import it.polimi.ingsw.model.PlayerPackage.Player;
+import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.RoundTrack;
 import it.polimi.ingsw.model.SchemeDeck.ColumnIterator;
 import it.polimi.ingsw.model.SchemeDeck.RowIterator;
@@ -866,7 +866,7 @@ public class MainGameViewController extends AbstractController implements Initia
 
     public void leaveTheMatch (javafx.event.ActionEvent actionEvent){
         try {
-            ObserverGUI.Singleton().getServerController().leavethematch(ObserverGUI.Singleton().getUsername());
+            ObserverGUI.Singleton().getServerController().leavethematch(ObserverGUI.Singleton().getUsername(), ObserverGUI.Singleton());
         } catch (RemoteException e) {
             ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
         }

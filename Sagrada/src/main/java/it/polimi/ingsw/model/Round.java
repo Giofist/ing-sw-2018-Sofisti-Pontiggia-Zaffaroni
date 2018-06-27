@@ -32,8 +32,8 @@ public class Round {
                 @Override
                 public void run() {
                     try {
-                        //assuming it takes 20 secs to complete the task
-                        Thread.sleep(1200000);
+
+                        Thread.sleep(120000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -61,7 +61,7 @@ public class Round {
                 public void run() {
                     try {
                         //quanto vogliamo farlo durare un turno? 5 minuti?
-                        Thread.sleep(1200000);
+                        Thread.sleep(120000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -80,7 +80,6 @@ public class Round {
 
         // Ripristino l'ordine della lista di partenza
         Collections.reverse(this.players);
-
         //termino il round aggiornando il tracciato round prendendo i dadi dalla riserva
         try{
             this.getMatch().getGametable().endRound(this.num_round);
@@ -89,8 +88,6 @@ public class Round {
             // per esempio la -1, o la 11
         }
     }
-
-
 
     //metodi getter e setter
     public Match getMatch() {

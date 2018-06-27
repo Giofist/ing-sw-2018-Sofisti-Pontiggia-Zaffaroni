@@ -1,13 +1,14 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.Exceptions.CardIdNotAllowedException;
 import it.polimi.ingsw.model.Exceptions.MapConstrainReadingException;
 import it.polimi.ingsw.model.Exceptions.PrivateGoalCardException;
+import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+import java.rmi.RemoteException;
+import java.util.*;
 import java.util.concurrent.CountDownLatch;
 
 //manca solo il timer
@@ -30,16 +31,15 @@ public class Match implements Runnable,Serializable{
     }
 
     @Override
-    public synchronized void run(){
-        while (!isreadyTostart){
-            try {
-                for (Player player: this.players){
-                    player.setPlayerState(State.MATCHNOTSTARTEDYETSTATE);
-                    System.out.println(player.getName()+ " il match non èancora inziato");
+    public void run(){
+        synchronized (this){
+            while (!isreadyTostart){
+                try {
+                    this.players.getLast().setPlayerState(State.MATCHNOTSTARTEDYETSTATE);
+                    wait();
+                }catch(InterruptedException e) {
+                    return;
                 }
-                wait();
-            }catch(InterruptedException e) {
-                //do nothing
             }
         }
 
@@ -55,7 +55,6 @@ public class Match implements Runnable,Serializable{
                         player.setPrivateGoalCard(getGametable().getPrivateGoalCard());
                         player.addExtractedSchemeCard(getGametable().getSchemeCard());
                         player.addExtractedSchemeCard(getGametable().getSchemeCard());
-                        System.out.println(player.getName()+ " deve settare la carta schema");
                         player.setPlayerState(State.MUSTSETSCHEMECARD);
                         success = true;
                     } catch (MapConstrainReadingException e) {
@@ -70,6 +69,37 @@ public class Match implements Runnable,Serializable{
         }
 
         doneSignal = new CountDownLatch(this.getNumberOfPlayers());
+        Timer timer = new Timer(false);
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(90000);
+                    if(doneSignal.getCount()==0){
+                        return;
+                    }
+                    else for (Player player: players){
+                        try{
+                            player.getScheme();
+                        }catch (SchemeCardNotExistantException e){
+                            try{
+                                player.setScheme(player.getExtractedSchemeCards().get(0).getID());
+                            }catch(CardIdNotAllowedException er){
+                                //do nothing, impossibile to get here
+                            }
+                        }
+                    }
+                    while(doneSignal.getCount() !=0){
+                        doneSignal.countDown();
+                    }
+                    return;
+                }
+                catch (InterruptedException e) {
+                    e.printStackTrace();
+                    return;
+                }
+            }
+        },0);
         try {
             doneSignal.await();
         }catch(InterruptedException e) {

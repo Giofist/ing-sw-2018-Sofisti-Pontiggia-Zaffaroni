@@ -253,7 +253,7 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
         State state =  o.getState();
         switch (state){
             case ERRORSTATE: {
-                this.thread = new Thread(new ErrorStateView(serverController, yourName));
+                this.thread = new Thread(new ErrorStateView(serverController, yourName, this));
                 break;
             }
             case HASSETADICESTATE: {

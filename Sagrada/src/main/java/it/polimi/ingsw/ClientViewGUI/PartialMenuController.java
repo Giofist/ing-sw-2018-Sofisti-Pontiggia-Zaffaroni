@@ -93,7 +93,7 @@ public class PartialMenuController extends AbstractController{
 
     public void ExitGame(javafx.event.ActionEvent actionEvent) {
         try {
-            ObserverGUI.Singleton().getServerController().logout(ObserverGUI.Singleton().getUsername());
+            ObserverGUI.Singleton().getServerController().logout(ObserverGUI.Singleton().getUsername(), ObserverGUI.Singleton());
         } catch (RemoteException e) {
             e.printStackTrace(); //lascio così
         }

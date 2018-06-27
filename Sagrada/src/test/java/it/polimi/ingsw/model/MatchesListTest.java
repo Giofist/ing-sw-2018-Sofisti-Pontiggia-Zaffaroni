@@ -2,7 +2,6 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.Exceptions.GameNotExistantException;
 import it.polimi.ingsw.model.Exceptions.HomonymyException;
-import it.polimi.ingsw.model.PlayerPackage.Player;
 import org.junit.Before;
 import org.junit.Test;
 
