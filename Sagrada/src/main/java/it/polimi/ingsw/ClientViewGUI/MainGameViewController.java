@@ -2,6 +2,7 @@ package it.polimi.ingsw.ClientViewGUI;
 
 import it.polimi.ingsw.ClientView.Client;
 import it.polimi.ingsw.ClientView.Observer;
+import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.RoundTrack;
 import it.polimi.ingsw.model.SchemeDeck.ColumnIterator;
@@ -52,6 +53,7 @@ public class MainGameViewController extends AbstractController implements Initia
     private int ToolCard2 = 4 ;
     private int ToolCard3 = 4;
     private String promptAction = "";
+    int numOfPlayer = 0 ;
 
     public MainGameViewController(){
         ObserverGUI.Singleton().setController(this);
@@ -510,11 +512,6 @@ public class MainGameViewController extends AbstractController implements Initia
     private char[] SelectedCardId = new char[11];
 
     @FXML
-    void handleDragDetection(MouseEvent event) {
-
-    }
-
-    @FXML
     void handleImageDragOver(DragEvent event) {
         if (event.getDragboard().hasImage()) {
             event.acceptTransferModes(TransferMode.ANY);
@@ -571,6 +568,12 @@ public class MainGameViewController extends AbstractController implements Initia
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Image image = null;
+
+        try {
+            numOfPlayer = ObserverGUI.Singleton().getServerController().getPlayersinmymatch(ObserverGUI.Singleton().getUsername()).size();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
 
         try {
             privateGoalcardPath = "PrivateGoalCards/" + ObserverGUI.Singleton().getServerController().getPrivateGoalCard(ObserverGUI.Singleton().getUsername()).get(0).getID() + ".jpg";
@@ -668,15 +671,7 @@ public class MainGameViewController extends AbstractController implements Initia
     }
 
     public void setOtherPlayerMap() {
-        int numOfPlayer = 0 ;
         Player pl;
-
-        try {
-            numOfPlayer = ObserverGUI.Singleton().getServerController().getPlayersinmymatch(ObserverGUI.Singleton().getUsername()).size();
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-
         switch (numOfPlayer) {
             case 3:
                 try {
@@ -725,6 +720,95 @@ public class MainGameViewController extends AbstractController implements Initia
         }
     }
 
+    public void updateOtherPlayesMap(){
+        switch (numOfPlayer) {
+            case 3:
+                try {
+                    updateDiceInMap(ObserverGUI.Singleton().getServerController().getSchemeCardsoftheotherPlayers(ObserverGUI.Singleton().getUsername()).get(0), mapPlayer1);
+                    updateDiceInMap(ObserverGUI.Singleton().getServerController().getSchemeCardsoftheotherPlayers(ObserverGUI.Singleton().getUsername()).get(1), mapPlayer2);
+                    updateDiceInMap(ObserverGUI.Singleton().getServerController().getSchemeCardsoftheotherPlayers(ObserverGUI.Singleton().getUsername()).get(2), mapPlayer3);
+                } catch (DiceNotExistantException e) {
+                    ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
+                } catch (RemoteException e) {
+                    ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
+                }
+                break;
+            case 2:
+                try {
+                    updateDiceInMap(ObserverGUI.Singleton().getServerController().getSchemeCardsoftheotherPlayers(ObserverGUI.Singleton().getUsername()).get(0), mapPlayer1);
+                    updateDiceInMap(ObserverGUI.Singleton().getServerController().getSchemeCardsoftheotherPlayers(ObserverGUI.Singleton().getUsername()).get(1), mapPlayer2);
+                } catch (RemoteException e) {
+                    ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
+                } catch (DiceNotExistantException e) {
+                    ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
+                }
+                break;
+            case 1:
+                try {
+                    updateDiceInMap(ObserverGUI.Singleton().getServerController().getSchemeCardsoftheotherPlayers(ObserverGUI.Singleton().getUsername()).get(0), mapPlayer1);
+                } catch (RemoteException e) {
+                    ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
+                } catch (DiceNotExistantException e) {
+                    ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void updateDiceInMap(SchemeCard schemeCard, GridPane gridMap) throws DiceNotExistantException {
+        Pane cell = new Pane();
+        Image pic;
+
+        RowIterator rowIterator =  schemeCard.rowIterator(0);
+        while(rowIterator.hasNext()){
+            ColumnIterator columnIterator = schemeCard.columnIterator(rowIterator.getCurrentRow());
+            while(columnIterator.hasNext()){
+                Tile tile = columnIterator.next();
+                if (tile.isOccupied()){
+                    cell = (Pane) gridMap.getChildren().get(rowIterator.getCurrentRow() * schemeCard.getMaxColumn() + columnIterator.getCurrentColumn() - 1) ;
+                   cell.getChildren().add(new ImageView(new Image("Dices/EmptySpace.jpg")));
+                  /*
+                    switch (tile.getDice().getColor()){
+                        case YELLOW: {
+                            cell = (Pane) gridMap.getChildren().get(rowIterator.getCurrentRow() * schemeCard.getMaxColumn() + columnIterator.getCurrentColumn() - 1);
+                            pic = new Image("Dices/Y" + tile.getDice().getIntensity() + ".jpg");
+                            ((ImageView) cell.getChildren().get(0)).setImage(pic);
+                            break;
+                        }
+                        case BLUE: {
+                            cell = (Pane) gridMap.getChildren().get(rowIterator.getCurrentRow() * schemeCard.getMaxColumn() + columnIterator.getCurrentColumn() - 1);
+                            pic = new Image("Dices/B" + tile.getDice().getIntensity() + ".jpg");
+                            ((ImageView) cell.getChildren().get(0)).setImage(pic);
+                            break;
+                        }
+                        case RED: {
+                            cell = (Pane) gridMap.getChildren().get(rowIterator.getCurrentRow() * schemeCard.getMaxColumn() + columnIterator.getCurrentColumn() - 1);
+                            pic = new Image("Dices/R" + tile.getDice().getIntensity() + ".jpg");
+                            ((ImageView) cell.getChildren().get(0)).setImage(pic);
+                            break;
+                        }
+                        case VIOLET: {
+                            cell = (Pane) gridMap.getChildren().get(rowIterator.getCurrentRow() * schemeCard.getMaxColumn() + columnIterator.getCurrentColumn() - 1);
+                            pic = new Image("Dices/V" + tile.getDice().getIntensity() + ".jpg");
+                            ((ImageView) cell.getChildren().get(0)).setImage(pic);
+                            break;
+                        }
+                        case GREEN: {
+                            cell = (Pane) gridMap.getChildren().get(rowIterator.getCurrentRow() * schemeCard.getMaxColumn() + columnIterator.getCurrentColumn() - 1);
+                            pic = new Image("Dices/G" + tile.getDice().getIntensity() + ".jpg");
+                            ((ImageView) cell.getChildren().get(0)).setImage(pic);
+                            break;
+                        }
+                    }
+                    */
+                }
+            }
+            rowIterator.next();
+        }
+    }  //todo ottenere il riferimento all'ImageView per ora non corretto
+
     public void updateDicePool() {
         int i = 0;
         char[] charDice;
@@ -739,7 +823,7 @@ public class MainGameViewController extends AbstractController implements Initia
         try {
             dices = ObserverGUI.Singleton().getServerController().getRoundDicepool(ObserverGUI.Singleton().getUsername()).split("-");
         } catch (RemoteException e) {
-            ErrorMessage.setText(Client.translator.translateException(e.getMessage()));
+            ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
         }
         //Image emptyPic = new Image("Dices/EmptySpace.jpg");  //TODO migliorabile!!!
         RoundDice0.setImage(null);
@@ -807,7 +891,7 @@ public class MainGameViewController extends AbstractController implements Initia
         }
     }
 
-    public void updateRoundTrack(){  //todo To be tested
+    public void updateRoundTrack(){
         String track;
         int round = 0;
         int row = 0;
@@ -832,7 +916,7 @@ public class MainGameViewController extends AbstractController implements Initia
             }
             round++;
         }
-    }  //TODO testare potrebbe avere qualche problema
+    }
 
     public void setUpMap(SchemeCard schemeCard, GridPane gridMap, Text mapName, Circle diff1, Circle diff2, Circle diff3, Circle diff4, Circle diff5, Circle diff6) {
         char[] charTile;
@@ -986,6 +1070,7 @@ public class MainGameViewController extends AbstractController implements Initia
                     updateRoundTrack();
                     updateDicePool();
                     updatePossiibleActions();
+                    updateOtherPlayesMap();
                 }
             });
 
