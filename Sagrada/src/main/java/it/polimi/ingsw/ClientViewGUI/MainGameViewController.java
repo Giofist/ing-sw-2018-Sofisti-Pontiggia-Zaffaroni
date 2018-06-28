@@ -43,6 +43,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.*;
+import java.util.List;
 
 public class MainGameViewController extends AbstractController implements Initializable {
     ImageView origin = null;
@@ -601,7 +602,8 @@ public class MainGameViewController extends AbstractController implements Initia
         }
         PublicGoalCard3.setImage(image);
 
-       /* try {
+
+       try {
             this.ToolCard1 = ObserverGUI.Singleton().getServerController().getToolCards(ObserverGUI.Singleton().getUsername()).get(0).getID();  //TODO guradare sta cosa perchè non è giusta !!!!
             image = new Image("ToolCards/" + ToolCard1 + ".jpg");
         } catch (RemoteException e) {
@@ -624,7 +626,7 @@ public class MainGameViewController extends AbstractController implements Initia
             e.printStackTrace();
         }
         ToolCardImage3.setImage(image);
-*/
+
         try {
             setUpMap(ObserverGUI.Singleton().getServerController().getSchemeCard(ObserverGUI.Singleton().getUsername()).get(0),yourMap, yourMapName, Diff1, Diff2, Diff3, Diff4, Diff5, Diff6);
         } catch (RemoteException e) {

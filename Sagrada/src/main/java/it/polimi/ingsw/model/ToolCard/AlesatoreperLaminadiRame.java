@@ -16,7 +16,6 @@ public class AlesatoreperLaminadiRame  extends ToolAction implements Serializabl
     public AlesatoreperLaminadiRame(){
         this.cost =1;
         this.ID = 3;
-
     }
     private Dice removedDice;
 

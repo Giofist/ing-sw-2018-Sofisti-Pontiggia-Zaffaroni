@@ -3,7 +3,9 @@ package it.polimi.ingsw.model.ToolCard;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.Player;
 
-public abstract  class ToolAction {
+import java.io.Serializable;
+
+public abstract  class ToolAction implements Serializable {
     protected int cost;
     protected int ID;
 
