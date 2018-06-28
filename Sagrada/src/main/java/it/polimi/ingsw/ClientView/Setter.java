@@ -390,7 +390,7 @@ public class Setter {
                 data.setNumberofDicesyouwanttomove(numOfDicesToMove);
                 while(!condition) {
                     if (numOfDicesToMove == 1) {
-                        System.out.println("Seleziona il primo dado da spostare. Indica la riga:");
+                        System.out.println("Seleziona il dado da spostare. Indica la riga:");
                         data.setOldRow1(in.nextInt());
                         System.out.println("Indica la colonna:");
                         data.setOldColumn1(in.nextInt());
@@ -407,7 +407,7 @@ public class Setter {
                         data.setNewRow1(in.nextInt());
                         System.out.println("Seleziona nuova colonna:");
                         data.setNewColumn1(in.nextInt());
-                        System.out.println("Seleziona il primo dado da spostare. Indica la riga:");
+                        System.out.println("Seleziona il secondo dado da spostare. Indica la riga:");
                         data.setOldRow1(in.nextInt());
                         System.out.println("Indica la colonna:");
                         data.setOldColumn1(in.nextInt());
