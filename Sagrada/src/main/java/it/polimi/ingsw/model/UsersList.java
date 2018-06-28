@@ -190,4 +190,7 @@ public class UsersList {
 
     // Useful for testing
     synchronized protected int getUsersListSize() { return this.users.size(); }
+    synchronized protected void clearUserList() {
+        this.users.clear();
+    }
 }

@@ -1,9 +1,11 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.ClientView.Observer;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -11,12 +13,20 @@ public class UserTest {
 
     private User user;
     private Player mockPlayer;
+    private Observer mockObserver;
+    private Observable mockPlayerState;
 
     @Before
     public void before() {
         user = new User("Xenomit", "ciao!");
+
         mockPlayer = mock(Player.class);
+        mockObserver = mock(Observer.class);
+        mockPlayerState = mock(Observable.class);
+
         when(mockPlayer.toString()).thenReturn("Xenomit");
+        when(mockPlayer.getPlayerState()).thenReturn(mockPlayerState);
+        doNothing().when(mockPlayerState).removeObserver(mockObserver);
     }
 
     // At the moment of creation the user won't be active
@@ -60,7 +70,7 @@ public class UserTest {
         assertNull(user.getPlayer());
         user.setPlayer(mockPlayer);
         assertEquals("Xenomit", user.getPlayer().toString());
-        //user.removePlayer();
+        user.removePlayer(mockObserver);
         assertNull(user.getPlayer());
     }
 

@@ -15,82 +15,80 @@ import static org.mockito.Mockito.mock;
 
 public class UsersListTest {
 
-    private UsersList usersList;
     private Observer mockObserver;
 
     @Before
-    public void before() throws FileNotFoundException {
-        PrintWriter writer = new PrintWriter("src/main/resources/UsersList.txt");
-        writer.close();
-
-        usersList = UsersList.Singleton();
+    public void before() throws IOException {
         mockObserver = mock(Observer.class);
     }
 
-    @Test
-    public void singletonTest() {
-        UsersList secondReference = UsersList.Singleton();
-        assertTrue(usersList == secondReference);
-    }
 
     @Test
     public void registerTest() throws UserNotExistentException, HomonymyException {
-        assertEquals(0, usersList.getUsersListSize());
-        usersList.register("Utente", "pass");
+        UsersList.Singleton().clearUserList();
+        assertEquals(0, UsersList.Singleton().getUsersListSize());
+        UsersList.Singleton().register("Utente", "pass");
 
-        assertEquals(1, usersList.getUsersListSize());
-        assertEquals("Utente", usersList.findUser("Utente").getName());
+        assertEquals(1, UsersList.Singleton().getUsersListSize());
+        assertEquals("Utente", UsersList.Singleton().findUser("Utente").getName());
         assertEquals("d74ff0ee8da3b9806b18c877dbf29bbde50b5bd8e4dad7a3a725000feb82e8f1",
-                                    usersList.findUser("Utente").getPassword());
+                UsersList.Singleton().findUser("Utente").getPassword());
     }
 
 
 
     @Test
     public void getUserTest() throws UserNotExistentException, HomonymyException {
-        usersList.register("Utente", "pass");
-        User user = usersList.findUser("Utente");
+        UsersList.Singleton().clearUserList();
+        UsersList.Singleton().register("Utente", "pass");
+        User user = UsersList.Singleton().findUser("Utente");
         assertEquals("d74ff0ee8da3b9806b18c877dbf29bbde50b5bd8e4dad7a3a725000feb82e8f1", user.getPassword());
 
     }
 
     @Test (expected = UserNotExistentException.class)
     public void getUserExceptionTest() throws UserNotExistentException, HomonymyException {
-        usersList.register("Utente", "pass");
-        User user = usersList.findUser("Utente2");
+        UsersList.Singleton().clearUserList();
+        UsersList.Singleton().register("Utente", "pass");
+        User user = UsersList.Singleton().findUser("Utente2");
     }
 
     @Test
     public void logoutTest() throws UserNotExistentException, HomonymyException {
-        usersList.register("Utente", "pass");
+        UsersList.Singleton().clearUserList();
+        UsersList.Singleton().register("Utente", "pass");
         //usersList.logOut("Utente");
 
-        assertFalse(usersList.findUser("Utente").isActive());
+        assertFalse(UsersList.Singleton().findUser("Utente").isActive());
     }
 
     @Test
     public void checkTest() throws LoginException, IsAlreadyActiveException, HomonymyException {
-        usersList.register("Utente", "pass");
-        usersList.check("Utente", "pass", mockObserver);
+        UsersList.Singleton().clearUserList();
+        UsersList.Singleton().register("Utente", "pass");
+        UsersList.Singleton().check("Utente", "pass", mockObserver);
     }
 
     @Test (expected = LoginException.class)
     public void checkLoginWrongUsernameExceptionTest() throws LoginException, IsAlreadyActiveException, HomonymyException {
-        usersList.register("Utente", "pass");
-        usersList.check("Utentedsad", "pass", mockObserver);
+        UsersList.Singleton().clearUserList();
+        UsersList.Singleton().register("Utente", "pass");
+        UsersList.Singleton().check("Utentedsad", "pass", mockObserver);
     }
 
     @Test (expected = LoginException.class)
     public void checkLoginWrongPasswordExceptionTest() throws LoginException, IsAlreadyActiveException, HomonymyException {
-        usersList.register("Utente", "pass");
-        usersList.check("Utente", "pass1", mockObserver);
+        UsersList.Singleton().clearUserList();
+        UsersList.Singleton().register("Utente", "pass");
+        UsersList.Singleton().check("Utente", "pass1", mockObserver);
     }
 
     @Test (expected = IsAlreadyActiveException.class)
     public void checkIsAlreadyActiveExceptionTest() throws LoginException, IsAlreadyActiveException, UserNotExistentException, HomonymyException {
-        usersList.register("Utente", "pass");
-        usersList.findUser("Utente").setActive(true);
-        usersList.check("Utente", "pass", mockObserver);
+        UsersList.Singleton().clearUserList();
+        UsersList.Singleton().register("Utente", "pass");
+        UsersList.Singleton().findUser("Utente").setActive(true);
+        UsersList.Singleton().check("Utente", "pass", mockObserver);
     }
 
 }

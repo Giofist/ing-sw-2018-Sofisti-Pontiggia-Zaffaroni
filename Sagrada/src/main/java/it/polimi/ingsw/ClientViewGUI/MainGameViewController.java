@@ -620,7 +620,7 @@ public class MainGameViewController extends AbstractController implements Initia
         ToolCardImage2.setImage(image);
 
         try {
-            this.ToolCard3 = ObserverGUI.Singleton().getServerController().getToolCards(ObserverGUI.Singleton().getUsername()).get(1).getID();
+            this.ToolCard3 = ObserverGUI.Singleton().getServerController().getToolCards(ObserverGUI.Singleton().getUsername()).get(2).getID();
             image = new Image("ToolCards/" + ToolCard3 + ".jpg");
         } catch (RemoteException e) {
             e.printStackTrace();

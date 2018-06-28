@@ -59,16 +59,20 @@ public class ToolCardsDeckTest {
 
 
     @Test
-    public void doActionTest() throws WrongToolCardIDException, ToolIllegalOperationException, NotEnoughSegnaliniException {
+    public void doActionTest() throws WrongToolCardIDException, NotEnoughSegnaliniException {
         List toolCards  = toolCardsDeck.getcards();
         ToolAction toolAction = (ToolAction) toolCards.get(0);
         int toolId = toolAction.getID();
 
         toolRequestClass.setSelectedDiceIndex(1000);
+        toolRequestClass.setOldRow1(1000);
+        toolRequestClass.setSelectedRoundTrackDiceIndex(0);
 
         try {
             toolCardsDeck.doAction(toolId, mockPlayer, toolRequestClass);
         } catch (ToolIllegalOperationException e) {
+            return;
+        } catch (NullPointerException e) {
             return;
         }
 
