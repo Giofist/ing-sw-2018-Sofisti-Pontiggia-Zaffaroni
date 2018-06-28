@@ -745,7 +745,7 @@ public class MainGameViewController extends AbstractController implements Initia
                 break;
             case 1:
                 try {
-                    updateDiceInMap(ObserverGUI.Singleton().getServerController().getSchemeCardsoftheotherPlayers(ObserverGUI.Singleton().getUsername()).get(0), mapPlayer1);
+                    updateDiceInMap(ObserverGUI.Singleton().getServerController().getSchemeCardsoftheotherPlayers(ObserverGUI.Singleton().getUsername()).get(0), mapPlayer2);
                 } catch (RemoteException e) {
                     ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
                 } catch (DiceNotExistantException e) {
@@ -767,9 +767,6 @@ public class MainGameViewController extends AbstractController implements Initia
             while(columnIterator.hasNext()){
                 Tile tile = columnIterator.next();
                 if (tile.isOccupied()){
-                    cell = (Pane) gridMap.getChildren().get(rowIterator.getCurrentRow() * schemeCard.getMaxColumn() + columnIterator.getCurrentColumn() - 1) ;
-                   cell.getChildren().add(new ImageView(new Image("Dices/EmptySpace.jpg")));
-                  /*
                     switch (tile.getDice().getColor()){
                         case YELLOW: {
                             cell = (Pane) gridMap.getChildren().get(rowIterator.getCurrentRow() * schemeCard.getMaxColumn() + columnIterator.getCurrentColumn() - 1);
@@ -802,7 +799,7 @@ public class MainGameViewController extends AbstractController implements Initia
                             break;
                         }
                     }
-                    */
+
                 }
             }
             rowIterator.next();
