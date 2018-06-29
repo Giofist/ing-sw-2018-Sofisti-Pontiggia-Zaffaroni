@@ -19,6 +19,9 @@ public class RoundTrack {
     private DicePool round9Dices;
     private DicePool round10Dices;
 
+    /**
+     * Creates an empty round track
+     */
     public RoundTrack(){
         round1Dices = new DicePool();
         round2Dices = new DicePool();
@@ -31,6 +34,13 @@ public class RoundTrack {
         round9Dices = new DicePool();
         round10Dices = new DicePool();
     }
+
+
+    /**
+     * @param round The round number from where I want to get the dices
+     * @return A DicePool containing all the dices of the round track from the specified tile
+     * @throws RoundTrackException Exception thrown if there is an error in accessing the tiles on the round track
+     */
     public DicePool getroundTrackDices (int round) throws RoundTrackException {
         switch (round) {
             case 1: return  this.round1Dices;
@@ -47,6 +57,13 @@ public class RoundTrack {
         }
     }
 
+
+    /**
+     * This method places a list of dices on a specific tile of the round track
+     * @param round The round where I want to place my dices
+     * @param dices A list containing all the dices I want to place
+     * @throws RoundTrackException Exception thrown if there is an error in accessing the tiles on the round track
+     */
     public void setRoundTrackDices(int round, List dices) throws RoundTrackException{
         switch (round){
             case 1: this.round1Dices.addallDices(dices); break;
@@ -63,6 +80,11 @@ public class RoundTrack {
         }
     }
 
+    /**
+     * This method returns a list with all the colors of the dices placed of the round track
+     * @return List with all the colors
+     * @throws RoundTrackException Exception thrown if there is an error in accessing the tiles on the round track
+     */
     public List<DiceColor> allColors() throws RoundTrackException {
         List list = new LinkedList<DiceColor>();
         for (int i=1; i<11; i++){
@@ -75,6 +97,7 @@ public class RoundTrack {
         }
         return list;
     }
+
 
     @Override
     public String toString() {

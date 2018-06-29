@@ -11,7 +11,11 @@ public class Round {
     private Match match;
 
 
-    //constructor
+    /**
+     * @param num_round The number of round at which the game is
+     * @param players List of all the players that are playing
+     * @param match The match to which the round belongs
+     */
     public Round ( int num_round, LinkedList<Player> players, Match match){
         this.match = match;
         this.num_round = num_round;
@@ -19,11 +23,14 @@ public class Round {
     }
 
 
+    /**
+     * This is the main method which controls the whole round
+     */
     public synchronized void run() {
-        //questo metodo prepara il round con i dadi della Riserva ecc...
+        // This method prepares the round by extracting the new dices in the round dicepool
         this.getMatch().getGametable().setupRound();
 
-        // Primo giro
+        // First turn in a round
         for (Player player: this.players) {
             Turn turn = new Turn(player, this,1);
             final Thread thread = new Thread(turn);
@@ -50,7 +57,7 @@ public class Round {
             }
         }
 
-        // Secondo giro
+        // Second turn in a round
         Collections.reverse(this.players);
         for (Player player: this.players){
             Turn turn = new Turn(player, this,2);
@@ -60,7 +67,7 @@ public class Round {
                 @Override
                 public void run() {
                     try {
-                        //quanto vogliamo farlo durare un turno? 5 minuti?
+                        // Here we can set how many minutes we want to make the round last
                         Thread.sleep(120000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -78,24 +85,39 @@ public class Round {
             }
         }
 
-        // Ripristino l'ordine della lista di partenza
+        // Here we reorder the list of the players as it was the beginning of the round
         Collections.reverse(this.players);
-        //termino il round aggiornando il tracciato round prendendo i dadi dalla riserva
+        // The round can terminate, all the dices from the RoundDicePool will be moved on the RoundTrack
         try{
             this.getMatch().getGametable().endRound(this.num_round);
         }catch (RoundTrackException e){
-            //nel caso in cui voglia aggiornare una casella del tracciato round che non esiste
-            // per esempio la -1, o la 11
+            // Situation in which we try to edit a round which is not on the RoundTrack
         }
     }
 
-    //metodi getter e setter
+
+    // Getters and setters methods
+
+
+    /**
+     * @return The match to which the round belongs
+     */
     public Match getMatch() {
         return match;
     }
+
+
+    /**
+     * @return The number of round at which the match is
+     */
     public int getNum_round() {
         return num_round;
     }
+
+
+    /**
+     * @return A list of all the players in the round
+     */
     public LinkedList<Player> getPlayers() {
         return players;
     }

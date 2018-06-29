@@ -21,8 +21,8 @@ public class PrivateGoalCardDeck {
         }
 
         Collections.shuffle(cards);
-
     }
+
     public GoalCard getCard() throws PrivateGoalCardException{
         int CardID = this.getRandomID();
         switch (CardID) {
