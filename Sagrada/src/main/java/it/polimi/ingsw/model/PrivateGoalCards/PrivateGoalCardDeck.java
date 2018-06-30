@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.Exceptions.PrivateGoalCardException;
 import it.polimi.ingsw.model.GoalCard;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 //command pattern just like schemecarddeck
@@ -13,18 +14,24 @@ public class PrivateGoalCardDeck {
     private ArrayList<Integer> cards;
 
 
-    //constructor
+    /**
+     * The constructor creates a private goal cards deck with 5 private goal cards
+     */
     public PrivateGoalCardDeck() {
-        this.cards = new ArrayList<>();
-        for(int i=1; i<6;i++){
-            this.cards.add(i);
-        }
+        this.cards = new ArrayList<Integer>(Arrays.asList( 1, 2, 3, 4, 5 ));
 
         Collections.shuffle(cards);
     }
 
+
+    /**
+     * @return A random Sfumature private goal card
+     * @throws PrivateGoalCardException
+     */
     public GoalCard getCard() throws PrivateGoalCardException{
-        int CardID = this.getRandomID();
+        // Getting the first card is like getting a random one because the deck is shuffled
+        int CardID = this.cards.remove(0);
+
         switch (CardID) {
             case 1: return new Sfumature(1,DiceColor.RED);
             case 2: return new Sfumature(2, DiceColor.YELLOW);
@@ -33,11 +40,6 @@ public class PrivateGoalCardDeck {
             case 5: return new Sfumature(5,DiceColor.VIOLET);
             default: throw new PrivateGoalCardException();
         }
-    }
-    public int getRandomID(){
-        int value = this.cards.get(0);
-        this.cards.remove(0);
-        return value;
     }
 
 }

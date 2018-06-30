@@ -19,6 +19,9 @@ public class ColoriDiversiRiga implements GoalCard,Serializable {
     static int ID = 1;
 
 
+    /**
+     * @param player A player for whom we want to calculate the points scored in this goal
+     */
     @Override
     public void  calculatepoint(Player player) {
 
@@ -55,6 +58,9 @@ public class ColoriDiversiRiga implements GoalCard,Serializable {
     }
 
 
+    /**
+     * @return The id of the public goal card
+     */
     @Override
     public int getID() {
         return ID;

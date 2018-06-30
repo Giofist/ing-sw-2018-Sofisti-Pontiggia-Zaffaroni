@@ -8,11 +8,13 @@ import it.polimi.ingsw.model.SchemeDeck.Tile;
 import java.io.Serializable;
 import java.util.Arrays;
 
-//revisionata by pon
-//obiettivo pubblico
+
 public class SfumatureDiverse implements GoalCard,Serializable {
     static int ID = 8;
 
+    /**
+     * @param player A player for whom we want to calculate the points scored in this goal
+     */
     @Override
     public void  calculatepoint(Player player) {
 
@@ -32,7 +34,7 @@ public class SfumatureDiverse implements GoalCard,Serializable {
                         default:
                     }
                 } catch (Exception e) {
-                    //no dice, no point, zorry
+                    //no dice, no point, sorry
                 }
             }
         }catch(SchemeCardNotExistantException e){
@@ -44,6 +46,10 @@ public class SfumatureDiverse implements GoalCard,Serializable {
         player.addPoints(numberof[0]*5);
     }
 
+
+    /**
+     * @return The id of the public goal card
+     */
     @Override
     public int getID() {
         return ID;

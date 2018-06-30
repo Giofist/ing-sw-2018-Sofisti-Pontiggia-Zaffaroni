@@ -13,12 +13,17 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
-//obiettivo pubblico
-//revisionata by pon
+
+/**
+ *
+ */
 public class ColoriDiversiColonna implements GoalCard,Serializable {
     static int ID = 2;
 
 
+    /**
+     * @param player A player for whom we want to calculate the points scored in this goal
+     */
     @Override
     public void  calculatepoint(Player player) {
         try{
@@ -52,6 +57,10 @@ public class ColoriDiversiColonna implements GoalCard,Serializable {
         }
     }
 
+
+    /**
+     * @return The id of the public goal card
+     */
     @Override
     public int getID() {
         return ID;
