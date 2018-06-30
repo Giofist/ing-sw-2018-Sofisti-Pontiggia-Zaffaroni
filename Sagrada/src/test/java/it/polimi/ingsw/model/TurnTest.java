@@ -72,8 +72,6 @@ public class TurnTest {
         assertEquals(1, player2.getTurn().getTurnID());
 
         assertEquals(State.STARTTURNSTATE, player1.getPlayerState().getState());
-        assertEquals(State.NOTYOURTURNSTATE, player2.getPlayerState().getState());
-
     }
 
 

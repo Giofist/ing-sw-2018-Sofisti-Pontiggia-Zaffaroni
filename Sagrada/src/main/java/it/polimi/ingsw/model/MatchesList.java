@@ -16,7 +16,10 @@ public class MatchesList {
         this.matches = new LinkedList<>();
     }
 
-    //singleton design pattern
+
+    /**
+     * @return This method returns a Singleton instance of the matches list present in the server
+     */
     public static  MatchesList singleton() {
         if (instance == null)
             instance = new MatchesList();
@@ -24,8 +27,12 @@ public class MatchesList {
     }
 
 
-
-    //createMatch a game and add to the existant list
+    /**
+     * This method allows to create a new match and adds it to the list
+     * @param player Player creator
+     * @param game_name Name of the match to be created
+     * @throws HomonymyException Exception thrown when the specified name for the match il already in use
+     */
     public void createMatch(Player player, String game_name) throws HomonymyException {
         Timer timer  = new Timer(false);
         final Match match = new Match(player, game_name);
@@ -38,7 +45,7 @@ public class MatchesList {
 
             this.matches.add(match);
         }
-        //ogni match è un thread
+        // Each Match is a separate thread
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -54,7 +61,7 @@ public class MatchesList {
                         match.notifyAll();
                     }
                     else{
-                        //l'unico giocatore deve abbandonare la partita
+                        // The only player must leave the game
                         for(Player player: match.getallPlayers()){
                             player.setPlayerState(State.ERRORSTATE);
                         }
@@ -66,6 +73,13 @@ public class MatchesList {
         return ;
     }
 
+
+    /**
+     * This method allows the user to join a match
+     * @param player Player to be added to the match
+     * @param game_name Game of the match you want to try to join
+     * @throws GameNotExistantException Exception thrown if the specified name of the game is not found
+     */
     public synchronized void  join(Player player, String game_name) throws GameNotExistantException {
         Match match = this.getMatch(game_name);
         player.setMatch(match);
@@ -73,11 +87,17 @@ public class MatchesList {
     }
 
 
-
-    //get the list of the existant matches
+    /**
+     * @return List of matches available in the server
+     */
     public List<Match> getmatches(){
         return this.matches;
     }
+
+
+    /**
+     * @return List of active matches available in the server
+     */
     public List<Match> getActiveMatches(){
         LinkedList<Match> activematches = new LinkedList<>();
         for(Match match: this.matches){
@@ -89,6 +109,11 @@ public class MatchesList {
     }
 
 
+    /**
+     * @param game_name Name of the match to return
+     * @return The specified match if available
+     * @throws GameNotExistantException Exception thrown when the specified name doesn't correspond to a match in the list
+     */
     public Match getMatch(String game_name) throws GameNotExistantException {
         for (Match match : this.matches){
             if(match.getName().equals(game_name)){

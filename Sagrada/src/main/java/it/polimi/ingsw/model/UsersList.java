@@ -19,14 +19,18 @@ public class UsersList {
     private Hashtable<String, User> users;
 
 
-
-    //costruttore privato
+    /**
+     * Private constructor invoked by the singleton method
+     */
     private UsersList(){
         this.users = new Hashtable<String, User>();
     }
 
 
-    //metodo che crea/dà accesso se già creata all'unica istanza
+    /**
+     * Method for the singleton pattern
+     * @return The singleton instance of the UsersList
+     */
     public static  UsersList Singleton() {
         if (instance == null) {
             instance = new UsersList();
@@ -36,10 +40,10 @@ public class UsersList {
     }
 
 
-    // Questo metodo è privato perchè viene invocato dal costruttore e si occupa di caricare la lista dei giocatori
-    // registrati da un file. Se tale file non dovesse esistere la lista users viene inizializzata come vuota.
-    // Il formato .csv del file è una serie di lineeeì come segue:
-    // username, password\n           (notare la virgola che separa user e pass)
+    /**
+     * This private method is used to load the list of registered users from a .csv file when the server is started.
+     * If for any reason we are not able to read the file an empty list will be created.
+     */
     synchronized private void loadUsersList() {
         FileReader fr = null;
         Scanner fileScanner = null;
@@ -72,7 +76,14 @@ public class UsersList {
     }
 
 
-    // ho creato LoginException, ma sicome esiste già una classe loginExcpetion in una libreria standard di java, allora devo scrivere tutto il package
+    /**
+     * This method is used to perform the login
+     * @param name The username we want to login with
+     * @param password The password associated to the account
+     * @param observer The client that wants to become an observer
+     * @throws it.polimi.ingsw.model.Exceptions.LoginException Exception thrown when the login is not successful
+     * @throws IsAlreadyActiveException Exception thrown when the username is already connected to the server
+     */
     synchronized public void check( String name, String password, Observer observer)throws it.polimi.ingsw.model.Exceptions.LoginException, IsAlreadyActiveException {
         String hexHash = produceSHA256(password);
         if(this.users.containsKey(name)){
@@ -115,6 +126,12 @@ public class UsersList {
 
     }
 
+
+    /**
+     * This method is used to perform the logout of the user
+     * @param name Name of the user that want to log out
+     * @param observer The Client observer we want to remove from the list list
+     */
     synchronized public void logOut( String name, Observer observer){
         if(this.users.containsKey(name)){
             User user = this.users.get(name);
@@ -124,7 +141,11 @@ public class UsersList {
     }
 
 
-    //classe che permette di registrarsi
+    /**
+     * @param name The name of the new user we want to register
+     * @param password The password of the new user we want to register
+     * @throws HomonymyException Exception thrown in case there is already a user registered with the specified name
+     */
     synchronized public void register (String name,String password)throws HomonymyException {
         FileWriter fw = null;
         BufferedWriter bw = null;
@@ -155,6 +176,12 @@ public class UsersList {
         return;
     }
 
+
+    /**
+     * Method used to produce the sha256 of a string
+     * @param password The plain text password we want to hash
+     * @return The sha256 of the input password
+     */
     private String produceSHA256(String password) {
         MessageDigest digest;
         byte[] hash;
@@ -175,6 +202,12 @@ public class UsersList {
         return hexHash.toString();
     }
 
+
+    /**
+     * @param name Name of the user we want to try to retrieve
+     * @return The user corresponding to the specified name
+     * @throws UserNotExistentException Exception thrown when the user doesn't exist on the server
+     */
     synchronized public User findUser(String name) throws UserNotExistentException {
         User user = this.users.get(name);
         if(user != null){
@@ -183,6 +216,12 @@ public class UsersList {
         throw new UserNotExistentException();
     }
 
+
+    /**
+     * This method is used for situations where we are sure that the user exists in the server
+     * @param name Name of the user we want to retrieve
+     * @return The user corresponding to the specified name
+     */
     synchronized public User getUser(String name){
         return this.users.get(name);
     }
@@ -190,4 +229,7 @@ public class UsersList {
 
     // Useful for testing
     synchronized protected int getUsersListSize() { return this.users.size(); }
+    synchronized protected void clearUserList() {
+        this.users.clear();
+    }
 }

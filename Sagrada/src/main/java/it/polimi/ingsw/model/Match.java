@@ -21,7 +21,11 @@ public class Match implements Runnable,Serializable{
     public boolean isreadyTostart;
 
 
-    //public constructor
+    /**
+     * Create a new match and adds the creator to the list of players. After the creation the match is not yet ready to start with only one player
+     * @param player The player creator of the game
+     * @param game_name The name which will be displayed in the match list
+     */
     public Match(Player player, String game_name)  {
         this.game_name = game_name;
         this.players = new LinkedList<>();
@@ -30,6 +34,11 @@ public class Match implements Runnable,Serializable{
         this.isreadyTostart = false;
     }
 
+
+    /**
+     * Main method which controls the whole game, from the choice of the SchemeCards to the calculation of the final score
+     * by setting up each round and spawning a new round thread
+     */
     @Override
     public void run(){
         synchronized (this){
@@ -43,15 +52,15 @@ public class Match implements Runnable,Serializable{
             }
         }
 
-        //the match can start
+        // The match can start
         this.setStarted(true);
         try {
             gametable = new Gametable(this.players.size());
             for (Player player : this.players) {
                 boolean success = false;
+
                 while (!success) {
                     try {
-
                         player.setPrivateGoalCard(getGametable().getPrivateGoalCard());
                         player.addExtractedSchemeCard(getGametable().getSchemeCard());
                         player.addExtractedSchemeCard(getGametable().getSchemeCard());
@@ -63,6 +72,7 @@ public class Match implements Runnable,Serializable{
                         // do nothing
                     }
                 }
+
             }
         }catch(IOException e){
             //do something?
@@ -105,10 +115,10 @@ public class Match implements Runnable,Serializable{
         }catch(InterruptedException e) {
             //do nothing
         }
-        //adesso la partita può avere inizio
+        // Now the game can start for N rounds
         for (int i = 1; i<=1; i++){
             new Round(i, this.players, this).run();
-            //ad ogni ciclo for devo cambiare l'ordine di inizio round
+            // At each round I have to change the order of the players
             this.players.addLast(this.players.removeFirst());
         }
 
@@ -121,7 +131,7 @@ public class Match implements Runnable,Serializable{
         }
 
 
-        //notifico ai vari giocatori la fine della partita dopo aver ordinato la lista in base al punteggio di ciascuno
+        // After ordering the players based on their score I notify them about the end of the match
         Collections.sort(this.players);
         for (Player player:this.players) {
             player.setPlayerState(State.ENDMATCHSTATE);
@@ -132,31 +142,69 @@ public class Match implements Runnable,Serializable{
 
 
 
-    //metodi getter e setter
+    // Getters and setters methods
+
+
+    /**
+     * @return The name of the match
+     */
     public String getName() {
         return this.game_name;
     }
+
+
+    /**
+     * @return How many players are in the current match
+     */
     public int getNumberOfPlayers() {
         return this.players.size();
     }
+
+
+    /**
+     * @return The game table associated to the match
+     */
     public Gametable getGametable() {
         return gametable;
     }
+
+
+    /**
+     * @return True if the match is already started
+     */
     public boolean isStarted() {
         return started;
     }
+
+
+    /**
+     * Set the status of the match whether is started or not
+     * @param started Booleane value to which the status will be set
+     */
     public void setStarted(boolean started){
         this.started= started;
     }
+
+
+    /**
+     * This methods allows a player to join the current match
+     * @param player Player who wants to join
+     */
     public synchronized void join(Player player){
         this.players.addLast(player);
+
         if (this.players.size() == 2){
             isreadyTostart = true;
             notifyAll();
         }
-
     }
 
+
+    /**
+     * Method used to know all my opponent in the match
+     * @param player Player to be excluded from the returned list
+     * @return List of Players
+     */
     public List<Player> getallPlayersbutnotme(Player player){
         LinkedList<Player> list = new LinkedList<>();
         list.addAll(this.players);
@@ -164,6 +212,11 @@ public class Match implements Runnable,Serializable{
         return list;
     }
 
+
+    /**
+     * This method returns a list of all the player in the current match
+     * @return List of Players
+     */
     public List<Player> getallPlayers(){
         LinkedList<Player> list = new LinkedList<>();
         list.addAll(this.players);
@@ -171,7 +224,10 @@ public class Match implements Runnable,Serializable{
     }
 
 
-
+    /**
+     * This method allows a player to leave the current match
+     * @param player The Player which wants to leave
+     */
     public void leavethematch(Player player){
         this.players.remove(player);
         if(getNumberOfPlayers()==0){
@@ -179,9 +235,18 @@ public class Match implements Runnable,Serializable{
         }
     }
 
+
+    /**
+     * This method is useful for notifying the game when we chose our tool card and we are ready to start as players
+     */
     public void countDown() {
         this.doneSignal.countDown();
     }
+
+
+    /**
+     * This method terminates the match in case the conditions to go on are not met
+     */
     public void forceendmatch() {
         for(Player player: this.players){
             player.setPlayerState(State.FORCEENDMATCH);
@@ -190,10 +255,7 @@ public class Match implements Runnable,Serializable{
 
 
     // For testing
-    protected boolean getIsReadyToStart(){
-        return isreadyTostart;
-    }
-
+    protected boolean getIsReadyToStart(){ return isreadyTostart;  }
     protected int getDoneSignal() {
         return (int) this.doneSignal.getCount();
     }
