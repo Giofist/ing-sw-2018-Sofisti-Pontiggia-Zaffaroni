@@ -46,7 +46,7 @@ public class MainGameViewController extends AbstractController implements Initia
     private String promptAction = "";
     int numOfPlayer = 0 ;
     boolean selectedDice = false;
-    int selectedDiceIndex = 0;
+    private int selectedDiceInd = 0;
 
     public MainGameViewController(){
         ObserverGUI.Singleton().setController(this);
@@ -928,7 +928,7 @@ public class MainGameViewController extends AbstractController implements Initia
     }
 
     public void selectDice(javafx.scene.input.MouseEvent mouseEvent) {
-        selectedDiceIndex = Integer.parseInt(String.valueOf(((ImageView) mouseEvent.getTarget()).getId().toCharArray()[9]));
+        selectedDiceInd = Integer.parseInt(String.valueOf(((ImageView) mouseEvent.getTarget()).getId().toCharArray()[9]));
         selectedDice = true;
     }
 
@@ -1028,7 +1028,7 @@ public class MainGameViewController extends AbstractController implements Initia
         Actions.setText(promptAction);
     }
 
-/*
+
     public void UseToolcard(javafx.scene.input.MouseEvent mouseEvent) {
         ImageView card = (ImageView) mouseEvent.getTarget();
         ToolRequestClass data = new ToolRequestClass();
@@ -1064,7 +1064,7 @@ public class MainGameViewController extends AbstractController implements Initia
                         selectedDice = false;
                         ErrorMessage.setText("Seleziona il dado della DicePool su cui applicare la Pinza Sgrossatrice!");
                         while (!selectedDice) {} //TODO non so se è eelegante ma serve per attendere l'utente aggiorni il dato
-                        data.setSelectedDiceIndex(selectedDiceIndex);
+                        data.setSelectedDiceIndex(selectedDiceInd);
                         try {
                             ObserverGUI.Singleton().getServerController().useaToolCard(ObserverGUI.Singleton().getUsername(), data);
                             condition = true;
@@ -1072,6 +1072,8 @@ public class MainGameViewController extends AbstractController implements Initia
                             ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
                         }
                     }
+                    updatePossiibleActions();
+                    updateDicePool();
                     break;
                 }
                 //TODO da qui in poi da modificare
