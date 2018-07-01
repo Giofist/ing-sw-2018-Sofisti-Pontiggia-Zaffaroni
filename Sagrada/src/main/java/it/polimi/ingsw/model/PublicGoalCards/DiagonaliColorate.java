@@ -12,12 +12,12 @@ import java.io.Serializable;
 import java.util.LinkedList;
 
 
-//revisionata by pon
-//assolutamente da testare
-//obiettivo pubblico
 public class DiagonaliColorate implements GoalCard,Serializable {
     static int ID = 9;
 
+    /**
+     * @param player A player for whom we want to calculate the points scored in this goal
+     */
     @Override
     public void calculatepoint(Player player) {
         try{
@@ -33,17 +33,33 @@ public class DiagonaliColorate implements GoalCard,Serializable {
         }
     }
 
+
+    /**
+     * @return The id of the public goal card
+     */
     @Override
     public int getID() {
         return ID;
     }
+
+
+    /**
+     * This method, given a position on the player's scheme card where there is a Dice, is going to check if there are
+     * other dices of the same color in the tiles which are diagonally near to the position specified. If in any direction
+     * a match is found this method will call itself recursively
+     * @param row Row position of the central tile
+     * @param column Column position of the central tile
+     * @param player The player for which we are calculating the score
+     * @param list List of same color dices found until now
+     */
     private void findsamecolordices(int row, int column,Player player,LinkedList<Dice> list){
         try {
             DiceColor thecolorofthistile = player.getScheme().getDiceColour(row, column);
             list.add(player.getScheme().getDice(row, column));
             player.getScheme().removeDice(row,column);
 
-            //diversi blocchi try catch per controllare ogni cella diagonalmente adiacente
+            // Several try-catch statements to check the color of the dices placed in
+            // all the tiles diagonally near to the tile that I'm considering
 
             try {
                 if (player.getScheme().getDiceColour(row + 1, column + 1).equals(thecolorofthistile)) {
@@ -85,7 +101,7 @@ public class DiagonaliColorate implements GoalCard,Serializable {
             }
         }catch(Exception e){
             //there is no dice there
-            //zorry, you can't get the points
+            //sorry, you can't get the points
         }
 
     }

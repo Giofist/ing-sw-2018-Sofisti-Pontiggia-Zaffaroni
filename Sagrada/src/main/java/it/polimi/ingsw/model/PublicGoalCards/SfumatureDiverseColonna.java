@@ -11,11 +11,15 @@ import it.polimi.ingsw.model.SchemeDeck.RowIterator;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-//revisionata by pon
-//obiettivo pubblico
+
+
 public class SfumatureDiverseColonna implements GoalCard,Serializable {
     static int ID = 4;
 
+
+    /**
+     * @param player A player for whom we want to calculate the points scored in this goal
+     */
     @Override
     public void  calculatepoint(Player player) {
 
@@ -52,6 +56,10 @@ public class SfumatureDiverseColonna implements GoalCard,Serializable {
 
     }
 
+
+    /**
+     * @return The id of the public goal card
+     */
     @Override
     public int getID() {
         return ID;

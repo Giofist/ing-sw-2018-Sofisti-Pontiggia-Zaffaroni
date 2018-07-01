@@ -9,11 +9,13 @@ import java.io.Serializable;
 import java.util.Arrays;
 
 
-//revisionata by pon
-//obiettivo pubblico
 public class VarietaDiColore implements GoalCard,Serializable {
     static int ID = 10;
 
+
+    /**
+     * @param player A player for whom we want to calculate the points scored in this goal
+     */
     @Override
     public void  calculatepoint(Player player) {
 
@@ -43,6 +45,10 @@ public class VarietaDiColore implements GoalCard,Serializable {
         player.addPoints(numberof[0]*4);
     }
 
+
+    /**
+     * @return The id of the public goal card
+     */
     @Override
     public int getID() {
         return ID;

@@ -13,6 +13,9 @@ public class PublicGoalCardDeck {
     private ArrayList<Integer> cardsID = new ArrayList<>();
 
 
+    /**
+     * The constructor is going to create a deck with 3 random public goal cards
+     */
     public PublicGoalCardDeck(){
         for(int i=1; i<=10;i++){
             this.cardsID.add(i);
@@ -22,16 +25,22 @@ public class PublicGoalCardDeck {
         addCardToDeck();
         addCardToDeck();
         addCardToDeck();
-
-
     }
-    //get a ramdom value
-    //yes, actually it's the first, but we have shuffled before
+
+
+    /**
+     * @return A random integer value corresponding to the id of a public goal card
+     */
     public int getValue(){
         int value =this.cardsID.get(0);
         this.cardsID.remove(0);
         return value;
     }
+
+
+    /**
+     *  This method adds a random public goal card to the public goal deck
+     */
     public void addCardToDeck(){
         int cardID = this.getValue();
 
@@ -51,7 +60,11 @@ public class PublicGoalCardDeck {
 
     }
 
-    //calculate all points for a specyfic player for all the public goal cards
+
+    /**
+     * This method calculates how many points a player has scored in all the public goal cards in the match
+     * @param player
+     */
     public void doCalculatePoints(Player player){
 
         for (GoalCard goalcard:this.deck) {
@@ -61,6 +74,10 @@ public class PublicGoalCardDeck {
         CalculatoreforFreeSpaces.calculatepoint(player);
     }
 
+
+    /**
+     * @return A list containing all the 3 public goal cards previously extracted
+     */
     public List getCards(){
         List list = new LinkedList();
        for (GoalCard goalCard: this.deck){

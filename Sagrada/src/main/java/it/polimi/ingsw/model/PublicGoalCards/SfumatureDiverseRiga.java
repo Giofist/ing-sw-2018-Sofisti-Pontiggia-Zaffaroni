@@ -11,11 +11,15 @@ import it.polimi.ingsw.model.SchemeDeck.RowIterator;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-// revisionata by pon: lo stile era troppo procedurale
-//obiettivo pubblico
+
+
 public class SfumatureDiverseRiga implements GoalCard,Serializable {
     static int ID = 3;
 
+
+    /**
+     * @param player A player for whom we want to calculate the points scored in this goal
+     */
     @Override
     public void  calculatepoint(Player player) {
         try{
@@ -49,6 +53,9 @@ public class SfumatureDiverseRiga implements GoalCard,Serializable {
         }
     }
 
+    /**
+     * @return The id of the public goal card
+     */
     @Override
     public int getID() {
         return ID;

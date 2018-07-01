@@ -312,8 +312,12 @@ public class Setter {
             case "8": { //8. Tenaglia a Rotelle
                 Printer.Singleton().printRoundDicePool(serverController, yourName);
                 while(!condition){
-                System.out.println("Seleziona il dado da scambiare con uno del Round Track. Indica l'indice:");
+                System.out.println("Seleziona il dado da piazzare dalla DicePool. Indica l'indice:");
                 data.setSelectedDiceIndex(in.nextInt());
+                System.out.println("Indica la riga in cui vuoi piazzarlo:");
+                data.setNewRow1(in.nextInt());
+                System.out.println("Indica la colonna in cui vuoi piazzarlo:");
+                data.setNewColumn1(in.nextInt());
                     try {
                         serverController.useaToolCard(yourName, data);
                         condition = true;

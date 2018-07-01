@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXProgressBar?>
+<?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
@@ -46,7 +47,7 @@
                            <children>
                               <Pane onDragDropped="#handleOnDragDropped" onDragOver="#handleImageDragOver" style="-fx-background-color: white;">
                                  <children>
-                                    <ImageView fx:id="ImageView00" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="ImageView00" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" onMouseClicked="#selectThisPose" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                                  <GridPane.margin>
                                     <Insets />
@@ -54,97 +55,97 @@
                               </Pane>
                               <Pane onDragDropped="#handleOnDragDropped" onDragOver="#handleImageDragOver" style="-fx-background-color: white;" GridPane.columnIndex="1">
                                  <children>
-                                    <ImageView fx:id="ImageView01" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="ImageView01" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" onMouseClicked="#selectThisPose" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane onDragDropped="#handleOnDragDropped" onDragOver="#handleImageDragOver" style="-fx-background-color: white;" GridPane.columnIndex="2">
                                  <children>
-                                    <ImageView fx:id="ImageView02" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="ImageView02" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" onMouseClicked="#selectThisPose" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane onDragDropped="#handleOnDragDropped" onDragOver="#handleImageDragOver" style="-fx-background-color: white;" GridPane.columnIndex="3">
                                  <children>
-                                    <ImageView fx:id="ImageView03" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="ImageView03" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" onMouseClicked="#selectThisPose" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane onDragDropped="#handleOnDragDropped" onDragOver="#handleImageDragOver" style="-fx-background-color: white;" GridPane.columnIndex="4">
                                  <children>
-                                    <ImageView fx:id="ImageView04" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="ImageView04" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" onMouseClicked="#selectThisPose" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane onDragDropped="#handleOnDragDropped" onDragOver="#handleImageDragOver" style="-fx-background-color: white;" GridPane.rowIndex="1">
                                  <children>
-                                    <ImageView fx:id="ImageView10" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="ImageView10" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" onMouseClicked="#selectThisPose" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane onDragDropped="#handleOnDragDropped" onDragOver="#handleImageDragOver" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <children>
-                                    <ImageView fx:id="ImageView11" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="ImageView11" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" onMouseClicked="#selectThisPose" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane onDragDropped="#handleOnDragDropped" onDragOver="#handleImageDragOver" style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                  <children>
-                                    <ImageView fx:id="ImageView12" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="ImageView12" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" onMouseClicked="#selectThisPose" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane onDragDropped="#handleOnDragDropped" onDragOver="#handleImageDragOver" style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="1">
                                  <children>
-                                    <ImageView fx:id="ImageView13" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="ImageView13" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" onMouseClicked="#selectThisPose" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane onDragDropped="#handleOnDragDropped" onDragOver="#handleImageDragOver" style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="1">
                                  <children>
-                                    <ImageView fx:id="ImageView14" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="ImageView14" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" onMouseClicked="#selectThisPose" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane onDragDropped="#handleOnDragDropped" onDragOver="#handleImageDragOver" style="-fx-background-color: white;" GridPane.rowIndex="2">
                                  <children>
-                                    <ImageView fx:id="ImageView20" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="ImageView20" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" onMouseClicked="#selectThisPose" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane onDragDropped="#handleOnDragDropped" onDragOver="#handleImageDragOver" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                  <children>
-                                    <ImageView fx:id="ImageView21" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="ImageView21" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" onMouseClicked="#selectThisPose" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane onDragDropped="#handleOnDragDropped" onDragOver="#handleImageDragOver" style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="2">
                                  <children>
-                                    <ImageView fx:id="ImageView22" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="ImageView22" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" onMouseClicked="#selectThisPose" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane onDragDropped="#handleOnDragDropped" onDragOver="#handleImageDragOver" style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="2">
                                  <children>
-                                    <ImageView fx:id="ImageView23" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="ImageView23" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" onMouseClicked="#selectThisPose" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane onDragDropped="#handleOnDragDropped" onDragOver="#handleImageDragOver" style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="2">
                                  <children>
-                                    <ImageView fx:id="ImageView24" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="ImageView24" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" onMouseClicked="#selectThisPose" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane onDragDropped="#handleOnDragDropped" onDragOver="#handleImageDragOver" style="-fx-background-color: white;" GridPane.rowIndex="3">
                                  <children>
-                                    <ImageView fx:id="ImageView30" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="ImageView30" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" onMouseClicked="#selectThisPose" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane onDragDropped="#handleOnDragDropped" onDragOver="#handleImageDragOver" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                  <children>
-                                    <ImageView fx:id="ImageView31" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="ImageView31" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" onMouseClicked="#selectThisPose" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane onDragDropped="#handleOnDragDropped" onDragOver="#handleImageDragOver" style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="3">
                                  <children>
-                                    <ImageView fx:id="ImageView32" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="ImageView32" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" onMouseClicked="#selectThisPose" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane onDragDropped="#handleOnDragDropped" onDragOver="#handleImageDragOver" style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="3">
                                  <children>
-                                    <ImageView fx:id="ImageView33" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="ImageView33" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" onMouseClicked="#selectThisPose" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane onDragDropped="#handleOnDragDropped" onDragOver="#handleImageDragOver" style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="3">
                                  <children>
-                                    <ImageView fx:id="ImageView34" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="ImageView34" fitHeight="70.0" fitWidth="70.0" layoutX="4.0" layoutY="4.0" onMouseClicked="#selectThisPose" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                            </children>
@@ -1009,5 +1010,14 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Text>
+      <JFXButton fx:id="select1or2" layoutX="890.0" layoutY="413.0" onAction="#Select1or2" prefHeight="44.0" prefWidth="220.0" style="-fx-background-color: green;" text="Seleziona" textFill="WHITE">
+         <effect>
+            <DropShadow />
+         </effect>
+         <font>
+            <Font size="20.0" />
+         </font>
+      </JFXButton>
+      <JFXToggleButton fx:id="toggle1or2" layoutX="906.0" layoutY="337.0" text="1/2 Dadi da spostare" textFill="WHITE" toggleColor="#008f34" toggleLineColor="#78c28a" />
    </children>
 </AnchorPane>

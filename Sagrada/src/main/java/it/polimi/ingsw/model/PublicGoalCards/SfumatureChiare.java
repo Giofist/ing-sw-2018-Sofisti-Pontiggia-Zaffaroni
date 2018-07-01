@@ -7,12 +7,14 @@ import it.polimi.ingsw.model.SchemeDeck.Tile;
 
 import java.io.Serializable;
 
-//revisionata by pon
-//obiettivo pubblico
+
 public class SfumatureChiare implements GoalCard,Serializable {
     static int ID = 5;
 
 
+    /**
+     * @param player A player for whom we want to calculate the points scored in this goal
+     */
     @Override
     public void  calculatepoint(Player player) {
         int numerodi1 =0;
@@ -40,6 +42,10 @@ public class SfumatureChiare implements GoalCard,Serializable {
         }
     }
 
+
+    /**
+     * @return The id of the public goal card
+     */
     @Override
     public int getID() {
         return ID;

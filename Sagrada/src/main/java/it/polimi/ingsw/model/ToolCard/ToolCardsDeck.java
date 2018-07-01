@@ -15,7 +15,10 @@ public class ToolCardsDeck {
     private ArrayList<Integer> cardsID;
     private LinkedList<ToolAction> deck;
 
-    // constructor
+
+    /**
+     * This constructor returns a deck with 3 randomly extracted cards
+     */
     public ToolCardsDeck(){
         this.cardsID = new ArrayList<>();
         for(int i =1; i<=12; i++){
@@ -27,6 +30,11 @@ public class ToolCardsDeck {
         addCardToDeck();
         addCardToDeck();
     }
+
+
+    /**
+     * This method adds a new random card to the deck
+     */
     public void addCardToDeck() {
         int cardID = this.getValue();
         switch (cardID){
@@ -47,6 +55,11 @@ public class ToolCardsDeck {
     }
 
 
+    /**
+     * @param toolcardID The id of the tool card for which we want to receive the cost
+     * @return The price of the tool card
+     * @throws WrongToolCardIDException Exception thrown when an invalid ID is specified
+     */
     public int getCost(int toolcardID)throws WrongToolCardIDException{
         for(ToolAction toolAction: this.deck){
             if (toolAction.getID()== toolcardID){
@@ -57,7 +70,11 @@ public class ToolCardsDeck {
     }
 
 
-    //dopo il primo utilizzo, il costo sale a due
+    /**
+     * Method for updating the cost of a tool card when it's used during a match
+     * @param toolcardID The id of the tool card for which we want to update the cost when used
+     * @throws WrongToolCardIDException Exception thrown when an invalid ID is specified
+     */
     public void setCostOfAction(int toolcardID) throws WrongToolCardIDException{
         for(ToolAction toolAction: this.deck){
             if (toolAction.getID()== toolcardID){
@@ -65,15 +82,23 @@ public class ToolCardsDeck {
                     toolAction.setCost(2);
                     return;
                 }else if(toolAction.getCost()==0){
-                    // le seconde toolcard sono a costo
                     return;
                 }
             }
         }
         throw new WrongToolCardIDException();
     }
-    //command design pattern
-    //questa classe fa pagare per la toolcard corrispondente e lancia un'eccezione se il giocatore è povero per quell'azione
+
+
+    /**
+     * Here we use the command pattern for performing the action of a tool card
+     * @param toolActionID The id of the tool card that we want to use
+     * @param player The player that wants to use the tool card
+     * @param toolRequestClass The class with all the necessary parameters for the tool card (see each tool card for the necessary parameters that needs to be set)
+     * @throws WrongToolCardIDException Exception thrown when an invalid ID is specified
+     * @throws ToolIllegalOperationException Exception thrown in case some constrain is not respected or in case the player performs an illegal operation
+     * @throws NotEnoughSegnaliniException Exception thrown when a player is not able to pay for the selected tool card
+     */
     public void doAction(int toolActionID, Player player, ToolRequestClass toolRequestClass) throws WrongToolCardIDException,ToolIllegalOperationException, NotEnoughSegnaliniException {
         setCostOfAction(toolActionID);
         for(ToolAction toolAction: this.deck){
@@ -85,13 +110,22 @@ public class ToolCardsDeck {
         }
         throw new WrongToolCardIDException();
     }
+
+
+    /**
+     * This method returns a random id associated to a tool card. Once we get one value we won't be able to receive the same
+     * value again
+     * @return The random id
+     */
     private int getValue(){
-        int value =this.cardsID.get(0);
+        int value = this.cardsID.get(0);
         this.cardsID.remove(0);
         return value;
     }
 
-    //to get the IDs, descriptions and Names of public goal cards
+    /**
+     * @return A list with all the tool cards available
+     */
     public List getcards(){
         List list = new LinkedList();
         for (ToolAction toolAction: this.deck) {

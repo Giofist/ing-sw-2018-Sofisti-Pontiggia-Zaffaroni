@@ -1,9 +1,7 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.model.Exceptions.DicepoolIndexException;
-import it.polimi.ingsw.model.Exceptions.MapConstrainReadingException;
-import it.polimi.ingsw.model.Exceptions.PrivateGoalCardException;
-import it.polimi.ingsw.model.Exceptions.RoundTrackException;
+import it.polimi.ingsw.model.Exceptions.*;
+import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.PrivateGoalCards.PrivateGoalCardDeck;
 import it.polimi.ingsw.model.PublicGoalCards.PublicGoalCardDeck;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
@@ -27,12 +25,26 @@ public class Gametable {
     private int numberPlayers;
 
 
-
-    //constructor
+    /**
+     * Invokes the method prepareGame() with the number of players playing
+     * @param numberPlayers How many players have to be in the match
+     * @throws IOException
+     */
     public Gametable(int numberPlayers) throws IOException {
         prepareGame(numberPlayers);
     }
-    //first to do when preparing a game
+
+
+    /**
+     * This method prepares the Match in particular:
+     * - A DicePool with 90 Dices (18 for each color) is prepared
+     * - The decks of private and public goal cards are instantiated
+     * - A deck with the ToolCards is instantiated
+     * - A deck with the SchemeCards is instantiated
+     * - A new RoundTrack is instantiated
+     * @param numberPlayers How many players have to be in the match
+     * @throws IOException
+     */
     private void prepareGame(int numberPlayers) throws IOException {
         this.dicepool = new DicePool(18,18,18,18,18);
         this.tooldeck = new ToolCardsDeck();
@@ -41,10 +53,12 @@ public class Gametable {
         this.schemeCardDeck = new SchemeCardDeck();
         this.roundTrack = new RoundTrack();
         this.numberPlayers = numberPlayers;
-
     }
 
-    //to do when preparing a round
+
+    /**
+     * This method is called at the beginning of each round and it prepares the RoundDicePool
+     */
     public void setupRound() {
         this.roundDicepool = new DicePool();
         for (int i = 0; i < numberPlayers * 2 + 1; i++) {
@@ -56,57 +70,105 @@ public class Gametable {
         }
     }
 
-    //to do when a round ends
+
+    /**
+     * This method is called at the end of each round and it moves the remaining dices from the RoundDicePool to the
+     * specified round of the RoundTrack
+     * @param round Which round of the RoundTrack I want to move the Dices to
+     * @throws RoundTrackException Exception thrown when an invalid RoundTrack index is passed
+     */
     public void endRound(int round)throws RoundTrackException{
         this.roundTrack.setRoundTrackDices(round, this.roundDicepool.getallDicesbutnotremove()) ;
         this.roundDicepool.removeallDices();
     }
 
-    //per la gestione delle toolAction
-    public void useaToolCard(ToolRequestClass toolRequestClass, Player player) throws Exception {
+
+    /**
+     * This method allows a player to use a tool card
+     * @param toolRequestClass Class containing the tool card id with all the parameters necessary for the action to be performed
+     * @param player The player who wants to use the tool card
+     * @throws WrongToolCardIDException Exception thrown in case we pass a toolRequestClass with a tool card id not present in game
+     * @throws ToolIllegalOperationException Exception thrown when something goes wrong in performing the action of the tool card
+     * @throws NotEnoughSegnaliniException Exception thrown when the player doesn't have enough Segnalini to buy the tool card
+     */
+    public void useaToolCard(ToolRequestClass toolRequestClass, Player player) throws WrongToolCardIDException, ToolIllegalOperationException, NotEnoughSegnaliniException {
         this.tooldeck.doAction(toolRequestClass.getToolCardID(),player, toolRequestClass);
     }
 
-    //to get the private Goal card
+
+    /**
+     * @return A random private goal card
+     * @throws PrivateGoalCardException Exception thrown when we are not able to get the private goal card
+     */
     public synchronized GoalCard getPrivateGoalCard() throws PrivateGoalCardException {
         return this.privategoalcardsdeck.getCard();
     }
 
-    // Get public goal cards
+
+    /**
+     * @return A deck with public goal cards in it
+     */
     public synchronized PublicGoalCardDeck getPublicGoalCardDeck() {
         return publicGoalCardDeck;
     }
 
 
-    //to get IDs and description and names of the public goals
+    /**
+     * @return A list of public goal cards for the match
+     */
     public List getPublicGoalCards() {
         return this.publicGoalCardDeck.getCards();
     }
 
 
-    // Get functions useful for testing
-    public ToolCardsDeck getToolCardsDeck() { return this.tooldeck; }
+
+    protected ToolCardsDeck getToolCardsDeck() { return this.tooldeck; }
+
+
+    /**
+     * @return The match's DicePool
+     */
     public DicePool getDicepool() { return this.dicepool; }
+
+
+    /**
+     * @return DicePool specific to the round
+     */
     public DicePool getRoundDicepool() { return this.roundDicepool; }
 
-    // to get a scheme card
+
+    /**
+     * @return A scheme card from the scheme cards deck
+     * @throws IOException Exception thrown if there was a problem when reading from file
+     * @throws MapConstrainReadingException Exception thrown when the read constrain is not evaluated well when trying to create the scheme card
+     */
     public SchemeCard getSchemeCard() throws IOException, MapConstrainReadingException {
         return this.schemeCardDeck.getCard();
     }
 
 
-
-    //to calculate all points for all players, but only per the public goal card
+    /**
+     * Method called at the end of the match for calculating the points of each player
+     * @param players List of players for which calculate the points
+     */
     public void calculatePointsforAllPlayers(List<Player> players){
         for (Player player:  players) {
             this.publicGoalCardDeck.doCalculatePoints(player);
         }
     }
 
+
+    /**
+     * @return The RoundTrack of the current match
+     */
     public RoundTrack getRoundTrack() {
         return roundTrack;
     }
 
+
+    /**
+     * @return A list of tool cards from the tool deck
+     */
     public List getToolCards() {
         return this.tooldeck.getcards();
     }

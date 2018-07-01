@@ -15,7 +15,7 @@ import it.polimi.ingsw.model.State;
 import java.io.Serializable;
 import java.util.List;
 
-// DA TERMINARE
+
 public class TaglierinaManuale  extends ToolAction implements Serializable{
     public TaglierinaManuale(){
         this.cost = 1;
@@ -23,6 +23,26 @@ public class TaglierinaManuale  extends ToolAction implements Serializable{
     }
     Dice removedDice;
     Dice removedDice2;
+
+
+    /**
+     * This method allows to execute the effect of "Taglierina Manuale"
+     *
+     * Tool request class parameters necessary for the execution are:
+     * - numberofDicesyouwanttomove
+     * - oldRow1
+     * - oldColumn1
+     * - newRow1
+     * - newColumn1
+     * - oldRow2 (optional if number of dice to move is 2)
+     * - oldColumn2 (optional if number of dice to move is 2)
+     * - newRow2 (optional if number of dice to move is 2)
+     * - newColumn2 (optional if number of dice to move is 2)
+     *
+     * @param player The player that wants to use the tool card
+     * @param toolRequestClass The class with all the necessary parameters for the tool card
+     * @throws ToolIllegalOperationException Exception thrown in case some constrain is not respected or in case the player performs an illegal operation
+     */
     @Override
     public void execute(Player player, ToolRequestClass toolRequestClass)throws ToolIllegalOperationException {
         try {

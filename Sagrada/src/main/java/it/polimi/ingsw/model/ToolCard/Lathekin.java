@@ -8,9 +8,8 @@ import it.polimi.ingsw.model.State;
 
 import java.io.Serializable;
 
-//revisionata by pon
-public class Lathekin  extends ToolAction{
 
+public class Lathekin  extends ToolAction implements Serializable{
 
     public Lathekin(){
         this.cost =1;
@@ -18,6 +17,24 @@ public class Lathekin  extends ToolAction{
     }
     Dice removedDice1, removedDice2;
 
+
+    /**
+     * This method allows to execute the effect of "Lathekin"
+     *
+     * Tool request class parameters necessary for the execution are:
+     * - oldRow1
+     * - oldColumn1
+     * - newRow1
+     * - newColumn1
+     * - oldRow2
+     * - oldColumn2
+     * - newRow2
+     * - newColumn2
+     *
+     * @param player The player that wants to use the tool card
+     * @param toolRequestClass The class with all the necessary parameters for the tool card
+     * @throws ToolIllegalOperationException Exception thrown in case some constrain is not respected or in case the player performs an illegal operation
+     */
     @Override
     public void execute (Player player, ToolRequestClass toolRequestClass) throws ToolIllegalOperationException {
         try{

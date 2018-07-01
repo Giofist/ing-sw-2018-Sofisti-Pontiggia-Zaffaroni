@@ -21,6 +21,16 @@ public class PennelloperPastaSalda  extends ToolAction implements Serializable {
     }
 
 
+    /**
+     * This method allows to execute the effect of "Pennello per Pasta Salda"
+     *
+     * Tool request class parameters necessary for the execution are:
+     * - selectedDiceIndex
+     *
+     * @param player The player that wants to use the tool card
+     * @param toolRequestClass The class with all the necessary parameters for the tool card
+     * @throws ToolIllegalOperationException Exception thrown in case some constrain is not respected or in case the player performs an illegal operation
+     */
     @Override
     public void execute (Player player, ToolRequestClass toolRequestClass)throws ToolIllegalOperationException {
         try{

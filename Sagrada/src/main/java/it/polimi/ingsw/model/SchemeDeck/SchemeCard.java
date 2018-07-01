@@ -18,7 +18,6 @@ import java.util.NoSuchElementException;
 
 import static it.polimi.ingsw.model.DiceColor.*;
 
-//classe completa
 
 public class SchemeCard implements Iterable<Tile>, Serializable{
     private int difficulty=0;
@@ -29,13 +28,19 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
     private int maxRow;
     private int maxColumn;
 
-    //constructor
+
+    /**
+     * This method loads a specific scheme card from a .txt file
+     * @param mapID The id corresponding to the map I want to load
+     * @throws IOException Exception thrown in case we encounter some problems when trying to read the constrains from the file
+     * @throws MapConstrainReadingException Exception thrown if we encounter some problem in interpreting the scheme card's constrains
+     */
     public SchemeCard(int mapID) throws IOException, MapConstrainReadingException {
         this.ID = mapID;
         String fileName = "src/main/resources/Maps.txt";
         try (BufferedReader buffer = new BufferedReader(new FileReader(fileName))) {
 
-            //SCANDISCO IL FILE FINO ALLA RIGA Dove si trova la mappa che devo caricare
+            // Here we scan the file until we find the line corresponding to the map that we are interested to load
             for (int j = 0; j < (mapID-1) * 5 + 1; j++) {
                 buffer.readLine();
             }
@@ -119,21 +124,63 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
             throw e;
         }
     }
+
+
+    /**
+     * Each scheme card has two faces with a different board, this method allows you to set the twin cards
+     * @param schemeCard Scheme card we want as twin
+     */
     public void setTwinCard(SchemeCard schemeCard) {
         this.twinCard = schemeCard;
     }
 
 
-    //get methods
+    // Getter methods
+
+    /**
+     * @return The difficulty associated to the scheme card
+     */
     public int getDifficulty() {
         return this.difficulty;
     }
+
+
+    /**
+     * @return The unique id associated to the scheme card
+     */
     public int getID(){ return this.ID; }
+
+
+    /**
+     * @return The official name of the scheme card
+     */
     public String getMapName(){ return this.MapName; }
+
+
+    /**
+     * @return How many rows the scheme card has
+     */
     public int getMaxRow(){return this.maxRow;}
+
+
+    /**
+     * @return How many columns the scheme card has
+     */
     public int getMaxColumn(){return this.maxColumn;}
 
-    //to set a Dice, this method is a bit long just because off the big number of controls I need to do here
+
+    /**
+     * This method allows to place a given dice in a specific tile. With specific parameters we can also control which level
+     * of constrain we want when placing the dice.
+     * @param dice The dice we want to place
+     * @param row In which row we want to place the dice
+     * @param column In which column we want to place the dice
+     * @param IgnoreColor Boolean value whether we want to consider or not the color constrain
+     * @param IgnoreNumber Boolean value whether we want to consider or not the intensity constrain
+     * @param IgnoreThereisaDiceNearYou Boolean value whether we want to consider or not the constrain in placing the dice next to another one
+     * @throws OutOfMatrixException Exception thrown when we try to place a dice in a position out of the scheme card
+     * @throws TileConstrainException Exception thrown when some constrain isn't respected
+     */
     public void setDice(Dice dice, int row, int column, boolean IgnoreColor, boolean IgnoreNumber, boolean IgnoreThereisaDiceNearYou)throws OutOfMatrixException, TileConstrainException {
         if(IsTileOccupied(row,column)){
             throw new TileyetOccupiedException(); // you can't set a dice where there is another dice
@@ -175,7 +222,17 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
             } else throw new NotNearAnotherDiceException();  // there must be a dice near you mate!
         }
     }
-    //utilizzato in pennello per pasta salda
+
+
+    /**
+     * Method particularly useful for "Pennello per pasta Salda" tool card. It returns true if we can set the dice in the specified position
+     * @param dice The dice we would like to place
+     * @param row In which row we want to place the dice
+     * @param column In which column we want to place the dice
+     * @param IgnoreColor Boolean value whether we want to consider or not the color constrain
+     * @param IgnoreNumber Boolean value whether we want to consider or not the intensity constrain
+     * @return
+     */
     public boolean SettableHere(Dice dice, int row, int column, boolean IgnoreColor, boolean IgnoreNumber) {
         try {
             if (IsTileOccupied(row, column)) {
@@ -208,28 +265,81 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
     }
 
 
+    /**
+     * Returns the color of the dice in the specified position
+     * @param row Row where the dice is placed
+     * @param column Column where the dice is placed
+     * @return The color of the dice
+     * @throws OutOfMatrixException Exception thrown in case we specify a position out from the scheme card
+     * @throws DiceNotExistantException Exception thrown in case we specify a position with no dice in it
+     */
     public  DiceColor getDiceColour (int row, int column)throws OutOfMatrixException, DiceNotExistantException{
         return this.getTile(row, column).getDice().getColor();
     }
+
+
+    /**
+     * Returns the intensity of the dice in the specified position
+     * @param row Row where the dice is placed
+     * @param column Column where the dice is placed
+     * @return The intensity of the dice
+     * @throws OutOfMatrixException Exception thrown in case we specify a position out from the scheme card
+     * @throws DiceNotExistantException Exception thrown in case we specify a position with no dice in it
+     */
     public int getDiceIntensity(int row, int column)throws OutOfMatrixException, DiceNotExistantException{
         return this.getTile(row, column).getDice().getIntensity();
     }
+
+
+    /**
+     * This method controls if the position on the scheme card is already occupied by another dice
+     * @param row Row where we want to check
+     * @param column Column where we want to check
+     * @return True if the tile il already occupied
+     * @throws OutOfMatrixException Exception thrown in case we specify a position out from the scheme card
+     */
     public boolean IsTileOccupied(int row, int column) throws OutOfMatrixException{
         return this.getTile(row,column).isOccupied();
     }
 
 
+    /**
+     * @return The twin card associated
+     */
     public SchemeCard getTwinCard() {
         return this.twinCard;
     }
 
+
+    /**
+     * @param row Row from where to get the dice
+     * @param column Column from where to get the dice
+     * @return The dice in the specified position
+     * @throws DiceNotExistantException Exception thrown in case we specify a position with no dice in it
+     * @throws OutOfMatrixException Exception thrown in case we specify a position out from the scheme card
+     */
     public Dice getDice(int row, int column)throws DiceNotExistantException,OutOfMatrixException{
         return this.getTile(row,column).getDice();
-
     }
+
+
+    /**
+     * @param row Row from where to remove the dice
+     * @param column Column from where to remove the dice
+     * @throws DiceNotExistantException Exception thrown in case we specify a position with no dice in it
+     * @throws OutOfMatrixException Exception thrown in case we specify a position out from the scheme card
+     */
     public void removeDice(int row, int column) throws DiceNotExistantException, OutOfMatrixException{
         this.getTile(row,column).removeDice();
     }
+
+
+    /**
+     * This method checks if in the 8 tiles around one we specify there is at least one dice.
+     * @param row Row where we want to check
+     * @param column Column where we want to check
+     * @return True if we find at least one dice in one of the 8 tiles around that one that we specify
+     */
     public boolean ThereisaDicenearYou(int row, int column){
         boolean ThereisaDicenearYou = false;
         for (int i = row - 1; i <= row + 1; i++) {
@@ -244,8 +354,13 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
         return ThereisaDicenearYou;
     }
 
-    //metodi private
-    // lo setto private per non esporre l'implementazione
+
+    /**
+     * @param row Row from where to get the tile of the scheme card
+     * @param column Column from where to get the tile of the scheme card
+     * @return The tile in the position we specify
+     * @throws OutOfMatrixException Exception thrown in case we specify a position out from the scheme card
+     */
     public Tile getTile(int row, int column)throws OutOfMatrixException{
         if(row <0 || row > getMaxRow()-1 || column <0 || column > getMaxColumn()-1){
             throw new OutOfMatrixException();
@@ -261,7 +376,10 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
      }
 
 
-    //per le classi anonime pag. 333
+    /**
+     * This method returns an iterator over all the tiles of a scheme card
+     * @return A scheme card iterator
+     */
     @Override
     public Iterator<Tile> iterator() {
         return new Iterator<Tile>() {
@@ -298,10 +416,23 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
             }
         };
     }
-    //questi iteratori mi servono per gli obiettivi
+
+
+    /**
+     * This method returns an iterator over a specific row
+     * @param row The row we want to iterate on
+     * @return A column iterator
+     */
     public ColumnIterator<Tile> columnIterator(int row){
         return new ColumnIterator<Tile>(this,row);
     }
+
+
+    /**
+     * This method returns an iterator over a specific column
+     * @param column The column we want to iterate on
+     * @return A row iterator
+     */
     public RowIterator<Tile> rowIterator(final int column){
         return new RowIterator<Tile>(this,column);
     }

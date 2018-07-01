@@ -12,6 +12,10 @@ import java.util.Collections;
 public class SchemeCardDeck {
     private ArrayList<Integer> maps;
 
+    /**
+     * This constructor creates a scheme card deck with all the scheme cards with odd index
+     * @throws IOException
+     */
     public SchemeCardDeck() throws IOException{
         this.maps = new ArrayList<>();
         for(int i=1; i<getNumMaps();i=i+2){
@@ -20,24 +24,36 @@ public class SchemeCardDeck {
         Collections.shuffle(maps);
     }
 
-    //the most important, it will be invoked by the gametable
+
+    /**
+     * This method is called by the gametable to extract a random card
+     * @return A random scheme card with its twin card on the opposite side
+     * @throws IOException Exception thrown when something goes wrong when reading from the file
+     * @throws MapConstrainReadingException Exception thrown when the read constrain cannot be interpreted well to create the scheme card
+     */
     public SchemeCard getCard () throws IOException,MapConstrainReadingException {
         int mapID = this.getRandomID();
         SchemeCard schemeCard = new SchemeCard(mapID);
         schemeCard.setTwinCard(new SchemeCard(mapID+1));
         return schemeCard;
-
     }
-    // it returns a random value (well... the first, but we have shuffled before)
-    // wich tells us which map load from the file
-    //we delete that value from the arraylist because a map is only for one player
+
+
+    /**
+     * @return A random odd id of one scheme card
+     */
     private int getRandomID(){
         int value = this.maps.get(0);
         this.maps.remove(0);
         return value;
     }
 
-    //this is to get the number of maps uploaded by the player + the standards one
+
+    /**
+     * This method reads from a file how many maps are available in the game
+     * @return The number of scheme cards available in the game
+     * @throws IOException Exception thrown when there is an error when we try to read the value from the file
+     */
     protected static int getNumMaps() throws IOException {
         String fileName = "src/main/resources/Maps.txt";
 

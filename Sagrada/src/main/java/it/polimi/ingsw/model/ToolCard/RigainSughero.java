@@ -9,7 +9,6 @@ import it.polimi.ingsw.model.State;
 
 import java.io.Serializable;
 
-//revisionata by pon
 public class RigainSughero  extends ToolAction implements Serializable {
     private Dice dice;
     public RigainSughero(){
@@ -19,9 +18,20 @@ public class RigainSughero  extends ToolAction implements Serializable {
     }
 
 
+    /**
+     * This method allows to execute the effect of "Riga in sughero"
+     *
+     * Tool request class parameters necessary for the execution are:
+     * - selectedDiceIndex
+     * - newRow1
+     * - newColumn1
+     *
+     * @param player The player that wants to use the tool card
+     * @param toolRequestClass The class with all the necessary parameters for the tool card
+     * @throws ToolIllegalOperationException
+     */
     @Override
     public void execute (Player player, ToolRequestClass toolRequestClass) throws ToolIllegalOperationException {
-        //ricordarsi di fare get and remove dei dadi, non dimenticare la remove
         try {
             if (player.getPlayerState().getState().equals(State.HASSETADICESTATE)) {
                 throw new RigaInSugheroException("18.2");
