@@ -9,7 +9,7 @@ import it.polimi.ingsw.model.State;
 import java.io.Serializable;
 
 //revisionata by pon
-public class AlesatoreperLaminadiRame  extends ToolAction implements Serializable {
+public class AlesatoreperLaminadiRame  extends ToolAction{
 
 
 

@@ -51,4 +51,9 @@ public class UserState implements Observable {
         // never used
         return null;
     }
+
+    @Override
+    public Observer getObserver() {
+        return this.observers.getFirst();
+    }
 }

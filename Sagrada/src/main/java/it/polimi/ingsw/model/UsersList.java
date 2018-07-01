@@ -22,7 +22,7 @@ public class UsersList {
 
     //costruttore privato
     private UsersList(){
-        this.users = new Hashtable<String, User>();
+        this.users = new Hashtable<>();
     }
 
 
@@ -40,7 +40,7 @@ public class UsersList {
     // registrati da un file. Se tale file non dovesse esistere la lista users viene inizializzata come vuota.
     // Il formato .csv del file è una serie di lineeeì come segue:
     // username, password\n           (notare la virgola che separa user e pass)
-    synchronized private void loadUsersList() {
+     private void loadUsersList() {
         FileReader fr = null;
         Scanner fileScanner = null;
         try {
@@ -73,7 +73,7 @@ public class UsersList {
 
 
     // ho creato LoginException, ma sicome esiste già una classe loginExcpetion in una libreria standard di java, allora devo scrivere tutto il package
-    synchronized public void check( String name, String password, Observer observer)throws it.polimi.ingsw.model.Exceptions.LoginException, IsAlreadyActiveException {
+    public synchronized void check( String name, String password, Observer observer)throws it.polimi.ingsw.model.Exceptions.LoginException, IsAlreadyActiveException {
         String hexHash = produceSHA256(password);
         if(this.users.containsKey(name)){
             User user = this.users.get(name);
@@ -93,6 +93,7 @@ public class UsersList {
                                     Thread.sleep(60000);
                                     try{
                                         user.getUserState().notifyObservers();
+                                        System.out.println("Ho notificato gli observer, e li ho trovati attivi "+ user.getName());
                                     }catch(RemoteException e){
                                         user.setActive(false);
                                     }
@@ -115,7 +116,7 @@ public class UsersList {
 
     }
 
-    synchronized public void logOut( String name, Observer observer){
+    public void logOut( String name, Observer observer){
         if(this.users.containsKey(name)){
             User user = this.users.get(name);
             user.setActive(false);
@@ -145,7 +146,6 @@ public class UsersList {
             // Add the new user to the list of registered users
             User user = new User(name, hexHash);
             this.users.put(name,user);
-
         } catch (IOException e){
             e.printStackTrace();
         } finally {
@@ -175,7 +175,7 @@ public class UsersList {
         return hexHash.toString();
     }
 
-    synchronized public User findUser(String name) throws UserNotExistentException {
+    public User findUser(String name) throws UserNotExistentException {
         User user = this.users.get(name);
         if(user != null){
             return this.users.get(name);
@@ -183,14 +183,13 @@ public class UsersList {
         throw new UserNotExistentException();
     }
 
-    synchronized public User getUser(String name){
+    public User getUser(String name){
         return this.users.get(name);
     }
 
-
     // Useful for testing
-    synchronized protected int getUsersListSize() { return this.users.size(); }
-    synchronized protected void clearUserList() {
+    protected int getUsersListSize() { return this.users.size(); }
+    protected void clearUserList() {
         this.users.clear();
     }
 }

@@ -16,9 +16,9 @@ public class Match implements Runnable,Serializable{
     private String game_name;
     private LinkedList<Player> players;
     private transient Gametable gametable;
-    private boolean started;
+    private transient boolean started;
     private transient CountDownLatch doneSignal;
-    public boolean isreadyTostart;
+    public transient boolean isreadyTostart;
 
 
     //public constructor
@@ -175,7 +175,7 @@ public class Match implements Runnable,Serializable{
     public void leavethematch(Player player){
         this.players.remove(player);
         if(getNumberOfPlayers()==0){
-            MatchesList.singleton().getmatches().remove(this);
+            MatchesList.singleton().remove(this);
         }
     }
 

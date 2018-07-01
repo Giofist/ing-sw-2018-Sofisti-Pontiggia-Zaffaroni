@@ -9,7 +9,7 @@ import it.polimi.ingsw.model.State;
 import java.io.Serializable;
 
 //revisionata by pon
-public class Lathekin  extends ToolAction implements Serializable{
+public class Lathekin  extends ToolAction{
 
 
     public Lathekin(){

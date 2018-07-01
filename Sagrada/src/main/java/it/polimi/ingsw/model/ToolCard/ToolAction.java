@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.Player;
 
 import java.io.Serializable;
 
-public abstract  class ToolAction implements Serializable {
+public abstract  class ToolAction implements Serializable{
     protected int cost;
     protected int ID;
 

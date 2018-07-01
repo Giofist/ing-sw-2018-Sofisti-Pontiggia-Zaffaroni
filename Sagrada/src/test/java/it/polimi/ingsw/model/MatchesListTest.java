@@ -2,6 +2,7 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.Exceptions.GameNotExistantException;
 import it.polimi.ingsw.model.Exceptions.HomonymyException;
+import it.polimi.ingsw.model.Exceptions.MatchStartedYetException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -72,26 +73,16 @@ public class MatchesListTest {
         assertEquals(1, matchesList.getActiveMatches().size());
     }
 
-    @Test
-    synchronized public void getMatchesTest() throws HomonymyException, GameNotExistantException {
-        matchesList.clearMatchesList();
-        matchesList.createMatch(mockPlayer1, "Match1");
-        matchesList.createMatch(mockPlayer2, "Match2");
-        matchesList.getMatch("Match1").setStarted(true);
-        List matches = matchesList.getmatches();
-
-        assertEquals(2, matches.size());
-    }
 
 
     @Test (expected = GameNotExistantException.class)
-    synchronized public void joinMatchGameNotExistantExceptionTest() throws GameNotExistantException {
+    synchronized public void joinMatchGameNotExistantExceptionTest() throws GameNotExistantException, MatchStartedYetException {
         matchesList.join(mockPlayer1, "Match1000");
     }
 
 
     @Test
-    synchronized public void joinMatchGameTest() throws GameNotExistantException, HomonymyException {
+    synchronized public void joinMatchGameTest() throws GameNotExistantException, HomonymyException, MatchStartedYetException {
         matchesList.createMatch(mockPlayer1, "Match1");
         matchesList.join(mockPlayer2, "Match1");
     }

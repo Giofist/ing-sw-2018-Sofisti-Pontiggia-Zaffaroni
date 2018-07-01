@@ -15,8 +15,6 @@ import java.util.Scanner;
 public class Client {
 
     public static Translator translator;
-
-
     public static void main(String[] args){
         // Passing server IP as command line argument
         //String ipAddr = args[1];

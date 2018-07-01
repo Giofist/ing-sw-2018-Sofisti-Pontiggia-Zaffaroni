@@ -2,6 +2,7 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.Exceptions.GameNotExistantException;
 import it.polimi.ingsw.model.Exceptions.HomonymyException;
+import it.polimi.ingsw.model.Exceptions.MatchStartedYetException;
 
 import java.util.*;
 
@@ -9,11 +10,11 @@ import java.util.*;
 //design pattern singleton
 public class MatchesList {
     private static MatchesList instance;
-    private List<Match> matches;
+    private Hashtable<String, Match> matches;
 
     //private constructor
     private MatchesList(){
-        this.matches = new LinkedList<>();
+        this.matches = new Hashtable<>();
     }
 
     //singleton design pattern
@@ -30,13 +31,10 @@ public class MatchesList {
         Timer timer  = new Timer(false);
         final Match match = new Match(player, game_name);
         synchronized (this){
-            for (Match previousMatch : this.matches){
-                if (previousMatch.getName().equals(game_name) ) {
-                    throw new HomonymyException();
-                }
+            if(this.matches.containsKey(game_name)){
+                throw new HomonymyException();
             }
-
-            this.matches.add(match);
+            this.matches.put(game_name,match);
         }
         //ogni match è un thread
         timer.schedule(new TimerTask() {
@@ -48,39 +46,45 @@ public class MatchesList {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                if(!match.isStarted()){
-                    if (match.getallPlayers().size() >1){
-                        match.isreadyTostart = true;
-                        match.notifyAll();
-                    }
-                    else{
-                        //l'unico giocatore deve abbandonare la partita
-                        for(Player player: match.getallPlayers()){
-                            player.setPlayerState(State.ERRORSTATE);
+                synchronized (this){
+                    if(!match.isStarted()){
+                        if (match.getallPlayers().size() >1){
+                            match.isreadyTostart = true;
+                            match.notifyAll();
+                        }
+                        else{
+                            //l'unico giocatore deve abbandonare la partita
+                            for(Player player: match.getallPlayers()){
+                                player.setPlayerState(State.ERRORSTATE);
+                            }
+                            matches.remove(match);
+                            UsersList.Singleton().getUser(player.getName()).removePlayer(player.getPlayerState().getObserver());
                         }
                     }
                 }
+
             }
         },0);
         new Thread(match).start();
         return ;
     }
 
-    public synchronized void  join(Player player, String game_name) throws GameNotExistantException {
-        Match match = this.getMatch(game_name);
+    public synchronized void  join(Player player, String game_name) throws GameNotExistantException, MatchStartedYetException {
+        Match match = this.matches.get(game_name);
+        if(match == null){
+            throw new GameNotExistantException();
+        }
+        if (match.isStarted()){
+            throw new MatchStartedYetException();
+        }
         player.setMatch(match);
         match.join(player);
     }
 
 
-
-    //get the list of the existant matches
-    public List<Match> getmatches(){
-        return this.matches;
-    }
-    public List<Match> getActiveMatches(){
+    public synchronized List<Match> getActiveMatches(){
         LinkedList<Match> activematches = new LinkedList<>();
-        for(Match match: this.matches){
+        for(Match match: this.matches.values()){
             if (!match.isStarted()){
                 activematches.add(match);
             }
@@ -88,18 +92,12 @@ public class MatchesList {
         return activematches;
     }
 
-
-    public Match getMatch(String game_name) throws GameNotExistantException {
-        for (Match match : this.matches){
-            if(match.getName().equals(game_name)){
-                return match;
-            }
-        }
-        throw new GameNotExistantException();
-    }
-
+    //useful for testing?
     protected void clearMatchesList() {
-        this.matches.removeAll(this.matches);
+        this.matches.clear();
     }
 
+    public void remove(Match match) {
+        this.matches.remove(match.getName());
+    }
 }

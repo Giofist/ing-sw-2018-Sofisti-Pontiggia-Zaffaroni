@@ -8,7 +8,7 @@ import it.polimi.ingsw.model.State;
 
 import java.io.Serializable;
 
-public class Martelletto  extends ToolAction implements Serializable{
+public class Martelletto  extends ToolAction{
     public Martelletto(){
         this.cost =1;
         this.ID =7;

@@ -9,7 +9,7 @@ import it.polimi.ingsw.model.State;
 
 import java.io.Serializable;
 
-public class PennelloperEglomise extends ToolAction implements Serializable {
+public class PennelloperEglomise extends ToolAction{
 
     private Dice removedDice;
     public PennelloperEglomise(){
