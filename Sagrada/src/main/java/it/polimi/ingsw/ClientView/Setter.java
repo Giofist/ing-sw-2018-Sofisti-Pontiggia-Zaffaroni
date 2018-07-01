@@ -307,6 +307,11 @@ public class Setter {
                 break;
             }
             case "7": { //7. Martelletto
+                try {
+                    serverController.useaToolCard(yourName, data);
+                } catch (RemoteException e) {
+                    System.out.println(Client.translator.translateException(e.getMessage()));
+                }
                 break; //nulla da fare ritira tutti i dadi nella riserva
             }
             case "8": { //8. Tenaglia a Rotelle
