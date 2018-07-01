@@ -8,12 +8,23 @@ import it.polimi.ingsw.model.ClientMessagePackage.ResponseMessage;
 import java.io.IOException;
 import java.rmi.RemoteException;
 
+/**
+ * This class is a ping message, and it's used to verify that the client is reachable
+ */
 public class PingServerMessage extends ServerMessage {
 
 
     public PingServerMessage(){
         this.messagecodex =44;
     }
+
+
+    /**
+     * This method will send a ping message to the client
+     * @param view The client to contact
+     * @param listener Client side listener that waits for server's messages
+     * @throws RemoteException Exception thrown if the client doesn't respond back or there is a problem during the request from the server
+     */
     @Override
     public void performAction(Observer view, SocketClientListener listener) throws RemoteException {
         view.ping();

@@ -57,10 +57,10 @@ public class MatchTest {
     @Test
     public void leaveMatchTest() throws HomonymyException, GameNotExistantException {
         MatchesList.singleton().createMatch(mockPlayer1, "Match1");
-        assertEquals(1, MatchesList.singleton().getmatches().size());
+        assertEquals(1, MatchesList.singleton().getMatchesListSize());
         match = MatchesList.singleton().getMatch("Match1");
         match.leavethematch(mockPlayer1);
-        assertEquals(0, MatchesList.singleton().getmatches().size());
+        assertEquals(0, MatchesList.singleton().getMatchesListSize());
     }
 
 

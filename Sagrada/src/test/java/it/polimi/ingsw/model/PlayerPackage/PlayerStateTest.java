@@ -51,7 +51,8 @@ public class PlayerStateTest {
         playerState.setState(MUSTPASSTURNSTATE);
         assertEquals(State.MUSTPASSTURNSTATE, playerState.getState());
         actions = playerState.getActions();
-        assertEquals(TurnActions.PASSTURN, actions.get(0));
+        assertEquals(TurnActions.LEAVEMATCH, actions.get(0));
+        assertEquals(TurnActions.PASSTURN, actions.get(1));
     }
 
 

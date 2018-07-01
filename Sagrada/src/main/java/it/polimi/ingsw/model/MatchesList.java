@@ -3,6 +3,7 @@ package it.polimi.ingsw.model;
 import it.polimi.ingsw.model.Exceptions.GameNotExistantException;
 import it.polimi.ingsw.model.Exceptions.HomonymyException;
 import it.polimi.ingsw.model.Exceptions.MatchStartedYetException;
+import it.polimi.ingsw.model.ToolCard.Martelletto;
 
 import java.util.*;
 
@@ -113,7 +114,15 @@ public class MatchesList {
         this.matches.clear();
     }
 
-    public void remove(Match match) {
+    protected void remove(Match match) {
         this.matches.remove(match.getName());
+    }
+
+    protected Match getMatch(String matchName) {
+        return this.matches.get(matchName);
+    }
+
+    protected int getMatchesListSize() {
+        return matches.size();
     }
 }

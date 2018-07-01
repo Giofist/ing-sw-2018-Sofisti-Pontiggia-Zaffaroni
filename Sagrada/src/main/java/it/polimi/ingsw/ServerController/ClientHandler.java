@@ -207,7 +207,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
 
 
     /**
-     * With this method the client can receive all the players in the match with their ranking
+     * With this method the client can receive all the players in the match ordered by their ranking
      * @param clientname The username of the account performing the request
      * @return A list with all the players in the match
      * @throws RemoteException Exception thrown when the provided username doesn't exist in the UsersList on the server
