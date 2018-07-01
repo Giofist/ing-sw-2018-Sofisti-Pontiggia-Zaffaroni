@@ -279,7 +279,7 @@ public class Setter {
                 System.out.println("Seleziona il dado da scambiare con uno del ound Track. Indica l'indice:");
                 data.setSelectedDiceIndex(in.nextInt());
                 Printer.Singleton().printRoundTrack(serverController, yourName);
-                System.out.println("Seleziona il dado da scambiare sulla RoundTrack. Indica il round:");
+                System.out.println("Seleziona il dado da scambiare sulla RoundTrack. Indica il round: [1/10");
                 data.setRoundWhereThediceis(in.nextInt());
                 System.out.println("Indica la posizione: [0/8]");
                 data.setSelectedRoundTrackDiceIndex(in.nextInt());
