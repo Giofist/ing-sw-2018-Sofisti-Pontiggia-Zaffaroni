@@ -41,7 +41,7 @@ public class SocketClient implements Observer {
     }
 
     @Override
-    public void ping() throws RemoteException {
+    public synchronized void ping() throws RemoteException {
         ServerMessage message = new PingServerMessage();
         try{
             listener.sendMessage(message);

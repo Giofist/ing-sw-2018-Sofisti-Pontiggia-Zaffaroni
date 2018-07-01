@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.ClientView.Observer;
+import it.polimi.ingsw.ClientView.ObserverView;
 import it.polimi.ingsw.model.Exceptions.NotAllowedActionException;
 
 import java.io.Serializable;
@@ -45,6 +46,11 @@ public class PlayerState implements Observable, Serializable{
     }
 
     @Override
+    public Observer getObserver() {
+       return this.observers.getFirst();
+    }
+
+    @Override
     public void setState(State state) {
         this.state = state;
         this.actions = new LinkedList<>();
@@ -56,11 +62,13 @@ public class PlayerState implements Observable, Serializable{
                 this.actions.addLast(TurnActions.LEAVEMATCH);
                 break;
             case HASSETADICESTATE:
+                this.actions.addLast(TurnActions.LEAVEMATCH);
                 this.actions.addLast(TurnActions.PASSTURN);
                 this.actions.addLast(TurnActions.USEALLTOOLCARD);
                 this.actions.addLast(TurnActions.GETMAPS);
                 break;
             case HASUSEDATOOLCARDACTIONSTATE:
+                this.actions.addLast(TurnActions.LEAVEMATCH);
                 this.actions.addLast(TurnActions.PASSTURN);
                 this.actions.addLast(TurnActions.SETDICE);
                 break;
@@ -68,26 +76,32 @@ public class PlayerState implements Observable, Serializable{
                 this.actions.addLast(TurnActions.LEAVEMATCH);
                 break;
             case MUSTPASSTURNSTATE:
+                this.actions.addLast(TurnActions.LEAVEMATCH);
                 this.actions.addLast(TurnActions.PASSTURN);
                 break;
             case MUSTSSETDILUENTEPERPASTASALDASTATE:
+                this.actions.addLast(TurnActions.LEAVEMATCH);
                 this.actions.addLast(TurnActions.SETTOOLCARDDICE);
                 this.actions.addLast(TurnActions.SETTOOLCARDDICEINTENSITY);
                 break;
             case MUSTSETPENNELLOPERPASTASALDASTATE:
+                this.actions.addLast(TurnActions.LEAVEMATCH);
                 this.actions.addLast(TurnActions.SETTOOLCARDDICE);
                 break;
             case NOTYOURTURNSTATE:
+                this.actions.addLast(TurnActions.LEAVEMATCH);
                 this.actions.addLast(TurnActions.GETMAPS);
                 this.actions.addLast(TurnActions.PASSTURN);
                 break;
             case STARTTURNSTATE:
+                this.actions.addLast(TurnActions.LEAVEMATCH);
                 this.actions.addLast(TurnActions.PASSTURN);
                 this.actions.addLast(TurnActions.GETMAPS);
                 this.actions.addLast(TurnActions.SETDICE);
                 this.actions.addLast(TurnActions.USEALLTOOLCARD);
                 break;
             case MUSTSETSCHEMECARD:
+                this.actions.addLast(TurnActions.LEAVEMATCH);
                 this.actions.addLast(TurnActions.SETSCHEMECARD);
                 break;
         }

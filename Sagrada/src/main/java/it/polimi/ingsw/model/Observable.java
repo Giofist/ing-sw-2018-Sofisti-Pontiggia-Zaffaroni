@@ -15,4 +15,6 @@ public interface Observable extends Serializable{
     void notifyObservers()throws RemoteException;
     void checkAction(TurnActions action) throws NotAllowedActionException;
     List getActions();
+    Observer getObserver();
+
 }

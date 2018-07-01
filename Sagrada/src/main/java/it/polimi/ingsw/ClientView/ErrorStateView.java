@@ -19,10 +19,5 @@ public class ErrorStateView implements Runnable {
     @Override
     public void run() {
         System.out.println("Il timer è scaduto e nessuno si è unito alla tua partita: non può iniziare");
-        try {
-            serverController.leavethematch(yourName, view);
-        } catch (RemoteException e) {
-            System.out.println(Client.translator.translateException(e.getMessage()));
-        }
     }
 }
