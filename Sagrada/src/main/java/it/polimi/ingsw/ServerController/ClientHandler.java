@@ -132,6 +132,8 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
             throw new RemoteException(e.getMessage());
         }catch (GameNotExistantException e){
             throw new RemoteException(e.getMessage());
+        }catch (MatchStartedYetException e){
+            throw new RemoteException(e.getMessage());
         }
     }
 

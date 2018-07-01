@@ -204,7 +204,7 @@ public class ItalianTranslator implements Translator {
             case "33": return "Non puoi eseguire nessuna azione, mi spiace\n";
             case "34": return "Non puoi eseguire questa azione, mi spiace\n";
             case "35": return "Non hai abbastanza segnalini per questa toolcard\n";
-
+            case "36": return "La partita è già iniziata, mi spiace\n";
 
             case "37": return "Sei fuori dalla vetrata!\n";
             case "38": return "Questo giocatore non è nella tua partita\n";

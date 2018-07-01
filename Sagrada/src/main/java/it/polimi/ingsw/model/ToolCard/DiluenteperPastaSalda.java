@@ -15,7 +15,7 @@ import java.io.Serializable;
 //boh in realtà mi sembrava un problema ai tempi, adesso non tantissimo
 //beh se qualcuno vuole sistemare prego
 //(pon)
-public class DiluenteperPastaSalda  extends ToolAction implements Serializable {
+public class DiluenteperPastaSalda  extends ToolAction{
 
 
     public DiluenteperPastaSalda(){

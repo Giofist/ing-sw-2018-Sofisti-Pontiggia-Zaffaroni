@@ -23,7 +23,7 @@ public class UsersList {
      * Private constructor invoked by the singleton method
      */
     private UsersList(){
-        this.users = new Hashtable<String, User>();
+        this.users = new Hashtable<>();
     }
 
 
@@ -44,7 +44,7 @@ public class UsersList {
      * This private method is used to load the list of registered users from a .csv file when the server is started.
      * If for any reason we are not able to read the file an empty list will be created.
      */
-    synchronized private void loadUsersList() {
+     private void loadUsersList() {
         FileReader fr = null;
         Scanner fileScanner = null;
         try {
@@ -104,6 +104,7 @@ public class UsersList {
                                     Thread.sleep(60000);
                                     try{
                                         user.getUserState().notifyObservers();
+                                        System.out.println("Ho notificato gli observer, e li ho trovati attivi "+ user.getName());
                                     }catch(RemoteException e){
                                         user.setActive(false);
                                     }
@@ -132,7 +133,7 @@ public class UsersList {
      * @param name Name of the user that want to log out
      * @param observer The Client observer we want to remove from the list list
      */
-    synchronized public void logOut( String name, Observer observer){
+     public void logOut( String name, Observer observer){
         if(this.users.containsKey(name)){
             User user = this.users.get(name);
             user.setActive(false);
@@ -166,7 +167,6 @@ public class UsersList {
             // Add the new user to the list of registered users
             User user = new User(name, hexHash);
             this.users.put(name,user);
-
         } catch (IOException e){
             e.printStackTrace();
         } finally {
@@ -208,7 +208,7 @@ public class UsersList {
      * @return The user corresponding to the specified name
      * @throws UserNotExistentException Exception thrown when the user doesn't exist on the server
      */
-    synchronized public User findUser(String name) throws UserNotExistentException {
+    public User findUser(String name) throws UserNotExistentException {
         User user = this.users.get(name);
         if(user != null){
             return this.users.get(name);
@@ -222,14 +222,13 @@ public class UsersList {
      * @param name Name of the user we want to retrieve
      * @return The user corresponding to the specified name
      */
-    synchronized public User getUser(String name){
+    public User getUser(String name){
         return this.users.get(name);
     }
 
-
     // Useful for testing
-    synchronized protected int getUsersListSize() { return this.users.size(); }
-    synchronized protected void clearUserList() {
+    protected int getUsersListSize() { return this.users.size(); }
+    protected void clearUserList() {
         this.users.clear();
     }
 }
