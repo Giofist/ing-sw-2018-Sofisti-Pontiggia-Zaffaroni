@@ -4,6 +4,9 @@ import it.polimi.ingsw.model.Match;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.TurnActions;
 
+/**
+ * Interface for translator classes that returns names and descriptions of cards in the match
+ */
 public interface  Translator {
     String translateMatch(Match match);
     String translatePlayer(Player player);
