@@ -8,6 +8,10 @@ import it.polimi.ingsw.model.State;
 import java.io.IOException;
 import java.rmi.RemoteException;
 
+
+/**
+ *
+ */
 public class SocketClient implements Observer {
     private SocketResponseHandlerServer stringHandler;
     private SocketServerListener listener;
@@ -15,10 +19,22 @@ public class SocketClient implements Observer {
     public SocketClient( SocketServerListener socketServerListener) {
         this.listener = socketServerListener;
     }
+
+
+    /**
+     * @param stringHandler
+     */
     public void setStringHandler(SocketResponseHandlerServer stringHandler) {
         this.stringHandler = stringHandler;
     }
 
+
+    /**
+     * Method for pinging the client and waiting for the response
+     * @param o
+     * @param arg
+     * @throws RemoteException Exception thrown if the client throws an error
+     */
     @Override
     public synchronized void update(Observable o, Object arg)throws RemoteException {
         ServerMessage message = new UpdateMessage();
@@ -40,6 +56,10 @@ public class SocketClient implements Observer {
         this.stringHandler = null;
     }
 
+    /**
+     * Method for pinging the client and waiting for the response
+     * @throws RemoteException Exception thrown if the client throws an error
+     */
     @Override
     public synchronized void ping() throws RemoteException {
         ServerMessage message = new PingServerMessage();

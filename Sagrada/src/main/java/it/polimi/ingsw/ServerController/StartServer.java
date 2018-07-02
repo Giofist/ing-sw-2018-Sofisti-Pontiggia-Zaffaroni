@@ -8,18 +8,29 @@ import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * Class responsible for handling multiple socket connections
+ */
 public class StartServer implements Runnable{
     private int port;
     private ClientHandler controller;
 
 
-
+    /**
+     * This constructor creates a new daemon for sockets connections
+     * @param controller The ClientHandler controller which will be responsible for handling the requested actions
+     * @param port The port where the service will run
+     */
     public StartServer (ClientHandler controller, int port){
         this.controller = controller;
         this.port = port;
     }
 
 
+    /**
+     * This method  is responsible for listening to multiple client connections and submitting each request to the controller
+     * which is going to perform the required action
+     */
     public void run(){
         ExecutorService executor = Executors.newCachedThreadPool(); //crea thread quando necessario
         ServerSocket serverSocket;

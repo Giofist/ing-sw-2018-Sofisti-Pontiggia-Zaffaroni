@@ -12,6 +12,9 @@ import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.List;
 
+/**
+ * This class represents the message send by the server in the socket communication
+ */
 public abstract class ServerMessage implements Serializable {
     int messagecodex;
     String message;
@@ -19,30 +22,64 @@ public abstract class ServerMessage implements Serializable {
     List list;
 
 
-
+    /**
+     * @param observable
+     */
     public void setObservable(Observable observable){
         this.observable = observable;
     }
+
+
+    /**
+     * @param list List with information we want to send to the client
+     */
     public void setList(List list) {
         this.list = list;
     }
+
+    /**
+     * @return List with information received by the server
+     */
     public List getList() {
         return list;
     }
+
+
+    /**
+     * @return The message send by the client
+     */
     public String getMessage() {
         return message;
     }
+
+    /**
+     * @param message The message we want to send to the client
+     */
     public void setMessage(String message) {
         this.message = message;
     }
+
+
+    /**
+     * @return The message id for understanding the type of message: error, ok, request
+     */
     public int getMessagecodex() {
         return messagecodex;
     }
+
+    /**
+     * @param messagecodex The id of the massage based on the type of response the server want to send
+     */
     public void setMessagecodex(int messagecodex) {
         this.messagecodex = messagecodex;
     }
 
 
+    /**
+     * @param view
+     * @param listener
+     * @throws RemoteException
+     */
     public  abstract void performAction(Observer view, SocketClientListener listener) throws RemoteException;
 
 }
