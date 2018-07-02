@@ -13,12 +13,24 @@ import java.util.Scanner;
 import static org.fusesource.jansi.Ansi.Color.*;
 import static org.fusesource.jansi.Ansi.ansi;
 
+/**
+ * This class is responsible for guiding the user in performing the actions inside of a match such as using a tool cards
+ * placing dices, passing turns...
+ */
 public class Setter {
     private static Setter setter;
-    //costruttore privato
+
+
+    /**
+     * Private constructor for Singleton design pattern
+     */
     private Setter(){ }
 
-    //metodo che crea/dà accesso se già creata all'unica istanza
+
+    /**
+     * Method responsible for creating the singleton instance
+     * @return The Singleton instance
+     */
     public static Setter Singleton(){
         if (setter == null) {
             setter = new Setter();
@@ -26,7 +38,13 @@ public class Setter {
         return setter;
     }
 
-    //metodo che serve per selozioanre possibili azioni
+
+    /**
+     * This method displays and lets the user specify which action he wants to perform inside of a match
+     * @param serverController The controller interface with all the methods exposed by the server
+     * @param yourName The username of the account performing the requests
+     * @param view The main observer view
+     */
     public void selectAction(ClientHandlerInterface serverController, String yourName, ObserverView view) {
         Scanner in = new Scanner(System.in);
 
@@ -158,6 +176,13 @@ public class Setter {
         }
     }
 
+
+    /**
+     * This method guides the user through the use of a tool card. Based on which tool card is selected the method is going
+     * to ask the proper parameters to the user in order to use the tool card.
+     * @param serverController The controller interface with all the methods exposed by the server
+     * @param yourName The username of the account performing the request
+     */
     public void useToolcard(ClientHandlerInterface serverController, String yourName) {
         Scanner in = new Scanner(System.in);
         ToolRequestClass data = new ToolRequestClass();
@@ -443,7 +468,12 @@ public class Setter {
 
     }
 
-    //metodo che permette di piazzare un dado
+
+    /**
+     * This method guides the user through the process of placing a dice by asking it all the necessary parameters
+     * @param serverController The controller interface with all the methods exposed by the server
+     * @param yourName The username of the account performing the request
+     */
     public void placeDice(ClientHandlerInterface serverController, String yourName){
         Scanner in = new Scanner(System.in);
         int diceIndex;
@@ -489,6 +519,12 @@ public class Setter {
         }
     }
 
+
+    /**
+     * This method will guide the user through the placement of the special dice of the Pasta Salda tool card
+     * @param serverController The controller interface with all the methods exposed by the server
+     * @param yourName The username of the account performing the request
+     */
     public void placeSingleDice(ClientHandlerInterface serverController, String yourName){
         Scanner in = new Scanner(System.in);
         int diceIndex;
@@ -533,6 +569,12 @@ public class Setter {
         }
     }
 
+
+    /**
+     * Method invoking the pass turn method on the server controller
+     * @param serverController The controller interface with all the methods exposed by the server
+     * @param yourName The username of the account performing the request
+     */
     public void passYourTurn(ClientHandlerInterface serverController, String yourName){
         try {
             serverController.passTurn(yourName);
@@ -541,6 +583,11 @@ public class Setter {
         }
     }
 
+    /**
+     * Method responsible for guiding the user through the choice of the scheme card before the match starts
+     * @param serverController The controller interface with all the methods exposed by the server
+     * @param yourName The username of the account performing the request
+     */
     public void selectSchemeCard(ClientHandlerInterface serverController, String yourName){
         Scanner in = new Scanner(System.in);
         String schemeCards = null;
@@ -575,6 +622,13 @@ public class Setter {
         }
     }
 
+
+    /**
+     * Method responsible for guiding the user through the setting of intensity of the special dice extracted with the particular
+     * pasta salda tool card
+     * @param serverController The controller interface with all the methods exposed by the server
+     * @param yourName The username of the account performing the request
+     */
     public void selectExtractedDiceIntensity(ClientHandlerInterface serverController, String yourName) {
         Scanner in = new Scanner(System.in);
         int intensity = 0;

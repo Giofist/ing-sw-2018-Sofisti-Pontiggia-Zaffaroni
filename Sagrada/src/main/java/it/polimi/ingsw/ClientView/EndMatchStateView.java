@@ -7,11 +7,21 @@ import java.rmi.RemoteException;
 import java.util.List;
 import java.util.Scanner;
 
+
+/**
+ *  This view for the CLI is displayed when the match is over. The final scoreboard will be displayed to the user
+ */
 public class EndMatchStateView implements Runnable {
     private ClientHandlerInterface serverController;
     private String yourName;
     private ObserverView view;
 
+
+    /**
+     * @param serverController The reference to the server's controller for invoking its methods
+     * @param yourName The username of the account performing the requests
+     * @param view The client's main view
+     */
     public EndMatchStateView(ClientHandlerInterface serverController, String yourName, ObserverView view) {
         this.serverController = serverController;
         this.yourName = yourName;
@@ -19,6 +29,10 @@ public class EndMatchStateView implements Runnable {
     }
 
 
+    /**
+     * This is the method that will display the final results. The player will also be asked if he wants to leave the current
+     * terminated match.
+     */
     @Override
     public void run() {
         try {
