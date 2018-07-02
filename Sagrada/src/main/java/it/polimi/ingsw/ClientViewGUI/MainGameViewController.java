@@ -1252,8 +1252,6 @@ public class MainGameViewController extends AbstractController implements Initia
                     selectValue.setVisible(true);
                 }
             });
-
-
         }
     }
 
@@ -1279,9 +1277,9 @@ public class MainGameViewController extends AbstractController implements Initia
     }
 
     public void useTool(ActionEvent actionEvent) {
+        useToolCard.setVisible(false);
         try {
             ObserverGUI.Singleton().getServerController().useaToolCard(ObserverGUI.Singleton().getUsername(), data);
-            useToolCard.setVisible(false);
         } catch (RemoteException e) {
             ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
         }
