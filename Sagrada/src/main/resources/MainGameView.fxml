@@ -935,7 +935,7 @@
             </ImageView>
             <ImageView fx:id="RoundTrack10" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#selectThisPoseSpecial" pickOnBounds="true" preserveRatio="true" translateX="20.0" GridPane.rowIndex="1" />
             <ImageView fx:id="RoundTrack11" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#selectThisPoseSpecial" pickOnBounds="true" preserveRatio="true" translateX="20.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <ImageView fx:id="RoundTrack21" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#selectThisPoseSpecial" pickOnBounds="true" preserveRatio="true" translateX="20.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <ImageView fx:id="RoundTrack12" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#selectThisPoseSpecial" pickOnBounds="true" preserveRatio="true" translateX="20.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <ImageView fx:id="RoundTrack13" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#selectThisPoseSpecial" pickOnBounds="true" preserveRatio="true" translateX="20.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
             <ImageView fx:id="RoundTrack14" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#selectThisPoseSpecial" pickOnBounds="true" preserveRatio="true" translateX="20.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
             <ImageView fx:id="RoundTrack15" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#selectThisPoseSpecial" pickOnBounds="true" preserveRatio="true" translateX="20.0" GridPane.columnIndex="5" GridPane.rowIndex="1" />
@@ -998,7 +998,7 @@
             <Font size="36.0" />
          </font>
       </Text>
-      <JFXButton fx:id="passTurnBn" layoutX="890.0" layoutY="482.0" onAction="#passTurn" prefHeight="44.0" prefWidth="220.0" style="-fx-background-color: green;" text="Passa il Turno" textFill="WHITE">
+      <JFXButton fx:id="passTurnBn" layoutX="890.0" layoutY="485.0" onAction="#passTurn" prefHeight="44.0" prefWidth="220.0" style="-fx-background-color: green;" text="Passa il Turno" textFill="WHITE">
          <effect>
             <DropShadow />
          </effect>
@@ -1011,7 +1011,7 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Text>
-      <JFXButton fx:id="select1or2" layoutX="890.0" layoutY="413.0" onAction="#Select1or2" prefHeight="44.0" prefWidth="220.0" style="-fx-background-color: green;" text="Seleziona" textFill="WHITE">
+      <JFXButton fx:id="select1or2" layoutX="890.0" layoutY="341.0" onAction="#Select1or2" prefHeight="44.0" prefWidth="220.0" style="-fx-background-color: green;" text="Seleziona" textFill="WHITE">
          <effect>
             <DropShadow />
          </effect>
@@ -1019,7 +1019,31 @@
             <Font size="20.0" />
          </font>
       </JFXButton>
-      <JFXToggleButton fx:id="toggle1or2" layoutX="906.0" layoutY="337.0" text="1/2 Dadi da spostare" textFill="WHITE" toggleColor="#008f34" toggleLineColor="#78c28a" />
-      <ChoiceBox fx:id="selectIntensity" layoutX="923.0" layoutY="302.0" prefWidth="150.0" />
+      <JFXToggleButton fx:id="toggle1or2" layoutX="906.0" layoutY="294.0" text="1/2 Dadi da spostare" textFill="WHITE" toggleColor="#008f34" toggleLineColor="#78c28a" />
+      <ChoiceBox fx:id="selectIntensity" layoutX="923.0" layoutY="262.0" prefWidth="150.0" />
+      <JFXButton fx:id="useToolCard" layoutX="890.0" layoutY="437.0" onAction="#useTool" prefHeight="44.0" prefWidth="220.0" style="-fx-background-color: green;" text="Usa la carta" textFill="WHITE">
+         <effect>
+            <DropShadow />
+         </effect>
+         <font>
+            <Font size="20.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="Select" layoutX="890.0" layoutY="389.0" onAction="#SelectNewRow" prefHeight="44.0" prefWidth="220.0" style="-fx-background-color: green;" text="Invia" textFill="WHITE">
+         <effect>
+            <DropShadow />
+         </effect>
+         <font>
+            <Font size="20.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="selectValue" layoutX="889.0" layoutY="341.0" onAction="#selectValueOfDice" prefHeight="44.0" prefWidth="220.0" style="-fx-background-color: green;" text="Usa la carta" textFill="WHITE">
+         <effect>
+            <DropShadow />
+         </effect>
+         <font>
+            <Font size="20.0" />
+         </font>
+      </JFXButton>
    </children>
 </AnchorPane>

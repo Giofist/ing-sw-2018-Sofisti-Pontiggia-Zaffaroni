@@ -44,22 +44,27 @@ public class MainGameViewController extends AbstractController implements Initia
     private int ToolCard2 = 0;
     private int ToolCard3 = 0;
     private String promptAction = "";
-    int numOfPlayer = 0 ;
+    int numOfPlayer = 0;
     boolean selectedDice = false;
     private int selectedDiceInd = 10;
     private int DicesToMove = 0;
     private Object waitForUserInput = new Object();
     private Object waitForUserInputSpecial = new Object();
     private int newOldRow = 10;
-    private int newOldColumn =10;
+    private int newOldColumn = 10;
+    private int toolCardId = 0;
+    private int numOfClick = 0;
+    ToolRequestClass data = new ToolRequestClass();
 
-    public MainGameViewController(){
+    public MainGameViewController() {
         ObserverGUI.Singleton().setController(this);
     }
 
     @FXML
     private ChoiceBox selectIntensity;
 
+    @FXML
+    private Button Select;
 
     @FXML
     private AnchorPane backgroundPane;
@@ -75,7 +80,7 @@ public class MainGameViewController extends AbstractController implements Initia
 
     @FXML
     private Text Actions;
-    
+
     @FXML
     private Text turnIndicator;
 
@@ -90,6 +95,9 @@ public class MainGameViewController extends AbstractController implements Initia
 
     @FXML
     private ImageView RoundDice1;
+
+    @FXML
+    private Button selectValue;
 
     @FXML
     private ImageView RoundDice2;
@@ -357,7 +365,7 @@ public class MainGameViewController extends AbstractController implements Initia
     private GridPane yourMap12;
 
     @FXML
-    private GridPane  roundTrack;
+    private GridPane roundTrack;
 
     @FXML
     private ImageView ImageView0012;
@@ -421,6 +429,9 @@ public class MainGameViewController extends AbstractController implements Initia
 
     @FXML
     private Text P3MapName;
+
+    @FXML
+    private Button useToolCard;
 
     @FXML
     private Text token;
@@ -529,28 +540,27 @@ public class MainGameViewController extends AbstractController implements Initia
         }
     }
 
-
     @FXML
     void handleOnDragDropped(DragEvent event) {
         int row;
         int column;
         int index;
 
-            ImageView destination = (ImageView)event.getTarget();
-            if(yourMap.getRowIndex(destination.getParent())==null){
-                row=0;
-            }else row = yourMap.getRowIndex(destination.getParent());
+        ImageView destination = (ImageView) event.getTarget();
+        if (yourMap.getRowIndex(destination.getParent()) == null) {
+            row = 0;
+        } else row = yourMap.getRowIndex(destination.getParent());
 
-            if(yourMap.getColumnIndex(destination.getParent())==null){
-                column=0;
-            }else column = yourMap.getColumnIndex(destination.getParent());
+        if (yourMap.getColumnIndex(destination.getParent()) == null) {
+            column = 0;
+        } else column = yourMap.getColumnIndex(destination.getParent());
 
-            if(DicePool.getColumnIndex(origin)==null){
-                index=0;
-            }else index = DicePool.getColumnIndex(origin);
+        if (DicePool.getColumnIndex(origin) == null) {
+            index = 0;
+        } else index = DicePool.getColumnIndex(origin);
 
         try {
-            ObserverGUI.Singleton().getServerController().setDice(ObserverGUI.Singleton().getUsername(),index,row, column);
+            ObserverGUI.Singleton().getServerController().setDice(ObserverGUI.Singleton().getUsername(), index, row, column);
             destination.setImage(event.getDragboard().getImage());
             origin.setImage(null);
             ErrorMessage.setText("Hai piazzato il dado correttamente!");
@@ -579,6 +589,9 @@ public class MainGameViewController extends AbstractController implements Initia
         toggle1or2.setVisible(false);
         select1or2.setVisible(false);
         selectIntensity.setVisible(false);
+        useToolCard.setVisible(false);
+        Select.setVisible(false);
+        selectValue.setVisible(false);
         updateToken();
         updateDicePool();
         updatePossiibleActions();
@@ -604,27 +617,27 @@ public class MainGameViewController extends AbstractController implements Initia
         }
 
         try {
-            image = new Image("PublicGoalCards/" + ObserverGUI.Singleton().getServerController().getPublicGoalCards(ObserverGUI.Singleton().getUsername()).get(0).getID()+ ".jpg");
+            image = new Image("PublicGoalCards/" + ObserverGUI.Singleton().getServerController().getPublicGoalCards(ObserverGUI.Singleton().getUsername()).get(0).getID() + ".jpg");
         } catch (RemoteException e) {
             e.printStackTrace();
         }
         PublicGoalCard1.setImage(image);
 
         try {
-            image = new Image("PublicGoalCards/" + ObserverGUI.Singleton().getServerController().getPublicGoalCards(ObserverGUI.Singleton().getUsername()).get(1).getID()+ ".jpg");
+            image = new Image("PublicGoalCards/" + ObserverGUI.Singleton().getServerController().getPublicGoalCards(ObserverGUI.Singleton().getUsername()).get(1).getID() + ".jpg");
         } catch (RemoteException e) {
             e.printStackTrace();
         }
         PublicGoalCard2.setImage(image);
         try {
-            image = new Image("PublicGoalCards/" + ObserverGUI.Singleton().getServerController().getPublicGoalCards(ObserverGUI.Singleton().getUsername()).get(2).getID()+ ".jpg");
+            image = new Image("PublicGoalCards/" + ObserverGUI.Singleton().getServerController().getPublicGoalCards(ObserverGUI.Singleton().getUsername()).get(2).getID() + ".jpg");
         } catch (RemoteException e) {
             e.printStackTrace();
         }
         PublicGoalCard3.setImage(image);
 
 
-       try {
+        try {
             this.ToolCard1 = ObserverGUI.Singleton().getServerController().getToolCards(ObserverGUI.Singleton().getUsername()).get(0).getID();
             image = new Image("ToolCards/" + ToolCard1 + ".jpg");
         } catch (RemoteException e) {
@@ -649,7 +662,7 @@ public class MainGameViewController extends AbstractController implements Initia
         ToolCardImage3.setImage(image);
 
         try {
-            setUpMap(ObserverGUI.Singleton().getServerController().getSchemeCard(ObserverGUI.Singleton().getUsername()).get(0),yourMap, yourMapName, Diff1, Diff2, Diff3, Diff4, Diff5, Diff6);
+            setUpMap(ObserverGUI.Singleton().getServerController().getSchemeCard(ObserverGUI.Singleton().getUsername()).get(0), yourMap, yourMapName, Diff1, Diff2, Diff3, Diff4, Diff5, Diff6);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -742,7 +755,7 @@ public class MainGameViewController extends AbstractController implements Initia
         }
     }
 
-    public void updateOtherPlayesMap(){
+    public void updateOtherPlayesMap() {
         switch (numOfPlayer) {
             case 3:
                 try {
@@ -779,7 +792,7 @@ public class MainGameViewController extends AbstractController implements Initia
         }
     }
 
-    public void updateToken(){
+    public void updateToken() {
         try {
             token.setText("Segnalini favore: " + String.valueOf(ObserverGUI.Singleton().getServerController().getToken(ObserverGUI.Singleton().getUsername())));
         } catch (RemoteException e) {
@@ -791,13 +804,13 @@ public class MainGameViewController extends AbstractController implements Initia
         Pane cell = new Pane();
         Image pic;
 
-        RowIterator rowIterator =  schemeCard.rowIterator(0);
-        while(rowIterator.hasNext()){
+        RowIterator rowIterator = schemeCard.rowIterator(0);
+        while (rowIterator.hasNext()) {
             ColumnIterator columnIterator = schemeCard.columnIterator(rowIterator.getCurrentRow());
-            while(columnIterator.hasNext()){
+            while (columnIterator.hasNext()) {
                 Tile tile = columnIterator.next();
-                if (tile.isOccupied()){
-                    switch (tile.getDice().getColor()){
+                if (tile.isOccupied()) {
+                    switch (tile.getDice().getColor()) {
                         case YELLOW: {
                             cell = (Pane) gridMap.getChildren().get(rowIterator.getCurrentRow() * schemeCard.getMaxColumn() + columnIterator.getCurrentColumn() - 1);
                             pic = new Image("Dices/Y" + tile.getDice().getIntensity() + ".jpg");
@@ -844,7 +857,7 @@ public class MainGameViewController extends AbstractController implements Initia
         ImageView image = null;
         String imagePath;
         String recivedFormServer = "4YELLOW-3RED-6BLUE-5VIOLET-1RED-4RED";
-        
+
         dices = recivedFormServer.split("-");
 
         try {
@@ -867,7 +880,7 @@ public class MainGameViewController extends AbstractController implements Initia
             charDice = dice.toCharArray();
             imagePath = "Dices/" + charDice[1] + charDice[0] + ".jpg";
 
-            switch (i){
+            switch (i) {
                 case 0: {
                     Image pic = new Image(imagePath);
                     RoundDice0.setImage(pic);
@@ -918,7 +931,7 @@ public class MainGameViewController extends AbstractController implements Initia
         }
     }
 
-    public void updateRoundTrack(){
+    public void updateRoundTrack() {
         String track;
         int round = 0;
         int row = 0;
@@ -930,12 +943,12 @@ public class MainGameViewController extends AbstractController implements Initia
         } catch (RemoteException e) {
             ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
         }
-        for(String dices : dicesColumn){
+        for (String dices : dicesColumn) {
             row = 0;
             dice = dices.split("-");
-            for(String elem : dice){
+            for (String elem : dice) {
                 ImageView Imm = new ImageView();
-                Imm = (ImageView)  roundTrack.getChildren().get(row*10 + round);
+                Imm = (ImageView) roundTrack.getChildren().get(row * 10 + round);
                 imagePath = "Dices/" + elem.toCharArray()[1] + elem.toCharArray()[0] + ".jpg";
                 Image pic = new Image(imagePath);
                 Imm.setImage(pic);
@@ -947,7 +960,7 @@ public class MainGameViewController extends AbstractController implements Initia
 
     public void selectDice(javafx.scene.input.MouseEvent mouseEvent) {
         selectedDiceInd = Integer.parseInt(String.valueOf(((ImageView) mouseEvent.getTarget()).getId().toCharArray()[9]));
-        synchronized (waitForUserInput){
+        synchronized (waitForUserInput) {
             waitForUserInput.notify();
         }
     }
@@ -990,35 +1003,33 @@ public class MainGameViewController extends AbstractController implements Initia
                 break;
         }
 
-        RowIterator rowIterator =  schemeCard.rowIterator(0);
-        while(rowIterator.hasNext()){
+        RowIterator rowIterator = schemeCard.rowIterator(0);
+        while (rowIterator.hasNext()) {
             ColumnIterator columnIterator = schemeCard.columnIterator(rowIterator.getCurrentRow());
-            while(columnIterator.hasNext()){
+            while (columnIterator.hasNext()) {
                 Tile tile = columnIterator.next();
-                if (tile.haveColor_constrain()){
-                    switch (tile.getColor_Constrain()){
+                if (tile.haveColor_constrain()) {
+                    switch (tile.getColor_Constrain()) {
                         case YELLOW:
-                            gridMap.getChildren().get(rowIterator.getCurrentRow()*schemeCard.getMaxColumn() + columnIterator.getCurrentColumn()-1).setStyle("-fx-background-color:YELLOW");
+                            gridMap.getChildren().get(rowIterator.getCurrentRow() * schemeCard.getMaxColumn() + columnIterator.getCurrentColumn() - 1).setStyle("-fx-background-color:YELLOW");
                             break;
                         case BLUE:
-                            gridMap.getChildren().get(rowIterator.getCurrentRow()*schemeCard.getMaxColumn() + columnIterator.getCurrentColumn()-1).setStyle("-fx-background-color:BLUE");
+                            gridMap.getChildren().get(rowIterator.getCurrentRow() * schemeCard.getMaxColumn() + columnIterator.getCurrentColumn() - 1).setStyle("-fx-background-color:BLUE");
                             break;
                         case RED:
-                            gridMap.getChildren().get(rowIterator.getCurrentRow()*schemeCard.getMaxColumn() + columnIterator.getCurrentColumn()-1).setStyle("-fx-background-color:RED");
+                            gridMap.getChildren().get(rowIterator.getCurrentRow() * schemeCard.getMaxColumn() + columnIterator.getCurrentColumn() - 1).setStyle("-fx-background-color:RED");
                             break;
                         case VIOLET:
-                            gridMap.getChildren().get(rowIterator.getCurrentRow()*schemeCard.getMaxColumn() + columnIterator.getCurrentColumn()-1).setStyle("-fx-background-color:VIOLET");
+                            gridMap.getChildren().get(rowIterator.getCurrentRow() * schemeCard.getMaxColumn() + columnIterator.getCurrentColumn() - 1).setStyle("-fx-background-color:VIOLET");
                             break;
                         case GREEN:
-                            gridMap.getChildren().get(rowIterator.getCurrentRow()*schemeCard.getMaxColumn() + columnIterator.getCurrentColumn()-1).setStyle("-fx-background-color:GREEN");
+                            gridMap.getChildren().get(rowIterator.getCurrentRow() * schemeCard.getMaxColumn() + columnIterator.getCurrentColumn() - 1).setStyle("-fx-background-color:GREEN");
                             break;
                     }
-                }
-                else if (tile.haveNumber_constrain()){
-                    gridMap.getChildren().get(rowIterator.getCurrentRow()*schemeCard.getMaxColumn() + columnIterator.getCurrentColumn()-1).setStyle("-fx-background-image: url('Dices/"+ tile.getNumber_Constrain() +".jpg'); -fx-background-position: center center;-fx-background-size: cover");
-                }
-                else{
-                    gridMap.getChildren().get(rowIterator.getCurrentRow()*schemeCard.getMaxColumn() + columnIterator.getCurrentColumn()-1).setStyle("-fx-background-color:WHITE");
+                } else if (tile.haveNumber_constrain()) {
+                    gridMap.getChildren().get(rowIterator.getCurrentRow() * schemeCard.getMaxColumn() + columnIterator.getCurrentColumn() - 1).setStyle("-fx-background-image: url('Dices/" + tile.getNumber_Constrain() + ".jpg'); -fx-background-position: center center;-fx-background-size: cover");
+                } else {
+                    gridMap.getChildren().get(rowIterator.getCurrentRow() * schemeCard.getMaxColumn() + columnIterator.getCurrentColumn() - 1).setStyle("-fx-background-color:WHITE");
 
                 }
             }
@@ -1026,7 +1037,7 @@ public class MainGameViewController extends AbstractController implements Initia
         }
     }
 
-    public void leaveTheMatch (javafx.event.ActionEvent actionEvent){
+    public void leaveTheMatch(javafx.event.ActionEvent actionEvent) {
         try {
             ObserverGUI.Singleton().getServerController().leavethematch(ObserverGUI.Singleton().getUsername(), ObserverGUI.Singleton());
         } catch (RemoteException e) {
@@ -1034,10 +1045,10 @@ public class MainGameViewController extends AbstractController implements Initia
         }
     }
 
-    public void updatePossiibleActions(){
+    public void updatePossiibleActions() {
         promptAction = "";
         try {
-            for(TurnActions action : ObserverGUI.Singleton().getServerController().getPossibleActions(ObserverGUI.Singleton().getUsername())){
+            for (TurnActions action : ObserverGUI.Singleton().getServerController().getPossibleActions(ObserverGUI.Singleton().getUsername())) {
                 promptAction += " -";
                 promptAction += ObserverGUI.Singleton().getTranslator().translateTurnAction(action);
                 promptAction += "\n";
@@ -1050,288 +1061,108 @@ public class MainGameViewController extends AbstractController implements Initia
 
 
     public void UseToolcard(javafx.scene.input.MouseEvent mouseEvent) {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
+        ImageView card = (ImageView) mouseEvent.getTarget();
+        String input = "0";
+        Boolean correct = false;
+        Boolean success = false;
+        Boolean condition = false;
 
-                ImageView card = (ImageView) mouseEvent.getTarget();
-                ToolRequestClass data = new ToolRequestClass();
-                String input = "0";
-                Boolean correct = false;
-                Boolean success = false;
-                Boolean condition = false;
-                int numOfDicesToMove = 0;
-                int toolCardId = 0;
 
-                switch (((ImageView) mouseEvent.getTarget()).getId()) {
-                    case "ToolCardImage1": {
-                        toolCardId = ToolCard1;
-                        break;
-                    }
-                    case "ToolCardImage2": {
-                        toolCardId = ToolCard2;
-                        break;
-                    }
-                    case "ToolCardImage3": {
-                        toolCardId = ToolCard3;
-                        break;
-                    }
+        switch (((ImageView) mouseEvent.getTarget()).getId()) {
+            case "ToolCardImage1": {
+                toolCardId = ToolCard1;
+                break;
+            }
+            case "ToolCardImage2": {
+                toolCardId = ToolCard2;
+                break;
+            }
+            case "ToolCardImage3": {
+                toolCardId = ToolCard3;
+                break;
+            }
+        }
+        numOfClick = 0;
+        data.setToolCardID(toolCardId);
+        if (selected == false) {  //TODO verifico correttezza di quest acosa del selected che dovrebbe evitare di selezionare due carte assieme vedo però se permette di selezionare carte in due turni diversi!
+            DropShadow dropShadow = new DropShadow();
+            card.setEffect(dropShadow);
+            switch (toolCardId) {
+                case 1: { //1. Pinze Sgrossatrice
+                    ErrorMessage.setText("Clicca sul dado della DicePool su cui applicare la Pinza Sgrossatrice!");
+                    Select.setVisible(true);
+                    selected = false;
+                    break;
                 }
-                data.setToolCardID(toolCardId);
-                if (selected == false) {  //TODO verifico correttezza di quest acosa del selected che dovrebbe evitare di selezionare due carte assieme vedo però se permette di selezionare carte in due turni diversi!
-                    DropShadow dropShadow = new DropShadow();
-                    card.setEffect(dropShadow);
-
-                    switch (toolCardId) {
-                        case 1: { //1. Pinze Sgrossatrice
-                            while (!condition) {
-                                ErrorMessage.setText("Seleziona il dado della DicePool su cui applicare la Pinza Sgrossatrice!");
-                                //waitForUser();
-                                data.setSelectedDiceIndex(selectedDiceInd);
-                                try {
-                                    ObserverGUI.Singleton().getServerController().useaToolCard(ObserverGUI.Singleton().getUsername(), data);
-                                    condition = true;
-                                    selected = false;
-                                } catch (RemoteException e) {
-                                    ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
-                                }
-                            }
-                            updatePossiibleActions();
-                            updateDicePool();
-                            break;
-                        }
-                        case 2: { //2. Pennello per Eglomise
-
-                            while (!condition) {
-                                ErrorMessage.setText("Seleziona il dado da spostare (Ignora colore):");
-                                //waitForUser();
-                                data.setOldRow1(newOldRow);
-                                data.setOldColumn1(newOldColumn);
-                                ErrorMessage.setText("Seleziona la nuova posizione.");
-                                //waitForUser();
-                                data.setNewRow1(newOldRow);
-                                data.setNewColumn1(newOldColumn);
-                                try {
-                                    ObserverGUI.Singleton().getServerController().useaToolCard(ObserverGUI.Singleton().getUsername(), data);
-                                    condition = true;
-                                    selected = false;
-                                } catch (RemoteException e) {
-                                    ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
-                                }
-                            }
-                            break;
-                        }
-                        case 3: { //3. Alesatore per lamina di rame
-                            while (!condition) {
-                                ErrorMessage.setText("Seleziona il dado da spostare (Ignora intensità):");
-                                //waitForUser();
-                                data.setOldRow1(newOldRow);
-                                data.setOldColumn1(newOldColumn);
-                                ErrorMessage.setText("Seleziona la nuova posizione");
-                                //waitForUser();
-                                data.setNewRow1(newOldRow);
-                                data.setNewColumn1(newOldColumn);
-                                try {
-                                    ObserverGUI.Singleton().getServerController().useaToolCard(ObserverGUI.Singleton().getUsername(), data);
-                                    condition = true;
-                                    selected = false;
-                                } catch (RemoteException e) {
-                                    ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
-                                }
-                            }
-                            break;
-                        }
-                        case 4: { //4. Lathekin
-                            while (!condition) {
-                                ErrorMessage.setText("Seleziona il primo dado da spostare.");
-                                //waitForUser();
-                                data.setOldRow1(newOldRow);
-                                data.setOldColumn1(newOldColumn);
-                                ErrorMessage.setText("Seleziona la nuova posizione del dado.");
-                                //waitForUser();
-                                data.setNewRow1(newOldRow);
-                                data.setNewColumn1(newOldColumn);
-                                ErrorMessage.setText("Seleziona il secondo dado da spostare.");
-                                //waitForUser();
-                                data.setOldRow2(newOldRow);
-                                data.setOldColumn2(newOldColumn);
-                                ErrorMessage.setText("Seleziona la nuova posizione del dado.");
-                                //waitForUser();
-                                data.setNewRow2(newOldRow);
-                                data.setNewColumn2(newOldColumn);
-                                try {
-                                    ObserverGUI.Singleton().getServerController().useaToolCard(ObserverGUI.Singleton().getUsername(), data);
-                                    condition = true;
-                                    selected = false;
-                                } catch (RemoteException e) {
-                                    ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
-                                }
-                            }
-                            break;
-                        }
-                        case 5: { //5. Taglierina circolare
-                            while (!condition) {
-                                ErrorMessage.setText("Seleziona il dado da scambiare sulla RoundTrack."); //todo wait speciale
-                                /*try {
-                                    waitForUserInputSpecial.wait();
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }*/
-                                data.setRoundWhereThediceis(newOldColumn + 1);
-                                data.setSelectedRoundTrackDiceIndex(newOldRow);
-                                try {
-                                    ObserverGUI.Singleton().getServerController().useaToolCard(ObserverGUI.Singleton().getUsername(), data);
-                                    condition = true;
-                                    selected = false;
-                                } catch (RemoteException e) {
-                                    ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
-                                }
-                            }
-                            break;
-                        }
-                        case 6: { //6. Pennello per Pasta Salda
-                            while (!condition) {
-                                ErrorMessage.setText("Seleziona il dado da tirare nuovamente. Indica l'indice:");
-                                //waitForUser();
-                                data.setSelectedDiceIndex(selectedDiceInd);
-                                try {
-                                    ObserverGUI.Singleton().getServerController().useaToolCard(ObserverGUI.Singleton().getUsername(), data);
-                                    condition = true;
-                                    selected = false;
-                                } catch (RemoteException e) {
-                                    ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
-                                }
-                            }
-                            break;
-                        }
-                        case 7: { //7. Martelletto
-                            try {
-                                ObserverGUI.Singleton().getServerController().useaToolCard(ObserverGUI.Singleton().getUsername(), data);
-                                selected = false;
-                            } catch (RemoteException e) {
-                                ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
-                            }
-                            break; //nulla da fare ritira tutti i dadi nella riserva
-                        }
-                        case 8: { //8. Tenaglia a Rotelle
-                            while (!condition) {
-                                ErrorMessage.setText("Piazza subito un secondo dado. Seleziona il dado:");
-                                //waitForUser();
-                                data.setSelectedDiceIndex(selectedDiceInd);
-                                ErrorMessage.setText("Seleziona la posizione sulla mappa:");
-                                //waitForUser();
-                                data.setNewRow1(newOldRow);
-                                data.setNewColumn1(newOldColumn);
-                                try {
-                                    ObserverGUI.Singleton().getServerController().useaToolCard(ObserverGUI.Singleton().getUsername(), data);
-                                    condition = true;
-                                    selected = false;
-                                } catch (RemoteException e) {
-                                    ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
-                                }
-                            }
-                            break;
-                        }
-                        case 9: { //9. Riga in Sughero
-                            while (!condition) {
-                                ErrorMessage.setText("Seleziona il dado da posizionare nella mappa.");
-                                //waitForUser();
-                                data.setSelectedDiceIndex(selectedDiceInd);
-                                ErrorMessage.setText("Seleziona la cella isolata in cui piazzarlo.");
-                                //waitForUser();
-                                data.setNewRow1(newOldRow);
-                                data.setNewColumn1(newOldColumn);
-                                try {
-                                    ObserverGUI.Singleton().getServerController().useaToolCard(ObserverGUI.Singleton().getUsername(), data);
-                                    condition = true;
-                                    selected = false;
-                                } catch (RemoteException e) {
-                                    ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
-                                }
-                            }
-                            break;
-                        }
-                        case 10: { //10. Tampone Diamantato
-                            while (!condition) {
-                                selectedDice = false;
-                                ErrorMessage.setText("Seleziona il dado da girare sulla faccia opposta.");
-                                //waitForUser();
-                                data.setSelectedDiceIndex(selectedDiceInd);
-                                try {
-                                    ObserverGUI.Singleton().getServerController().useaToolCard(ObserverGUI.Singleton().getUsername(), data);
-                                    condition = true;
-                                    selected = false;
-                                } catch (RemoteException e) {
-                                    ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
-                                }
-                            }
-                            break;
-                        }
-                        case 11: { //11. Diluente per Pasta Salda
-                            while (!condition) {
-                                ErrorMessage.setText("Seleziona il dado rimettere nel sacchetto.");
-                                //waitForUser();
-                                data.setSelectedDiceIndex(selectedDiceInd);
-                                try {
-                                    ObserverGUI.Singleton().getServerController().useaToolCard(ObserverGUI.Singleton().getUsername(), data);
-                                    condition = true;
-                                    selected = false;
-                                } catch (RemoteException e) {
-                                    ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
-                                }
-                            }
-                            break;
-                        }
-                        case 12: { //12. Taglierina Manuale
-
-                            ErrorMessage.setText("Seleziona il numero di dadi da spostare.");
-                            toggle1or2.setVisible(true);
-                            select1or2.setVisible(true);
-                            //waitForUser();
-                            data.setNumberofDicesyouwanttomove(DicesToMove);
-                            while (!condition) {
-                                if (numOfDicesToMove == 1) {
-                                    ErrorMessage.setText("Seleziona il dado da spostare.");
-                                    //waitForUser();
-                                    data.setOldRow1(newOldRow);
-                                    data.setOldColumn1(newOldColumn);
-                                    ErrorMessage.setText("Seleziona la nuova posizione.");
-                                    //waitForUser();
-                                    data.setNewRow1(newOldRow);
-                                    data.setNewColumn1(newOldColumn);
-                                } else {
-                                    ErrorMessage.setText("Seleziona il primo dado da spostare.");
-                                    //waitForUser();
-                                    data.setOldRow1(newOldRow);
-                                    data.setOldColumn1(newOldColumn);
-                                    ErrorMessage.setText("Seleziona la nuova posizione.");
-                                    //waitForUser();
-                                    data.setNewRow1(newOldRow);
-                                    data.setNewColumn1(newOldColumn);
-                                    ErrorMessage.setText("Seleziona il secondo dado da spostare.");
-                                    //waitForUser();
-                                    data.setOldRow1(newOldRow);
-                                    data.setOldColumn1(newOldColumn);
-                                    ErrorMessage.setText("Seleziona la nuova posizione.");
-                                    //waitForUser();
-                                    data.setNewRow1(newOldRow);
-                                    data.setNewColumn1(newOldColumn);
-                                }
-                                try {
-                                    ObserverGUI.Singleton().getServerController().useaToolCard(ObserverGUI.Singleton().getUsername(), data);
-                                    condition = true;
-                                } catch (RemoteException e) {
-                                    ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
-                                }
-                            }
-                            break;
-                        }
-                    }
-                } else {
-                    ErrorMessage.setText("Non puoi usare due Carte Utensile contemporaneamente!");
+                case 2: { //2. Pennello per Eglomise
+                    ErrorMessage.setText("Seleziona il dado da spostare (Ignora colore):");
+                    Select.setVisible(true);
+                    selected = false;
+                    break;
+                }
+                case 3: { //3. Alesatore per lamina di rame
+                    ErrorMessage.setText("Seleziona il dado da spostare (Ignora intensità):");
+                    Select.setVisible(true);
+                    selected = false;
+                    break;
+                }
+                case 4: { //4. Lathekin
+                    ErrorMessage.setText("Seleziona il primo dado da spostare.");
+                    Select.setVisible(true);
+                    selected = false;
+                    break;
+                }
+                case 5: { //5. Taglierina circolare
+                    ErrorMessage.setText("Seleziona il dado da scambiare sulla RoundTrack.");
+                    Select.setVisible(true);
+                    selected = false;
+                    break;
+                }
+                case 6: { //6. Pennello per Pasta Salda
+                    ErrorMessage.setText("Seleziona il dado da tirare nuovamente. Indica l'indice:");
+                    Select.setVisible(true);
+                    selected = false;
+                    break;
+                }
+                case 7: { //7. Martelletto
+                    useToolCard.setVisible(true);
+                    break;
+                }
+                case 8: { //8. Tenaglia a Rotelle
+                    ErrorMessage.setText("Piazza subito un secondo dado. Seleziona il dado:");
+                    Select.setVisible(true);
+                    selected = false;
+                    break;
+                }
+                case 9: { //9. Riga in Sughero
+                    ErrorMessage.setText("Seleziona il dado da posizionare nella mappa.");
+                    Select.setVisible(true);
+                    selected = false;
+                    break;
+                }
+                case 10: { //10. Tampone Diamantato
+                    ErrorMessage.setText("Seleziona il dado da girare sulla faccia opposta.");
+                    Select.setVisible(true);
+                    selected = false;
+                    break;
+                }
+                case 11: { //11. Diluente per Pasta Salda
+                    ErrorMessage.setText("Seleziona il dado rimettere nel sacchetto.");
+                    Select.setVisible(true);
+                    selected = false;
+                    break;
+                }
+                case 12: { //12. Taglierina Manuale
+                    ErrorMessage.setText("Seleziona il numero di dadi da spostare.");
+                    toggle1or2.setVisible(true);
+                    select1or2.setVisible(true);
+                    selected = false;
+                    break;
                 }
             }
-            });
+        } else {
+            ErrorMessage.setText("Non puoi usare due Carte Utensile contemporaneamente!");
+        }
     }
 
     public void passTurn(ActionEvent actionEvent) {
@@ -1406,85 +1237,185 @@ public class MainGameViewController extends AbstractController implements Initia
                 public void run() {
                     updateDicePool();
                     selectIntensity.setVisible(true);
-                    selectIntensity.getItems().addAll("1", "2", "3", "4", "5", "6");
-                    try {
-                        ObserverGUI.Singleton().getServerController().setToolCardDiceIntensity(ObserverGUI.Singleton().getUsername(), Integer.parseInt(String.valueOf(selectIntensity.getValue())));
-                    } catch (RemoteException e) {
-                        ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
-                    }
-                    updateDicePool();
-                    ErrorMessage.setText("Seleziona dove vuoi mettere il dado estratto:");
-                    try {
-                        waitForUserInput.wait();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    try {
-                        ObserverGUI.Singleton().getServerController().setToolCardDice(ObserverGUI.Singleton().getUsername(), newOldRow, newOldColumn);
-                    } catch (RemoteException e) {
-                        ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
-                    }
+                    selectIntensity.getItems().addAll("1", "2", "3", "4", "5", "6"); //modifico qui con stesso criterio
+                    ErrorMessage.setText("Seleziona dove vuoi mettere il dado estratto e l'intensità.");
+                    selectValue.setVisible(true);
                 }
             });
+
         } else if (state == State.MUSTSSETDILUENTEPERPASTASALDASTATE) {
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
                     updateDicePool();
                     ErrorMessage.setText("Seleziona dove vuoi mettere il dado estratto:");
-                    try {
-                        waitForUserInput.wait();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    try {
-                        ObserverGUI.Singleton().getServerController().setToolCardDice(ObserverGUI.Singleton().getUsername(), newOldRow, newOldColumn);
-                    } catch (RemoteException e) {
-                        ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
-                    }
+                    selectValue.setVisible(true);
                 }
             });
-
-
         }
-    }
-
-    public void waitForUser(){
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    waitForUserInput.wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
     }
 
     public void Select1or2(ActionEvent actionEvent) {
-        if(toggle1or2.isSelected()){
+        if (toggle1or2.isSelected()) {
             DicesToMove = 2;
-        }
-        else DicesToMove = 1;
-        synchronized (waitForUserInput){
-            waitForUserInput.notify();
-        }
+        } else DicesToMove = 1;
+        data.setNumberofDicesyouwanttomove(DicesToMove);
+        toggle1or2.setVisible(false);
+        select1or2.setVisible(false);
+        Select.setVisible(true);
+        ErrorMessage.setText("Seleziona il dado da spostare.");
     }
 
     public void selectThisPose(MouseEvent mouseEvent) {
         newOldRow = ((ImageView) mouseEvent.getTarget()).getId().toCharArray()[9];
         newOldColumn = ((ImageView) mouseEvent.getTarget()).getId().toCharArray()[10];
-        synchronized (waitForUserInput){
-            waitForUserInput.notify();
-        }
     }
 
     public void selectThisPoseSpecial(MouseEvent mouseEvent) {
         newOldRow = ((ImageView) mouseEvent.getTarget()).getId().toCharArray()[10];
         newOldColumn = ((ImageView) mouseEvent.getTarget()).getId().toCharArray()[11];
-        synchronized (waitForUserInput) {
-            waitForUserInput.notify();
+    }
+
+    public void useTool(ActionEvent actionEvent) {
+        useToolCard.setVisible(false);
+        try {
+            ObserverGUI.Singleton().getServerController().useaToolCard(ObserverGUI.Singleton().getUsername(), data);
+        } catch (RemoteException e) {
+            ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
         }
+    }
+
+    public void SelectNewRow(ActionEvent actionEvent) {
+        switch (toolCardId) {
+            case 1: case 6: case 10: case 11:{
+                data.setRoundWhereThediceis(selectedDiceInd);
+                Select.setVisible(false);
+                useToolCard.setVisible(true);
+                break;
+            }
+            case 2:
+            case 3: {
+                if (numOfClick == 0) {
+                    data.setOldRow1(newOldRow);
+                    data.setOldColumn1(newOldColumn);
+                    ErrorMessage.setText("Seleziona la nuova posizione del dado.");
+                    numOfClick++;
+                } else {
+                    data.setNewRow1(newOldRow);
+                    data.setNewColumn1(newOldColumn);
+                    Select.setVisible(false);
+                    useToolCard.setVisible(true);
+                }
+                break;
+            }
+            case 4: {
+                if (numOfClick == 0) {
+                    data.setOldRow1(newOldRow);
+                    data.setOldColumn1(newOldColumn);
+                    ErrorMessage.setText("Seleziona la nuova posizione del dado.");
+                    numOfClick++;
+                } else if (numOfClick == 1) {
+                    data.setNewRow1(newOldRow);
+                    data.setNewColumn1(newOldColumn);
+                    ErrorMessage.setText("Seleziona il secondo dado da spostare.");
+                    numOfClick++;
+                } else if (numOfClick == 2) {
+                    data.setOldRow2(newOldRow);
+                    data.setOldColumn2(newOldColumn);
+                    ErrorMessage.setText("Seleziona la nuova posizione del dado.");
+                    numOfClick++;
+                } else {
+                    data.setNewRow2(newOldRow);
+                    data.setNewColumn2(newOldColumn);
+                    Select.setVisible(false);
+                    useToolCard.setVisible(true);
+                }
+                break;
+            }
+            case 5:{
+                data.setRoundWhereThediceis(newOldColumn + 1);
+                data.setSelectedRoundTrackDiceIndex(newOldRow);
+                Select.setVisible(false);
+                useToolCard.setVisible(true);
+                break;
+            }
+            case 8:{
+                if(numOfClick==0) {
+                    data.setSelectedDiceIndex(selectedDiceInd);
+                    ErrorMessage.setText("Seleziona la posizione sulla mappa:");
+                    numOfClick++;
+                }
+                else {
+                    data.setNewRow1(newOldRow);
+                    data.setNewColumn1(newOldColumn);
+                    Select.setVisible(false);
+                    useToolCard.setVisible(true);
+                }
+                break;
+            }
+            case 9:{
+                if(numOfClick==0) {
+                    data.setSelectedDiceIndex(selectedDiceInd); //solo per avere mesaggi diversi
+                    ErrorMessage.setText("Seleziona la cella isolata in cui piazzarlo.");
+                    numOfClick++;
+                }
+                else {
+                    data.setNewRow1(newOldRow);
+                    data.setNewColumn1(newOldColumn);
+                    Select.setVisible(false);
+                    useToolCard.setVisible(true);
+                }
+                break;
+            }
+            case 12:{
+                if (DicesToMove == 1) {
+                    if (numOfClick == 0) {
+                        data.setOldRow1(newOldRow);
+                        data.setOldColumn1(newOldColumn);
+                        ErrorMessage.setText("Seleziona la nuova posizione del dado.");
+                        numOfClick++;
+                    } else {
+                        data.setNewRow1(newOldRow);
+                        data.setNewColumn1(newOldColumn);
+                        ErrorMessage.setText("Seleziona il secondo dado da spostare.");
+                        Select.setVisible(false);
+                        useToolCard.setVisible(true);
+                    }
+                }else {
+                    if (numOfClick == 0) {
+                        data.setOldRow1(newOldRow);
+                        data.setOldColumn1(newOldColumn);
+                        ErrorMessage.setText("Seleziona la nuova posizione del dado.");
+                        numOfClick++;
+                    } else if (numOfClick == 1) {
+                        data.setNewRow1(newOldRow);
+                        data.setNewColumn1(newOldColumn);
+                        ErrorMessage.setText("Seleziona il secondo dado da spostare.");
+                        numOfClick++;
+                    } else if (numOfClick == 2) {
+                        data.setOldRow2(newOldRow);
+                        data.setOldColumn2(newOldColumn);
+                        ErrorMessage.setText("Seleziona la nuova posizione del dado.");
+                        numOfClick++;
+                    } else {
+                        data.setNewRow2(newOldRow);
+                        data.setNewColumn2(newOldColumn);
+                        Select.setVisible(false);
+                        useToolCard.setVisible(true);
+                        }
+                }
+                break;
+            }
+            }
+        }
+
+    public void selectValueOfDice(ActionEvent actionEvent) {
+        selectValue.setVisible(false);
+        selectIntensity.setVisible(false);
+        try{
+        ObserverGUI.Singleton().getServerController().setToolCardDice(ObserverGUI.Singleton().getUsername(), newOldRow, newOldColumn);
+    } catch (RemoteException e) {
+        ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
+    }
     }
 }
