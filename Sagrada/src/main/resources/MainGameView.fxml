@@ -1037,5 +1037,13 @@
             <Font size="20.0" />
          </font>
       </JFXButton>
+      <JFXButton fx:id="selectValue" layoutX="889.0" layoutY="341.0" onAction="#selectValueOfDice" prefHeight="44.0" prefWidth="220.0" style="-fx-background-color: green;" text="Usa la carta" textFill="WHITE">
+         <effect>
+            <DropShadow />
+         </effect>
+         <font>
+            <Font size="20.0" />
+         </font>
+      </JFXButton>
    </children>
 </AnchorPane>

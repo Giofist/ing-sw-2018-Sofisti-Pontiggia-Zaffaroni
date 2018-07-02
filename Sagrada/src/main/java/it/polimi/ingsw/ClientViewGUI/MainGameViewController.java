@@ -97,6 +97,9 @@ public class MainGameViewController extends AbstractController implements Initia
     private ImageView RoundDice1;
 
     @FXML
+    private Button selectValue;
+
+    @FXML
     private ImageView RoundDice2;
 
     @FXML
@@ -537,7 +540,6 @@ public class MainGameViewController extends AbstractController implements Initia
         }
     }
 
-
     @FXML
     void handleOnDragDropped(DragEvent event) {
         int row;
@@ -588,6 +590,8 @@ public class MainGameViewController extends AbstractController implements Initia
         select1or2.setVisible(false);
         selectIntensity.setVisible(false);
         useToolCard.setVisible(false);
+        Select.setVisible(false);
+        selectValue.setVisible(false);
         updateToken();
         updateDicePool();
         updatePossiibleActions();
@@ -1234,42 +1238,18 @@ public class MainGameViewController extends AbstractController implements Initia
                     updateDicePool();
                     selectIntensity.setVisible(true);
                     selectIntensity.getItems().addAll("1", "2", "3", "4", "5", "6"); //modifico qui con stesso criterio
-                    try {
-                        ObserverGUI.Singleton().getServerController().setToolCardDiceIntensity(ObserverGUI.Singleton().getUsername(), Integer.parseInt(String.valueOf(selectIntensity.getValue())));
-                    } catch (RemoteException e) {
-                        ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
-                    }
-                    updateDicePool();
-                    ErrorMessage.setText("Seleziona dove vuoi mettere il dado estratto:");
-                    try {
-                        waitForUserInput.wait();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    try {
-                        ObserverGUI.Singleton().getServerController().setToolCardDice(ObserverGUI.Singleton().getUsername(), newOldRow, newOldColumn);
-                    } catch (RemoteException e) {
-                        ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
-                    }
+                    ErrorMessage.setText("Seleziona dove vuoi mettere il dado estratto e l'intensità.");
+                    selectValue.setVisible(true);
                 }
             });
+
         } else if (state == State.MUSTSSETDILUENTEPERPASTASALDASTATE) {
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
                     updateDicePool();
                     ErrorMessage.setText("Seleziona dove vuoi mettere il dado estratto:");
-                    useToolCard.setVisible(true);
-                    try {
-                        waitForUserInput.wait();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    try {
-                        ObserverGUI.Singleton().getServerController().setToolCardDice(ObserverGUI.Singleton().getUsername(), newOldRow, newOldColumn);
-                    } catch (RemoteException e) {
-                        ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
-                    }
+                    selectValue.setVisible(true);
                 }
             });
 
@@ -1430,4 +1410,14 @@ public class MainGameViewController extends AbstractController implements Initia
             }
             }
         }
+
+    public void selectValueOfDice(ActionEvent actionEvent) {
+        selectValue.setVisible(false);
+        selectIntensity.setVisible(false);
+        try{
+        ObserverGUI.Singleton().getServerController().setToolCardDice(ObserverGUI.Singleton().getUsername(), newOldRow, newOldColumn);
+    } catch (RemoteException e) {
+        ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
+    }
+    }
 }
