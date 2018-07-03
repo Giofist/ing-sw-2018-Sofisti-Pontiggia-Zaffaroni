@@ -1085,10 +1085,12 @@ public class MainGameViewController implements Initializable, AbstractController
         }
         try {
             token = ObserverGUI.Singleton().getServerController().getToken(ObserverGUI.Singleton().getUsername());
-            cost = ((ToolCardsDeck)ObserverGUI.Singleton().getServerController().getToolCards(ObserverGUI.Singleton().getUsername())).getCost(toolCardId);
+            for (ToolAction toolAction: ObserverGUI.Singleton().getServerController().getToolCards(ObserverGUI.Singleton().getUsername())) {
+                if (toolAction.getID() == toolCardId) {
+                    cost = toolAction.getCost();
+                }
+            }
         } catch (RemoteException e) {
-            e.printStackTrace();
-        } catch (WrongToolCardIDException e) {
             e.printStackTrace();
         }
         if(token >= cost) {
