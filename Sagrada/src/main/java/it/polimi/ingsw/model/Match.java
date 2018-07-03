@@ -119,6 +119,7 @@ public class Match implements Runnable,Serializable{
         }catch(InterruptedException e) {
             //do nothing
         }
+        System.out.println("Sono uscito dal done signal");
         // Now the game can start for N rounds
         for (int i = 1; i<=10; i++){
             new Round(i, this.players, this).run();

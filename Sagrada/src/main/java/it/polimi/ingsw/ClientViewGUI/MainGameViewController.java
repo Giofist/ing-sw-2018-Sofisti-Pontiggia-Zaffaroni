@@ -501,6 +501,9 @@ public class MainGameViewController implements Initializable, AbstractController
     private ImageView ToolCardImage3;
 
     @FXML
+    private  Text SelectedCell;
+
+    @FXML
     private GridPane mapPlayer1;
 
     @FXML
@@ -961,9 +964,7 @@ public class MainGameViewController implements Initializable, AbstractController
 
     public void selectDice(javafx.scene.input.MouseEvent mouseEvent) {
         selectedDiceInd = Integer.parseInt(String.valueOf(((ImageView) mouseEvent.getTarget()).getId().toCharArray()[9]));
-        synchronized (waitForUserInput) {
-            waitForUserInput.notify();
-        }
+        SelectedCell.setText("Dadi della Round Dicepool: "+ selectedDiceInd);
     }
 
     public void setUpMap(SchemeCard schemeCard, GridPane gridMap, Text mapName, Circle diff1, Circle diff2, Circle diff3, Circle diff4, Circle diff5, Circle diff6) {
@@ -1101,6 +1102,7 @@ public class MainGameViewController implements Initializable, AbstractController
         if(token >= cost) {
             numOfClick = 0;
             data.setToolCardID(toolCardId);
+            SelectedCell.setText("Hai selezionato la carta: " + toolCardId);
             if (selected == false) {  //TODO verifico correttezza di quest acosa del selected che dovrebbe evitare di selezionare due carte assieme vedo però se permette di selezionare carte in due turni diversi!
                 DropShadow dropShadow = new DropShadow();
                 card.setEffect(dropShadow);
@@ -1173,6 +1175,17 @@ public class MainGameViewController implements Initializable, AbstractController
         else{
             ErrorMessage.setText("Non hai abbastanza Segnalini favore!");
         }
+    }
+
+    public void useTool(ActionEvent actionEvent) {
+        useToolCard.setVisible(false);
+        SelectedCell.setText("");
+        try {
+            ObserverGUI.Singleton().getServerController().useaToolCard(ObserverGUI.Singleton().getUsername(), data);
+        } catch (RemoteException e) {
+            ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
+        }
+        selected = false;
     }
 
     public void passTurn(ActionEvent actionEvent) {
@@ -1277,6 +1290,7 @@ public class MainGameViewController implements Initializable, AbstractController
             DicesToMove = 2;
         } else DicesToMove = 1;
         data.setNumberofDicesyouwanttomove(DicesToMove);
+        SelectedCell.setText("Dadi da spostare: "+ DicesToMove);
         toggle1or2.setVisible(false);
         select1or2.setVisible(false);
         Select.setVisible(true);
@@ -1286,21 +1300,13 @@ public class MainGameViewController implements Initializable, AbstractController
     public void selectThisPose(MouseEvent mouseEvent) {
         newOldRow = ((ImageView) mouseEvent.getTarget()).getId().toCharArray()[9];
         newOldColumn = ((ImageView) mouseEvent.getTarget()).getId().toCharArray()[10];
+        SelectedCell.setText("Hai selezionato la cella: " + newOldRow + " "+ newOldColumn);
     }
 
     public void selectThisPoseSpecial(MouseEvent mouseEvent) {
         newOldRow = ((ImageView) mouseEvent.getTarget()).getId().toCharArray()[10];
         newOldColumn = ((ImageView) mouseEvent.getTarget()).getId().toCharArray()[11];
-    }
-
-    public void useTool(ActionEvent actionEvent) {
-        useToolCard.setVisible(false);
-        try {
-            ObserverGUI.Singleton().getServerController().useaToolCard(ObserverGUI.Singleton().getUsername(), data);
-        } catch (RemoteException e) {
-            ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
-        }
-        selected = false;
+        SelectedCell.setText("Hai selezionato la cella: " + newOldRow + " "+ newOldColumn);
     }
 
     public void SelectNewRow(ActionEvent actionEvent) {
@@ -1430,6 +1436,12 @@ public class MainGameViewController implements Initializable, AbstractController
     public void selectValueOfDice(ActionEvent actionEvent) {
         selectValue.setVisible(false);
         selectIntensity.setVisible(false);
+        SelectedCell.setText("Intensità scelta:"+ selectIntensity.getValue());
+        try{
+            ObserverGUI.Singleton().getServerController().setToolCardDiceIntensity(ObserverGUI.Singleton().getUsername(),Integer.parseInt(selectIntensity.getValue().toString()));
+        } catch (RemoteException e) {
+            ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
+        }
         try{
         ObserverGUI.Singleton().getServerController().setToolCardDice(ObserverGUI.Singleton().getUsername(), newOldRow, newOldColumn);
     } catch (RemoteException e) {
