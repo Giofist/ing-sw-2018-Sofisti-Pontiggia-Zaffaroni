@@ -4,6 +4,7 @@ import it.polimi.ingsw.ClientView.Observer;
 import it.polimi.ingsw.NetworkClient.SocketResponseHandler;
 import it.polimi.ingsw.model.GoalCard;
 import it.polimi.ingsw.model.Match;
+import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.TurnActions;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 import it.polimi.ingsw.model.ToolCard.ToolAction;
@@ -24,7 +25,7 @@ public interface ClientHandlerInterface extends Remote {
     List<TurnActions> getPossibleActions(String clientname) throws RemoteException;
     List<GoalCard> getPrivateGoalCard(String clientname) throws RemoteException;
     List<GoalCard> getPublicGoalCards(String clientname) throws RemoteException;
-    List getRanking(String clientname) throws RemoteException;
+    List<Player> getRanking(String clientname) throws RemoteException;
     String getRoundDicepool(String clientname) throws RemoteException;
     String getRoundTrack(String clientname) throws RemoteException;
     List<SchemeCard> getSchemeCard(String clientname) throws RemoteException;

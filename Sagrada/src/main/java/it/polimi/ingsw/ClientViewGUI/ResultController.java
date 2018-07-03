@@ -57,11 +57,11 @@ public class ResultController implements Initializable,AbstractController {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
             try {
-                for(Object pl : ObserverGUI.Singleton().getServerController().getRanking(ObserverGUI.Singleton().getUsername())){
+                for(Player player: ObserverGUI.Singleton().getServerController().getRanking(ObserverGUI.Singleton().getUsername())){
                     playerList += i + ". ";
-                    playerList += ((Player) pl).getName();
+                    playerList += player.getName();
                     playerList += "         ";
-                    playerList += ((Player) pl).getPoints();
+                    playerList += player.getPoints();
                     playerList += "\n";
                     i++;
                 }

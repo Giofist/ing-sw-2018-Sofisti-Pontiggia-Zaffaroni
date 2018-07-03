@@ -1,9 +1,6 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.model.Exceptions.CardIdNotAllowedException;
-import it.polimi.ingsw.model.Exceptions.MapConstrainReadingException;
-import it.polimi.ingsw.model.Exceptions.PrivateGoalCardException;
-import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
+import it.polimi.ingsw.model.Exceptions.*;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -138,6 +135,9 @@ public class Match implements Runnable,Serializable{
         }
 
 
+        for (Player player:this.players) {
+            System.out.println(player.getName() + " " + player.getPoints());
+        }
         // After ordering the players based on their score I notify them about the end of the match
         Collections.sort(this.players);
         for (Player player:this.players) {
@@ -221,7 +221,7 @@ public class Match implements Runnable,Serializable{
                         }
                     }
                 }
-            },122220000);
+            },120000);
         }
         if (this.players.size() == 3){
             isreadyTostart = true;
@@ -281,12 +281,19 @@ public class Match implements Runnable,Serializable{
      * This method terminates the match in case the conditions to go on are not met
      */
     public void forceendmatch() {
+        System.out.println("Sono nel force end match");
         for(Player player: this.players){
             if (UsersList.Singleton().getUser(player.getName()).isActive()){
+                System.out.println("questo è l'unico giocatore rimasto attivo " + player.getName());
                 player.setPlayerState(State.FORCEENDMATCH);
+            }
+            else {
+                player.getMatch().leavethematch(player);
+                UsersList.Singleton().getUser(player.getName()).removePlayer(player.getPlayerState().getObserver());
             }
         }
     }
+
 
     // For testing
     protected boolean getIsReadyToStart(){ return isreadyTostart;  }

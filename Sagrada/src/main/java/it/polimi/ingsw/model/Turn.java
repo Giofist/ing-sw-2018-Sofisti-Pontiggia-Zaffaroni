@@ -41,26 +41,22 @@ public class Turn implements Runnable{
         }else{
             currentPlayer.setPlayerState(State.STARTTURNSTATE);
         }
-        try{
-            if (!UsersList.Singleton().findUser(currentPlayer.getName()).isActive()) {
+        if (!UsersList.Singleton().getUser(currentPlayer.getName()).isActive()) {
                 this.countDown();
-            }
-        }catch(UserNotExistentException e){
-                //do nothing
+            System.out.println("Ho trovato inattivo "+ currentPlayer.getName() + " nel turno "+ this.turnID);
+        }
+        else{
+            System.out.println("Ho trovato attivo "+ currentPlayer.getName());
         }
 
         for (Player player: this.round.getMatch().getallPlayersbutnotme(currentPlayer)) {
             player.setPlayerState(State.NOTYOURTURNSTATE);
-            try{
-                if (!UsersList.Singleton().findUser(player.getName()).isActive()) {
-                    System.out.println("Ho trovato inattivo "+ player.getName() + " nel turno "+ this.turnID);
-                    this.countDown();
-                }
-                else{
-                    System.out.println("Ho trovato attivo "+ player.getMatch());
-                }
-            }catch(UserNotExistentException e){
-                //do nothing
+            if (!UsersList.Singleton().getUser(player.getName()).isActive()) {
+                System.out.println("Ho trovato inattivo "+ player.getName() + " nel turno "+ this.turnID);
+                this.countDown();
+            }
+            else{
+                System.out.println("Ho trovato attivo "+ player.getName());
             }
         }
         // If there is only one player the match terminates immediately

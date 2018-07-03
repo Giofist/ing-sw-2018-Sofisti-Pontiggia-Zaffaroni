@@ -20,9 +20,6 @@ public class Player  implements Comparable<Player>, Serializable {
     private transient Turn turn;
     private String name;
     private Observable playerState;
-
-
-
     private Dice diceforToolCard;
     private boolean mustpassTurn;
 

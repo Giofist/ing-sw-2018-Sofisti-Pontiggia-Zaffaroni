@@ -207,7 +207,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
      * @throws RemoteException Exception thrown when the provided username doesn't exist in the UsersList on the server
      */
     @Override
-    public List getRanking(String clientname) throws RemoteException{
+    public List<Player> getRanking(String clientname) throws RemoteException{
         try{
             Player player = UsersList.Singleton().findUser(clientname).getPlayer();
             return player.getMatch().getallPlayers();
