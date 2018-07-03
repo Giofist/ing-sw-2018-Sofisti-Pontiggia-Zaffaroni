@@ -102,8 +102,8 @@ public class LogInController  implements Initializable,AbstractController{
             Scene scene = new Scene(menu);
             Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             appStage.setScene(scene);
-            //appStage.setFullScreen(true);
-            appStage.initStyle(StageStyle.DECORATED);
+            appStage.setFullScreen(true);
+            //appStage.initStyle(StageStyle.DECORATED);
             appStage.show();
         } catch (RemoteException e) {
             LogInError.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
