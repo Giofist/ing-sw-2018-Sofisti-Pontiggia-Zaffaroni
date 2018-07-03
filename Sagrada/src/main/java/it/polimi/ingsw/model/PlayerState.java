@@ -104,6 +104,8 @@ public class PlayerState implements Observable, Serializable{
                 this.actions.addLast(TurnActions.LEAVEMATCH);
                 this.actions.addLast(TurnActions.SETSCHEMECARD);
                 break;
+            case FORCEENDMATCH:
+                this.actions.addLast(TurnActions.LEAVEMATCH);
         }
     }
 

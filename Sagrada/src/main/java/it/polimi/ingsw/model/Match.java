@@ -276,7 +276,9 @@ public class Match implements Runnable,Serializable{
      */
     public void forceendmatch() {
         for(Player player: this.players){
-            player.setPlayerState(State.FORCEENDMATCH);
+            if (UsersList.Singleton().getUser(player.getName()).isActive()){
+                player.setPlayerState(State.FORCEENDMATCH);
+            }
         }
     }
 

@@ -2,6 +2,7 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.Exceptions.UserNotExistentException;
 
+import java.time.format.SignStyle;
 import java.util.concurrent.CountDownLatch;
 
 public class Turn implements Runnable{
@@ -50,6 +51,7 @@ public class Turn implements Runnable{
             player.setPlayerState(State.NOTYOURTURNSTATE);
             try{
                 if (!UsersList.Singleton().findUser(player.getName()).isActive()) {
+                    System.out.println("Ho trovato inattivo "+ player.getName() + " nel turno "+ this.turnID);
                     this.countDown();
                 }
             }catch(UserNotExistentException e){
