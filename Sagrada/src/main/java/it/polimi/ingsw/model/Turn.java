@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.Exceptions.UserNotExistentException;
+import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 
 import java.time.format.SignStyle;
 import java.util.concurrent.CountDownLatch;
@@ -31,6 +32,7 @@ public class Turn implements Runnable{
      */
     @Override
     public synchronized void run(){
+        System.out.println("questo è il turno "+ this.turnID);
         for (Player player: this.round.getMatch().getallPlayers()){
             player.setTurn(this);
         }
@@ -53,6 +55,9 @@ public class Turn implements Runnable{
                 if (!UsersList.Singleton().findUser(player.getName()).isActive()) {
                     System.out.println("Ho trovato inattivo "+ player.getName() + " nel turno "+ this.turnID);
                     this.countDown();
+                }
+                else{
+                    System.out.println("Ho trovato attivo "+ player.getMatch());
                 }
             }catch(UserNotExistentException e){
                 //do nothing

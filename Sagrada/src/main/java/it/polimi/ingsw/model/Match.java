@@ -55,6 +55,11 @@ public class Match implements Runnable,Serializable{
         }
 
         // The match can start
+        System.out.println("la partita è appena iniziata: i membri della partita sono");
+        for (Player player: this.players){
+            System.out.println(player.getName());
+        }
+
         this.setStarted(true);
         try {
             gametable = new Gametable(this.players.size());
