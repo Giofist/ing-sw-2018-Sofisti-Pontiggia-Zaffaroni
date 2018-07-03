@@ -38,7 +38,7 @@ public abstract class ClientMessage implements Serializable{
     public void setPlayername(String playername) {
         this.playername = playername;
     }
-    
+
 
     /**
      * @param errorMessage Set the error message that you want to return
