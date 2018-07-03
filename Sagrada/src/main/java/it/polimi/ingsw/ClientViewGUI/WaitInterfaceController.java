@@ -59,5 +59,17 @@ public class WaitInterfaceController extends AbstractController{
                 }
             });
         }
+        else if(state == State.FORCEENDMATCH){
+            Platform.runLater(new Runnable(){
+                @Override
+                public void run(){
+                    try{
+                        createPane.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/MenuPartial.fxml"))));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
     }
 }

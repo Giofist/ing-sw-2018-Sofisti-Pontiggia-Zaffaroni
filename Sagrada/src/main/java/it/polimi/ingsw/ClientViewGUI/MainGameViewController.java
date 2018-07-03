@@ -39,20 +39,18 @@ import java.rmi.RemoteException;
 import java.util.*;
 
 public class MainGameViewController extends AbstractController implements Initializable {
-    ImageView origin = null;
-    int SelectedDiceIndex;
+    private ImageView origin = null;
+    private int SelectedDiceIndex;
     boolean selected = false;
     private String privateGoalcardPath = null;
     private int ToolCard1 = 0;
     private int ToolCard2 = 0;
     private int ToolCard3 = 0;
     private String promptAction = "";
-    int numOfPlayer = 0;
-    boolean selectedDice = false;
+    private int numOfPlayer = 0;
     private int selectedDiceInd = 10;
     private int DicesToMove = 0;
     private Object waitForUserInput = new Object();
-    private Object waitForUserInputSpecial = new Object();
     private int newOldRow = 10;
     private int newOldColumn = 10;
     private int toolCardId = 0;

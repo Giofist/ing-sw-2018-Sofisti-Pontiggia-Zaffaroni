@@ -1,6 +1,8 @@
 package it.polimi.ingsw.ClientViewGUI;
 
 import com.jfoenix.controls.JFXButton;
+import it.polimi.ingsw.model.State;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -120,4 +122,20 @@ public class MenuController extends AbstractController implements Initializable{
     public void setMainPane(AnchorPane mainPane) {
         this.mainPane = mainPane;
     }
+
+    /*@Override
+    public void update(State state){
+        if (state == State.) {
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        mainPane.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/MainGameView.fxml"))));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
+    }*/
 }
