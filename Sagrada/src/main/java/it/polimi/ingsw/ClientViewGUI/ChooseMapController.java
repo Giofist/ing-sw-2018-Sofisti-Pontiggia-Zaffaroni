@@ -335,6 +335,11 @@ public class ChooseMapController implements AbstractController, Initializable {
         } catch (RemoteException e) {
             ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
         }
+        try {
+            selectPane.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/MenuPartial.fxml"))));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
