@@ -1196,8 +1196,8 @@ public class MainGameViewController implements Initializable, AbstractController
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
+                    passTurnBn.setVisible(true);
                     turnIndicator.setText("E' il tuo turno!");
-
                 }
             });
         } else if (state == State.NOTYOURTURNSTATE) {
@@ -1205,6 +1205,12 @@ public class MainGameViewController implements Initializable, AbstractController
                 @Override
                 public void run() {
                     turnIndicator.setText("Non è il tuo turno.");
+                    passTurnBn.setVisible(false);
+                    try {
+                        ObserverGUI.Singleton().getServerController().passTurn(ObserverGUI.Singleton().getUsername());
+                    } catch (RemoteException e) {
+                        ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
+                    }
                 }
             });
         } else if (state == State.ENDMATCHSTATE) {
