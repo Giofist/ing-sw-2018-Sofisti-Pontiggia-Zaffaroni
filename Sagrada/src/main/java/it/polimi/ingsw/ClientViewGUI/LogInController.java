@@ -32,7 +32,7 @@ public class LogInController extends AbstractController implements Initializable
     private int port = 1337;
     public Stage primaryStage;
 
-   public LogInController(){
+    public LogInController(){
        ObserverGUI.Singleton().setController(this);
     }
 
@@ -131,35 +131,34 @@ public class LogInController extends AbstractController implements Initializable
         port = Integer.parseInt(PortField.getCharacters().toString());
 
         boolean correct = true;
-            if(ConnectionSetUp.isSelected()){
-                try {
-                    Socket socket = new Socket(ipAddr, port);
-                    SocketClientListener  listener = new SocketClientListener(socket);
-                    ObserverGUI.Singleton().setServerController(new SocketController( listener));
-                    listener.setController(ObserverGUI.Singleton().getServerController(), ObserverGUI.Singleton() );
-                    new Thread(listener).start();
-                    connectionMessage.setText("Connection up!");
-                    ConnectButton.setVisible(false);
-                }catch (IOException e){
-                    correct=false;
-                    connectionError.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
-                }
+        if (ConnectionSetUp.isSelected()) {
+            try {
+                Socket socket = new Socket(ipAddr, port);
+                SocketClientListener listener = new SocketClientListener(socket);
+                SocketController socketController = new SocketController(listener);
+                ObserverGUI.Singleton().setServerController(socketController);
+                listener.setController(socketController, ObserverGUI.Singleton());
+                new Thread(listener).start();
+                connectionMessage.setText("Connection up!");
+                ConnectButton.setVisible(false);
+            } catch (IOException e) {
+                correct = false;
+                connectionError.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
             }
-            else {
-                Registry rmiRegistry = null;
-                try {
-                    rmiRegistry = LocateRegistry.getRegistry(ipAddr);
-                    ClientHandlerInterface controller= (ClientHandlerInterface) rmiRegistry.lookup("ClientHandler");
-                    ObserverGUI.Singleton().setServerController(controller);
-                    connectionMessage.setText("Connection up!");
-                    ConnectButton.setVisible(false);
-                } catch (Exception e) {
-                    correct=false;
-                    connectionMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
-                }
+        } else {
+            Registry rmiRegistry;
+            try {
+                rmiRegistry = LocateRegistry.getRegistry(ipAddr);
+                ClientHandlerInterface controller = (ClientHandlerInterface) rmiRegistry.lookup("ClientHandler");
+                ObserverGUI.Singleton().setServerController(controller);
+                connectionMessage.setText("Connection up!");
+                ConnectButton.setVisible(false);
+            } catch (Exception e) {
+                correct = false;
+                connectionMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
             }
         }
-
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

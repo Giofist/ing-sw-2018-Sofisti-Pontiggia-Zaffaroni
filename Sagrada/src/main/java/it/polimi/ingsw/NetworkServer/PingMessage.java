@@ -11,10 +11,10 @@ import java.rmi.RemoteException;
 /**
  * This class is a ping message, and it's used to verify that the client is reachable
  */
-public class PingServerMessage extends ServerMessage {
+public class PingMessage extends ServerMessage {
 
 
-    public PingServerMessage(){
+    public PingMessage(){
         this.messagecodex =44;
     }
 

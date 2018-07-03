@@ -133,7 +133,7 @@ public class UsersList {
      * @param name Name of the user that want to log out
      * @param observer The Client observer we want to remove from the list list
      */
-     public void logOut( String name, Observer observer){
+     synchronized public void logOut( String name, Observer observer){
         if(this.users.containsKey(name)){
             User user = this.users.get(name);
             user.setActive(false);

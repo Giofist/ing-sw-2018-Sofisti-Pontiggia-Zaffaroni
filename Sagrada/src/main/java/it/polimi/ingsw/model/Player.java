@@ -82,11 +82,11 @@ public class Player  implements Comparable<Player>, Serializable {
     /**
      * This method let the player pay for using the tool card
      * @param cost How many Segnalini Favori does the tool card costs
-     * @throws NotEnoughSegnaliniException Exception thrown if the player doesn't have sufficient points to pay for the tool card
+     * @throws NotEnoughTokenException Exception thrown if the player doesn't have sufficient points to pay for the tool card
      */
-    public void payforToolAction(int cost)throws NotEnoughSegnaliniException {
+    public void payforToolAction(int cost)throws NotEnoughTokenException {
         if(this.getToken() < cost){
-            throw new NotEnoughSegnaliniException();
+            throw new NotEnoughTokenException();
         }
         else {
             this.setToken(this.getToken()-cost);

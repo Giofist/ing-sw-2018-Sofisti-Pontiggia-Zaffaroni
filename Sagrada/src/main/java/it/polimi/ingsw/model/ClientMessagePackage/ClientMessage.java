@@ -18,17 +18,6 @@ public abstract class ClientMessage implements Serializable{
     int row;
     int column;
     int intensity;
-    String playername;
-
-
-
-    public String getPlayername(){
-        return this.playername;
-    }
-
-    public void setPlayername(String playername) {
-        this.playername = playername;
-    }
 
     public void setErrorMessage(String errorMessage){
         this.errorMessage =errorMessage;
@@ -46,9 +35,6 @@ public abstract class ClientMessage implements Serializable{
         return messagecodex;
     }
 
-
-
-    // Metodi setter
     public void setClientName(String clientName) {
         this.clientname = clientName;
     }

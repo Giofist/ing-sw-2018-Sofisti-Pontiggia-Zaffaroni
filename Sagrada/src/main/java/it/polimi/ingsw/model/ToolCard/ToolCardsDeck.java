@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model.ToolCard;
 
-import it.polimi.ingsw.model.Exceptions.NotEnoughSegnaliniException;
+import it.polimi.ingsw.model.Exceptions.NotEnoughTokenException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.Exceptions.WrongToolCardIDException;
 import it.polimi.ingsw.model.Player;
@@ -78,12 +78,7 @@ public class ToolCardsDeck {
     public void setCostOfAction(int toolcardID) throws WrongToolCardIDException{
         for(ToolAction toolAction: this.deck){
             if (toolAction.getID()== toolcardID){
-                if(toolAction.getCost()==1){
-                    toolAction.setCost(2);
-                    return;
-                }else if(toolAction.getCost()==0){
-                    return;
-                }
+                toolAction.setCost(2);
             }
         }
         throw new WrongToolCardIDException();
@@ -97,14 +92,17 @@ public class ToolCardsDeck {
      * @param toolRequestClass The class with all the necessary parameters for the tool card (see each tool card for the necessary parameters that needs to be set)
      * @throws WrongToolCardIDException Exception thrown when an invalid ID is specified
      * @throws ToolIllegalOperationException Exception thrown in case some constrain is not respected or in case the player performs an illegal operation
-     * @throws NotEnoughSegnaliniException Exception thrown when a player is not able to pay for the selected tool card
+     * @throws NotEnoughTokenException Exception thrown when a player is not able to pay for the selected tool card
      */
-    public void doAction(int toolActionID, Player player, ToolRequestClass toolRequestClass) throws WrongToolCardIDException,ToolIllegalOperationException, NotEnoughSegnaliniException {
-        setCostOfAction(toolActionID);
+    public void doAction(int toolActionID, Player player, ToolRequestClass toolRequestClass) throws WrongToolCardIDException,ToolIllegalOperationException, NotEnoughTokenException {
         for(ToolAction toolAction: this.deck){
             if(toolAction.getID() == toolActionID) {
+                if(player.getToken() < toolAction.getCost()){
+                    throw new NotEnoughTokenException();
+                }
                 toolAction.execute(player, toolRequestClass);
                 player.payforToolAction( this.getCost(toolActionID));
+                toolAction.setCost(2);
                 return;
             }
         }
