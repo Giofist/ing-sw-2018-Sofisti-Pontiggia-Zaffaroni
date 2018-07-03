@@ -670,8 +670,8 @@ public class MainGameViewController implements Initializable, AbstractController
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-        updateOtherPlayesMap();
         setOtherPlayerMap();
+        updateOtherPlayesMap();
     }
 
     public void Highlight(javafx.scene.input.MouseEvent mouseEvent) {
@@ -1177,13 +1177,23 @@ public class MainGameViewController implements Initializable, AbstractController
         }
     }
 
-    public void useTool(ActionEvent actionEvent) {
+    public void useTool(ActionEvent actionEvent) throws RemoteException {
         useToolCard.setVisible(false);
         SelectedCell.setText("");
         try {
             ObserverGUI.Singleton().getServerController().useaToolCard(ObserverGUI.Singleton().getUsername(), data);
         } catch (RemoteException e) {
             ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
+        }
+        updateDicePool();
+        updateRoundTrack();
+        updateOtherPlayesMap();
+        try {
+            updateDiceInMap(ObserverGUI.Singleton().getServerController().getSchemeCard(ObserverGUI.Singleton().getUsername()).get(0), yourMap);
+        } catch (DiceNotExistantException e) {
+            e.printStackTrace();
+        } catch (RemoteException e) {
+            e.printStackTrace();
         }
         selected = false;
     }
