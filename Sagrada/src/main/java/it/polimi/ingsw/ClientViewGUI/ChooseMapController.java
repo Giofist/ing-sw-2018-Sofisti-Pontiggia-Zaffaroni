@@ -350,7 +350,7 @@ public class ChooseMapController implements AbstractController, Initializable {
                     }
                 }
             });
-        }
+            }
 
     }
 

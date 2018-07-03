@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ClientViewGUI;
 
 import com.jfoenix.controls.JFXButton;
+import it.polimi.ingsw.model.State;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -18,7 +19,7 @@ import java.util.Collections;
 import java.util.ResourceBundle;
 
 
-public class PartialMenuController extends AbstractController{
+public class PartialMenuController implements AbstractController{
     Stage stage = null;
     Parent myNewScene = null;
 
@@ -110,5 +111,10 @@ public class PartialMenuController extends AbstractController{
 
     public void setMainPane(AnchorPane mainPane) {
         this.mainPane = mainPane;
+    }
+
+    @Override
+    public void update(State state) {
+
     }
 }
