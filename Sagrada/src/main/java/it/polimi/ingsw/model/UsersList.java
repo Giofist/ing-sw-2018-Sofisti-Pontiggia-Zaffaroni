@@ -106,7 +106,6 @@ public class UsersList {
                                     Thread.sleep(60000);
                                     try {
                                         user.getUserState().notifyObservers();
-                                        System.out.println("Ho notificato gli observer, e li ho trovati attivi " + user.getName());
                                     } catch (RemoteException e) {
                                         user.setActive(false);
                                     }

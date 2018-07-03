@@ -38,17 +38,11 @@ public class Round {
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    try {
-                        // Here we can set how many minutes we want to make the round last
-                        Thread.sleep(120000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    if(thread.isAlive()){
+                    if (thread.isAlive()) {
                         turn.countDownAll();
                     }
                 }
-            },0);
+            },120000);
             try{
                 thread.start();
                 wait();
