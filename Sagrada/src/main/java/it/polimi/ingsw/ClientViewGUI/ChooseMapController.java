@@ -177,7 +177,6 @@ public class ChooseMapController implements AbstractController, Initializable {
     private JFXButton Play;
 
     public void Select(javafx.event.ActionEvent actionEvent) {
-        ErrorMessage.setText(String.valueOf(mapSelected));
         try {
             ObserverGUI.Singleton().getServerController().setSchemeCard(ObserverGUI.Singleton().getUsername(), mapSelected);
             ErrorMessage.setText("La partita inizia!");
@@ -185,27 +184,26 @@ public class ChooseMapController implements AbstractController, Initializable {
         } catch (RemoteException e) {
             ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
         }
-
     }
 
     public void selectMap1(MouseEvent mouseEvent) {
         mapSelected = mapIDs[0];
-        ErrorMessage.setText("Hai selezionato la mappa:"+ mapSelected +" Tra poco si inizia!");
+        ErrorMessage.setText("Hai selezionato la mappa:"+ mapSelected);
     }
 
     public void selectMap2(MouseEvent mouseEvent) {
         mapSelected = mapIDs[1];
-        ErrorMessage.setText("Hai selezionato la mappa:"+ mapSelected +". Tra poco si inizia!");
+        ErrorMessage.setText("Hai selezionato la mappa:"+ mapSelected);
     }
 
     public void selectMap3(MouseEvent mouseEvent) {
         mapSelected = mapIDs[2];
-        ErrorMessage.setText("Hai selezionato la mappa:"+ mapSelected +". Tra poco si inizia!");
+        ErrorMessage.setText("Hai selezionato la mappa:"+ mapSelected);
     }
 
     public void selectMap4(MouseEvent mouseEvent) {
         mapSelected = mapIDs[3];
-        ErrorMessage.setText("Hai selezionato la mappa:"+ mapSelected +". Tra poco si inizia!");
+        ErrorMessage.setText("Hai selezionato la mappa:"+ mapSelected);
     }
 
 
@@ -328,7 +326,6 @@ public class ChooseMapController implements AbstractController, Initializable {
         }
     }
 
-
     public void leaveTheMatch (javafx.event.ActionEvent actionEvent){
         try {
             ObserverGUI.Singleton().getServerController().leavethematch(ObserverGUI.Singleton().getUsername(), ObserverGUI.Singleton());
@@ -359,16 +356,6 @@ public class ChooseMapController implements AbstractController, Initializable {
 
     }
 
-    public void Select(javafx.scene.input.MouseEvent mouseEvent) {
-        ImageView source = (ImageView) mouseEvent.getTarget();
-        DropShadow dropShadow = new DropShadow();
-        source.setEffect(dropShadow);
-    }
-
-    public void Unselect(javafx.scene.input.MouseEvent mouseEvent) {
-            ImageView source = (ImageView) mouseEvent.getTarget();
-            source.setEffect(null);
-    }
 
     public void ShowPrivateGoal(javafx.scene.input.MouseEvent mouseEvent) {
         Image image = new Image(privateGoalcardPath);

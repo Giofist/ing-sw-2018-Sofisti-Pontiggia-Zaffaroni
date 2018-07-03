@@ -359,17 +359,17 @@
             <Image url="@PrivateGoalCards/Back1.jpg" />
          </image>
       </ImageView>
-      <ImageView fx:id="PublicGoalCard1" fitHeight="231.0" fitWidth="215.0" layoutX="15.0" layoutY="320.0" onMouseEntered="#Select" onMouseExited="#Unselect" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
+      <ImageView fx:id="PublicGoalCard1" fitHeight="231.0" fitWidth="215.0" layoutX="15.0" layoutY="320.0" onMouseEntered="#Select" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
          <image>
             <Image url="@PublicGoalCards/1.jpg" />
          </image>
       </ImageView>
-      <ImageView fx:id="PublicGoalCard2" fitHeight="231.0" fitWidth="215.0" layoutX="901.0" layoutY="320.0" onMouseEntered="#Select" onMouseExited="#Unselect" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
+      <ImageView fx:id="PublicGoalCard2" fitHeight="231.0" fitWidth="215.0" layoutX="901.0" layoutY="320.0" onMouseEntered="#Select"  pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
          <image>
             <Image url="@PublicGoalCards/2.jpg" />
          </image>
       </ImageView>
-      <ImageView fx:id="PublicGoalCard3" fitHeight="231.0" fitWidth="215.0" layoutX="15.0" layoutY="70.0" onMouseEntered="#Select" onMouseExited="#Unselect" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
+      <ImageView fx:id="PublicGoalCard3" fitHeight="231.0" fitWidth="215.0" layoutX="15.0" layoutY="70.0" onMouseEntered="#Select" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
          <image>
             <Image url="@PublicGoalCards/4.jpg" />
          </image>
