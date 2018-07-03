@@ -21,26 +21,6 @@ public abstract class ClientMessage implements Serializable{
     int row;
     int column;
     int intensity;
-<<<<<<< HEAD
-    String playername;
-
-
-    /**
-     * @return The name of the user performing the request
-     */
-    public String getPlayername(){
-        return this.playername;
-    }
-
-    /**
-     * @param playername The name of the user performing the request
-     */
-    public void setPlayername(String playername) {
-        this.playername = playername;
-    }
-=======
->>>>>>> 5a9271838ec3778a03049145a05e856bad7b1512
-
 
     /**
      * @param errorMessage Set the error message that you want to return
