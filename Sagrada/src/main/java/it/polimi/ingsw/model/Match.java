@@ -193,34 +193,32 @@ public class Match implements Runnable,Serializable{
      * @param player Player who wants to join
      */
     public void join(Player player){
-        if(this.players.size() == 1){
-            this.players.addLast(player);
-            final Match match = this;
+        this.players.addLast(player);
+        final Match match = this;
+        if(this.players.size()==2) {
             this.timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
-                synchronized (match){
-                    if(!isStarted()){
-                        if (match.getallPlayers().size() >1){
-                            isreadyTostart = true;
-                            match.notifyAll();
-                        }
-                        else{
-                            // The only player must leave the match
-                            for(Player player: match.getallPlayers()){
-                                player.setPlayerState(State.ERRORSTATE);
+                    synchronized (match){
+                        if(!isStarted()){
+                            if (match.getallPlayers().size() >1){
+                                isreadyTostart = true;
+                                match.notifyAll();
                             }
-                            MatchesList.singleton().remove(match);
-                            UsersList.Singleton().getUser(player.getName()).removePlayer(player.getPlayerState().getObserver());
+                            else{
+                                // The only player must leave the match
+                                for(Player player: match.getallPlayers()){
+                                    player.setPlayerState(State.ERRORSTATE);
+                                }
+                                MatchesList.singleton().remove(match);
+                                UsersList.Singleton().getUser(player.getName()).removePlayer(player.getPlayerState().getObserver());
+                            }
                         }
                     }
                 }
-                }
-            },20000);
+            },122220000);
         }
-
-        if (this.players.size() == 4){
-            System.out.println("la partita è pronta per iniziare");
+        if (this.players.size() == 3){
             isreadyTostart = true;
             notifyAll();
         }
