@@ -43,7 +43,7 @@ public class Lathekin  extends ToolAction implements Serializable{
             player.getScheme().setDice(removedDice1, toolRequestClass.getNewRow1(), toolRequestClass.getNewColumn1(), false, false, false);
         }catch( Exception e){
             try{
-                player.getScheme().setDice(removedDice1, toolRequestClass.getOldRow1(), toolRequestClass.getOldColumn1(), false, false, false );
+                player.getScheme().setDice(removedDice1, toolRequestClass.getOldRow1(), toolRequestClass.getOldColumn1(), true, true, true );
             }catch(Exception err){
                 //do nothing
             }

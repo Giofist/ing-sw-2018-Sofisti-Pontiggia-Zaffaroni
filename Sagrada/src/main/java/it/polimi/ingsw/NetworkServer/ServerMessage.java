@@ -76,8 +76,8 @@ public abstract class ServerMessage implements Serializable {
 
 
     /**
-     * @param view
-     * @param listener
+     * @param view The client that performed the request
+     * @param listener A reference to the SocketServerListener
      * @throws RemoteException
      */
     public  abstract void performAction(Observer view, SocketClientListener listener) throws RemoteException;

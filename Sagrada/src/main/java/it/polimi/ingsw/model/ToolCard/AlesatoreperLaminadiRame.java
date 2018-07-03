@@ -47,7 +47,7 @@ public class AlesatoreperLaminadiRame  extends ToolAction implements Serializabl
 
         }catch (Exception e) {
             try {
-                player.getScheme().setDice(removedDice, toolRequestClass.getOldRow1(), toolRequestClass.getOldColumn1(), true, false, false);
+                player.getScheme().setDice(removedDice, toolRequestClass.getOldRow1(), toolRequestClass.getOldColumn1(), true, true, true);
             } catch (Exception er) {
                 //do nothing
             }
