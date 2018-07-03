@@ -4,8 +4,16 @@ import it.polimi.ingsw.model.Match;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.TurnActions;
 
+/**
+ * Class containing all the italian names and descriptions of the cards in the game and other methods for getting information
+ * about players and matches
+ */
 public class ItalianTranslator implements Translator {
 
+    /**
+     * @param match The match from where to get information
+     * @return The match name and the players currently in the match's waiting room
+     */
     @Override
     public String translateMatch(Match match) {
         String string = "";
@@ -17,11 +25,20 @@ public class ItalianTranslator implements Translator {
     }
 
 
+    /**
+     * @param player A player in the match
+     * @return A string containing "Nome del giocatore " + its name
+     */
     @Override
     public String translatePlayer(Player player){
         return "Nome del giocatore " + player.getName();
     };
 
+
+    /**
+     * @param cardID The public goal card's id of which we want to retrieve information
+     * @return The description of the specified public goal card
+     */
     @Override
     public String translatePublicGoalCardDescription(int cardID){
         switch (cardID) {
@@ -39,6 +56,10 @@ public class ItalianTranslator implements Translator {
         }
     }
 
+    /**
+     * @param cardID The public goal card's id of which we want to retrieve information
+     * @return The name of the specified public goal card
+     */
     @Override
     public String translatePublicGoalCardName(int cardID){
         switch (cardID) {
@@ -56,6 +77,10 @@ public class ItalianTranslator implements Translator {
         }
     }
 
+    /**
+     * @param cardID The tool card's id of which we want to retrieve information
+     * @return The description of the specified tool card
+     */
     @Override
     public String translateToolCardDescription(int cardID){
         switch (cardID) {
@@ -75,6 +100,10 @@ public class ItalianTranslator implements Translator {
         }
     }
 
+    /**
+     * @param cardID The tool card's id of which we want to retrieve information
+     * @return The name of the specified tool card
+     */
     @Override
     public String translateToolCardCardName(int cardID){
         switch (cardID) {
@@ -95,7 +124,10 @@ public class ItalianTranslator implements Translator {
     }
 
 
-
+    /**
+     * @param cardID The private goal card's id of which we want to retrieve information
+     * @return The description of the specified private goal card
+     */
     @Override
     public String translatePrivateGoalCardDescription(int cardID){
         switch (cardID) {
@@ -108,6 +140,10 @@ public class ItalianTranslator implements Translator {
         }
     }
 
+    /**
+     * @param turnActions Action available depending on the state
+     * @return A string describing the action in more detail
+     */
     public String translateTurnAction(TurnActions turnActions){
         switch (turnActions){
             case SETDICE: return "Piazzare un dado";
@@ -122,6 +158,10 @@ public class ItalianTranslator implements Translator {
         }
     }
 
+    /**
+     * @param turnaction A string describing the action we want to perform
+     * @return The equivalent encoded action
+     */
     @Override
     public String detranslateTurnAction(String turnaction){
         switch(turnaction){
@@ -139,7 +179,10 @@ public class ItalianTranslator implements Translator {
     };
 
 
-
+    /**
+     * @param cardID The private goal card's id of which we want to retrieve information
+     * @return The name of the specified private goal card
+     */
     @Override
     public String translatePrivateGoalCardName(int cardID){
         switch (cardID) {
@@ -152,6 +195,10 @@ public class ItalianTranslator implements Translator {
         }
     }
 
+    /**
+     * @param exceptioncode Code corresponding to the exception message we want to throw
+     * @return The message we want to bind to the exception we are about to throw
+     */
     @Override
     public String translateException(String exceptioncode){
         String[] strings =exceptioncode.split(" ");

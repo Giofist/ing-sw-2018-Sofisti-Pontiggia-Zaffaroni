@@ -12,12 +12,21 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.Scanner;
 
+/**
+ * This class is for the client CLI. There is one single main method and when we run it the user will be able to choose which
+ * type of connectivity he prefers (Socket/RMI) and the connection will be established with the remote server
+ */
 public class Client {
 
+    /**
+     * This object is used for getting the names and the descriptions of the cards in the game like public, private and tool cards
+     */
     public static Translator translator;
+
+
     public static void main(String[] args){
         // Passing server IP as command line argument
-        //String ipAddr = args[1];
+        // String ipAddr = args[1];
         int port = 1337;
         String ipAddr = "127.0.0.1";
 

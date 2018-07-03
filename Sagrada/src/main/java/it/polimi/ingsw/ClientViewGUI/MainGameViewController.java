@@ -1,12 +1,15 @@
 package it.polimi.ingsw.ClientViewGUI;
 
 import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
+import it.polimi.ingsw.model.Exceptions.WrongToolCardIDException;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.SchemeDeck.ColumnIterator;
 import it.polimi.ingsw.model.SchemeDeck.RowIterator;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 import it.polimi.ingsw.model.SchemeDeck.Tile;
 import it.polimi.ingsw.model.State;
+import it.polimi.ingsw.model.ToolCard.ToolAction;
+import it.polimi.ingsw.model.ToolCard.ToolCardsDeck;
 import it.polimi.ingsw.model.ToolCard.ToolRequestClass;
 import it.polimi.ingsw.model.TurnActions;
 import javafx.application.Platform;
@@ -36,20 +39,18 @@ import java.rmi.RemoteException;
 import java.util.*;
 
 public class MainGameViewController extends AbstractController implements Initializable {
-    ImageView origin = null;
-    int SelectedDiceIndex;
+    private ImageView origin = null;
+    private int SelectedDiceIndex;
     boolean selected = false;
     private String privateGoalcardPath = null;
     private int ToolCard1 = 0;
     private int ToolCard2 = 0;
     private int ToolCard3 = 0;
     private String promptAction = "";
-    int numOfPlayer = 0;
-    boolean selectedDice = false;
+    private int numOfPlayer = 0;
     private int selectedDiceInd = 10;
     private int DicesToMove = 0;
     private Object waitForUserInput = new Object();
-    private Object waitForUserInputSpecial = new Object();
     private int newOldRow = 10;
     private int newOldColumn = 10;
     private int toolCardId = 0;
@@ -1059,14 +1060,14 @@ public class MainGameViewController extends AbstractController implements Initia
         Actions.setText(promptAction);
     }
 
-
     public void UseToolcard(javafx.scene.input.MouseEvent mouseEvent) {
         ImageView card = (ImageView) mouseEvent.getTarget();
         String input = "0";
         Boolean correct = false;
         Boolean success = false;
         Boolean condition = false;
-
+        int token = 0;
+        int cost = 0;
 
         switch (((ImageView) mouseEvent.getTarget()).getId()) {
             case "ToolCardImage1": {
@@ -1082,86 +1083,88 @@ public class MainGameViewController extends AbstractController implements Initia
                 break;
             }
         }
-        numOfClick = 0;
-        data.setToolCardID(toolCardId);
-        if (selected == false) {  //TODO verifico correttezza di quest acosa del selected che dovrebbe evitare di selezionare due carte assieme vedo però se permette di selezionare carte in due turni diversi!
-            DropShadow dropShadow = new DropShadow();
-            card.setEffect(dropShadow);
-            switch (toolCardId) {
-                case 1: { //1. Pinze Sgrossatrice
-                    ErrorMessage.setText("Clicca sul dado della DicePool su cui applicare la Pinza Sgrossatrice!");
-                    Select.setVisible(true);
-                    selected = false;
-                    break;
+        try {
+            token = ObserverGUI.Singleton().getServerController().getToken(ObserverGUI.Singleton().getUsername());
+            cost = ((ToolCardsDeck)ObserverGUI.Singleton().getServerController().getToolCards(ObserverGUI.Singleton().getUsername())).getCost(toolCardId);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        } catch (WrongToolCardIDException e) {
+            e.printStackTrace();
+        }
+        if(token >= cost) {
+            numOfClick = 0;
+            data.setToolCardID(toolCardId);
+            if (selected == false) {  //TODO verifico correttezza di quest acosa del selected che dovrebbe evitare di selezionare due carte assieme vedo però se permette di selezionare carte in due turni diversi!
+                DropShadow dropShadow = new DropShadow();
+                card.setEffect(dropShadow);
+                switch (toolCardId) {
+                    case 1: { //1. Pinze Sgrossatrice
+                        ErrorMessage.setText("Clicca sul dado della DicePool su cui applicare la Pinza Sgrossatrice!");
+                        Select.setVisible(true);
+                        break;
+                    }
+                    case 2: { //2. Pennello per Eglomise
+                        ErrorMessage.setText("Seleziona il dado da spostare (Ignora colore):");
+                        Select.setVisible(true);
+                        break;
+                    }
+                    case 3: { //3. Alesatore per lamina di rame
+                        ErrorMessage.setText("Seleziona il dado da spostare (Ignora intensità):");
+                        Select.setVisible(true);
+                        break;
+                    }
+                    case 4: { //4. Lathekin
+                        ErrorMessage.setText("Seleziona il primo dado da spostare.");
+                        Select.setVisible(true);
+                        break;
+                    }
+                    case 5: { //5. Taglierina circolare
+                        ErrorMessage.setText("Seleziona il dado da scambiare sulla RoundTrack.");
+                        Select.setVisible(true);
+                        break;
+                    }
+                    case 6: { //6. Pennello per Pasta Salda
+                        ErrorMessage.setText("Seleziona il dado da tirare nuovamente. Indica l'indice:");
+                        Select.setVisible(true);
+                        break;
+                    }
+                    case 7: { //7. Martelletto
+                        useToolCard.setVisible(true);
+                        break;
+                    }
+                    case 8: { //8. Tenaglia a Rotelle
+                        ErrorMessage.setText("Piazza subito un secondo dado. Seleziona il dado:");
+                        Select.setVisible(true);
+                        break;
+                    }
+                    case 9: { //9. Riga in Sughero
+                        ErrorMessage.setText("Seleziona il dado da posizionare nella mappa.");
+                        Select.setVisible(true);
+                        break;
+                    }
+                    case 10: { //10. Tampone Diamantato
+                        ErrorMessage.setText("Seleziona il dado da girare sulla faccia opposta.");
+                        Select.setVisible(true);
+                        break;
+                    }
+                    case 11: { //11. Diluente per Pasta Salda
+                        ErrorMessage.setText("Seleziona il dado rimettere nel sacchetto.");
+                        Select.setVisible(true);
+                        break;
+                    }
+                    case 12: { //12. Taglierina Manuale
+                        ErrorMessage.setText("Seleziona il numero di dadi da spostare.");
+                        toggle1or2.setVisible(true);
+                        select1or2.setVisible(true);
+                        break;
+                    }
                 }
-                case 2: { //2. Pennello per Eglomise
-                    ErrorMessage.setText("Seleziona il dado da spostare (Ignora colore):");
-                    Select.setVisible(true);
-                    selected = false;
-                    break;
-                }
-                case 3: { //3. Alesatore per lamina di rame
-                    ErrorMessage.setText("Seleziona il dado da spostare (Ignora intensità):");
-                    Select.setVisible(true);
-                    selected = false;
-                    break;
-                }
-                case 4: { //4. Lathekin
-                    ErrorMessage.setText("Seleziona il primo dado da spostare.");
-                    Select.setVisible(true);
-                    selected = false;
-                    break;
-                }
-                case 5: { //5. Taglierina circolare
-                    ErrorMessage.setText("Seleziona il dado da scambiare sulla RoundTrack.");
-                    Select.setVisible(true);
-                    selected = false;
-                    break;
-                }
-                case 6: { //6. Pennello per Pasta Salda
-                    ErrorMessage.setText("Seleziona il dado da tirare nuovamente. Indica l'indice:");
-                    Select.setVisible(true);
-                    selected = false;
-                    break;
-                }
-                case 7: { //7. Martelletto
-                    useToolCard.setVisible(true);
-                    break;
-                }
-                case 8: { //8. Tenaglia a Rotelle
-                    ErrorMessage.setText("Piazza subito un secondo dado. Seleziona il dado:");
-                    Select.setVisible(true);
-                    selected = false;
-                    break;
-                }
-                case 9: { //9. Riga in Sughero
-                    ErrorMessage.setText("Seleziona il dado da posizionare nella mappa.");
-                    Select.setVisible(true);
-                    selected = false;
-                    break;
-                }
-                case 10: { //10. Tampone Diamantato
-                    ErrorMessage.setText("Seleziona il dado da girare sulla faccia opposta.");
-                    Select.setVisible(true);
-                    selected = false;
-                    break;
-                }
-                case 11: { //11. Diluente per Pasta Salda
-                    ErrorMessage.setText("Seleziona il dado rimettere nel sacchetto.");
-                    Select.setVisible(true);
-                    selected = false;
-                    break;
-                }
-                case 12: { //12. Taglierina Manuale
-                    ErrorMessage.setText("Seleziona il numero di dadi da spostare.");
-                    toggle1or2.setVisible(true);
-                    select1or2.setVisible(true);
-                    selected = false;
-                    break;
-                }
+            } else {
+                ErrorMessage.setText("Non puoi usare due Carte Utensile contemporaneamente!");
             }
-        } else {
-            ErrorMessage.setText("Non puoi usare due Carte Utensile contemporaneamente!");
+        }
+        else{
+            ErrorMessage.setText("Non hai abbastanza Segnalini favore!");
         }
     }
 
@@ -1252,8 +1255,6 @@ public class MainGameViewController extends AbstractController implements Initia
                     selectValue.setVisible(true);
                 }
             });
-
-
         }
     }
 
@@ -1279,12 +1280,13 @@ public class MainGameViewController extends AbstractController implements Initia
     }
 
     public void useTool(ActionEvent actionEvent) {
+        useToolCard.setVisible(false);
         try {
             ObserverGUI.Singleton().getServerController().useaToolCard(ObserverGUI.Singleton().getUsername(), data);
-            useToolCard.setVisible(false);
         } catch (RemoteException e) {
             ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
         }
+        selected = false;
     }
 
     public void SelectNewRow(ActionEvent actionEvent) {

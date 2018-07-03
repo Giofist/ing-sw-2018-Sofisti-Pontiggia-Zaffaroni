@@ -11,7 +11,12 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 import java.util.Scanner;
 
-//implemented by pon
+
+/**
+ * This class is the main client CLI view responsible for displaying the main menù and allowing the player to create
+ * new matches. This main view will also spawn in a new thread the correct view to display to the user based on updates
+ * received from the server about changes in the state.
+ */
 public class ObserverView extends UnicastRemoteObject implements Observer {
     private ClientHandlerInterface serverController;
     private final Scanner in;
@@ -21,7 +26,11 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
     private boolean leaveMatch;
     private  boolean leave;
 
-    //constructor1
+
+    /**
+     * Constructor for the observer view in socket connection
+     * @throws RemoteException Exception thrown if an error occurs in creating an input stream for the user
+     */
     public ObserverView() throws RemoteException {
         this.in = new Scanner(System.in);
         leaveSagrada = false;
@@ -29,20 +38,38 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
         leave =false;
     }
 
-    //constructor2
+
+    /**
+     * Constructor for the observer view in RMI connection
+     * @param controller The interface with all the methods exposed by the server
+     * @throws RemoteException Exception thrown if an error occurs in creating an input stream for the user
+     */
     public ObserverView(ClientHandlerInterface controller) throws RemoteException {
         this.in = new Scanner(System.in);
         this.serverController = controller;
     }
 
+
+    /**
+     * @param serverController The interface with all the methods exposed by the server
+     */
     public void setServerController(ClientHandlerInterface serverController) {
         this.serverController = serverController;
     }
 
+
+    /**
+     * @param value True or false whether we want to notify the view about our willing in leaving Sagrada
+     */
     public void setLeaveSagrada(boolean value){
         this.leaveSagrada = value;
     }
 
+
+    /**
+     * Main method that calls submethods to guide the user through the registration or the log in and the main menù
+     * @throws RemoteException
+     */
     public synchronized void run() throws RemoteException {
         loadingInterface();
         while (!leaveSagrada){
@@ -63,6 +90,10 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
         }
     }
 
+
+    /**
+     * Method responsible for asking the user if he already has an account or if he wants to create a new one
+     */
     private void loadingInterface() {
         System.out.println("Benvenuto in...\n");
         System.out.print("\n" +
@@ -97,6 +128,10 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
         }
     }
 
+
+    /**
+     * Method responsible for guiding the user through the creation of a new account
+     */
     private void signInInt(){
         String username;
         String password;
@@ -123,6 +158,10 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
         }
     }
 
+
+    /**
+     * Method responsible for guiding the user through the login of an existent account
+     */
     private void logInInt(){
         Scanner in = new Scanner(System.in);
         String username;
@@ -146,6 +185,11 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
         } while (!success);
     }
 
+
+    /**
+     * Method responsible for displaying the main menù and letting the user choose which action he want to perform
+     * @throws RemoteException
+     */
     private void menuInt() throws RemoteException {
         Scanner in = new Scanner(System.in);
         String input;
@@ -171,6 +215,10 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
             }while(!success);
         }
 
+    /**
+     * Method responsible for guiding the user through the creation of a new match or letting him choose which match to join
+     * @throws RemoteException
+     */
     private void multiInt() throws RemoteException {
         String input;
         boolean success = false;
@@ -193,6 +241,9 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
         }
     }
 
+    /**
+     * Method responsible for showing to the user the available matches and for asking it which one he would like to join
+     */
     private void joinInt(){
         String gamename;
         Scanner in = new Scanner(System.in);
@@ -224,6 +275,10 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
         }
     }
 
+
+    /**
+     *  Method responsible for the actual creation of a new match
+     */
     private void createInt() {
         boolean success = false;
         Scanner in = new Scanner(System.in);
@@ -243,6 +298,13 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
         System.out.println("La tua partita è stata creata correttamente!");
     }
 
+    /**
+     * This method is responsible for invoking the correct view to display based on the state of the user notified by
+     * the server through an update
+     * @param o
+     * @param arg
+     * @throws RemoteException
+     */
     @Override
     public synchronized void update(Observable o, Object arg) throws RemoteException{
 

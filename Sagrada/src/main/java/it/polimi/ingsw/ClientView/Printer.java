@@ -16,14 +16,24 @@ import java.util.List;
 import static org.fusesource.jansi.Ansi.Color.*;
 import static org.fusesource.jansi.Ansi.ansi;
 
+
+/**
+ * CLI class used to print match elements on screen
+ */
 public class Printer {
     private static Printer printer;
 
-    //costruttore privato
+
+    /**
+     * Private constructor for singleton pattern
+     */
     private Printer() {
     }
 
-    //metodo che crea/dà accesso se già creata all'unica istanza
+
+    /**
+     * @return The singleton instance
+     */
     public synchronized static Printer Singleton() {
         if (printer == null) {
             printer = new Printer();
@@ -31,6 +41,10 @@ public class Printer {
         return printer;
     }
 
+    /**
+     * This method is used for displaying to the user its scheme card with all the dices put on it
+     * @param schemeCard The scheme card object I want to display
+     */
     public void printMap( SchemeCard schemeCard)  {
         System.out.println(schemeCard.getMapName());
         System.out.println("Difficoltà della mappa: "+ schemeCard.getDifficulty());
@@ -98,7 +112,12 @@ public class Printer {
     }
 
 
-
+    /**
+     * This method is used during a match to display the private and public goal cards with their names and descriptions
+     * taken from the translator
+     * @param serverController The controller interface with all the methods exposed by the server
+     * @param yourName The username of the account performing the request
+     */
     public void printGoalCards(ClientHandlerInterface serverController, String yourName) {
         System.out.println("\n-Ecco gli obiettivi di questa partita-");
         try{
@@ -125,6 +144,11 @@ public class Printer {
 
     }
 
+    /**
+     * This method is used during a match to display the situation of the round track
+     * @param serverController The controller interface with all the methods exposed by the server
+     * @param yourName The username of the account performing the request
+     */
     public void printRoundTrack(ClientHandlerInterface serverController, String yourName) {
         System.out.println("Round track:");
         int round = 10;
@@ -168,7 +192,12 @@ public class Printer {
         System.out.println();
     }
 
-    //metodo che stampa i dadi estratti
+
+    /**
+     * This method is used to display the status of the round dice pool with all the available dices
+     * @param serverController The controller interface with all the methods exposed by the server
+     * @param yourName The username of the account performing the request
+     */
     public void printRoundDicePool(ClientHandlerInterface serverController, String yourName) {
         int index = 0;
         char[] charDice;
@@ -209,7 +238,12 @@ public class Printer {
         System.out.println();
     }
 
-    //metodo che stampa le toolcard
+
+    /**
+     * This method is used for displaying the name and the desciption of the tool cards available for the current match
+     * @param serverController The controller interface with all the methods exposed by the server
+     * @param yourName The username of the account performing the request
+     */
     public void printToolcard(ClientHandlerInterface serverController, String yourName) {
         int index = 0;
         System.out.println("Queste sono le carte utensile disponibili:");
@@ -225,6 +259,12 @@ public class Printer {
         }
     }
 
+
+    /**
+     * This method is used to diplay the special dice extracted with the particular pasta salda tool card
+     * @param serverController The controller interface with all the methods exposed by the server
+     * @param yourName The username of the account performing the request
+     */
     public void printExtractedDice(ClientHandlerInterface serverController, String yourName) {
         System.out.println("Questo è il dado estratto:");
         char[] charDice = new char[0];

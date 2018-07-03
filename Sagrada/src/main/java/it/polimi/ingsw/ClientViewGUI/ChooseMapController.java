@@ -11,6 +11,9 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -29,9 +32,10 @@ import static org.fusesource.jansi.Ansi.Color.WHITE;
 import static org.fusesource.jansi.Ansi.ansi;
 
 public class ChooseMapController extends AbstractController implements Initializable {
-    int mapSelected = 0;
+    private int mapSelected = 0;
     private int[] mapIDs = new int[4];
     private int index = 1;
+    private String privateGoalcardPath = null;
 
     public ChooseMapController() {
         ObserverGUI.Singleton().setController(this);
@@ -122,6 +126,18 @@ public class ChooseMapController extends AbstractController implements Initializ
     private Circle Diff32;
 
     @FXML
+    private ImageView PrivateGoalCard;
+
+    @FXML
+    private ImageView PublicGoalCard1;
+
+    @FXML
+    private ImageView PublicGoalCard2;
+
+    @FXML
+    private ImageView PublicGoalCard3;
+
+    @FXML
     private GridPane gridMap3;
 
     @FXML
@@ -196,6 +212,34 @@ public class ChooseMapController extends AbstractController implements Initializ
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         mapIDs[0] = 13;
+        Image image = null;
+
+        try {
+            privateGoalcardPath = "PrivateGoalCards/" + ObserverGUI.Singleton().getServerController().getPrivateGoalCard(ObserverGUI.Singleton().getUsername()).get(0).getID() + ".jpg";
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            image = new Image("PublicGoalCards/" + ObserverGUI.Singleton().getServerController().getPublicGoalCards(ObserverGUI.Singleton().getUsername()).get(0).getID() + ".jpg");
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        PublicGoalCard1.setImage(image);
+
+        try {
+            image = new Image("PublicGoalCards/" + ObserverGUI.Singleton().getServerController().getPublicGoalCards(ObserverGUI.Singleton().getUsername()).get(1).getID() + ".jpg");
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        PublicGoalCard2.setImage(image);
+        try {
+            image = new Image("PublicGoalCards/" + ObserverGUI.Singleton().getServerController().getPublicGoalCards(ObserverGUI.Singleton().getUsername()).get(2).getID() + ".jpg");
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        PublicGoalCard3.setImage(image);
+
         try {
             for (SchemeCard schemeCard: ObserverGUI.Singleton().getServerController().getExtractedSchemeCard(ObserverGUI.Singleton().getUsername())){
                 mapIDs[index-1] = schemeCard.getID();
@@ -310,4 +354,24 @@ public class ChooseMapController extends AbstractController implements Initializ
 
     }
 
+    public void Select(javafx.scene.input.MouseEvent mouseEvent) {
+        ImageView source = (ImageView) mouseEvent.getTarget();
+        DropShadow dropShadow = new DropShadow();
+        source.setEffect(dropShadow);
+    }
+
+    public void Unselect(javafx.scene.input.MouseEvent mouseEvent) {
+            ImageView source = (ImageView) mouseEvent.getTarget();
+            source.setEffect(null);
+    }
+
+    public void ShowPrivateGoal(javafx.scene.input.MouseEvent mouseEvent) {
+        Image image = new Image(privateGoalcardPath);
+        PrivateGoalCard.setImage(image);
+    }
+
+    public void HidePrivateGoal(javafx.scene.input.MouseEvent mouseEvent) {
+        Image image = new Image("PrivateGoalCards/Back1.jpg");  //todoremoveto be general
+        PrivateGoalCard.setImage(image);
+    }
 }
