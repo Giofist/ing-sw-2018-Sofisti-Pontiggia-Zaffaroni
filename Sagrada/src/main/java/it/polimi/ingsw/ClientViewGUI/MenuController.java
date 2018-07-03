@@ -1,6 +1,8 @@
 package it.polimi.ingsw.ClientViewGUI;
 
 import com.jfoenix.controls.JFXButton;
+import it.polimi.ingsw.model.Observable;
+import it.polimi.ingsw.model.PlayerState;
 import it.polimi.ingsw.model.State;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -21,7 +23,7 @@ import java.util.Collections;
 import java.util.ResourceBundle;
 
 
-public class MenuController extends AbstractController implements Initializable{
+public class MenuController implements Initializable,AbstractController{
     Stage stage = null;
     Parent myNewScene = null;
 
@@ -122,19 +124,20 @@ public class MenuController extends AbstractController implements Initializable{
         this.mainPane = mainPane;
     }
 
-    /*@Override
     public void update(State state){
-        if (state == State.) {
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        mainPane.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/MainGameView.fxml"))));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                   mainPane.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/MainGameView.fxml"))));
+                   Observable playerState = new PlayerState();
+                   playerState.setState(state);
+                   ObserverGUI.Singleton().update(playerState,null);
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            });
+            }
+        });
         }
-    }*/
+
 }

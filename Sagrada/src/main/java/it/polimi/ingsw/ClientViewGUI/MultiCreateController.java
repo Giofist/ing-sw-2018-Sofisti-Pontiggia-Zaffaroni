@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.Collections;
 
-public class MultiCreateController extends AbstractController {
+public class MultiCreateController implements AbstractController {
     private Thread thread;
 
     public MultiCreateController(){

@@ -38,7 +38,7 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.*;
 
-public class MainGameViewController extends AbstractController implements Initializable {
+public class MainGameViewController implements Initializable, AbstractController {
     private ImageView origin = null;
     private int SelectedDiceIndex;
     boolean selected = false;

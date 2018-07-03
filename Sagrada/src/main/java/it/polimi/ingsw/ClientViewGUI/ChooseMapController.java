@@ -31,7 +31,7 @@ import static org.fusesource.jansi.Ansi.Color.BLACK;
 import static org.fusesource.jansi.Ansi.Color.WHITE;
 import static org.fusesource.jansi.Ansi.ansi;
 
-public class ChooseMapController extends AbstractController implements Initializable {
+public class ChooseMapController implements AbstractController, Initializable {
     private int mapSelected = 0;
     private int[] mapIDs = new int[4];
     private int index = 1;

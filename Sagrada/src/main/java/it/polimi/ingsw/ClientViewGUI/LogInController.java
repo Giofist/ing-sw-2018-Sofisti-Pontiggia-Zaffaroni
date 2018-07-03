@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXTextField;
 import it.polimi.ingsw.NetworkClient.SocketClientListener;
 import it.polimi.ingsw.NetworkClient.SocketController;
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
+import it.polimi.ingsw.model.State;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,7 +28,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ResourceBundle;
 
-public class LogInController extends AbstractController implements Initializable{
+public class LogInController  implements Initializable,AbstractController{
     private String ipAddr = "127.0.0.1";
     private int port = 1337;
     public Stage primaryStage;
@@ -167,5 +168,9 @@ public class LogInController extends AbstractController implements Initializable
     }
 
 
+    @Override
+    public void update(State state) {
+
     }
+}
 

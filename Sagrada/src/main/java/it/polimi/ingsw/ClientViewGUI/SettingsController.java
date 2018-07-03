@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ClientViewGUI;
 
 import com.jfoenix.controls.JFXButton;
+import it.polimi.ingsw.model.State;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
@@ -10,7 +11,7 @@ import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.Collections;
 
-public class SettingsController extends AbstractController {
+public class SettingsController implements AbstractController  {
 
     public SettingsController(){
         ObserverGUI.Singleton().setController(this);
@@ -31,5 +32,10 @@ public class SettingsController extends AbstractController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void update(State state) {
+
     }
 }
