@@ -56,7 +56,7 @@ public class Client {
                     ObserverView view = new ObserverView();
                     Socket socket = new Socket(ipAddr, port);
                     SocketClientListener listener = new SocketClientListener(socket);
-                    ClientHandlerInterface socketController = new SocketController( listener);
+                    SocketController socketController = new SocketController( listener);
                     listener.setController(socketController, view);
                     view.setServerController(socketController);
                     new Thread(listener).start();

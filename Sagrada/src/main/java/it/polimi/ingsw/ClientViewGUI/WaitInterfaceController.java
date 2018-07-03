@@ -11,7 +11,7 @@ import javafx.scene.text.Text;
 import java.io.IOException;
 import java.util.Collections;
 
-public class WaitInterfaceController extends AbstractController{
+public class WaitInterfaceController implements AbstractController{
 
     public WaitInterfaceController(){
         ObserverGUI.Singleton().setController(this);

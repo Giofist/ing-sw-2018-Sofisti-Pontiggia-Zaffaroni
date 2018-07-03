@@ -28,7 +28,6 @@ public class SocketController implements ClientHandlerInterface {
      * @param responseHandler
      * @throws RemoteException
      */
-   @Override
     public void setResponseHandler(SocketResponseHandler responseHandler)throws RemoteException{
         this.responseHandler = responseHandler;
    }

@@ -39,7 +39,7 @@ public class Round {
                 @Override
                 public void run() {
                     try {
-
+                        // Here we can set how many minutes we want to make the round last
                         Thread.sleep(120000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();

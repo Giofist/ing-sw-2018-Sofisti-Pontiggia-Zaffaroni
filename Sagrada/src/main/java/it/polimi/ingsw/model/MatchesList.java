@@ -44,12 +44,10 @@ public class MatchesList {
             }
             this.matches.put(game_name,match);
         }
-        // Each Match is a separate thread
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 try {
-
                     Thread.sleep(120000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -73,6 +71,7 @@ public class MatchesList {
 
             }
         },0);
+        // Each Match is a separate thread
         new Thread(match).start();
         return ;
     }

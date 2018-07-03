@@ -57,7 +57,6 @@ public class ColumnIterator<T> implements Iterator<Tile> {
         } catch (OutOfMatrixException e) {
             throw new NoSuchElementException("Matrix dead end reached.");
         }
-
         currentColumn++;
         if (currentColumn == schemeCard.getMaxColumn()) {
             deadEnd = true;

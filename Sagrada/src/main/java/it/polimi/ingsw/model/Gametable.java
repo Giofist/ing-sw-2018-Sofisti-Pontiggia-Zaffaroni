@@ -89,9 +89,9 @@ public class Gametable {
      * @param player The player who wants to use the tool card
      * @throws WrongToolCardIDException Exception thrown in case we pass a toolRequestClass with a tool card id not present in game
      * @throws ToolIllegalOperationException Exception thrown when something goes wrong in performing the action of the tool card
-     * @throws NotEnoughSegnaliniException Exception thrown when the player doesn't have enough Segnalini to buy the tool card
+     * @throws NotEnoughTokenException Exception thrown when the player doesn't have enough Tokens to buy the tool card
      */
-    public void useaToolCard(ToolRequestClass toolRequestClass, Player player) throws WrongToolCardIDException, ToolIllegalOperationException, NotEnoughSegnaliniException {
+    public void useaToolCard(ToolRequestClass toolRequestClass, Player player) throws WrongToolCardIDException, ToolIllegalOperationException, NotEnoughTokenException {
         this.tooldeck.doAction(toolRequestClass.getToolCardID(),player, toolRequestClass);
     }
 

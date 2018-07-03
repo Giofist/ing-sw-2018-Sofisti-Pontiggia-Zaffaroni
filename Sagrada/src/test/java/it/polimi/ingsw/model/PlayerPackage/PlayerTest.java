@@ -61,14 +61,14 @@ public class PlayerTest {
 
 
     @Test
-    public void payforToolEnoughPoints() throws NotEnoughSegnaliniException {
+    public void payforToolEnoughPoints() throws NotEnoughTokenException {
         player.setToken(5);
         player.payforToolAction(5);
         assertEquals(0, player.getToken());
     }
 
-    @Test (expected = NotEnoughSegnaliniException.class)
-    public void payforToolNotEnoughPoints() throws NotEnoughSegnaliniException {
+    @Test (expected = NotEnoughTokenException.class)
+    public void payforToolNotEnoughPoints() throws NotEnoughTokenException {
         player.setToken(5);
         player.payforToolAction(6);
     }

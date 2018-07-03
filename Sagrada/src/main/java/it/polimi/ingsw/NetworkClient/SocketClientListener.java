@@ -23,7 +23,7 @@ public class SocketClientListener implements Runnable {
     private ObjectInputStream is;
     private ObjectOutputStream os;
     private Observer observerView;
-    private ClientHandlerInterface controller;
+    private SocketController controller;
 
     /**
      * This constructor saves the streams for the input and output communication with the server
@@ -40,7 +40,7 @@ public class SocketClientListener implements Runnable {
      * @param controller Server controller interface
      * @param observer
      */
-    public void setController(ClientHandlerInterface controller, Observer observer) {
+    public void setController(SocketController controller, Observer observer) {
         this.controller = controller;
         this.observerView = observer;
     }
