@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model.ToolCard;
 
-import it.polimi.ingsw.model.Exceptions.NotEnoughSegnaliniException;
+import it.polimi.ingsw.model.Exceptions.NotEnoughTokenException;
 import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.Exceptions.WrongToolCardIDException;
 import it.polimi.ingsw.model.Player;
@@ -59,7 +59,7 @@ public class ToolCardsDeckTest {
 
 
     @Test
-    public void doActionTest() throws WrongToolCardIDException, NotEnoughSegnaliniException {
+    public void doActionTest() throws WrongToolCardIDException, NotEnoughTokenException {
         List toolCards  = toolCardsDeck.getcards();
         ToolAction toolAction = (ToolAction) toolCards.get(0);
         int toolId = toolAction.getID();
@@ -79,18 +79,6 @@ public class ToolCardsDeckTest {
         assertEquals(0 ,2);
     }
 
-
-    @Test
-    public void setCostOfActionTest() throws WrongToolCardIDException {
-        List toolCards  = toolCardsDeck.getcards();
-        ToolAction toolAction = (ToolAction) toolCards.get(0);
-        int toolId = toolAction.getID();
-
-        toolCardsDeck.setCostOfAction(toolId);
-
-        assertEquals(2, toolAction.getCost());
-
-    }
 
 
 }

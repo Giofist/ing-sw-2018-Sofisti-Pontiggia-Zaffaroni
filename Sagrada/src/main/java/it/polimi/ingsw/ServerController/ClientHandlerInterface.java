@@ -15,11 +15,8 @@ import java.util.List;
 
 
 public interface ClientHandlerInterface extends Remote {
-    void setResponseHandler(SocketResponseHandler responseHandler)throws RemoteException;
-
 
     void createGame(String clientname, Observer client, String gamename ) throws  RemoteException;
-
     List<Match> getActiveMatchesList() throws RemoteException;
     List<SchemeCard> getExtractedSchemeCard(String clientname) throws RemoteException;
     int getmyPoints(String clientname) throws RemoteException;
@@ -46,4 +43,5 @@ public interface ClientHandlerInterface extends Remote {
     void setToolCardDice(String clientname, int row, int column)throws RemoteException;
     void setToolCardDiceIntensity(String clientname, int intensity) throws RemoteException;
     void useaToolCard(String clientname, ToolRequestClass toolRequestClass) throws RemoteException;
+
     }

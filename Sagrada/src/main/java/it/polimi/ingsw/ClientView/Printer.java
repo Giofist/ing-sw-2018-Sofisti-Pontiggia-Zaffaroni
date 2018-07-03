@@ -97,7 +97,6 @@ public class Printer {
                 }
                 else if (tile.haveNumber_constrain()){
                     System.out.print(ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" " + tile.getNumber_Constrain() + " ").reset());
-
                 }
                 else{
                     System.out.print(ansi().eraseScreen().bg(WHITE).fg(BLACK).a("   ").reset());

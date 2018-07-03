@@ -2,6 +2,7 @@ package it.polimi.ingsw.ClientViewGUI;
 
 import com.jfoenix.controls.JFXButton;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.State;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,7 +17,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class ResultController extends AbstractController implements Initializable{
+public class ResultController implements Initializable,AbstractController {
     String playerList = "";
     int i = 1;
 
@@ -68,5 +69,10 @@ public class ResultController extends AbstractController implements Initializabl
                 ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
             }
         listWinner.setText(playerList);
+    }
+
+    @Override
+    public void update(State state) {
+
     }
 }

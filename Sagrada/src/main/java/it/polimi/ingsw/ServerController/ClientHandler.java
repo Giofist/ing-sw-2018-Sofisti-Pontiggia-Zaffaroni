@@ -27,13 +27,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
      * Empty constructor
      * @throws RemoteException
      */
-    public ClientHandler ()throws RemoteException {}
-
-
-    @Override
-    public void setResponseHandler(SocketResponseHandler responseHandler) throws RemoteException {
-        // Do nothing, this method is used only for sockets
-    }
+    public ClientHandler ()throws RemoteException {};
 
 
     /**

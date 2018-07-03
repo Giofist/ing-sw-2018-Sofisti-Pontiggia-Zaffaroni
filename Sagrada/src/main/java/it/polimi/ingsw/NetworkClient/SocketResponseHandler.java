@@ -10,19 +10,19 @@ import java.util.List;
  * and he replied back to us with a message that can be an error in our request, or the content of our request
  */
 public class SocketResponseHandler implements Runnable{
-    private ClientHandlerInterface controller;
+    private SocketController  controller;
     private String message;
     private RemoteException exception;
     private int messageCodex;
     private List list;
 
     /**
-     * @param controller The interface with all the methods exposed by the server
+     * @param controller The controller who has sent a request to the server via socket
      * @param message The message received from the server
      * @param messageCodex The type of message we received: 0 for an error to handle or 1 for a good response
      * @param list The content of our response
      */
-    public SocketResponseHandler(ClientHandlerInterface controller, String message, int messageCodex, List list){
+    public SocketResponseHandler(SocketController controller, String message, int messageCodex, List list){
         this.controller = controller;
         this.message = message;
         this.messageCodex = messageCodex;
@@ -33,6 +33,7 @@ public class SocketResponseHandler implements Runnable{
     /**
      * This method understands if the response was good or bad
      */
+    @Override
     public  void run(){
         if(this.messageCodex == 0){
             this.exception = new RemoteException(message);

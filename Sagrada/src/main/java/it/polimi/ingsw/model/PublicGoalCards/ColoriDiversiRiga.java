@@ -27,7 +27,6 @@ public class ColoriDiversiRiga implements GoalCard,Serializable {
 
         try{
             RowIterator rowIterator =  player.getScheme().rowIterator(0);
-            // do nothing
             while(rowIterator.hasNext()) {
                 try {
                     List<DiceColor> existingcolors = new LinkedList<DiceColor>();

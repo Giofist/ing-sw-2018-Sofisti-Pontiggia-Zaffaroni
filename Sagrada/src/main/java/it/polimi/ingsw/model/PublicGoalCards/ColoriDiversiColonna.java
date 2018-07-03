@@ -20,7 +20,6 @@ import java.util.List;
 public class ColoriDiversiColonna implements GoalCard,Serializable {
     static int ID = 2;
 
-
     /**
      * @param player A player for whom we want to calculate the points scored in this goal
      */

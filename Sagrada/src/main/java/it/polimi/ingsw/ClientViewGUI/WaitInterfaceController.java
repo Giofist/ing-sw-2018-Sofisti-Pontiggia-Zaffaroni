@@ -11,7 +11,7 @@ import javafx.scene.text.Text;
 import java.io.IOException;
 import java.util.Collections;
 
-public class WaitInterfaceController extends AbstractController{
+public class WaitInterfaceController implements AbstractController{
 
     public WaitInterfaceController(){
         ObserverGUI.Singleton().setController(this);
@@ -52,6 +52,18 @@ public class WaitInterfaceController extends AbstractController{
                         e.printStackTrace();
                     }
                     try {
+                        createPane.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/MenuPartial.fxml"))));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
+        else if(state == State.FORCEENDMATCH){
+            Platform.runLater(new Runnable(){
+                @Override
+                public void run(){
+                    try{
                         createPane.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/MenuPartial.fxml"))));
                     } catch (IOException e) {
                         e.printStackTrace();

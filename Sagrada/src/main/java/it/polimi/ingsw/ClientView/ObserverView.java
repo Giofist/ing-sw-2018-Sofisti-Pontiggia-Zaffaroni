@@ -316,6 +316,7 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
         System.out.println("Stiamo passando allo stato "+ state);
         switch (state){
             case ERRORSTATE: {
+                leave = true;
                 this.thread = new Thread(new ErrorStateView(serverController, yourName, this));
                 break;
             }
@@ -348,7 +349,6 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
                 break;
             }
             case STARTTURNSTATE: {
-
                 this.thread = new Thread(new StartTurnView(serverController, yourName, this));
                 break;
             }

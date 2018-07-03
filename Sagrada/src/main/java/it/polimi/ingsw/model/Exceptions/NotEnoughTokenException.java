@@ -1,8 +1,8 @@
 package it.polimi.ingsw.model.Exceptions;
 
-public class NotEnoughSegnaliniException extends Exception{
+public class NotEnoughTokenException extends Exception{
     private static final String msg = "35";
-    public NotEnoughSegnaliniException() {
+    public NotEnoughTokenException() {
         super(msg);
     }
 

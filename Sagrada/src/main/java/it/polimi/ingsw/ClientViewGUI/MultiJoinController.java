@@ -19,7 +19,7 @@ import java.rmi.RemoteException;
 import java.util.Collections;
 import java.util.ResourceBundle;
 
-public class MultiJoinController extends AbstractController implements Initializable{
+public class MultiJoinController  implements Initializable,AbstractController{
 
     ObservableList<String> data = FXCollections.observableArrayList();
 
