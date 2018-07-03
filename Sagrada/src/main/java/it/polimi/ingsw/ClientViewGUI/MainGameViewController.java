@@ -1298,15 +1298,15 @@ public class MainGameViewController implements Initializable, AbstractController
     }
 
     public void selectThisPose(MouseEvent mouseEvent) {
-        newOldRow = ((ImageView) mouseEvent.getTarget()).getId().toCharArray()[9];
-        newOldColumn = ((ImageView) mouseEvent.getTarget()).getId().toCharArray()[10];
-        SelectedCell.setText("Hai selezionato la cella: "+  ((ImageView) mouseEvent.getTarget()).getId() + newOldRow + " "+ newOldColumn);
+        newOldRow = ((ImageView) mouseEvent.getTarget()).getId().toCharArray()[9]-48;
+        newOldColumn = ((ImageView) mouseEvent.getTarget()).getId().toCharArray()[10]-48;
+        SelectedCell.setText("Hai selezionato la cella: " + newOldRow + " "+ newOldColumn);
     }
 
     public void selectThisPoseSpecial(MouseEvent mouseEvent) {
-        newOldRow = ((ImageView) mouseEvent.getTarget()).getId().toCharArray()[10];
-        newOldColumn = ((ImageView) mouseEvent.getTarget()).getId().toCharArray()[11];
-        SelectedCell.setText("Hai selezionato la cella: "+ ((ImageView) mouseEvent.getTarget()).getId() + newOldRow + " "+ newOldColumn);
+        newOldRow = ((ImageView) mouseEvent.getTarget()).getId().toCharArray()[10]-48;
+        newOldColumn = ((ImageView) mouseEvent.getTarget()).getId().toCharArray()[11]-48;
+        SelectedCell.setText("Hai selezionato la cella: "+ newOldRow + " "+ newOldColumn);
     }
 
     public void SelectNewRow(ActionEvent actionEvent) {
