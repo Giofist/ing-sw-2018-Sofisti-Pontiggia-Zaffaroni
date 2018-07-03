@@ -291,17 +291,17 @@ public class Player  implements Comparable<Player>, Serializable {
     /**
      * Method used to compare 2 players
      * @param player The player I want to compare with
-     * @return A positive value if the player who calls the method has an higher score
+     * @return A negative value if the player who calls the method has an higher score
      */
     @Override
     public int compareTo(Player player) {
         if(this.getPoints() != player.getPoints()){
-            return this.getPoints() - player.getPoints();
+            return player.getPoints() - this.getPoints();
         }
         else if (this.getToken() != player.getToken()){
-            return this.getToken() - player.getToken();
+            return player.getToken() - this.getToken();
         }
-        else return this.getMatch().getallPlayers().indexOf(this) - player.getMatch().getallPlayers().indexOf(player);
+        else return player.getMatch().getallPlayers().indexOf(player) - this.getMatch().getallPlayers().indexOf(this);
     }
 
 }
