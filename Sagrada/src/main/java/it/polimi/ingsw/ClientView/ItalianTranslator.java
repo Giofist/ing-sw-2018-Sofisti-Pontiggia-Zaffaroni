@@ -230,7 +230,7 @@ public class ItalianTranslator implements Translator {
             case "18": return "Errore in Riga in Sughero\n";
             case "18.1": return "Errore in riga in suhero: non puoi mettere un dado se ce n'è uno vicino!\n";
             case "18.2": return "Errore in riga in sughero: non puoi piazzare due dadi nello stesso turno\n";
-            case "19": return "Errore in Pinza Sgrossatrice\n";
+            case "19": return "Errore in Taglierina circolare\n";
             case "20": return "Errore in Taglierina Manuale\n";
             case "20.1": return "Errore in Taglierina Manuale: Il colore non corrisponde a quello del primo dado\n";
             case "20.2": return "Errore in Taglierina Manuale: Non c'è nessun dado con lo stesso colore nel Tracciato Round\n";

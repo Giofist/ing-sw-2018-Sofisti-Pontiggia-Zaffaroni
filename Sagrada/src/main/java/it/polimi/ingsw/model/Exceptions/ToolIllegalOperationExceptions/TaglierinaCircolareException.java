@@ -5,7 +5,6 @@ public class TaglierinaCircolareException extends ToolIllegalOperationException 
     public TaglierinaCircolareException() {
         super(msg);
     }
-    public TaglierinaCircolareException(String msg){ super(msg); }
 
     public static String getMsg() {
         return msg;

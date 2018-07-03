@@ -304,6 +304,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     public  void setSchemeCard(String clientusername, int cardid) throws RemoteException {
         try {
             Player player = UsersList.Singleton().findUser(clientusername).getPlayer();
+            System.out.println(player.getName() + "ha chiamato setSchemeCard");
             player.getPlayerState().checkAction(TurnActions.SETSCHEMECARD);
             player.setScheme(cardid);
         } catch (UserNotExistentException e) {
