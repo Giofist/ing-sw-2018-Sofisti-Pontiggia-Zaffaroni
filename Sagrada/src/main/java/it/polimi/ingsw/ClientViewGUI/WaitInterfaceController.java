@@ -9,6 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
+import java.rmi.RemoteException;
 import java.util.Collections;
 
 public class WaitInterfaceController implements AbstractController{
@@ -25,7 +26,18 @@ public class WaitInterfaceController implements AbstractController{
     @FXML
     private JFXButton LeaveTheGame;
 
-
+    public void leaveTheMatch(javafx.event.ActionEvent actionEvent) {
+        try {
+            ObserverGUI.Singleton().getServerController().leavethematch(ObserverGUI.Singleton().getUsername(), ObserverGUI.Singleton());
+        } catch (RemoteException e) {
+            ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
+        }
+        try {
+            createPane.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/MenuPartial.fxml"))));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     @Override
     public void update(State state){
         if(state== State.MUSTSETSCHEMECARD){

@@ -123,7 +123,7 @@ public class Match implements Runnable,Serializable{
             //do nothing
         }
         // Now the game can start for N rounds
-        for (int i = 1; i<=1; i++){
+        for (int i = 1; i<=10; i++){
             new Round(i, this.players, this).run();
             // At each round I have to change the order of the players
             this.players.addLast(this.players.removeFirst());
@@ -273,6 +273,7 @@ public class Match implements Runnable,Serializable{
      * This method is useful for notifying the game when we chose our tool card and we are ready to start as players
      */
     public void countDown() {
+        System.out.println("un giocatore ha messo la schemeCard, ho fatto count down del latch");
         this.doneSignal.countDown();
     }
 
