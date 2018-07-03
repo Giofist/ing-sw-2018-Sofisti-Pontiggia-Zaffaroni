@@ -5,11 +5,12 @@ import it.polimi.ingsw.model.Exceptions.HomonymyException;
 import it.polimi.ingsw.model.Exceptions.MatchStartedYetException;
 import it.polimi.ingsw.model.ToolCard.Martelletto;
 
+import java.io.Serializable;
 import java.util.*;
 
 
 //design pattern singleton
-public class MatchesList {
+public class MatchesList implements Serializable {
     private static MatchesList instance;
     private Hashtable<String, Match> matches;
 

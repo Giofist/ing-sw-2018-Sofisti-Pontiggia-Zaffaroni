@@ -21,7 +21,10 @@ public abstract class ClientMessage implements Serializable{
     int row;
     int column;
     int intensity;
+<<<<<<< HEAD
 
+=======
+>>>>>>> ed51e217d4a95bcf4859fc9a2219241cb3fe8475
 
     /**
      * @param errorMessage Set the error message that you want to return

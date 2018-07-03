@@ -216,10 +216,11 @@ public class Match implements Runnable,Serializable{
                     }
                 }
                 }
-            },120000);
+            },20000);
         }
 
         if (this.players.size() == 4){
+            System.out.println("la partita è pronta per iniziare");
             isreadyTostart = true;
             notifyAll();
         }
@@ -283,7 +284,4 @@ public class Match implements Runnable,Serializable{
 
     // For testing
     protected boolean getIsReadyToStart(){ return isreadyTostart;  }
-    protected int getDoneSignal() {
-        return (int) this.doneSignal.getCount();
-    }
 }
