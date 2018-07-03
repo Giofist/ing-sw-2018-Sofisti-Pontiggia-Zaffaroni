@@ -853,9 +853,9 @@
             <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="28.5" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ImageView fx:id="RoundTrack00" fitHeight="65.0" fitWidth="65.0" onMouseClicked="#selectThisPoseSpecial" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="RoundTrack00" fitHeight="65.0" fitWidth="74.0" onMouseClicked="#selectThisPoseSpecial" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@Dices/EmptySpace.jpg" />
+                  <Image url="@Dices/RounTrack1.jpg" />
                </image>
                <GridPane.margin>
                   <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
@@ -863,7 +863,7 @@
             </ImageView>
             <ImageView fx:id="RoundTrack01" fitHeight="65.0" fitWidth="65.0" onMouseClicked="#selectThisPoseSpecial" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
                <image>
-                  <Image url="@Dices/EmptySpace.jpg" />
+                  <Image url="@Dices/RounTrack2.jpg" />
                </image>
                <GridPane.margin>
                   <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
@@ -871,7 +871,7 @@
             </ImageView>
             <ImageView fx:id="RoundTrack02" fitHeight="65.0" fitWidth="65.0" onMouseClicked="#selectThisPoseSpecial" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
                <image>
-                  <Image url="@Dices/EmptySpace.jpg" />
+                  <Image url="@Dices/RounTrack3.jpg" />
                </image>
                <GridPane.margin>
                   <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
@@ -879,7 +879,7 @@
             </ImageView>
             <ImageView fx:id="RoundTrack03" fitHeight="65.0" fitWidth="65.0" onMouseClicked="#selectThisPoseSpecial" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3">
                <image>
-                  <Image url="@Dices/EmptySpace.jpg" />
+                  <Image url="@Dices/RounTrack4.jpg" />
                </image>
                <GridPane.margin>
                   <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
@@ -887,7 +887,7 @@
             </ImageView>
             <ImageView fx:id="RoundTrack04" fitHeight="65.0" fitWidth="65.0" onMouseClicked="#selectThisPoseSpecial" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4">
                <image>
-                  <Image url="@Dices/EmptySpace.jpg" />
+                  <Image url="@Dices/RounTrack5.jpg" />
                </image>
                <GridPane.margin>
                   <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
@@ -895,7 +895,7 @@
             </ImageView>
             <ImageView fx:id="RoundTrack05" fitHeight="65.0" fitWidth="65.0" onMouseClicked="#selectThisPoseSpecial" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5">
                <image>
-                  <Image url="@Dices/EmptySpace.jpg" />
+                  <Image url="@Dices/RounTrack6.jpg" />
                </image>
                <GridPane.margin>
                   <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
@@ -903,7 +903,7 @@
             </ImageView>
             <ImageView fx:id="RoundTrack06" fitHeight="65.0" fitWidth="65.0" onMouseClicked="#selectThisPoseSpecial" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6">
                <image>
-                  <Image url="@Dices/EmptySpace.jpg" />
+                  <Image url="@Dices/RounTrack7.jpg" />
                </image>
                <GridPane.margin>
                   <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
@@ -911,7 +911,7 @@
             </ImageView>
             <ImageView fx:id="RoundTrack07" fitHeight="65.0" fitWidth="65.0" onMouseClicked="#selectThisPoseSpecial" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7">
                <image>
-                  <Image url="@Dices/EmptySpace.jpg" />
+                  <Image url="@Dices/RounTrack8.jpg" />
                </image>
                <GridPane.margin>
                   <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
@@ -919,7 +919,7 @@
             </ImageView>
             <ImageView fx:id="RoundTrack08" fitHeight="65.0" fitWidth="65.0" onMouseClicked="#selectThisPoseSpecial" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8">
                <image>
-                  <Image url="@Dices/EmptySpace.jpg" />
+                  <Image url="@Dices/RounTrack9.jpg" />
                </image>
                <GridPane.margin>
                   <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
@@ -927,7 +927,7 @@
             </ImageView>
             <ImageView fx:id="RoundTrack09" fitHeight="65.0" fitWidth="65.0" onMouseClicked="#selectThisPoseSpecial" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="9">
                <image>
-                  <Image url="@Dices/EmptySpace.jpg" />
+                  <Image url="@Dices/RounTrack10.jpg" />
                </image>
                <GridPane.margin>
                   <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />

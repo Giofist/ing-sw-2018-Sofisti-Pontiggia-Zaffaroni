@@ -847,6 +847,9 @@ public class MainGameViewController implements Initializable, AbstractController
                         }
                     }
 
+                }else {
+                    cell = (Pane) gridMap.getChildren().get(rowIterator.getCurrentRow() * schemeCard.getMaxColumn() + columnIterator.getCurrentColumn() - 1);
+                    ((ImageView) cell.getChildren().get(0)).setImage(null);
                 }
             }
             rowIterator.next();
