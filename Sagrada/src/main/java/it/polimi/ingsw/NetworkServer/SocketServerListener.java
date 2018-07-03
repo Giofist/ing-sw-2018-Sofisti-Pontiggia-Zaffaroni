@@ -67,7 +67,7 @@ public class SocketServerListener implements Runnable{
                     executor.submit(new SocketResponseHandlerServer(this.client, message.getErrorMessage(), messagecodex));
                 }
             }catch (Exception e){
-                e.printStackTrace();
+
             }
         }
     }

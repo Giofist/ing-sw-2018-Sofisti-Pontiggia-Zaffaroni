@@ -1045,5 +1045,10 @@
             <Font size="20.0" />
          </font>
       </JFXButton>
+      <Text fx:id="SelectedCell" fill="WHITE" layoutX="905.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="180.50002209842205">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>
