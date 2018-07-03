@@ -22,6 +22,24 @@ public abstract class ClientMessage implements Serializable{
     int column;
     int intensity;
 
+    String playername;
+
+
+    /**
+     * @return The name of the user performing the request
+     */
+    public String getPlayername(){
+        return this.playername;
+    }
+
+    /**
+     * @param playername The name of the user performing the request
+     */
+    public void setPlayername(String playername) {
+        this.playername = playername;
+    }
+
+
     /**
      * @param errorMessage Set the error message that you want to return
      */
@@ -50,7 +68,7 @@ public abstract class ClientMessage implements Serializable{
     public int getMessagecodex() {
         return messagecodex;
     }
-    
+
 
 
     // Metodi setter

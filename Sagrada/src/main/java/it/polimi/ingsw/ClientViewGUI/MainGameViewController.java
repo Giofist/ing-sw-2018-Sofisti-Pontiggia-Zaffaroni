@@ -857,9 +857,7 @@ public class MainGameViewController implements Initializable, AbstractController
         String name;
         ImageView image = null;
         String imagePath;
-        String recivedFormServer = "4YELLOW-3RED-6BLUE-5VIOLET-1RED-4RED";
 
-        dices = recivedFormServer.split("-");
 
         try {
             dices = ObserverGUI.Singleton().getServerController().getRoundDicepool(ObserverGUI.Singleton().getUsername()).split("-");
@@ -877,58 +875,60 @@ public class MainGameViewController implements Initializable, AbstractController
         RoundDice7.setImage(null);
         RoundDice8.setImage(null);
 
-        for (String dice : dices) {
-            charDice = dice.toCharArray();
-            imagePath = "Dices/" + charDice[1] + charDice[0] + ".jpg";
+        if (!dices[0].equals("")) {
+            for (String dice : dices) {
+                charDice = dice.toCharArray();
+                imagePath = "Dices/" + charDice[1] + charDice[0] + ".jpg";
 
-            switch (i) {
-                case 0: {
-                    Image pic = new Image(imagePath);
-                    RoundDice0.setImage(pic);
-                    break;
+                switch (i) {
+                    case 0: {
+                        Image pic = new Image(imagePath);
+                        RoundDice0.setImage(pic);
+                        break;
+                    }
+                    case 1: {
+                        Image pic = new Image(imagePath);
+                        RoundDice1.setImage(pic);
+                        break;
+                    }
+                    case 2: {
+                        Image pic = new Image(imagePath);
+                        RoundDice2.setImage(pic);
+                        break;
+                    }
+                    case 3: {
+                        Image pic = new Image(imagePath);
+                        RoundDice3.setImage(pic);
+                        break;
+                    }
+                    case 4: {
+                        Image pic = new Image(imagePath);
+                        RoundDice4.setImage(pic);
+                        break;
+                    }
+                    case 5: {
+                        Image pic = new Image(imagePath);
+                        RoundDice5.setImage(pic);
+                        break;
+                    }
+                    case 6: {
+                        Image pic = new Image(imagePath);
+                        RoundDice6.setImage(pic);
+                        break;
+                    }
+                    case 7: {
+                        Image pic = new Image(imagePath);
+                        RoundDice7.setImage(pic);
+                        break;
+                    }
+                    case 8: {
+                        Image pic = new Image(imagePath);
+                        RoundDice8.setImage(pic);
+                        break;
+                    }
                 }
-                case 1: {
-                    Image pic = new Image(imagePath);
-                    RoundDice1.setImage(pic);
-                    break;
-                }
-                case 2: {
-                    Image pic = new Image(imagePath);
-                    RoundDice2.setImage(pic);
-                    break;
-                }
-                case 3: {
-                    Image pic = new Image(imagePath);
-                    RoundDice3.setImage(pic);
-                    break;
-                }
-                case 4: {
-                    Image pic = new Image(imagePath);
-                    RoundDice4.setImage(pic);
-                    break;
-                }
-                case 5: {
-                    Image pic = new Image(imagePath);
-                    RoundDice5.setImage(pic);
-                    break;
-                }
-                case 6: {
-                    Image pic = new Image(imagePath);
-                    RoundDice6.setImage(pic);
-                    break;
-                }
-                case 7: {
-                    Image pic = new Image(imagePath);
-                    RoundDice7.setImage(pic);
-                    break;
-                }
-                case 8: {
-                    Image pic = new Image(imagePath);
-                    RoundDice8.setImage(pic);
-                    break;
-                }
+                i++;
             }
-            i++;
         }
     }
 
