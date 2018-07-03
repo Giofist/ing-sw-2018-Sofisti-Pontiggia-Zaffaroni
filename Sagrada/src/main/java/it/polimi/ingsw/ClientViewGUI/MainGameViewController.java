@@ -1220,7 +1220,8 @@ public class MainGameViewController extends AbstractController implements Initia
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
-                    turnIndicator.setText("Non è il tuo turno.");
+                    turnIndicator.setText("Hai vinto a tavolino!");
+                    ErrorMessage.setText("Lascia la partita!");
                 }
             });
         } else if (state == State.MUSTPASSTURNSTATE) {
