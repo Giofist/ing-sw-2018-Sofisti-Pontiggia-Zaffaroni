@@ -19,6 +19,7 @@ public class Match implements Runnable,Serializable{
     private transient boolean started;
     private transient CountDownLatch doneSignal;
     public transient boolean isreadyTostart;
+    private transient Timer timer;
 
 
     /**
@@ -32,6 +33,7 @@ public class Match implements Runnable,Serializable{
         this.players.addFirst(player);
         player.setMatch(this);
         this.isreadyTostart = false;
+        this.timer = new Timer();
     }
 
 
@@ -190,10 +192,34 @@ public class Match implements Runnable,Serializable{
      * This methods allows a player to join the current match
      * @param player Player who wants to join
      */
-    public synchronized void join(Player player){
-        this.players.addLast(player);
+    public void join(Player player){
+        if(this.players.size() == 1){
+            this.players.addLast(player);
+            final Match match = this;
+            this.timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                synchronized (match){
+                    if(!isStarted()){
+                        if (match.getallPlayers().size() >1){
+                            isreadyTostart = true;
+                            match.notifyAll();
+                        }
+                        else{
+                            // The only player must leave the match
+                            for(Player player: match.getallPlayers()){
+                                player.setPlayerState(State.ERRORSTATE);
+                            }
+                            MatchesList.singleton().remove(match);
+                            UsersList.Singleton().getUser(player.getName()).removePlayer(player.getPlayerState().getObserver());
+                        }
+                    }
+                }
+                }
+            },120000);
+        }
 
-        if (this.players.size() == 2){
+        if (this.players.size() == 4){
             isreadyTostart = true;
             notifyAll();
         }
@@ -230,6 +256,9 @@ public class Match implements Runnable,Serializable{
      */
     public void leavethematch(Player player){
         this.players.remove(player);
+        if(this.players.size() ==1){
+            this.timer.cancel();
+        }
         if(getNumberOfPlayers()==0){
             MatchesList.singleton().remove(this);
         }
@@ -243,7 +272,6 @@ public class Match implements Runnable,Serializable{
         this.doneSignal.countDown();
     }
 
-
     /**
      * This method terminates the match in case the conditions to go on are not met
      */
@@ -252,7 +280,6 @@ public class Match implements Runnable,Serializable{
             player.setPlayerState(State.FORCEENDMATCH);
         }
     }
-
 
     // For testing
     protected boolean getIsReadyToStart(){ return isreadyTostart;  }

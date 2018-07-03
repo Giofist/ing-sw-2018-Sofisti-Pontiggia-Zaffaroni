@@ -104,11 +104,9 @@ public class PartialMenuController implements AbstractController{
     public void setUpSinglePlayer(javafx.event.ActionEvent actionEvent) {
         ErrorMessage.setText("Cooming Soon!");
     }
-
     public static AnchorPane getMainPane() {
         return mainPane;
     }
-
     public void setMainPane(AnchorPane mainPane) {
         this.mainPane = mainPane;
     }

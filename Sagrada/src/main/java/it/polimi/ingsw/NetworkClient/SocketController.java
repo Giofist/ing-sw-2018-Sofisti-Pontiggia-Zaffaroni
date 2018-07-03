@@ -26,9 +26,8 @@ public class SocketController implements ClientHandlerInterface {
 
     /**
      * @param responseHandler
-     * @throws RemoteException
      */
-    public void setResponseHandler(SocketResponseHandler responseHandler)throws RemoteException{
+    public void setResponseHandler(SocketResponseHandler responseHandler){
         this.responseHandler = responseHandler;
    }
 
@@ -51,9 +50,13 @@ public class SocketController implements ClientHandlerInterface {
             e.printStackTrace();
         }
         try{
-            wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+
+            wait(100000);
+        }catch(InterruptedException e){
+            //do something?
+        }
+        if(this.responseHandler == null){
+            throw new RemoteException();
         }
         this.responseHandler.check();
         this.responseHandler = null;
@@ -80,9 +83,13 @@ public class SocketController implements ClientHandlerInterface {
         }
 
         try{
-            wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+
+            wait(10000);
+        }catch(InterruptedException e){
+            //do something?
+        }
+        if(this.responseHandler == null){
+            throw new RemoteException();
         }
         this.responseHandler.check();
         this.responseHandler = null;
@@ -107,9 +114,13 @@ public class SocketController implements ClientHandlerInterface {
         }
 
         try{
-            wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+
+            wait(10000);
+        }catch(InterruptedException e){
+            //do something?
+        }
+        if(this.responseHandler == null){
+            throw new RemoteException();
         }
         this.responseHandler.check();
         this.responseHandler = null;
@@ -137,9 +148,13 @@ public class SocketController implements ClientHandlerInterface {
         }
 
         try{
-            wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+
+            wait(10000);
+        }catch(InterruptedException e){
+            //do something?
+        }
+        if(this.responseHandler == null){
+            throw new RemoteException();
         }
         this.responseHandler.check();
         this.responseHandler = null;
@@ -166,9 +181,13 @@ public class SocketController implements ClientHandlerInterface {
         }
 
         try{
-            wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+
+            wait(10000);
+        }catch(InterruptedException e){
+            //do something?
+        }
+        if(this.responseHandler == null){
+            throw new RemoteException();
         }
         this.responseHandler.check();
         this.responseHandler = null;
@@ -194,9 +213,13 @@ public class SocketController implements ClientHandlerInterface {
         }
 
         try{
-            wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+
+            wait(10000);
+        }catch(InterruptedException e){
+            //do something?
+        }
+        if(this.responseHandler == null){
+            throw new RemoteException();
         }
         this.responseHandler.check();
         this.responseHandler = null;
@@ -228,9 +251,13 @@ public class SocketController implements ClientHandlerInterface {
         }
 
         try{
-            wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+
+            wait(10000);
+        }catch(InterruptedException e){
+            //do something?
+        }
+        if(this.responseHandler == null){
+            throw new RemoteException();
         }
         this.responseHandler.check();
         this.responseHandler = null;
@@ -256,9 +283,13 @@ public class SocketController implements ClientHandlerInterface {
         }
 
         try{
-            wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+
+            wait(10000);
+        }catch(InterruptedException e){
+            //do something?
+        }
+        if(this.responseHandler == null){
+            throw new RemoteException();
         }
         this.responseHandler.check();
         this.responseHandler = null;
@@ -283,9 +314,13 @@ public class SocketController implements ClientHandlerInterface {
         }
 
         try{
-            wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+
+            wait(10000);
+        }catch(InterruptedException e){
+            //do something?
+        }
+        if(this.responseHandler == null){
+            throw new RemoteException();
         }
         this.responseHandler.check();
         List list = this.responseHandler.getList();
@@ -313,10 +348,13 @@ public class SocketController implements ClientHandlerInterface {
         }
 
         try{
-            wait();
-        } catch (InterruptedException e) {
-            System.out.println(e.getCause());
-            e.printStackTrace();
+
+            wait(10000);
+        }catch(InterruptedException e){
+            //do something?
+        }
+        if(this.responseHandler == null){
+            throw new RemoteException();
         }
         this.responseHandler.check();
         List list  = this.responseHandler.getList();
@@ -342,9 +380,12 @@ public class SocketController implements ClientHandlerInterface {
         }
 
         try{
-            wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            wait(10000);
+        }catch(InterruptedException e){
+            //do something?
+        }
+        if(this.responseHandler == null){
+            throw new RemoteException();
         }
         this.responseHandler.check();
         this.responseHandler = null;
@@ -369,9 +410,12 @@ public class SocketController implements ClientHandlerInterface {
         }
 
         try{
-            wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            wait(10000);
+        }catch(InterruptedException e){
+            //do something?
+        }
+        if(this.responseHandler == null){
+            throw new RemoteException();
         }
         this.responseHandler.check();
         this.responseHandler = null;
@@ -399,9 +443,12 @@ public class SocketController implements ClientHandlerInterface {
         }
 
         try{
-            wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            wait(10000);
+        }catch(InterruptedException e){
+            //do something?
+        }
+        if(this.responseHandler == null){
+            throw new RemoteException();
         }
         this.responseHandler.check();
         this.responseHandler = null;
@@ -425,9 +472,12 @@ public class SocketController implements ClientHandlerInterface {
         }
 
         try{
-            wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            wait(10000);
+        }catch(InterruptedException e){
+            //do something?
+        }
+        if(this.responseHandler == null){
+            throw new RemoteException();
         }
         this.responseHandler.check();
         int token = Integer.parseInt(this.responseHandler.getMessage());
@@ -456,9 +506,12 @@ public class SocketController implements ClientHandlerInterface {
         }
 
         try{
-            wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            wait(10000);
+        }catch(InterruptedException e){
+            //do something?
+        }
+        if(this.responseHandler == null){
+            throw new RemoteException();
         }
         this.responseHandler.check();
         this.responseHandler = null;
@@ -483,9 +536,12 @@ public class SocketController implements ClientHandlerInterface {
         }
 
         try{
-            wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            wait(10000);
+        }catch(InterruptedException e){
+            //do something?
+        }
+        if(this.responseHandler == null){
+            throw new RemoteException();
         }
         this.responseHandler.check();
         List list = this.responseHandler.getList();
@@ -514,9 +570,12 @@ public class SocketController implements ClientHandlerInterface {
         }
 
         try{
-            wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            wait(10000);
+        }catch(InterruptedException e){
+            //do something?
+        }
+        if(this.responseHandler == null){
+            throw new RemoteException();
         }
         this.responseHandler.check();
         List list = this.responseHandler.getList();
@@ -544,10 +603,13 @@ public class SocketController implements ClientHandlerInterface {
             e.printStackTrace();
         }
 
-        try {
-            wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        try{
+            wait(10000);
+        }catch(InterruptedException e){
+            //do something?
+        }
+        if(this.responseHandler == null){
+            throw new RemoteException();
         }
         this.responseHandler.check();
         String value = this.responseHandler.getMessage();
@@ -573,10 +635,14 @@ public class SocketController implements ClientHandlerInterface {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        try {
-            wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+
+        try{
+            wait(10000);
+        }catch(InterruptedException e){
+            //do something?
+        }
+        if(this.responseHandler == null){
+            throw new RemoteException();
         }
         this.responseHandler.check();
         List list = this.responseHandler.getList();
@@ -603,10 +669,13 @@ public class SocketController implements ClientHandlerInterface {
             e.printStackTrace();
         }
 
-        try {
-            wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        try{
+            wait(10000);
+        }catch(InterruptedException e){
+            //do something?
+        }
+        if(this.responseHandler == null){
+            throw new RemoteException();
         }
         this.responseHandler.check();
         List list = this.responseHandler.getList();
@@ -628,10 +697,13 @@ public class SocketController implements ClientHandlerInterface {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        try {
-            wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        try{
+            wait(10000);
+        }catch(InterruptedException e){
+            //do something?
+        }
+        if(this.responseHandler == null){
+            throw new RemoteException();
         }
         this.responseHandler.check();
         List<Match> list = this.responseHandler.getList();
@@ -657,10 +729,13 @@ public class SocketController implements ClientHandlerInterface {
             e.printStackTrace();
         }
 
-        try {
-            wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        try{
+            wait(10000);
+        }catch(InterruptedException e){
+            //do something?
+        }
+        if(this.responseHandler == null){
+            throw new RemoteException();
         }
         this.responseHandler.check();
         String value = this.responseHandler.getMessage();
@@ -687,11 +762,13 @@ public class SocketController implements ClientHandlerInterface {
             e.printStackTrace();
         }
 
-
-        try {
-            wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        try{
+            wait(10000);
+        }catch(InterruptedException e){
+            //do something?
+        }
+        if(this.responseHandler == null){
+            throw new RemoteException();
         }
         this.responseHandler.check();
         List list = this.responseHandler.getList();
@@ -718,10 +795,14 @@ public class SocketController implements ClientHandlerInterface {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        try {
-            wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+
+        try{
+            wait(10000);
+        }catch(InterruptedException e){
+            //do something?
+        }
+        if(this.responseHandler == null){
+            throw new RemoteException();
         }
         this.responseHandler.check();
         List list = this.responseHandler.getList();
@@ -748,10 +829,13 @@ public class SocketController implements ClientHandlerInterface {
             e.printStackTrace();
         }
 
-        try {
-            wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        try{
+            wait(10000);
+        }catch(InterruptedException e){
+            //do something?
+        }
+        if(this.responseHandler == null){
+            throw new RemoteException();
         }
         this.responseHandler.check();
         List list = this.responseHandler.getList();
@@ -778,10 +862,13 @@ public class SocketController implements ClientHandlerInterface {
             e.printStackTrace();
         }
 
-        try {
-            wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        try{
+            wait(10000);
+        }catch(InterruptedException e){
+            //do something?
+        }
+        if(this.responseHandler == null){
+            throw new RemoteException();
         }
         this.responseHandler.check();
         String value = this.responseHandler.getMessage();
@@ -808,11 +895,13 @@ public class SocketController implements ClientHandlerInterface {
             e.printStackTrace();
         }
 
-        try {
-            wait();
-        } catch (InterruptedException e) {
-
-            e.printStackTrace();
+        try{
+            wait(10000);
+        }catch(InterruptedException e){
+            //do something?
+        }
+        if(this.responseHandler == null){
+            throw new RemoteException();
         }
         this.responseHandler.check();
         String value = this.responseHandler.getMessage();

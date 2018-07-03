@@ -7,6 +7,8 @@ import it.polimi.ingsw.model.State;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 /**
@@ -47,10 +49,14 @@ public class SocketClient implements Observer {
         }catch(IOException e){
             throw new RemoteException();
         }
+
         try{
-            wait();
+            wait(10000);
         }catch(InterruptedException e){
             //do something?
+        }
+        if(this.stringHandler == null){
+            throw new RemoteException();
         }
         this.stringHandler.check();
         this.stringHandler = null;
@@ -69,13 +75,16 @@ public class SocketClient implements Observer {
             throw new RemoteException();
         }
         try{
-            wait();
+
+            wait(10000);
         }catch(InterruptedException e){
-                //do something?
+            //do something?
+        }
+        if(this.stringHandler == null){
+            throw new RemoteException();
         }
         this.stringHandler.check();
         this.stringHandler = null;
-
     }
 }
 

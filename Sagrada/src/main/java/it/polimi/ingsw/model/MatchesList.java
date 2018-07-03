@@ -36,7 +36,6 @@ public class MatchesList {
      * @throws HomonymyException Exception thrown when the specified name for the match il already in use
      */
     public void createMatch(Player player, String game_name) throws HomonymyException {
-        Timer timer  = new Timer(false);
         final Match match = new Match(player, game_name);
         synchronized (this){
             if(this.matches.containsKey(game_name)){
@@ -44,34 +43,6 @@ public class MatchesList {
             }
             this.matches.put(game_name,match);
         }
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(120000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                synchronized (this){
-                    if(!match.isStarted()){
-                        if (match.getallPlayers().size() >1){
-                            match.isreadyTostart = true;
-                            match.notifyAll();
-                        }
-                        else{
-                            // The only player must leave the match
-                            for(Player player: match.getallPlayers()){
-                                player.setPlayerState(State.ERRORSTATE);
-                            }
-                            matches.remove(match);
-                            UsersList.Singleton().getUser(player.getName()).removePlayer(player.getPlayerState().getObserver());
-                        }
-                    }
-                }
-
-            }
-        },0);
-        // Each Match is a separate thread
         new Thread(match).start();
         return ;
     }
@@ -83,16 +54,19 @@ public class MatchesList {
      * @throws GameNotExistantException Exception thrown if the specified name of the game is not found
      * @throws MatchStartedYetException Exception thrown if the match is already startec
      */
-    public synchronized void  join(Player player, String game_name) throws GameNotExistantException, MatchStartedYetException {
+    public void  join(Player player, String game_name) throws GameNotExistantException, MatchStartedYetException {
         Match match = this.matches.get(game_name);
-        if(match == null){
-            throw new GameNotExistantException();
+        synchronized (match){
+            if(match == null){
+                throw new GameNotExistantException();
+            }
+            if (match.isStarted()){
+                throw new MatchStartedYetException();
+            }
+            player.setMatch(match);
+            match.join(player);
         }
-        if (match.isStarted()){
-            throw new MatchStartedYetException();
-        }
-        player.setMatch(match);
-        match.join(player);
+
     }
 
     /**
