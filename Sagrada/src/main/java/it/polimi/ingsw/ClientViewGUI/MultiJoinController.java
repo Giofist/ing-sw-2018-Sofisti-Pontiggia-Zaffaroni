@@ -35,9 +35,6 @@ public class MultiJoinController  implements Initializable,AbstractController{
     private Text ErrorMessage;
 
     @FXML
-    private Button Back;
-
-    @FXML
     private JFXListView<String> gameList;
 
 
