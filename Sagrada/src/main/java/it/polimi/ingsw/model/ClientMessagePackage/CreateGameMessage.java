@@ -12,6 +12,11 @@ public class CreateGameMessage extends ClientMessage {
 
     public CreateGameMessage() { this.messagecodex = 44; }
 
+    /**
+     * @param clientHandler The interface with all the methods exposed by the server
+     * @param listener      The socket server listener waiting for messages from the client
+     * @throws RemoteException
+     */
     @Override
     public void performAction(ClientHandlerInterface clientHandler, SocketServerListener listener) throws RemoteException {
         clientHandler.createGame(getClientName(), listener.getClient(), getGameName());
