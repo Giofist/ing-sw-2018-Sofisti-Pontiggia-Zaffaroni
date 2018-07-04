@@ -71,7 +71,7 @@ public class Turn implements Runnable{
             System.out.println("Sono stato interrotto");
         }
         synchronized (this.round){
-            this.round.notify();
+            this.round.notifyAll();
         }
         return;
     }

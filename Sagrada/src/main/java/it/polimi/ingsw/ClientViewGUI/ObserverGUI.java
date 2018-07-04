@@ -10,11 +10,11 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 public class ObserverGUI extends UnicastRemoteObject implements Observer {
-    private AbstractController controller;
-    private ClientHandlerInterface serverController;
-    private static ObserverGUI instance;
-    private String username;
-    private Translator translator = new ItalianTranslator();
+    private transient AbstractController controller;
+    private transient ClientHandlerInterface serverController;
+    private transient static ObserverGUI instance;
+    private transient String username;
+    private transient Translator translator = new ItalianTranslator();
 
     public  ClientHandlerInterface getServerController() {
         return serverController;

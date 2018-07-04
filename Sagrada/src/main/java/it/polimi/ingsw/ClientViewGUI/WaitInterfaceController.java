@@ -51,25 +51,20 @@ public class WaitInterfaceController implements AbstractController{
             });
         }
         else if(state == State.ERRORSTATE){
-            Platform.runLater(new Runnable(){
-                @Override
-                public void run(){
-
-                    ErrorMessage.setText("La partita non può iniziare. C'è stato un errore! ");
-                    try {
-                        Thread.sleep(2000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    try {
-                        createPane.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/MenuPartial.fxml"))));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+            Platform.runLater(()->{
+                ErrorMessage.setText("La partita non può iniziare. C'è stato un errore! ");
+                try {
+                Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    createPane.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/MenuPartial.fxml"))));
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             });
-        }
-        else if(state == State.FORCEENDMATCH){
+        } else if(state == State.FORCEENDMATCH){
             Platform.runLater(new Runnable(){
                 @Override
                 public void run(){

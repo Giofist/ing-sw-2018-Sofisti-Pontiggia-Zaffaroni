@@ -67,5 +67,6 @@ public class ResultController implements Initializable,AbstractController {
 
     @Override
     public void update(State state) {
+        //in ENDMATCHSTATE we don't receive any update
     }
 }

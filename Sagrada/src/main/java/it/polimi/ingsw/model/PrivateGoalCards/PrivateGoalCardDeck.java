@@ -23,7 +23,6 @@ public class PrivateGoalCardDeck {
         Collections.shuffle(cards);
     }
 
-
     /**
      * @return A random Sfumature private goal card
      * @throws PrivateGoalCardException

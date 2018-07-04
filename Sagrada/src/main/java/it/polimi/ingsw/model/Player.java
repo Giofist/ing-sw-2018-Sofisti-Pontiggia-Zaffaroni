@@ -11,27 +11,28 @@ import java.util.List;
 //implementa comparable per ordinare i giocatori in base al punteggio nellav lista di player
 public class Player  implements Comparable<Player>, Serializable {
 
+    private int points;
+    private String name;
+
+    private transient int privateGoalCardpoints;
     private transient GoalCard privateGoalCard;
     private transient int token;
     private transient LinkedList<SchemeCard> extractedschemeCards;
     private transient SchemeCard scheme;
-    private int points;
     private transient Match match;
     private transient Turn turn;
-    private String name;
-    private Observable playerState;
-    private Dice diceforToolCard;
-    private boolean mustpassTurn;
-
+    private transient Observable playerState;
+    private transient Dice diceforToolCard;
+    private transient boolean mustpassTurn;
 
     /**
      * Creates a new player without an initial state
      */
     public Player(){
-        super();
         this.diceforToolCard = null;
         this.mustpassTurn = false;
         this.points = 0;
+        this.privateGoalCardpoints =0;
         this.extractedschemeCards = new LinkedList<>();
         this.scheme = null;
         this.token = 0;
@@ -43,7 +44,6 @@ public class Player  implements Comparable<Player>, Serializable {
 
 
     // Getters and setters methods
-
     /**
      * @return A string with the name of the player
      */
@@ -53,8 +53,26 @@ public class Player  implements Comparable<Player>, Serializable {
 
 
     /**
+     * This method allows to add and remove points to the player for the private Goal
+     * It's used only in compareTo in case two players have obtained the same points
+     * @param points How many points we want to add or remove
+     */
+    public void addPrivateGoalCardpoints(int points){
+        this.privateGoalCardpoints += points;
+    }
+
+    /**
+     * @return Number of points of the player obtained for the private goal card
+     */
+    public int getPrivateGoalCardpoints() {
+        return privateGoalCardpoints;
+    }
+
+    /**
      * @param name The name of the player
      */
+
+
     public void setName(String name) {
         this.name = name;
     }
@@ -288,15 +306,18 @@ public class Player  implements Comparable<Player>, Serializable {
     /**
      * Method used to compare 2 players
      * @param player The player I want to compare with
-     * @return A negative value if the player who calls the method has an higher score
+     * @return A positive  value if this player cames before the param Player
      */
     @Override
     public int compareTo(Player player) {
         if(this.getPoints() != player.getPoints()){
-            return player.getPoints() - this.getPoints();
+            return this.getPoints() - player.getPoints();
+        }
+        else if(this.getPrivateGoalCardpoints() != player.getPrivateGoalCardpoints()){
+            return this.getPrivateGoalCardpoints() - player.getPrivateGoalCardpoints();
         }
         else if (this.getToken() != player.getToken()){
-            return player.getToken() - this.getToken();
+            return this.getToken()- player.getToken();
         }
         else return player.getMatch().getallPlayers().indexOf(player) - this.getMatch().getallPlayers().indexOf(this);
     }

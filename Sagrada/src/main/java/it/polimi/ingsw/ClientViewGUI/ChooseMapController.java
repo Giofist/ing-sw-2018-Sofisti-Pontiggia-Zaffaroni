@@ -178,8 +178,9 @@ public class ChooseMapController implements AbstractController, Initializable {
 
     public void Select(javafx.event.ActionEvent actionEvent) {
         try {
+            ErrorMessage.setText("Sono stato cliccato");
             ObserverGUI.Singleton().getServerController().setSchemeCard(ObserverGUI.Singleton().getUsername(), mapSelected);
-            ErrorMessage.setText("La partita inizia!");
+            ErrorMessage.setText("Hai selezionato la carta schema, aspetta l'inizio della partita");
             Play.setVisible(false);
         } catch (RemoteException e) {
             ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
@@ -342,14 +343,11 @@ public class ChooseMapController implements AbstractController, Initializable {
     @Override
     public void update(State state) {
         if (state == State.NOTYOURTURNSTATE || state == State.STARTTURNSTATE) {
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        selectPane.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/MainGameView.fxml"))));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+            Platform.runLater(()-> {
+                try {
+                    selectPane.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/MainGameView.fxml"))));
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             });
             }

@@ -60,16 +60,5 @@ public class RoundTest {
         assertEquals(mockMatch, round.getMatch());
     }
 
-    @Test
-    public void getNumRoundTest() {
-        round = new Round(1, players, mockMatch);
-        assertEquals(1, round.getNum_round());
-    }
-
-    @Test
-    public void getPlayersTest() {
-        round = new Round(1, players, mockMatch);
-        assertEquals(players, round.getPlayers());
-    }
 
 }

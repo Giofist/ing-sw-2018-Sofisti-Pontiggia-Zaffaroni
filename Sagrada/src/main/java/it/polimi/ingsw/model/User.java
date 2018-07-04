@@ -127,10 +127,10 @@ public class User {
      */
     @Override
     public boolean equals(Object o){
-        if (o.toString().equals(this.toString())){
+        if(o != null && o.toString().equals(this.toString())){
             return true;
         }
-        else return false;
+        return false;
     }
 
     @Override

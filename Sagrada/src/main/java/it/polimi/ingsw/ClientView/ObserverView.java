@@ -18,13 +18,13 @@ import java.util.Scanner;
  * received from the server about changes in the state.
  */
 public class ObserverView extends UnicastRemoteObject implements Observer {
-    private ClientHandlerInterface serverController;
-    private final Scanner in;
-    private String yourName;
-    private Thread thread;
-    private boolean leaveSagrada;
-    private boolean leaveMatch;
-    private  boolean leave;
+    private transient ClientHandlerInterface serverController;
+    private transient final Scanner in;
+    private transient String yourName;
+    private transient Thread thread;
+    private transient boolean leaveSagrada;
+    private transient boolean leaveMatch;
+    private transient boolean leave;
 
 
     /**
@@ -366,6 +366,7 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
                 this.thread = new Thread(new ForceEndMatchState(this, yourName));
                 break;
             }
+            default:System.out.println("Ho ricevuto un'update dal server ma non riesco a interpretarla");
         }
         this.notifyAll();
     }

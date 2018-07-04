@@ -36,21 +36,17 @@ public class MenuController implements Initializable,AbstractController{
     }
 
     public void update(State state){
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                   content.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/MainGameView.fxml"))));
-                   Observable playerState = new PlayerState();
-                   playerState.setState(state);
-                   ObserverGUI.Singleton().update(playerState,null);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+        Platform.runLater(() -> {
+            try {
+               content.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/MainGameView.fxml"))));
+               Observable playerState = new PlayerState();
+               playerState.setState(state);
+               ObserverGUI.Singleton().update(playerState,null);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         });
-        }
-
+    }
     public MenuController(){
         ObserverGUI.Singleton().setController(this);
     }
