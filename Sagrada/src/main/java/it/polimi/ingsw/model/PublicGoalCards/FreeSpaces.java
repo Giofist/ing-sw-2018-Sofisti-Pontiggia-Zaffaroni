@@ -25,6 +25,7 @@ public class FreeSpaces implements GoalCard {
                 }
             }
         } catch (SchemeCardNotExistantException e){
+            //nothing to do?
         }
     }
 

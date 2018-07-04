@@ -48,7 +48,7 @@ public class MultiJoinController  implements Initializable,AbstractController{
     }
 
     public void JoinGame(ActionEvent actionEvent) {
-        String matchName = null;
+        String matchName;
         matchName = gameList.getSelectionModel().getSelectedItem();
         if (matchName != null) {
             try {
@@ -104,14 +104,11 @@ public class MultiJoinController  implements Initializable,AbstractController{
     @Override
     public void update(State state){
         if(state== State.MUSTSETSCHEMECARD){
-            Platform.runLater(new Runnable(){
-                @Override
-                public void run(){
-                    try {
-                        joinPane.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/ChooseMap.fxml"))));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+            Platform.runLater(()->{
+                try {
+                    joinPane.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/ChooseMap.fxml"))));
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             });
         }

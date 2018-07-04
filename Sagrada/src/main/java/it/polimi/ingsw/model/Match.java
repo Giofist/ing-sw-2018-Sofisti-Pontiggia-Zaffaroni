@@ -82,8 +82,8 @@ public class Match implements Runnable,Serializable{
         }
 
         doneSignal = new CountDownLatch(this.getNumberOfPlayers());
-        Timer timer = new Timer(false);
-        timer.schedule(new TimerTask() {
+        Timer schemeCardTimer = new Timer(false);
+        schemeCardTimer.schedule(new TimerTask() {
             @Override
             public void run() {
                 try {
@@ -232,7 +232,7 @@ public class Match implements Runnable,Serializable{
 
 
     /**
-     * Method used to know all my opponents in the match, bt alphabetic order
+     * Method used to know all the opponents of param Player in the match, by alphabetic order
      * @param player Player to be excluded from the returned list
      * @return List of Players
      */
@@ -240,12 +240,9 @@ public class Match implements Runnable,Serializable{
         LinkedList<Player> list = new LinkedList<>();
         list.addAll(this.players);
         list.remove(player);
-        Collections.sort(list, new Comparator<Player>() {
-            @Override
-            public int compare(Player o1, Player o2) {
-                return o1.getName().compareTo(o2.getName());
-            }
-        });
+        Collections.sort(list, (Comparator.comparing(Player::getName)
+
+        ));
         return list;
     }
 

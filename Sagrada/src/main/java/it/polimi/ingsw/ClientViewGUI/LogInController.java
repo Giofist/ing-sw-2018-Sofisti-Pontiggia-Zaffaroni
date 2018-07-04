@@ -168,7 +168,7 @@ public class LogInController  implements Initializable,AbstractController{
 
     @Override
     public void update(State state) {
-
+        //nothing to do herer
     }
 }
 
