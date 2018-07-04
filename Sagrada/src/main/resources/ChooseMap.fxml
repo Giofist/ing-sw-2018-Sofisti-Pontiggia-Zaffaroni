@@ -320,7 +320,7 @@
                      <children>
                         <ButtonBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="44.0" prefWidth="283.0">
                            <buttons>
-                              <JFXButton fx:id="leaveTheMAtch" onAction="#leaveTheMatch" prefHeight="44.0" prefWidth="328.0" style="-fx-background-color: green;" text="Abbandona la partita" textFill="WHITE">
+                              <JFXButton fx:id="leaveTheMAtch1" onAction="#leaveTheMatch" prefHeight="44.0" prefWidth="328.0" style="-fx-background-color: green;" text="Abbandona la partita" textFill="WHITE">
                                  <effect>
                                     <DropShadow />
                                  </effect>
@@ -364,7 +364,7 @@
             <Image url="@PublicGoalCards/1.jpg" />
          </image>
       </ImageView>
-      <ImageView fx:id="PublicGoalCard2" fitHeight="231.0" fitWidth="215.0" layoutX="901.0" layoutY="320.0" onMouseEntered="#Select"  pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
+      <ImageView fx:id="PublicGoalCard2" fitHeight="231.0" fitWidth="215.0" layoutX="901.0" layoutY="320.0" onMouseEntered="#Select" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
          <image>
             <Image url="@PublicGoalCards/2.jpg" />
          </image>
@@ -374,5 +374,37 @@
             <Image url="@PublicGoalCards/4.jpg" />
          </image>
       </ImageView>
+      <JFXButton fx:id="leaveTheMAtch" layoutX="200.0" layoutY="7.0" onAction="#selectMap1" prefHeight="44.0" prefWidth="116.0" style="-fx-background-color: green;" text="Map 1" textFill="WHITE">
+         <effect>
+            <DropShadow />
+         </effect>
+         <font>
+            <Font size="20.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="leaveTheMAtch2" layoutX="292.0" layoutY="594.0" onAction="#selectMap2" prefHeight="44.0" prefWidth="116.0" style="-fx-background-color: green;" text="Map 2" textFill="WHITE">
+         <effect>
+            <DropShadow />
+         </effect>
+         <font>
+            <Font size="20.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="leaveTheMAtch21" layoutX="683.0" layoutY="594.0" onAction="#selectMap4" prefHeight="44.0" prefWidth="116.0" style="-fx-background-color: green;" text="Map 4" textFill="WHITE">
+         <effect>
+            <DropShadow />
+         </effect>
+         <font>
+            <Font size="20.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="leaveTheMAtch211" layoutX="763.0" layoutY="7.0" onAction="#selectMap3" prefHeight="44.0" prefWidth="116.0" style="-fx-background-color: green;" text="Map 3" textFill="WHITE">
+         <effect>
+            <DropShadow />
+         </effect>
+         <font>
+            <Font size="20.0" />
+         </font>
+      </JFXButton>
    </children>
 </AnchorPane>
