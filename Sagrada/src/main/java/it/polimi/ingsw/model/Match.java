@@ -298,4 +298,5 @@ public class Match implements Runnable,Serializable{
 
     // For testing
     protected boolean getIsReadyToStart(){ return isreadyTostart;  }
+    protected void setIsReadToStart(boolean ready) { isreadyTostart = ready; }
 }

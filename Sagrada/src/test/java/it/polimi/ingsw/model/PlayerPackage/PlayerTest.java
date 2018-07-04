@@ -176,8 +176,8 @@ public class PlayerTest {
         Player player2 = new Player();
         player2.addPoints(2);
 
-        assertEquals(-2, player.compareTo(player2));
-        assertEquals(2, player2.compareTo(player));
+        assertEquals(2, player.compareTo(player2));
+        assertEquals(-2, player2.compareTo(player));
     }
 
 }

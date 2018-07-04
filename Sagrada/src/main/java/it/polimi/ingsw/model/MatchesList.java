@@ -57,10 +57,10 @@ public class MatchesList implements Serializable {
      */
     public void  join(Player player, String game_name) throws GameNotExistantException, MatchStartedYetException {
         Match match = this.matches.get(game_name);
+        if(match == null){
+            throw new GameNotExistantException();
+        }
         synchronized (match){
-            if(match == null){
-                throw new GameNotExistantException();
-            }
             if (match.isStarted()){
                 throw new MatchStartedYetException();
             }

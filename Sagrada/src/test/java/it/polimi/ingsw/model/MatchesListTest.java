@@ -69,15 +69,14 @@ public class MatchesListTest {
         matchesList.clearMatchesList();
         matchesList.createMatch(mockPlayer1, "Match1");
         matchesList.createMatch(mockPlayer2, "Match2");
-        //matchesList.getMatch("Match1").setStarted(true);
-        assertEquals(1, matchesList.getActiveMatches().size());
+        assertEquals(2, matchesList.getActiveMatches().size());
     }
 
 
 
     @Test (expected = GameNotExistantException.class)
-    synchronized public void joinMatchGameNotExistantExceptionTest() throws GameNotExistantException, MatchStartedYetException {
-        matchesList.join(mockPlayer1, "Match1000");
+    synchronized public void joinMatchGameNotExistantExceptionTest() throws GameNotExistantException, MatchStartedYetException, HomonymyException {
+        matchesList.join(mockPlayer2, "djasdoajd");
     }
 
 
