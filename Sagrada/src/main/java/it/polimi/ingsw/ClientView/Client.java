@@ -14,7 +14,8 @@ import java.util.Scanner;
 
 /**
  * This class is for the client CLI. There is one single main method and when we run it the user will be able to choose which
- * type of connectivity he prefers (Socket/RMI) and the connection will be established with the remote server
+ * type of connectivity he prefers (Socket/RMI) and the connection will be established with the remote server.
+ * User can also manually change ip for RMI and ip/port for socket to match with his private network configuration
  */
 public class Client {
 
