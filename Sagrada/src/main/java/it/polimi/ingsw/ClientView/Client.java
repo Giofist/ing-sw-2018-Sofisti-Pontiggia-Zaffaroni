@@ -25,14 +25,12 @@ public class Client {
 
 
     public static void main(String[] args){
-        // Passing server IP as command line argument
-        // String ipAddr = args[1];
-        int port = 1337;
-        String ipAddr = "127.0.0.1";
-
         boolean correct = false;
+        boolean good = false;
         Scanner in = new Scanner(System.in);
         translator = new ItalianTranslator();
+        int port = 1337;
+        String ipAddr = "127.0.0.1";
 
         System.out.println("Benvenuto nel SetUP partita di Sagrada!\n" +
                 "Qui puoi selezionare se giocare usando la connessione di tipo RMI (R) oppure Socket (S).\n" +
@@ -40,18 +38,100 @@ public class Client {
         while (!correct) {
             String input = in.nextLine();
             if (input.equals("R") || input.equals("r")) {
-                try{
-                    Registry rmiRegistry = LocateRegistry.getRegistry(ipAddr);
-                    ClientHandlerInterface controller = (ClientHandlerInterface) rmiRegistry.lookup("ClientHandler");
-                    new ObserverView(controller).run();
-                    correct = true;
-                }catch(Exception e){
-                    System.out.println(e.getMessage());
-                    e.printStackTrace();
-                    System.out.println("Errore nello stabilire la connessione, oppure bug nel gioco,  il gioco non può iniziare");
+                System.out.println("L'ip attualmente selezionato è: " + ipAddr + "\nVuoi cambiarlo?");
+                good = false;
+                while (!good) {
+                    String change = in.nextLine();
+                    if (change.equals("S") || change.equals("s")) {
+                        System.out.println("Inserisci un nuovo ip:");
+                        ipAddr = in.nextLine();
+                        if (ipAddr == null || ipAddr.isEmpty()) {
+                            good = false;
+                            System.out.println("L'ip non può essere una stringa vuota!");
+                        }
+                        String[] subFields = ipAddr.split("\\.");
+                        if (subFields.length != 4) {
+                            good = false;
+                            System.out.println("L'ip deve essere composto da 4 nuneri.");
+
+                        }
+                        for (String s : subFields) {
+                            int i = Integer.parseInt(s);
+                            if ((i < 0) || (i > 255)) {
+                                good = false;
+                                System.out.println("I quattro numeri devono essere compresi tra 0 e 255!");
+                            }
+                        }
+                        if (ipAddr.endsWith(".")) {
+                            good = false;
+                            System.out.println("Non si possono lasciare campi vuoti!");
+                        } else good = true;
+                    } else if (change.equals("N") || change.equals("n")) {
+                        System.out.println("L'ip rimane quello standard!");
+                        good = true;
+                    } else System.out.println("Hai sbagliato a digitare!");
                 }
+                    try {
+                        Registry rmiRegistry = LocateRegistry.getRegistry(ipAddr);
+                        ClientHandlerInterface controller = (ClientHandlerInterface) rmiRegistry.lookup("ClientHandler");
+                        new ObserverView(controller).run();
+                        correct = true;
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                        e.printStackTrace();
+                        System.out.println("Errore nello stabilire la connessione, oppure bug nel gioco,  il gioco non può iniziare");
+                    }
 
             } else if (input.equals("S") || input.equals("s")) {
+                System.out.println("L'ip attualmente selezionato è: " + ipAddr + "\nVuoi cambiarlo?");
+                good = false;
+                while (!good) {
+                    String change = in.nextLine();
+                    if (change.equals("S") || change.equals("s")) {
+                        System.out.println("Inserisci un nuovo ip:");
+                        ipAddr = in.nextLine();
+                        if (ipAddr == null || ipAddr.isEmpty()) {
+                            good = false;
+                            System.out.println("L'ip non può essere una stringa vuota!");
+                        }
+                        String[] subFields = ipAddr.split("\\.");
+                        if (subFields.length != 4) {
+                            good = false;
+                            System.out.println("L'ip deve essere composto da 4 nuneri.");
+
+                        }
+                        for (String s : subFields) {
+                            int i = Integer.parseInt(s);
+                            if ((i < 0) || (i > 255)) {
+                                good = false;
+                                System.out.println("I quattro numeri devono essere compresi tra 0 e 255!");
+                            }
+                        }
+                        if (ipAddr.endsWith(".")) {
+                            good = false;
+                            System.out.println("Non si possono lasciare campi vuoti!");
+                        } else good = true;
+                    } else if (change.equals("N") || change.equals("n")) {
+                        System.out.println("L'ip è quello standard");
+                        good = true;
+                    } else System.out.println("Hai sbagliato a digitare!");
+                }
+                System.out.println("La porta attualmente impostata è: " + port + "\nVuoi cambiarla?");
+                good = false;
+                while (!good) {
+                    String change = in.nextLine();
+                    if (change.equals("S") || change.equals("s")) {
+                        System.out.println("Inserisci una nuova porta:");
+                        port = in.nextInt();
+                        if (port < 0 || port >65535) {
+                            good = false;
+                            System.out.println("La porta non è corretta!");
+                        } else good = true;
+                    } else if (change.equals("N") || change.equals("n")) {
+                        System.out.println("La porta rimane quella standard!");
+                        good = true;
+                    } else System.out.println("Hai sbagliato a digitare!");
+                }
                 try{
                     ObserverView view = new ObserverView();
                     Socket socket = new Socket(ipAddr, port);
@@ -72,6 +152,6 @@ public class Client {
             }
         }
     }
-
 }
+
 
