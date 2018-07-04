@@ -12,13 +12,12 @@ import java.io.IOException;
 import java.util.Collections;
 
 public class MultiSelectController implements AbstractController{
+    @FXML
+    private AnchorPane selectPane;
 
     public MultiSelectController(){
         ObserverGUI.Singleton().setController(this);
     }
-
-    @FXML
-    private AnchorPane selectPane;
 
     public void createGame(ActionEvent actionEvent) {
         try {
@@ -46,6 +45,5 @@ public class MultiSelectController implements AbstractController{
 
     @Override
     public void update(State state) {
-
     }
 }

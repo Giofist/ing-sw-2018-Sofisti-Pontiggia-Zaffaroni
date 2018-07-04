@@ -11,11 +11,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="content" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.ClientViewGUI.PartialMenuController">
+<AnchorPane fx:id="content" prefHeight="720.0" prefWidth="1382.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.ClientViewGUI.PartialMenuController">
    <children>
       <HBox alignment="CENTER" layoutX="3.0" layoutY="45.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity">
          <children>
-            <VBox alignment="CENTER" spacing="30.0">
+            <VBox alignment="CENTER" prefHeight="675.0" prefWidth="1378.0" spacing="30.0">
                <children>
                   <ImageView fitHeight="198.0" fitWidth="736.0" pickOnBounds="true" preserveRatio="true">
                      <VBox.margin>
@@ -38,12 +38,7 @@
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="settings" buttonType="RAISED" onAction="#settingsInterace" prefHeight="60.0" prefWidth="300.0" style="-fx-background-color: green;" text="Impostazioni" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="20.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton fx:id="Exit" buttonType="RAISED" onAction="#ExitGame" prefHeight="60.0" prefWidth="300.0" style="-fx-background-color: green;" text="Esci" textFill="WHITE">
+                  <JFXButton fx:id="Exit" buttonType="RAISED" onAction="#exitGame" prefHeight="60.0" prefWidth="300.0" style="-fx-background-color: green;" text="Esci" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
