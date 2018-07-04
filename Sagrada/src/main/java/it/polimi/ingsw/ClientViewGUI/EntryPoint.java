@@ -8,7 +8,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-
 public class EntryPoint extends Application {
     static Stage stage;
 
@@ -29,6 +28,5 @@ public class EntryPoint extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-
 }
 

@@ -84,14 +84,6 @@ public class PartialMenuController implements AbstractController{
         }
     }
 
-    public void settingsInterace(javafx.event.ActionEvent actionEvent) {
-        try {
-            content.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/Settings.fxml"))));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void ExitGame(javafx.event.ActionEvent actionEvent) {
         try {
             ObserverGUI.Singleton().getServerController().logout(ObserverGUI.Singleton().getUsername(), ObserverGUI.Singleton());
