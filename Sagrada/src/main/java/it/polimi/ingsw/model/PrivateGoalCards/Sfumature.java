@@ -40,6 +40,7 @@ public class Sfumature implements GoalCard, Serializable {
                 try{
                     if (tile.getDice().getColor()== color) {
                         player.addPoints(tile.getDice().getIntensity());
+                        player.addPrivateGoalCardpoints(tile.getDice().getIntensity());
                     }
                 }catch (DiceNotExistantException e){
                     // sorry, there is no dice

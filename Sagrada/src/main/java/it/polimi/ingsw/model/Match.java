@@ -4,7 +4,6 @@ import it.polimi.ingsw.model.Exceptions.*;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.rmi.RemoteException;
 import java.util.*;
 import java.util.concurrent.CountDownLatch;
 
@@ -15,7 +14,7 @@ public class Match implements Runnable,Serializable{
     private transient Gametable gametable;
     private transient boolean started;
     private transient CountDownLatch doneSignal;
-    public transient boolean isreadyTostart;
+    private transient boolean isreadyTostart;
     private transient Timer timer;
 
 
@@ -121,11 +120,13 @@ public class Match implements Runnable,Serializable{
         }
         System.out.println("Sono uscito dal done signal");
         // Now the game can start for N rounds
-        for (int i = 1; i<=10; i++){
+        for (int i = 1; i<10; i++){
             new Round(i, this.players, this).run();
             // At each round I have to change the order of the players
             this.players.addLast(this.players.removeFirst());
         }
+         new Round(10, this.players,this).run();
+
 
         //to calculate points for the public goals
         this.getGametable().calculatePointsforAllPlayers(this.players);
@@ -136,11 +137,10 @@ public class Match implements Runnable,Serializable{
         }
 
 
+
         for (Player player:this.players) {
             System.out.println(player.getName() + " " + player.getPoints());
         }
-        // After ordering the players based on their score I notify them about the end of the match
-        Collections.sort(this.players);
         for (Player player:this.players) {
             player.setPlayerState(State.ENDMATCHSTATE);
         }
@@ -232,7 +232,7 @@ public class Match implements Runnable,Serializable{
 
 
     /**
-     * Method used to know all my opponent in the match
+     * Method used to know all my opponents in the match, bt alphabetic order
      * @param player Player to be excluded from the returned list
      * @return List of Players
      */
@@ -240,6 +240,12 @@ public class Match implements Runnable,Serializable{
         LinkedList<Player> list = new LinkedList<>();
         list.addAll(this.players);
         list.remove(player);
+        Collections.sort(list, new Comparator<Player>() {
+            @Override
+            public int compare(Player o1, Player o2) {
+                return o1.getName().compareTo(o2.getName());
+            }
+        });
         return list;
     }
 

@@ -17,7 +17,7 @@ public class ItalianTranslator implements Translator {
     @Override
     public String translateMatch(Match match) {
         String string = "";
-        string += match.getName() + " " + "Giocatori in questa partita:";
+        string += match.getName() + " " + "Giocatori in questa partita:" + "\n";
         for (Player player: match.getallPlayers()){
             string += this.translatePlayer(player);
         }

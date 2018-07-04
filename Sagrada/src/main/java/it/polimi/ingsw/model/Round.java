@@ -7,7 +7,7 @@ import java.util.*;
 //not implemented yet
 public class Round {
     private int num_round;
-    private LinkedList<Player> players;
+    private List<Player> players;
     private Match match;
 
 
@@ -16,7 +16,7 @@ public class Round {
      * @param players List of all the players that are playing
      * @param match The match to which the round belongs
      */
-    public Round ( int num_round, LinkedList<Player> players, Match match){
+    public Round ( int num_round, List<Player> players, Match match){
         this.match = match;
         this.num_round = num_round;
         this.players = players;
@@ -90,8 +90,7 @@ public class Round {
     }
 
 
-    // Getters and setters methods
-
+    // Getter method
 
     /**
      * @return The match to which the round belongs
@@ -101,18 +100,6 @@ public class Round {
     }
 
 
-    /**
-     * @return The number of round at which the match is
-     */
-    public int getNum_round() {
-        return num_round;
-    }
 
 
-    /**
-     * @return A list of all the players in the round
-     */
-    public LinkedList<Player> getPlayers() {
-        return players;
-    }
 }

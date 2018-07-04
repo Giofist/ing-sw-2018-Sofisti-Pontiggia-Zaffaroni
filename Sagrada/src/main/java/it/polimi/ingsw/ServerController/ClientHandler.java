@@ -13,6 +13,7 @@ import it.polimi.ingsw.model.ToolCard.ToolRequestClass;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -201,7 +202,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
 
 
     /**
-     * With this method the client can receive all the players in the match ordered by their ranking
+     * With this method the client can receive all the players in the match ordered by their ranking.
      * @param clientname The username of the account performing the request
      * @return A list with all the players in the match
      * @throws RemoteException Exception thrown when the provided username doesn't exist in the UsersList on the server
@@ -210,7 +211,10 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
     public List<Player> getRanking(String clientname) throws RemoteException{
         try{
             Player player = UsersList.Singleton().findUser(clientname).getPlayer();
-            return player.getMatch().getallPlayers();
+            List list = player.getMatch().getallPlayers();
+            Collections.sort(list);
+            Collections.reverse(list);
+            return list;
         }catch(UserNotExistentException e){
             throw new RemoteException(e.getMessage());
         }
@@ -532,18 +536,16 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
      */
     @Override
     public List getPlayersinmymatch(String clientname) throws RemoteException {
-        List list = new LinkedList();
+        List<Player> list;
         try{
             Player player = UsersList.Singleton().findUser(clientname).getPlayer();
-            for (Player other_player : player.getMatch().getallPlayersbutnotme(player)){
-                list.add(other_player);
-            }
+            list = player.getMatch().getallPlayersbutnotme(player);
+
         }catch(UserNotExistentException e){
             throw new RemoteException(e.getMessage());
         }
         return list;
     }
-
 
     /**
      * With this method the client can see the maps of the other players in the same match
@@ -553,13 +555,13 @@ public class ClientHandler extends UnicastRemoteObject implements ClientHandlerI
      * the scheme card associated to the player was not found, the action is not allowed in the current state
      */
     @Override
-    public List getSchemeCardsoftheotherPlayers(String clientname) throws RemoteException {
+    public List<SchemeCard> getSchemeCardsoftheotherPlayers(String clientname) throws RemoteException {
         try{
-            List<SchemeCard> listtoreturn = new LinkedList();
+            LinkedList<SchemeCard> listtoreturn = new LinkedList();
             Player player = UsersList.Singleton().findUser(clientname).getPlayer();
             player.getPlayerState().checkAction(TurnActions.GETMAPS);
             for (Player other_player : player.getMatch().getallPlayersbutnotme(player)){
-               listtoreturn.add(other_player.getScheme());
+               listtoreturn.addLast(other_player.getScheme());
             }
             return listtoreturn;
         }catch(UserNotExistentException e){
