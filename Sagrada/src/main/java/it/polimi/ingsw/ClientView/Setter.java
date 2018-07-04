@@ -52,11 +52,11 @@ public class Setter {
         boolean correct = false;
 
         while (!success) {
-            System.out.println("Scegli una delle seguenti azioni: ");
+            System.out.println("Scegli una delle seguenti azioni indicando il numero: ");
             try {
                 for(TurnActions turnActions: serverController.getPossibleActions(yourName)){
                     System.out.println(Client.translator.translateTurnAction(turnActions));
-                };
+                }
             } catch (RemoteException e) {
                 System.out.println(Client.translator.translateException(e.getMessage()));
             }
@@ -194,7 +194,7 @@ public class Setter {
         int numOfDicesToMove=0;
 
         try {
-            System.out.println("Hai a disposizione "+ serverController.getToken(yourName) + " segnalini favore.");
+            System.out.println("Hai a disposizione "+ serverController.getToken(yourName) + " segnalini favore.\n");
         } catch (RemoteException e) {
             System.out.println(Client.translator.translateException(e.getMessage()));
         }

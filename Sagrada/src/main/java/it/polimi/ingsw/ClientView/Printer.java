@@ -107,8 +107,7 @@ public class Printer {
             System.out.println("");
             rowIterator.next();
         }
-        System.out.println("\n");
-
+        System.out.println();
     }
 
 

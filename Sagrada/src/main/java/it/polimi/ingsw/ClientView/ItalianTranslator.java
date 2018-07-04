@@ -146,14 +146,14 @@ public class ItalianTranslator implements Translator {
      */
     public String translateTurnAction(TurnActions turnActions){
         switch (turnActions){
-            case SETDICE: return "Piazzare un dado";
-            case GETMAPS: return "Visualizzare le mappe aggiornate degli altri giocatori";
-            case PASSTURN: return "Passare il tuo turno";
-            case LEAVEMATCH: return "Lasciare la partita corrente";
-            case USEALLTOOLCARD: return "Usare una carta utensile";
-            case SETTOOLCARDDICE: return "Posizionare il dado estratto nell'utilizzo della carta utensile";
-            case SETTOOLCARDDICEINTENSITY: return "Scegliere il valore del dado estratto nell'utilizzo della carta utensile";
-            case SETSCHEMECARD: return "Scegliere quale carta schema usare nella partita corrente";
+            case SETDICE: return "1. Piazzare un dado";
+            case GETMAPS: return "2. Visualizzare le mappe aggiornate degli altri giocatori";
+            case PASSTURN: return "3. Passare il tuo turno";
+            case LEAVEMATCH: return "4. Lasciare la partita corrente";
+            case USEALLTOOLCARD: return "5. Usare una carta utensile";
+            case SETTOOLCARDDICE: return "6. Posizionare il dado estratto nell'utilizzo della carta utensile";
+            case SETTOOLCARDDICEINTENSITY: return "7. Scegliere il valore del dado estratto nell'utilizzo della carta utensile";
+            case SETSCHEMECARD: return "8. Scegliere quale carta schema usare nella partita corrente";
             default: return "Error";
         }
     }
@@ -165,15 +165,15 @@ public class ItalianTranslator implements Translator {
     @Override
     public String detranslateTurnAction(String turnaction){
         switch(turnaction){
-            case "Piazzare un dado": return "SETDICE";
-            case "Visualizzare le mappe aggiornate degli altri giocatori": return "GETMAPS";
-            case "Passare il tuo turno": return "PASSTURN";
-            case "Lasciare la partita corrente, che è terminata": return "LEAVEMATCH";
-            case "Usare una carta utensile": return "USEALLTOOLCARD";
-            case "Posizionare il dado estratto nell'utilizzo della carta utensile": return "SETTOOLCARDDICE";
-            case "Scegliere il valore del dado estratto nell'utilizzo della carta utensile": return "SETTOOLCARDDICEINTENSITY" ;
-            case "Scegliere quale carta schema usare nella partita corrente": return "SETSCHEMECARD";
-            case "Lasciare la partita corrente prima che inizi": return "LEAVEMATCH";
+            case "1": return "SETDICE";
+            case "2": return "GETMAPS";
+            case "3": return "PASSTURN";
+            case "4": return "LEAVEMATCH";
+            case "5": return "USEALLTOOLCARD";
+            case "6": return "SETTOOLCARDDICE";
+            case "7": return "SETTOOLCARDDICEINTENSITY" ;
+            case "8": return "SETSCHEMECARD";
+            case "9": return "LEAVEMATCH";
             default: return "Error";
         }
     };

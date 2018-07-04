@@ -24,6 +24,7 @@ public class MustSetSchemeCardStateView implements Runnable {
      */
     @Override
     public void run() {
+        Printer.Singleton().printGoalCards(serverController, yourName);
         Setter.Singleton().selectSchemeCard(serverController, yourName);
     }
 }

@@ -39,12 +39,12 @@ public class Client {
         while (!correct) {
             String input = in.nextLine();
             if (input.equals("R") || input.equals("r")) {
-                System.out.println("L'ip attualmente selezionato è: " + ipAddr + "\nVuoi cambiarlo?");
+                System.out.println("L'ip attualmente selezionato è: " + ipAddr + "\nVuoi cambiarlo? [S/N]");
                 good = false;
                 while (!good) {
                     String change = in.nextLine();
                     if (change.equals("S") || change.equals("s")) {
-                        System.out.println("Inserisci un nuovo ip:");
+                        System.out.println("Inserisci un nuovo ip: [255.255.255.255]");
                         ipAddr = in.nextLine();
                         if (ipAddr == null || ipAddr.isEmpty()) {
                             good = false;
@@ -84,12 +84,12 @@ public class Client {
                     }
 
             } else if (input.equals("S") || input.equals("s")) {
-                System.out.println("L'ip attualmente selezionato è: " + ipAddr + "\nVuoi cambiarlo?");
+                System.out.println("L'ip attualmente selezionato è: " + ipAddr + "\nVuoi cambiarlo? [S/N]");
                 good = false;
                 while (!good) {
                     String change = in.nextLine();
                     if (change.equals("S") || change.equals("s")) {
-                        System.out.println("Inserisci un nuovo ip:");
+                        System.out.println("Inserisci un nuovo ip: [255.255.255.255]");
                         ipAddr = in.nextLine();
                         if (ipAddr == null || ipAddr.isEmpty()) {
                             good = false;
@@ -117,7 +117,7 @@ public class Client {
                         good = true;
                     } else System.out.println("Hai sbagliato a digitare!");
                 }
-                System.out.println("La porta attualmente impostata è: " + port + "\nVuoi cambiarla?");
+                System.out.println("La porta attualmente impostata è: " + port + "\nVuoi cambiarla? [S/N]");
                 good = false;
                 while (!good) {
                     String change = in.nextLine();
