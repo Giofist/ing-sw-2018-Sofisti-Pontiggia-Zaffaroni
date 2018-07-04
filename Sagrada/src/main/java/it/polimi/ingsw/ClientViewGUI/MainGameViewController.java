@@ -68,6 +68,9 @@ public class MainGameViewController implements Initializable, AbstractController
     private ToggleButton toggle1or2;
 
     @FXML
+    private ToggleButton increaseDicIntensity;
+
+    @FXML
     private Button select1or2;
 
     @FXML
@@ -329,6 +332,7 @@ public class MainGameViewController implements Initializable, AbstractController
         useToolCard.setVisible(false);
         Select.setVisible(false);
         selectValue.setVisible(false);
+        increaseDicIntensity.setVisible(false);
         updateToken();
         updateDicePool();
         updatePossiibleActions();
@@ -839,13 +843,14 @@ public class MainGameViewController implements Initializable, AbstractController
             numOfClick = 0;
             data.setToolCardID(toolCardId);
             SelectedCell.setText("Hai selezionato la carta: " + toolCardId);
-            if (selected == false) {  //TODO verifico correttezza di quest acosa del selected che dovrebbe evitare di selezionare due carte assieme vedo però se permette di selezionare carte in due turni diversi!
+            if (selected == false) {
                 DropShadow dropShadow = new DropShadow();
                 card.setEffect(dropShadow);
                 switch (toolCardId) {
                     case 1: { //1. Pinze Sgrossatrice
-                        ErrorMessage.setText("Clicca sul dado della DicePool su cui applicare la Pinza Sgrossatrice!");
+                        ErrorMessage.setText("Clicca sul dado della DicePool e decidi se aumentare o ridurre l'intensità!");
                         Select.setVisible(true);
+                        increaseDicIntensity.setVisible(true);
                         break;
                     }
                     case 2: { //2. Pennello per Eglomise
@@ -1055,10 +1060,13 @@ public class MainGameViewController implements Initializable, AbstractController
         SelectedCell.setText("Hai selezionato la cella: "+ newOldRow + " "+ newOldColumn);
     }
 
-    public void SelectNewRow(ActionEvent actionEvent) {
+    public void toolcardSecondStep(ActionEvent actionEvent) {
         switch (toolCardId) {
             case 1: case 6: case 10: case 11:{
                 data.setRoundWhereThediceis(selectedDiceInd);
+                if (increaseDicIntensity.isSelected()) {
+                    data.setOperationforPinzaSgrossatrice(0);
+                }else data.setOperationforPinzaSgrossatrice(1);
                 Select.setVisible(false);
                 useToolCard.setVisible(true);
                 break;
@@ -1193,5 +1201,12 @@ public class MainGameViewController implements Initializable, AbstractController
     } catch (RemoteException e) {
         ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
     }
+    }
+
+    public void increaseDecrease(ActionEvent actionEvent) {
+        if (increaseDicIntensity.isSelected()){
+            SelectedCell.setText("Diminuisci l'intensità del dado di 1.");
+        }
+        else SelectedCell.setText("Aumeta l'intensità del dado di 1.");
     }
 }
