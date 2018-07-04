@@ -869,7 +869,7 @@ public class MainGameViewController implements Initializable, AbstractController
                         break;
                     }
                     case 5: { //5. Taglierina circolare
-                        ErrorMessage.setText("Seleziona il dado da scambiare sulla RoundTrack.");
+                        ErrorMessage.setText("Seleziona un dado sulla DicePool e uno sulla RoundTrack con cui scambiarlo.");
                         Select.setVisible(true);
                         break;
                     }
@@ -1121,6 +1121,7 @@ public class MainGameViewController implements Initializable, AbstractController
                 break;
             }
             case 5:{
+                data.setSelectedDiceIndex(selectedDiceInd);
                 data.setRoundWhereThediceis(newOldColumn + 1);
                 data.setSelectedRoundTrackDiceIndex(newOldRow);
                 Select.setVisible(false);
