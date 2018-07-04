@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.PlayerPackage;
+package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.Exceptions.*;
@@ -7,6 +7,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.doNothing;
@@ -27,8 +29,10 @@ public class PlayerTest {
 
     @Before
     public void before() throws IOException, MapConstrainReadingException {
+        // Tested class
         player = new Player();
 
+        // Useful classes
         mockPrivateGoalCard = mock(GoalCard.class);
         mockUser = mock(User.class);
         mockMatch = mock(Match.class);
@@ -38,6 +42,7 @@ public class PlayerTest {
         mockGameTable = mock(Gametable.class);
         mockSchemeCard = new SchemeCard(2);
 
+        // Mocking behaviours
         when(mockPrivateGoalCard.getID()).thenReturn(3);
         when(mockUser.getName()).thenReturn("Xenomit");
         when(mockMatch.getName()).thenReturn("Partita1");
@@ -46,6 +51,7 @@ public class PlayerTest {
         when(mockDice.getIntensity()).thenReturn(4);
 
 
+        // Setting the scheme card to the player
         mockSchemeCard = new SchemeCard(2);
         mockSchemeCard.setTwinCard(new SchemeCard(3));
         player.addExtractedSchemeCard(mockSchemeCard);
@@ -171,13 +177,30 @@ public class PlayerTest {
         assertTrue(player.getTurn() == mockTurn);
     }
 
+    /**
+     * This method tests 2 different situations for calculating points
+     */
     @Test
     public void compareTo() {
+        // Situation in which we have different points
         Player player2 = new Player();
         player2.addPoints(2);
 
-        assertEquals(2, player.compareTo(player2));
-        assertEquals(-2, player2.compareTo(player));
+        assertEquals(-2, player.compareTo(player2));
+        assertEquals(2, player2.compareTo(player));
+
+        // Situation in which we have a tie
+        player.setMatch(mockMatch);
+        player2.setMatch(mockMatch);
+        List<Player> playersInMatch = new LinkedList<>();
+        playersInMatch.add(player);
+        playersInMatch.add(player2);
+        when(mockMatch.getallPlayers()).thenReturn(playersInMatch);
+
+
+        player.addPoints(2);
+        assertEquals(1, player.compareTo(player2));
+        assertEquals(-1, player2.compareTo(player));
     }
 
 }

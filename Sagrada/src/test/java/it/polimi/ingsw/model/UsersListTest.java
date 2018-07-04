@@ -19,6 +19,7 @@ public class UsersListTest {
 
     @Before
     public void before() throws IOException {
+        // Useful class
         mockObserver = mock(Observer.class);
     }
 
