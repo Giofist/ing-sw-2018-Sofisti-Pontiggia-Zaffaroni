@@ -107,18 +107,18 @@ public class ItalianTranslator implements Translator {
     @Override
     public String translateToolCardCardName(int cardID){
         switch (cardID) {
-            case 1: return "Pinza Sgrossatrice";
-            case 2: return "Pennello per Eglomise";
-            case 3: return "Alesatore per lamina di rame";
-            case 4: return "Lathekin";
-            case 5: return "Taglierina circolare";
-            case 6: return "Pennello per Pasta Salda";
-            case 7: return "Martelletto";
-            case 8: return "Tenaglia a Rotelle";
-            case 9: return "Riga in Sughero";
-            case 10: return "Tampone Diamantato";
-            case 11: return "Diluente per Pasta Salda";
-            case 12: return "Taglierina Manuale";
+            case 1: return "1. Pinza Sgrossatrice";
+            case 2: return "2. Pennello per Eglomise";
+            case 3: return "3. Alesatore per lamina di rame";
+            case 4: return "4. Lathekin";
+            case 5: return "5. Taglierina circolare";
+            case 6: return "6. Pennello per Pasta Salda";
+            case 7: return "7. Martelletto";
+            case 8: return "8. Tenaglia a Rotelle";
+            case 9: return "9. Riga in Sughero";
+            case 10: return "10. Tampone Diamantato";
+            case 11: return "11. Diluente per Pasta Salda";
+            case 12: return "12. Taglierina Manuale";
             default: return null;
         }
     }
