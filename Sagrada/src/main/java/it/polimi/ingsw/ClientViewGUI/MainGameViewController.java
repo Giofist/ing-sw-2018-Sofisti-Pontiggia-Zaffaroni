@@ -40,7 +40,6 @@ import java.util.*;
 
 public class MainGameViewController implements Initializable, AbstractController {
     private ImageView origin = null;
-    private int SelectedDiceIndex;
     boolean selected = false;
     private String privateGoalcardPath = null;
     private int ToolCard1 = 0;
@@ -50,16 +49,11 @@ public class MainGameViewController implements Initializable, AbstractController
     private int numOfPlayer = 0;
     private int selectedDiceInd = 10;
     private int DicesToMove = 0;
-    private Object waitForUserInput = new Object();
     private int newOldRow = 10;
     private int newOldColumn = 10;
     private int toolCardId = 0;
     private int numOfClick = 0;
     ToolRequestClass data = new ToolRequestClass();
-
-    public MainGameViewController() {
-        ObserverGUI.Singleton().setController(this);
-    }
 
     @FXML
     private ChoiceBox selectIntensity;
@@ -69,9 +63,6 @@ public class MainGameViewController implements Initializable, AbstractController
 
     @FXML
     private AnchorPane backgroundPane;
-
-    @FXML
-    private ImageView firstDice;
 
     @FXML
     private ToggleButton toggle1or2;
@@ -144,112 +135,10 @@ public class MainGameViewController implements Initializable, AbstractController
     private Text ErrorMessage;
 
     @FXML
-    private ImageView ImageView00;
-
-    @FXML
-    private ImageView ImageView01;
-
-    @FXML
-    private ImageView ImageView02;
-
-    @FXML
-    private ImageView ImageView03;
-
-    @FXML
-    private ImageView ImageView04;
-
-    @FXML
-    private ImageView ImageView10;
-
-    @FXML
-    private ImageView ImageView12;
-
-    @FXML
-    private ImageView ImageView13;
-
-    @FXML
-    private ImageView ImageView14;
-
-    @FXML
-    private ImageView ImageView20;
-
-    @FXML
-    private ImageView ImageView21;
-
-    @FXML
-    private ImageView ImageView24;
-
-    @FXML
-    private ImageView ImageView30;
-
-    @FXML
-    private ImageView ImageView001;
-
-    @FXML
-    private ImageView ImageView011;
-
-    @FXML
-    private ImageView ImageView021;
-
-    @FXML
-    private ImageView ImageView031;
-
-    @FXML
-    private ImageView ImageView041;
-
-    @FXML
-    private ImageView ImageView101;
-
-    @FXML
-    private ImageView ImageView121;
-
-    @FXML
-    private ImageView ImageView131;
-
-    @FXML
-    private ImageView ImageView141;
-
-    @FXML
-    private ImageView ImageView201;
-
-    @FXML
-    private ImageView ImageView211;
-
-    @FXML
-    private ImageView ImageView241;
-
-    @FXML
-    private ImageView ImageView301;
-
-    @FXML
-    private ImageView ImageView311;
-
-    @FXML
-    private ImageView ImageView321;
-
-    @FXML
-    private ImageView ImageView341;
-
-    @FXML
-    private ImageView ImageView111;
-
-    @FXML
-    private ImageView ImageView221;
-
-    @FXML
-    private ImageView ImageView231;
-
-    @FXML
-    private ImageView ImageView331;
-
-    @FXML
     private Text P1MapName;
 
     @FXML
     private Text Player1;
-
-    @FXML
-    private Text yourMapDiff1;
 
     @FXML
     private Circle P1Diff6;
@@ -273,73 +162,7 @@ public class MainGameViewController implements Initializable, AbstractController
     private Text Player2;
 
     @FXML
-    private GridPane yourMap11;
-
-    @FXML
-    private ImageView ImageView0011;
-
-    @FXML
-    private ImageView ImageView0111;
-
-    @FXML
-    private ImageView ImageView0211;
-
-    @FXML
-    private ImageView ImageView0311;
-
-    @FXML
-    private ImageView ImageView0411;
-
-    @FXML
-    private ImageView ImageView1011;
-
-    @FXML
-    private ImageView ImageView1211;
-
-    @FXML
-    private ImageView ImageView1311;
-
-    @FXML
-    private ImageView ImageView1411;
-
-    @FXML
-    private ImageView ImageView2011;
-
-    @FXML
-    private ImageView ImageView2111;
-
-    @FXML
-    private ImageView ImageView2411;
-
-    @FXML
-    private ImageView ImageView3011;
-
-    @FXML
-    private ImageView ImageView3111;
-
-    @FXML
-    private ImageView ImageView3211;
-
-    @FXML
-    private ImageView ImageView3411;
-
-    @FXML
-    private ImageView ImageView1111;
-
-    @FXML
-    private ImageView ImageView2211;
-
-    @FXML
-    private ImageView ImageView2311;
-
-    @FXML
-    private ImageView ImageView3311;
-
-    @FXML
     private Text P2MapName;
-
-    @FXML
-    private Text yourMapDiff11;
 
     @FXML
     private Circle P2Diff6;
@@ -363,70 +186,7 @@ public class MainGameViewController implements Initializable, AbstractController
     private Text Player3;
 
     @FXML
-    private GridPane yourMap12;
-
-    @FXML
     private GridPane roundTrack;
-
-    @FXML
-    private ImageView ImageView0012;
-
-    @FXML
-    private ImageView ImageView0112;
-
-    @FXML
-    private ImageView ImageView0212;
-
-    @FXML
-    private ImageView ImageView0312;
-
-    @FXML
-    private ImageView ImageView0412;
-
-    @FXML
-    private ImageView ImageView1012;
-
-    @FXML
-    private ImageView ImageView1212;
-
-    @FXML
-    private ImageView ImageView1312;
-
-    @FXML
-    private ImageView ImageView1412;
-
-    @FXML
-    private ImageView ImageView2012;
-
-    @FXML
-    private ImageView ImageView2112;
-
-    @FXML
-    private ImageView ImageView2412;
-
-    @FXML
-    private ImageView ImageView3012;
-
-    @FXML
-    private ImageView ImageView3112;
-
-    @FXML
-    private ImageView ImageView3212;
-
-    @FXML
-    private ImageView ImageView3412;
-
-    @FXML
-    private ImageView ImageView1112;
-
-    @FXML
-    private ImageView ImageView2212;
-
-    @FXML
-    private ImageView ImageView2312;
-
-    @FXML
-    private ImageView ImageView3312;
 
     @FXML
     private Text P3MapName;
@@ -436,9 +196,6 @@ public class MainGameViewController implements Initializable, AbstractController
 
     @FXML
     private Text token;
-
-    @FXML
-    private Text yourMapDiff12;
 
     @FXML
     private Circle P3Diff1;
@@ -457,27 +214,6 @@ public class MainGameViewController implements Initializable, AbstractController
 
     @FXML
     private Circle P3Diff6;
-
-    @FXML
-    private ImageView ImageView31;
-
-    @FXML
-    private ImageView ImageView32;
-
-    @FXML
-    private ImageView ImageView34;
-
-    @FXML
-    private ImageView ImageView11;
-
-    @FXML
-    private ImageView ImageView22;
-
-    @FXML
-    private ImageView ImageView23;
-
-    @FXML
-    private ImageView ImageView33;
 
     @FXML
     private ImageView PrivateGoalCard;
@@ -531,13 +267,6 @@ public class MainGameViewController implements Initializable, AbstractController
     private Circle Diff2;
 
     @FXML
-    private ProgressBar TimeLine;
-
-    private int SelectedCardIndex;
-
-    private char[] SelectedCardId = new char[11];
-
-    @FXML
     void handleImageDragOver(DragEvent event) {
         if (event.getDragboard().hasImage()) {
             event.acceptTransferModes(TransferMode.ANY);
@@ -573,8 +302,12 @@ public class MainGameViewController implements Initializable, AbstractController
         }
     }
 
+    public MainGameViewController() {
+        ObserverGUI.Singleton().setController(this);
+    }
+
     public void handleDragDetection(javafx.scene.input.MouseEvent mouseEvent) {
-        char[] SelectedDiceId = new char[11];
+        char[] SelectedDiceId;
 
         ErrorMessage.setText(null);
         origin = (ImageView) mouseEvent.getTarget();
@@ -583,7 +316,7 @@ public class MainGameViewController implements Initializable, AbstractController
         cb.putImage(origin.getImage());
         db.setContent(cb);
         SelectedDiceId = origin.getId().toCharArray();
-        SelectedDiceIndex = Integer.parseInt(String.valueOf(SelectedDiceId[9]));  //TODO magari sistemare semplificando Per ora va
+        int selectedDiceIndex = Integer.parseInt(String.valueOf(SelectedDiceId[9]));
         mouseEvent.consume();
     }
 
@@ -854,7 +587,7 @@ public class MainGameViewController implements Initializable, AbstractController
             }
             rowIterator.next();
         }
-    }  //todo ottenere il riferimento all'ImageView per ora non corretto
+    }
 
     public void updateDicePool() {
         int i = 0;

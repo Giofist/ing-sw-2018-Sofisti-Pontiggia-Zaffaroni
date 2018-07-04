@@ -1,6 +1,5 @@
 package it.polimi.ingsw.ClientViewGUI;
 
-import com.jfoenix.controls.JFXButton;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.State;
 import javafx.event.ActionEvent;
@@ -14,16 +13,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.Collections;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class ResultController implements Initializable,AbstractController {
     String playerList = "";
     int i = 1;
-
-    public ResultController(){
-        ObserverGUI.Singleton().setController(this);
-    }
 
     @FXML
     private AnchorPane winnerList;
@@ -32,11 +26,11 @@ public class ResultController implements Initializable,AbstractController {
     private Text ErrorMessage;
 
     @FXML
-    private Text WinnerMessage;
-
-    @FXML
     private Text listWinner;
 
+    public ResultController(){
+        ObserverGUI.Singleton().setController(this);
+    }
 
     public void PlayAgain(ActionEvent actionEvent) {
         try {
@@ -73,6 +67,5 @@ public class ResultController implements Initializable,AbstractController {
 
     @Override
     public void update(State state) {
-
     }
 }

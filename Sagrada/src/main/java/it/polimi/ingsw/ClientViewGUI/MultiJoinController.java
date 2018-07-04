@@ -12,8 +12,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
-
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
@@ -24,10 +22,6 @@ public class MultiJoinController  implements Initializable,AbstractController{
     private Boolean entered = false;
     ObservableList<String> data = FXCollections.observableArrayList();
 
-    public MultiJoinController(){
-        ObserverGUI.Singleton().setController(this);
-    }
-
     @FXML
     private AnchorPane joinPane;
 
@@ -37,19 +31,21 @@ public class MultiJoinController  implements Initializable,AbstractController{
     @FXML
     private JFXListView<String> gameList;
 
+    public MultiJoinController(){
+        ObserverGUI.Singleton().setController(this);
+    }
 
-   @Override
-
-   public void initialize(URL url, ResourceBundle rb) {
-       try {
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        try {
            for (Match match : ObserverGUI.Singleton().getServerController().getActiveMatchesList()) {
                data.add(match.getName());
                gameList.setItems(data);
            }
-       } catch (RemoteException e) {
+        } catch (RemoteException e) {
            ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
-       }
-   }
+        }
+    }
 
     public void JoinGame(ActionEvent actionEvent) {
         String matchName = null;
@@ -104,6 +100,7 @@ public class MultiJoinController  implements Initializable,AbstractController{
             ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
         }
     }
+
     @Override
     public void update(State state){
         if(state== State.MUSTSETSCHEMECARD){

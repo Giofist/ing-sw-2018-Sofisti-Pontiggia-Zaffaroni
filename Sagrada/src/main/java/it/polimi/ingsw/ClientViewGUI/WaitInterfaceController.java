@@ -1,6 +1,5 @@
 package it.polimi.ingsw.ClientViewGUI;
 
-import com.jfoenix.controls.JFXButton;
 import it.polimi.ingsw.model.State;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -14,17 +13,15 @@ import java.util.Collections;
 
 public class WaitInterfaceController implements AbstractController{
 
-    public WaitInterfaceController(){
-        ObserverGUI.Singleton().setController(this);
-    }
     @FXML
     private AnchorPane createPane;
 
     @FXML
     private Text ErrorMessage;
 
-    @FXML
-    private JFXButton LeaveTheGame;
+    public WaitInterfaceController(){
+        ObserverGUI.Singleton().setController(this);
+    }
 
     public void leaveTheMatch(javafx.event.ActionEvent actionEvent) {
         try {
@@ -38,6 +35,7 @@ public class WaitInterfaceController implements AbstractController{
             e.printStackTrace();
         }
     }
+
     @Override
     public void update(State state){
         if(state== State.MUSTSETSCHEMECARD){

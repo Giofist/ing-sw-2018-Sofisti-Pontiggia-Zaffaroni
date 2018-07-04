@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXProgressBar?>
 <?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ChoiceBox?>
@@ -20,7 +19,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="backgroundPane" prefHeight="909.0" prefWidth="1398.0" style="-fx-background-color: brown;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.ClientViewGUI.MainGameViewController">
+<AnchorPane fx:id="backgroundPane" prefHeight="720.0" prefWidth="1375.0" style="-fx-background-color: brown;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.ClientViewGUI.MainGameViewController">
    <children>
       <BorderPane fx:id="progressionBar" layoutX="-7.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="796.0" prefWidth="1407.0" style="-fx-background-color: brown;">
          <center>
@@ -303,32 +302,29 @@
          <right>
             <VBox alignment="CENTER" prefHeight="906.0" prefWidth="296.0" spacing="10.0" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fx:id="ToolCardImage1" fitHeight="283.0" fitWidth="200.0" onMouseClicked="#UseToolcard" onMouseEntered="#Select" onMouseExited="#Unselect" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
+                  <ImageView fx:id="ToolCardImage1" fitHeight="250.0" fitWidth="200.0" onMouseClicked="#UseToolcard" onMouseEntered="#Select" onMouseExited="#Unselect" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
                      <image>
                         <Image url="@ToolCards/3.jpg" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="ToolCardImage2" fitHeight="283.0" fitWidth="200.0" onMouseClicked="#UseToolcard" onMouseEntered="#Select" onMouseExited="#Unselect" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
+                  <ImageView fx:id="ToolCardImage2" fitHeight="250.0" fitWidth="200.0" onMouseClicked="#UseToolcard" onMouseEntered="#Select" onMouseExited="#Unselect" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
                      <image>
                         <Image url="@ToolCards/6.jpg" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="ToolCardImage3" fitHeight="283.0" fitWidth="200.0" onMouseClicked="#UseToolcard" onMouseEntered="#Select" onMouseExited="#Unselect" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
+                  <ImageView fx:id="ToolCardImage3" fitHeight="250.0" fitWidth="200.0" onMouseClicked="#UseToolcard" onMouseEntered="#Select" onMouseExited="#Unselect" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
                      <image>
                         <Image url="@ToolCards/4.jpg" />
                      </image>
                   </ImageView>
                </children>
-               <padding>
-                  <Insets top="60.0" />
-               </padding>
             </VBox>
          </right>
          <left>
-            <VBox alignment="CENTER" prefHeight="766.0" prefWidth="236.0" spacing="10.0" BorderPane.alignment="CENTER">
+            <VBox alignment="CENTER" prefHeight="766.0" prefWidth="237.0" spacing="10.0" BorderPane.alignment="CENTER">
                <children>
                   <Text fx:id="Player1" strokeType="OUTSIDE" strokeWidth="0.0" text="Player 1" />
-                  <BorderPane fx:id="P1Map" maxHeight="190.0" maxWidth="200.0" prefHeight="190.0" prefWidth="200.0">
+                  <BorderPane fx:id="P1Map" maxHeight="190.0" maxWidth="220.0" prefHeight="190.0" prefWidth="220.0">
                      <center>
                         <GridPane fx:id="mapPlayer1" gridLinesVisible="true">
                            <columnConstraints>
@@ -485,7 +481,7 @@
                      </bottom>
                   </BorderPane>
                   <Text fx:id="Player2" strokeType="OUTSIDE" strokeWidth="0.0" text="Player 2" />
-                  <BorderPane fx:id="P2Map" maxHeight="190.0" maxWidth="200.0" prefHeight="190.0" prefWidth="200.0">
+                  <BorderPane fx:id="P2Map" maxHeight="190.0" maxWidth="220.0" prefHeight="190.0" prefWidth="220.0">
                      <center>
                         <GridPane fx:id="mapPlayer2" gridLinesVisible="true">
                            <columnConstraints>
@@ -642,7 +638,7 @@
                      </bottom>
                   </BorderPane>
                   <Text fx:id="Player3" strokeType="OUTSIDE" strokeWidth="0.0" text="Player 3" />
-                  <BorderPane fx:id="P3Map" maxHeight="190.0" maxWidth="200.0" prefHeight="190.0" prefWidth="200.0">
+                  <BorderPane fx:id="P3Map" maxHeight="190.0" maxWidth="220.0" prefHeight="190.0" prefWidth="220.0">
                      <center>
                         <GridPane fx:id="mapPlayer3" gridLinesVisible="true">
                            <columnConstraints>
@@ -810,25 +806,37 @@
       </BorderPane>
       <HBox alignment="CENTER" layoutX="292.0" layoutY="623.0" maxWidth="1.7976931348623157E308" prefHeight="291.0" prefWidth="759.0" spacing="20.0">
          <children>
-            <ImageView fx:id="PrivateGoalCard" fitHeight="231.0" fitWidth="215.0" onMouseEntered="#ShowPrivateGoal" onMouseExited="#HidePrivateGoal" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
+            <ImageView fx:id="PrivateGoalCard" fitHeight="200.0" fitWidth="180.0" onMouseEntered="#ShowPrivateGoal" onMouseExited="#HidePrivateGoal" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
                <image>
                   <Image url="@PrivateGoalCards/Back1.jpg" />
                </image>
+               <HBox.margin>
+                  <Insets bottom="70.0" />
+               </HBox.margin>
             </ImageView>
-            <ImageView fx:id="PublicGoalCard1" fitHeight="231.0" fitWidth="215.0" onMouseEntered="#Select" onMouseExited="#Unselect" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
+            <ImageView fx:id="PublicGoalCard1" fitHeight="200.0" fitWidth="180.0" onMouseEntered="#Select" onMouseExited="#Unselect" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
                <image>
                   <Image url="@PublicGoalCards/1.jpg" />
                </image>
+               <HBox.margin>
+                  <Insets bottom="70.0" />
+               </HBox.margin>
             </ImageView>
-            <ImageView fx:id="PublicGoalCard2" fitHeight="231.0" fitWidth="215.0" onMouseEntered="#Select" onMouseExited="#Unselect" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
+            <ImageView fx:id="PublicGoalCard2" fitHeight="200.0" fitWidth="180.0" onMouseEntered="#Select" onMouseExited="#Unselect" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
                <image>
                   <Image url="@PublicGoalCards/2.jpg" />
                </image>
+               <HBox.margin>
+                  <Insets bottom="70.0" />
+               </HBox.margin>
             </ImageView>
-            <ImageView fx:id="PublicGoalCard3" fitHeight="231.0" fitWidth="215.0" onMouseEntered="#Select" onMouseExited="#Unselect" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
+            <ImageView fx:id="PublicGoalCard3" fitHeight="200.0" fitWidth="180.0" onMouseEntered="#Select" onMouseExited="#Unselect" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
                <image>
                   <Image url="@PublicGoalCards/4.jpg" />
                </image>
+               <HBox.margin>
+                  <Insets bottom="70.0" />
+               </HBox.margin>
             </ImageView>
          </children>
       </HBox>
@@ -978,7 +986,6 @@
             <Insets />
          </opaqueInsets>
       </GridPane>
-      <JFXProgressBar layoutY="888.0" prefHeight="26.0" prefWidth="1400.0" progress="0.41" />
       <JFXButton fx:id="leaveTheMAtch" layoutX="10.0" layoutY="21.0" onAction="#leaveTheMatch" prefHeight="44.0" prefWidth="220.0" style="-fx-background-color: green;" text="Abbandona la partita" textFill="WHITE">
          <effect>
             <DropShadow />
@@ -987,12 +994,12 @@
             <Font size="20.0" />
          </font>
       </JFXButton>
-      <Text fill="WHITE" layoutX="239.0" layoutY="280.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Azioni possibili:" wrappingWidth="181.9999881386757">
+      <Text fill="WHITE" layoutX="252.0" layoutY="280.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Azioni possibili:" wrappingWidth="181.9999881386757">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Text>
-      <Text fx:id="Actions" fill="WHITE" layoutX="243.0" layoutY="303.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="219.9999881386757" />
+      <Text fx:id="Actions" fill="WHITE" layoutX="245.0" layoutY="303.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="219.9999881386757" />
       <Text fx:id="turnIndicator" fill="WHITE" layoutX="443.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="452.41015625">
          <font>
             <Font size="36.0" />

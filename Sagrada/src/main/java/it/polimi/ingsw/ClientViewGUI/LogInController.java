@@ -34,10 +34,6 @@ public class LogInController  implements Initializable,AbstractController{
     private int port = 1337;
     public Stage primaryStage;
 
-    public LogInController(){
-       ObserverGUI.Singleton().setController(this);
-    }
-
     @FXML
     private JFXTextField username;
 
@@ -73,12 +69,14 @@ public class LogInController  implements Initializable,AbstractController{
         System.exit(0);
     }
 
+    public LogInController(){
+        ObserverGUI.Singleton().setController(this);
+    }
 
     public void setPrimaryStage(Stage stage) {
         this.primaryStage = stage;
     }
 
-    //go to the official sagrada store
     @FXML
     void goToWebSite(MouseEvent event) {
         try {
@@ -167,7 +165,6 @@ public class LogInController  implements Initializable,AbstractController{
         PortField.setText(String.valueOf(port));
         IPAddress.setText(String.valueOf(ipAddr));
     }
-
 
     @Override
     public void update(State state) {

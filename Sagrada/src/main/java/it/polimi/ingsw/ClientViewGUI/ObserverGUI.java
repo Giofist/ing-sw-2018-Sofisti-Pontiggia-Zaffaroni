@@ -15,14 +15,17 @@ public class ObserverGUI extends UnicastRemoteObject implements Observer {
     private static ObserverGUI instance;
     private String username;
     private Translator translator = new ItalianTranslator();
+
     public  ClientHandlerInterface getServerController() {
         return serverController;
     }
+
     public  void setServerController(ClientHandlerInterface controller) {
         serverController = controller;
     }
 
     private  ObserverGUI() throws RemoteException{};
+
     public Translator getTranslator() {
         return translator;
     }
