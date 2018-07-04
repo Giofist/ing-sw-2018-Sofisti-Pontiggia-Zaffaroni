@@ -958,6 +958,7 @@ public class MainGameViewController implements Initializable, AbstractController
                 updateDicePool();
                 updatePossiibleActions();
                 updateOtherPlayesMap();
+                ErrorMessage.setText("");
             }
         });
 
@@ -998,7 +999,16 @@ public class MainGameViewController implements Initializable, AbstractController
                 @Override
                 public void run() {
                     turnIndicator.setText("Hai vinto a tavolino!");
-                    ErrorMessage.setText("Lascia la partita!");
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        backgroundPane.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/MenuPartial.fxml"))));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             });
         } else if (state == State.MUSTPASSTURNSTATE) {
