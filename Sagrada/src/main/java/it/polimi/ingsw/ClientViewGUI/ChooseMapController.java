@@ -187,22 +187,22 @@ public class ChooseMapController implements AbstractController, Initializable {
         }
     }
 
-    public void selectMap1(MouseEvent mouseEvent) {
+    public void selectMap1(javafx.event.ActionEvent actionEvent) {
         mapSelected = mapIDs[0];
         ErrorMessage.setText("Hai selezionato la mappa:"+ mapSelected);
     }
 
-    public void selectMap2(MouseEvent mouseEvent) {
+    public void selectMap2(javafx.event.ActionEvent actionEvent) {
         mapSelected = mapIDs[1];
         ErrorMessage.setText("Hai selezionato la mappa:"+ mapSelected);
     }
 
-    public void selectMap3(MouseEvent mouseEvent) {
+    public void selectMap3(javafx.event.ActionEvent actionEvent) {
         mapSelected = mapIDs[2];
         ErrorMessage.setText("Hai selezionato la mappa:"+ mapSelected);
     }
 
-    public void selectMap4(MouseEvent mouseEvent) {
+    public void selectMap4(javafx.event.ActionEvent actionEvent) {
         mapSelected = mapIDs[3];
         ErrorMessage.setText("Hai selezionato la mappa:"+ mapSelected);
     }
