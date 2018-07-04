@@ -24,14 +24,19 @@ public class RoundTrackTest {
 
     @Before
     public void before() {
+        // Tested class
         roundTrack = new RoundTrack();
+
+        // Useful classes
         mockDice = mock(Dice.class);
         dices = new LinkedList<Dice>();
+
+        // Setup dices list
         dices.add(mockDice);
         dices.add(mockDice);
         dices.add(mockDice);
 
-
+        // Mock behaviours
         when(mockDice.getIntensity()).thenReturn(2);
         when(mockDice.getColor()).thenReturn(DiceColor.RED);
     }
@@ -52,6 +57,10 @@ public class RoundTrackTest {
         assertEquals(3, roundTrack.getroundTrackDices(10).getDicePoolSize());
     }
 
+    /**
+     * This method checks the situation in which the player specifies a wrong index for the round track
+     * @throws RoundTrackException
+     */
     @Test (expected = RoundTrackException.class)
     public void setRoundTrackException() throws RoundTrackException {
         roundTrack.setRoundTrackDices(0, dices);
@@ -62,6 +71,10 @@ public class RoundTrackTest {
         roundTrack.getroundTrackDices(0);
     }
 
+    /**
+     * This method tests that the allColors method returns a list with all the dices on the roundtrack
+     * @throws RoundTrackException
+     */
     @Test
     public void allColorsTest() throws RoundTrackException {
         List<DiceColor> colors;

@@ -71,7 +71,10 @@ public class LathekinTest {
     }
 
 
-    // This method tests if a Player specifies by mistake a wrong position on the schemeCard from where to pick a Dice
+    /**
+     * This method tests if a Player specifies by mistake a wrong position on the schemeCard from where to pick a Dice
+     * @throws ToolIllegalOperationException
+     */
     @Test
     public void getNotExistantDiceExceptionTest() throws ToolIllegalOperationException {
         toolRequestClass.setOldRow1(1);
@@ -95,8 +98,13 @@ public class LathekinTest {
     }
 
 
-
-    // This method tests when there is a constrain in placing the Dice
+    /**
+     * This method tests when there is a constrain in placing the Dice
+     * @throws OutOfMatrixException
+     * @throws TileConstrainException
+     * @throws ToolIllegalOperationException
+     * @throws DiceNotExistantException
+     */
     @Test
     public void executeTileColorConstrainException() throws OutOfMatrixException, TileConstrainException, ToolIllegalOperationException, DiceNotExistantException {
         schemeCard.setDice(mockDice, 0, 2, false, false, true);
@@ -151,6 +159,12 @@ public class LathekinTest {
     }
 
 
+    /**
+     * This method tests when we specify the same position from where to pick two dices
+     * @throws OutOfMatrixException
+     * @throws TileConstrainException
+     * @throws DiceNotExistantException
+     */
     @Test
     public void executeSameDiceSelectionException() throws OutOfMatrixException, TileConstrainException, DiceNotExistantException {
         schemeCard.setDice(mockDice, 0, 2, false, false, true);

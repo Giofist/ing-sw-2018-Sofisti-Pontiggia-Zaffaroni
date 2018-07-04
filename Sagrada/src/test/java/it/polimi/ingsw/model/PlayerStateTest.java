@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.PlayerPackage;
+package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.ClientView.Observer;
 import it.polimi.ingsw.ClientView.ObserverView;
@@ -28,9 +28,13 @@ public class PlayerStateTest {
 
     @Before
     public void before() throws RemoteException {
+        // Tested class
         playerState = new PlayerState();
+
+        // Useful classes
         mockObserver = mock(ObserverView.class);
 
+        // Mock behaviour
         doThrow(RemoteException.class).when(mockObserver).update(playerState, null);
     }
 

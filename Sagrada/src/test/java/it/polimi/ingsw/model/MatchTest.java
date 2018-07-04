@@ -7,7 +7,6 @@ import it.polimi.ingsw.model.Exceptions.IsAlreadyActiveException;
 import it.polimi.ingsw.model.Exceptions.LoginException;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.internal.matchers.Matches;
 
 import java.util.List;
 
@@ -24,13 +23,13 @@ public class MatchTest {
 
     @Before
     public void before() {
+        // Useful classes
         mockPlayer1 = new Player();
         mockPlayer2 = new Player();
         mockPlayer3 = new Player();
-
         mockObserver = mock(Observer.class);
 
-
+        // Tested class
         match = new Match(mockPlayer1, "Match1");
     }
 
@@ -44,12 +43,16 @@ public class MatchTest {
         assertTrue(match.isStarted());
     }
 
+    /**
+     * This match tests that the game sets itself to isReadyToStart when the number of players required is reached
+     */
     @Test
     public void joinMatchTest() {
         match.join(mockPlayer2);
         try {
             match.join(mockPlayer3);
         } catch (IllegalMonitorStateException e){
+            // Exception to handle the notify all from within the join method when the required number of players is reached
         }
 
         assertTrue(match.getIsReadyToStart());
@@ -68,8 +71,12 @@ public class MatchTest {
         assertEquals(1, players.size());
     }
 
+    /**
+     * Method for testing that once all the players leave the match the match is removed from the matches' list
+     * @throws HomonymyException
+     */
     @Test
-    public void leaveMatchTest() throws HomonymyException, GameNotExistantException {
+    public void leaveMatchTest() throws HomonymyException {
         MatchesList.singleton().createMatch(mockPlayer1, "Match1");
         assertEquals(1, MatchesList.singleton().getMatchesListSize());
         match = MatchesList.singleton().getMatch("Match1");
@@ -88,6 +95,11 @@ public class MatchTest {
         assertEquals(State.FORCEENDMATCH , mockPlayer1.getPlayerState().getState());
     }
 
+    /**
+     * This method tests that once the match starts sets all the players' state to MUSTSETSCHEMECARD before beginning
+     * the actual match
+     * @throws InterruptedException
+     */
     @Test
     public void runTest() throws InterruptedException {
         mockPlayer2.setMatch(match);

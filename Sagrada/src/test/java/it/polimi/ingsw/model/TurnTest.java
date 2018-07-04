@@ -80,6 +80,9 @@ public class TurnTest {
         assertEquals(1, turn.getTurnID());
     }
 
+    /**
+     * Method for testing the countdown latch implemented in the Turn
+     */
     @Test
     public void countDownTest() {
         assertEquals(2, turn.getCountDownValue());

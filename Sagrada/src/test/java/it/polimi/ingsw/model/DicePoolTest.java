@@ -36,7 +36,9 @@ public class DicePoolTest {
     }
 
 
-    // This method tests if the constructor inserts the correct number of dices
+    /**
+     * This method tests if the constructor inserts the correct number of dices
+     */
     @Test
     public void constructorDicePoolTest() {
         dicePool = new DicePool(18, 18, 18, 18, 18);
@@ -44,7 +46,9 @@ public class DicePoolTest {
     }
 
 
-    // This method tests that an empty dicePool is instantiated if a wrong parameter is passed
+    /**
+     * This method tests that an empty dicePool is instantiated if a wrong parameter is passed
+     */
     @Test
     public void constructorDicePoolWithWrongParametersTest() {
         dicePool = new DicePool(-1, 2, 4, 0, 1);
@@ -52,7 +56,9 @@ public class DicePoolTest {
     }
 
 
-    // This method tests if the shuffle function works
+    /**
+     * This method tests if the shuffle function works
+     */
     @Test
     public void shuffleDicePoolTest() {
         dicePool = new DicePool(18, 18, 18, 18, 18);
@@ -62,7 +68,10 @@ public class DicePoolTest {
     }
 
 
-    // This method tests if adding dices to the Dicepool works properly
+    /**
+     * This method tests if adding dices to the Dicepool works properly
+     * @throws DicepoolIndexException
+     */
     @Test
     public void insertDiceTest() throws DicepoolIndexException {
         assertEquals(0, dicePool.getDicePoolSize());
@@ -73,7 +82,10 @@ public class DicePoolTest {
     }
 
 
-    // This method tests the addDice function which is a method used only for RoundDicePool for which a Dice is directly passed
+    /**
+     * This method tests the addDice function which is a method used only for RoundDicePool for which a Dice is directly passed
+     * @throws DicepoolIndexException
+     */
     @Test
     public void addDiceTest() throws DicepoolIndexException {
         assertEquals(0, dicePool.getDicePoolSize());
@@ -86,7 +98,10 @@ public class DicePoolTest {
     }
 
 
-    // This method will test addDice(int selectedDiceIndex,Dice dice)
+    /**
+     * This method will test addDice(int selectedDiceIndex,Dice dice)
+     * @throws DicepoolIndexException
+     */
     @Test
     public void addDiceTest2() throws DicepoolIndexException {
         assertEquals(0, dicePool.getDicePoolSize());
@@ -169,7 +184,7 @@ public class DicePoolTest {
         assertEquals(89, dicePool.getDicePoolSize());
     }
 
-    // This method in the tested class will soon throw an EmptyException
+
     @Test (expected = DicepoolIndexException.class)
     public void extractEmpyDicepoolExceptionTest() throws DicepoolIndexException {
         dicePool.extractDice();

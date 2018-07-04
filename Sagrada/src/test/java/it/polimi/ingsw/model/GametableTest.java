@@ -3,6 +3,7 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.Exceptions.*;
 import it.polimi.ingsw.model.Exceptions.TileConstrainException.TileConstrainException;
+import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
 import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 import it.polimi.ingsw.model.ToolCard.ToolCardsDeck;
 import it.polimi.ingsw.model.ToolCard.ToolRequestClass;
@@ -28,12 +29,13 @@ import static org.mockito.Mockito.when;
 public class GametableTest {
 
     private Gametable gametable;
+    private Dice mockDice;
     private Player player1;
     private Player player2;
     private SchemeCard schemeCard1;
     private SchemeCard schemeCard2;
     private Match mockMatch;
-    private Dice mockDice;
+
 
     @Before
     public void before() throws IOException, MapConstrainReadingException, CardIdNotAllowedException {
@@ -67,6 +69,12 @@ public class GametableTest {
 
     }
 
+    /**
+     * Test to verify that the dicePool initialize correctly the components for the match when called
+     * @throws PrivateGoalCardException
+     * @throws IOException
+     * @throws MapConstrainReadingException
+     */
     @Test
     public void constructorTest() throws PrivateGoalCardException, IOException, MapConstrainReadingException {
         assertNotNull(gametable.getDicepool());
@@ -82,6 +90,10 @@ public class GametableTest {
     }
 
 
+    /**
+     * This method tests that the gametable sets up correctly the roundDicePool when starting a new round.
+     * This case is a match with 2 players.
+     */
     @Test
     public void setUpRoundTest() {
         assertEquals(90, gametable.getDicepool().getDicePoolSize());
@@ -101,7 +113,7 @@ public class GametableTest {
 
 
     @Test
-    public void endRoundTest() throws RoundTrackException, DicepoolIndexException {
+    public void endRoundTest() throws RoundTrackException {
         gametable.setupRound();
         gametable.endRound(1);
 
@@ -110,8 +122,14 @@ public class GametableTest {
     }
 
 
+    /**
+     * This method tests the situation in which the player specifies a wrong id for a tool card.
+     * An excpetion will be thrown so the player won't change state because he did not use a tool card.
+     * @throws ToolIllegalOperationException
+     * @throws NotEnoughTokenException
+     */
     @Test
-    public void useToolCardTest() throws Exception {
+    public void useToolCardTest() throws ToolIllegalOperationException, NotEnoughTokenException {
         ToolRequestClass toolRequest = new ToolRequestClass();
         toolRequest.setToolCardID(1000);
 
@@ -120,6 +138,7 @@ public class GametableTest {
         try {
             gametable.useaToolCard(toolRequest, player1);
         } catch (WrongToolCardIDException e) {
+            assertEquals(State.STARTTURNSTATE, player1.getPlayerState().getState());
             return;
         }
 
@@ -127,6 +146,9 @@ public class GametableTest {
         assertFalse(0 == 0);
     }
 
+    /**
+     * Testing the method that invoke the function for calculating the points for all the players in the match
+     */
     @Test
     public void calculatePointsTest() {
         List<Player> players = new LinkedList<>();
@@ -139,6 +161,9 @@ public class GametableTest {
     }
 
 
+    /**
+     * Checking that the gametable has only 3 tool cards for the current match
+     */
     @Test
     public void getToolCardsTest() {
         List toolCards = gametable.getToolCards();

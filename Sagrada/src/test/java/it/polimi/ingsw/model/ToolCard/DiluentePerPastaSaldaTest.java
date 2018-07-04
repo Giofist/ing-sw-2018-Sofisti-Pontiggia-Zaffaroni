@@ -66,10 +66,13 @@ public class DiluentePerPastaSaldaTest {
         player.setTurn(mockTurn);
     }
 
+    /**
+     * This method tests that this particular tool card sets the player in a special state
+     * @throws ToolIllegalOperationException
+     */
     @Test
     public void executeEverythingOk() throws ToolIllegalOperationException {
 
-        // Part 1
         DicePool roundDicePool = new DicePool();
         DicePool dicePool = new DicePool();
         mockGametable = mock(Gametable.class);
@@ -89,22 +92,21 @@ public class DiluentePerPastaSaldaTest {
         assertEquals(0, roundDicePool.getDicePoolSize());
         assertEquals(State.MUSTSSETDILUENTEPERPASTASALDASTATE, player.getPlayerState().getState());
 
-        // Part2
-
-
     }
 
 
+    /**
+     * This method tests the situation in which the player specifies a wrong id from where to pick the dice
+     * @throws DicepoolIndexException
+     */
     @Test
     public void executeWrongIndexException() throws DicepoolIndexException {
         mockGametable = mock(Gametable.class);
         when(mockMatch.getGametable()).thenReturn(mockGametable);
         DicePool roundDicePool = new DicePool();
-        //DicePool dicePool = new DicePool();
         roundDicePool.addDice(mockDice);
-        //dicePool.addDice(new Dice(DiceColor.RED));
         when(mockGametable.getRoundDicepool()).thenReturn(roundDicePool);
-        //when(mockGametable.getDicepool()).thenReturn(dicePool);
+
 
 
         assertEquals(1, roundDicePool.getDicePoolSize());

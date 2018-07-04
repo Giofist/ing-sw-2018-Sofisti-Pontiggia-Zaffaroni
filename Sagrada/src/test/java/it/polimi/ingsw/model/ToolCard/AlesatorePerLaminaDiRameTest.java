@@ -36,7 +36,10 @@ public class AlesatorePerLaminaDiRameTest {
 
     @Before
     public void before() throws IOException, MapConstrainReadingException, CardIdNotAllowedException {
+        // Tested class
         alesatorePerLaminaDiRame = new AlesatoreperLaminadiRame();
+
+        // Useful classes
         player = new Player();
         mockDice = mock(Dice.class);
         mockMatch = mock(Match.class);
@@ -45,19 +48,23 @@ public class AlesatorePerLaminaDiRameTest {
         schemeCard.setTwinCard(new SchemeCard(4));
         toolRequestClass = new ToolRequestClass();
 
+        // Player setup
         player.addExtractedSchemeCard(schemeCard);
         player.setMatch(mockMatch);
         player.setPlayerState(State.STARTTURNSTATE);
         player.setScheme(3);
 
-
+        // Mock behaviours
         when(mockDice.getColor()).thenReturn(DiceColor.VIOLET);
         when(mockDice.getIntensity()).thenReturn(2);
 
     }
 
 
-    // This method tests if a Player specifies by mistake a wrong position on the schemeCard from where to pick a Dice
+    /**
+     * This method tests if a Player specifies by mistake a wrong position on the schemeCard from where to pick a Dice
+     * @throws ToolIllegalOperationException
+     */
     @Test
     public void getNotExistantDiceExceptionTest() throws ToolIllegalOperationException {
         toolRequestClass.setOldRow1(1);
@@ -77,8 +84,13 @@ public class AlesatorePerLaminaDiRameTest {
     }
 
 
-
-    // This method tests when there is a constrain in placing the Dice
+    /**
+     * This method tests when there is a constrain in placing the Dice
+     * @throws OutOfMatrixException
+     * @throws TileConstrainException
+     * @throws ToolIllegalOperationException
+     * @throws DiceNotExistantException
+     */
     @Test
     public void executeTileColorConstrainException() throws OutOfMatrixException, TileConstrainException, ToolIllegalOperationException, DiceNotExistantException {
         schemeCard.setDice(mockDice, 0, 2, false, false, false);
@@ -102,7 +114,13 @@ public class AlesatorePerLaminaDiRameTest {
     }
 
 
-    // Test the situation in which the User specifies a new wrong position
+    /**
+     * Test the situation in which the User specifies a wrong position as new destination
+     * @throws OutOfMatrixException
+     * @throws TileConstrainException
+     * @throws ToolIllegalOperationException
+     * @throws DiceNotExistantException
+     */
     @Test
     public void executeWithInvalidNewPositionException() throws OutOfMatrixException, TileConstrainException, ToolIllegalOperationException, DiceNotExistantException {
         schemeCard.setDice(mockDice, 0, 2, false, false, false);
@@ -144,6 +162,13 @@ public class AlesatorePerLaminaDiRameTest {
     }
 
 
+    /**
+     * This method should succed and verifies that the intensity contrain is ignored when placing the dice
+     * @throws OutOfMatrixException
+     * @throws TileConstrainException
+     * @throws ToolIllegalOperationException
+     * @throws DiceNotExistantException
+     */
     @Test
     public void executeEverythingOkIgnoringValueConstrain() throws OutOfMatrixException, TileConstrainException, ToolIllegalOperationException, DiceNotExistantException {
         schemeCard.setDice(mockDice, 0, 2, false, false, false);

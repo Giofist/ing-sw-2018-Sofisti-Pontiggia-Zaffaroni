@@ -8,7 +8,6 @@ it.polimi.ingsw.model.ClientMessagePackage
 it.polimi.ingsw.model.Exceptions
 it.polimi.ingsw.model.Exceptions.TileConstrainException
 it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions
-it.polimi.ingsw.model.PlayerPackage
 it.polimi.ingsw.model.PrivateGoalCards
 it.polimi.ingsw.model.PublicGoalCards
 it.polimi.ingsw.model.SchemeDeck

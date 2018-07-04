@@ -18,18 +18,24 @@ public class UserTest {
 
     @Before
     public void before() {
+        // Tested class
         user = new User("Xenomit", "ciao!");
 
+        // Useful classes
         mockPlayer = mock(Player.class);
         mockObserver = mock(Observer.class);
         mockPlayerState = mock(Observable.class);
 
+        // Mock behaviours
         when(mockPlayer.toString()).thenReturn("Xenomit");
         when(mockPlayer.getPlayerState()).thenReturn(mockPlayerState);
         doNothing().when(mockPlayerState).removeObserver(mockObserver);
     }
 
-    // At the moment of creation the user won't be active
+
+    /**
+     * This method verifies that new user is not in an active state once created
+     */
     @Test
     public void isActive() {
         assertFalse(user.isActive());
