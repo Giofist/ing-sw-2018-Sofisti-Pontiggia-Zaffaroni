@@ -46,7 +46,7 @@ public class StartServer implements Runnable{
         while (i == 0) {
             try {
                 Socket socket = serverSocket.accept();
-                System.out.println("Ho ricevuto una nuova richiesta di connessione\n");
+                System.out.println("Ho ricevuto una nuova richiesta di connessione.\n");
                 executor.submit(new SocketServerListener(socket, this.controller));
             } catch (IOException e) {
                 i = 1;
