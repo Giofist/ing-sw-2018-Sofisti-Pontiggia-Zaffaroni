@@ -7,10 +7,7 @@ import it.polimi.ingsw.model.Exceptions.MapConstrainReadingException;
 import it.polimi.ingsw.model.Exceptions.OutOfMatrixException;
 import it.polimi.ingsw.model.Exceptions.TileConstrainException.*;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Serializable;
+import java.io.*;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -37,8 +34,10 @@ public class SchemeCard implements Iterable<Tile>, Serializable{
      */
     public SchemeCard(int mapID) throws IOException, MapConstrainReadingException {
         this.ID = mapID;
-        String fileName = "src/main/resources/Maps.txt";
-        try (BufferedReader buffer = new BufferedReader(new FileReader(fileName))) {
+        try  {
+            InputStream buffer1 = getClass().getClassLoader().getResourceAsStream("Maps.txt");
+            InputStreamReader inStrReader = new InputStreamReader(buffer1);
+            BufferedReader buffer = new BufferedReader(inStrReader);
 
             // Here we scan the file until we find the line corresponding to the map that we are interested to load
             for (int j = 0; j < (mapID-1) * 5 + 1; j++) {
