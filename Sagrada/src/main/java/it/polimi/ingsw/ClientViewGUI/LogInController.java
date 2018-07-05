@@ -29,7 +29,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ResourceBundle;
 
-public class LogInController  implements Initializable,AbstractController{
+public class LogInController implements Initializable,AbstractController{
     private String ipAddr = "127.0.0.1";
     private int port = 1337;
     public Stage primaryStage;
@@ -108,7 +108,7 @@ public class LogInController  implements Initializable,AbstractController{
     }
 
     @FXML
-    void setconnection(ActionEvent event) {
+    void setConnection(ActionEvent event) {
         if(ConnectionSetUp.isSelected()){
             connectionMessage.setText("Socket selected!");
         }

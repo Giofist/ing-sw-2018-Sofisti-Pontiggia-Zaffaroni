@@ -47,7 +47,7 @@ public class MultiJoinController  implements Initializable,AbstractController{
         }
     }
 
-    public void JoinGame(ActionEvent actionEvent) {
+    public void joinGame(ActionEvent actionEvent) {
         String matchName;
         matchName = gameList.getSelectionModel().getSelectedItem();
         if (matchName != null) {
@@ -89,7 +89,7 @@ public class MultiJoinController  implements Initializable,AbstractController{
        }
     }
 
-    public void UpdateGameList(ActionEvent actionEvent) {
+    public void updateGameList(ActionEvent actionEvent) {
         gameList.getItems().removeAll();
         try {
             for (Match match : ObserverGUI.Singleton().getServerController().getActiveMatchesList()) {

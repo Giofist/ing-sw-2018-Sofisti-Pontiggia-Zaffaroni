@@ -214,7 +214,7 @@
                               <Insets top="10.0" />
                            </VBox.margin>
                            <children>
-                              <ImageView fx:id="RoundDice0" fitHeight="60.0" fitWidth="60.0" onDragDetected="#handleDragDetection" onMouseClicked="#selectDice" onMouseEntered="#Highlight" onMouseExited="#RemuveHighlight" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="RoundDice0" fitHeight="60.0" fitWidth="60.0" onDragDetected="#handleDragDetection" onMouseClicked="#selectDice" onMouseEntered="#highlight" onMouseExited="#remuveHighlight" pickOnBounds="true" preserveRatio="true">
                                  <GridPane.margin>
                                     <Insets bottom="5.0" left="9.0" right="5.0" top="5.0" />
                                  </GridPane.margin>
@@ -222,7 +222,7 @@
                                     <Image url="@Dices/EmptySpace.jpg" />
                                  </image>
                               </ImageView>
-                              <ImageView fx:id="RoundDice1" fitHeight="60.0" fitWidth="60.0" onDragDetected="#handleDragDetection" onMouseClicked="#selectDice" onMouseEntered="#Highlight" onMouseExited="#RemuveHighlight" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+                              <ImageView fx:id="RoundDice1" fitHeight="60.0" fitWidth="60.0" onDragDetected="#handleDragDetection" onMouseClicked="#selectDice" onMouseEntered="#highlight" onMouseExited="#remuveHighlight" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
                                  <GridPane.margin>
                                     <Insets bottom="5.0" left="9.0" right="5.0" top="5.0" />
                                  </GridPane.margin>
@@ -230,7 +230,7 @@
                                     <Image url="@Dices/EmptySpace.jpg" />
                                  </image>
                               </ImageView>
-                              <ImageView fx:id="RoundDice2" fitHeight="60.0" fitWidth="60.0" onDragDetected="#handleDragDetection" onMouseClicked="#selectDice" onMouseEntered="#Highlight" onMouseExited="#RemuveHighlight" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
+                              <ImageView fx:id="RoundDice2" fitHeight="60.0" fitWidth="60.0" onDragDetected="#handleDragDetection" onMouseClicked="#selectDice" onMouseEntered="#highlight" onMouseExited="#remuveHighlight" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
                                  <image>
                                     <Image url="@Dices/EmptySpace.jpg" />
                                  </image>
@@ -238,7 +238,7 @@
                                     <Insets bottom="5.0" left="9.0" right="5.0" top="5.0" />
                                  </GridPane.margin>
                               </ImageView>
-                              <ImageView fx:id="RoundDice3" fitHeight="60.0" fitWidth="60.0" onDragDetected="#handleDragDetection" onMouseClicked="#selectDice" onMouseEntered="#Highlight" onMouseExited="#RemuveHighlight" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3">
+                              <ImageView fx:id="RoundDice3" fitHeight="60.0" fitWidth="60.0" onDragDetected="#handleDragDetection" onMouseClicked="#selectDice" onMouseEntered="#highlight" onMouseExited="#remuveHighlight" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3">
                                  <image>
                                     <Image url="@Dices/EmptySpace.jpg" />
                                  </image>
@@ -246,7 +246,7 @@
                                     <Insets bottom="5.0" left="9.0" right="5.0" top="5.0" />
                                  </GridPane.margin>
                               </ImageView>
-                              <ImageView fx:id="RoundDice4" fitHeight="60.0" fitWidth="60.0" onDragDetected="#handleDragDetection" onMouseClicked="#selectDice" onMouseEntered="#Highlight" onMouseExited="#RemuveHighlight" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4">
+                              <ImageView fx:id="RoundDice4" fitHeight="60.0" fitWidth="60.0" onDragDetected="#handleDragDetection" onMouseClicked="#selectDice" onMouseEntered="#highlight" onMouseExited="#remuveHighlight" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4">
                                  <image>
                                     <Image url="@Dices/EmptySpace.jpg" />
                                  </image>
@@ -254,7 +254,7 @@
                                     <Insets bottom="5.0" left="9.0" right="5.0" top="5.0" />
                                  </GridPane.margin>
                               </ImageView>
-                              <ImageView fx:id="RoundDice5" fitHeight="60.0" fitWidth="60.0" onDragDetected="#handleDragDetection" onMouseClicked="#selectDice" onMouseEntered="#Highlight" onMouseExited="#RemuveHighlight" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5">
+                              <ImageView fx:id="RoundDice5" fitHeight="60.0" fitWidth="60.0" onDragDetected="#handleDragDetection" onMouseClicked="#selectDice" onMouseEntered="#highlight" onMouseExited="#remuveHighlight" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5">
                                  <image>
                                     <Image url="@Dices/EmptySpace.jpg" />
                                  </image>
@@ -262,7 +262,7 @@
                                     <Insets bottom="5.0" left="9.0" right="5.0" top="5.0" />
                                  </GridPane.margin>
                               </ImageView>
-                              <ImageView fx:id="RoundDice6" fitHeight="60.0" fitWidth="60.0" onDragDetected="#handleDragDetection" onMouseClicked="#selectDice" onMouseEntered="#Highlight" onMouseExited="#RemuveHighlight" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6">
+                              <ImageView fx:id="RoundDice6" fitHeight="60.0" fitWidth="60.0" onDragDetected="#handleDragDetection" onMouseClicked="#selectDice" onMouseEntered="#highlight" onMouseExited="#remuveHighlight" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6">
                                  <image>
                                     <Image url="@Dices/EmptySpace.jpg" />
                                  </image>
@@ -270,7 +270,7 @@
                                     <Insets bottom="5.0" left="9.0" right="5.0" top="5.0" />
                                  </GridPane.margin>
                               </ImageView>
-                              <ImageView fx:id="RoundDice7" fitHeight="60.0" fitWidth="60.0" onDragDetected="#handleDragDetection" onMouseClicked="#selectDice" onMouseEntered="#Highlight" onMouseExited="#RemuveHighlight" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7">
+                              <ImageView fx:id="RoundDice7" fitHeight="60.0" fitWidth="60.0" onDragDetected="#handleDragDetection" onMouseClicked="#selectDice" onMouseEntered="#highlight" onMouseExited="#remuveHighlight" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7">
                                  <image>
                                     <Image url="@Dices/EmptySpace.jpg" />
                                  </image>
@@ -278,7 +278,7 @@
                                     <Insets bottom="5.0" left="9.0" right="5.0" top="5.0" />
                                  </GridPane.margin>
                               </ImageView>
-                              <ImageView fx:id="RoundDice8" fitHeight="60.0" fitWidth="60.0" onDragDetected="#handleDragDetection" onMouseClicked="#selectDice" onMouseEntered="#Highlight" onMouseExited="#RemuveHighlight" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8">
+                              <ImageView fx:id="RoundDice8" fitHeight="60.0" fitWidth="60.0" onDragDetected="#handleDragDetection" onMouseClicked="#selectDice" onMouseEntered="#highlight" onMouseExited="#remuveHighlight" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8">
                                  <image>
                                     <Image url="@Dices/EmptySpace.jpg" />
                                  </image>
@@ -302,17 +302,17 @@
          <right>
             <VBox alignment="CENTER" prefHeight="906.0" prefWidth="296.0" spacing="10.0" translateX="20.0" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fx:id="ToolCardImage1" fitHeight="250.0" fitWidth="200.0" onMouseClicked="#UseToolcard" onMouseEntered="#Select" onMouseExited="#Unselect" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
+                  <ImageView fx:id="ToolCardImage1" fitHeight="250.0" fitWidth="200.0" onMouseClicked="#UseToolcard" onMouseEntered="#select" onMouseExited="#unselect" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
                      <image>
                         <Image url="@ToolCards/3.jpg" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="ToolCardImage2" fitHeight="250.0" fitWidth="200.0" onMouseClicked="#UseToolcard" onMouseEntered="#Select" onMouseExited="#Unselect" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
+                  <ImageView fx:id="ToolCardImage2" fitHeight="250.0" fitWidth="200.0" onMouseClicked="#UseToolcard" onMouseEntered="#select" onMouseExited="#unselect" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
                      <image>
                         <Image url="@ToolCards/6.jpg" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="ToolCardImage3" fitHeight="250.0" fitWidth="200.0" onMouseClicked="#UseToolcard" onMouseEntered="#Select" onMouseExited="#Unselect" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
+                  <ImageView fx:id="ToolCardImage3" fitHeight="250.0" fitWidth="200.0" onMouseClicked="#UseToolcard" onMouseEntered="#select" onMouseExited="#unselect" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
                      <image>
                         <Image url="@ToolCards/4.jpg" />
                      </image>
@@ -806,7 +806,7 @@
       </BorderPane>
       <HBox alignment="CENTER" layoutX="292.0" layoutY="623.0" maxWidth="1.7976931348623157E308" prefHeight="162.0" prefWidth="759.0" spacing="20.0" translateY="-5.0">
          <children>
-            <ImageView fx:id="PrivateGoalCard" fitHeight="200.0" fitWidth="180.0" onMouseEntered="#ShowPrivateGoal" onMouseExited="#HidePrivateGoal" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
+            <ImageView fx:id="PrivateGoalCard" fitHeight="200.0" fitWidth="180.0" onMouseEntered="#showPrivateGoal" onMouseExited="#hidePrivateGoal" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
                <image>
                   <Image url="@PrivateGoalCards/Back1.jpg" />
                </image>
@@ -814,7 +814,7 @@
                   <Insets bottom="70.0" />
                </HBox.margin>
             </ImageView>
-            <ImageView fx:id="PublicGoalCard1" fitHeight="200.0" fitWidth="180.0" onMouseEntered="#Select" onMouseExited="#Unselect" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
+            <ImageView fx:id="PublicGoalCard1" fitHeight="200.0" fitWidth="180.0" onMouseEntered="#select" onMouseExited="#unselect" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
                <image>
                   <Image url="@PublicGoalCards/1.jpg" />
                </image>
@@ -822,7 +822,7 @@
                   <Insets bottom="70.0" />
                </HBox.margin>
             </ImageView>
-            <ImageView fx:id="PublicGoalCard2" fitHeight="200.0" fitWidth="180.0" onMouseEntered="#Select" onMouseExited="#Unselect" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
+            <ImageView fx:id="PublicGoalCard2" fitHeight="200.0" fitWidth="180.0" onMouseEntered="#select" onMouseExited="#unselect" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
                <image>
                   <Image url="@PublicGoalCards/2.jpg" />
                </image>
@@ -830,7 +830,7 @@
                   <Insets bottom="70.0" />
                </HBox.margin>
             </ImageView>
-            <ImageView fx:id="PublicGoalCard3" fitHeight="200.0" fitWidth="180.0" onMouseEntered="#Select" onMouseExited="#Unselect" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
+            <ImageView fx:id="PublicGoalCard3" fitHeight="200.0" fitWidth="180.0" onMouseEntered="#select" onMouseExited="#unselect" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
                <image>
                   <Image url="@PublicGoalCards/4.jpg" />
                </image>
@@ -1026,7 +1026,7 @@
             <Font size="20.0" />
          </font>
       </JFXButton>
-      <JFXToggleButton fx:id="toggle1or2" layoutX="906.0" layoutY="294.0" onAction="#incrDecr" text="1/2 Dadi da spostare" textFill="WHITE" toggleColor="#008f34" toggleLineColor="#78c28a" />
+      <JFXToggleButton fx:id="toggle1or2" layoutX="906.0" layoutY="294.0" onAction="#move1or2" text="1/2 Dadi da spostare" textFill="WHITE" toggleColor="#008f34" toggleLineColor="#78c28a" />
       <ChoiceBox fx:id="selectIntensity" layoutX="923.0" layoutY="245.0" prefWidth="150.0" />
       <JFXButton fx:id="useToolCard" layoutX="890.0" layoutY="437.0" onAction="#useTool" prefHeight="44.0" prefWidth="220.0" style="-fx-background-color: green;" text="Usa la carta" textFill="WHITE">
          <effect>

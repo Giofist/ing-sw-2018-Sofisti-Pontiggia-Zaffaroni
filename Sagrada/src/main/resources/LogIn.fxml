@@ -56,7 +56,7 @@
                         <Font size="20.0" />
                      </font>
                   </Text>
-                  <JFXToggleButton fx:id="ConnectionSetUp" layoutX="29.0" layoutY="41.0" onAction="#setconnection" text="RMI/Socket" toggleColor="#028f00" toggleLineColor="#78c27d" />
+                  <JFXToggleButton fx:id="ConnectionSetUp" layoutX="29.0" layoutY="41.0" onAction="#setConnection" text="RMI/Socket" toggleColor="#028f00" toggleLineColor="#78c27d" />
                   <Text fx:id="connectionMessage" fill="#2d8b24" layoutX="41.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RMI selected!" textAlignment="CENTER" wrappingWidth="119.00000095367432" />
                   <JFXButton fx:id="ConnectButton" buttonType="RAISED" layoutX="194.0" layoutY="58.0" onAction="#connect" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: green;" text="Connect" textFill="WHITE" />
                   <JFXTextField fx:id="IPAddress" accessibleRole="TEXT_FIELD" layoutX="22.0" layoutY="101.0" prefHeight="25.0" prefWidth="132.0" promptText="IP Address" />

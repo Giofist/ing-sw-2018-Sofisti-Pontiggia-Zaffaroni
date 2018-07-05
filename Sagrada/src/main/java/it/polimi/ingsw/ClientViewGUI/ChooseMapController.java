@@ -355,12 +355,12 @@ public class ChooseMapController implements AbstractController, Initializable {
     }
 
 
-    public void ShowPrivateGoal(javafx.scene.input.MouseEvent mouseEvent) {
+    public void showPrivateGoal(javafx.scene.input.MouseEvent mouseEvent) {
         Image image = new Image(privateGoalcardPath);
         PrivateGoalCard.setImage(image);
     }
 
-    public void HidePrivateGoal(javafx.scene.input.MouseEvent mouseEvent) {
+    public void hidePrivateGoal(javafx.scene.input.MouseEvent mouseEvent) {
         Image image = new Image("PrivateGoalCards/Back1.jpg");  //todoremoveto be general
         PrivateGoalCard.setImage(image);
     }

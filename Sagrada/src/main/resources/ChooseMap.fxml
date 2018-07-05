@@ -354,7 +354,7 @@
                </HBox.margin></VBox>
          </children>
       </HBox>
-      <ImageView fx:id="PrivateGoalCard" fitHeight="231.0" fitWidth="215.0" layoutX="899.0" layoutY="69.0" onMouseEntered="#ShowPrivateGoal" onMouseExited="#HidePrivateGoal" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
+      <ImageView fx:id="PrivateGoalCard" fitHeight="231.0" fitWidth="215.0" layoutX="899.0" layoutY="69.0" onMouseEntered="#showPrivateGoal" onMouseExited="#hidePrivateGoal" pickOnBounds="true" preserveRatio="true" style="-fx-background: transparent;">
          <image>
             <Image url="@PrivateGoalCards/Back1.jpg" />
          </image>

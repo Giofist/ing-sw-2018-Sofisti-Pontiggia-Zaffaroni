@@ -411,35 +411,35 @@ public class MainGameViewController implements Initializable, AbstractController
         updateOtherPlayesMap();
     }
 
-    public void Highlight(javafx.scene.input.MouseEvent mouseEvent) {
+    public void highlight(javafx.scene.input.MouseEvent mouseEvent) {
         ImageView source = (ImageView) mouseEvent.getTarget();
         Bloom bloom = new Bloom();
         bloom.setThreshold(0.1);
         source.setEffect(bloom);
     }
 
-    public void RemuveHighlight(javafx.scene.input.MouseEvent mouseEvent) {
+    public void remuveHighlight(javafx.scene.input.MouseEvent mouseEvent) {
         ImageView source = (ImageView) mouseEvent.getTarget();
         source.setEffect(null);
     }
 
-    public void ShowPrivateGoal(javafx.scene.input.MouseEvent mouseEvent) {
+    public void showPrivateGoal(javafx.scene.input.MouseEvent mouseEvent) {
         Image image = new Image(privateGoalcardPath);
         PrivateGoalCard.setImage(image);
     }
 
-    public void HidePrivateGoal(javafx.scene.input.MouseEvent mouseEvent) {
+    public void hidePrivateGoal(javafx.scene.input.MouseEvent mouseEvent) {
         Image image = new Image("PrivateGoalCards/Back1.jpg");  //todoremoveto be general
         PrivateGoalCard.setImage(image);
     }
 
-    public void Select(javafx.scene.input.MouseEvent mouseEvent) {
+    public void select(javafx.scene.input.MouseEvent mouseEvent) {
         ImageView source = (ImageView) mouseEvent.getTarget();
         DropShadow dropShadow = new DropShadow();
         source.setEffect(dropShadow);
     }
 
-    public void Unselect(javafx.scene.input.MouseEvent mouseEvent) {
+    public void unselect(javafx.scene.input.MouseEvent mouseEvent) {
         if (selected == false) {
             ImageView source = (ImageView) mouseEvent.getTarget();
             source.setEffect(null);
@@ -1229,7 +1229,7 @@ public class MainGameViewController implements Initializable, AbstractController
         else SelectedCell.setText("Aumeta l'intensità del dado di 1.");
     }
 
-    public void incrDecr(ActionEvent actionEvent) {
+    public void move1or2(ActionEvent actionEvent) {
         if (toggle1or2.isSelected()){
             SelectedCell.setText("Sposta 2 dadi!");
         }

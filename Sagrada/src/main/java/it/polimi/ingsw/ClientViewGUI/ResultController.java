@@ -32,7 +32,7 @@ public class ResultController implements Initializable,AbstractController {
         ObserverGUI.Singleton().setController(this);
     }
 
-    public void PlayAgain(ActionEvent actionEvent) {
+    public void playAgain(ActionEvent actionEvent) {
         try {
             winnerList.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/MultiSelectMode.fxml"))));
         } catch (IOException e) {
@@ -40,7 +40,7 @@ public class ResultController implements Initializable,AbstractController {
         }
     }
 
-    public void BackToMenu(ActionEvent actionEvent) {
+    public void backToMenu(ActionEvent actionEvent) {
         try {
             winnerList.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/MenuPartial.fxml"))));
         } catch (IOException e) {
