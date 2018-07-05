@@ -14,7 +14,8 @@ Zaffaroni | Diego | 844284 | 10499629
 > inserire
 
 ## Diagramma UML
-> inserire
+> UML Server + Controller + Model + Cli https://github.com/Giofist/ing-sw-2018-Sofisti-Pontiggia-Zaffaroni/blob/master/FINL.jpg  
+> UML GUI : https://github.com/Giofist/ing-sw-2018-Sofisti-Pontiggia-Zaffaroni/blob/master/umlGUI.jpg
 
 ## Funzionalità implementate
 1. Regole complete del gioco
