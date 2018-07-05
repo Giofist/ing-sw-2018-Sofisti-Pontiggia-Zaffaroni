@@ -825,10 +825,6 @@ public class MainGameViewController implements Initializable, AbstractController
 
     public void UseToolcard(MouseEvent mouseEvent) {
         ImageView card = (ImageView) mouseEvent.getTarget();
-        String input = "0";
-        Boolean correct = false;
-        Boolean success = false;
-        Boolean condition = false;
         int token = 0;
         int cost = 0;
 
@@ -1056,6 +1052,8 @@ public class MainGameViewController implements Initializable, AbstractController
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }
+                    System.out.println(dice.toCharArray()[1]);
+                    System.out.println(dice.toCharArray()[0]);
                     String imagePath = "Dices/" + dice.toCharArray()[1] + dice.toCharArray()[0] + ".jpg";
                     Image pic = new Image(imagePath);
                     RoundDice8.setImage(pic);
@@ -1071,12 +1069,13 @@ public class MainGameViewController implements Initializable, AbstractController
                 @Override
                 public void run() {
                     String dice = "";
-
                     try {
                         dice = ObserverGUI.Singleton().getServerController().getToolCardDice(ObserverGUI.Singleton().getUsername());
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }
+                    System.out.println(dice.toCharArray()[1]);
+                    System.out.println(dice.toCharArray()[0]);
                     String imagePath = "Dices/" + dice.toCharArray()[1] + dice.toCharArray()[0] + ".jpg";
                     Image pic = new Image(imagePath);
                     RoundDice8.setImage(pic);
@@ -1120,7 +1119,7 @@ public class MainGameViewController implements Initializable, AbstractController
     public void toolcardSecondStep(ActionEvent actionEvent) {
         switch (toolCardId) {
             case 1: {
-                data.setRoundWhereThediceis(selectedDiceInd);
+                data.setSelectedDiceIndex(selectedDiceInd);
                 if (increaseDicIntensity.isSelected()) {
                     data.setOperationforPinzaSgrossatrice(0);
                 }else data.setOperationforPinzaSgrossatrice(1);
@@ -1130,7 +1129,7 @@ public class MainGameViewController implements Initializable, AbstractController
                 break;
             }
             case 6: case 10: case 11:{
-                data.setRoundWhereThediceis(selectedDiceInd);
+                data.setSelectedDiceIndex(selectedDiceInd);
                 Select.setVisible(false);
                 useToolCard.setVisible(true);
                 break;

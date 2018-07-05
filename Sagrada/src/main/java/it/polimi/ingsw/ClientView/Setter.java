@@ -481,6 +481,8 @@ public class Setter {
         int column = 100;
         boolean success = false;
         boolean correct = false;
+        String input;
+
         try {
             Printer.Singleton().printMap(serverController.getSchemeCard(yourName).get(0));
         } catch (RemoteException e) {
@@ -500,6 +502,11 @@ public class Setter {
                 success = true;
             } catch (RemoteException e) {
                 System.out.println(Client.translator.translateException(e.getMessage()));
+                System.out.println("Vuoi ancora piazzare il dado? [S/N]");
+                input = in.nextLine();
+                if( input=="n"||input=="N"){
+                    success = true;
+                }
             }
         }
     }
