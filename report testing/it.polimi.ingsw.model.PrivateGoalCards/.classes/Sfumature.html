@@ -1,0 +1,148 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Sfumature</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.model.PrivateGoalCards</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Sfumature (it.polimi.ingsw.model.PrivateGoalCards)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Sfumature</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (3/ 3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    87,5%
+  </span>
+  <span class="absValue">
+    (14/ 16)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.model.PrivateGoalCards;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;
+<i>4</i>&nbsp;import it.polimi.ingsw.model.DiceColor;
+<i>5</i>&nbsp;import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
+<i>6</i>&nbsp;import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
+<i>7</i>&nbsp;import it.polimi.ingsw.model.GoalCard;
+<i>8</i>&nbsp;import it.polimi.ingsw.model.Player;
+<i>9</i>&nbsp;import it.polimi.ingsw.model.SchemeDeck.Tile;
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;import java.io.Serializable;
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;/**
+<i>15</i>&nbsp; * This is the class for the private goal cards
+<i>16</i>&nbsp; */
+<i>17</i>&nbsp;public class Sfumature implements GoalCard, Serializable {
+<i>18</i>&nbsp;    private int ID;
+<i>19</i>&nbsp;    private transient DiceColor color;
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;    /**
+<i>23</i>&nbsp;     * @param id The id corresponding to the private goal card corresponding to its title and description
+<i>24</i>&nbsp;     * @param diceColor Which color we want to create the private goal card
+<i>25</i>&nbsp;     */
+<b class="fc"><i>26</i>&nbsp;    public Sfumature(int id, DiceColor diceColor){</b>
+<b class="fc"><i>27</i>&nbsp;        this.color = diceColor;</b>
+<b class="fc"><i>28</i>&nbsp;        this.ID = id;</b>
+<b class="fc"><i>29</i>&nbsp;    }</b>
+<i>30</i>&nbsp;
+<i>31</i>&nbsp;
+<i>32</i>&nbsp;    /**
+<i>33</i>&nbsp;     * This method implements the command pattern to calculate the score for the player for this type of goal card
+<i>34</i>&nbsp;     * @param player A player for whom we want to calculate the score
+<i>35</i>&nbsp;     */
+<i>36</i>&nbsp;    @Override
+<i>37</i>&nbsp;    public void calculatepoint(Player player) {
+<i>38</i>&nbsp;        try{
+<b class="fc"><i>39</i>&nbsp;            for(Tile tile: player.getScheme()) {</b>
+<i>40</i>&nbsp;                try{
+<b class="fc"><i>41</i>&nbsp;                    if (tile.getDice().getColor()== color) {</b>
+<b class="fc"><i>42</i>&nbsp;                        player.addPoints(tile.getDice().getIntensity());</b>
+<b class="fc"><i>43</i>&nbsp;                        player.addPrivateGoalCardpoints(tile.getDice().getIntensity());</b>
+<i>44</i>&nbsp;                    }
+<b class="fc"><i>45</i>&nbsp;                }catch (DiceNotExistantException e){</b>
+<i>46</i>&nbsp;                    // sorry, there is no dice
+<b class="fc"><i>47</i>&nbsp;                }</b>
+<b class="fc"><i>48</i>&nbsp;            }</b>
+<b class="nc"><i>49</i>&nbsp;        } catch (SchemeCardNotExistantException e){</b>
+<b class="nc"><i>50</i>&nbsp;            e.getMessage();</b>
+<b class="fc"><i>51</i>&nbsp;        }</b>
+<b class="fc"><i>52</i>&nbsp;    }</b>
+<i>53</i>&nbsp;
+<i>54</i>&nbsp;
+<i>55</i>&nbsp;    /**
+<i>56</i>&nbsp;     * @return The id associated to the card
+<i>57</i>&nbsp;     */
+<i>58</i>&nbsp;    @Override
+<i>59</i>&nbsp;    public  int getID() {
+<b class="fc"><i>60</i>&nbsp;        return ID;</b>
+<i>61</i>&nbsp;    }
+<i>62</i>&nbsp;
+<i>63</i>&nbsp;
+<i>64</i>&nbsp;}
+<i>65</i>&nbsp;
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2018-07-05 15:05</div>
+</div>
+</body>
+</html>

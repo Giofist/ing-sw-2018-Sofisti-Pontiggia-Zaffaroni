@@ -1,0 +1,159 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: RowIterator</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.model.SchemeDeck</a> ]
+</div>
+
+<h1>Coverage Summary for Class: RowIterator (it.polimi.ingsw.model.SchemeDeck)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">RowIterator</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    80%
+  </span>
+  <span class="absValue">
+    (4/ 5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    94,7%
+  </span>
+  <span class="absValue">
+    (18/ 19)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.model.SchemeDeck;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.model.Exceptions.OutOfMatrixException;
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;import java.util.Iterator;
+<i>6</i>&nbsp;import java.util.NoSuchElementException;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;public class RowIterator&lt;T&gt; implements Iterator&lt;Tile&gt; {
+<b class="fc"><i>9</i>&nbsp;    private int currentRow=0;</b>
+<i>10</i>&nbsp;    private int column;
+<i>11</i>&nbsp;    private SchemeCard schemeCard;
+<b class="fc"><i>12</i>&nbsp;    private boolean deadEnd = false;</b>
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;    /**
+<i>15</i>&nbsp;     * This constructor creates an iterator over a Column
+<i>16</i>&nbsp;     * @param schemeCard The scheme card I want to iterate over
+<i>17</i>&nbsp;     * @param column The column I want to iterate over
+<i>18</i>&nbsp;     */
+<b class="fc"><i>19</i>&nbsp;    public RowIterator(SchemeCard schemeCard,int column){</b>
+<b class="fc"><i>20</i>&nbsp;        this.schemeCard = schemeCard;</b>
+<b class="fc"><i>21</i>&nbsp;        this.column= column;</b>
+<b class="fc"><i>22</i>&nbsp;    }</b>
+<i>23</i>&nbsp;
+<i>24</i>&nbsp;
+<i>25</i>&nbsp;    /**
+<i>26</i>&nbsp;     * This method returns true if in the scheme card there is another tile in the same column of the current position
+<i>27</i>&nbsp;     * of the iterator and in the following row
+<i>28</i>&nbsp;     * @return Boolean value whether or not there is another Tile
+<i>29</i>&nbsp;     */
+<i>30</i>&nbsp;    @Override
+<i>31</i>&nbsp;    public boolean hasNext() {
+<i>32</i>&nbsp;        // Situation in case we have an invalid Column Iterator initialization
+<b class="fc"><i>33</i>&nbsp;        if (this.column &lt; 0) {</b>
+<b class="fc"><i>34</i>&nbsp;            throw new NoSuchElementException(&quot;Problem in constructing ColumnIterator.&quot;);</b>
+<i>35</i>&nbsp;        }
+<i>36</i>&nbsp;
+<b class="fc"><i>37</i>&nbsp;        return !deadEnd;</b>
+<i>38</i>&nbsp;    }
+<i>39</i>&nbsp;
+<i>40</i>&nbsp;
+<i>41</i>&nbsp;    /**
+<i>42</i>&nbsp;     * This method doesn&#39;t do anything
+<i>43</i>&nbsp;     */
+<i>44</i>&nbsp;    @Override
+<i>45</i>&nbsp;    public void remove() {
+<i>46</i>&nbsp;        // To be implemented
+<b class="nc"><i>47</i>&nbsp;    }</b>
+<i>48</i>&nbsp;
+<i>49</i>&nbsp;
+<i>50</i>&nbsp;    /**
+<i>51</i>&nbsp;     * @return Returns the next tile, with same column and following row, in the scheme card
+<i>52</i>&nbsp;     */
+<i>53</i>&nbsp;    @Override
+<i>54</i>&nbsp;    public Tile next() {
+<i>55</i>&nbsp;        Tile nextElement;
+<i>56</i>&nbsp;        try {
+<b class="fc"><i>57</i>&nbsp;            nextElement = schemeCard.getTile(currentRow, column);</b>
+<b class="fc"><i>58</i>&nbsp;        } catch (OutOfMatrixException e) {</b>
+<b class="fc"><i>59</i>&nbsp;            throw new NoSuchElementException(&quot;Matrix dead end reached.&quot;);</b>
+<b class="fc"><i>60</i>&nbsp;        }</b>
+<b class="fc"><i>61</i>&nbsp;        currentRow++;</b>
+<b class="fc"><i>62</i>&nbsp;        if (currentRow == schemeCard.getMaxRow()) {</b>
+<b class="fc"><i>63</i>&nbsp;            deadEnd = true;</b>
+<i>64</i>&nbsp;        }
+<b class="fc"><i>65</i>&nbsp;        return nextElement;</b>
+<i>66</i>&nbsp;    }
+<i>67</i>&nbsp;
+<i>68</i>&nbsp;
+<i>69</i>&nbsp;    /**
+<i>70</i>&nbsp;     * @return The column at which the iterator is currently at
+<i>71</i>&nbsp;     */
+<i>72</i>&nbsp;    public int getCurrentRow(){
+<b class="fc"><i>73</i>&nbsp;        return currentRow;</b>
+<i>74</i>&nbsp;    }
+<i>75</i>&nbsp;
+<i>76</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2018-07-05 15:05</div>
+</div>
+</body>
+</html>

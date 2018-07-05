@@ -1,0 +1,175 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: PublicGoalCardDeck</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.model.PublicGoalCards</a> ]
+</div>
+
+<h1>Coverage Summary for Class: PublicGoalCardDeck (it.polimi.ingsw.model.PublicGoalCards)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">PublicGoalCardDeck</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    80%
+  </span>
+  <span class="absValue">
+    (4/ 5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    86,5%
+  </span>
+  <span class="absValue">
+    (32/ 37)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.model.PublicGoalCards;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.model.GoalCard;
+<i>4</i>&nbsp;import it.polimi.ingsw.model.Player;
+<i>5</i>&nbsp;
+<i>6</i>&nbsp;import java.util.ArrayList;
+<i>7</i>&nbsp;import java.util.Collections;
+<i>8</i>&nbsp;import java.util.LinkedList;
+<i>9</i>&nbsp;import java.util.List;
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;public class PublicGoalCardDeck {
+<b class="fc"><i>12</i>&nbsp;    private LinkedList&lt;GoalCard&gt; deck = new LinkedList&lt;&gt;();</b>
+<b class="fc"><i>13</i>&nbsp;    private ArrayList&lt;Integer&gt; cardsID = new ArrayList&lt;&gt;();</b>
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;    /**
+<i>17</i>&nbsp;     * The constructor is going to create a deck with 3 random public goal cards
+<i>18</i>&nbsp;     */
+<b class="fc"><i>19</i>&nbsp;    public PublicGoalCardDeck(){</b>
+<b class="fc"><i>20</i>&nbsp;        for(int i=1; i&lt;=10;i++){</b>
+<b class="fc"><i>21</i>&nbsp;            this.cardsID.add(i);</b>
+<i>22</i>&nbsp;        }
+<i>23</i>&nbsp;
+<b class="fc"><i>24</i>&nbsp;        Collections.shuffle(cardsID);</b>
+<b class="fc"><i>25</i>&nbsp;        addCardToDeck();</b>
+<b class="fc"><i>26</i>&nbsp;        addCardToDeck();</b>
+<b class="fc"><i>27</i>&nbsp;        addCardToDeck();</b>
+<b class="fc"><i>28</i>&nbsp;    }</b>
+<i>29</i>&nbsp;
+<i>30</i>&nbsp;
+<i>31</i>&nbsp;    /**
+<i>32</i>&nbsp;     * @return A random integer value corresponding to the id of a public goal card
+<i>33</i>&nbsp;     */
+<i>34</i>&nbsp;    private int getValue(){
+<b class="fc"><i>35</i>&nbsp;        int value =this.cardsID.get(0);</b>
+<b class="fc"><i>36</i>&nbsp;        this.cardsID.remove(0);</b>
+<b class="fc"><i>37</i>&nbsp;        return value;</b>
+<i>38</i>&nbsp;    }
+<i>39</i>&nbsp;
+<i>40</i>&nbsp;
+<i>41</i>&nbsp;    /**
+<i>42</i>&nbsp;     *  This method adds a random public goal card to the public goal deck
+<i>43</i>&nbsp;     */
+<i>44</i>&nbsp;    public void addCardToDeck(){
+<b class="fc"><i>45</i>&nbsp;        int cardID = this.getValue();</b>
+<i>46</i>&nbsp;
+<b class="fc"><i>47</i>&nbsp;        switch (cardID){</b>
+<b class="fc"><i>48</i>&nbsp;            case 1: this.deck.add(new ColoriDiversiRiga()); break;</b>
+<b class="fc"><i>49</i>&nbsp;            case 2 : this.deck.add(new ColoriDiversiColonna()); break;</b>
+<b class="fc"><i>50</i>&nbsp;            case 3 : this.deck.add(new SfumatureDiverseRiga()); break;</b>
+<b class="fc"><i>51</i>&nbsp;            case 4 : this.deck.add(new SfumatureDiverseColonna());break;</b>
+<b class="fc"><i>52</i>&nbsp;            case 5 : this.deck.add(new SfumatureChiare());break;</b>
+<b class="fc"><i>53</i>&nbsp;            case 6 : this.deck.add(new SfumatureMedie());break;</b>
+<b class="fc"><i>54</i>&nbsp;            case 7 : this.deck.add(new SfumatureScure());break;</b>
+<b class="fc"><i>55</i>&nbsp;            case 8 : this.deck.add(new SfumatureDiverse());break;</b>
+<b class="fc"><i>56</i>&nbsp;            case 9 : this.deck.add(new DiagonaliColorate());break;</b>
+<b class="fc"><i>57</i>&nbsp;            case 10 : this.deck.add(new VarietaDiColore());break;</b>
+<i>58</i>&nbsp;            default: break; // add an Exception here
+<i>59</i>&nbsp;        }
+<i>60</i>&nbsp;
+<b class="fc"><i>61</i>&nbsp;    }</b>
+<i>62</i>&nbsp;
+<i>63</i>&nbsp;
+<i>64</i>&nbsp;    /**
+<i>65</i>&nbsp;     * This method calculates how many points a player has scored in all the public goal cards in the match
+<i>66</i>&nbsp;     * @param player
+<i>67</i>&nbsp;     */
+<i>68</i>&nbsp;    public void doCalculatePoints(Player player){
+<i>69</i>&nbsp;
+<b class="fc"><i>70</i>&nbsp;        for (GoalCard goalcard:this.deck) {</b>
+<b class="fc"><i>71</i>&nbsp;            goalcard.calculatepoint(player);</b>
+<b class="fc"><i>72</i>&nbsp;        }</b>
+<b class="fc"><i>73</i>&nbsp;        GoalCard CalculatoreforFreeSpaces =  new FreeSpaces();</b>
+<b class="fc"><i>74</i>&nbsp;        CalculatoreforFreeSpaces.calculatepoint(player);</b>
+<b class="fc"><i>75</i>&nbsp;    }</b>
+<i>76</i>&nbsp;
+<i>77</i>&nbsp;
+<i>78</i>&nbsp;    /**
+<i>79</i>&nbsp;     * @return A list containing all the 3 public goal cards previously extracted
+<i>80</i>&nbsp;     */
+<i>81</i>&nbsp;    public List getCards(){
+<b class="nc"><i>82</i>&nbsp;        List list = new LinkedList();</b>
+<b class="nc"><i>83</i>&nbsp;       for (GoalCard goalCard: this.deck){</b>
+<b class="nc"><i>84</i>&nbsp;           list.add(goalCard);</b>
+<b class="nc"><i>85</i>&nbsp;       }</b>
+<b class="nc"><i>86</i>&nbsp;       return list;</b>
+<i>87</i>&nbsp;    }
+<i>88</i>&nbsp;
+<i>89</i>&nbsp;
+<i>90</i>&nbsp;
+<i>91</i>&nbsp;
+<i>92</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2018-07-05 15:05</div>
+</div>
+</body>
+</html>

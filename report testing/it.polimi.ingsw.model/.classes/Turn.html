@@ -1,0 +1,215 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Turn</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.model</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Turn (it.polimi.ingsw.model)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Turn</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (6/ 6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    52,9%
+  </span>
+  <span class="absValue">
+    (18/ 34)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Turn$MockitoMock$443218817</td>
+  </tr>
+  <tr>
+    <td class="name">Turn$MockitoMock$443218817$auxiliary$bMeyzibB</td>
+  </tr>
+  <tr>
+    <td class="name">Turn$MockitoMock$443218817$auxiliary$T7W2ocdw</td>
+  </tr>
+  <tr>
+    <td class="name">Turn$MockitoMock$443218817$auxiliary$ToOLKraP</td>
+  </tr>
+  <tr>
+    <td class="name">Turn$MockitoMock$443218817$auxiliary$tsPzjLF0</td>
+  </tr>
+  <tr>
+    <td class="name">Turn$MockitoMock$443218817$auxiliary$U62opjih</td>
+  </tr>
+  <tr>
+    <td class="name">Turn$MockitoMock$443218817$auxiliary$WOcgnOeY</td>
+  </tr>
+  <tr>
+    <td class="name">Turn$MockitoMock$443218817$auxiliary$zYZYLSo1</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (6/ 6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    52,9%
+  </span>
+  <span class="absValue">
+    (18/ 34)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.model;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.model.Exceptions.UserNotExistentException;
+<i>4</i>&nbsp;import org.omg.Messaging.SYNC_WITH_TRANSPORT;
+<i>5</i>&nbsp;
+<i>6</i>&nbsp;import java.time.format.SignStyle;
+<i>7</i>&nbsp;import java.util.concurrent.CountDownLatch;
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;public class Turn implements Runnable{
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;    private Player currentPlayer;
+<i>12</i>&nbsp;    private int turnID;
+<i>13</i>&nbsp;    CountDownLatch doneSignal ;
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;    /**
+<i>16</i>&nbsp;     * When a new Turn is created also a countdown gets instantiated to keep track of when every player is ready to pass its turn
+<i>17</i>&nbsp;     * @param player The player who has to perform its turn
+<i>18</i>&nbsp;     * @param turnID The number of the turn in the round
+<i>19</i>&nbsp;     */
+<b class="fc"><i>20</i>&nbsp;    public Turn(Player player, int turnID) {</b>
+<b class="fc"><i>21</i>&nbsp;        this.currentPlayer = player;</b>
+<b class="fc"><i>22</i>&nbsp;        this.turnID = turnID;</b>
+<b class="fc"><i>23</i>&nbsp;        doneSignal = new CountDownLatch(player.getMatch().getNumberOfPlayers());</b>
+<b class="fc"><i>24</i>&nbsp;    }</b>
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;
+<i>27</i>&nbsp;    /**
+<i>28</i>&nbsp;     * Main method in which the state of each player in the match is set whether it needs to play or wait
+<i>29</i>&nbsp;     */
+<i>30</i>&nbsp;    @Override
+<i>31</i>&nbsp;    public synchronized void run(){
+<b class="fc"><i>32</i>&nbsp;        for (Player player: this.currentPlayer.getMatch().getallPlayers()){</b>
+<b class="fc"><i>33</i>&nbsp;            player.setTurn(this);</b>
+<b class="fc"><i>34</i>&nbsp;        }</b>
+<b class="fc"><i>35</i>&nbsp;        if (currentPlayer.mustpassTurn()){</b>
+<b class="nc"><i>36</i>&nbsp;            currentPlayer.setPlayerState(State.NOTYOURTURNSTATE);</b>
+<i>37</i>&nbsp;        }else{
+<b class="fc"><i>38</i>&nbsp;            currentPlayer.setPlayerState(State.STARTTURNSTATE);</b>
+<i>39</i>&nbsp;        }
+<b class="fc"><i>40</i>&nbsp;        if (!UsersList.Singleton().getUser(currentPlayer.getName()).isActive()) {</b>
+<b class="nc"><i>41</i>&nbsp;                this.countDown();</b>
+<i>42</i>&nbsp;        }
+<i>43</i>&nbsp;        else{
+<i>44</i>&nbsp;        }
+<i>45</i>&nbsp;
+<b class="nc"><i>46</i>&nbsp;        for (Player player: this.currentPlayer.getMatch().getallPlayersbutnotme(currentPlayer)) {</b>
+<b class="nc"><i>47</i>&nbsp;            player.setPlayerState(State.NOTYOURTURNSTATE);</b>
+<b class="nc"><i>48</i>&nbsp;            if (!UsersList.Singleton().getUser(player.getName()).isActive()) {</b>
+<b class="nc"><i>49</i>&nbsp;                this.countDown();</b>
+<i>50</i>&nbsp;            }
+<i>51</i>&nbsp;            else{
+<i>52</i>&nbsp;            }
+<b class="nc"><i>53</i>&nbsp;        }</b>
+<i>54</i>&nbsp;        // If there is only one player the match terminates immediately
+<b class="nc"><i>55</i>&nbsp;        if (this.doneSignal.getCount() == 1){</b>
+<b class="nc"><i>56</i>&nbsp;            currentPlayer.getMatch().forceendmatch();</b>
+<i>57</i>&nbsp;        }
+<i>58</i>&nbsp;
+<i>59</i>&nbsp;        try{
+<b class="nc"><i>60</i>&nbsp;            doneSignal.await();</b>
+<b class="nc"><i>61</i>&nbsp;        }catch(InterruptedException e){</b>
+<i>62</i>&nbsp;            // We end up here if the wound doesn&#39;t receive a &quot;passturn&quot; action from everybody
+<b class="nc"><i>63</i>&nbsp;        }</b>
+<b class="nc"><i>64</i>&nbsp;        synchronized (this.currentPlayer.getMatch().getRound()){</b>
+<b class="nc"><i>65</i>&nbsp;            this.currentPlayer.getMatch().getRound().notifyAll();</b>
+<b class="nc"><i>66</i>&nbsp;        }</b>
+<b class="nc"><i>67</i>&nbsp;        return;</b>
+<i>68</i>&nbsp;    }
+<i>69</i>&nbsp;
+<i>70</i>&nbsp;
+<i>71</i>&nbsp;    /**
+<i>72</i>&nbsp;     * @return The turn at which the round is
+<i>73</i>&nbsp;     */
+<i>74</i>&nbsp;    public int getTurnID() {
+<b class="fc"><i>75</i>&nbsp;        return turnID;</b>
+<i>76</i>&nbsp;    }
+<i>77</i>&nbsp;
+<i>78</i>&nbsp;
+<i>79</i>&nbsp;    /**
+<i>80</i>&nbsp;     * This method decrements by one a countdown used to keep track when each player is ready to pass to the next turn
+<i>81</i>&nbsp;     */
+<i>82</i>&nbsp;    public void countDown(){
+<b class="fc"><i>83</i>&nbsp;        this.doneSignal.countDown();</b>
+<b class="fc"><i>84</i>&nbsp;    }</b>
+<i>85</i>&nbsp;
+<i>86</i>&nbsp;
+<i>87</i>&nbsp;    /**
+<i>88</i>&nbsp;     * This method brings to zero a countdown used to keep track when each player is ready to pass to the next turn.
+<i>89</i>&nbsp;     * By calling this match we pass to the next turn.
+<i>90</i>&nbsp;     */
+<i>91</i>&nbsp;    public void countDownAll() {
+<b class="fc"><i>92</i>&nbsp;        while(this.doneSignal.getCount() != 0){</b>
+<b class="fc"><i>93</i>&nbsp;            this.doneSignal.countDown();</b>
+<i>94</i>&nbsp;        }
+<b class="fc"><i>95</i>&nbsp;    }</b>
+<i>96</i>&nbsp;
+<i>97</i>&nbsp;    // Useful for testing
+<i>98</i>&nbsp;    protected long getCountDownValue() {
+<b class="fc"><i>99</i>&nbsp;        return this.doneSignal.getCount();</b>
+<i>100</i>&nbsp;    }
+<i>101</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2018-07-05 15:05</div>
+</div>
+</body>
+</html>

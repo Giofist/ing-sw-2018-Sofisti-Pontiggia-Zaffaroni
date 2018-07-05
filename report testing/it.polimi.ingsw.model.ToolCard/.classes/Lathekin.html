@@ -1,0 +1,157 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Lathekin</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.model.ToolCard</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Lathekin (it.polimi.ingsw.model.ToolCard)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Lathekin</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    71,4%
+  </span>
+  <span class="absValue">
+    (20/ 28)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.model.ToolCard;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.model.Dice;
+<i>4</i>&nbsp;import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.LathekinException;
+<i>5</i>&nbsp;import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
+<i>6</i>&nbsp;import it.polimi.ingsw.model.Player;
+<i>7</i>&nbsp;import it.polimi.ingsw.model.State;
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;import java.io.Serializable;
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;public class Lathekin  extends ToolAction implements Serializable{
+<i>13</i>&nbsp;
+<b class="fc"><i>14</i>&nbsp;    public Lathekin(){</b>
+<b class="fc"><i>15</i>&nbsp;        this.cost =1;</b>
+<b class="fc"><i>16</i>&nbsp;        this.ID =4;</b>
+<b class="fc"><i>17</i>&nbsp;    }</b>
+<i>18</i>&nbsp;    Dice removedDice1, removedDice2;
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;    /**
+<i>22</i>&nbsp;     * This method allows to execute the effect of &quot;Lathekin&quot;
+<i>23</i>&nbsp;     *
+<i>24</i>&nbsp;     * Tool request class parameters necessary for the execution are:
+<i>25</i>&nbsp;     * - oldRow1
+<i>26</i>&nbsp;     * - oldColumn1
+<i>27</i>&nbsp;     * - newRow1
+<i>28</i>&nbsp;     * - newColumn1
+<i>29</i>&nbsp;     * - oldRow2
+<i>30</i>&nbsp;     * - oldColumn2
+<i>31</i>&nbsp;     * - newRow2
+<i>32</i>&nbsp;     * - newColumn2
+<i>33</i>&nbsp;     *
+<i>34</i>&nbsp;     * @param player The player that wants to use the tool card
+<i>35</i>&nbsp;     * @param toolRequestClass The class with all the necessary parameters for the tool card
+<i>36</i>&nbsp;     * @throws ToolIllegalOperationException Exception thrown in case some constrain is not respected or in case the player performs an illegal operation
+<i>37</i>&nbsp;     */
+<i>38</i>&nbsp;    @Override
+<i>39</i>&nbsp;    public void execute (Player player, ToolRequestClass toolRequestClass) throws ToolIllegalOperationException {
+<i>40</i>&nbsp;        try{
+<b class="fc"><i>41</i>&nbsp;            removedDice1 = player.getScheme().getDice(toolRequestClass.getOldRow1(), toolRequestClass.getOldColumn1());</b>
+<b class="fc"><i>42</i>&nbsp;            player.getScheme().removeDice(toolRequestClass.getOldRow1(), toolRequestClass.getOldColumn1());</b>
+<b class="fc"><i>43</i>&nbsp;            player.getScheme().setDice(removedDice1, toolRequestClass.getNewRow1(), toolRequestClass.getNewColumn1(), false, false, false);</b>
+<b class="fc"><i>44</i>&nbsp;        }catch( Exception e){</b>
+<i>45</i>&nbsp;            try{
+<b class="fc"><i>46</i>&nbsp;                player.getScheme().setDice(removedDice1, toolRequestClass.getOldRow1(), toolRequestClass.getOldColumn1(), true, true, true );</b>
+<b class="fc"><i>47</i>&nbsp;            }catch(Exception err){</b>
+<i>48</i>&nbsp;                //do nothing
+<b class="fc"><i>49</i>&nbsp;            }</b>
+<b class="fc"><i>50</i>&nbsp;            throw new LathekinException();</b>
+<b class="fc"><i>51</i>&nbsp;        }</b>
+<i>52</i>&nbsp;        try{
+<b class="fc"><i>53</i>&nbsp;            removedDice2 = player.getScheme().getDice(toolRequestClass.getOldRow2(), toolRequestClass.getOldColumn2());</b>
+<b class="fc"><i>54</i>&nbsp;            player.getScheme().removeDice(toolRequestClass.getOldRow2(), toolRequestClass.getOldColumn2());</b>
+<b class="fc"><i>55</i>&nbsp;            player.getScheme().setDice(removedDice2, toolRequestClass.getNewRow2(), toolRequestClass.getNewColumn2(),false,false, false);</b>
+<b class="nc"><i>56</i>&nbsp;        }catch( Exception e){</b>
+<i>57</i>&nbsp;            try{
+<b class="nc"><i>58</i>&nbsp;                player.getScheme().removeDice(toolRequestClass.getNewRow1(), toolRequestClass.getNewColumn1());</b>
+<b class="nc"><i>59</i>&nbsp;                player.getScheme().setDice(removedDice1, toolRequestClass.getOldRow1(), toolRequestClass.getOldColumn1(),true,true, true);</b>
+<b class="nc"><i>60</i>&nbsp;                player.getScheme().setDice(removedDice2, toolRequestClass.getOldRow2(), toolRequestClass.getOldColumn2(),true,true, true);</b>
+<b class="nc"><i>61</i>&nbsp;            }catch(Exception err){</b>
+<i>62</i>&nbsp;                //do nothing
+<b class="nc"><i>63</i>&nbsp;            }</b>
+<b class="nc"><i>64</i>&nbsp;            throw new LathekinException();</b>
+<b class="fc"><i>65</i>&nbsp;        }</b>
+<b class="fc"><i>66</i>&nbsp;        if (player.getPlayerState().getState().equals(State.HASSETADICESTATE)){</b>
+<b class="nc"><i>67</i>&nbsp;            player.setPlayerState(State.MUSTPASSTURNSTATE);</b>
+<b class="fc"><i>68</i>&nbsp;        }else player.setPlayerState(State.HASUSEDATOOLCARDACTIONSTATE);</b>
+<i>69</i>&nbsp;
+<i>70</i>&nbsp;
+<b class="fc"><i>71</i>&nbsp;    }</b>
+<i>72</i>&nbsp;
+<i>73</i>&nbsp;
+<i>74</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2018-07-05 15:05</div>
+</div>
+</body>
+</html>

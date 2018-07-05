@@ -1,0 +1,211 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: RoundTrack</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.model</a> ]
+</div>
+
+<h1>Coverage Summary for Class: RoundTrack (it.polimi.ingsw.model)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">RoundTrack</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    80%
+  </span>
+  <span class="absValue">
+    (4/ 5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    54,5%
+  </span>
+  <span class="absValue">
+    (36/ 66)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.model;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.model.Exceptions.DicepoolIndexException;
+<i>4</i>&nbsp;import it.polimi.ingsw.model.Exceptions.RoundTrackException;
+<i>5</i>&nbsp;
+<i>6</i>&nbsp;import java.util.LinkedList;
+<i>7</i>&nbsp;import java.util.List;
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;//sarebbe il piazzato round
+<i>10</i>&nbsp;public class RoundTrack {
+<i>11</i>&nbsp;    private DicePool round1Dices;
+<i>12</i>&nbsp;    private DicePool round2Dices;
+<i>13</i>&nbsp;    private DicePool round3Dices;
+<i>14</i>&nbsp;    private DicePool round4Dices;
+<i>15</i>&nbsp;    private DicePool round5Dices;
+<i>16</i>&nbsp;    private DicePool round6Dices;
+<i>17</i>&nbsp;    private DicePool round7Dices;
+<i>18</i>&nbsp;    private DicePool round8Dices;
+<i>19</i>&nbsp;    private DicePool round9Dices;
+<i>20</i>&nbsp;    private DicePool round10Dices;
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;    /**
+<i>24</i>&nbsp;     * Creates an empty round track
+<i>25</i>&nbsp;     */
+<b class="fc"><i>26</i>&nbsp;    public RoundTrack(){</b>
+<b class="fc"><i>27</i>&nbsp;        round1Dices = new DicePool();</b>
+<b class="fc"><i>28</i>&nbsp;        round2Dices = new DicePool();</b>
+<b class="fc"><i>29</i>&nbsp;        round3Dices = new DicePool();</b>
+<b class="fc"><i>30</i>&nbsp;        round4Dices = new DicePool();</b>
+<b class="fc"><i>31</i>&nbsp;        round5Dices = new DicePool();</b>
+<b class="fc"><i>32</i>&nbsp;        round6Dices = new DicePool();</b>
+<b class="fc"><i>33</i>&nbsp;        round7Dices = new DicePool();</b>
+<b class="fc"><i>34</i>&nbsp;        round8Dices = new DicePool();</b>
+<b class="fc"><i>35</i>&nbsp;        round9Dices = new DicePool();</b>
+<b class="fc"><i>36</i>&nbsp;        round10Dices = new DicePool();</b>
+<b class="fc"><i>37</i>&nbsp;    }</b>
+<i>38</i>&nbsp;
+<i>39</i>&nbsp;
+<i>40</i>&nbsp;    /**
+<i>41</i>&nbsp;     * @param round The round number from where I want to get the dices
+<i>42</i>&nbsp;     * @return A DicePool containing all the dices of the round track from the specified tile
+<i>43</i>&nbsp;     * @throws RoundTrackException Exception thrown if there is an error in accessing the tiles on the round track
+<i>44</i>&nbsp;     */
+<i>45</i>&nbsp;    public DicePool getroundTrackDices (int round) throws RoundTrackException {
+<b class="fc"><i>46</i>&nbsp;        switch (round) {</b>
+<b class="fc"><i>47</i>&nbsp;            case 1: return  this.round1Dices;</b>
+<b class="fc"><i>48</i>&nbsp;            case 2: return  this.round2Dices;</b>
+<b class="fc"><i>49</i>&nbsp;            case 3: return  this.round3Dices;</b>
+<b class="fc"><i>50</i>&nbsp;            case 4: return  this.round4Dices;</b>
+<b class="fc"><i>51</i>&nbsp;            case 5: return  this.round5Dices;</b>
+<b class="fc"><i>52</i>&nbsp;            case 6: return  this.round6Dices;</b>
+<b class="fc"><i>53</i>&nbsp;            case 7: return  this.round7Dices;</b>
+<b class="fc"><i>54</i>&nbsp;            case 8: return  this.round8Dices;</b>
+<b class="fc"><i>55</i>&nbsp;            case 9: return  this.round9Dices;</b>
+<b class="fc"><i>56</i>&nbsp;            case 10: return this.round10Dices;</b>
+<b class="fc"><i>57</i>&nbsp;            default: throw new RoundTrackException();</b>
+<i>58</i>&nbsp;        }
+<i>59</i>&nbsp;    }
+<i>60</i>&nbsp;
+<i>61</i>&nbsp;
+<i>62</i>&nbsp;    /**
+<i>63</i>&nbsp;     * This method places a list of dices on a specific tile of the round track
+<i>64</i>&nbsp;     * @param round The round where I want to place my dices
+<i>65</i>&nbsp;     * @param dices A list containing all the dices I want to place
+<i>66</i>&nbsp;     * @throws RoundTrackException Exception thrown if there is an error in accessing the tiles on the round track
+<i>67</i>&nbsp;     */
+<i>68</i>&nbsp;    public void setRoundTrackDices(int round, List dices) throws RoundTrackException{
+<b class="fc"><i>69</i>&nbsp;        switch (round){</b>
+<b class="fc"><i>70</i>&nbsp;            case 1: this.round1Dices.addallDices(dices); break;</b>
+<b class="nc"><i>71</i>&nbsp;            case 2: this.round2Dices.addallDices(dices); break;</b>
+<b class="fc"><i>72</i>&nbsp;            case 3: this.round3Dices.addallDices(dices); break;</b>
+<b class="nc"><i>73</i>&nbsp;            case 4: this.round4Dices.addallDices(dices);break;</b>
+<b class="nc"><i>74</i>&nbsp;            case 5: this.round5Dices.addallDices(dices);break;</b>
+<b class="nc"><i>75</i>&nbsp;            case 6: this.round6Dices.addallDices(dices);break;</b>
+<b class="nc"><i>76</i>&nbsp;            case 7: this.round7Dices.addallDices(dices);break;</b>
+<b class="nc"><i>77</i>&nbsp;            case 8: this.round8Dices.addallDices(dices);break;</b>
+<b class="nc"><i>78</i>&nbsp;            case 9: this.round9Dices.addallDices(dices);break;</b>
+<b class="fc"><i>79</i>&nbsp;            case 10: this.round10Dices.addallDices(dices);break;</b>
+<b class="fc"><i>80</i>&nbsp;            default: throw new RoundTrackException();</b>
+<i>81</i>&nbsp;        }
+<b class="fc"><i>82</i>&nbsp;    }</b>
+<i>83</i>&nbsp;
+<i>84</i>&nbsp;    /**
+<i>85</i>&nbsp;     * This method returns a list with all the colors of the dices placed of the round track
+<i>86</i>&nbsp;     * @return List with all the colors
+<i>87</i>&nbsp;     * @throws RoundTrackException Exception thrown if there is an error in accessing the tiles on the round track
+<i>88</i>&nbsp;     */
+<i>89</i>&nbsp;    public List&lt;DiceColor&gt; allColors() throws RoundTrackException {
+<b class="fc"><i>90</i>&nbsp;        List list = new LinkedList&lt;DiceColor&gt;();</b>
+<b class="fc"><i>91</i>&nbsp;        for (int i=1; i&lt;11; i++){</b>
+<b class="fc"><i>92</i>&nbsp;            for(int j=0; j&lt;getroundTrackDices(i).getDicePoolSize();j++){</b>
+<i>93</i>&nbsp;                try{
+<b class="fc"><i>94</i>&nbsp;                    list.add(getroundTrackDices(i).getDice(j).getColor());</b>
+<b class="nc"><i>95</i>&nbsp;                }catch(DicepoolIndexException e){</b>
+<b class="fc"><i>96</i>&nbsp;                }</b>
+<i>97</i>&nbsp;            }
+<i>98</i>&nbsp;        }
+<b class="fc"><i>99</i>&nbsp;        return list;</b>
+<i>100</i>&nbsp;    }
+<i>101</i>&nbsp;
+<i>102</i>&nbsp;
+<i>103</i>&nbsp;    @Override
+<i>104</i>&nbsp;    public String toString() {
+<b class="nc"><i>105</i>&nbsp;        String roundTrackString = &quot;&quot;;</b>
+<b class="nc"><i>106</i>&nbsp;        roundTrackString += round1Dices.toString();</b>
+<b class="nc"><i>107</i>&nbsp;        roundTrackString += &quot;!&quot;;</b>
+<b class="nc"><i>108</i>&nbsp;        roundTrackString += round2Dices.toString();</b>
+<b class="nc"><i>109</i>&nbsp;        roundTrackString += &quot;!&quot;;</b>
+<b class="nc"><i>110</i>&nbsp;        roundTrackString += round3Dices.toString();</b>
+<b class="nc"><i>111</i>&nbsp;        roundTrackString += &quot;!&quot;;</b>
+<b class="nc"><i>112</i>&nbsp;        roundTrackString += round4Dices.toString();</b>
+<b class="nc"><i>113</i>&nbsp;        roundTrackString += &quot;!&quot;;</b>
+<b class="nc"><i>114</i>&nbsp;        roundTrackString += round5Dices.toString();</b>
+<b class="nc"><i>115</i>&nbsp;        roundTrackString += &quot;!&quot;;</b>
+<b class="nc"><i>116</i>&nbsp;        roundTrackString += round6Dices.toString();</b>
+<b class="nc"><i>117</i>&nbsp;        roundTrackString += &quot;!&quot;;</b>
+<b class="nc"><i>118</i>&nbsp;        roundTrackString += round7Dices.toString();</b>
+<b class="nc"><i>119</i>&nbsp;        roundTrackString += &quot;!&quot;;</b>
+<b class="nc"><i>120</i>&nbsp;        roundTrackString += round8Dices.toString();</b>
+<b class="nc"><i>121</i>&nbsp;        roundTrackString += &quot;!&quot;;</b>
+<b class="nc"><i>122</i>&nbsp;        roundTrackString += round9Dices.toString();</b>
+<b class="nc"><i>123</i>&nbsp;        roundTrackString += &quot;!&quot;;</b>
+<b class="nc"><i>124</i>&nbsp;        roundTrackString += round10Dices.toString();</b>
+<b class="nc"><i>125</i>&nbsp;        roundTrackString += &quot;!&quot;;</b>
+<b class="nc"><i>126</i>&nbsp;        return roundTrackString;</b>
+<i>127</i>&nbsp;    }
+<i>128</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2018-07-05 15:05</div>
+</div>
+</body>
+</html>

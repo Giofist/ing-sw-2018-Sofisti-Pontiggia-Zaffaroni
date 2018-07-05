@@ -1,0 +1,154 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: SchemeCardDeck</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.model.SchemeDeck</a> ]
+</div>
+
+<h1>Coverage Summary for Class: SchemeCardDeck (it.polimi.ingsw.model.SchemeDeck)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SchemeCardDeck</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/ 4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    86,4%
+  </span>
+  <span class="absValue">
+    (19/ 22)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.model.SchemeDeck;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.model.Exceptions.MapConstrainReadingException;
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;import java.io.*;
+<i>6</i>&nbsp;import java.util.ArrayList;
+<i>7</i>&nbsp;import java.util.Collections;
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;//the user can upload a map he has kindly prepared for us only before the game starts
+<i>10</i>&nbsp;public class SchemeCardDeck {
+<i>11</i>&nbsp;    private ArrayList&lt;Integer&gt; maps;
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;    /**
+<i>14</i>&nbsp;     * This constructor creates a scheme card deck with all the scheme cards with odd index
+<i>15</i>&nbsp;     * @throws IOException
+<i>16</i>&nbsp;     */
+<b class="fc"><i>17</i>&nbsp;    public SchemeCardDeck() throws IOException{</b>
+<b class="fc"><i>18</i>&nbsp;        this.maps = new ArrayList&lt;&gt;();</b>
+<b class="fc"><i>19</i>&nbsp;        for(int i=1; i&lt;getNumMaps();i=i+2){</b>
+<b class="fc"><i>20</i>&nbsp;            this.maps.add(i);</b>
+<i>21</i>&nbsp;        }
+<b class="fc"><i>22</i>&nbsp;        Collections.shuffle(maps);</b>
+<b class="fc"><i>23</i>&nbsp;    }</b>
+<i>24</i>&nbsp;
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;    /**
+<i>27</i>&nbsp;     * This method is called by the gametable to extract a random card
+<i>28</i>&nbsp;     * @return A random scheme card with its twin card on the opposite side
+<i>29</i>&nbsp;     * @throws IOException Exception thrown when something goes wrong when reading from the file
+<i>30</i>&nbsp;     * @throws MapConstrainReadingException Exception thrown when the read constrain cannot be interpreted well to create the scheme card
+<i>31</i>&nbsp;     */
+<i>32</i>&nbsp;    public SchemeCard getCard () throws IOException,MapConstrainReadingException {
+<b class="fc"><i>33</i>&nbsp;        int mapID = this.getRandomID();</b>
+<b class="fc"><i>34</i>&nbsp;        SchemeCard schemeCard = new SchemeCard(mapID);</b>
+<b class="fc"><i>35</i>&nbsp;        schemeCard.setTwinCard(new SchemeCard(mapID+1));</b>
+<b class="fc"><i>36</i>&nbsp;        return schemeCard;</b>
+<i>37</i>&nbsp;    }
+<i>38</i>&nbsp;
+<i>39</i>&nbsp;
+<i>40</i>&nbsp;    /**
+<i>41</i>&nbsp;     * @return A random odd id of one scheme card
+<i>42</i>&nbsp;     */
+<i>43</i>&nbsp;    private int getRandomID(){
+<b class="fc"><i>44</i>&nbsp;        int value = this.maps.get(0);</b>
+<b class="fc"><i>45</i>&nbsp;        this.maps.remove(0);</b>
+<b class="fc"><i>46</i>&nbsp;        return value;</b>
+<i>47</i>&nbsp;    }
+<i>48</i>&nbsp;
+<i>49</i>&nbsp;
+<i>50</i>&nbsp;    /**
+<i>51</i>&nbsp;     * This method reads from a file how many maps are available in the game
+<i>52</i>&nbsp;     * @return The number of scheme cards available in the game
+<i>53</i>&nbsp;     * @throws IOException Exception thrown when there is an error when we try to read the value from the file
+<i>54</i>&nbsp;     */
+<i>55</i>&nbsp;    protected static int getNumMaps() throws IOException {
+<b class="fc"><i>56</i>&nbsp;        String fileName = &quot;src/main/resources/Maps.txt&quot;;</b>
+<i>57</i>&nbsp;
+<i>58</i>&nbsp;        try  {
+<b class="fc"><i>59</i>&nbsp;            InputStream buffer1 = SchemeCardDeck.class.getClassLoader().getResourceAsStream(&quot;Maps.txt&quot;);</b>
+<b class="fc"><i>60</i>&nbsp;            InputStreamReader inStrReader = new InputStreamReader(buffer1);</b>
+<b class="fc"><i>61</i>&nbsp;            BufferedReader br = new BufferedReader(inStrReader);</b>
+<i>62</i>&nbsp;
+<b class="fc"><i>63</i>&nbsp;            String s = br.readLine();</b>
+<b class="fc"><i>64</i>&nbsp;            return Integer.parseInt(s);</b>
+<b class="nc"><i>65</i>&nbsp;        }catch (IOException e){</b>
+<b class="nc"><i>66</i>&nbsp;            e.printStackTrace();</b>
+<b class="nc"><i>67</i>&nbsp;            throw e;</b>
+<i>68</i>&nbsp;        }
+<i>69</i>&nbsp;    }
+<i>70</i>&nbsp;
+<i>71</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2018-07-05 15:05</div>
+</div>
+</body>
+</html>

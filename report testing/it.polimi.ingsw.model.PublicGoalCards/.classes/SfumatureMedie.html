@@ -1,0 +1,140 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: SfumatureMedie</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.model.PublicGoalCards</a> ]
+</div>
+
+<h1>Coverage Summary for Class: SfumatureMedie (it.polimi.ingsw.model.PublicGoalCards)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SfumatureMedie</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/ 4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    89,5%
+  </span>
+  <span class="absValue">
+    (17/ 19)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.model.PublicGoalCards;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
+<i>4</i>&nbsp;import it.polimi.ingsw.model.GoalCard;
+<i>5</i>&nbsp;import it.polimi.ingsw.model.Player;
+<i>6</i>&nbsp;import it.polimi.ingsw.model.SchemeDeck.Tile;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;import java.io.Serializable;
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;
+<b class="fc"><i>12</i>&nbsp;public class SfumatureMedie implements GoalCard,Serializable {</b>
+<b class="fc"><i>13</i>&nbsp;    static int ID = 6;</b>
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;    /**
+<i>17</i>&nbsp;     * @param player A player for whom we want to calculate the points scored in this goal
+<i>18</i>&nbsp;     */
+<i>19</i>&nbsp;    @Override
+<i>20</i>&nbsp;    public void  calculatepoint(Player player) {
+<b class="fc"><i>21</i>&nbsp;        int numerodi3=0;</b>
+<b class="fc"><i>22</i>&nbsp;        int numerodi4=0;</b>
+<i>23</i>&nbsp;        try{
+<b class="fc"><i>24</i>&nbsp;            for(Tile tile: player.getScheme()) {</b>
+<i>25</i>&nbsp;                try{
+<b class="fc"><i>26</i>&nbsp;                    if(tile.getDice().getIntensity()==3){</b>
+<b class="fc"><i>27</i>&nbsp;                        numerodi3++;</b>
+<i>28</i>&nbsp;                    }
+<b class="fc"><i>29</i>&nbsp;                    if(tile.getDice().getIntensity()==4){</b>
+<b class="fc"><i>30</i>&nbsp;                        numerodi4++;</b>
+<i>31</i>&nbsp;                    }
+<b class="fc"><i>32</i>&nbsp;                }catch (Exception e){</b>
+<i>33</i>&nbsp;                        //no dice, no point
+<b class="fc"><i>34</i>&nbsp;                }</b>
+<b class="fc"><i>35</i>&nbsp;            }</b>
+<b class="nc"><i>36</i>&nbsp;        }catch(SchemeCardNotExistantException e){</b>
+<i>37</i>&nbsp;            // do nothing
+<b class="fc"><i>38</i>&nbsp;        }</b>
+<b class="fc"><i>39</i>&nbsp;        if (numerodi3 &lt;= numerodi4) {</b>
+<b class="fc"><i>40</i>&nbsp;            player.addPoints(numerodi3*2);</b>
+<i>41</i>&nbsp;        }else{
+<b class="nc"><i>42</i>&nbsp;            player.addPoints(numerodi4*2);</b>
+<i>43</i>&nbsp;        }
+<i>44</i>&nbsp;
+<i>45</i>&nbsp;
+<b class="fc"><i>46</i>&nbsp;    }</b>
+<i>47</i>&nbsp;
+<i>48</i>&nbsp;
+<i>49</i>&nbsp;    /**
+<i>50</i>&nbsp;     * @return The id of the public goal card
+<i>51</i>&nbsp;     */
+<i>52</i>&nbsp;    @Override
+<i>53</i>&nbsp;    public int getID() {
+<b class="fc"><i>54</i>&nbsp;        return ID;</b>
+<i>55</i>&nbsp;    }
+<i>56</i>&nbsp;
+<i>57</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2018-07-05 15:05</div>
+</div>
+</body>
+</html>
