@@ -806,7 +806,7 @@ public class MainGameViewController implements Initializable, AbstractController
         Actions.setText(promptAction);
     }
 
-    public void UseToolcard(javafx.scene.input.MouseEvent mouseEvent) {
+    public void UseToolcard(MouseEvent mouseEvent) {
         ImageView card = (ImageView) mouseEvent.getTarget();
         String input = "0";
         Boolean correct = false;
@@ -1005,6 +1005,11 @@ public class MainGameViewController implements Initializable, AbstractController
                         e.printStackTrace();
                     }
                     try {
+                        ObserverGUI.Singleton().getServerController().leavethematch(ObserverGUI.Singleton().getUsername(), ObserverGUI.Singleton());
+                    } catch (RemoteException e) {
+                        ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
+                    }
+                    try {
                         backgroundPane.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/MenuPartial.fxml"))));
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -1043,6 +1048,8 @@ public class MainGameViewController implements Initializable, AbstractController
                     selectValue.setVisible(true);
                 }
             });
+        }else if (state == State.ERRORSTATE){
+            ErrorMessage.setText("C'è stato un errore nella creazione della partita");
         }
     }
 
@@ -1078,6 +1085,7 @@ public class MainGameViewController implements Initializable, AbstractController
                     data.setOperationforPinzaSgrossatrice(0);
                 }else data.setOperationforPinzaSgrossatrice(1);
                 Select.setVisible(false);
+                increaseDicIntensity.setVisible(false);
                 useToolCard.setVisible(true);
                 break;
             }
@@ -1219,5 +1227,12 @@ public class MainGameViewController implements Initializable, AbstractController
             SelectedCell.setText("Diminuisci l'intensità del dado di 1.");
         }
         else SelectedCell.setText("Aumeta l'intensità del dado di 1.");
+    }
+
+    public void incrDecr(ActionEvent actionEvent) {
+        if (toggle1or2.isSelected()){
+            SelectedCell.setText("Sposta 2 dadi!");
+        }
+        else SelectedCell.setText("Sposta un solo dado!");
     }
 }
