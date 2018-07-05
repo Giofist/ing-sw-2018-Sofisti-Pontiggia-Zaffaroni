@@ -319,7 +319,6 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
      */
     @Override
     public synchronized void update(Observable o, Object arg) throws RemoteException{
-        System.out.println("Ho ricevuto un'update");
         if(this.thread !=null){
             this.thread.interrupt();
             this.thread = null;
@@ -379,7 +378,6 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
             }
             default:System.out.println("Ho ricevuto un'update dal server ma non riesco a interpretarla");
         }
-        System.out.println("Ho ricevuto un'update");
         this.notifyAll();
     }
 
