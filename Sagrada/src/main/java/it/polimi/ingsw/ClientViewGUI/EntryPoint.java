@@ -8,6 +8,9 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+/**
+ * This is the Class responsible for loading the GUI. The login screen will be prompted to the user
+ */
 public class EntryPoint extends Application {
 
     @Override

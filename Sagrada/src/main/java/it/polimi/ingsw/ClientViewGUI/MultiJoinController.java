@@ -18,6 +18,9 @@ import java.rmi.RemoteException;
 import java.util.Collections;
 import java.util.ResourceBundle;
 
+/**
+ * Class for joining to existent matches
+ */
 public class MultiJoinController  implements Initializable,AbstractController{
     private Boolean entered = false;
     ObservableList<String> data = FXCollections.observableArrayList();
@@ -35,6 +38,11 @@ public class MultiJoinController  implements Initializable,AbstractController{
         ObserverGUI.Singleton().setController(this);
     }
 
+    /**
+     * This method is for downloading the the list of available matches
+     * @param url
+     * @param rb
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
@@ -47,6 +55,10 @@ public class MultiJoinController  implements Initializable,AbstractController{
         }
     }
 
+    /**
+     * This method is for trying to join the selected match
+     * @param actionEvent
+     */
     public void joinGame(ActionEvent actionEvent) {
         String matchName;
         matchName = gameList.getSelectionModel().getSelectedItem();
@@ -67,6 +79,10 @@ public class MultiJoinController  implements Initializable,AbstractController{
         else ErrorMessage.setText("Nessuna partita selezionata!");
     }
 
+    /**
+     * Go back to the main menù
+     * @param actionEvent
+     */
     public void goBack(ActionEvent actionEvent) {
        if (entered== false) {
            try {
@@ -89,6 +105,10 @@ public class MultiJoinController  implements Initializable,AbstractController{
        }
     }
 
+    /**
+     * Method for updating the list of available matches where the player can join
+     * @param actionEvent
+     */
     public void updateGameList(ActionEvent actionEvent) {
         gameList.getItems().removeAll();
         try {
@@ -101,6 +121,11 @@ public class MultiJoinController  implements Initializable,AbstractController{
         }
     }
 
+    /**
+     * If the player selects a valid match to join its state is going to change to another in which the choice of the scheme
+     * cards will be displayed
+     * @param state
+     */
     @Override
     public void update(State state){
         if(state== State.MUSTSETSCHEMECARD){

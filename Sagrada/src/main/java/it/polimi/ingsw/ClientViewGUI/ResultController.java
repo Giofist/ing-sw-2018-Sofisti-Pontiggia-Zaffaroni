@@ -32,6 +32,10 @@ public class ResultController implements Initializable,AbstractController {
         ObserverGUI.Singleton().setController(this);
     }
 
+    /**
+     * Situation in which the player at the end of the match decides to play again
+     * @param actionEvent Click on the button
+     */
     public void playAgain(ActionEvent actionEvent) {
         try {
             winnerList.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/MultiSelectMode.fxml"))));
@@ -40,6 +44,10 @@ public class ResultController implements Initializable,AbstractController {
         }
     }
 
+    /**
+     * Situation in which the player wants to go back to the main menù after terminating a match
+     * @param actionEvent Click on the button
+     */
     public void backToMenu(ActionEvent actionEvent) {
         try {
             winnerList.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/MenuPartial.fxml"))));
@@ -48,6 +56,11 @@ public class ResultController implements Initializable,AbstractController {
         }
     }
 
+    /**
+     * This method displays on screen the final score board of the match
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
             try {
@@ -65,6 +78,10 @@ public class ResultController implements Initializable,AbstractController {
         listWinner.setText(playerList);
     }
 
+    /**
+     * In this situation we don't receive any update because the match is terminated
+     * @param state
+     */
     @Override
     public void update(State state) {
         //in ENDMATCHSTATE we don't receive any update
