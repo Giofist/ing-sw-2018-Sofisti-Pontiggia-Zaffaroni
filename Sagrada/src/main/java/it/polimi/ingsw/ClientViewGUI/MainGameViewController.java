@@ -165,6 +165,9 @@ public class MainGameViewController implements Initializable, AbstractController
     private Text Player2;
 
     @FXML
+    private Text DiceToPlace;
+
+    @FXML
     private Text P2MapName;
 
     @FXML
@@ -333,6 +336,7 @@ public class MainGameViewController implements Initializable, AbstractController
         Select.setVisible(false);
         selectValue.setVisible(false);
         increaseDicIntensity.setVisible(false);
+        DiceToPlace.setVisible(false);
         updateToken();
         updateDicePool();
         updatePossiibleActions();
@@ -1031,9 +1035,17 @@ public class MainGameViewController implements Initializable, AbstractController
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
-                    updateDicePool();
+                    selectIntensity.getItems().addAll("1", "2", "3", "4", "5", "6");
                     selectIntensity.setVisible(true);
-                    selectIntensity.getItems().addAll("1", "2", "3", "4", "5", "6"); //modifico qui con stesso criterio
+                    String dice = "";
+                    try {
+                        dice = ObserverGUI.Singleton().getServerController().getToolCardDice(ObserverGUI.Singleton().getUsername());
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                    String imagePath = "Dices/" + dice.toCharArray()[1] + dice.toCharArray()[0] + ".jpg";
+                    Image pic = new Image(imagePath);
+                    RoundDice8.setImage(pic);
                     newOldColumn = 10;
                     newOldRow = 10;
                     ErrorMessage.setText("Seleziona dove vuoi mettere il dado estratto (se non vuoi piazzlo non cliccare nulla) e l'intensità.");
@@ -1045,11 +1057,22 @@ public class MainGameViewController implements Initializable, AbstractController
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
-                    updateDicePool();
+                    String dice = "";
+
+                    try {
+                        dice = ObserverGUI.Singleton().getServerController().getToolCardDice(ObserverGUI.Singleton().getUsername());
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                    String imagePath = "Dices/" + dice.toCharArray()[1] + dice.toCharArray()[0] + ".jpg";
+                    Image pic = new Image(imagePath);
+                    RoundDice8.setImage(pic);
+
                     ErrorMessage.setText("Seleziona dove vuoi mettere il dado estratto (se non vuoi piazzlo non cliccare nulla):");
                     newOldColumn = 10;
                     newOldRow = 10;
                     selectValue.setVisible(true);
+                    DiceToPlace.setVisible(true);
                 }
             });
         }else if (state == State.ERRORSTATE){
