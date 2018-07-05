@@ -57,19 +57,19 @@ public class Printer {
                     try{
                         switch(tile.getDice().getColor()){
                             case YELLOW:
-                                System.out.print(ansi().eraseScreen().bg(YELLOW).fg(WHITE).a(" " + tile.getDice().getIntensity() + " ").reset());
+                                System.out.print(ansi().bg(YELLOW).fg(WHITE).a(" " + tile.getDice().getIntensity() + " ").reset());
                                 break;
                             case BLUE:
-                                System.out.print(ansi().eraseScreen().bg(BLUE).fg(WHITE).a(" " + tile.getDice().getIntensity() + " ").reset());
+                                System.out.print(ansi().bg(BLUE).fg(WHITE).a(" " + tile.getDice().getIntensity() + " ").reset());
                                 break;
                             case RED:
-                                System.out.print(ansi().eraseScreen().bg(RED).fg(RED).a(" " + tile.getDice().getIntensity() + " ").reset());
+                                System.out.print(ansi().bg(RED).fg(RED).a(" " + tile.getDice().getIntensity() + " ").reset());
                                 break;
                             case VIOLET:
-                                System.out.print(ansi().eraseScreen().bg(MAGENTA).fg(WHITE).a(" " + tile.getDice().getIntensity() + " ").reset());
+                                System.out.print(ansi().bg(MAGENTA).fg(WHITE).a(" " + tile.getDice().getIntensity() + " ").reset());
                                 break;
                             case GREEN:
-                                System.out.print(ansi().eraseScreen().bg(GREEN).fg(WHITE).a(" " + tile.getDice().getIntensity() + " ").reset());
+                                System.out.print(ansi().bg(GREEN).fg(WHITE).a(" " + tile.getDice().getIntensity() + " ").reset());
                                 break;
                         }
                     }catch (DiceNotExistantException e){
@@ -79,27 +79,27 @@ public class Printer {
                 else if (tile.haveColor_constrain()){
                     switch (tile.getColor_Constrain()){
                         case YELLOW:
-                            System.out.print(ansi().eraseScreen().bg(YELLOW).fg(WHITE).a("   ").reset());
+                            System.out.print(ansi().bg(YELLOW).fg(WHITE).a("   ").reset());
                             break;
                         case BLUE:
-                            System.out.print(ansi().eraseScreen().bg(BLUE).fg(WHITE).a("   ").reset());
+                            System.out.print(ansi().bg(BLUE).fg(WHITE).a("   ").reset());
                             break;
                         case RED:
-                            System.out.print(ansi().eraseScreen().bg(RED).fg(RED).a("   ").reset());
+                            System.out.print(ansi().bg(RED).fg(RED).a("   ").reset());
                             break;
                         case VIOLET:
-                            System.out.print(ansi().eraseScreen().bg(MAGENTA).fg(WHITE).a("   ").reset());
+                            System.out.print(ansi().bg(MAGENTA).fg(WHITE).a("   ").reset());
                             break;
                         case GREEN:
-                            System.out.print(ansi().eraseScreen().bg(GREEN).fg(WHITE).a("   ").reset());
+                            System.out.print(ansi().bg(GREEN).fg(WHITE).a("   ").reset());
                             break;
                     }
                 }
                 else if (tile.haveNumber_constrain()){
-                    System.out.print(ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" " + tile.getNumber_Constrain() + " ").reset());
+                    System.out.print(ansi().bg(WHITE).fg(BLACK).a(" " + tile.getNumber_Constrain() + " ").reset());
                 }
                 else{
-                    System.out.print(ansi().eraseScreen().bg(WHITE).fg(BLACK).a("   ").reset());
+                    System.out.print(ansi().bg(WHITE).fg(BLACK).a("   ").reset());
 
                 }
 
@@ -162,26 +162,26 @@ public class Printer {
         }
         for (String diceList : dices) {
             if (i < 10) {
-                System.out.print(ansi().eraseScreen().bg(WHITE).fg(BLACK).a("  " + i + " ").reset());
-            } else System.out.print(ansi().eraseScreen().bg(WHITE).fg(BLACK).a(" " + i + " ").reset());
+                System.out.print(ansi().bg(WHITE).fg(BLACK).a("  " + i + " ").reset());
+            } else System.out.print(ansi().bg(WHITE).fg(BLACK).a(" " + i + " ").reset());
             String[] singleDice = diceList.split("-");
             for (String stringDice : singleDice) {
                 charDice = stringDice.toCharArray();
                 switch (charDice[1]) {
                     case 'Y':
-                        System.out.print(ansi().eraseScreen().bg(YELLOW).fg(WHITE).a(" " + charDice[0] + " ").reset());
+                        System.out.print(ansi().bg(YELLOW).fg(WHITE).a(" " + charDice[0] + " ").reset());
                         break;
                     case 'B':
-                        System.out.print(ansi().eraseScreen().bg(BLUE).fg(WHITE).a(" " + charDice[0] + " ").reset());
+                        System.out.print(ansi().bg(BLUE).fg(WHITE).a(" " + charDice[0] + " ").reset());
                         break;
                     case 'R':
-                        System.out.print(ansi().eraseScreen().bg(RED).fg(WHITE).a(" " + charDice[0] + " ").reset());
+                        System.out.print(ansi().bg(RED).fg(WHITE).a(" " + charDice[0] + " ").reset());
                         break;
                     case 'V':
-                        System.out.print(ansi().eraseScreen().bg(MAGENTA).fg(WHITE).a(" " + charDice[0] + " ").reset());
+                        System.out.print(ansi().bg(MAGENTA).fg(WHITE).a(" " + charDice[0] + " ").reset());
                         break;
                     case 'G':
-                        System.out.print(ansi().eraseScreen().bg(GREEN).fg(WHITE).a(" " + charDice[0] + " ").reset());
+                        System.out.print(ansi().bg(GREEN).fg(WHITE).a(" " + charDice[0] + " ").reset());
                         break;
                 }
             }
@@ -212,19 +212,19 @@ public class Printer {
             charDice = dice.toCharArray();
             switch (charDice[1]) {
                 case 'Y':
-                    System.out.print(ansi().eraseScreen().bg(YELLOW).fg(WHITE).a(" " + charDice[0] + " ").reset());
+                    System.out.print(ansi().bg(YELLOW).fg(WHITE).a(" " + charDice[0] + " ").reset());
                     break;
                 case 'B':
-                    System.out.print(ansi().eraseScreen().bg(BLUE).fg(WHITE).a(" " + charDice[0] + " ").reset());
+                    System.out.print(ansi().bg(BLUE).fg(WHITE).a(" " + charDice[0] + " ").reset());
                     break;
                 case 'R':
-                    System.out.print(ansi().eraseScreen().bg(RED).fg(WHITE).a(" " + charDice[0] + " ").reset());
+                    System.out.print(ansi().bg(RED).fg(WHITE).a(" " + charDice[0] + " ").reset());
                     break;
                 case 'V':
-                    System.out.print(ansi().eraseScreen().bg(MAGENTA).fg(WHITE).a(" " + charDice[0] + " ").reset());
+                    System.out.print(ansi().bg(MAGENTA).fg(WHITE).a(" " + charDice[0] + " ").reset());
                     break;
                 case 'G':
-                    System.out.print(ansi().eraseScreen().bg(GREEN).fg(WHITE).a(" " + charDice[0] + " ").reset());
+                    System.out.print(ansi().bg(GREEN).fg(WHITE).a(" " + charDice[0] + " ").reset());
                     break;
             }
             System.out.print(" ");
@@ -274,19 +274,19 @@ public class Printer {
         }
         switch (charDice[1]) {
             case 'Y':
-                System.out.print(ansi().eraseScreen().bg(YELLOW).fg(WHITE).a(" " + charDice[0] + " ").reset());
+                System.out.print(ansi().bg(YELLOW).fg(WHITE).a(" " + charDice[0] + " ").reset());
                 break;
             case 'B':
-                System.out.print(ansi().eraseScreen().bg(BLUE).fg(WHITE).a(" " + charDice[0] + " ").reset());
+                System.out.print(ansi().bg(BLUE).fg(WHITE).a(" " + charDice[0] + " ").reset());
                 break;
             case 'R':
-                System.out.print(ansi().eraseScreen().bg(RED).fg(WHITE).a(" " + charDice[0] + " ").reset());
+                System.out.print(ansi().bg(RED).fg(WHITE).a(" " + charDice[0] + " ").reset());
                 break;
             case 'V':
-                System.out.print(ansi().eraseScreen().bg(MAGENTA).fg(WHITE).a(" " + charDice[0] + " ").reset());
+                System.out.print(ansi().bg(MAGENTA).fg(WHITE).a(" " + charDice[0] + " ").reset());
                 break;
             case 'G':
-                System.out.print(ansi().eraseScreen().bg(GREEN).fg(WHITE).a(" " + charDice[0] + " ").reset());
+                System.out.print(ansi().bg(GREEN).fg(WHITE).a(" " + charDice[0] + " ").reset());
                 break;
         }
         System.out.print(" ");

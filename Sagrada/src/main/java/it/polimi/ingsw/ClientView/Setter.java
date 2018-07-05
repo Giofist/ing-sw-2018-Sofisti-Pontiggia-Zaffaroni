@@ -110,7 +110,7 @@ public class Setter {
                     while (!correct) {
                         System.out.println("Seleziona la riga in cui posizionare il dado: [0/3]");
                         int row = in.nextInt();
-                        System.out.println("Seleziona la riga in cui posizionare il dado: [0/4]");
+                        System.out.println("Seleziona la colonna in cui posizionare il dado: [0/4]");
                         int column = in.nextInt();
                         try {
                             serverController.setToolCardDice(yourName, row, column);
@@ -140,19 +140,19 @@ public class Setter {
                     }
                     switch(charDice[1]){
                         case 'Y':
-                            System.out.print( ansi().eraseScreen().bg(YELLOW).fg(WHITE).a(" " + charDice[0] + " ").reset());
+                            System.out.print( ansi().bg(YELLOW).fg(WHITE).a(" " + charDice[0] + " ").reset());
                             break;
                         case 'B':
-                            System.out.print( ansi().eraseScreen().bg(BLUE).fg(WHITE).a(" " + charDice[0] + " ").reset());
+                            System.out.print( ansi().bg(BLUE).fg(WHITE).a(" " + charDice[0] + " ").reset());
                             break;
                         case 'R':
-                            System.out.print( ansi().eraseScreen().bg(RED).fg(WHITE).a(" " + charDice[0] + " ").reset());
+                            System.out.print( ansi().bg(RED).fg(WHITE).a(" " + charDice[0] + " ").reset());
                             break;
                         case 'V':
-                            System.out.print( ansi().eraseScreen().bg(MAGENTA).fg(WHITE).a(" " + charDice[0] + " ").reset());
+                            System.out.print( ansi().bg(MAGENTA).fg(WHITE).a(" " + charDice[0] + " ").reset());
                             break;
                         case 'G':
-                            System.out.print( ansi().eraseScreen().bg(GREEN).fg(WHITE).a(" " + charDice[0] + " ").reset());
+                            System.out.print( ansi().bg(GREEN).fg(WHITE).a(" " + charDice[0] + " ").reset());
                             break;
                     }
                     System.out.println();
@@ -492,24 +492,9 @@ public class Setter {
             Printer.Singleton().printRoundDicePool(serverController, yourName);
             diceIndex = in.nextInt();
             System.out.println("Seleziona la riga in cui posizionare il dado: [0/3]");
-            while(!correct) {
-                try {
-                    row = Integer.parseInt(in.nextLine());
-                    correct = true;
-                } catch (Exception e) {
-                    System.out.println("Hai sbagliato a digitare!");
-                }
-            }
-            correct = false;
-            System.out.println("Seleziona la riga in cui posizionare il dado: [0/4]");
-            while(!correct) {
-                try {
-                    column = Integer.parseInt(in.nextLine());
-                    correct = true;
-                } catch (Exception e) {
-                    System.out.println("Hai sbagliato a digitare!");
-                }
-            }
+            row = in.nextInt();
+            System.out.println("Seleziona la colonna in cui posizionare il dado: [0/4]");
+            column =in.nextInt();
             try {
                 serverController.setDice(yourName, diceIndex, row, column);
                 success = true;
@@ -542,24 +527,9 @@ public class Setter {
             System.out.println("Piazza il dado appena modificato:");
             Printer.Singleton().printExtractedDice(serverController, yourName);
             System.out.println("Seleziona la riga in cui posizionare il dado: [0/3]");
-            while(!correct) {
-                try {
-                    row = Integer.parseInt(in.nextLine());
-                    correct = true;
-                } catch (Exception e) {
-                    System.out.println("Hai sbagliato a digitare!");
-                }
-            }
-            correct = false;
-            System.out.println("Seleziona la riga in cui posizionare il dado: [0/4]");
-            while(!correct) {
-                try {
-                    column = Integer.parseInt(in.nextLine());
-                    correct = true;
-                } catch (Exception e) {
-                    System.out.println("Hai sbagliato a digitare!");
-                }
-            }
+            row = in.nextInt();
+            System.out.println("Seleziona la colonna in cui posizionare il dado: [0/4]");
+            column =in.nextInt();
             try {
                 serverController.setToolCardDice(yourName, row, column);
                 success = true;
@@ -595,6 +565,7 @@ public class Setter {
         boolean correct = false;
         boolean good = false;
         int index;
+
         try {
             for (SchemeCard schemeCard: serverController.getExtractedSchemeCard(yourName)){
                 Printer.Singleton().printMap(schemeCard);

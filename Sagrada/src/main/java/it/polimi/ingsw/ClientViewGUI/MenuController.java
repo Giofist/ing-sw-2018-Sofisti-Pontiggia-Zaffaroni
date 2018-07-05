@@ -48,6 +48,12 @@ public class MenuController implements Initializable,AbstractController{
      */
     public void update(State state){
         Platform.runLater(() -> {
+            if (state == State.NOTYOURTURNSTATE){
+                ObserverGUI.setIsYourTurn(false);
+            }
+            else
+                ObserverGUI.setIsYourTurn(true);
+
             try {
                content.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/MainGameView.fxml"))));
                Observable playerState = new PlayerState();
