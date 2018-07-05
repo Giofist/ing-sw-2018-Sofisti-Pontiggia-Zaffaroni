@@ -46,10 +46,10 @@ public class UsersList {
      * If for any reason we are not able to read the file an empty list will be created.
      */
     private void loadUsersList() {
-        FileReader fr = null;
+        InputStream fr = null;
         Scanner fileScanner = null;
         try {
-            fr = new FileReader("src/main/resources/UsersList.txt");
+            fr = getClass().getClassLoader().getResourceAsStream("UsersList.txt");
             fileScanner = new Scanner(fr);
             users = new Hashtable<>();
             String[] splittedUsernameAndPass;
@@ -59,7 +59,7 @@ public class UsersList {
                 splittedUsernameAndPass = line.split(",");
                 users.put(splittedUsernameAndPass[0], new User(splittedUsernameAndPass[0], splittedUsernameAndPass[1]));
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             users = new Hashtable<>();
         } finally {
             try {
@@ -157,8 +157,13 @@ public class UsersList {
                 throw new HomonymyException();
             }
             String hexHash = produceSHA256(password);
+
+            // Add the new user to the list of registered users
+            User user = new User(name, hexHash);
+            this.users.put(name, user);
+
             // Write the new User to the file
-            fw = new FileWriter("src/main/resources/UsersList.txt", true);
+            fw = new FileWriter("UsersList.txt", true);
             bw = new BufferedWriter(fw);
             bw.write(name + "," + hexHash);
             bw.newLine();
@@ -166,9 +171,7 @@ public class UsersList {
 
             System.out.println(name + "," + hexHash);
 
-            // Add the new user to the list of registered users
-            User user = new User(name, hexHash);
-            this.users.put(name, user);
+
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

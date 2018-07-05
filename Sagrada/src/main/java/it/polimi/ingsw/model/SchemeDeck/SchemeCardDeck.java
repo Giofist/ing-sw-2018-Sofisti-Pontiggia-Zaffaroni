@@ -2,9 +2,7 @@ package it.polimi.ingsw.model.SchemeDeck;
 
 import it.polimi.ingsw.model.Exceptions.MapConstrainReadingException;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -57,7 +55,11 @@ public class SchemeCardDeck {
     protected static int getNumMaps() throws IOException {
         String fileName = "src/main/resources/Maps.txt";
 
-        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+        try  {
+            InputStream buffer1 = SchemeCardDeck.class.getClassLoader().getResourceAsStream("Maps.txt");
+            InputStreamReader inStrReader = new InputStreamReader(buffer1);
+            BufferedReader br = new BufferedReader(inStrReader);
+
             String s = br.readLine();
             return Integer.parseInt(s);
         }catch (IOException e){
