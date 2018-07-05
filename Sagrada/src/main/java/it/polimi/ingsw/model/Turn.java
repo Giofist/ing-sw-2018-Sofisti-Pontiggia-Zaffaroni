@@ -9,19 +9,16 @@ import java.util.concurrent.CountDownLatch;
 public class Turn implements Runnable{
 
     private Player currentPlayer;
-    private Round round;
     private int turnID;
     CountDownLatch doneSignal ;
 
     /**
      * When a new Turn is created also a countdown gets instantiated to keep track of when every player is ready to pass its turn
      * @param player The player who has to perform its turn
-     * @param round The round in which we are
      * @param turnID The number of the turn in the round
      */
-    public Turn(Player player, Round round, int turnID) {
+    public Turn(Player player, int turnID) {
         this.currentPlayer = player;
-        this.round = round;
         this.turnID = turnID;
         doneSignal = new CountDownLatch(player.getMatch().getNumberOfPlayers());
     }
@@ -32,8 +29,7 @@ public class Turn implements Runnable{
      */
     @Override
     public synchronized void run(){
-        System.out.println("questo è il turno "+ this.turnID);
-        for (Player player: this.round.getMatch().getallPlayers()){
+        for (Player player: this.currentPlayer.getMatch().getallPlayers()){
             player.setTurn(this);
         }
         if (currentPlayer.mustpassTurn()){
@@ -43,20 +39,16 @@ public class Turn implements Runnable{
         }
         if (!UsersList.Singleton().getUser(currentPlayer.getName()).isActive()) {
                 this.countDown();
-            System.out.println("Ho trovato inattivo "+ currentPlayer.getName() + " nel turno "+ this.turnID);
         }
         else{
-            System.out.println("Ho trovato attivo "+ currentPlayer.getName());
         }
 
-        for (Player player: this.round.getMatch().getallPlayersbutnotme(currentPlayer)) {
+        for (Player player: this.currentPlayer.getMatch().getallPlayersbutnotme(currentPlayer)) {
             player.setPlayerState(State.NOTYOURTURNSTATE);
             if (!UsersList.Singleton().getUser(player.getName()).isActive()) {
-                System.out.println("Ho trovato inattivo "+ player.getName() + " nel turno "+ this.turnID);
                 this.countDown();
             }
             else{
-                System.out.println("Ho trovato attivo "+ player.getName());
             }
         }
         // If there is only one player the match terminates immediately
@@ -68,10 +60,9 @@ public class Turn implements Runnable{
             doneSignal.await();
         }catch(InterruptedException e){
             // We end up here if the wound doesn't receive a "passturn" action from everybody
-            System.out.println("Sono stato interrotto");
         }
-        synchronized (this.round){
-            this.round.notifyAll();
+        synchronized (this.currentPlayer.getMatch().getRound()){
+            this.currentPlayer.getMatch().getRound().notifyAll();
         }
         return;
     }

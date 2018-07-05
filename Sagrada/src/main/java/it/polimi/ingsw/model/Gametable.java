@@ -105,12 +105,7 @@ public class Gametable {
     }
 
 
-    /**
-     * @return A deck with public goal cards in it
-     */
-    public synchronized PublicGoalCardDeck getPublicGoalCardDeck() {
-        return publicGoalCardDeck;
-    }
+
 
 
     /**
@@ -171,6 +166,15 @@ public class Gametable {
      */
     public List getToolCards() {
         return this.tooldeck.getcards();
+    }
+
+
+    //for testing
+    /**
+     * @return A deck with public goal cards in it
+     */
+    public synchronized PublicGoalCardDeck getPublicGoalCardDeck() {
+        return publicGoalCardDeck;
     }
 }
 

@@ -51,17 +51,17 @@ public class TurnTest {
         when(mockMatch.getallPlayersbutnotme(player1)).thenReturn(new LinkedList<Player>(){{ add(player2); }});
         when(mockMatch.getallPlayersbutnotme(player2)).thenReturn(new LinkedList<Player>(){{ add(player1); }});
 
-        round = new Round(1, (LinkedList<Player>) playerList, mockMatch);
+        round = new Round( (LinkedList<Player>) playerList);
 
         // Tested class
-        turn = new Turn(player1, round, 1);
+        turn = new Turn(player1, 1);
     }
 
 
 
     @Test
     public void runTest() throws InterruptedException {
-        Thread testThread = new Thread(new Turn(player1, round, 1));
+        Thread testThread = new Thread(new Turn(player1, 1));
         testThread.start();
 
         Thread.sleep(2000);

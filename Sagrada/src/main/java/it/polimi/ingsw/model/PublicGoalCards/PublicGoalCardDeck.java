@@ -31,7 +31,7 @@ public class PublicGoalCardDeck {
     /**
      * @return A random integer value corresponding to the id of a public goal card
      */
-    public int getValue(){
+    private int getValue(){
         int value =this.cardsID.get(0);
         this.cardsID.remove(0);
         return value;

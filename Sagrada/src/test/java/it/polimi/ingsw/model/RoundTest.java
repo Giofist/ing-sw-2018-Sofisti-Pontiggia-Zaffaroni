@@ -53,12 +53,6 @@ public class RoundTest {
         testThread.interrupt();
     }
 
-    // Getters
-    @Test
-    public void getMatchTest() {
-        round = new Round(1, players, mockMatch);
-        assertEquals(mockMatch, round.getMatch());
-    }
 
 
 }

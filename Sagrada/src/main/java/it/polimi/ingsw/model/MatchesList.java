@@ -66,6 +66,7 @@ public class MatchesList implements Serializable {
             }
             player.setMatch(match);
             match.join(player);
+            match.notifyAll();
         }
 
     }

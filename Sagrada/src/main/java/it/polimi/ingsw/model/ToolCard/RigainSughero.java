@@ -43,9 +43,7 @@ public class RigainSughero  extends ToolAction implements Serializable {
                 throw new RigaInSugheroException("18.1");
             } else
                 player.getScheme().setDice(dice, toolRequestClass.getNewRow1(), toolRequestClass.getNewColumn1(), false, false, true);
-            if (player.getPlayerState().getState().equals(State.HASSETADICESTATE)) {
-                player.setPlayerState(State.MUSTPASSTURNSTATE);
-            } else player.setPlayerState(State.HASUSEDATOOLCARDACTIONSTATE);
+            player.setPlayerState(State.MUSTPASSTURNSTATE);
         }catch (Exception e){
             try{
                 player.getGametable().getRoundDicepool().addDice(toolRequestClass.getSelectedDiceIndex(),dice);

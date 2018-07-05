@@ -33,7 +33,7 @@ public class RoundTestThread implements Runnable {
         doNothing().when(mockGametable).setupRound();
 
 
-        round = new Round(1, players, mockMatch);
+        round = new Round( players);
         round.run();
     }
 }

@@ -10,7 +10,6 @@ import it.polimi.ingsw.model.TurnActions;
 public interface  Translator {
     String translateMatch(Match match);
     String translatePlayer(Player player);
-
     String translatePrivateGoalCardDescription(int cardID);
     String translatePrivateGoalCardName(int cardID);
     String translateToolCardDescription(int cardID);

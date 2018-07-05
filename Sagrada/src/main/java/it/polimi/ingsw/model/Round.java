@@ -6,19 +6,12 @@ import java.util.*;
 
 //not implemented yet
 public class Round {
-    private int num_round;
     private List<Player> players;
-    private Match match;
-
 
     /**
-     * @param num_round The number of round at which the game is
      * @param players List of all the players that are playing
-     * @param match The match to which the round belongs
      */
-    public Round ( int num_round, List<Player> players, Match match){
-        this.match = match;
-        this.num_round = num_round;
+    public Round ( List<Player> players){
         this.players = players;
     }
 
@@ -27,12 +20,9 @@ public class Round {
      * This is the main method which controls the whole round
      */
     public synchronized void run() {
-        // This method prepares the round by extracting the new dices in the round dicepool
-        this.getMatch().getGametable().setupRound();
-
         // First turn in a round
         for (Player player: this.players) {
-            Turn turn = new Turn(player, this,1);
+            Turn turn = new Turn(player,1);
             final Thread thread = new Thread(turn);
             Timer timer  = new Timer(false);
             timer.schedule(new TimerTask() {
@@ -47,14 +37,14 @@ public class Round {
                 thread.start();
                 wait();
             }catch (InterruptedException e){
-                //do notihng
+                //do nothing
             }
         }
 
         // Second turn in a round
         Collections.reverse(this.players);
         for (Player player: this.players){
-            Turn turn = new Turn(player, this,2);
+            Turn turn = new Turn(player,2);
             final Thread thread = new Thread(turn);
             Timer timer  = new Timer(false);
             timer.schedule(new TimerTask() {
@@ -81,23 +71,9 @@ public class Round {
 
         // Here we reorder the list of the players as it was the beginning of the round
         Collections.reverse(this.players);
-        // The round can terminate, all the dices from the RoundDicePool will be moved on the RoundTrack
-        try{
-            this.getMatch().getGametable().endRound(this.num_round);
-        }catch (RoundTrackException e){
-            // Situation in which we try to edit a round which is not on the RoundTrack
-        }
+
     }
 
-
-    // Getter method
-
-    /**
-     * @return The match to which the round belongs
-     */
-    public Match getMatch() {
-        return match;
-    }
 
 
 

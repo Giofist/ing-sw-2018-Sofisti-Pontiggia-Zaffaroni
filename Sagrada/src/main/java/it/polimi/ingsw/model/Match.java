@@ -16,6 +16,7 @@ public class Match implements Runnable,Serializable{
     private transient CountDownLatch doneSignal;
     private transient boolean isreadyTostart;
     private transient Timer timer;
+    private transient Round round;
 
 
     /**
@@ -30,6 +31,7 @@ public class Match implements Runnable,Serializable{
         player.setMatch(this);
         this.isreadyTostart = false;
         this.timer = new Timer();
+        this.round = null;
     }
 
 
@@ -51,7 +53,6 @@ public class Match implements Runnable,Serializable{
         }
 
         // The match can start
-        System.out.println("la partita è appena iniziata: i membri della partita sono");
         for (Player player: this.players){
             System.out.println(player.getName());
         }
@@ -61,7 +62,6 @@ public class Match implements Runnable,Serializable{
             gametable = new Gametable(this.players.size());
             for (Player player : this.players) {
                 boolean success = false;
-
                 while (!success) {
                     try {
                         player.setPrivateGoalCard(getGametable().getPrivateGoalCard());
@@ -118,24 +118,40 @@ public class Match implements Runnable,Serializable{
         }catch(InterruptedException e) {
             //do nothing
         }
-        System.out.println("Sono uscito dal done signal");
         // Now the game can start for N rounds
         for (int i = 1; i<10; i++){
-            new Round(i, this.players, this).run();
+            // This method prepares the round by extracting the new dices in the round dicepool
+            this.getGametable().setupRound();
+            this.round = new Round(this.players);
+            this.round.run();
             // At each round I have to change the order of the players
             this.players.addLast(this.players.removeFirst());
+            // The round can terminate, all the dices from the RoundDicePool will be moved on the RoundTrack
+            try{
+                this.getGametable().endRound(i);
+            }catch (RoundTrackException e){
+                // Situation in which we try to edit a round which is not on the RoundTrack
+            }
         }
-         new Round(10, this.players,this).run();
+
+
+        // This method prepares the round by extracting the new dices in the round dicepool
+        this.getGametable().setupRound();
+        this.round = new Round(this.players);
+        this.round.run();
+        try{
+            this.getGametable().endRound(10);
+        }catch (RoundTrackException e){
+            // Situation in which we try to edit a round which is not on the RoundTrack
+        }
 
 
         //to calculate points for the public goals
         this.getGametable().calculatePointsforAllPlayers(this.players);
-
         // to calculate points for the private goals
         for (Player player:this.players) {
             player.getPrivateGoalCard().calculatepoint(player);
         }
-
 
 
         for (Player player:this.players) {
@@ -152,6 +168,12 @@ public class Match implements Runnable,Serializable{
 
     // Getters and setters methods
 
+    /**
+     * @return The round in which we are
+     */
+    public Round getRound(){
+        return this.round;
+    }
 
     /**
      * @return The name of the match
@@ -226,8 +248,9 @@ public class Match implements Runnable,Serializable{
         }
         if (this.players.size() == 3){
             isreadyTostart = true;
-            notifyAll();
         }
+
+
     }
 
 
@@ -277,7 +300,6 @@ public class Match implements Runnable,Serializable{
      * This method is useful for notifying the game when we chose our tool card and we are ready to start as players
      */
     public void countDown() {
-        System.out.println("un giocatore ha messo la schemeCard, ho fatto count down del latch");
         this.doneSignal.countDown();
     }
 
@@ -285,10 +307,8 @@ public class Match implements Runnable,Serializable{
      * This method terminates the match in case the conditions to go on are not met
      */
     public void forceendmatch() {
-        System.out.println("Sono nel force end match");
         for(Player player: this.players){
             if (UsersList.Singleton().getUser(player.getName()).isActive()){
-                System.out.println("questo è l'unico giocatore rimasto attivo " + player.getName());
                 player.setPlayerState(State.FORCEENDMATCH);
             }
             else {
