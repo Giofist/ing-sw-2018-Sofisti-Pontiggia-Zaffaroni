@@ -46,10 +46,12 @@ public class UsersList {
      * If for any reason we are not able to read the file an empty list will be created.
      */
     private void loadUsersList() {
-        InputStream fr = null;
+        //InputStream fr = null;
+        FileReader fr = null;
         Scanner fileScanner = null;
         try {
-            fr = getClass().getClassLoader().getResourceAsStream("UsersList.txt");
+            //fr = getClass().getClassLoader().getResourceAsStream("UsersList.txt");
+            fr = new FileReader("UsersList.txt");
             fileScanner = new Scanner(fr);
             users = new Hashtable<>();
             String[] splittedUsernameAndPass;
