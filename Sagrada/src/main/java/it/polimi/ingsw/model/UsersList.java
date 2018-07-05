@@ -118,7 +118,9 @@ public class UsersList {
                     }, 0);
                 }
                 if (user.getPlayer() != null) {
-                    user.getPlayer().setPlayerState(user.getPlayer().getPlayerState().getState());
+                    user.getPlayer().getPlayerState().addObserver(observer);
+                    State state = user.getPlayer().getPlayerState().getState();
+                    user.getPlayer().setPlayerState(state);
                 }
                 return;
             }

@@ -279,11 +279,16 @@ public class Player  implements Comparable<Player>, Serializable {
      */
     public void setPlayerState(State playerState){
         this.playerState.setState(playerState);
-        try{
-            this.playerState.notifyObservers();
-        }catch(RemoteException e){
-            UsersList.Singleton().getUser(this.getName()).setActive(false);
-        }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    getPlayerState().notifyObservers();
+                }catch(RemoteException e){
+                    UsersList.Singleton().getUser(getName()).setActive(false);
+                }
+            }
+        }).start();
     }
 
 

@@ -114,7 +114,8 @@ public class PlayerState implements Observable, Serializable{
      * @param observer Observer that want to be notified about the particular status in which the player is in
      */
     public void addObserver(Observer observer){
-        this.observers.addLast(observer);
+        this.observers = new LinkedList<>();
+        this.observers.addFirst(observer);
     }
 
 
@@ -132,8 +133,16 @@ public class PlayerState implements Observable, Serializable{
      * @throws RemoteException Exception thrown in case there is an error in updating the observers
      */
     public void notifyObservers()throws RemoteException {
+        int thereisanActiveObserver =0;
         for (Observer observer: this.observers){
-            observer.update(this, null);
+            try{
+                observer.update(this, null);
+                thereisanActiveObserver =1;
+            }catch(RemoteException e){
+            }
+        }
+        if (thereisanActiveObserver ==0){
+            throw new RemoteException();
         }
     }
 
