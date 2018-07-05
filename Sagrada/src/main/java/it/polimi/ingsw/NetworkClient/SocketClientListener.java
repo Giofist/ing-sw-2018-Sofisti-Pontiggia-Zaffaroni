@@ -36,7 +36,7 @@ public class SocketClientListener implements Runnable {
     }
 
     /**
-     * This method sets the interface exposed by the server with all the methods that we can call
+     * This method sets the interface exposed by the server with all the methods that we can call and the view which is actually running on client
      * @param controller Server controller interface
      * @param observer
      */

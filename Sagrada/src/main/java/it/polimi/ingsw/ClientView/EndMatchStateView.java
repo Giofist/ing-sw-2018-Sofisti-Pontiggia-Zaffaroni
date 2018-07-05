@@ -59,7 +59,7 @@ public class EndMatchStateView implements Runnable {
                     e.printStackTrace();
                 }
                 synchronized (this.view){
-                    this.view.notify();
+                    this.view.notifyAll();
                 }
                 success = true;
             } else if (input.equals("N") || input.equals("n")) {

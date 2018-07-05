@@ -66,12 +66,11 @@ public class PublicGoalCardDeck {
      * @param player
      */
     public void doCalculatePoints(Player player){
-
+        GoalCard CalculatoreforFreeSpaces =  new FreeSpaces();
+        CalculatoreforFreeSpaces.calculatepoint(player);
         for (GoalCard goalcard:this.deck) {
             goalcard.calculatepoint(player);
         }
-        GoalCard CalculatoreforFreeSpaces =  new FreeSpaces();
-        CalculatoreforFreeSpaces.calculatepoint(player);
     }
 
 

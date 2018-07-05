@@ -65,7 +65,6 @@ public class UsersList {
             try {
                 fr.close();
             } catch (NullPointerException e) {
-                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
