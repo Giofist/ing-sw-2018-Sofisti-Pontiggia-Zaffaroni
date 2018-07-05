@@ -32,7 +32,7 @@ public class Round {
                         turn.countDownAll();
                     }
                 }
-            },120000);
+            },180000);
             try{
                 thread.start();
                 wait();

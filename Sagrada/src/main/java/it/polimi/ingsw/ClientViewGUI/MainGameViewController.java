@@ -664,6 +664,7 @@ public class MainGameViewController implements Initializable, AbstractController
         } catch (RemoteException e) {
             ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
         }
+        System.out.println(dices);
         RoundDice0.setImage(null);
         RoundDice1.setImage(null);
         RoundDice2.setImage(null);

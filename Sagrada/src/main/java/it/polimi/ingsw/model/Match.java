@@ -52,11 +52,6 @@ public class Match implements Runnable,Serializable{
             }
         }
 
-        // The match can start
-        for (Player player: this.players){
-            System.out.println(player.getName());
-        }
-
         this.setStarted(true);
         try {
             gametable = new Gametable(this.players.size());
@@ -153,10 +148,6 @@ public class Match implements Runnable,Serializable{
             player.getPrivateGoalCard().calculatepoint(player);
         }
 
-
-        for (Player player:this.players) {
-            System.out.println(player.getName() + " " + player.getPoints());
-        }
         for (Player player:this.players) {
             player.setPlayerState(State.ENDMATCHSTATE);
         }
@@ -244,7 +235,7 @@ public class Match implements Runnable,Serializable{
                         }
                     }
                 }
-            },120000);
+            },300000);
         }
         if (this.players.size() == 3){
             isreadyTostart = true;
