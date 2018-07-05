@@ -9,7 +9,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class EntryPoint extends Application {
-    static Stage stage;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
