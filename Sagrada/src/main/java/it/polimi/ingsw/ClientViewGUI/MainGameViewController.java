@@ -681,7 +681,6 @@ public class MainGameViewController implements Initializable, AbstractController
         } catch (RemoteException e) {
             ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
         }
-        System.out.println(dices);
         RoundDice0.setImage(null);
         RoundDice1.setImage(null);
         RoundDice2.setImage(null);
@@ -1364,17 +1363,26 @@ public class MainGameViewController implements Initializable, AbstractController
         selectValue.setVisible(false);
         selectIntensity.setVisible(false);
         ToolCardDice.setVisible(false);
-        SelectedCell.setText("Intensità scelta:"+ selectIntensity.getValue());
-        try{
-            ObserverGUI.Singleton().getServerController().setToolCardDiceIntensity(ObserverGUI.Singleton().getUsername(),Integer.parseInt(selectIntensity.getValue().toString()));
-        } catch (RemoteException e) {
-            ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
+        if(toolCardId == 11) {
+            SelectedCell.setText("Intensità scelta:"+ selectIntensity.getValue());
+            try {
+                ObserverGUI.Singleton().getServerController().setToolCardDiceIntensity(ObserverGUI.Singleton().getUsername(), Integer.parseInt(selectIntensity.getValue().toString()));
+            } catch (RemoteException e) {
+                ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
+            }
+            try {
+                ObserverGUI.Singleton().getServerController().setToolCardDice(ObserverGUI.Singleton().getUsername(), newOldRow, newOldColumn);
+            } catch (RemoteException e) {
+                ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
+            }
         }
-        try{
-        ObserverGUI.Singleton().getServerController().setToolCardDice(ObserverGUI.Singleton().getUsername(), newOldRow, newOldColumn);
-    } catch (RemoteException e) {
-        ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
-    }
+        else{
+            try {
+                ObserverGUI.Singleton().getServerController().setToolCardDice(ObserverGUI.Singleton().getUsername(), newOldRow, newOldColumn);
+            } catch (RemoteException e) {
+                ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
+            }
+        }
     }
 
     /**

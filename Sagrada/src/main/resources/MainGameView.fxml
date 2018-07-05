@@ -19,7 +19,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="backgroundPane" prefHeight="817.0" prefWidth="1375.0" style="-fx-background-color: brown;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.ClientViewGUI.MainGameViewController">
+<AnchorPane fx:id="backgroundPane" prefHeight="817.0" prefWidth="1375.0" style="-fx-background-color: brown;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.ClientViewGUI.MainGameViewController">
    <children>
       <BorderPane fx:id="progressionBar" layoutX="-7.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="796.0" prefWidth="1375.0" style="-fx-background-color: brown;">
          <center>
