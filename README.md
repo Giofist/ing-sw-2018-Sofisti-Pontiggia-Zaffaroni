@@ -53,4 +53,5 @@ Per quanto riguarda il testing, abbiamo avuto dei problemi con Sonar a generare 
 
 
 ## Link JAR
-> inserire
+I jar sono disponibili al seguente link della repository. Prima di avviare il server è necessario creare nella stessa cartella un file chiamato "UsersList.txt"
+> https://github.com/Giofist/ing-sw-2018-Sofisti-Pontiggia-Zaffaroni/tree/master/jars
