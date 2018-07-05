@@ -342,8 +342,9 @@ public class ChooseMapController implements AbstractController, Initializable {
 
     @Override
     public void update(State state) {
-        if (state == State.NOTYOURTURNSTATE || state == State.STARTTURNSTATE) {
+        if (state == State.NOTYOURTURNSTATE ){
             Platform.runLater(()-> {
+                ObserverGUI.setIsYourTurn(false);
                 try {
                     selectPane.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/MainGameView.fxml"))));
                 } catch (IOException e) {
@@ -351,6 +352,16 @@ public class ChooseMapController implements AbstractController, Initializable {
                 }
             });
             }
+        else if (state == State.STARTTURNSTATE){
+            Platform.runLater(()-> {
+                ObserverGUI.setIsYourTurn(true);
+                try {
+                    selectPane.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/MainGameView.fxml"))));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+        }
 
     }
 

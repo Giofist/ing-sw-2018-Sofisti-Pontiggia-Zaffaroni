@@ -15,6 +15,15 @@ public class ObserverGUI extends UnicastRemoteObject implements Observer {
     private transient static ObserverGUI instance;
     private transient String username;
     private transient Translator translator = new ItalianTranslator();
+    private static boolean isYourTurn;
+
+    public static boolean isIsYourTurn() {
+        return isYourTurn;
+    }
+
+    public static void setIsYourTurn(boolean isYourTurn) {
+        ObserverGUI.isYourTurn = isYourTurn;
+    }
 
     public  ClientHandlerInterface getServerController() {
         return serverController;

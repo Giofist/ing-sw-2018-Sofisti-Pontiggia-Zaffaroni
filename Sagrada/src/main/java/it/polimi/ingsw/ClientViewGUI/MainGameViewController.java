@@ -341,6 +341,19 @@ public class MainGameViewController implements Initializable, AbstractController
         updateDicePool();
         updatePossiibleActions();
 
+        if(ObserverGUI.isIsYourTurn()){
+            passTurnBn.setVisible(true);
+            turnIndicator.setText("E' il tuo turno!");
+        }else{
+            turnIndicator.setText("Non è il tuo turno.");
+            passTurnBn.setVisible(false);
+            try {
+                ObserverGUI.Singleton().getServerController().passTurn(ObserverGUI.Singleton().getUsername());
+            } catch (RemoteException e) {
+                ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
+            }
+        }
+
         try {
             updateDiceInMap(ObserverGUI.Singleton().getServerController().getSchemeCard(ObserverGUI.Singleton().getUsername()).get(0), yourMap);
         } catch (DiceNotExistantException e) {
@@ -611,7 +624,6 @@ public class MainGameViewController implements Initializable, AbstractController
         } catch (RemoteException e) {
             ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
         }
-        //Image emptyPic = new Image("Dices/EmptySpace.jpg");  //TODO migliorabile!!!
         RoundDice0.setImage(null);
         RoundDice1.setImage(null);
         RoundDice2.setImage(null);
