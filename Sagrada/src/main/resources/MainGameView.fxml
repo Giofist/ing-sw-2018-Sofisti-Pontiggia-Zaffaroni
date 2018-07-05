@@ -1063,7 +1063,7 @@
             <Font size="15.0" />
          </font>
       </Text>
-      <ImageView fx:id="ToolCardDice" fitHeight="60.0" fitWidth="60.0" layoutX="1054.0" layoutY="553.0" onMouseClicked="#selectDice" onMouseEntered="#highlight" onMouseExited="#removeHighlight" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="ToolCardDice" fitHeight="60.0" fitWidth="60.0" layoutX="1054.0" layoutY="553.0" onDragDetected="#handleDragDetection" onMouseClicked="#selectDice" onMouseEntered="#highlight" onMouseExited="#removeHighlight" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@Dices/EmptySpace.jpg" />
          </image>
