@@ -9,6 +9,10 @@ import it.polimi.ingsw.model.Observable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
+/**
+ * This Class implements the singleton pattern and contains all the information to recognize the client, and the controller
+ * for invoking methods from the server
+ */
 public class ObserverGUI extends UnicastRemoteObject implements Observer {
     private transient AbstractController controller;
     private transient ClientHandlerInterface serverController;
@@ -21,6 +25,9 @@ public class ObserverGUI extends UnicastRemoteObject implements Observer {
         return isYourTurn;
     }
 
+    /**
+     * @param isYourTurn True or false if we want to set that it's this client's turn
+     */
     public static void setIsYourTurn(boolean isYourTurn) {
         ObserverGUI.isYourTurn = isYourTurn;
     }
@@ -29,12 +36,19 @@ public class ObserverGUI extends UnicastRemoteObject implements Observer {
         return serverController;
     }
 
+    /**
+     * @param controller The server controller with all the callable methods
+     */
     public  void setServerController(ClientHandlerInterface controller) {
         serverController = controller;
     }
 
     private  ObserverGUI() throws RemoteException{};
 
+    /**
+     * Method used to get the translator for displaying messages in the gui
+     * @return A translator object
+     */
     public Translator getTranslator() {
         return translator;
     }
@@ -50,18 +64,33 @@ public class ObserverGUI extends UnicastRemoteObject implements Observer {
         return instance;
     }
 
+    /**
+     * @param controller Controller used for updating the view in the GUI
+     */
     public void setController(AbstractController controller) {
         this.controller = controller;
     }
 
+    /**
+     * @return The username of the connected account
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     * @param username The username of the connected account
+     */
     public void setUsername(String username) {
         this.username = username;
     }
 
+    /**
+     * Method for updating the client controller
+     * @param o
+     * @param arg
+     * @throws RemoteException
+     */
     @Override
     public synchronized void update(Observable o, Object arg) throws RemoteException {
         this.controller.update(o.getState());

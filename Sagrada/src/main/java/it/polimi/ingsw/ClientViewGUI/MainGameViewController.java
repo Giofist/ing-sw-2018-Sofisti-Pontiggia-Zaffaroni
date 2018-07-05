@@ -1,7 +1,6 @@
 package it.polimi.ingsw.ClientViewGUI;
 
 import it.polimi.ingsw.model.Exceptions.DiceNotExistantException;
-import it.polimi.ingsw.model.Exceptions.WrongToolCardIDException;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.SchemeDeck.ColumnIterator;
 import it.polimi.ingsw.model.SchemeDeck.RowIterator;
@@ -9,7 +8,6 @@ import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 import it.polimi.ingsw.model.SchemeDeck.Tile;
 import it.polimi.ingsw.model.State;
 import it.polimi.ingsw.model.ToolCard.ToolAction;
-import it.polimi.ingsw.model.ToolCard.ToolCardsDeck;
 import it.polimi.ingsw.model.ToolCard.ToolRequestClass;
 import it.polimi.ingsw.model.TurnActions;
 import javafx.application.Platform;
@@ -19,7 +17,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.effect.Bloom;
 import javafx.scene.effect.DropShadow;
@@ -38,6 +35,9 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.*;
 
+/**
+ * This Class is the GUI for the actual match displaying all the graphical elements
+ */
 public class MainGameViewController implements Initializable, AbstractController {
     private ImageView origin = null;
     boolean selected = false;
@@ -279,6 +279,11 @@ public class MainGameViewController implements Initializable, AbstractController
         }
     }
 
+    /**
+     * Method for handling when a draggable element is release in a position. Used when dragging and dropping
+     * the dices
+     * @param event
+     */
     @FXML
     void handleOnDragDropped(DragEvent event) {
         int row;
@@ -312,6 +317,10 @@ public class MainGameViewController implements Initializable, AbstractController
         ObserverGUI.Singleton().setController(this);
     }
 
+    /**
+     * Method to check if the user is dragging something in the GUI
+     * @param mouseEvent
+     */
     public void handleDragDetection(javafx.scene.input.MouseEvent mouseEvent) {
         char[] SelectedDiceId;
 
@@ -326,6 +335,13 @@ public class MainGameViewController implements Initializable, AbstractController
         mouseEvent.consume();
     }
 
+    /**
+     * Main method responsible for initializing the game table with all the elements of the current match and the other
+     * players' maps
+     *
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Image image = null;
@@ -339,7 +355,7 @@ public class MainGameViewController implements Initializable, AbstractController
         DiceToPlace.setVisible(false);
         updateToken();
         updateDicePool();
-        updatePossiibleActions();
+        updatePossibleActions();
 
         if(ObserverGUI.isIsYourTurn()){
             passTurnBn.setVisible(true);
@@ -428,6 +444,10 @@ public class MainGameViewController implements Initializable, AbstractController
         updateOtherPlayesMap();
     }
 
+    /**
+     * Method for highlighting graphical elements
+     * @param mouseEvent
+     */
     public void highlight(javafx.scene.input.MouseEvent mouseEvent) {
         ImageView source = (ImageView) mouseEvent.getTarget();
         Bloom bloom = new Bloom();
@@ -435,16 +455,28 @@ public class MainGameViewController implements Initializable, AbstractController
         source.setEffect(bloom);
     }
 
-    public void remuveHighlight(javafx.scene.input.MouseEvent mouseEvent) {
+    /**
+     * Method for removing highlighting from graphical elements
+     * @param mouseEvent
+     */
+    public void removeHighlight(javafx.scene.input.MouseEvent mouseEvent) {
         ImageView source = (ImageView) mouseEvent.getTarget();
         source.setEffect(null);
     }
 
+    /**
+     * Method for showing the private goal card when the mouse is over it
+     * @param mouseEvent
+     */
     public void showPrivateGoal(javafx.scene.input.MouseEvent mouseEvent) {
         Image image = new Image(privateGoalcardPath);
         PrivateGoalCard.setImage(image);
     }
 
+    /**
+     * Method for hiding the private goal card when the mouse is not over it
+     * @param mouseEvent
+     */
     public void hidePrivateGoal(javafx.scene.input.MouseEvent mouseEvent) {
         Image image = new Image("PrivateGoalCards/Back1.jpg");  //todoremoveto be general
         PrivateGoalCard.setImage(image);
@@ -463,6 +495,10 @@ public class MainGameViewController implements Initializable, AbstractController
         }
     }
 
+
+    /**
+     * Initializes the scheme card for other players
+     */
     public void setOtherPlayerMap() {
         Player pl;
         switch (numOfPlayer) {
@@ -513,6 +549,9 @@ public class MainGameViewController implements Initializable, AbstractController
         }
     }
 
+    /**
+     * Method for updating other players' maps in the GUI. Used to have a real time overview of the other players' maps.
+     */
     public void updateOtherPlayesMap() {
         switch (numOfPlayer) {
             case 3:
@@ -550,6 +589,9 @@ public class MainGameViewController implements Initializable, AbstractController
         }
     }
 
+    /**
+     * Method for displaying an updated value of Segnalini favori
+     */
     public void updateToken() {
         try {
             token.setText("Segnalini favore: " + String.valueOf(ObserverGUI.Singleton().getServerController().getToken(ObserverGUI.Singleton().getUsername())));
@@ -558,6 +600,12 @@ public class MainGameViewController implements Initializable, AbstractController
         }
     }
 
+    /**
+     * Method for updating the scheme card view when some new dice is placed on it
+     * @param schemeCard
+     * @param gridMap
+     * @throws DiceNotExistantException
+     */
     public void updateDiceInMap(SchemeCard schemeCard, GridPane gridMap) throws DiceNotExistantException {
         Pane cell = new Pane();
         Image pic;
@@ -610,6 +658,9 @@ public class MainGameViewController implements Initializable, AbstractController
         }
     }
 
+    /**
+     * Method called to display an updated version of the dice pool
+     */
     public void updateDicePool() {
         int i = 0;
         char[] charDice;
@@ -692,6 +743,9 @@ public class MainGameViewController implements Initializable, AbstractController
         }
     }
 
+    /**
+     * Method used to display an updated version of the round track
+     */
     public void updateRoundTrack() {
         String track;
         int round = 0;
@@ -719,11 +773,27 @@ public class MainGameViewController implements Initializable, AbstractController
         }
     }
 
+    /**
+     * Method to select the dice from the dicePool
+     * @param mouseEvent
+     */
     public void selectDice(javafx.scene.input.MouseEvent mouseEvent) {
         selectedDiceInd = Integer.parseInt(String.valueOf(((ImageView) mouseEvent.getTarget()).getId().toCharArray()[9]));
         SelectedCell.setText("Dadi della Round Dicepool: "+ selectedDiceInd);
     }
 
+    /**
+     * Method used to correctly load a scheme card with all its contrains
+     * @param schemeCard
+     * @param gridMap
+     * @param mapName
+     * @param diff1
+     * @param diff2
+     * @param diff3
+     * @param diff4
+     * @param diff5
+     * @param diff6
+     */
     public void setUpMap(SchemeCard schemeCard, GridPane gridMap, Text mapName, Circle diff1, Circle diff2, Circle diff3, Circle diff4, Circle diff5, Circle diff6) {
         char[] charTile;
         char[] mapID;
@@ -796,6 +866,10 @@ public class MainGameViewController implements Initializable, AbstractController
         }
     }
 
+    /**
+     * Method for being able to leave the match any time the player wants
+     * @param actionEvent
+     */
     public void leaveTheMatch(javafx.event.ActionEvent actionEvent) {
         try {
             ObserverGUI.Singleton().getServerController().leavethematch(ObserverGUI.Singleton().getUsername(), ObserverGUI.Singleton());
@@ -809,7 +883,10 @@ public class MainGameViewController implements Initializable, AbstractController
         }
     }
 
-    public void updatePossiibleActions() {
+    /**
+     * Method used to display which actions are available for the player in the current state
+     */
+    public void updatePossibleActions() {
         promptAction = "";
         try {
             for (TurnActions action : ObserverGUI.Singleton().getServerController().getPossibleActions(ObserverGUI.Singleton().getUsername())) {
@@ -823,6 +900,10 @@ public class MainGameViewController implements Initializable, AbstractController
         Actions.setText(promptAction);
     }
 
+    /**
+     * Method responsible for guiding the user graphically in the use of a tool card notifying it if something goes wrong
+     * @param mouseEvent
+     */
     public void UseToolcard(MouseEvent mouseEvent) {
         ImageView card = (ImageView) mouseEvent.getTarget();
         int token = 0;
@@ -931,6 +1012,11 @@ public class MainGameViewController implements Initializable, AbstractController
         }
     }
 
+    /**
+     * This method is responsible for invoking the tool card action on the server
+     * @param actionEvent
+     * @throws RemoteException
+     */
     public void useTool(ActionEvent actionEvent) throws RemoteException {
         useToolCard.setVisible(false);
         SelectedCell.setText("");
@@ -952,6 +1038,10 @@ public class MainGameViewController implements Initializable, AbstractController
         selected = false;
     }
 
+    /**
+     * Method for passing the turn
+     * @param actionEvent
+     */
     public void passTurn(ActionEvent actionEvent) {
         try {
             ObserverGUI.Singleton().getServerController().passTurn(ObserverGUI.Singleton().getUsername());
@@ -961,6 +1051,10 @@ public class MainGameViewController implements Initializable, AbstractController
         }
     }
 
+    /**
+     * This method updates the player's view based on its state by hiding or showing the elements and the buttons on the screen
+     * @param state The state in which the player is
+     */
     @Override
     public void update(State state) {
         Platform.runLater(new Runnable() {
@@ -969,7 +1063,7 @@ public class MainGameViewController implements Initializable, AbstractController
                 updateToken();
                 updateRoundTrack();
                 updateDicePool();
-                updatePossiibleActions();
+                updatePossibleActions();
                 updateOtherPlayesMap();
                 ErrorMessage.setText("");
             }
@@ -1092,6 +1186,10 @@ public class MainGameViewController implements Initializable, AbstractController
         }
     }
 
+    /**
+     * Guidelines displayed on the screen when using Taglierina Manuale
+     * @param actionEvent
+     */
     public void Select1or2(ActionEvent actionEvent) {
         if (toggle1or2.isSelected()) {
             DicesToMove = 2;
@@ -1104,6 +1202,10 @@ public class MainGameViewController implements Initializable, AbstractController
         ErrorMessage.setText("Seleziona il dado da spostare.");
     }
 
+    /**
+     * Method for helping the user to understand the selected tile
+     * @param mouseEvent
+     */
     public void selectThisPose(MouseEvent mouseEvent) {
         newOldRow = ((ImageView) mouseEvent.getTarget()).getId().toCharArray()[9]-48;
         newOldColumn = ((ImageView) mouseEvent.getTarget()).getId().toCharArray()[10]-48;
@@ -1250,6 +1352,10 @@ public class MainGameViewController implements Initializable, AbstractController
             }
         }
 
+    /**
+     * Method for displaying the elements for changing the values of a dice
+     * @param actionEvent
+     */
     public void selectValueOfDice(ActionEvent actionEvent) {
         selectValue.setVisible(false);
         selectIntensity.setVisible(false);
@@ -1266,6 +1372,10 @@ public class MainGameViewController implements Initializable, AbstractController
     }
     }
 
+    /**
+     * Method to display the increment or decrement switch for the tool card
+     * @param actionEvent
+     */
     public void increaseDecrease(ActionEvent actionEvent) {
         if (increaseDicIntensity.isSelected()){
             SelectedCell.setText("Diminuisci l'intensità del dado di 1.");
@@ -1273,6 +1383,10 @@ public class MainGameViewController implements Initializable, AbstractController
         else SelectedCell.setText("Aumeta l'intensità del dado di 1.");
     }
 
+    /**
+     * Method for updating graphical guidelines for Taglierina Manuale
+     * @param actionEvent
+     */
     public void move1or2(ActionEvent actionEvent) {
         if (toggle1or2.isSelected()){
             SelectedCell.setText("Sposta 2 dadi!");

@@ -13,6 +13,9 @@ import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.Collections;
 
+/**
+ * GUI Class for creating a new match for the multiplayer class
+ */
 public class MultiCreateController implements AbstractController {
 
     @FXML
@@ -28,6 +31,10 @@ public class MultiCreateController implements AbstractController {
         ObserverGUI.Singleton().setController(this);
     }
 
+    /**
+     * Create a new multiplayer match by invoking the method on the server controller
+     * @param actionEvent
+     */
     public void createGame(ActionEvent actionEvent) {
         try {
             ObserverGUI.Singleton().getServerController().createGame(ObserverGUI.Singleton().getUsername(), ObserverGUI.Singleton(),gameName.getCharacters().toString());
@@ -38,6 +45,10 @@ public class MultiCreateController implements AbstractController {
         }
     }
 
+    /**
+     * Go back to the main menù
+     * @param actionEvent
+     */
     public void goBack(ActionEvent actionEvent) {
         try {
             createPane.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/MultiSelectMode.fxml"))));
@@ -46,6 +57,11 @@ public class MultiCreateController implements AbstractController {
         }
     }
 
+    /**
+     * Once the player creates a new match its state is changed in a new one waiting for other player and a waiting screen
+     * is prompted
+     * @param state
+     */
     @Override
     public void update(State state){
         if(state == State.MATCHNOTSTARTEDYETSTATE){

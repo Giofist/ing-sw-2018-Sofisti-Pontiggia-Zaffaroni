@@ -11,6 +11,9 @@ import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.Collections;
 
+/**
+ * This is the controller handling the state in which the user is in the waiting room before the match with a limited set of actions
+ */
 public class WaitInterfaceController implements AbstractController{
 
     @FXML
@@ -23,6 +26,10 @@ public class WaitInterfaceController implements AbstractController{
         ObserverGUI.Singleton().setController(this);
     }
 
+    /**
+     * This method handles the situation in which the player wants to leave the match
+     * @param actionEvent
+     */
     public void leaveTheMatch(javafx.event.ActionEvent actionEvent) {
         try {
             ObserverGUI.Singleton().getServerController().leavethematch(ObserverGUI.Singleton().getUsername(), ObserverGUI.Singleton());
@@ -36,6 +43,10 @@ public class WaitInterfaceController implements AbstractController{
         }
     }
 
+    /**
+     * This method is responsible for graphically updating the view based on the player's state
+     * @param state The player's state
+     */
     @Override
     public void update(State state){
         if(state== State.MUSTSETSCHEMECARD){

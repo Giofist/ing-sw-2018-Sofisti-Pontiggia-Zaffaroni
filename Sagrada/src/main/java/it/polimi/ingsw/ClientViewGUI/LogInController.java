@@ -29,6 +29,9 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ResourceBundle;
 
+/**
+ * This class is responsible for managing the user's interaction with the login screen
+ */
 public class LogInController implements Initializable,AbstractController{
     private String ipAddr = "127.0.0.1";
     private int port = 1337;
@@ -77,6 +80,10 @@ public class LogInController implements Initializable,AbstractController{
         this.primaryStage = stage;
     }
 
+    /**
+     * Controller method that redirects the user to CranioCretions' website
+     * @param actionEvent
+     */
     @FXML
     void goToWebSite(ActionEvent actionEvent) {
         try {
@@ -86,6 +93,11 @@ public class LogInController implements Initializable,AbstractController{
         }
     }
 
+    /**
+     * This method is responsible for getting the user's input from the login fields and calling the proper login method
+     * in the Server controller
+     * @param event
+     */
     @FXML
     void signInOperation(ActionEvent event) {
         Parent menu = null;
@@ -107,6 +119,10 @@ public class LogInController implements Initializable,AbstractController{
         }
     }
 
+    /**
+     * Method for visually choosing the connectivity type between socket and rmi
+     * @param event
+     */
     @FXML
     void setConnection(ActionEvent event) {
         if(ConnectionSetUp.isSelected()){
@@ -115,6 +131,10 @@ public class LogInController implements Initializable,AbstractController{
         else connectionMessage.setText("RMI selected!");
     }
 
+    /**
+     * Method responsible for calling the signup method on the client controller
+     * @param event
+     */
     @FXML
     void signUpOperation(ActionEvent event) {
        try {
@@ -126,6 +146,10 @@ public class LogInController implements Initializable,AbstractController{
 
     }
 
+    /**
+     * Main method responsible for creating the connection with the server with the type of connection specified by the user
+     * @param actionEvent
+     */
     public void connect(ActionEvent actionEvent) {
         ipAddr = IPAddress.getCharacters().toString();
         port = Integer.parseInt(PortField.getCharacters().toString());
@@ -157,6 +181,11 @@ public class LogInController implements Initializable,AbstractController{
         }
     }
 
+    /**
+     * Method for setting visually in the gui the default ip and port for connectivity
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         PortField.setText(String.valueOf(port));
