@@ -163,7 +163,7 @@ public class UsersList {
             this.users.put(name, user);
 
             // Write the new User to the file
-            fw = new FileWriter("src/main/resources/UsersList.txt", true);
+            fw = new FileWriter("UsersList.txt", true);
             bw = new BufferedWriter(fw);
             bw.write(name + "," + hexHash);
             bw.newLine();
