@@ -806,7 +806,7 @@ public class MainGameViewController implements Initializable, AbstractController
         Actions.setText(promptAction);
     }
 
-    public void UseToolcard(javafx.scene.input.MouseEvent mouseEvent) {
+    public void UseToolcard(MouseEvent mouseEvent) {
         ImageView card = (ImageView) mouseEvent.getTarget();
         String input = "0";
         Boolean correct = false;
@@ -1078,6 +1078,7 @@ public class MainGameViewController implements Initializable, AbstractController
                     data.setOperationforPinzaSgrossatrice(0);
                 }else data.setOperationforPinzaSgrossatrice(1);
                 Select.setVisible(false);
+                increaseDicIntensity.setVisible(false);
                 useToolCard.setVisible(true);
                 break;
             }
@@ -1219,5 +1220,12 @@ public class MainGameViewController implements Initializable, AbstractController
             SelectedCell.setText("Diminuisci l'intensità del dado di 1.");
         }
         else SelectedCell.setText("Aumeta l'intensità del dado di 1.");
+    }
+
+    public void incrDecr(ActionEvent actionEvent) {
+        if (toggle1or2.isSelected()){
+            SelectedCell.setText("Sposta 2 dadi!");
+        }
+        else SelectedCell.setText("Sposta un solo dado!");
     }
 }
