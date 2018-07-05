@@ -1152,10 +1152,7 @@ public class MainGameViewController implements Initializable, AbstractController
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }
-                    System.out.println(dice.toCharArray()[1]);
-                    System.out.println(dice.toCharArray()[0]);
                     String imagePath = "Dices/" + dice.toCharArray()[1] + dice.toCharArray()[0] + ".jpg";
-                    System.out.println(imagePath);
                     Image pic = new Image(imagePath);
                     ToolCardDice.setImage(pic);
                     ToolCardDice.setVisible(true);
@@ -1177,10 +1174,7 @@ public class MainGameViewController implements Initializable, AbstractController
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }
-                    System.out.println(dice.toCharArray()[1]);
-                    System.out.println(dice.toCharArray()[0]);
                     String imagePath = "Dices/" + dice.toCharArray()[1] + dice.toCharArray()[0] + ".jpg";
-                    System.out.println(imagePath);
                     Image pic = new Image(imagePath);
                     ToolCardDice.setImage(pic);
                     ToolCardDice.setVisible(true);
