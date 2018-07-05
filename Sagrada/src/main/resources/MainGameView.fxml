@@ -1058,10 +1058,15 @@
          </font>
       </Text>
       <JFXToggleButton fx:id="increaseDicIntensity" layoutX="905.0" layoutY="264.0" onAction="#increaseDecrease" text="Aumenta/diminuisci intensità" textFill="WHITE" toggleColor="#008f34" toggleLineColor="#78c28a" />
-      <Text fx:id="DiceToPlace" fill="WHITE" layoutX="876.0" layoutY="547.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dado da piazzare" textAlignment="CENTER" wrappingWidth="226.20508687198162">
+      <Text fx:id="DiceToPlace" fill="WHITE" layoutX="970.0" layoutY="547.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dado da piazzare" textAlignment="CENTER" wrappingWidth="226.20508687198162">
          <font>
             <Font size="15.0" />
          </font>
       </Text>
+      <ImageView fx:id="ToolCardDice" fitHeight="60.0" fitWidth="60.0" layoutX="1054.0" layoutY="553.0" onMouseClicked="#selectDice" onMouseEntered="#highlight" onMouseExited="#removeHighlight" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Dices/EmptySpace.jpg" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

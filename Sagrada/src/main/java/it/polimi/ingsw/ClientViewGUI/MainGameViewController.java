@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.SchemeDeck.SchemeCard;
 import it.polimi.ingsw.model.SchemeDeck.Tile;
 import it.polimi.ingsw.model.State;
 import it.polimi.ingsw.model.ToolCard.ToolAction;
+import it.polimi.ingsw.model.ToolCard.ToolCardsDeck;
 import it.polimi.ingsw.model.ToolCard.ToolRequestClass;
 import it.polimi.ingsw.model.TurnActions;
 import javafx.application.Platform;
@@ -142,6 +143,9 @@ public class MainGameViewController implements Initializable, AbstractController
 
     @FXML
     private Text Player1;
+
+    @FXML
+    private ImageView ToolCardDice;
 
     @FXML
     private Circle P1Diff6;
@@ -345,6 +349,7 @@ public class MainGameViewController implements Initializable, AbstractController
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Image image = null;
+        ToolCardDice.setVisible(false);
         toggle1or2.setVisible(false);
         select1or2.setVisible(false);
         selectIntensity.setVisible(false);
@@ -353,6 +358,7 @@ public class MainGameViewController implements Initializable, AbstractController
         selectValue.setVisible(false);
         increaseDicIntensity.setVisible(false);
         DiceToPlace.setVisible(false);
+        selectIntensity.getItems().addAll("1", "2", "3", "4", "5", "6");
         updateToken();
         updateDicePool();
         updatePossibleActions();
@@ -1138,8 +1144,8 @@ public class MainGameViewController implements Initializable, AbstractController
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
-                    selectIntensity.getItems().addAll("1", "2", "3", "4", "5", "6");
                     selectIntensity.setVisible(true);
+                    DiceToPlace.setVisible(true);
                     String dice = "";
                     try {
                         dice = ObserverGUI.Singleton().getServerController().getToolCardDice(ObserverGUI.Singleton().getUsername());
@@ -1149,8 +1155,10 @@ public class MainGameViewController implements Initializable, AbstractController
                     System.out.println(dice.toCharArray()[1]);
                     System.out.println(dice.toCharArray()[0]);
                     String imagePath = "Dices/" + dice.toCharArray()[1] + dice.toCharArray()[0] + ".jpg";
+                    System.out.println(imagePath);
                     Image pic = new Image(imagePath);
-                    RoundDice8.setImage(pic);
+                    ToolCardDice.setImage(pic);
+                    ToolCardDice.setVisible(true);
                     newOldColumn = 10;
                     newOldRow = 10;
                     ErrorMessage.setText("Seleziona dove vuoi mettere il dado estratto (se non vuoi piazzlo non cliccare nulla) e l'intensità.");
@@ -1163,6 +1171,7 @@ public class MainGameViewController implements Initializable, AbstractController
                 @Override
                 public void run() {
                     String dice = "";
+                    DiceToPlace.setVisible(true);
                     try {
                         dice = ObserverGUI.Singleton().getServerController().getToolCardDice(ObserverGUI.Singleton().getUsername());
                     } catch (RemoteException e) {
@@ -1171,14 +1180,14 @@ public class MainGameViewController implements Initializable, AbstractController
                     System.out.println(dice.toCharArray()[1]);
                     System.out.println(dice.toCharArray()[0]);
                     String imagePath = "Dices/" + dice.toCharArray()[1] + dice.toCharArray()[0] + ".jpg";
+                    System.out.println(imagePath);
                     Image pic = new Image(imagePath);
-                    RoundDice8.setImage(pic);
-
+                    ToolCardDice.setImage(pic);
+                    ToolCardDice.setVisible(true);
                     ErrorMessage.setText("Seleziona dove vuoi mettere il dado estratto (se non vuoi piazzlo non cliccare nulla):");
                     newOldColumn = 10;
                     newOldRow = 10;
                     selectValue.setVisible(true);
-                    DiceToPlace.setVisible(true);
                 }
             });
         }else if (state == State.ERRORSTATE){
@@ -1357,8 +1366,10 @@ public class MainGameViewController implements Initializable, AbstractController
      * @param actionEvent
      */
     public void selectValueOfDice(ActionEvent actionEvent) {
+        DiceToPlace.setVisible(false);
         selectValue.setVisible(false);
         selectIntensity.setVisible(false);
+        ToolCardDice.setVisible(false);
         SelectedCell.setText("Intensità scelta:"+ selectIntensity.getValue());
         try{
             ObserverGUI.Singleton().getServerController().setToolCardDiceIntensity(ObserverGUI.Singleton().getUsername(),Integer.parseInt(selectIntensity.getValue().toString()));
