@@ -11,7 +11,9 @@ Zaffaroni | Diego | 844284 | 10499629
 
 
 ## Testing
-> inserire
+Per il testing abbiamo riscontrato alcuni problemi con le metriche di sonar, pertanto al seguente link è possibile visualizzare un report generato con le metriche di intellij. E' sufficiente aprire index.html per poter navigare nei risultati.  
+Le exception sono state testate nei relativi metodi dove vengono lanciate.
+> https://github.com/Giofist/ing-sw-2018-Sofisti-Pontiggia-Zaffaroni/tree/master/report%20testing
 
 ## Diagramma UML
 > UML Server + Controller + Model + Cli https://github.com/Giofist/ing-sw-2018-Sofisti-Pontiggia-Zaffaroni/blob/master/FINL.jpg  
