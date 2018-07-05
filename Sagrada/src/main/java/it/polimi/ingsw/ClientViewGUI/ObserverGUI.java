@@ -25,6 +25,9 @@ public class ObserverGUI extends UnicastRemoteObject implements Observer {
         return isYourTurn;
     }
 
+    /**
+     * @param isYourTurn True or false if we want to set that it's this client's turn
+     */
     public static void setIsYourTurn(boolean isYourTurn) {
         ObserverGUI.isYourTurn = isYourTurn;
     }
@@ -43,6 +46,7 @@ public class ObserverGUI extends UnicastRemoteObject implements Observer {
     private  ObserverGUI() throws RemoteException{};
 
     /**
+     * Method used to get the translator for displaying messages in the gui
      * @return A translator object
      */
     public Translator getTranslator() {
@@ -60,6 +64,9 @@ public class ObserverGUI extends UnicastRemoteObject implements Observer {
         return instance;
     }
 
+    /**
+     * @param controller Controller used for updating the view in the GUI
+     */
     public void setController(AbstractController controller) {
         this.controller = controller;
     }

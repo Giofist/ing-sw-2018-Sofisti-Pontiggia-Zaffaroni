@@ -38,6 +38,9 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.*;
 
+/**
+ * This Class is the GUI for the actual match displaying all the graphical elements
+ */
 public class MainGameViewController implements Initializable, AbstractController {
     private ImageView origin = null;
     boolean selected = false;
@@ -312,6 +315,10 @@ public class MainGameViewController implements Initializable, AbstractController
         ObserverGUI.Singleton().setController(this);
     }
 
+    /**
+     * Method to check if the user is dragging something in the GUI
+     * @param mouseEvent
+     */
     public void handleDragDetection(javafx.scene.input.MouseEvent mouseEvent) {
         char[] SelectedDiceId;
 
@@ -326,6 +333,13 @@ public class MainGameViewController implements Initializable, AbstractController
         mouseEvent.consume();
     }
 
+    /**
+     * Main method responsible for initializing the game table with all the elements of the current match and the other
+     * players' maps
+     *
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Image image = null;
@@ -428,6 +442,10 @@ public class MainGameViewController implements Initializable, AbstractController
         updateOtherPlayesMap();
     }
 
+    /**
+     * Method for highlighting graphical elements
+     * @param mouseEvent
+     */
     public void highlight(javafx.scene.input.MouseEvent mouseEvent) {
         ImageView source = (ImageView) mouseEvent.getTarget();
         Bloom bloom = new Bloom();
@@ -435,16 +453,28 @@ public class MainGameViewController implements Initializable, AbstractController
         source.setEffect(bloom);
     }
 
-    public void remuveHighlight(javafx.scene.input.MouseEvent mouseEvent) {
+    /**
+     * Method for removing highlighting from graphical elements
+     * @param mouseEvent
+     */
+    public void removeHighlight(javafx.scene.input.MouseEvent mouseEvent) {
         ImageView source = (ImageView) mouseEvent.getTarget();
         source.setEffect(null);
     }
 
+    /**
+     * Method for showing the private goal card when the mouse is over it
+     * @param mouseEvent
+     */
     public void showPrivateGoal(javafx.scene.input.MouseEvent mouseEvent) {
         Image image = new Image(privateGoalcardPath);
         PrivateGoalCard.setImage(image);
     }
 
+    /**
+     * Method for hiding the private goal card when the mouse is not over it
+     * @param mouseEvent
+     */
     public void hidePrivateGoal(javafx.scene.input.MouseEvent mouseEvent) {
         Image image = new Image("PrivateGoalCards/Back1.jpg");  //todoremoveto be general
         PrivateGoalCard.setImage(image);
@@ -463,6 +493,10 @@ public class MainGameViewController implements Initializable, AbstractController
         }
     }
 
+
+    /**
+     * R
+     */
     public void setOtherPlayerMap() {
         Player pl;
         switch (numOfPlayer) {
@@ -513,6 +547,9 @@ public class MainGameViewController implements Initializable, AbstractController
         }
     }
 
+    /**
+     * Method for updating other players' maps in the GUI
+     */
     public void updateOtherPlayesMap() {
         switch (numOfPlayer) {
             case 3:
@@ -550,6 +587,9 @@ public class MainGameViewController implements Initializable, AbstractController
         }
     }
 
+    /**
+     * Method updating 
+     */
     public void updateToken() {
         try {
             token.setText("Segnalini favore: " + String.valueOf(ObserverGUI.Singleton().getServerController().getToken(ObserverGUI.Singleton().getUsername())));
@@ -1266,6 +1306,10 @@ public class MainGameViewController implements Initializable, AbstractController
     }
     }
 
+    /**
+     *
+     * @param actionEvent
+     */
     public void increaseDecrease(ActionEvent actionEvent) {
         if (increaseDicIntensity.isSelected()){
             SelectedCell.setText("Diminuisci l'intensità del dado di 1.");
