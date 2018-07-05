@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ClientView;
 
+import com.sun.prism.shader.Solid_TextureYV12_AlphaTest_Loader;
 import it.polimi.ingsw.ServerController.ClientHandlerInterface;
 import it.polimi.ingsw.model.Match;
 import it.polimi.ingsw.model.Observable;
@@ -67,6 +68,12 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
     public synchronized void run() throws RemoteException {
         loadingInterface();
         boolean wasInGame = false;
+        try {
+            wait(10000);
+            //To wait in case wa are already in a match
+        } catch (InterruptedException e){
+                ;
+        }
         if(this.thread != null){
             wasInGame = true;
         }else{
@@ -94,7 +101,6 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
         }
 
     }
-
 
     /**
      * Method responsible for asking the user if he already has an account or if he wants to create a new one
@@ -313,7 +319,7 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
      */
     @Override
     public synchronized void update(Observable o, Object arg) throws RemoteException{
-
+        System.out.println("Ho ricevuto un'update");
         if(this.thread !=null){
             this.thread.interrupt();
             this.thread = null;
@@ -373,6 +379,7 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
             }
             default:System.out.println("Ho ricevuto un'update dal server ma non riesco a interpretarla");
         }
+        System.out.println("Ho ricevuto un'update");
         this.notifyAll();
     }
 
