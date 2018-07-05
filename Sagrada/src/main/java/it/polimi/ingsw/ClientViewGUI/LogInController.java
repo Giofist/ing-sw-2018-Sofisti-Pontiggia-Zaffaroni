@@ -65,7 +65,7 @@ public class LogInController  implements Initializable,AbstractController{
     private Text signUpConfirmation;
 
     @FXML
-    void closeClient(MouseEvent event) {
+    void closeClient(ActionEvent event) {
         System.exit(0);
     }
 
@@ -78,7 +78,7 @@ public class LogInController  implements Initializable,AbstractController{
     }
 
     @FXML
-    void goToWebSite(MouseEvent event) {
+    void goToWebSite(ActionEvent actionEvent) {
         try {
             java.awt.Desktop.getDesktop().browse(URI.create("http://www.craniocreations.it/prodotto/sagrada/"));
         } catch (IOException e) {
@@ -87,7 +87,7 @@ public class LogInController  implements Initializable,AbstractController{
     }
 
     @FXML
-    void signInOperation(MouseEvent event) {
+    void signInOperation(ActionEvent event) {
         Parent menu = null;
         try {
            ObserverGUI.Singleton().getServerController().login(username.getCharacters().toString(), password.getCharacters().toString(), ObserverGUI.Singleton());
@@ -116,7 +116,7 @@ public class LogInController  implements Initializable,AbstractController{
     }
 
     @FXML
-    void signUpOperation(MouseEvent event) {
+    void signUpOperation(ActionEvent event) {
        try {
            ObserverGUI.Singleton().getServerController().register(username.getCharacters().toString(), password.getCharacters().toString());
             signUpConfirmation.setText("Hai creato un nuovo account!");
@@ -130,7 +130,6 @@ public class LogInController  implements Initializable,AbstractController{
         ipAddr = IPAddress.getCharacters().toString();
         port = Integer.parseInt(PortField.getCharacters().toString());
 
-        boolean correct = true;
         if (ConnectionSetUp.isSelected()) {
             try {
                 Socket socket = new Socket(ipAddr, port);
@@ -142,7 +141,6 @@ public class LogInController  implements Initializable,AbstractController{
                 connectionMessage.setText("Connection up!");
                 ConnectButton.setVisible(false);
             } catch (IOException e) {
-                correct = false;
                 connectionError.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
             }
         } else {
@@ -154,7 +152,6 @@ public class LogInController  implements Initializable,AbstractController{
                 connectionMessage.setText("Connection up!");
                 ConnectButton.setVisible(false);
             } catch (Exception e) {
-                correct = false;
                 connectionMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
             }
         }
@@ -168,7 +165,7 @@ public class LogInController  implements Initializable,AbstractController{
 
     @Override
     public void update(State state) {
-        //nothing to do herer
+        //nothing to do here
     }
 }
 
