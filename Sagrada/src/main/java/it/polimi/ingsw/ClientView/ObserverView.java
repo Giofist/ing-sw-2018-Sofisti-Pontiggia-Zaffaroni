@@ -76,7 +76,7 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
             if(!leaveSagrada){
                 while (!leaveMatch){
                     try {
-                        if(wasInGame = false){
+                        if(wasInGame == false){
                             wait();
                         }
                         this.thread.start();
