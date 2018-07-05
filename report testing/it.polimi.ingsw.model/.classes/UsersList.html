@@ -1,0 +1,363 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: UsersList</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.model</a> ]
+</div>
+
+<h1>Coverage Summary for Class: UsersList (it.polimi.ingsw.model)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">UsersList</td>
+<td class="coverageStat">
+  <span class="percent">
+    91,7%
+  </span>
+  <span class="absValue">
+    (11/ 12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    71,9%
+  </span>
+  <span class="absValue">
+    (69/ 96)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">UsersList$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    25%
+  </span>
+  <span class="absValue">
+    (3/ 12)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    92,9%
+  </span>
+  <span class="absValue">
+    (13/ 14)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    66,7%
+  </span>
+  <span class="absValue">
+    (72/ 108)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.model;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.ClientView.Observer;
+<i>4</i>&nbsp;import it.polimi.ingsw.model.Exceptions.HomonymyException;
+<i>5</i>&nbsp;import it.polimi.ingsw.model.Exceptions.IsAlreadyActiveException;
+<i>6</i>&nbsp;import it.polimi.ingsw.model.Exceptions.LoginException;
+<i>7</i>&nbsp;import it.polimi.ingsw.model.Exceptions.UserNotExistentException;
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;import java.io.*;
+<i>10</i>&nbsp;import java.nio.charset.StandardCharsets;
+<i>11</i>&nbsp;import java.rmi.RemoteException;
+<i>12</i>&nbsp;import java.security.MessageDigest;
+<i>13</i>&nbsp;import java.security.NoSuchAlgorithmException;
+<i>14</i>&nbsp;import java.util.*;
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;public class UsersList {
+<b class="fc"><i>18</i>&nbsp;    private static UsersList instance = null;</b>
+<i>19</i>&nbsp;    private Hashtable&lt;String, User&gt; users;
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;    /**
+<i>23</i>&nbsp;     * Private constructor invoked by the singleton method
+<i>24</i>&nbsp;     */
+<b class="fc"><i>25</i>&nbsp;    private UsersList() {</b>
+<b class="fc"><i>26</i>&nbsp;        this.users = new Hashtable&lt;&gt;();</b>
+<b class="fc"><i>27</i>&nbsp;    }</b>
+<i>28</i>&nbsp;
+<i>29</i>&nbsp;
+<i>30</i>&nbsp;    /**
+<i>31</i>&nbsp;     * Method for the singleton pattern
+<i>32</i>&nbsp;     *
+<i>33</i>&nbsp;     * @return The singleton instance of the UsersList
+<i>34</i>&nbsp;     */
+<i>35</i>&nbsp;    public static UsersList Singleton() {
+<b class="fc"><i>36</i>&nbsp;        if (instance == null) {</b>
+<b class="fc"><i>37</i>&nbsp;            instance = new UsersList();</b>
+<b class="fc"><i>38</i>&nbsp;            instance.loadUsersList();</b>
+<i>39</i>&nbsp;        }
+<b class="fc"><i>40</i>&nbsp;        return instance;</b>
+<i>41</i>&nbsp;    }
+<i>42</i>&nbsp;
+<i>43</i>&nbsp;
+<i>44</i>&nbsp;    /**
+<i>45</i>&nbsp;     * This private method is used to load the list of registered users from a .csv file when the server is started.
+<i>46</i>&nbsp;     * If for any reason we are not able to read the file an empty list will be created.
+<i>47</i>&nbsp;     */
+<i>48</i>&nbsp;    private void loadUsersList() {
+<b class="fc"><i>49</i>&nbsp;        FileReader fr = null;</b>
+<b class="fc"><i>50</i>&nbsp;        Scanner fileScanner = null;</b>
+<i>51</i>&nbsp;        try {
+<b class="fc"><i>52</i>&nbsp;            fr = new FileReader(&quot;UsersList.txt&quot;);</b>
+<b class="nc"><i>53</i>&nbsp;            fileScanner = new Scanner(fr);</b>
+<b class="nc"><i>54</i>&nbsp;            users = new Hashtable&lt;&gt;();</b>
+<i>55</i>&nbsp;            String[] splittedUsernameAndPass;
+<i>56</i>&nbsp;
+<b class="nc"><i>57</i>&nbsp;            while (fileScanner.hasNextLine()) {</b>
+<b class="nc"><i>58</i>&nbsp;                String line = fileScanner.nextLine();</b>
+<b class="nc"><i>59</i>&nbsp;                splittedUsernameAndPass = line.split(&quot;,&quot;);</b>
+<b class="nc"><i>60</i>&nbsp;                users.put(splittedUsernameAndPass[0], new User(splittedUsernameAndPass[0], splittedUsernameAndPass[1]));</b>
+<b class="nc"><i>61</i>&nbsp;            }</b>
+<b class="fc"><i>62</i>&nbsp;        } catch (Exception e) {</b>
+<b class="fc"><i>63</i>&nbsp;            users = new Hashtable&lt;&gt;();</b>
+<i>64</i>&nbsp;        } finally {
+<b class="nc"><i>65</i>&nbsp;            try {</b>
+<b class="fc"><i>66</i>&nbsp;                fr.close();</b>
+<b class="fc"><i>67</i>&nbsp;            } catch (NullPointerException e) {</b>
+<b class="fc"><i>68</i>&nbsp;                e.printStackTrace();</b>
+<b class="nc"><i>69</i>&nbsp;            } catch (IOException e) {</b>
+<b class="nc"><i>70</i>&nbsp;                e.printStackTrace();</b>
+<b class="fc"><i>71</i>&nbsp;            }</b>
+<i>72</i>&nbsp;            try {
+<b class="fc"><i>73</i>&nbsp;                fileScanner.close();</b>
+<b class="fc"><i>74</i>&nbsp;            } catch (NullPointerException e) {</b>
+<b class="fc"><i>75</i>&nbsp;                e.printStackTrace();</b>
+<b class="nc"><i>76</i>&nbsp;            }</b>
+<b class="fc"><i>77</i>&nbsp;        }</b>
+<b class="fc"><i>78</i>&nbsp;    }</b>
+<i>79</i>&nbsp;
+<i>80</i>&nbsp;
+<i>81</i>&nbsp;    /**
+<i>82</i>&nbsp;     * This method is used to perform the login
+<i>83</i>&nbsp;     *
+<i>84</i>&nbsp;     * @param name     The username we want to login with
+<i>85</i>&nbsp;     * @param password The password associated to the account
+<i>86</i>&nbsp;     * @param observer The client that wants to become an observer
+<i>87</i>&nbsp;     * @throws it.polimi.ingsw.model.Exceptions.LoginException Exception thrown when the login is not successful
+<i>88</i>&nbsp;     * @throws IsAlreadyActiveException                        Exception thrown when the username is already connected to the server
+<i>89</i>&nbsp;     */
+<i>90</i>&nbsp;    synchronized public void check(String name, String password, Observer observer) throws it.polimi.ingsw.model.Exceptions.LoginException, IsAlreadyActiveException {
+<b class="fc"><i>91</i>&nbsp;        String hexHash = produceSHA256(password);</b>
+<b class="fc"><i>92</i>&nbsp;        if (this.users.containsKey(name)) {</b>
+<b class="fc"><i>93</i>&nbsp;            User user = this.users.get(name);</b>
+<b class="fc"><i>94</i>&nbsp;            if (user.getPassword().equals(hexHash)) {</b>
+<b class="fc"><i>95</i>&nbsp;                if (user.isActive()) {</b>
+<b class="fc"><i>96</i>&nbsp;                    throw new IsAlreadyActiveException();</b>
+<i>97</i>&nbsp;                } else {
+<b class="fc"><i>98</i>&nbsp;                    user.setActive(true);</b>
+<b class="fc"><i>99</i>&nbsp;                    user.getUserState().addObserver(observer);</b>
+<b class="fc"><i>100</i>&nbsp;                    Timer timer = new Timer(false);</b>
+<b class="fc"><i>101</i>&nbsp;                    timer.schedule(new TimerTask() {</b>
+<i>102</i>&nbsp;                        @Override
+<i>103</i>&nbsp;                        public void run() {
+<i>104</i>&nbsp;                            try {
+<b class="fc"><i>105</i>&nbsp;                                while (user.isActive()) {</b>
+<b class="fc"><i>106</i>&nbsp;                                    Thread.sleep(60000);</b>
+<i>107</i>&nbsp;                                    try {
+<b class="nc"><i>108</i>&nbsp;                                        user.getUserState().notifyObservers();</b>
+<b class="nc"><i>109</i>&nbsp;                                    } catch (RemoteException e) {</b>
+<b class="nc"><i>110</i>&nbsp;                                        user.setActive(false);</b>
+<b class="nc"><i>111</i>&nbsp;                                    }</b>
+<i>112</i>&nbsp;                                }
+<b class="nc"><i>113</i>&nbsp;                            } catch (InterruptedException e) {</b>
+<b class="nc"><i>114</i>&nbsp;                                e.printStackTrace();</b>
+<b class="nc"><i>115</i>&nbsp;                                return;</b>
+<b class="nc"><i>116</i>&nbsp;                            }</b>
+<b class="nc"><i>117</i>&nbsp;                            return;</b>
+<i>118</i>&nbsp;                        }
+<i>119</i>&nbsp;                    }, 0);
+<i>120</i>&nbsp;                }
+<b class="fc"><i>121</i>&nbsp;                if (user.getPlayer() != null) {</b>
+<b class="nc"><i>122</i>&nbsp;                    user.getPlayer().setPlayerState(user.getPlayer().getPlayerState().getState());</b>
+<i>123</i>&nbsp;                }
+<b class="fc"><i>124</i>&nbsp;                return;</b>
+<i>125</i>&nbsp;            }
+<i>126</i>&nbsp;        }
+<b class="fc"><i>127</i>&nbsp;        throw new LoginException();</b>
+<i>128</i>&nbsp;
+<i>129</i>&nbsp;    }
+<i>130</i>&nbsp;
+<i>131</i>&nbsp;
+<i>132</i>&nbsp;    /**
+<i>133</i>&nbsp;     * This method is used to perform the logout of the user
+<i>134</i>&nbsp;     *
+<i>135</i>&nbsp;     * @param name     Name of the user that want to log out
+<i>136</i>&nbsp;     * @param observer The Client observer we want to remove from the list list
+<i>137</i>&nbsp;     */
+<i>138</i>&nbsp;    synchronized public void logOut(String name, Observer observer) {
+<b class="nc"><i>139</i>&nbsp;        if (this.users.containsKey(name)) {</b>
+<b class="nc"><i>140</i>&nbsp;            User user = this.users.get(name);</b>
+<b class="nc"><i>141</i>&nbsp;            user.setActive(false);</b>
+<b class="nc"><i>142</i>&nbsp;            user.getUserState().removeObserver(observer);</b>
+<i>143</i>&nbsp;        }
+<b class="nc"><i>144</i>&nbsp;    }</b>
+<i>145</i>&nbsp;
+<i>146</i>&nbsp;
+<i>147</i>&nbsp;    /**
+<i>148</i>&nbsp;     * @param name     The name of the new user we want to register
+<i>149</i>&nbsp;     * @param password The password of the new user we want to register
+<i>150</i>&nbsp;     * @throws HomonymyException Exception thrown in case there is already a user registered with the specified name
+<i>151</i>&nbsp;     */
+<i>152</i>&nbsp;    synchronized public void register(String name, String password) throws HomonymyException {
+<b class="fc"><i>153</i>&nbsp;        FileWriter fw = null;</b>
+<b class="fc"><i>154</i>&nbsp;        BufferedWriter bw = null;</b>
+<i>155</i>&nbsp;        try {
+<b class="fc"><i>156</i>&nbsp;            if (this.users.containsKey(name)) {</b>
+<b class="nc"><i>157</i>&nbsp;                throw new HomonymyException();</b>
+<i>158</i>&nbsp;            }
+<b class="fc"><i>159</i>&nbsp;            String hexHash = produceSHA256(password);</b>
+<i>160</i>&nbsp;
+<i>161</i>&nbsp;            // Add the new user to the list of registered users
+<b class="fc"><i>162</i>&nbsp;            User user = new User(name, hexHash);</b>
+<b class="fc"><i>163</i>&nbsp;            this.users.put(name, user);</b>
+<i>164</i>&nbsp;
+<i>165</i>&nbsp;            // Write the new User to the file
+<b class="fc"><i>166</i>&nbsp;            fw = new FileWriter(&quot;UsersList.txt&quot;, true);</b>
+<b class="fc"><i>167</i>&nbsp;            bw = new BufferedWriter(fw);</b>
+<b class="fc"><i>168</i>&nbsp;            bw.write(name + &quot;,&quot; + hexHash);</b>
+<b class="fc"><i>169</i>&nbsp;            bw.newLine();</b>
+<b class="fc"><i>170</i>&nbsp;            bw.flush();</b>
+<i>171</i>&nbsp;
+<b class="fc"><i>172</i>&nbsp;            System.out.println(name + &quot;,&quot; + hexHash);</b>
+<i>173</i>&nbsp;
+<i>174</i>&nbsp;
+<b class="nc"><i>175</i>&nbsp;        } catch (IOException e) {</b>
+<b class="nc"><i>176</i>&nbsp;            e.printStackTrace();</b>
+<i>177</i>&nbsp;        } finally {
+<b class="nc"><i>178</i>&nbsp;            try {</b>
+<b class="fc"><i>179</i>&nbsp;                fw.close();</b>
+<b class="nc"><i>180</i>&nbsp;            } catch (Exception e) {</b>
+<b class="nc"><i>181</i>&nbsp;                e.printStackTrace();</b>
+<b class="fc"><i>182</i>&nbsp;            }</b>
+<i>183</i>&nbsp;            try {
+<b class="fc"><i>184</i>&nbsp;                bw.close();</b>
+<b class="nc"><i>185</i>&nbsp;            } catch (Exception e) {</b>
+<b class="fc"><i>186</i>&nbsp;            }</b>
+<b class="nc"><i>187</i>&nbsp;        }</b>
+<b class="fc"><i>188</i>&nbsp;        return;</b>
+<i>189</i>&nbsp;    }
+<i>190</i>&nbsp;
+<i>191</i>&nbsp;
+<i>192</i>&nbsp;    /**
+<i>193</i>&nbsp;     * Method used to produce the sha256 of a string
+<i>194</i>&nbsp;     *
+<i>195</i>&nbsp;     * @param password The plain text password we want to hash
+<i>196</i>&nbsp;     * @return The sha256 of the input password
+<i>197</i>&nbsp;     */
+<i>198</i>&nbsp;    private String produceSHA256(String password) {
+<i>199</i>&nbsp;        MessageDigest digest;
+<i>200</i>&nbsp;        byte[] hash;
+<b class="fc"><i>201</i>&nbsp;        StringBuffer hexHash = new StringBuffer();</b>
+<i>202</i>&nbsp;        try {
+<i>203</i>&nbsp;            // Create the SHA-256 of the password
+<b class="fc"><i>204</i>&nbsp;            digest = MessageDigest.getInstance(&quot;SHA-256&quot;);</b>
+<b class="fc"><i>205</i>&nbsp;            hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));</b>
+<i>206</i>&nbsp;            // Convert hash bytes into StringBuffer
+<b class="fc"><i>207</i>&nbsp;            for (int i = 0; i &lt; hash.length; i++) {</b>
+<b class="fc"><i>208</i>&nbsp;                String hex = Integer.toHexString(0xff &amp; hash[i]);</b>
+<b class="fc"><i>209</i>&nbsp;                if (hex.length() == 1) hexHash.append(&#39;0&#39;);</b>
+<b class="fc"><i>210</i>&nbsp;                hexHash.append(hex);</b>
+<i>211</i>&nbsp;            }
+<b class="nc"><i>212</i>&nbsp;        } catch (NoSuchAlgorithmException e) {</b>
+<b class="nc"><i>213</i>&nbsp;            e.printStackTrace();</b>
+<b class="fc"><i>214</i>&nbsp;        }</b>
+<b class="fc"><i>215</i>&nbsp;        return hexHash.toString();</b>
+<i>216</i>&nbsp;    }
+<i>217</i>&nbsp;
+<i>218</i>&nbsp;
+<i>219</i>&nbsp;    /**
+<i>220</i>&nbsp;     * @param name Name of the user we want to try to retrieve
+<i>221</i>&nbsp;     * @return The user corresponding to the specified name
+<i>222</i>&nbsp;     * @throws UserNotExistentException Exception thrown when the user doesn&#39;t exist on the server
+<i>223</i>&nbsp;     */
+<i>224</i>&nbsp;    public User findUser(String name) throws UserNotExistentException {
+<b class="fc"><i>225</i>&nbsp;        User user = this.users.get(name);</b>
+<b class="fc"><i>226</i>&nbsp;        if (user != null) {</b>
+<b class="fc"><i>227</i>&nbsp;            return this.users.get(name);</b>
+<i>228</i>&nbsp;        }
+<b class="fc"><i>229</i>&nbsp;        throw new UserNotExistentException();</b>
+<i>230</i>&nbsp;    }
+<i>231</i>&nbsp;
+<i>232</i>&nbsp;
+<i>233</i>&nbsp;    /**
+<i>234</i>&nbsp;     * This method is used for situations where we are sure that the user exists in the server
+<i>235</i>&nbsp;     *
+<i>236</i>&nbsp;     * @param name Name of the user we want to retrieve
+<i>237</i>&nbsp;     * @return The user corresponding to the specified name
+<i>238</i>&nbsp;     */
+<i>239</i>&nbsp;    public User getUser(String name) {
+<b class="fc"><i>240</i>&nbsp;        return this.users.get(name);</b>
+<i>241</i>&nbsp;    }
+<i>242</i>&nbsp;
+<i>243</i>&nbsp;
+<i>244</i>&nbsp;    // Useful for testing
+<i>245</i>&nbsp;    protected int getUsersListSize() {
+<b class="fc"><i>246</i>&nbsp;        return this.users.size();</b>
+<i>247</i>&nbsp;    }
+<i>248</i>&nbsp;
+<i>249</i>&nbsp;    protected void clearUserList() {
+<b class="fc"><i>250</i>&nbsp;        this.users.clear();</b>
+<b class="fc"><i>251</i>&nbsp;    }</b>
+<i>252</i>&nbsp;}
+<i>253</i>&nbsp;
+<i>254</i>&nbsp;
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2018-07-05 15:05</div>
+</div>
+</body>
+</html>

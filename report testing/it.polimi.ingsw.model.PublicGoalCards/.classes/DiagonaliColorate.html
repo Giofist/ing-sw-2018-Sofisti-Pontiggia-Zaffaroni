@@ -1,0 +1,195 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: DiagonaliColorate</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.model.PublicGoalCards</a> ]
+</div>
+
+<h1>Coverage Summary for Class: DiagonaliColorate (it.polimi.ingsw.model.PublicGoalCards)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">DiagonaliColorate</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (5/ 5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    79,4%
+  </span>
+  <span class="absValue">
+    (27/ 34)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.model.PublicGoalCards;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;
+<i>4</i>&nbsp;import it.polimi.ingsw.model.Dice;
+<i>5</i>&nbsp;import it.polimi.ingsw.model.DiceColor;
+<i>6</i>&nbsp;import it.polimi.ingsw.model.Exceptions.SchemeCardNotExistantException;
+<i>7</i>&nbsp;import it.polimi.ingsw.model.GoalCard;
+<i>8</i>&nbsp;import it.polimi.ingsw.model.Player;
+<i>9</i>&nbsp;import it.polimi.ingsw.model.SchemeDeck.Tile;
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;import java.io.Serializable;
+<i>12</i>&nbsp;import java.util.LinkedList;
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;
+<b class="fc"><i>15</i>&nbsp;public class DiagonaliColorate implements GoalCard,Serializable {</b>
+<b class="fc"><i>16</i>&nbsp;    static int ID = 9;</b>
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;    /**
+<i>19</i>&nbsp;     * @param player A player for whom we want to calculate the points scored in this goal
+<i>20</i>&nbsp;     */
+<i>21</i>&nbsp;    @Override
+<i>22</i>&nbsp;    public void calculatepoint(Player player) {
+<i>23</i>&nbsp;        try{
+<b class="fc"><i>24</i>&nbsp;            for(Tile tile: player.getScheme()){</b>
+<b class="fc"><i>25</i>&nbsp;                LinkedList&lt;Dice&gt; list = new LinkedList&lt;Dice&gt;();</b>
+<b class="fc"><i>26</i>&nbsp;                findsamecolordices(tile.getRow(),tile.getColumn(),player,list);</b>
+<b class="fc"><i>27</i>&nbsp;                if(list.size() &gt;1){</b>
+<b class="fc"><i>28</i>&nbsp;                    player.addPoints(list.size());</b>
+<i>29</i>&nbsp;                }
+<b class="fc"><i>30</i>&nbsp;            }</b>
+<b class="nc"><i>31</i>&nbsp;        }catch(SchemeCardNotExistantException e){</b>
+<i>32</i>&nbsp;            // do nothing
+<b class="fc"><i>33</i>&nbsp;        }</b>
+<b class="fc"><i>34</i>&nbsp;    }</b>
+<i>35</i>&nbsp;
+<i>36</i>&nbsp;
+<i>37</i>&nbsp;    /**
+<i>38</i>&nbsp;     * @return The id of the public goal card
+<i>39</i>&nbsp;     */
+<i>40</i>&nbsp;    @Override
+<i>41</i>&nbsp;    public int getID() {
+<b class="fc"><i>42</i>&nbsp;        return ID;</b>
+<i>43</i>&nbsp;    }
+<i>44</i>&nbsp;
+<i>45</i>&nbsp;
+<i>46</i>&nbsp;    /**
+<i>47</i>&nbsp;     * This method, given a position on the player&#39;s scheme card where there is a Dice, is going to check if there are
+<i>48</i>&nbsp;     * other dices of the same color in the tiles which are diagonally near to the position specified. If in any direction
+<i>49</i>&nbsp;     * a match is found this method will call itself recursively
+<i>50</i>&nbsp;     * @param row Row position of the central tile
+<i>51</i>&nbsp;     * @param column Column position of the central tile
+<i>52</i>&nbsp;     * @param player The player for which we are calculating the score
+<i>53</i>&nbsp;     * @param list List of same color dices found until now
+<i>54</i>&nbsp;     */
+<i>55</i>&nbsp;    private void findsamecolordices(int row, int column,Player player,LinkedList&lt;Dice&gt; list){
+<i>56</i>&nbsp;        try {
+<b class="fc"><i>57</i>&nbsp;            DiceColor thecolorofthistile = player.getScheme().getDiceColour(row, column);</b>
+<b class="fc"><i>58</i>&nbsp;            list.add(player.getScheme().getDice(row, column));</b>
+<b class="fc"><i>59</i>&nbsp;            player.getScheme().removeDice(row,column);</b>
+<i>60</i>&nbsp;
+<i>61</i>&nbsp;            // Several try-catch statements to check the color of the dices placed in
+<i>62</i>&nbsp;            // all the tiles diagonally near to the tile that I&#39;m considering
+<i>63</i>&nbsp;
+<i>64</i>&nbsp;            try {
+<b class="fc"><i>65</i>&nbsp;                if (player.getScheme().getDiceColour(row + 1, column + 1).equals(thecolorofthistile)) {</b>
+<b class="nc"><i>66</i>&nbsp;                    findsamecolordices(row + 1, column + 1, player, list);</b>
+<i>67</i>&nbsp;                }
+<b class="fc"><i>68</i>&nbsp;            } catch (Exception e) {</b>
+<i>69</i>&nbsp;                //here you can get a DiceNotExistantException or an OutOfMatrixException
+<i>70</i>&nbsp;                //there is no dice, or you&#39;re out of the matrix
+<i>71</i>&nbsp;                //nothing to do, just go ahead in calculating the points
+<i>72</i>&nbsp;                //in the recursive call there will never be exceptions in thecolorofthistile
+<i>73</i>&nbsp;                //because I&#39;ve controlled the existance of the tile and the dice here
+<b class="nc"><i>74</i>&nbsp;            }</b>
+<i>75</i>&nbsp;
+<i>76</i>&nbsp;            try {
+<b class="fc"><i>77</i>&nbsp;                if (player.getScheme().getDiceColour(row - 1, column - 1).equals(thecolorofthistile)) {</b>
+<b class="nc"><i>78</i>&nbsp;                    findsamecolordices(row - 1, column - 1, player, list);</b>
+<i>79</i>&nbsp;                }
+<b class="fc"><i>80</i>&nbsp;            }catch (Exception e) {</b>
+<i>81</i>&nbsp;                //there is no dice, or you&#39;re out of the matrix
+<b class="nc"><i>82</i>&nbsp;            }</b>
+<i>83</i>&nbsp;
+<i>84</i>&nbsp;
+<i>85</i>&nbsp;            try {
+<b class="fc"><i>86</i>&nbsp;                if (player.getScheme().getDiceColour(row - 1, column + 1).equals(thecolorofthistile)) {</b>
+<b class="nc"><i>87</i>&nbsp;                    findsamecolordices(row - 1, column + 1, player, list);</b>
+<i>88</i>&nbsp;                }
+<b class="fc"><i>89</i>&nbsp;            }catch (Exception e){</b>
+<i>90</i>&nbsp;                //there is no dice, or you&#39;re out of the matrix
+<b class="nc"><i>91</i>&nbsp;            }</b>
+<i>92</i>&nbsp;
+<i>93</i>&nbsp;
+<i>94</i>&nbsp;            try {
+<b class="fc"><i>95</i>&nbsp;                if (player.getScheme().getDiceColour(row + 1, column - 1).equals(thecolorofthistile)) {</b>
+<b class="fc"><i>96</i>&nbsp;                    findsamecolordices(row + 1, column - 1, player, list);</b>
+<i>97</i>&nbsp;                }
+<b class="fc"><i>98</i>&nbsp;            } catch (Exception e) {</b>
+<i>99</i>&nbsp;                //there is no dice, or you&#39;re out of the matrix
+<i>100</i>&nbsp;                //here you can get a DiceNotExistantException or an OutOfMatrixException
+<b class="fc"><i>101</i>&nbsp;            }</b>
+<b class="fc"><i>102</i>&nbsp;        }catch(Exception e){</b>
+<i>103</i>&nbsp;            //there is no dice there
+<i>104</i>&nbsp;            //sorry, you can&#39;t get the points
+<b class="fc"><i>105</i>&nbsp;        }</b>
+<i>106</i>&nbsp;
+<b class="fc"><i>107</i>&nbsp;    }</b>
+<i>108</i>&nbsp;
+<i>109</i>&nbsp;
+<i>110</i>&nbsp;
+<i>111</i>&nbsp;
+<i>112</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2018-07-05 15:05</div>
+</div>
+</body>
+</html>

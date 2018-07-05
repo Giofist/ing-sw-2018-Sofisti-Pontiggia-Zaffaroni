@@ -1,4 +1,4 @@
-/*
+
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.ClientView.Observer;
@@ -46,7 +46,7 @@ public class MatchTest {
 
     /**
      * This match tests that the game sets itself to isReadyToStart when the number of players required is reached
-
+    */
     @Test
     public void joinMatchTest() {
         match.join(mockPlayer2);
@@ -75,7 +75,7 @@ public class MatchTest {
     /**
      * Method for testing that once all the players leave the match the match is removed from the matches' list
      * @throws HomonymyException
-
+     */
     @Test
     public void leaveMatchTest() throws HomonymyException {
         MatchesList.singleton().createMatch(mockPlayer1, "Match1");
@@ -100,7 +100,7 @@ public class MatchTest {
      * This method tests that once the match starts sets all the players' state to MUSTSETSCHEMECARD before beginning
      * the actual match
      * @throws InterruptedException
-
+     */
     @Test
     public void runTest() throws InterruptedException {
         mockPlayer2.setMatch(match);
@@ -122,4 +122,3 @@ public class MatchTest {
     }
 
 }
-*/

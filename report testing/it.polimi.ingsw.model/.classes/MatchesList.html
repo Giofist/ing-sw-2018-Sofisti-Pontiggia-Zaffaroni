@@ -1,0 +1,186 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: MatchesList</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.model</a> ]
+</div>
+
+<h1>Coverage Summary for Class: MatchesList (it.polimi.ingsw.model)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">MatchesList</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (9/ 9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    97,3%
+  </span>
+  <span class="absValue">
+    (36/ 37)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.model;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.model.Exceptions.GameNotExistantException;
+<i>4</i>&nbsp;import it.polimi.ingsw.model.Exceptions.HomonymyException;
+<i>5</i>&nbsp;import it.polimi.ingsw.model.Exceptions.MatchStartedYetException;
+<i>6</i>&nbsp;import it.polimi.ingsw.model.ToolCard.Martelletto;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;import java.io.Serializable;
+<i>9</i>&nbsp;import java.util.*;
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;//design pattern singleton
+<i>13</i>&nbsp;public class MatchesList implements Serializable {
+<i>14</i>&nbsp;    private static MatchesList instance;
+<i>15</i>&nbsp;    private Hashtable&lt;String, Match&gt; matches;
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;    //private constructor
+<b class="fc"><i>18</i>&nbsp;    private MatchesList(){</b>
+<b class="fc"><i>19</i>&nbsp;        this.matches = new Hashtable&lt;&gt;();</b>
+<b class="fc"><i>20</i>&nbsp;    }</b>
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;    /**
+<i>24</i>&nbsp;     * @return This method returns a Singleton instance of the matches list present in the server
+<i>25</i>&nbsp;     */
+<i>26</i>&nbsp;    public static  MatchesList singleton() {
+<b class="fc"><i>27</i>&nbsp;        if (instance == null)</b>
+<b class="fc"><i>28</i>&nbsp;            instance = new MatchesList();</b>
+<b class="fc"><i>29</i>&nbsp;        return instance;</b>
+<i>30</i>&nbsp;    }
+<i>31</i>&nbsp;
+<i>32</i>&nbsp;
+<i>33</i>&nbsp;    /**
+<i>34</i>&nbsp;     * This method allows to create a new match and adds it to the list
+<i>35</i>&nbsp;     * @param player Player creator
+<i>36</i>&nbsp;     * @param game_name Name of the match to be created
+<i>37</i>&nbsp;     * @throws HomonymyException Exception thrown when the specified name for the match il already in use
+<i>38</i>&nbsp;     */
+<i>39</i>&nbsp;    public void createMatch(Player player, String game_name) throws HomonymyException {
+<b class="fc"><i>40</i>&nbsp;        final Match match = new Match(player, game_name);</b>
+<b class="fc"><i>41</i>&nbsp;        synchronized (this){</b>
+<b class="fc"><i>42</i>&nbsp;            if(this.matches.containsKey(game_name)){</b>
+<b class="fc"><i>43</i>&nbsp;                throw new HomonymyException();</b>
+<i>44</i>&nbsp;            }
+<b class="fc"><i>45</i>&nbsp;            this.matches.put(game_name,match);</b>
+<b class="fc"><i>46</i>&nbsp;        }</b>
+<b class="fc"><i>47</i>&nbsp;        new Thread(match).start();</b>
+<b class="fc"><i>48</i>&nbsp;        return ;</b>
+<i>49</i>&nbsp;    }
+<i>50</i>&nbsp;
+<i>51</i>&nbsp;    /**
+<i>52</i>&nbsp;     * This method allows the user to join a match
+<i>53</i>&nbsp;     * @param player Player to be added to the match
+<i>54</i>&nbsp;     * @param game_name Game of the match you want to try to join
+<i>55</i>&nbsp;     * @throws GameNotExistantException Exception thrown if the specified name of the game is not found
+<i>56</i>&nbsp;     * @throws MatchStartedYetException Exception thrown if the match is already startec
+<i>57</i>&nbsp;     */
+<i>58</i>&nbsp;    public void  join(Player player, String game_name) throws GameNotExistantException, MatchStartedYetException {
+<b class="fc"><i>59</i>&nbsp;        Match match = this.matches.get(game_name);</b>
+<b class="fc"><i>60</i>&nbsp;        if(match == null){</b>
+<b class="fc"><i>61</i>&nbsp;            throw new GameNotExistantException();</b>
+<i>62</i>&nbsp;        }
+<b class="fc"><i>63</i>&nbsp;        synchronized (match){</b>
+<b class="fc"><i>64</i>&nbsp;            if (match.isStarted()){</b>
+<b class="nc"><i>65</i>&nbsp;                throw new MatchStartedYetException();</b>
+<i>66</i>&nbsp;            }
+<b class="fc"><i>67</i>&nbsp;            player.setMatch(match);</b>
+<b class="fc"><i>68</i>&nbsp;            match.join(player);</b>
+<b class="fc"><i>69</i>&nbsp;            match.notifyAll();</b>
+<b class="fc"><i>70</i>&nbsp;        }</b>
+<i>71</i>&nbsp;
+<b class="fc"><i>72</i>&nbsp;    }</b>
+<i>73</i>&nbsp;
+<i>74</i>&nbsp;    /**
+<i>75</i>&nbsp;     * @return List of active matches available in the server
+<i>76</i>&nbsp;     */
+<i>77</i>&nbsp;    public synchronized List&lt;Match&gt; getActiveMatches(){
+<b class="fc"><i>78</i>&nbsp;        LinkedList&lt;Match&gt; activematches = new LinkedList&lt;&gt;();</b>
+<b class="fc"><i>79</i>&nbsp;        for(Match match: this.matches.values()){</b>
+<b class="fc"><i>80</i>&nbsp;            if (!match.isStarted()){</b>
+<b class="fc"><i>81</i>&nbsp;                activematches.add(match);</b>
+<i>82</i>&nbsp;            }
+<b class="fc"><i>83</i>&nbsp;        }</b>
+<b class="fc"><i>84</i>&nbsp;        return activematches;</b>
+<i>85</i>&nbsp;    }
+<i>86</i>&nbsp;
+<i>87</i>&nbsp;    //useful for testing?
+<i>88</i>&nbsp;    protected void clearMatchesList() {
+<b class="fc"><i>89</i>&nbsp;        this.matches.clear();</b>
+<b class="fc"><i>90</i>&nbsp;    }</b>
+<i>91</i>&nbsp;
+<i>92</i>&nbsp;    protected void remove(Match match) {
+<b class="fc"><i>93</i>&nbsp;        this.matches.remove(match.getName());</b>
+<b class="fc"><i>94</i>&nbsp;    }</b>
+<i>95</i>&nbsp;
+<i>96</i>&nbsp;    protected Match getMatch(String matchName) {
+<b class="fc"><i>97</i>&nbsp;        return this.matches.get(matchName);</b>
+<i>98</i>&nbsp;    }
+<i>99</i>&nbsp;
+<i>100</i>&nbsp;    protected int getMatchesListSize() {
+<b class="fc"><i>101</i>&nbsp;        return matches.size();</b>
+<i>102</i>&nbsp;    }
+<i>103</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2018-07-05 15:05</div>
+</div>
+</body>
+</html>

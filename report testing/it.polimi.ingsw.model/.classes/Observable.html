@@ -1,0 +1,76 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Observable</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.model</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Observable (it.polimi.ingsw.model)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+</tr>
+  <tr>
+    <td class="name">Observable$MockitoMock$1866876698</td>
+  </tr>
+  <tr>
+    <td class="name">Observable$MockitoMock$1866876698$auxiliary$qzuejv1R</td>
+  </tr>
+  <tr>
+    <td class="name">Observable$MockitoMock$1866876698$auxiliary$V8qJjCdG</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.model;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.ClientView.Observer;
+<i>4</i>&nbsp;import it.polimi.ingsw.model.Exceptions.NotAllowedActionException;
+<i>5</i>&nbsp;
+<i>6</i>&nbsp;import java.io.Serializable;
+<i>7</i>&nbsp;import java.rmi.RemoteException;
+<i>8</i>&nbsp;import java.util.List;
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;public interface Observable extends Serializable{
+<i>11</i>&nbsp;    void addObserver(Observer observer);
+<i>12</i>&nbsp;    void removeObserver(Observer observer);
+<i>13</i>&nbsp;    State getState();
+<i>14</i>&nbsp;    void setState(State state);
+<i>15</i>&nbsp;    void notifyObservers()throws RemoteException;
+<i>16</i>&nbsp;    void checkAction(TurnActions action) throws NotAllowedActionException;
+<i>17</i>&nbsp;    List getActions();
+<i>18</i>&nbsp;    Observer getObserver();
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2018-07-05 15:05</div>
+</div>
+</body>
+</html>

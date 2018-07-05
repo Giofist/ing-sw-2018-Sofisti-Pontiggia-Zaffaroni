@@ -1,0 +1,132 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Martelletto</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.model.ToolCard</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Martelletto (it.polimi.ingsw.model.ToolCard)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Martelletto</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    86,7%
+  </span>
+  <span class="absValue">
+    (13/ 15)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.model.ToolCard;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.model.Exceptions.DicepoolIndexException;
+<i>4</i>&nbsp;import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.MartellettoException;
+<i>5</i>&nbsp;import it.polimi.ingsw.model.Exceptions.ToolIllegalOperationExceptions.ToolIllegalOperationException;
+<i>6</i>&nbsp;import it.polimi.ingsw.model.Player;
+<i>7</i>&nbsp;import it.polimi.ingsw.model.State;
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;import java.io.Serializable;
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;public class Martelletto  extends ToolAction implements Serializable{
+<i>12</i>&nbsp;
+<b class="fc"><i>13</i>&nbsp;    public Martelletto(){</b>
+<b class="fc"><i>14</i>&nbsp;        this.cost =1;</b>
+<b class="fc"><i>15</i>&nbsp;        this.ID =7;</b>
+<b class="fc"><i>16</i>&nbsp;    }</b>
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;
+<i>19</i>&nbsp;    /**
+<i>20</i>&nbsp;     * This method allows to execute the effect of &quot;Martelletto&quot;
+<i>21</i>&nbsp;     *
+<i>22</i>&nbsp;     * Tool request class parameters necessary for the execution are:
+<i>23</i>&nbsp;     * - No specific parameter is required
+<i>24</i>&nbsp;     *
+<i>25</i>&nbsp;     * @param player The player that wants to use the tool card
+<i>26</i>&nbsp;     * @param toolRequestClass The class with all the necessary parameters for the tool card
+<i>27</i>&nbsp;     * @throws ToolIllegalOperationException Exception thrown in case some constrain is not respected or in case the player performs an illegal operation
+<i>28</i>&nbsp;     */
+<i>29</i>&nbsp;    @Override
+<i>30</i>&nbsp;    public void execute (Player player, ToolRequestClass toolRequestClass)throws ToolIllegalOperationException{
+<i>31</i>&nbsp;        //se non lancia eccezioni ci siamo dimenticati di qualcosa
+<i>32</i>&nbsp;        try{
+<b class="fc"><i>33</i>&nbsp;            if (player.getTurn().getTurnID() == 1){</b>
+<b class="fc"><i>34</i>&nbsp;                throw new MartellettoException(&quot;14.1&quot;);</b>
+<i>35</i>&nbsp;            }
+<b class="fc"><i>36</i>&nbsp;            if(player.getPlayerState().getState().equals(State.HASSETADICESTATE)){</b>
+<b class="fc"><i>37</i>&nbsp;                throw new MartellettoException(&quot;14.2&quot;);</b>
+<i>38</i>&nbsp;            }
+<b class="fc"><i>39</i>&nbsp;            for(int i=0; i&lt;player.getGametable().getRoundDicepool().getDicePoolSize();i++)</b>
+<b class="fc"><i>40</i>&nbsp;                player.getGametable().getRoundDicepool().getDice(i).setRandomIntensity();</b>
+<b class="fc"><i>41</i>&nbsp;            player.setPlayerState(State.HASUSEDATOOLCARDACTIONSTATE);</b>
+<b class="nc"><i>42</i>&nbsp;        }catch (DicepoolIndexException e){</b>
+<b class="nc"><i>43</i>&nbsp;            throw new MartellettoException();</b>
+<b class="fc"><i>44</i>&nbsp;        }</b>
+<i>45</i>&nbsp;
+<b class="fc"><i>46</i>&nbsp;    }</b>
+<i>47</i>&nbsp;
+<i>48</i>&nbsp;
+<i>49</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2018-07-05 15:05</div>
+</div>
+</body>
+</html>
