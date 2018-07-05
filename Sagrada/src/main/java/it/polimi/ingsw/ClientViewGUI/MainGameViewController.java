@@ -1005,6 +1005,11 @@ public class MainGameViewController implements Initializable, AbstractController
                         e.printStackTrace();
                     }
                     try {
+                        ObserverGUI.Singleton().getServerController().leavethematch(ObserverGUI.Singleton().getUsername(), ObserverGUI.Singleton());
+                    } catch (RemoteException e) {
+                        ErrorMessage.setText(ObserverGUI.Singleton().getTranslator().translateException(e.getMessage()));
+                    }
+                    try {
                         backgroundPane.getChildren().setAll(Collections.singleton(FXMLLoader.load(getClass().getResource("/MenuPartial.fxml"))));
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -1043,6 +1048,8 @@ public class MainGameViewController implements Initializable, AbstractController
                     selectValue.setVisible(true);
                 }
             });
+        }else if (state == State.ERRORSTATE){
+            ErrorMessage.setText("C'è stato un errore nella creazione della partita");
         }
     }
 
