@@ -36,6 +36,7 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
         leaveMatch = false;
         leave =false;
         leaveSagrada = false;
+        thread = null;
     }
 
 
@@ -65,13 +66,21 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
      */
     public synchronized void run() throws RemoteException {
         loadingInterface();
-        while (!leaveSagrada){
+        boolean wasInGame = false;
+        if(this.thread != null){
+            wasInGame = true;
+        }else{
             menuInt();
+        }
+        while (!leaveSagrada){
             if(!leaveSagrada){
                 while (!leaveMatch){
                     try {
-                        wait();
+                        if(wasInGame = false){
+                            wait();
+                        }
                         this.thread.start();
+                        wasInGame = false;
                         if(leave){
                             leaveMatch = true;
                             wait();

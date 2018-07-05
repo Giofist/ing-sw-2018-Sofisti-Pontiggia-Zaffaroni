@@ -244,7 +244,7 @@ public class Match implements Runnable,Serializable{
                         }
                     }
                 }
-            },120000);
+            },300000);
         }
         if (this.players.size() == 3){
             isreadyTostart = true;
