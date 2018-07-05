@@ -1027,24 +1027,28 @@ public class MainGameViewController implements Initializable, AbstractController
                     }
                 }
             });
-        } else if (state == State.MUSTSETPENNELLOPERPASTASALDASTATE) {
+        } else if (state == State.MUSTSSETDILUENTEPERPASTASALDASTATE) {
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
                     updateDicePool();
                     selectIntensity.setVisible(true);
                     selectIntensity.getItems().addAll("1", "2", "3", "4", "5", "6"); //modifico qui con stesso criterio
-                    ErrorMessage.setText("Seleziona dove vuoi mettere il dado estratto e l'intensità.");
+                    newOldColumn = 10;
+                    newOldRow = 10;
+                    ErrorMessage.setText("Seleziona dove vuoi mettere il dado estratto (se non vuoi piazzlo non cliccare nulla) e l'intensità.");
                     selectValue.setVisible(true);
                 }
             });
 
-        } else if (state == State.MUSTSSETDILUENTEPERPASTASALDASTATE) {
+        } else if (state == State.MUSTSETPENNELLOPERPASTASALDASTATE) {
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
                     updateDicePool();
-                    ErrorMessage.setText("Seleziona dove vuoi mettere il dado estratto:");
+                    ErrorMessage.setText("Seleziona dove vuoi mettere il dado estratto (se non vuoi piazzlo non cliccare nulla):");
+                    newOldColumn = 10;
+                    newOldRow = 10;
                     selectValue.setVisible(true);
                 }
             });
@@ -1079,13 +1083,19 @@ public class MainGameViewController implements Initializable, AbstractController
 
     public void toolcardSecondStep(ActionEvent actionEvent) {
         switch (toolCardId) {
-            case 1: case 6: case 10: case 11:{
+            case 1: {
                 data.setRoundWhereThediceis(selectedDiceInd);
                 if (increaseDicIntensity.isSelected()) {
                     data.setOperationforPinzaSgrossatrice(0);
                 }else data.setOperationforPinzaSgrossatrice(1);
                 Select.setVisible(false);
                 increaseDicIntensity.setVisible(false);
+                useToolCard.setVisible(true);
+                break;
+            }
+            case 6: case 10: case 11:{
+                data.setRoundWhereThediceis(selectedDiceInd);
+                Select.setVisible(false);
                 useToolCard.setVisible(true);
                 break;
             }
@@ -1165,7 +1175,7 @@ public class MainGameViewController implements Initializable, AbstractController
                 break;
             }
             case 12:{
-                if (DicesToMove == 1) {
+                if (DicesToMove ==1) {
                     if (numOfClick == 0) {
                         data.setOldRow1(newOldRow);
                         data.setOldColumn1(newOldColumn);
@@ -1174,7 +1184,6 @@ public class MainGameViewController implements Initializable, AbstractController
                     } else {
                         data.setNewRow1(newOldRow);
                         data.setNewColumn1(newOldColumn);
-                        ErrorMessage.setText("Seleziona il secondo dado da spostare.");
                         Select.setVisible(false);
                         useToolCard.setVisible(true);
                     }
