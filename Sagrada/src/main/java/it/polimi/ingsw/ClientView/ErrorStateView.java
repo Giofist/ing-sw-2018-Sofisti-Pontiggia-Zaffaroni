@@ -31,5 +31,8 @@ public class ErrorStateView implements Runnable {
     @Override
     public void run() {
         System.out.println("Il timer è scaduto e nessuno si è unito alla tua partita: non può iniziare");
+        synchronized (this.view){
+            this.view.notifyAll();
+        }
     }
 }

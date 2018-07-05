@@ -22,9 +22,9 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
     private transient final Scanner in;
     private transient String yourName;
     private transient Thread thread;
-    private transient boolean leaveSagrada;
     private transient boolean leaveMatch;
     private transient boolean leave;
+    private transient boolean leaveSagrada;
 
 
     /**
@@ -33,9 +33,9 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
      */
     public ObserverView() throws RemoteException {
         this.in = new Scanner(System.in);
-        leaveSagrada = false;
         leaveMatch = false;
         leave =false;
+        leaveSagrada = false;
     }
 
 
@@ -58,13 +58,6 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
     }
 
 
-    /**
-     * @param value True or false whether we want to notify the view about our willing in leaving Sagrada
-     */
-    public void setLeaveSagrada(boolean value){
-        this.leaveSagrada = value;
-    }
-
 
     /**
      * Main method that calls submethods to guide the user through the registration or the log in and the main menù
@@ -73,21 +66,24 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
     public synchronized void run() throws RemoteException {
         loadingInterface();
         while (!leaveSagrada){
-            leaveMatch = false;
             menuInt();
-            while (!leaveMatch){
-                try {
-                    wait();
-                    this.thread.start();
-                    if(leave){
-                        leaveMatch = true;
+            if(!leaveSagrada){
+                while (!leaveMatch){
+                    try {
                         wait();
+                        this.thread.start();
+                        if(leave){
+                            leaveMatch = true;
+                            wait();
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
                 }
             }
+
         }
+
     }
 
 
@@ -207,6 +203,7 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
             }
             else if (input.equals("L") || input.equals("l")) {
                 serverController.logout(this.yourName, this);
+                leaveSagrada = false;
                 success = true;
             }
             else {
@@ -313,7 +310,6 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
             this.thread = null;
         }
         State state =  o.getState();
-        System.out.println("Stiamo passando allo stato "+ state);
         switch (state){
             case ERRORSTATE: {
                 leave = true;
@@ -363,7 +359,7 @@ public class ObserverView extends UnicastRemoteObject implements Observer {
             }
             case FORCEENDMATCH:{
                 leave = true;
-                this.thread = new Thread(new ForceEndMatchState(this, yourName));
+                this.thread = new Thread(new ForceEndMatchState(this, yourName, serverController));
                 break;
             }
             default:System.out.println("Ho ricevuto un'update dal server ma non riesco a interpretarla");
